@@ -1,0 +1,103 @@
+{
+  "site": {
+    "title": "Zenava",
+    "description": "AI Agent for Enterprise Customer Dialogue Scenarios"
+  },
+  "nav": {
+    "home": "Home",
+    "scenarios": "Scenarios",
+    "marketing": "Marketing",
+    "sales": "Sales",
+    "customer_service": "Customer Service",
+    "internal_service": "Internal Service",
+    "management": "Management Optimization",
+    "about": "About Us",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Zenava",
+    "subtitle": "AI Agent for Enterprise Customer Dialogue Scenarios",
+    "description": "Advanced AI agent that transforms customer dialogue from 'answering' to 'doing', driving intelligent enterprise upgrades.",
+    "cta_primary": "Get Started",
+    "cta_secondary": "Learn More"
+  },
+  "features": {
+    "title": "What Zenava Brings to Your Organization",
+    "subtitle": "AI-powered solutions delivering efficiency gains and enhanced customer experiences",
+    "customers": {
+      "title": "For Your Customers",
+      "subtitle": "Instant Response, Quick Resolution",
+      "description": "Multi-channel support via voice, text, and tickets with intelligent responses. Advanced emotional AI maintains customer relationships and drives loyalty."
+    },
+    "employees": {
+      "title": "For Your Employees", 
+      "subtitle": "Helping Human Employees Work More Efficiently",
+      "description": "AI assistant providing smart reply suggestions, automated ticketing, conversation summaries, and emotion analysis. Seamless multi-language translation for global teams."
+    },
+    "enterprise": {
+      "title": "For Your Enterprise",
+      "subtitle": "Providing Business Decisions with Real Voice",
+      "description": "Cross-channel analytics generating actionable insights for service, process, and product optimization. Continuous improvement through performance analysis."
+    }
+  },
+  "scenarios": {
+    "marketing": {
+      "title": "Zenava for Marketing",
+      "subtitle": "AI-driven lead generation, qualification, and conversion optimization.",
+      "challenges": {
+        "title": "Current Marketing Challenges",
+        "conversion": "Low conversion rates from poor lead guidance and inconsistent messaging",
+        "assignment": "Manual lead assignment wastes sales resources",
+        "reactivation": "Silent leads remain untapped without reactivation",
+        "data": "Data-blind marketing with unclear optimization paths"
+      },
+      "solutions": {
+        "title": "Zenava Marketing Solutions",
+        "subtitle": "Boost conversions, reduce acquisition costs",
+        "lead_guidance": "Intelligent Lead Guidance",
+        "scoring": "Lead Scoring & Intelligent Assignment",
+        "reactivation": "Reactivate Lost Leads",
+        "analysis": "Conversation Analysis Drives Optimization"
+      }
+    },
+    "sales": {
+      "title": "Zenava for Sales", 
+      "subtitle": "AI-powered sales guidance, personalized recommendations, and conversion optimization.",
+      "challenges": {
+        "title": "Current Sales Challenges",
+        "guidance": "Inconsistent messaging from experience-based processes",
+        "response": "Delayed responses damage customer trust",
+        "optimization": "Cannot replicate successful sales practices",
+        "conversion": "Poor follow-up timing breaks conversion chains"
+      }
+    },
+    "customer_service": {
+      "title": "Zenava for Customer Service",
+      "subtitle": "Autonomous handling of 80% of service tasks with intelligent human assistance for complex issues."
+    },
+    "internal_service": {
+      "title": "Zenava for Internal Service", 
+      "subtitle": "Streamlined internal services for large organizations, reducing costs and boosting efficiency."
+    },
+    "management": {
+      "title": "Zenava for Management Optimization",
+      "subtitle": "Customer insights driving actionable optimization for competitive advantage."
+    }
+  },
+  "about": {
+    "title": "About TI Cloud",
+    "subtitle": "Technology Empowers, Achieving Customers",
+    "description": "Leading enterprise in AI-powered customer engagement solutions",
+    "values": {
+      "experience": "Proven track record across industries",
+      "enterprise": "Trusted by Fortune 500 companies", 
+      "models": "Advanced multi-AI model architecture",
+      "integration": "Plug-and-play enterprise integration"
+    }
+  },
+  "footer": {
+    "copyright": "© 2024 TI Cloud. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  }
+}

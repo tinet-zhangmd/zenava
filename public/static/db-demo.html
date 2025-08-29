@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenava Database Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                <i class="fas fa-database text-blue-600 mr-2"></i>
+                Zenava Database Demo
+            </h1>
+            <p class="text-gray-600">使用 Cloudflare D1 SQLite 数据库的演示</p>
+        </div>
+
+        <!-- Database Status -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">
+                <i class="fas fa-heartbeat text-green-500 mr-2"></i>
+                Database Status
+            </h2>
+            <div id="db-status" class="p-4 bg-gray-50 rounded">
+                <span class="text-gray-500">Checking database...</span>
+            </div>
+        </div>
+
+        <!-- AI Agents List -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">
+                <i class="fas fa-robot text-purple-500 mr-2"></i>
+                AI Agents
+            </h2>
+            <div id="agents-list" class="grid gap-4">
+                <span class="text-gray-500">Loading agents...</span>
+            </div>
+        </div>
+
+        <!-- Add New Agent Form -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">
+                <i class="fas fa-plus-circle text-blue-500 mr-2"></i>
+                Add New Agent
+            </h2>
+            <form id="agent-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Agent Name</label>
+                    <input type="text" id="agent-name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <textarea id="agent-description" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3" required></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                    <select id="agent-type" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <option value="customer_service">Customer Service</option>
+                        <option value="sales">Sales</option>
+                        <option value="support">Technical Support</option>
+                        <option value="marketing">Marketing</option>
+                    </select>
+                </div>
+                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-save mr-2"></i>Create Agent
+                </button>
+            </form>
+            <div id="form-message" class="mt-4 hidden"></div>
+        </div>
+
+        <!-- Analytics -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold mb-4">
+                <i class="fas fa-chart-bar text-orange-500 mr-2"></i>
+                Analytics Data
+            </h2>
+            <div id="analytics" class="p-4 bg-gray-50 rounded">
+                <span class="text-gray-500">Select an agent to view analytics...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check database health
+        async function checkDatabaseHealth() {
+            try {
+                const response = await fetch('/api/db/health');
+                const data = await response.json();
+                
+                const statusDiv = document.getElementById('db-status');
+                if (data.success) {
+                    statusDiv.innerHTML = `
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                    <i class="fas fa-check-circle mr-2"></i>
+                                    ${data.status}
+                                </span>
+                                <span class="ml-3 text-gray-600">Database: ${data.database}</span>
+                            </div>
+                            <span class="text-sm text-gray-500">${new Date(data.timestamp).toLocaleString()}</span>
+                        </div>
+                    `;
+                } else {
+                    statusDiv.innerHTML = `<span class="text-red-600">Database error: ${data.error}</span>`;
+                }
+            } catch (error) {
+                document.getElementById('db-status').innerHTML = `<span class="text-red-600">Connection error: ${error.message}</span>`;
+            }
+        }
+
+        // Load agents
+        async function loadAgents() {
+            try {
+                const response = await fetch('/api/agents');
+                const data = await response.json();
+                
+                const listDiv = document.getElementById('agents-list');
+                if (data.success && data.data.length > 0) {
+                    listDiv.innerHTML = data.data.map(agent => `
+                        <div class="border rounded-lg p-4 hover:shadow-lg transition-shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="font-semibold text-lg">${agent.name}</h3>
+                                    <p class="text-gray-600">${agent.description}</p>
+                                    <div class="mt-2 flex gap-2">
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">${agent.type}</span>
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded text-sm">${agent.status}</span>
+                                    </div>
+                                </div>
+                                <button onclick="loadAnalytics(${agent.id})" class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-chart-line text-2xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    listDiv.innerHTML = '<p class="text-gray-500">No agents found</p>';
+                }
+            } catch (error) {
+                document.getElementById('agents-list').innerHTML = `<span class="text-red-600">Error loading agents: ${error.message}</span>`;
+            }
+        }
+
+        // Load analytics for an agent
+        async function loadAnalytics(agentId) {
+            try {
+                const response = await fetch(`/api/analytics/${agentId}`);
+                const data = await response.json();
+                
+                const analyticsDiv = document.getElementById('analytics');
+                if (data.success && data.data.length > 0) {
+                    const analytics = data.data[0]; // Latest analytics
+                    analyticsDiv.innerHTML = `
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-blue-600">${analytics.total_conversations || 0}</p>
+                                <p class="text-sm text-gray-600">Total Conversations</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-green-600">${analytics.resolved_issues || 0}</p>
+                                <p class="text-sm text-gray-600">Resolved Issues</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-orange-600">${analytics.avg_response_time || 0}s</p>
+                                <p class="text-sm text-gray-600">Avg Response Time</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-purple-600">${analytics.customer_satisfaction || 0}/5</p>
+                                <p class="text-sm text-gray-600">Satisfaction</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    analyticsDiv.innerHTML = '<p class="text-gray-500">No analytics data available</p>';
+                }
+            } catch (error) {
+                document.getElementById('analytics').innerHTML = `<span class="text-red-600">Error loading analytics: ${error.message}</span>`;
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('agent-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const messageDiv = document.getElementById('form-message');
+            messageDiv.classList.remove('hidden');
+            messageDiv.innerHTML = '<span class="text-blue-600">Creating agent...</span>';
+            
+            try {
+                const response = await fetch('/api/agents', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: document.getElementById('agent-name').value,
+                        description: document.getElementById('agent-description').value,
+                        type: document.getElementById('agent-type').value,
+                        config: {
+                            language: 'zh-CN',
+                            response_style: 'professional'
+                        },
+                        user_id: 1
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    messageDiv.innerHTML = '<span class="text-green-600"><i class="fas fa-check-circle mr-2"></i>Agent created successfully!</span>';
+                    document.getElementById('agent-form').reset();
+                    loadAgents(); // Reload the list
+                } else {
+                    messageDiv.innerHTML = `<span class="text-red-600">Error: ${data.error}</span>`;
+                }
+            } catch (error) {
+                messageDiv.innerHTML = `<span class="text-red-600">Error: ${error.message}</span>`;
+            }
+        });
+
+        // Initial load
+        checkDatabaseHealth();
+        loadAgents();
+        
+        // Refresh every 30 seconds
+        setInterval(() => {
+            checkDatabaseHealth();
+        }, 30000);
+    </script>
+</body>
+</html>

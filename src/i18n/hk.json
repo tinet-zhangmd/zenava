@@ -1,0 +1,82 @@
+{
+  "site": {
+    "title": "Zenava",
+    "description": "企業級 AI 驅動客戶參與解決方案"
+  },
+  "nav": {
+    "home": "首頁",
+    "scenarios": "場景",
+    "marketing": "面向營銷",
+    "sales": "面向銷售",
+    "customer_service": "面向客戶服務",
+    "internal_service": "面向內部服務", 
+    "management": "面向管理優化",
+    "about": "關於我們",
+    "contact": "聯繫我們"
+  },
+  "hero": {
+    "title": "Zenava",
+    "subtitle": "企業級 AI 驅動客戶參與解決方案",
+    "description": "進階 AI 智慧體將對話從『回答』轉向『執行』，推動企業智能化升級。",
+    "cta_primary": "開始使用",
+    "cta_secondary": "了解更多"
+  },
+  "features": {
+    "title": "以 AI 變革您的企業",
+    "subtitle": "AI 驅動的解決方案，實現效率提升和客戶體驗優化",
+    "customers": {
+      "title": "對於您的客戶",
+      "subtitle": "24/7 智能支援與即時解決方案",
+      "description": "語音、文字、工單多通道支援與智能回應。先進情感 AI 維護客戶關係，提升忠誠度。"
+    },
+    "employees": {
+      "title": "對於您的員工",
+      "subtitle": "以 AI 驅動的生產力賺能團隊",
+      "description": "智慧回應建議、自動工單創建、對話摘要、情感分析的 AI 助手。全球團隊無縫多語言翻譯。"
+    },
+    "enterprise": {
+      "title": "對於您的企業",
+      "subtitle": "以真實的聲音為您提供業務決策",
+      "description": "跨通道分析產生服務、流程、產品優化的可行性洞察。透過效能分析持續改進。"
+    }
+  },
+  "scenarios": {
+    "marketing": {
+      "title": "面向營銷場景的 Zenava",
+      "subtitle": "AI 驅動的潛客產生、資格認證、轉化優化。",
+      "challenges": {
+        "title": "企業營銷現狀",
+        "conversion": "留資引導不當及話術不一致導致低轉化率",
+        "assignment": "手動潛客分配浪費銷售資源",
+        "reactivation": "沉寂潛客未開發，缺乏重新啟動機制",
+        "data": "優化路徑不明的數據盲點營銷"
+      }
+    },
+    "sales": {
+      "title": "面向銷售場景的 Zenava",
+      "subtitle": "AI 驅動的銷售指引、個人化推薦、轉化優化。"
+    },
+    "customer_service": {
+      "title": "面向客戶服務的 Zenava",
+      "subtitle": "自主處理 80% 服務任務，複雜問題智能人工協助。"
+    },
+    "internal_service": {
+      "title": "面向企業內部服務的Zenava",
+      "subtitle": "大型組織精簡內部服務，降低成本提升效能。"
+    },
+    "management": {
+      "title": "面向管理優化的 Zenava", 
+      "subtitle": "客戶洞察驅動競爭優勢的可行性優化。"
+    }
+  },
+  "about": {
+    "title": "關於天潤融通",
+    "subtitle": "科技賦能、成就客戶",
+    "description": "AI驅動客戶聯絡解決方案的行業領先企業"
+  },
+  "footer": {
+    "copyright": "© 2024 天潤融通. 版權所有.",
+    "privacy": "隱私政策",
+    "terms": "服務條款"
+  }
+}

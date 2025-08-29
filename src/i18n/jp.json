@@ -1,0 +1,82 @@
+{
+  "site": {
+    "title": "Zenava",
+    "description": "企業向けAI駆動顧客エンゲージメントソリューション"
+  },
+  "nav": {
+    "home": "ホーム",
+    "scenarios": "シナリオ",
+    "marketing": "マーケティング",
+    "sales": "営業",
+    "customer_service": "カスタマーサービス", 
+    "internal_service": "内部サービス",
+    "management": "管理最適化",
+    "about": "会社概要",
+    "contact": "お問い合わせ"
+  },
+  "hero": {
+    "title": "Zenava",
+    "subtitle": "企業向けAI駆動顧客エンゲージメントソリューション",
+    "description": "高度なAIエージェントが対話を「回答」から「実行」に変革し、企業のインテリジェント化を推進。",
+    "cta_primary": "始める",
+    "cta_secondary": "詳細を見る"
+  },
+  "features": {
+    "title": "Zenavaが組織にもたらす変化",
+    "subtitle": "AI駆動のソリューションで効率向上と顧客体験の向上を実現",
+    "customers": {
+      "title": "お客様にとって",
+      "subtitle": "即座の応答、迅速な解決",
+      "description": "音声、テキスト、チケットでのマルチチャネル対応とインテリジェント応答。高度な感情AIで顧客関係を維持し、ロイヤルティを向上。"
+    },
+    "employees": {
+      "title": "従業員にとって",
+      "subtitle": "人間の従業員がより効率的に働くことを支援",
+      "description": "スマート返信提案、自動チケット作成、対話要約、感情分析を提供するAIアシスタント。グローバルチームのためのシームレスな多言語翻訳。"
+    },
+    "enterprise": {
+      "title": "企業にとって",
+      "subtitle": "真の声でビジネス意思決定を提供",
+      "description": "クロスチャネル分析によるサービス、プロセス、製品の最適化のための実行可能なインサイトを生成。パフォーマンス分析による継続的改善。"
+    }
+  },
+  "scenarios": {
+    "marketing": {
+      "title": "マーケティング向けZenava",
+      "subtitle": "AI駆動のリード生成、資格認定、コンバージョン最適化。",
+      "challenges": {
+        "title": "現在のマーケティング課題",
+        "conversion": "不適切なリードガイダンスと一貫性のないメッセージングによる低コンバージョン率",
+        "assignment": "手動リード配布による営業リソースの無駄",
+        "reactivation": "再活性化なしで未開拓のまま放置されるサイレントリード",
+        "data": "不明確な最適化パスによるデータブラインドマーケティング"
+      }
+    },
+    "sales": {
+      "title": "営業向けZenava",
+      "subtitle": "AI駆動の営業ガイダンス、パーソナライズされた推奨、コンバージョン最適化。"
+    },
+    "customer_service": {
+      "title": "カスタマーサービス向けZenava", 
+      "subtitle": "複雑な問題に対するインテリジェント人間サポート付きでサービスタスクの80%を自律処理。"
+    },
+    "internal_service": {
+      "title": "内部サービス向けZenava",
+      "subtitle": "大規模組織向けの合理化された内部サービスで、コスト削減と効率向上を実現。"
+    },
+    "management": {
+      "title": "管理最適化向けZenava",
+      "subtitle": "競争優位性のための実行可能な最適化を推進する顧客インサイト。"
+    }
+  },
+  "about": {
+    "title": "TI Cloudについて",
+    "subtitle": "テクノロジーで力を与え、顧客を成功に導く",
+    "description": "AI駆動顧客エンゲージメントソリューションの業界リーダー企業"
+  },
+  "footer": {
+    "copyright": "© 2024 TI Cloud. All rights reserved.",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約"
+  }
+}
