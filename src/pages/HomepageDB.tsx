@@ -111,14 +111,14 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         <div class="site-container px-6 relative z-10">
           <div class="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh]">
   <div class="space-y-6">
-    <div class="text-3xl font-bold text-white tracking-wide">Zenava</div>
-    <h1 class="text-5xl lg:text-6xl font-black text-white leading-tight">
+    <div class="text-2xl sm:text-3xl font-bold text-white tracking-wide">Zenava</div>
+    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight">
       AI Agent for Enterprise Customer Dialogue Scenarios
     </h1>
-    <p class="text-xl text-gray-300">讓每一次客戶對話都創造實際價值</p>
-    <a href="#contact" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-2xl text-white font-bold shadow-lg hover:shadow-[#6438FF]/30 hover:scale-105 transition-all w-max">
+    <p class="text-lg sm:text-xl text-gray-300">讓每一次客戶對話都創造實際價值</p>
+    <a href="#contact" class="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-2xl text-white font-bold shadow-lg hover:shadow-[#6438FF]/30 hover:scale-105 transition-all w-max text-sm sm:text-base">
       Get Started
-      <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      <svg class="w-4 h-4 sm:w-5 sm:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
     </a>
   </div>
   <div class="relative lg:h-[600px] flex items-center justify-center">

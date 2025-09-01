@@ -118,14 +118,14 @@ export function LayoutWithCommonContent({
                       <span>{t(translations, 'nav.scenarios')}</span>
                       <i class="fas fa-chevron-down text-xs"></i>
                     </button>
-                    <div class="absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-2">
+                    <div class="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-2">
                       <div class="p-2">
                         <a href={getLocalizedPath('/scenarios/marketing', language)} class="nav-link block px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
                           <div class="flex items-center space-x-3">
                             <i class="fas fa-bullhorn text-brand-primary"></i>
                             <div>
-                              <div class="font-medium text-gray-900">{t(translations, 'scenarios.marketing.title')}</div>
-                              <div class="text-xs text-gray-500">{t(translations, 'scenarios.marketing.subtitle')}</div>
+                              <div class="font-medium text-gray-900">Zenava for Marketing</div>
+                              <div class="text-xs text-gray-500 line-clamp-2">AI-driven lead generation, qualification, and conversion optimization.</div>
                             </div>
                           </div>
                         </a>
@@ -133,8 +133,8 @@ export function LayoutWithCommonContent({
                           <div class="flex items-center space-x-3">
                             <i class="fas fa-chart-line text-brand-primary"></i>
                             <div>
-                              <div class="font-medium text-gray-900">{t(translations, 'scenarios.sales.title')}</div>
-                              <div class="text-xs text-gray-500">{t(translations, 'scenarios.sales.subtitle')}</div>
+                              <div class="font-medium text-gray-900">Zenava for Sales</div>
+                              <div class="text-xs text-gray-500 line-clamp-2">AI-powered sales guidance, personalized recommendations, and conversion optimization.</div>
                             </div>
                           </div>
                         </a>
@@ -142,8 +142,8 @@ export function LayoutWithCommonContent({
                           <div class="flex items-center space-x-3">
                             <i class="fas fa-headset text-brand-primary"></i>
                             <div>
-                              <div class="font-medium text-gray-900">{t(translations, 'scenarios.customerService.title')}</div>
-                              <div class="text-xs text-gray-500">{t(translations, 'scenarios.customerService.subtitle')}</div>
+                              <div class="font-medium text-gray-900">Zenava for Customer Service</div>
+                              <div class="text-xs text-gray-500 line-clamp-2">Intelligent customer support, 24/7 availability, multi-channel integration.</div>
                             </div>
                           </div>
                         </a>
@@ -151,8 +151,8 @@ export function LayoutWithCommonContent({
                           <div class="flex items-center space-x-3">
                             <i class="fas fa-users-cog text-brand-primary"></i>
                             <div>
-                              <div class="font-medium text-gray-900">{t(translations, 'scenarios.internalService.title')}</div>
-                              <div class="text-xs text-gray-500">{t(translations, 'scenarios.internalService.subtitle')}</div>
+                              <div class="font-medium text-gray-900">Zenava for Internal Service</div>
+                              <div class="text-xs text-gray-500 line-clamp-2">AI-powered employee support, knowledge base, and process automation.</div>
                             </div>
                           </div>
                         </a>
@@ -160,8 +160,8 @@ export function LayoutWithCommonContent({
                           <div class="flex items-center space-x-3">
                             <i class="fas fa-tasks text-brand-primary"></i>
                             <div>
-                              <div class="font-medium text-gray-900">{t(translations, 'scenarios.management.title')}</div>
-                              <div class="text-xs text-gray-500">{t(translations, 'scenarios.management.subtitle')}</div>
+                              <div class="font-medium text-gray-900">Zenava for Management</div>
+                              <div class="text-xs text-gray-500 line-clamp-2">Customer insights driving actionable optimization for competitive advantage.</div>
                             </div>
                           </div>
                         </a>
@@ -221,23 +221,23 @@ export function LayoutWithCommonContent({
             <div class="p-4 space-y-4">
               <a href={getLocalizedPath('/scenarios/marketing', language)} class="block px-4 py-3 rounded-lg hover:bg-gray-50">
                 <i class="fas fa-bullhorn text-brand-primary mr-3"></i>
-                {t(translations, 'scenarios.marketing.title')}
+                Zenava for Marketing
               </a>
               <a href={getLocalizedPath('/scenarios/sales', language)} class="block px-4 py-3 rounded-lg hover:bg-gray-50">
                 <i class="fas fa-chart-line text-brand-primary mr-3"></i>
-                {t(translations, 'scenarios.sales.title')}
+                Zenava for Sales
               </a>
               <a href={getLocalizedPath('/scenarios/customer-service', language)} class="block px-4 py-3 rounded-lg hover:bg-gray-50">
                 <i class="fas fa-headset text-brand-primary mr-3"></i>
-                {t(translations, 'scenarios.customerService.title')}
+                Zenava for Customer Service
               </a>
               <a href={getLocalizedPath('/scenarios/internal-service', language)} class="block px-4 py-3 rounded-lg hover:bg-gray-50">
                 <i class="fas fa-users-cog text-brand-primary mr-3"></i>
-                {t(translations, 'scenarios.internalService.title')}
+                Zenava for Internal Service
               </a>
               <a href={getLocalizedPath('/scenarios/management', language)} class="block px-4 py-3 rounded-lg hover:bg-gray-50">
                 <i class="fas fa-tasks text-brand-primary mr-3"></i>
-                {t(translations, 'scenarios.management.title')}
+                Zenava for Management
               </a>
               <a href={getLocalizedPath('/about', language)} class="block px-4 py-3 rounded-lg hover:bg-gray-50">
                 <i class="fas fa-info-circle text-brand-primary mr-3"></i>
