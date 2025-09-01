@@ -210,9 +210,6 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
           
           {/* Section Header */}
           <div class="text-center mb-16">
-            <div class="inline-flex items-center px-4 py-2 bg-[#6438FF]/10 rounded-full mb-6">
-              <span class="text-[#6438FF] text-sm font-bold tracking-wide">AI CAPABILITIES</span>
-            </div>
             <h2 class="text-5xl lg:text-6xl font-black text-[#000D25] mb-6 leading-tight">
               Intelligent by Design
             </h2>
