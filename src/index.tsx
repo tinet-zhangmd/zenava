@@ -4,9 +4,11 @@ import { serveStatic } from 'hono/cloudflare-workers'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import { Layout } from './components/Layout'
 import { LayoutWithCommonContent } from './components/LayoutWithCommonContent'
+import { LayoutWithUnifiedNav } from './components/LayoutWithUnifiedNav'
 import { Homepage } from './pages/Homepage'
 import { HomepageDB } from './pages/HomepageDB'
 import { getNavigationConfig, getFooterConfig } from './utils/common-content'
+import { getNavigationData } from './utils/navigation-helper'
 import { AIHomepage } from './pages/AIHomepage'
 import { ZenavaHomepage } from './pages/ZenavaHomepage'
 import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/i18n'
@@ -32,6 +34,7 @@ import cmsApi from './api/cms'
 import publishApi from './api/publish'
 import commonContentApi from './api/common-content'
 import uploadApi from './api/upload'
+import { navigation } from './api/navigation'
 
 // Define Cloudflare Bindings
 type Bindings = {
@@ -48,6 +51,7 @@ app.route('/api/cms', cmsApi)
 app.route('/api/publish', publishApi)
 app.route('/api/common-content', commonContentApi)
 app.route('/api/upload', uploadApi)
+app.route('/api/navigation', navigation)
 
 // Serve static files
 app.use('/static/*', serveStatic({ root: './public' }))
@@ -95,18 +99,19 @@ app.get('/', async (c) => {
       }
     }
     
-    // Load common content (navigation and footer) for the current language
-    const navigationConfig = await getNavigationConfig(c.env.DB, language);
+    // Load unified navigation data
+    const { config: navConfig, menuItems } = await getNavigationData(c.env.DB, language);
     const { config: footerConfig, sections: footerSections, privacyLinks } = await getFooterConfig(c.env.DB, language);
     
     return c.html(
-      <LayoutWithCommonContent 
+      <LayoutWithUnifiedNav 
         language={language} 
         currentPath={currentPath}
         seoTitle={pageData?.meta_title}
         seoDescription={pageData?.meta_description}
         seoKeywords={pageData?.meta_keywords}
-        navigationConfig={navigationConfig}
+        navigationConfig={navConfig}
+        menuItems={menuItems}
         footerConfig={footerConfig}
         footerSections={footerSections}
         privacyLinks={privacyLinks}
@@ -117,7 +122,7 @@ app.get('/', async (c) => {
           modules={modules}
           settings={globalSettings}
         />
-      </LayoutWithCommonContent>
+      </LayoutWithUnifiedNav>
     )
   } catch (error: any) {
     console.error('Homepage error:', error);
@@ -145,15 +150,16 @@ app.get('/jp', async (c) => {
     const modules = []
     const globalSettings = {}
     
-    // Load common content (navigation and footer) for Japanese
-    const navigationConfig = await getNavigationConfig(c.env.DB, language);
+    // Load unified navigation data for Japanese
+    const { config: navConfig, menuItems } = await getNavigationData(c.env.DB, language);
     const { config: footerConfig, sections: footerSections, privacyLinks } = await getFooterConfig(c.env.DB, language);
     
     return c.html(
-      <LayoutWithCommonContent 
+      <LayoutWithUnifiedNav 
         language={language} 
         currentPath={currentPath}
-        navigationConfig={navigationConfig}
+        navigationConfig={navConfig}
+        menuItems={menuItems}
         footerConfig={footerConfig}
         footerSections={footerSections}
         privacyLinks={privacyLinks}
@@ -164,7 +170,7 @@ app.get('/jp', async (c) => {
           modules={modules}
           settings={globalSettings}
         />
-      </LayoutWithCommonContent>
+      </LayoutWithUnifiedNav>
     )
   } catch (error: any) {
     return c.html(
@@ -190,15 +196,16 @@ app.get('/hk', async (c) => {
     const modules = []
     const globalSettings = {}
     
-    // Load common content (navigation and footer) for Hong Kong
-    const navigationConfig = await getNavigationConfig(c.env.DB, language);
+    // Load unified navigation data for Hong Kong
+    const { config: navConfig, menuItems } = await getNavigationData(c.env.DB, language);
     const { config: footerConfig, sections: footerSections, privacyLinks } = await getFooterConfig(c.env.DB, language);
     
     return c.html(
-      <LayoutWithCommonContent 
+      <LayoutWithUnifiedNav 
         language={language} 
         currentPath={currentPath}
-        navigationConfig={navigationConfig}
+        navigationConfig={navConfig}
+        menuItems={menuItems}
         footerConfig={footerConfig}
         footerSections={footerSections}
         privacyLinks={privacyLinks}
@@ -209,7 +216,7 @@ app.get('/hk', async (c) => {
           modules={modules}
           settings={globalSettings}
         />
-      </LayoutWithCommonContent>
+      </LayoutWithUnifiedNav>
     )
   } catch (error: any) {
     return c.html(
@@ -243,6 +250,7 @@ import { ManagementScenario } from './pages/ManagementScenario'
 import { AboutUs } from './pages/AboutUs'
 import { PrivacyPolicy } from './pages/PrivacyPolicy'
 import { TermsAndConditions } from './pages/TermsAndConditions'
+import { renderScenarioPage } from './utils/scenario-route-helper'
 
 // Privacy Policy routes
 app.get('/privacy-policy', (c) => {
@@ -277,71 +285,29 @@ app.get('/hk/terms-and-conditions', (c) => {
 })
 
 // Marketing Scenario routes
-app.get('/scenarios/marketing', (c) => {
-  const language: Language = 'en'
-  const currentPath = '/scenarios/marketing'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <MarketingScenario language={language} />
-    </Layout>
-  )
+app.get('/scenarios/marketing', async (c) => {
+  return renderScenarioPage(c, MarketingScenario, 'en', '/scenarios/marketing', 'Zenava for Marketing')
 })
 
-app.get('/jp/scenarios/marketing', (c) => {
-  const language: Language = 'jp'
-  const currentPath = '/jp/scenarios/marketing'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <MarketingScenario language={language} />
-    </Layout>
-  )
+app.get('/jp/scenarios/marketing', async (c) => {
+  return renderScenarioPage(c, MarketingScenario, 'jp', '/jp/scenarios/marketing', 'マーケティング向けZenava')
 })
 
-app.get('/hk/scenarios/marketing', (c) => {
-  const language: Language = 'hk'
-  const currentPath = '/hk/scenarios/marketing'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <MarketingScenario language={language} />
-    </Layout>
-  )
+app.get('/hk/scenarios/marketing', async (c) => {
+  return renderScenarioPage(c, MarketingScenario, 'hk', '/hk/scenarios/marketing', '營銷場景')
 })
 
 // Sales Scenario routes
-app.get('/scenarios/sales', (c) => {
-  const language: Language = 'en'
-  const currentPath = '/scenarios/sales'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <SalesScenario language={language} />
-    </Layout>
-  )
+app.get('/scenarios/sales', async (c) => {
+  return renderScenarioPage(c, SalesScenario, 'en', '/scenarios/sales', 'Zenava for Sales')
 })
 
-app.get('/jp/scenarios/sales', (c) => {
-  const language: Language = 'jp'
-  const currentPath = '/jp/scenarios/sales'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <SalesScenario language={language} />
-    </Layout>
-  )
+app.get('/jp/scenarios/sales', async (c) => {
+  return renderScenarioPage(c, SalesScenario, 'jp', '/jp/scenarios/sales', '営業向けZenava')
 })
 
-app.get('/hk/scenarios/sales', (c) => {
-  const language: Language = 'hk'
-  const currentPath = '/hk/scenarios/sales'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <SalesScenario language={language} />
-    </Layout>
-  )
+app.get('/hk/scenarios/sales', async (c) => {
+  return renderScenarioPage(c, SalesScenario, 'hk', '/hk/scenarios/sales', '銷售場景')
 })
 
 // Customer Service Scenario routes
