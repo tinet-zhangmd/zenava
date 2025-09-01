@@ -40,14 +40,14 @@ export interface PrivacyLink {
   is_visible: number;
 }
 
-export async function getNavigationConfig(db: D1Database): Promise<NavigationConfig> {
+export async function getNavigationConfig(db: D1Database, language: string = 'en'): Promise<NavigationConfig> {
   try {
     const config = await db.prepare(`
       SELECT * FROM navigation_config 
-      WHERE status = 'published'
+      WHERE status = 'published' AND language = ?
       ORDER BY updated_at DESC 
       LIMIT 1
-    `).first();
+    `).bind(language).first();
     
     return config || {
       logo_url: 'https://page.gensparksite.com/v1/base64_upload/5e1aceb131c0da67ee3eee4d55e36029',
@@ -65,7 +65,7 @@ export async function getNavigationConfig(db: D1Database): Promise<NavigationCon
   }
 }
 
-export async function getFooterConfig(db: D1Database): Promise<{
+export async function getFooterConfig(db: D1Database, language: string = 'en'): Promise<{
   config: FooterConfig;
   sections: FooterSection[];
   privacyLinks: PrivacyLink[];
@@ -74,10 +74,10 @@ export async function getFooterConfig(db: D1Database): Promise<{
     // Get footer config
     const config = await db.prepare(`
       SELECT * FROM footer_config 
-      WHERE status = 'published'
+      WHERE status = 'published' AND language = ?
       ORDER BY updated_at DESC 
       LIMIT 1
-    `).first();
+    `).bind(language).first();
     
     // Get footer sections
     const sections = await db.prepare(`

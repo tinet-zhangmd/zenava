@@ -25,6 +25,7 @@ import { Settings } from './pages/admin/Settings'
 import { Logs } from './pages/admin/Logs'
 import { PublishManager } from './pages/admin/PublishManager'
 import { CommonContentManagement } from './pages/admin/CommonContentManagement'
+import { CommonContentManagementV2 } from './pages/admin/CommonContentManagementV2'
 
 // Import CMS API
 import cmsApi from './api/cms'
@@ -94,9 +95,9 @@ app.get('/', async (c) => {
       }
     }
     
-    // Load common content (navigation and footer)
-    const navigationConfig = await getNavigationConfig(c.env.DB);
-    const { config: footerConfig, sections: footerSections, privacyLinks } = await getFooterConfig(c.env.DB);
+    // Load common content (navigation and footer) for the current language
+    const navigationConfig = await getNavigationConfig(c.env.DB, language);
+    const { config: footerConfig, sections: footerSections, privacyLinks } = await getFooterConfig(c.env.DB, language);
     
     return c.html(
       <LayoutWithCommonContent 
@@ -603,7 +604,7 @@ app.get('/admin/settings', requireAuth, (c) => {
 app.get('/admin/common-content', requireAuth, (c) => {
   return c.html(
     <AdminLayout title="公共内容管理" currentPath="/admin/common-content">
-      <CommonContentManagement />
+      <CommonContentManagementV2 />
     </AdminLayout>
   )
 })

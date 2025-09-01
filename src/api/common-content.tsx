@@ -15,14 +15,16 @@ commonContentApi.use('/*', cors());
 // Get navigation config
 commonContentApi.get('/navigation', async (c) => {
   const { env } = c;
+  const language = c.req.query('lang') || 'en';
   
   try {
-    // Get the latest navigation config
+    // Get the latest navigation config for specific language
     const config = await env.DB.prepare(`
       SELECT * FROM navigation_config 
+      WHERE language = ?
       ORDER BY updated_at DESC 
       LIMIT 1
-    `).first();
+    `).bind(language).first();
     
     return c.json({
       success: true,
@@ -44,15 +46,16 @@ commonContentApi.get('/navigation', async (c) => {
 // Update navigation config
 commonContentApi.post('/navigation', async (c) => {
   const { env } = c;
+  const language = c.req.query('lang') || 'en';
   const body = await c.req.json();
   
   try {
     const { logo_url, logo_alt, status } = body;
     
-    // Check if config exists
+    // Check if config exists for this language
     const existing = await env.DB.prepare(`
-      SELECT id FROM navigation_config LIMIT 1
-    `).first();
+      SELECT id FROM navigation_config WHERE language = ? LIMIT 1
+    `).bind(language).first();
     
     if (existing) {
       // Update existing config
@@ -69,12 +72,13 @@ commonContentApi.post('/navigation', async (c) => {
     } else {
       // Create new config
       await env.DB.prepare(`
-        INSERT INTO navigation_config (logo_url, logo_alt, status)
-        VALUES (?, ?, ?)
+        INSERT INTO navigation_config (logo_url, logo_alt, status, language)
+        VALUES (?, ?, ?, ?)
       `).bind(
         logo_url || null,
         logo_alt || 'Logo',
-        status || 'draft'
+        status || 'draft',
+        language
       ).run();
     }
     
@@ -93,14 +97,16 @@ commonContentApi.post('/navigation', async (c) => {
 // Get footer config with sections and links
 commonContentApi.get('/footer', async (c) => {
   const { env } = c;
+  const language = c.req.query('lang') || 'en';
   
   try {
-    // Get footer config
+    // Get footer config for specific language
     const config = await env.DB.prepare(`
       SELECT * FROM footer_config 
+      WHERE language = ?
       ORDER BY updated_at DESC 
       LIMIT 1
-    `).first();
+    `).bind(language).first();
     
     // Get footer sections
     const sections = await env.DB.prepare(`
@@ -170,15 +176,16 @@ commonContentApi.get('/footer', async (c) => {
 // Update footer config
 commonContentApi.post('/footer/config', async (c) => {
   const { env } = c;
+  const language = c.req.query('lang') || 'en';
   const body = await c.req.json();
   
   try {
     const { logo_url, logo_alt, subtitle_text, copyright_text, status } = body;
     
-    // Check if config exists
+    // Check if config exists for this language
     const existing = await env.DB.prepare(`
-      SELECT id FROM footer_config LIMIT 1
-    `).first();
+      SELECT id FROM footer_config WHERE language = ? LIMIT 1
+    `).bind(language).first();
     
     if (existing) {
       // Update existing config
@@ -197,14 +204,15 @@ commonContentApi.post('/footer/config', async (c) => {
     } else {
       // Create new config
       await env.DB.prepare(`
-        INSERT INTO footer_config (logo_url, logo_alt, subtitle_text, copyright_text, status)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO footer_config (logo_url, logo_alt, subtitle_text, copyright_text, status, language)
+        VALUES (?, ?, ?, ?, ?, ?)
       `).bind(
         logo_url || null,
         logo_alt || 'Logo',
         subtitle_text || '',
         copyright_text || `© ${new Date().getFullYear()} Zenava. All rights reserved.`,
-        status || 'draft'
+        status || 'draft',
+        language
       ).run();
     }
     
