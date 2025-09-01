@@ -100,7 +100,7 @@ function getDefaultNavigationConfig(): NavigationConfig {
     mobile_menu_enabled: true,
     show_language_switcher: true,
     available_languages: ['en', 'jp', 'hk'] as Language[],
-    cta_enabled: true,
+    cta_enabled: false,
     cta_text: 'Get Started',
     cta_url: '/contact'
   }

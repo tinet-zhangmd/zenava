@@ -116,10 +116,6 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
       AI Agent for Enterprise Customer Dialogue Scenarios
     </h1>
     <p class="text-lg sm:text-xl text-gray-300">讓每一次客戶對話都創造實際價值</p>
-    <a href="#contact" class="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-2xl text-white font-bold shadow-lg hover:shadow-[#6438FF]/30 hover:scale-105 transition-all w-max text-sm sm:text-base">
-      Get Started
-      <svg class="w-4 h-4 sm:w-5 sm:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-    </a>
   </div>
   <div class="relative lg:h-[600px] flex items-center justify-center">
     <div class="relative w-full max-w-md">
@@ -224,25 +220,8 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <div class="w-20 h-1 bg-gradient-to-r from-[#0DE0EF] to-[#6438FF] rounded-full"></div>
             </div>
 
-            {/* CTA Buttons with Brand Colors - Fixed Alignment */}
-            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <a href={heroContent.cta_link} class="group relative px-8 py-4 bg-gradient-to-r from-[#6438FF] to-[#8B5CF6] rounded-2xl font-bold text-white transition-all duration-300 hover:shadow-2xl hover:shadow-[#6438FF]/25 hover:scale-105 overflow-hidden min-h-[56px] flex items-center justify-center">
-                <div class="absolute inset-0 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <span class="relative z-10 flex items-center justify-center">
-                  <span class="leading-none">{heroContent.cta_text || 'Start Free Trial'}</span>
-                  <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                  </svg>
-                </span>
-              </a>
-              
-              <a href="#demo" class="group px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl font-semibold text-white hover:bg-white/10 transition-all duration-300 min-h-[56px] flex items-center justify-center">
-                <div class="w-8 h-8 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-lg flex items-center justify-center mr-3">
-                  <i class="fas fa-play text-white text-sm"></i>
-                </div>
-                <span class="leading-none">{t?.hero?.cta_secondary || 'Watch Demo'}</span>
-              </a>
-            </div>
+            {/* Spacing for visual balance */}
+            <div class="mb-12"></div>
 
             {/* Stats with Brand Colors */}
             <div class="grid grid-cols-3 gap-8">

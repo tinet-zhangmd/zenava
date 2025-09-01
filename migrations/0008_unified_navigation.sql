@@ -143,7 +143,7 @@ INSERT OR REPLACE INTO navigation_config (
   '#374151',
   '#3b82f6',
   1,
-  1,
+  0,
   'Get Started',
   '/contact',
   'published'
