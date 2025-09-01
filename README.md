@@ -1,157 +1,132 @@
-# Zenava 官方网站
+# Zenava CMS - 企业级内容管理系统
 
 ## 项目概览
-- **项目名称**: Zenava 企业官网
-- **目标**: 为Zenava AI智能体创建现代化、多语言的企业官网
-- **技术栈**: Hono + TypeScript + Cloudflare Pages + TailwindCSS
+- **名称**: Zenava CMS
+- **目标**: 为Zenava网站提供完整的内容管理解决方案，支持多语言、SEO优化和公共内容管理
+- **技术栈**: Hono + TypeScript + Cloudflare Pages + D1 Database + TailwindCSS
 
-## 在线访问
-- **开发环境**: https://3000-i8upzvupzrt646n5st0td.e2b.dev
-- **API测试**: https://3000-i8upzvupzrt646n5st0td.e2b.dev/api/hello
-- **隐私政策**: https://3000-i8upzvupzrt646n5st0td.e2b.dev/privacy-policy
-- **条款条件**: https://3000-i8upzvupzrt646n5st0td.e2b.dev/terms-and-conditions
-- **GitHub仓库**: [待部署]
+## 🌐 访问地址
+- **开发环境**: https://3000-ijx7klcra0fppaqos5xzg-6532622b.e2b.dev
+- **管理后台**: https://3000-ijx7klcra0fppaqos5xzg-6532622b.e2b.dev/admin
+  - 用户名: `admin@zenava.com`
+  - 密码: `admin123`
 
-## 数据架构
-- **多语言支持**: 英文(默认)、日语(/jp)、繁体中文(/hk)
-- **静态资源**: 基于Cloudflare Pages的静态文件托管
-- **数据流**: 前端JSX → Hono SSR → Cloudflare Workers 边缘计算
+## ✅ 已完成功能
 
-## 功能特性
+### 1. **公共内容管理系统**
+- ✅ **导航栏管理**: 
+  - 支持图片上传（PNG、JPG、GIF、WebP、SVG）
+  - 支持URL输入
+  - Logo预览功能
+  - 替代文本设置
+  - 响应式Logo尺寸（高度: 40px-48px，最大宽度: 200px）
 
-### ✅ 已完成功能
-1. **响应式首页设计**
-   - Hero区域动效和梯度背景
-   - 三大核心价值展示（客户、员工、企业）
-   - 业务场景预览卡片
-   - CTA行动召唤区域
+- ✅ **页脚管理**:
+  - Logo上传和管理
+  - 副标题文本编辑
+  - 版权信息自定义
+  - 动态内容板块（Scenarios、About Us）
+  - 链接管理（支持当前页/新窗口打开）
+  - 隐私政策链接（Privacy Policy、Terms & Conditions）
+  - Cookie Preferences（无需链接，触发弹窗）
 
-2. **多语言系统**
-   - 英文 (`/`) 
-   - 日语 (`/jp`)
-   - 繁体中文 (`/hk`)
-   - 语言切换器与标志图标
+- ✅ **发布机制**:
+  - 草稿/发布状态管理
+  - 发布时自动重新生成所有页面
+  - 应用新的导航栏和页脚到所有页面
 
-3. **现代化导航**
-   - 固定顶部导航栏
-   - 场景下拉菜单
-   - 移动端适配
-   - 平滑滚动效果
+### 2. **内容管理功能**
+- ✅ 页面内容编辑器（支持模块化编辑）
+- ✅ SEO管理（标题、描述、关键词）
+- ✅ 多语言支持（英语、日语、繁体中文）
+- ✅ 媒体库管理
+- ✅ 发布管理系统
 
-4. **交互体验**
-   - 卡片悬停动效
-   - 渐现动画
-   - 自定义滚动条
-   - 回到顶部按钮
+### 3. **前端展示**
+- ✅ 响应式设计
+- ✅ 动态导航菜单
+- ✅ 场景页面（营销、销售、客服、内部服务、管理优化）
+- ✅ Cookie同意管理
+- ✅ 语言切换功能
 
-5. **营销场景页面** 
-   - 当前营销挑战分析（4大痛点）
-   - Zenava解决方案详细介绍
-   - 智能引导留资演示
-   - 线索评级流程可视化
-   - ROI效果数据展示
-   - 多语言完整支持
+## 📁 数据架构
 
-6. **隐私合规体系** ⭐ NEW!
-   - Cookie使用确认横幅和偏好设置
-   - 详细隐私政策页面（参考Sierra.ai标准）
-   - 完整条款条件页面
-   - 页面底部隐私链接和Cookie偏好选项
-   - 精细化Cookie分类管理（必需、分析、营销、功能性）
-   - JavaScript Cookie管理逻辑
-   - 多语言隐私页面支持
+### 数据库表结构
+- **navigation_config**: 导航栏配置（logo_url, logo_alt, status）
+- **footer_config**: 页脚基本配置（logo_url, subtitle, copyright）
+- **footer_sections**: 页脚内容板块
+- **footer_links**: 板块链接
+- **footer_privacy_links**: 隐私政策链接
+- **pages**: 页面管理
+- **content_modules**: 内容模块
+- **page_seo**: SEO设置
 
-7. **完整管理后台** ⭐ NEW!
-   - 简体中文界面管理控制台
-   - 系统设置和操作日志页面
-   - 内容管理和多语言配置
+### 存储服务
+- **Cloudflare D1**: SQLite数据库用于所有内容存储
+- **图片上传**: Base64编码存储或外部URL引用
 
-### 🚧 开发中
-1. **其他场景页面** (4个)
-   - 面向销售的Zenava
-   - 面向客户服务的Zenava
-   - 面向内部服务的Zenava
-   - 面向管理优化的Zenava
-
-### 📝 待开发
-1. **了解Zenava页面** - 产品详细介绍
-2. **关于我们页面** - 天润融通企业介绍
-3. **管理后台** - 内容管理和多语言配置
-4. **联系表单** - 客户咨询收集
-
-## 用户指南
-
-### 访问网站
-1. **首页浏览**: 直接访问主URL查看完整首页
-2. **语言切换**: 点击右上角语言选择器
-3. **导航菜单**: 鼠标悬停"Scenarios"查看场景下拉菜单
-4. **移动体验**: 网站完全响应式，支持手机平板访问
-
-### 开发调试
-```bash
-# 启动开发服务器
-npm run dev:sandbox
-
-# 构建生产版本
-npm run build
-
-# 清理端口
-npm run clean-port
-
-# 测试API
-curl http://localhost:3000/api/hello
-```
-
-## 部署状态
-- **平台**: Cloudflare Pages (准备中)
-- **状态**: 🟡 开发环境运行中
-- **性能**: 边缘计算 + CDN 加速
-- **最后更新**: 2024年8月
-
-## 技术架构
-
-### 前端架构
-```
-src/
-├── components/     # React组件
-│   └── Layout.tsx  # 全局布局
-├── pages/          # 页面组件  
-│   └── Homepage.tsx # 首页
-├── i18n/           # 国际化文件
-├── utils/          # 工具函数
-└── index.tsx       # 主应用入口
-```
-
-### 路由系统
-- `/` - 英文首页
-- `/jp` - 日语首页  
-- `/hk` - 繁体中文首页
-- `/scenarios/marketing` - 营销场景页面 ✅
-- `/jp/scenarios/marketing` - 营销场景页面（日语） ✅
-- `/hk/scenarios/marketing` - 营销场景页面（繁体中文） ✅
-- `/scenarios/:type` - 其他场景页面 (开发中)
-- `/privacy-policy` - 隐私政策页面 ✅
-- `/terms-and-conditions` - 条款条件页面 ✅
-- `/jp/privacy-policy` - 隐私政策页面（日语） ✅
-- `/hk/privacy-policy` - 隐私政策页面（繁体中文） ✅
-- `/admin/*` - 管理后台系统 ✅
-- `/about-zenava` - 产品介绍
-- `/about` - 企业介绍
+## 🔧 技术实现
 
 ### API端点
-- `GET /api/hello` - 健康检查
-- `POST /api/contact` - 联系表单提交
+```
+/api/common-content/navigation     - 导航栏配置管理
+/api/common-content/footer         - 页脚配置管理
+/api/common-content/publish        - 发布公共内容
+/api/upload/image                  - 图片上传
+/api/cms/*                         - CMS内容管理
+```
 
-## 推荐下一步开发
-1. **完善场景页面** - 开发剩余4个业务场景的详细页面
-2. **关于我们页面** - 创建天润融通企业介绍页面
-3. **完善内容管理** - 开发后台管理系统
-4. **SEO优化** - 添加meta标签和结构化数据
-5. **正式部署** - 部署到Cloudflare Pages生产环境
+### 核心组件
+- `LayoutWithCommonContent.tsx` - 使用数据库配置的布局组件
+- `CommonContentManagement.tsx` - 公共内容管理界面
+- `common-content.tsx` - 公共内容API处理
+- `upload.tsx` - 图片上传处理
 
-## 特色亮点
-- 📱 **完全响应式** - 完美适配桌面、平板、手机
-- 🌍 **多语言无缝切换** - 英文、日语、繁体中文
-- ⚡ **边缘计算优化** - 基于Cloudflare Workers的极速加载
-- 🎨 **现代化设计** - 参考Sierra.ai等顶级AI企业风格
-- 🔧 **模块化架构** - 易于维护和扩展
+## 🚀 部署状态
+- **平台**: Cloudflare Pages
+- **状态**: ✅ 开发环境运行中
+- **数据库**: D1 SQLite (本地开发模式)
+
+## 📝 使用指南
+
+### 管理公共内容
+1. 登录管理后台
+2. 访问"公共内容"菜单
+3. 在"导航栏设置"中上传或输入Logo URL
+4. 在"页脚设置"中配置页脚内容
+5. 点击"保存所有更改"保存到草稿
+6. 点击"发布到生产"应用到所有页面
+
+### Logo要求
+- **格式**: PNG、JPG、GIF、WebP、SVG
+- **大小**: 最大5MB
+- **推荐尺寸**: 高度40-48px，宽度根据Logo比例自适应
+- **显示效果**: 导航栏自动适配，页脚白色显示
+
+## 🔄 待优化功能
+- [ ] 图片CDN集成（建议使用Cloudflare R2）
+- [ ] 多用户权限管理
+- [ ] 内容版本控制
+- [ ] 自动备份机制
+- [ ] 性能优化（缓存策略）
+
+## 💡 开发建议
+1. **图片存储**: 考虑集成Cloudflare R2或其他CDN服务替代Base64存储
+2. **缓存策略**: 实施边缘缓存以提高性能
+3. **监控**: 添加错误追踪和性能监控
+4. **安全**: 实施更强的身份验证机制
+
+## 📌 注意事项
+- Logo样式已优化支持PNG格式和文字Logo
+- Cookie Preferences不需要URL配置，点击触发弹窗
+- 发布公共内容会触发所有页面重新生成
+- 所有更改需要先保存再发布才能生效
+
+## 最后更新
+- **日期**: 2025-09-01
+- **版本**: 1.2.0
+- **更新内容**: 
+  - 修复Logo显示样式问题
+  - 支持PNG Logo正确显示
+  - 优化Logo尺寸（高度40-48px，最大宽度200px）
+  - Cookie Preferences无需URL配置

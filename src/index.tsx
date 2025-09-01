@@ -3,8 +3,10 @@ import { cors } from 'hono/cors'
 import { serveStatic } from 'hono/cloudflare-workers'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import { Layout } from './components/Layout'
+import { LayoutWithCommonContent } from './components/LayoutWithCommonContent'
 import { Homepage } from './pages/Homepage'
 import { HomepageDB } from './pages/HomepageDB'
+import { getNavigationConfig, getFooterConfig } from './utils/common-content'
 import { AIHomepage } from './pages/AIHomepage'
 import { ZenavaHomepage } from './pages/ZenavaHomepage'
 import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/i18n'
@@ -22,10 +24,13 @@ import { MediaLibrary } from './pages/admin/MediaLibrary'
 import { Settings } from './pages/admin/Settings'
 import { Logs } from './pages/admin/Logs'
 import { PublishManager } from './pages/admin/PublishManager'
+import { CommonContentManagement } from './pages/admin/CommonContentManagement'
 
 // Import CMS API
 import cmsApi from './api/cms'
 import publishApi from './api/publish'
+import commonContentApi from './api/common-content'
+import uploadApi from './api/upload'
 
 // Define Cloudflare Bindings
 type Bindings = {
@@ -40,6 +45,8 @@ app.use('/api/*', cors())
 // Mount CMS API routes
 app.route('/api/cms', cmsApi)
 app.route('/api/publish', publishApi)
+app.route('/api/common-content', commonContentApi)
+app.route('/api/upload', uploadApi)
 
 // Serve static files
 app.use('/static/*', serveStatic({ root: './public' }))
@@ -87,13 +94,21 @@ app.get('/', async (c) => {
       }
     }
     
+    // Load common content (navigation and footer)
+    const navigationConfig = await getNavigationConfig(c.env.DB);
+    const { config: footerConfig, sections: footerSections, privacyLinks } = await getFooterConfig(c.env.DB);
+    
     return c.html(
-      <Layout 
+      <LayoutWithCommonContent 
         language={language} 
         currentPath={currentPath}
         seoTitle={pageData?.meta_title}
         seoDescription={pageData?.meta_description}
         seoKeywords={pageData?.meta_keywords}
+        navigationConfig={navigationConfig}
+        footerConfig={footerConfig}
+        footerSections={footerSections}
+        privacyLinks={privacyLinks}
       >
         <HomepageDB 
           language={language}
@@ -101,7 +116,7 @@ app.get('/', async (c) => {
           modules={modules}
           settings={globalSettings}
         />
-      </Layout>
+      </LayoutWithCommonContent>
     )
   } catch (error: any) {
     console.error('Homepage error:', error);
@@ -110,9 +125,9 @@ app.get('/', async (c) => {
       <Layout language="en" currentPath="/">
         <HomepageDB 
           language="en"
-          pageData={pageData}
-          modules={modules}
-          settings={globalSettings}
+          pageData={null}
+          modules={[]}
+          settings={{}}
         />
       </Layout>
     )
@@ -581,6 +596,14 @@ app.get('/admin/settings', requireAuth, (c) => {
   return c.html(
     <AdminLayout title="系统设置" currentPath="/admin/settings">
       <Settings />
+    </AdminLayout>
+  )
+})
+
+app.get('/admin/common-content', requireAuth, (c) => {
+  return c.html(
+    <AdminLayout title="公共内容管理" currentPath="/admin/common-content">
+      <CommonContentManagement />
     </AdminLayout>
   )
 })
@@ -1400,6 +1423,97 @@ app.get('/cms/content', async (c) => {
           <div class="max-w-4xl mx-auto">
             <h1 class="text-2xl font-bold text-red-600">加载错误</h1>
             <p class="text-gray-700 mt-4">无法加载内容列表: {error.message}</p>
+          </div>
+        </div>
+      </AdminLayout>
+    )
+  }
+})
+
+// CMS Content Edit Page
+app.get('/cms/content/edit/:id', async (c) => {
+  try {
+    const pageId = c.req.param('id');
+    
+    // Get page data with SEO
+    const page = await c.env.DB.prepare(`
+      SELECT p.*, s.* 
+      FROM pages p
+      LEFT JOIN page_seo s ON p.id = s.page_id
+      WHERE p.id = ?
+    `).bind(pageId).first();
+    
+    if (!page) {
+      return c.html(
+        <AdminLayout currentPath="/cms/content" title="页面不存在">
+          <div class="min-h-screen bg-gray-50 p-8">
+            <div class="max-w-4xl mx-auto">
+              <h1 class="text-2xl font-bold text-red-600">页面不存在</h1>
+              <a href="/cms/content" class="text-blue-600 hover:text-blue-700 mt-4 inline-block">返回内容列表</a>
+            </div>
+          </div>
+        </AdminLayout>
+      )
+    }
+    
+    // Get content modules
+    const { results: modules } = await c.env.DB.prepare(`
+      SELECT * FROM content_modules 
+      WHERE page_id = ? 
+      ORDER BY position
+    `).bind(pageId).all();
+    
+    return c.html(
+      <AdminLayout currentPath="/cms/content" title={`编辑: ${page.title}`}>
+        <ContentManagementDB 
+          initialPage={page}
+          initialModules={modules}
+        />
+      </AdminLayout>
+    )
+  } catch (error: any) {
+    return c.html(
+      <AdminLayout currentPath="/cms/content" title="错误">
+        <div class="min-h-screen bg-gray-50 p-8">
+          <div class="max-w-4xl mx-auto">
+            <h1 class="text-2xl font-bold text-red-600">加载错误</h1>
+            <p class="text-gray-700 mt-4">无法加载页面内容: {error.message}</p>
+            <a href="/cms/content" class="text-blue-600 hover:text-blue-700 mt-4 inline-block">返回内容列表</a>
+          </div>
+        </div>
+      </AdminLayout>
+    )
+  }
+})
+
+// CMS Dashboard
+app.get('/cms/dashboard', async (c) => {
+  try {
+    // Get statistics from database
+    const [pagesCount, modulesCount, mediaCount] = await Promise.all([
+      c.env.DB.prepare('SELECT COUNT(*) as count FROM pages').first(),
+      c.env.DB.prepare('SELECT COUNT(*) as count FROM content_modules').first(),
+      c.env.DB.prepare('SELECT COUNT(*) as count FROM media').first()
+    ]);
+    
+    return c.html(
+      <AdminLayout currentPath="/cms/dashboard" title="控制台">
+        <Dashboard 
+          stats={{
+            pages: pagesCount?.count || 0,
+            modules: modulesCount?.count || 0,
+            media: mediaCount?.count || 0
+          }}
+        />
+      </AdminLayout>
+    )
+  } catch (error: any) {
+    return c.html(
+      <AdminLayout currentPath="/cms/dashboard" title="错误">
+        <div class="min-h-screen bg-gray-50 p-8">
+          <div class="max-w-4xl mx-auto">
+            <h1 class="text-2xl font-bold text-red-600">加载错误</h1>
+            <p class="text-gray-700 mt-4">无法加载仪表盘数据: {error.message}</p>
           </div>
         </div>
       </AdminLayout>

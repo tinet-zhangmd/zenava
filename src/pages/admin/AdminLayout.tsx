@@ -83,6 +83,12 @@ export function AdminLayout({ children, title, currentPath, user }: AdminLayoutP
                   媒体库
                 </a>
                 
+                <a href="/admin/common-content"
+                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/admin/common-content') ? 'active' : ''}`}>
+                  <i class="fas fa-layer-group mr-3"></i>
+                  公共内容
+                </a>
+                
                 <a href="/admin/publish"
                    class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/admin/publish') ? 'active' : ''}`}>
                   <i class="fas fa-rocket mr-3"></i>

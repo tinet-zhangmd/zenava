@@ -72,13 +72,13 @@ cmsApi.post('/pages', async (c) => {
         UPDATE pages 
         SET slug = ?, language = ?, title = ?, status = ?, updated_at = CURRENT_TIMESTAMP
         WHERE id = ?
-      `).bind(slug, language, title, status, id).run();
+      `).bind(slug || '', language || 'en', title || '', status || 'draft', id).run();
     } else {
       // Create new page
       const result = await c.env.DB.prepare(`
         INSERT INTO pages (slug, language, title, status) 
         VALUES (?, ?, ?, ?)
-      `).bind(slug, language, title, status || 'draft').run();
+      `).bind(slug || '', language || 'en', title || '', status || 'draft').run();
       
       pageId = result.meta.last_row_id;
     }
@@ -98,8 +98,8 @@ cmsApi.post('/pages', async (c) => {
               updated_at = CURRENT_TIMESTAMP
           WHERE page_id = ?
         `).bind(
-          seo.meta_title, seo.meta_description, seo.meta_keywords,
-          seo.og_title, seo.og_description, seo.og_image,
+          seo.meta_title || '', seo.meta_description || '', seo.meta_keywords || '',
+          seo.og_title || '', seo.og_description || '', seo.og_image || '',
           pageId
         ).run();
       } else {
@@ -108,8 +108,8 @@ cmsApi.post('/pages', async (c) => {
                                og_title, og_description, og_image)
           VALUES (?, ?, ?, ?, ?, ?, ?)
         `).bind(
-          pageId, seo.meta_title, seo.meta_description, seo.meta_keywords,
-          seo.og_title, seo.og_description, seo.og_image
+          pageId, seo.meta_title || '', seo.meta_description || '', seo.meta_keywords || '',
+          seo.og_title || '', seo.og_description || '', seo.og_image || ''
         ).run();
       }
     }
@@ -122,16 +122,24 @@ cmsApi.post('/pages', async (c) => {
       // Insert new modules
       for (let i = 0; i < modules.length; i++) {
         const module = modules[i];
+        // Check if content is already a string (JSON) or an object
+        const contentStr = typeof module.content === 'string' 
+          ? module.content 
+          : JSON.stringify(module.content || {});
+        const settingsStr = typeof module.settings === 'string'
+          ? module.settings
+          : JSON.stringify(module.settings || {});
+          
         await c.env.DB.prepare(`
           INSERT INTO content_modules (page_id, module_type, module_name, position, content, settings, is_visible, status)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         `).bind(
           pageId, 
-          module.module_type, 
-          module.module_name,
+          module.module_type || 'text', 
+          module.module_name || '',
           i,
-          JSON.stringify(module.content),
-          JSON.stringify(module.settings || {}),
+          contentStr,
+          settingsStr,
           module.is_visible !== false ? 1 : 0,
           module.status || 'draft'
         ).run();
@@ -205,9 +213,9 @@ cmsApi.put('/modules/:id', async (c) => {
       SET content = ?, settings = ?, is_visible = ?, updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `).bind(
-      JSON.stringify(data.content),
+      JSON.stringify(data.content || {}),
       JSON.stringify(data.settings || {}),
-      data.is_visible ? 1 : 0,
+      data.is_visible !== false ? 1 : 0,
       moduleId
     ).run();
     

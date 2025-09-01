@@ -11,10 +11,26 @@ interface HomepageProps {
 export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modules = [], settings = {} }) => {
   const t = getTranslation(language)
   
-  // Parse module content safely
+  // Parse module content safely (handle double-encoded JSON)
   const getModuleContent = (module: any) => {
     try {
-      return typeof module.content === 'string' ? JSON.parse(module.content) : module.content;
+      if (typeof module.content !== 'string') {
+        return module.content || {};
+      }
+      
+      // Try to parse once
+      let parsed = JSON.parse(module.content);
+      
+      // If result is still a string, it might be double-encoded
+      if (typeof parsed === 'string') {
+        try {
+          parsed = JSON.parse(parsed);
+        } catch {
+          // If second parse fails, return the first parse result
+        }
+      }
+      
+      return parsed;
     } catch {
       return {};
     }

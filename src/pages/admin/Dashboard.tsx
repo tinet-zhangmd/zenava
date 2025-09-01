@@ -87,6 +87,22 @@ export function Dashboard({}: DashboardProps) {
                 <p class="text-sm text-gray-600">管理多语言内容</p>
               </div>
             </a>
+            
+            <a href="/admin/common-content" class="flex items-center p-4 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors">
+              <i class="fas fa-layer-group text-indigo-600 text-xl mr-3"></i>
+              <div>
+                <p class="font-medium text-gray-900">公共内容管理</p>
+                <p class="text-sm text-gray-600">管理导航栏和页脚</p>
+              </div>
+            </a>
+            
+            <a href="/admin/publish" class="flex items-center p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors">
+              <i class="fas fa-rocket text-orange-600 text-xl mr-3"></i>
+              <div>
+                <p class="font-medium text-gray-900">发布管理</p>
+                <p class="text-sm text-gray-600">部署内容到生产环境</p>
+              </div>
+            </a>
           </div>
         </div>
       </div>

@@ -8,12 +8,15 @@ interface LayoutProps {
   currentPath: string
   title?: string
   description?: string
+  seoTitle?: string
+  seoDescription?: string
+  seoKeywords?: string
 }
 
-export function Layout({ children, language, currentPath, title, description }: LayoutProps) {
+export function Layout({ children, language, currentPath, title, description, seoTitle, seoDescription, seoKeywords }: LayoutProps) {
   const translations = getTranslation(language)
-  const siteTitle = title || t(translations, 'site.title')
-  const siteDescription = description || t(translations, 'site.description')
+  const siteTitle = seoTitle || title || t(translations, 'site.title')
+  const siteDescription = seoDescription || description || t(translations, 'site.description')
 
   return (
     <html lang={language}>
@@ -22,6 +25,12 @@ export function Layout({ children, language, currentPath, title, description }: 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{siteTitle}</title>
         <meta name="description" content={siteDescription} />
+        {seoKeywords && <meta name="keywords" content={seoKeywords} />}
+        
+        {/* Open Graph Tags */}
+        <meta property="og:title" content={siteTitle} />
+        <meta property="og:description" content={siteDescription} />
+        <meta property="og:type" content="website" />
         
         {/* Tailwind CSS */}
         <script src="https://cdn.tailwindcss.com"></script>
@@ -68,8 +77,13 @@ export function Layout({ children, language, currentPath, title, description }: 
             <div class="flex justify-between items-center h-16">
               {/* Logo */}
               <div class="flex-shrink-0">
-                <a href={getLocalizedPath('/', language)} class="text-2xl font-bold text-primary-600">
-                  Zenava
+                <a href={getLocalizedPath('/', language)} class="flex items-center">
+                  <img 
+                    src="https://page.gensparksite.com/v1/base64_upload/5e1aceb131c0da67ee3eee4d55e36029" 
+                    alt="Zenava Logo" 
+                    class="h-10 sm:h-12 w-auto object-contain transition-all duration-300 hover:opacity-80"
+                    style="max-width: 200px;"
+                  />
                 </a>
               </div>
 
@@ -168,7 +182,14 @@ export function Layout({ children, language, currentPath, title, description }: 
           <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div class="col-span-1 md:col-span-2">
-                <h3 class="text-2xl font-bold text-white mb-4">Zenava</h3>
+                <div class="mb-4">
+                  <img 
+                    src="https://page.gensparksite.com/v1/base64_upload/5e1aceb131c0da67ee3eee4d55e36029" 
+                    alt="Zenava Logo" 
+                    class="h-10 w-auto object-contain"
+                    style="max-width: 160px; filter: brightness(0) invert(1);"
+                  />
+                </div>
                 <p class="text-gray-300 mb-4">{t(translations, 'site.description')}</p>
               </div>
               
