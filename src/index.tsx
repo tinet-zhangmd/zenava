@@ -311,105 +311,42 @@ app.get('/hk/scenarios/sales', async (c) => {
 })
 
 // Customer Service Scenario routes
-app.get('/scenarios/customer-service', (c) => {
-  const language: Language = 'en'
-  const currentPath = '/scenarios/customer-service'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <CustomerServiceScenario language={language} />
-    </Layout>
-  )
+app.get('/scenarios/customer-service', async (c) => {
+  return renderScenarioPage(c, CustomerServiceScenario, 'en', '/scenarios/customer-service', 'Zenava for Customer Service')
 })
 
-app.get('/jp/scenarios/customer-service', (c) => {
-  const language: Language = 'jp'
-  const currentPath = '/jp/scenarios/customer-service'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <CustomerServiceScenario language={language} />
-    </Layout>
-  )
+app.get('/jp/scenarios/customer-service', async (c) => {
+  return renderScenarioPage(c, CustomerServiceScenario, 'jp', '/jp/scenarios/customer-service', 'カスタマーサービス向けZenava')
 })
 
-app.get('/hk/scenarios/customer-service', (c) => {
-  const language: Language = 'hk'
-  const currentPath = '/hk/scenarios/customer-service'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <CustomerServiceScenario language={language} />
-    </Layout>
-  )
+app.get('/hk/scenarios/customer-service', async (c) => {
+  return renderScenarioPage(c, CustomerServiceScenario, 'hk', '/hk/scenarios/customer-service', '客服場景')
 })
 
 // Internal Service Scenario routes
-app.get('/scenarios/internal-service', (c) => {
-  const language: Language = 'en'
-  const currentPath = '/scenarios/internal-service'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <InternalServiceScenario language={language} />
-    </Layout>
-  )
+app.get('/scenarios/internal-service', async (c) => {
+  return renderScenarioPage(c, InternalServiceScenario, 'en', '/scenarios/internal-service', 'Zenava for Internal Service')
 })
 
-app.get('/jp/scenarios/internal-service', (c) => {
-  const language: Language = 'jp'
-  const currentPath = '/jp/scenarios/internal-service'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <InternalServiceScenario language={language} />
-    </Layout>
-  )
+app.get('/jp/scenarios/internal-service', async (c) => {
+  return renderScenarioPage(c, InternalServiceScenario, 'jp', '/jp/scenarios/internal-service', '社内サービス向けZenava')
 })
 
-app.get('/hk/scenarios/internal-service', (c) => {
-  const language: Language = 'hk'
-  const currentPath = '/hk/scenarios/internal-service'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <InternalServiceScenario language={language} />
-    </Layout>
-  )
+app.get('/hk/scenarios/internal-service', async (c) => {
+  return renderScenarioPage(c, InternalServiceScenario, 'hk', '/hk/scenarios/internal-service', '內部服務')
 })
 
 // Management Scenario routes
-app.get('/scenarios/management', (c) => {
-  const language: Language = 'en'
-  const currentPath = '/scenarios/management'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <ManagementScenario language={language} />
-    </Layout>
-  )
+app.get('/scenarios/management', async (c) => {
+  return renderScenarioPage(c, ManagementScenario, 'en', '/scenarios/management', 'Zenava for Management')
 })
 
-app.get('/jp/scenarios/management', (c) => {
-  const language: Language = 'jp'
-  const currentPath = '/jp/scenarios/management'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <ManagementScenario language={language} />
-    </Layout>
-  )
+app.get('/jp/scenarios/management', async (c) => {
+  return renderScenarioPage(c, ManagementScenario, 'jp', '/jp/scenarios/management', '管理最適化向けZenava')
 })
 
-app.get('/hk/scenarios/management', (c) => {
-  const language: Language = 'hk'
-  const currentPath = '/hk/scenarios/management'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <ManagementScenario language={language} />
-    </Layout>
-  )
+app.get('/hk/scenarios/management', async (c) => {
+  return renderScenarioPage(c, ManagementScenario, 'hk', '/hk/scenarios/management', '管理優化')
 })
 
 // Other scenario routes placeholder
@@ -444,36 +381,16 @@ app.get('/hk/scenarios/:scenario', (c) => {
 })
 
 // About Us routes
-app.get('/about', (c) => {
-  const language: Language = 'en'
-  const currentPath = '/about'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <AboutUs language={language} />
-    </Layout>
-  )
+app.get('/about', async (c) => {
+  return renderScenarioPage(c, AboutUs, 'en', '/about', 'About Us')
 })
 
-app.get('/jp/about', (c) => {
-  const language: Language = 'jp'
-  const currentPath = '/jp/about'
-  
-  return c.html(
-    <Layout language={language} currentPath={currentPath}>
-      <AboutUs language={language} />
-    </Layout>
-  )
+app.get('/jp/about', async (c) => {
+  return renderScenarioPage(c, AboutUs, 'jp', '/jp/about', '私たちについて')
 })
 
-app.get('/hk/about', (c) => {
-  const language: Language = 'hk'
-  
-  return c.html(
-    <Layout language={language} currentPath={'/hk/about'}>
-      <AboutUs language={language} />
-    </Layout>
-  )
+app.get('/hk/about', async (c) => {
+  return renderScenarioPage(c, AboutUs, 'hk', '/hk/about', '關於我們')
 })
 
 // Admin Authentication Middleware
