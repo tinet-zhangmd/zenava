@@ -44,21 +44,21 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
                   <div class="w-3 h-3 bg-[#0DE0EF] rounded-full animate-pulse"></div>
                   <div class="absolute inset-0 w-3 h-3 bg-[#0DE0EF] rounded-full animate-ping"></div>
                 </div>
-                <span class="text-white/90 text-sm font-semibold ml-3 tracking-wide">AI-POWERED ENTERPRISE DIALOGUE</span>
+                <span class="text-white/90 text-sm font-semibold ml-3 tracking-wide">ZENAVA</span>
               </div>
 
               {/* Main Heading */}
               <div class="space-y-4">
-                <h1 class="text-6xl lg:text-7xl xl:text-8xl font-black leading-tight">
-                  <span class="block text-white mb-2">Zenava</span>
+                <h1 class="text-5xl lg:text-6xl xl:text-7xl font-black leading-tight">
+                  <span class="block text-white mb-2">AI Agent for Enterprise</span>
                   <span class="block bg-gradient-to-r from-[#6438FF] via-[#8B5CF6] to-[#0DE0EF] bg-clip-text text-transparent">
-                    AI Platform
+                    Customer Dialogue Scenarios
                   </span>
                 </h1>
                 <div class="flex items-center space-x-4">
                   <div class="w-20 h-1 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-full"></div>
                   <p class="text-xl lg:text-2xl text-gray-300 font-light">
-                    Transform Customer Conversations with Intelligent AI Agents
+                    构建新型生产力形态
                   </p>
                 </div>
               </div>
@@ -102,7 +102,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
                   <div class="text-sm text-gray-400 font-medium">Uptime</div>
                 </div>
                 <div class="text-center">
-                  <div class="text-3xl lg:text-4xl font-black text-white mb-1">500+</div>
+                  <div class="text-3xl lg:text-4xl font-black text-white mb-1">5000+</div>
                   <div class="text-sm text-gray-400 font-medium">Enterprises</div>
                 </div>
               </div>
