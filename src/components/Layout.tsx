@@ -70,10 +70,10 @@ export function Layout({ children, language, currentPath, title, description, se
           `
         }} />
       </head>
-      <body class="bg-white site-container">
+      <body class="bg-white">
         {/* Navigation */}
         <nav class="fixed top-0 w-full global-nav backdrop-blur-sm border-b z-50">
-          <div class="site-container px-4 sm:px-6 lg:px-8">
+          <div class="site-container px-4 sm:px-6 lg:px-8 mx-auto">
             <div class="flex justify-between items-center h-16">
               {/* Logo */}
               <div class="flex-shrink-0">
