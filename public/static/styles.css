@@ -189,7 +189,7 @@ a:focus {
 
 /* Global site max width container */
 :root {
-  --site-max-width: 2200px;
+  --site-max-width: 1520px;
 
   /* Global nav style tokens (can be overridden from backend one day) */
   --nav-text: #374151;           /* gray-700 */
