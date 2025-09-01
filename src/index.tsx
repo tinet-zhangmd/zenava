@@ -145,15 +145,26 @@ app.get('/jp', async (c) => {
     const modules = []
     const globalSettings = {}
     
+    // Load common content (navigation and footer) for Japanese
+    const navigationConfig = await getNavigationConfig(c.env.DB, language);
+    const { config: footerConfig, sections: footerSections, privacyLinks } = await getFooterConfig(c.env.DB, language);
+    
     return c.html(
-      <Layout language={language} currentPath={currentPath}>
+      <LayoutWithCommonContent 
+        language={language} 
+        currentPath={currentPath}
+        navigationConfig={navigationConfig}
+        footerConfig={footerConfig}
+        footerSections={footerSections}
+        privacyLinks={privacyLinks}
+      >
         <HomepageDB 
           language={language}
           pageData={pageData}
           modules={modules}
           settings={globalSettings}
         />
-      </Layout>
+      </LayoutWithCommonContent>
     )
   } catch (error: any) {
     return c.html(
@@ -179,15 +190,26 @@ app.get('/hk', async (c) => {
     const modules = []
     const globalSettings = {}
     
+    // Load common content (navigation and footer) for Hong Kong
+    const navigationConfig = await getNavigationConfig(c.env.DB, language);
+    const { config: footerConfig, sections: footerSections, privacyLinks } = await getFooterConfig(c.env.DB, language);
+    
     return c.html(
-      <Layout language={language} currentPath={currentPath}>
+      <LayoutWithCommonContent 
+        language={language} 
+        currentPath={currentPath}
+        navigationConfig={navigationConfig}
+        footerConfig={footerConfig}
+        footerSections={footerSections}
+        privacyLinks={privacyLinks}
+      >
         <HomepageDB 
           language={language}
           pageData={pageData}
           modules={modules}
           settings={globalSettings}
         />
-      </Layout>
+      </LayoutWithCommonContent>
     )
   } catch (error: any) {
     return c.html(

@@ -79,12 +79,12 @@ export async function getFooterConfig(db: D1Database, language: string = 'en'): 
       LIMIT 1
     `).bind(language).first();
     
-    // Get footer sections
+    // Get footer sections for the language
     const sections = await db.prepare(`
       SELECT * FROM footer_sections
-      WHERE is_visible = 1
+      WHERE is_visible = 1 AND language = ?
       ORDER BY position
-    `).all();
+    `).bind(language).all();
     
     // Get links for each section
     const sectionsWithLinks = await Promise.all(sections.results.map(async (section) => {
@@ -107,7 +107,7 @@ export async function getFooterConfig(db: D1Database, language: string = 'en'): 
       };
     }));
     
-    // Get privacy links
+    // Get privacy links for the language
     const privacyLinks = await db.prepare(`
       SELECT 
         id,
@@ -117,9 +117,9 @@ export async function getFooterConfig(db: D1Database, language: string = 'en'): 
         target,
         is_visible
       FROM footer_privacy_links
-      WHERE is_visible = 1
+      WHERE is_visible = 1 AND language = ?
       ORDER BY link_type
-    `).all();
+    `).bind(language).all();
     
     return {
       config: config || {

@@ -108,12 +108,12 @@ commonContentApi.get('/footer', async (c) => {
       LIMIT 1
     `).bind(language).first();
     
-    // Get footer sections
+    // Get footer sections for the language
     const sections = await env.DB.prepare(`
       SELECT * FROM footer_sections
-      WHERE is_visible = 1
+      WHERE is_visible = 1 AND language = ?
       ORDER BY position
-    `).all();
+    `).bind(language).all();
     
     // Get links for each section
     const parsedSections = await Promise.all(sections.results.map(async (section) => {
@@ -136,7 +136,7 @@ commonContentApi.get('/footer', async (c) => {
       };
     }));
     
-    // Get privacy links
+    // Get privacy links for the language
     const privacyLinks = await env.DB.prepare(`
       SELECT 
         id,
@@ -146,9 +146,9 @@ commonContentApi.get('/footer', async (c) => {
         target,
         is_visible
       FROM footer_privacy_links
-      WHERE is_visible = 1
+      WHERE is_visible = 1 AND language = ?
       ORDER BY link_type
-    `).all();
+    `).bind(language).all();
     
     return c.json({
       success: true,
@@ -230,6 +230,7 @@ commonContentApi.post('/footer/config', async (c) => {
 commonContentApi.post('/footer/section/:id', async (c) => {
   const { env } = c;
   const sectionId = c.req.param('id');
+  const language = c.req.query('lang') || 'en';
   const body = await c.req.json();
   
   try {
@@ -260,6 +261,7 @@ commonContentApi.post('/footer/section/:id', async (c) => {
 commonContentApi.post('/footer/section/:id/link', async (c) => {
   const { env } = c;
   const sectionId = c.req.param('id');
+  const language = c.req.query('lang') || 'en';
   const body = await c.req.json();
   
   try {
@@ -344,6 +346,7 @@ commonContentApi.delete('/footer/link/:id', async (c) => {
 // Update privacy links
 commonContentApi.post('/footer/privacy-links', async (c) => {
   const { env } = c;
+  const language = c.req.query('lang') || 'en';
   const body = await c.req.json();
   
   try {
