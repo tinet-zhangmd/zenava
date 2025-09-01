@@ -248,7 +248,7 @@ export function LayoutWithCommonContent({
         </div>
         
         {/* Main Content */}
-        <main class="pt-16 site-container">
+        <main class="pt-16">
           {children}
         </main>
         

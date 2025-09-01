@@ -73,7 +73,7 @@ export function Layout({ children, language, currentPath, title, description, se
       <body class="bg-white">
         {/* Navigation */}
         <nav class="fixed top-0 w-full global-nav backdrop-blur-sm border-b z-50">
-          <div class="site-container px-4 sm:px-6 lg:px-8 mx-auto">
+          <div class="site-container px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
               {/* Logo */}
               <div class="flex-shrink-0">
@@ -173,7 +173,7 @@ export function Layout({ children, language, currentPath, title, description, se
         </nav>
 
         {/* Main Content */}
-        <main class="pt-16 site-container">
+        <main class="pt-16">
           {children}
         </main>
 

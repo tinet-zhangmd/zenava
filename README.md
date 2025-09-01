@@ -157,11 +157,10 @@
 
 ## 最后更新
 - **日期**: 2025-09-01
-- **版本**: 1.4.0
+- **版本**: 1.4.1
 - **更新内容**: 
-  - 移除企业营销业务右侧的表单，改为数据展示
-  - 完成产品设计与优化、品牌与舆情管理的样式更新
-  - 删除"What Zenava Brings to Your Organization"模块
-  - 删除"What Our Clients Say"客户评价模块
-  - 更新Platform Performance，删除标题说明，Enterprise Clients改为5000+
-  - 将"Get in Touch"改为"联系我们"，使用邮箱链接marketing@zenava.ai
+  - 修复了全站背景宽度限制问题
+  - 将 site-container 类仅应用于导航栏和页脚的内容区域
+  - 移除了主内容区域的 site-container 限制，让背景可以全宽显示
+  - 页面内容使用 max-w-7xl mx-auto 来限制内容宽度，保持良好的阅读体验
+  - 确保所有页面（首页、场景页、关于页等）的背景都能正确全宽展示
