@@ -50,16 +50,16 @@ export async function getNavigationConfig(db: D1Database, language: string = 'en
     `).bind(language).first();
     
     return config || {
-      logo_url: 'https://page.gensparksite.com/v1/base64_upload/5e1aceb131c0da67ee3eee4d55e36029',
-      logo_alt: 'Zenava Logo',
+      logo_url: 'https://page.gensparksite.com/v1/base64_upload/1476812a0b97e2ad48a012ceb5c7946e',
+      logo_alt: 'ZENAVA',
       status: 'published'
     };
   } catch (error) {
     console.error('Error fetching navigation config:', error);
     // Return default values
     return {
-      logo_url: 'https://page.gensparksite.com/v1/base64_upload/5e1aceb131c0da67ee3eee4d55e36029',
-      logo_alt: 'Zenava Logo',
+      logo_url: 'https://page.gensparksite.com/v1/base64_upload/1476812a0b97e2ad48a012ceb5c7946e',
+      logo_alt: 'ZENAVA',
       status: 'published'
     };
   }
@@ -123,10 +123,10 @@ export async function getFooterConfig(db: D1Database, language: string = 'en'): 
     
     return {
       config: config || {
-        logo_url: 'https://page.gensparksite.com/v1/base64_upload/5e1aceb131c0da67ee3eee4d55e36029',
-        logo_alt: 'Logo',
+        logo_url: 'https://page.gensparksite.com/v1/base64_upload/1476812a0b97e2ad48a012ceb5c7946e',
+        logo_alt: 'ZENAVA',
         logo_subtitle: 'AI Agent for Enterprise Customer Dialogue Scenarios',
-        copyright_text: `© ${new Date().getFullYear()} TI Cloud. All rights reserved.`,
+        copyright_text: `© ${new Date().getFullYear()} ZENAVA. All rights reserved.`,
         status: 'published'
       },
       sections: sectionsWithLinks,
@@ -137,10 +137,10 @@ export async function getFooterConfig(db: D1Database, language: string = 'en'): 
     // Return default values
     return {
       config: {
-        logo_url: 'https://page.gensparksite.com/v1/base64_upload/5e1aceb131c0da67ee3eee4d55e36029',
-        logo_alt: 'Logo',
+        logo_url: 'https://page.gensparksite.com/v1/base64_upload/1476812a0b97e2ad48a012ceb5c7946e',
+        logo_alt: 'ZENAVA',
         logo_subtitle: 'AI Agent for Enterprise Customer Dialogue Scenarios',
-        copyright_text: `© ${new Date().getFullYear()} TI Cloud. All rights reserved.`,
+        copyright_text: `© ${new Date().getFullYear()} ZENAVA. All rights reserved.`,
         status: 'published'
       },
       sections: [],
