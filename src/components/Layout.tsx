@@ -70,10 +70,10 @@ export function Layout({ children, language, currentPath, title, description, se
           `
         }} />
       </head>
-      <body class="bg-white">
+      <body class="bg-white site-container">
         {/* Navigation */}
-        <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-gray-100 z-50">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="fixed top-0 w-full global-nav backdrop-blur-sm border-b z-50">
+          <div class="site-container px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
               {/* Logo */}
               <div class="flex-shrink-0">
@@ -91,7 +91,7 @@ export function Layout({ children, language, currentPath, title, description, se
               <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-8">
                   <a href={getLocalizedPath('/', language)} 
-                     class="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors">
+                     class="nav-link text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors">
                     {t(translations, 'nav.home')}
                   </a>
 
@@ -104,23 +104,23 @@ export function Layout({ children, language, currentPath, title, description, se
                     <div class="absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                       <div class="py-2">
                         <a href={getLocalizedPath('/scenarios/marketing', language)} 
-                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600">
+                           class="nav-link block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600">
                           {t(translations, 'nav.marketing')}
                         </a>
                         <a href={getLocalizedPath('/scenarios/sales', language)}
-                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600">
+                           class="nav-link block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600">
                           {t(translations, 'nav.sales')}
                         </a>
                         <a href={getLocalizedPath('/scenarios/customer-service', language)}
-                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600">
+                           class="nav-link block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600">
                           {t(translations, 'nav.customer_service')}
                         </a>
                         <a href={getLocalizedPath('/scenarios/internal-service', language)}
-                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600">
+                           class="nav-link block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600">
                           {t(translations, 'nav.internal_service')}
                         </a>
                         <a href={getLocalizedPath('/scenarios/management', language)}
-                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600">
+                           class="nav-link block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600">
                           {t(translations, 'nav.management')}
                         </a>
                       </div>
@@ -128,7 +128,7 @@ export function Layout({ children, language, currentPath, title, description, se
                   </div>
 
                   <a href={getLocalizedPath('/about', language)}
-                     class="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors">
+                     class="nav-link text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors">
                     {t(translations, 'nav.about')}
                   </a>
                 </div>
@@ -173,13 +173,13 @@ export function Layout({ children, language, currentPath, title, description, se
         </nav>
 
         {/* Main Content */}
-        <main class="pt-16">
+        <main class="pt-16 site-container">
           {children}
         </main>
 
         {/* Footer */}
         <footer class="bg-gray-900 text-white">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div class="site-container px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div class="col-span-1 md:col-span-2">
                 <div class="mb-4">

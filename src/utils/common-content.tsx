@@ -4,6 +4,13 @@ export interface NavigationConfig {
   logo_url: string | null;
   logo_alt: string;
   status: string;
+  // Optional style tokens managed by backend (all optional)
+  text_color?: string | null;
+  hover_color?: string | null;
+  bg_color?: string | null;
+  border_color?: string | null;
+  font_family?: string | null;
+  gap_x?: string | null; // e.g., '24px' or '1.5rem'
 }
 
 export interface FooterConfig {
@@ -49,10 +56,16 @@ export async function getNavigationConfig(db: D1Database, language: string = 'en
       LIMIT 1
     `).bind(language).first();
     
-    return config || {
+    return (config as NavigationConfig) || {
       logo_url: 'https://page.gensparksite.com/v1/base64_upload/1476812a0b97e2ad48a012ceb5c7946e',
       logo_alt: 'ZENAVA',
-      status: 'published'
+      status: 'published',
+      text_color: null,
+      hover_color: null,
+      bg_color: null,
+      border_color: null,
+      font_family: null,
+      gap_x: null
     };
   } catch (error) {
     console.error('Error fetching navigation config:', error);
@@ -60,7 +73,13 @@ export async function getNavigationConfig(db: D1Database, language: string = 'en
     return {
       logo_url: 'https://page.gensparksite.com/v1/base64_upload/1476812a0b97e2ad48a012ceb5c7946e',
       logo_alt: 'ZENAVA',
-      status: 'published'
+      status: 'published',
+      text_color: null,
+      hover_color: null,
+      bg_color: null,
+      border_color: null,
+      font_family: null,
+      gap_x: null
     };
   }
 }

@@ -108,8 +108,95 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
           )}
         </div>
 
-        <div class="container mx-auto px-6 relative z-10">
-          <div class="max-w-5xl mx-auto text-center">
+        <div class="site-container px-6 relative z-10">
+          <div class="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh]">
+  <div class="space-y-6">
+    <div class="text-3xl font-bold text-white tracking-wide">Zenava</div>
+    <h1 class="text-5xl lg:text-6xl font-black text-white leading-tight">
+      AI Agent for Enterprise Customer Dialogue Scenarios
+    </h1>
+    <p class="text-xl text-gray-300">讓每一次客戶對話都創造實際價值</p>
+    <a href="#contact" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-2xl text-white font-bold shadow-lg hover:shadow-[#6438FF]/30 hover:scale-105 transition-all w-max">
+      Get Started
+      <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+    </a>
+  </div>
+  <div class="relative lg:h-[600px] flex items-center justify-center">
+    <div class="relative w-full max-w-md">
+      <div class="bg-white/10 border border-white/20 backdrop-blur-xl rounded-3xl p-6 shadow-2xl">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-xl flex items-center justify-center">
+              <i class="fas fa-robot text-white"></i>
+            </div>
+            <div>
+              <div class="text-white font-semibold">Zenava AI</div>
+              <div class="text-[#0DE0EF] text-sm">Online</div>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <div class="w-2 h-2 bg-[#0DE0EF] rounded-full animate-pulse"></div>
+            <span class="text-xs text-gray-300">Live</span>
+          </div>
+        </div>
+
+        <div class="space-y-4 mb-4" id="ai-sim">
+          <div class="flex justify-end ai-step ai-step-1">
+            <div class="bg-gradient-to-r from-[#6438FF] to-[#8B5CF6] text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs">
+              <p class="text-sm">您好，我的订单 #A12345 想查询一下物流</p>
+            </div>
+          </div>
+          <div class="flex justify-start ai-step ai-step-2 opacity-0" style="animation: fadeIn .6s ease forwards; animation-delay: .8s;">
+            <div class="bg-white/10 text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs border border-white/20">
+              <div class="flex items-center space-x-2 mb-2">
+                <div class="w-4 h-4 bg-gradient-to-r from-[#0DE0EF] to-[#6438FF] rounded-full"></div>
+                <span class="text-xs text-[#0DE0EF]">正在識別問題...</span>
+              </div>
+              <p class="text-sm">為您定位訂單資訊中...</p>
+            </div>
+          </div>
+          <div class="flex justify-start ai-step ai-step-3 opacity-0" style="animation: fadeIn .6s ease forwards; animation-delay: 1.8s;">
+            <div class="bg-white/10 text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs border border-white/20">
+              <p class="text-sm">已找到訂單，包裹已出庫，預計 24 小時內送達。需要我發送追蹤連結嗎？</p>
+            </div>
+          </div>
+          <div class="flex justify-end ai-step ai-step-4 opacity-0" style="animation: fadeIn .6s ease forwards; animation-delay: 2.8s;">
+            <div class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs">
+              <p class="text-sm">好的，謝謝！請發我追蹤連結 👍</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <div class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3">
+            <input type="text" placeholder="輸入訊息..." class="w-full bg-transparent text-white placeholder-gray-400 text-sm outline-none" />
+          </div>
+          <button class="w-12 h-12 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-xl flex items-center justify-center hover:scale-105 transition-transform">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="absolute -top-4 -right-8 w-32 p-3 bg-gradient-to-r from-[#6438FF]/90 to-[#8B5CF6]/90 backdrop-blur-xl rounded-xl border border-white/20 animate-float">
+        <div class="flex items-center space-x-2 mb-1">
+          <div class="w-4 h-4 bg-[#0DE0EF] rounded-full"></div>
+          <span class="text-white text-xs font-semibold">Response</span>
+        </div>
+        <div class="text-white text-lg font-black">&lt; 100ms</div>
+      </div>
+
+      <div class="absolute -bottom-4 -left-8 w-36 p-3 bg-gradient-to-r from-[#0DE0EF]/90 to-[#6438FF]/90 backdrop-blur-xl rounded-xl border border-white/20 animate-float-delayed">
+        <div class="flex items-center space-x-2 mb-1">
+          <div class="w-4 h-4 bg-white rounded-full"></div>
+          <span class="text-white text-xs font-semibold">Satisfaction</span>
+        </div>
+        <div class="text-white text-lg font-black">98.7%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="site-container max-w-5xl mx-auto text-center hidden">
             
             {/* AI Badge */}
             <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#6438FF]/20 to-[#0DE0EF]/20 backdrop-blur-sm rounded-full border border-[#6438FF]/30 shadow-lg mb-8">
@@ -176,246 +263,308 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         </div>
       </section>
 
-      {/* Zenava Business Value Section - New Comprehensive Module */}
-      <section class="py-20 bg-gradient-to-br from-gray-50 to-white">
-        <div class="container mx-auto px-6">
+      {/* Zenava Business Value Section - Matching Marketing Solutions Style */}
+      <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-16">
-            <h2 class="text-4xl lg:text-5xl font-black text-[#000D25] mb-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Zenava 能为企业带来什么
             </h2>
-            <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            <p class="text-xl text-gray-600">
               构建AI驱动的未来组织形态，提升协同效率、重塑客户体验，并以客户联络数据驱动企业核心竞争力跃迁
             </p>
           </div>
 
-          {/* Business Value Cards */}
           <div class="space-y-16">
-            {/* Marketing Business */}
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-              <div class="grid lg:grid-cols-2 gap-0">
-                <div class="p-10 lg:p-12">
-                  <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#6438FF]/10 to-[#0DE0EF]/10 rounded-full mb-6">
-                    <i class="fas fa-bullhorn text-[#6438FF] mr-2"></i>
-                    <span class="text-[#6438FF] font-semibold">企业营销业务</span>
+            {/* Marketing Business - Solution 1 */}
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div data-animate="slide-up">
+                <div class="flex items-center mb-6">
+                  <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-bullhorn text-purple-600 text-xl"></i>
                   </div>
-                  <h3 class="text-3xl font-bold text-[#000D25] mb-4">
-                    提升转化率，降低获客成本
-                  </h3>
-                  <p class="text-gray-600 leading-relaxed mb-6">
-                    Zenava 实时识别客户意图，统一话术留资，智能分配高潜线索；基于会话分析反哺营销策略；自动激活沉默客户，提升二次转化；打通多渠道数据，驱动精准触达。
-                  </p>
-                  <div class="flex flex-wrap gap-3">
-                    <span class="px-3 py-1 bg-[#6438FF]/10 text-[#6438FF] rounded-full text-sm font-medium">意图识别</span>
-                    <span class="px-3 py-1 bg-[#0DE0EF]/10 text-[#0DE0EF] rounded-full text-sm font-medium">智能留资</span>
-                    <span class="px-3 py-1 bg-[#6438FF]/10 text-[#6438FF] rounded-full text-sm font-medium">多渠道整合</span>
+                  <h3 class="text-2xl font-bold text-gray-900">企业营销业务</h3>
+                </div>
+                <h4 class="text-lg font-semibold text-purple-600 mb-4">
+                  提升转化率，降低获客成本
+                </h4>
+                <p class="text-gray-700 mb-6 leading-relaxed">
+                  Zenava 实时识别客户意图，统一话术留资，智能分配高潜线索；基于会话分析反哺营销策略；自动激活沉默客户，提升二次转化；打通多渠道数据，驱动精准触达。
+                </p>
+                <div class="flex space-x-4">
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>意图识别</span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>智能留资</span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>多渠道整合</span>
                   </div>
                 </div>
-                <div class="bg-gradient-to-br from-[#6438FF]/5 to-[#0DE0EF]/5 p-10 lg:p-12 flex items-center justify-center">
-                  <div class="w-full max-w-md">
-                    <img src="/static/marketing-illustration.svg" alt="Marketing Automation" class="w-full h-auto" onerror="this.style.display='none'" />
-                    <div class="bg-white rounded-xl p-6 shadow-lg">
-                      <div class="text-center text-sm text-gray-500 mb-4">营销转化漏斗</div>
-                      <div class="space-y-3">
-                        <div class="flex items-center justify-between p-3 bg-[#6438FF]/10 rounded-lg">
-                          <span class="text-sm font-medium">意图识别</span>
-                          <span class="text-[#6438FF] font-bold">95%</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-[#0DE0EF]/10 rounded-lg">
-                          <span class="text-sm font-medium">留资转化</span>
-                          <span class="text-[#0DE0EF] font-bold">85%</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-[#6438FF]/10 rounded-lg">
-                          <span class="text-sm font-medium">客户激活</span>
-                          <span class="text-[#6438FF] font-bold">60%</span>
-                        </div>
-                      </div>
+              </div>
+              
+              <div class="bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
+                <h4 class="font-bold text-gray-900 mb-6">营销转化提升数据</h4>
+                
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
+                    <div>
+                      <p class="text-sm text-gray-600">平均获客成本降低</p>
+                      <p class="text-2xl font-bold text-purple-600">43%</p>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <i class="fas fa-arrow-down text-purple-600"></i>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+                    <div>
+                      <p class="text-sm text-gray-600">线索转化率提升</p>
+                      <p class="text-2xl font-bold text-green-600">65%</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                      <i class="fas fa-arrow-up text-green-600"></i>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+                    <div>
+                      <p class="text-sm text-gray-600">客户响应时间</p>
+                      <p class="text-2xl font-bold text-blue-600">&lt;30秒</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <i class="fas fa-bolt text-blue-600"></i>
+                    </div>
+                  </div>
+                  
+                  <div class="border-t pt-4">
+                    <div class="flex items-center justify-between">
+                      <span class="text-sm text-gray-600">智能营销覆盖渠道</span>
+                      <span class="text-sm font-bold text-gray-900">10+</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                      <span class="text-sm text-gray-600">日均处理咨询量</span>
+                      <span class="text-sm font-bold text-gray-900">50,000+</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Sales Business */}
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-              <div class="grid lg:grid-cols-2 gap-0">
-                <div class="order-2 lg:order-1 bg-gradient-to-br from-[#0DE0EF]/5 to-[#6438FF]/5 p-10 lg:p-12 flex items-center justify-center">
-                  <div class="w-full max-w-md">
-                    <img src="/static/sales-illustration.svg" alt="Sales Enhancement" class="w-full h-auto" onerror="this.style.display='none'" />
-                    <div class="bg-white rounded-xl p-6 shadow-lg">
-                      <div class="flex items-start space-x-3 mb-4">
-                        <div class="w-10 h-10 bg-[#6438FF] rounded-full flex items-center justify-center flex-shrink-0">
-                          <i class="fas fa-robot text-white"></i>
-                        </div>
-                        <div class="flex-1">
-                          <div class="text-sm font-medium text-gray-900 mb-2">AI 销售助手</div>
-                          <div class="bg-[#6438FF]/10 rounded-lg p-3">
-                            <p class="text-sm text-gray-700">检测到客户关注价格，建议话术：</p>
-                            <p class="text-sm font-medium text-[#6438FF] mt-1">"我理解您的顾虑，让我为您介绍我们的分期方案..."</p>
-                          </div>
-                        </div>
+            {/* Sales Business - Solution 2 */}
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div class="order-2 lg:order-1 bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
+                  <div class="space-y-4">
+                  <h4 class="font-bold text-gray-900 mb-4">销售赋能流程</h4>
+                  
+                  <div class="space-y-3">
+                    <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                      <div class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">1</div>
+                      <div class="flex-1">
+                        <p class="font-medium">实时话术推荐</p>
+                        <p class="text-sm text-gray-600">根据客户关注点推荐最佳话术</p>
                       </div>
-                      <div class="grid grid-cols-3 gap-2 text-center">
-                        <div class="bg-gray-50 rounded-lg p-2">
-                          <div class="text-xs text-gray-500">话术推荐</div>
-                          <div class="text-lg font-bold text-[#6438FF]">实时</div>
-                        </div>
-                        <div class="bg-gray-50 rounded-lg p-2">
-                          <div class="text-xs text-gray-500">知识调用</div>
-                          <div class="text-lg font-bold text-[#0DE0EF]">秒级</div>
-                        </div>
-                        <div class="bg-gray-50 rounded-lg p-2">
-                          <div class="text-xs text-gray-500">成交率</div>
-                          <div class="text-lg font-bold text-[#6438FF]">+45%</div>
-                        </div>
+                      <div class="text-right">
+                        <span class="text-lg font-bold text-blue-600">实时</span>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div class="order-1 lg:order-2 p-10 lg:p-12">
-                  <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#0DE0EF]/10 to-[#6438FF]/10 rounded-full mb-6">
-                    <i class="fas fa-chart-line text-[#0DE0EF] mr-2"></i>
-                    <span class="text-[#0DE0EF] font-semibold">企业销售业务</span>
-                  </div>
-                  <h3 class="text-3xl font-bold text-[#000D25] mb-4">
-                    拉高销售中位线，提升转化能力
-                  </h3>
-                  <p class="text-gray-600 leading-relaxed mb-6">
-                    识别客户问题，推荐话术，规范销售动作；自动应对客户挑战，调取产品与竞品知识；提炼高转化话术与失败原因，形成可复制方法论；结合客户行为智能推荐产品，辅助成交。
-                  </p>
-                  <div class="flex flex-wrap gap-3">
-                    <span class="px-3 py-1 bg-[#0DE0EF]/10 text-[#0DE0EF] rounded-full text-sm font-medium">话术推荐</span>
-                    <span class="px-3 py-1 bg-[#6438FF]/10 text-[#6438FF] rounded-full text-sm font-medium">竞品分析</span>
-                    <span class="px-3 py-1 bg-[#0DE0EF]/10 text-[#0DE0EF] rounded-full text-sm font-medium">智能成交</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Customer Service Business */}
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-              <div class="grid lg:grid-cols-2 gap-0">
-                <div class="p-10 lg:p-12">
-                  <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#6438FF]/10 to-[#0DE0EF]/10 rounded-full mb-6">
-                    <i class="fas fa-headset text-[#6438FF] mr-2"></i>
-                    <span class="text-[#6438FF] font-semibold">客户服务业务</span>
-                  </div>
-                  <h3 class="text-3xl font-bold text-[#000D25] mb-4">
-                    让服务更快、更准、更有温度
-                  </h3>
-                  <p class="text-gray-600 leading-relaxed mb-6">
-                    全天候响应常见咨询，复杂问题智能分流；识别客户情绪并动态调整应对策略；联动知识库与工单系统，快速定位与处理问题；持续分析服务盲区，实现话术与流程优化。
-                  </p>
-                  <div class="flex flex-wrap gap-3">
-                    <span class="px-3 py-1 bg-[#6438FF]/10 text-[#6438FF] rounded-full text-sm font-medium">24/7响应</span>
-                    <span class="px-3 py-1 bg-[#0DE0EF]/10 text-[#0DE0EF] rounded-full text-sm font-medium">情绪识别</span>
-                    <span class="px-3 py-1 bg-[#6438FF]/10 text-[#6438FF] rounded-full text-sm font-medium">智能工单</span>
-                  </div>
-                </div>
-                <div class="bg-gradient-to-br from-[#6438FF]/5 to-[#0DE0EF]/5 p-10 lg:p-12 flex items-center justify-center">
-                  <div class="w-full max-w-md">
-                    <img src="/static/service-illustration.svg" alt="Customer Service" class="w-full h-auto" onerror="this.style.display='none'" />
-                    <div class="bg-white rounded-xl p-6 shadow-lg">
-                      <div class="text-center text-sm text-gray-500 mb-4">智能工单流程</div>
-                      <div class="space-y-2">
-                        <div class="flex items-center space-x-3">
-                          <div class="w-8 h-8 bg-[#6438FF] rounded-full flex items-center justify-center">
-                            <i class="fas fa-brain text-white text-sm"></i>
-                          </div>
-                          <div class="flex-1">
-                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                              <div class="h-full bg-[#6438FF] rounded-full" style="width: 100%"></div>
-                            </div>
-                          </div>
-                          <span class="text-xs text-gray-500">AI定位问题</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                          <div class="w-8 h-8 bg-[#0DE0EF] rounded-full flex items-center justify-center">
-                            <i class="fas fa-book text-white text-sm"></i>
-                          </div>
-                          <div class="flex-1">
-                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                              <div class="h-full bg-[#0DE0EF] rounded-full" style="width: 90%"></div>
-                            </div>
-                          </div>
-                          <span class="text-xs text-gray-500">知识库调用</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                          <div class="w-8 h-8 bg-[#6438FF] rounded-full flex items-center justify-center">
-                            <i class="fas fa-ticket-alt text-white text-sm"></i>
-                          </div>
-                          <div class="flex-1">
-                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                              <div class="h-full bg-[#6438FF] rounded-full" style="width: 75%"></div>
-                            </div>
-                          </div>
-                          <span class="text-xs text-gray-500">工单生成</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                          <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                            <i class="fas fa-check text-white text-sm"></i>
-                          </div>
-                          <div class="flex-1">
-                            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                              <div class="h-full bg-green-500 rounded-full" style="width: 100%"></div>
-                            </div>
-                          </div>
-                          <span class="text-xs text-gray-500">处理闭环</span>
-                        </div>
+                    
+                    <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                      <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">2</div>
+                      <div class="flex-1">
+                        <p class="font-medium">知识库调用</p>
+                        <p class="text-sm text-gray-600">产品、竞品、案例即时调取</p>
+                      </div>
+                      <div class="text-right">
+                        <span class="text-lg font-bold text-green-600">秒级</span>
+                      </div>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+                      <div class="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">3</div>
+                      <div class="flex-1">
+                        <p class="font-medium">智能成交辅助</p>
+                        <p class="text-sm text-gray-600">成交率提升45%</p>
+                      </div>
+                      <div class="text-right">
+                        <span class="text-lg font-bold text-purple-600">+45%</span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+
+              <div class="order-1 lg:order-2" data-animate="slide-up">
+                <div class="flex items-center mb-6">
+                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-chart-line text-blue-600 text-xl"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold text-gray-900">企业销售业务</h3>
+                </div>
+                <h4 class="text-lg font-semibold text-blue-600 mb-4">
+                  拉高销售中位线，提升转化能力
+                </h4>
+                <p class="text-gray-700 mb-6 leading-relaxed">
+                  识别客户问题，推荐话术，规范销售动作；自动应对客户挑战，调取产品与竞品知识；提炼高转化话术与失败原因，形成可复制方法论；结合客户行为智能推荐产品，辅助成交。
+                </p>
+                <div class="flex space-x-4">
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>话术推荐</span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>竞品分析</span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>智能成交</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Store/Dealer Operations */}
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-              <div class="grid lg:grid-cols-2 gap-0">
-                <div class="order-2 lg:order-1 bg-gradient-to-br from-[#0DE0EF]/5 to-[#6438FF]/5 p-10 lg:p-12 flex items-center justify-center">
-                  <div class="w-full max-w-md">
-                    <img src="/static/operations-illustration.svg" alt="Operations Management" class="w-full h-auto" onerror="this.style.display='none'" />
-                    <div class="bg-white rounded-xl p-6 shadow-lg">
-                      <div class="text-center text-sm text-gray-500 mb-4">多级组织运营中枢</div>
-                      <div class="grid grid-cols-2 gap-4">
-                        <div class="text-center">
-                          <div class="w-16 h-16 bg-[#6438FF]/10 rounded-xl flex items-center justify-center mx-auto mb-2">
-                            <i class="fas fa-store text-[#6438FF] text-xl"></i>
-                          </div>
-                          <div class="text-2xl font-bold text-[#6438FF]">500+</div>
-                          <div class="text-xs text-gray-500">门店接入</div>
-                        </div>
-                        <div class="text-center">
-                          <div class="w-16 h-16 bg-[#0DE0EF]/10 rounded-xl flex items-center justify-center mx-auto mb-2">
-                            <i class="fas fa-tasks text-[#0DE0EF] text-xl"></i>
-                          </div>
-                          <div class="text-2xl font-bold text-[#0DE0EF]">10K+</div>
-                          <div class="text-xs text-gray-500">日均处理</div>
-                        </div>
-                      </div>
-                      <div class="mt-4 p-3 bg-gray-50 rounded-lg">
-                        <div class="flex items-center justify-between text-sm">
-                          <span class="text-gray-600">派单效率</span>
-                          <span class="font-bold text-green-600">↑ 85%</span>
-                        </div>
-                      </div>
+            {/* Customer Service Business - Solution 3 */}
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div data-animate="slide-up">
+                <div class="flex items-center mb-6">
+                  <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-headset text-orange-600 text-xl"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold text-gray-900">客户服务业务</h3>
+                </div>
+                <h4 class="text-lg font-semibold text-orange-600 mb-4">
+                  让服务更快、更准、更有温度
+                </h4>
+                <p class="text-gray-700 mb-6 leading-relaxed">
+                  全天候响应常见咨询，复杂问题智能分流；识别客户情绪并动态调整应对策略；联动知识库与工单系统，快速定位与处理问题；持续分析服务盲区，实现话术与流程优化。
+                </p>
+                <div class="flex space-x-4">
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>24/7响应</span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>情绪识别</span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>智能工单</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
+                <h4 class="font-bold text-gray-900 mb-6">智能工单处理流程</h4>
+                
+                <div class="space-y-4">
+                  <div class="flex items-start space-x-4">
+                    <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-sm font-bold mt-1">1</div>
+                    <div>
+                      <p class="font-medium text-gray-900">AI定位问题</p>
+                      <p class="text-sm text-gray-600">智能分析客户问题类型和紧急程度</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start space-x-4">
+                    <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center text-sm font-bold mt-1">2</div>
+                    <div>
+                      <p class="font-medium text-gray-900">知识库调用</p>
+                      <p class="text-sm text-gray-600">匹配最佳解决方案和历史案例</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start space-x-4">
+                    <div class="w-8 h-8 bg-orange-200 rounded-full flex items-center justify-center text-sm font-bold mt-1">3</div>
+                    <div>
+                      <p class="font-medium text-gray-900">智能派单</p>
+                      <p class="text-sm text-gray-600">根据技能和负载自动分配专员</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start space-x-4">
+                    <div class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold mt-1">4</div>
+                    <div>
+                      <p class="font-medium text-gray-900">处理闭环</p>
+                      <p class="text-sm text-gray-600">跟踪处理进度，确保服务质量</p>
                     </div>
                   </div>
                 </div>
-                <div class="order-1 lg:order-2 p-10 lg:p-12">
-                  <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#0DE0EF]/10 to-[#6438FF]/10 rounded-full mb-6">
-                    <i class="fas fa-network-wired text-[#0DE0EF] mr-2"></i>
-                    <span class="text-[#0DE0EF] font-semibold">门店/经销商运营</span>
+              </div>
+            </div>
+
+            {/* Store/Dealer Operations - Solution 4 */}
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div class="order-2 lg:order-1 bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
+                  <div class="space-y-6">
+                  <h4 class="font-bold text-gray-900 mb-4">运营效率提升</h4>
+                  
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <div class="flex items-center justify-between">
+                        <i class="fas fa-store text-green-600 text-2xl"></i>
+                        <span class="text-2xl font-bold text-green-600">500+</span>
+                      </div>
+                      <p class="text-sm text-gray-700 mt-2">门店接入</p>
+                    </div>
+                    
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <div class="flex items-center justify-between">
+                        <i class="fas fa-tasks text-blue-600 text-2xl"></i>
+                        <span class="text-2xl font-bold text-blue-600">10K+</span>
+                      </div>
+                      <p class="text-sm text-gray-700 mt-2">日均处理</p>
+                    </div>
+                    
+                    <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                      <div class="flex items-center justify-between">
+                        <i class="fas fa-clock text-purple-600 text-2xl"></i>
+                        <span class="text-lg font-bold text-purple-600">2小时</span>
+                      </div>
+                      <p class="text-sm text-gray-700 mt-2">平均响应</p>
+                    </div>
+                    
+                    <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                      <div class="flex items-center justify-between">
+                        <i class="fas fa-chart-line text-orange-600 text-2xl"></i>
+                        <span class="text-lg font-bold text-orange-600">85%</span>
+                      </div>
+                      <p class="text-sm text-gray-700 mt-2">派单效率</p>
+                    </div>
                   </div>
-                  <h3 class="text-3xl font-bold text-[#000D25] mb-4">
-                    多级、大规模组织的高效运营中枢
-                  </h3>
-                  <p class="text-gray-600 leading-relaxed mb-6">
-                    统一服务入口，集中处理设备、库存、培训等事务；智能派单与进度追踪，提高流转效率；识别高频问题并推送知识，减轻总部负担；通过运营数据分析优化资源与标准。
-                  </p>
-                  <div class="flex flex-wrap gap-3">
-                    <span class="px-3 py-1 bg-[#0DE0EF]/10 text-[#0DE0EF] rounded-full text-sm font-medium">统一入口</span>
-                    <span class="px-3 py-1 bg-[#6438FF]/10 text-[#6438FF] rounded-full text-sm font-medium">智能派单</span>
-                    <span class="px-3 py-1 bg-[#0DE0EF]/10 text-[#0DE0EF] rounded-full text-sm font-medium">数据分析</span>
+                </div>
+              </div>
+              
+              <div class="order-1 lg:order-2" data-animate="slide-up">
+                <div class="flex items-center mb-6">
+                  <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-network-wired text-indigo-600 text-xl"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold text-gray-900">门店/经销商运营</h3>
+                </div>
+                <h4 class="text-lg font-semibold text-indigo-600 mb-4">
+                  多级、大规模组织的高效运营中枢
+                </h4>
+                <p class="text-gray-700 mb-6 leading-relaxed">
+                  统一服务入口，集中处理设备、库存、培训等事务；智能派单与进度追踪，提高流转效率；识别高频问题并推送知识，减轻总部负担；通过运营数据分析优化资源与标准。
+                </p>
+                <div class="flex space-x-4">
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>统一入口</span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>智能派单</span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>数据分析</span>
                   </div>
                 </div>
               </div>
@@ -547,7 +696,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
 
       {/* Features Section - Zenava Brand Style */}
       <section id="features" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
+        <div class="site-container px-6">
           <div class="text-center mb-16">
             <h2 class="text-5xl lg:text-6xl font-black text-[#000D25] mb-6 leading-tight">
               {featuresContent.title || 'Intelligent by Design'}
@@ -596,7 +745,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
           <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-r from-[#0DE0EF]/10 to-[#6438FF]/10 rounded-full blur-3xl"></div>
         </div>
         
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="site-container px-6 relative z-10">
           <div class="text-center mb-16">
             <div class="inline-flex items-center px-4 py-2 bg-[#6438FF]/20 rounded-full mb-6">
               <span class="text-[#0DE0EF] text-sm font-bold tracking-wide">PLATFORM PERFORMANCE</span>
@@ -647,7 +796,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         if (module.module_type === 'text_block') {
           return (
             <section key={index} class="py-20 bg-white">
-              <div class="container mx-auto px-6">
+              <div class="site-container px-6">
                 <div class="max-w-4xl mx-auto">
                   {content.title && <h2 class="text-4xl font-bold text-gray-900 mb-6">{content.title}</h2>}
                   {content.content && <div class="prose prose-lg" dangerouslySetInnerHTML={{ __html: content.content }}></div>}
@@ -676,98 +825,28 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         return null;
       })}
 
-      {/* Testimonials Section */}
-      <section id="testimonials" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-          <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">
-            {t?.testimonials?.title || 'What Our Clients Say'}
-          </h2>
-          
-          <div class="grid md:grid-cols-3 gap-8">
-            {(t?.testimonials?.items || [
-              { content: 'Excellent AI platform that transformed our customer service.', author: 'John Smith', role: 'CEO, Tech Corp' },
-              { content: 'The best investment we made for our support team.', author: 'Sarah Johnson', role: 'CTO, StartupXYZ' },
-              { content: 'Incredible ROI and customer satisfaction improvement.', author: 'Mike Chen', role: 'VP Support, Enterprise Inc' }
-            ]).map((testimonial, index) => (
-              <div key={index} class="bg-white rounded-xl p-8 shadow-lg">
-                <div class="flex mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <i key={i} class="fas fa-star text-yellow-400"></i>
-                  ))}
-                </div>
-                <p class="text-gray-600 mb-6 italic">"{testimonial.content}"</p>
-                <div class="flex items-center">
-                  <div class="w-12 h-12 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold mr-4">
-                    {testimonial.author[0]}
-                  </div>
-                  <div>
-                    <div class="font-semibold text-gray-900">{testimonial.author}</div>
-                    <div class="text-sm text-gray-600">{testimonial.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Contact Section */}
       <section id="contact" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
+        <div class="site-container px-6">
           <div class="max-w-4xl mx-auto">
             <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">
-              {t?.contact?.title || 'Get in Touch'}
+              联系我们
             </h2>
             
-            <form class="grid md:grid-cols-2 gap-6" id="contact-form">
-              <div>
-                <label class="block text-gray-700 mb-2" for="name">{t?.contact?.form?.name || 'Name'}</label>
-                <input
-                  type="text"
-                  id="name"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 transition-colors"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label class="block text-gray-700 mb-2" for="email">{t?.contact?.form?.email || 'Email'}</label>
-                <input
-                  type="email"
-                  id="email"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 transition-colors"
-                  required
-                />
-              </div>
-              
-              <div class="md:col-span-2">
-                <label class="block text-gray-700 mb-2" for="company">{t?.contact?.form?.company || 'Company'}</label>
-                <input
-                  type="text"
-                  id="company"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 transition-colors"
-                />
-              </div>
-              
-              <div class="md:col-span-2">
-                <label class="block text-gray-700 mb-2" for="message">{t?.contact?.form?.message || 'Message'}</label>
-                <textarea
-                  id="message"
-                  rows="5"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600 transition-colors resize-none"
-                  required
-                ></textarea>
-              </div>
-              
-              <div class="md:col-span-2">
-                <button
-                  type="submit"
-                  class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all transform hover:scale-[1.02]"
-                >
-                  {t?.contact?.form?.submit || 'Send Message'} <i class="fas fa-paper-plane ml-2"></i>
-                </button>
-              </div>
-            </form>
+            <div class="text-center">
+              <p class="text-xl text-gray-600 mb-8">
+                如有任何问题或商务合作，请通过以下方式联系我们
+              </p>
+              <a 
+                href="mailto:marketing@zenava.ai" 
+                class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] text-white rounded-lg font-semibold hover:shadow-xl transition-all transform hover:scale-105"
+              >
+                <i class="fas fa-envelope mr-3"></i>
+                marketing@zenava.ai
+              </a>
+            </div>
           </div>
         </div>
       </section>

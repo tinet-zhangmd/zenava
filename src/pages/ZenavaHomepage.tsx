@@ -32,7 +32,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
           <div class="absolute bottom-1/3 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#6438FF]/50 to-transparent animate-pulse delay-1000"></div>
         </div>
 
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="site-container px-6 relative z-10">
           <div class="grid lg:grid-cols-2 gap-12 items-center">
             
             {/* Left Content */}
@@ -206,7 +206,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
 
       {/* AI Capabilities Section */}
       <section class="py-20 bg-white relative">
-        <div class="container mx-auto px-6">
+        <div class="site-container px-6">
           
           {/* Section Header */}
           <div class="text-center mb-16">
@@ -304,7 +304,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
           <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-r from-[#0DE0EF]/10 to-[#6438FF]/10 rounded-full blur-3xl"></div>
         </div>
         
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="site-container px-6 relative z-10">
           
           {/* Section Header */}
           <div class="text-center mb-16">
@@ -367,7 +367,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
 
       {/* Use Cases / Scenarios */}
       <section class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
+        <div class="site-container px-6">
           
           {/* Section Header */}
           <div class="text-center mb-16">

@@ -186,3 +186,33 @@ a:focus {
     display: none !important;
   }
 }
+
+/* Global site max width container */
+:root {
+  --site-max-width: 2200px;
+
+  /* Global nav style tokens (can be overridden from backend one day) */
+  --nav-text: #374151;           /* gray-700 */
+  --nav-hover: #4f46e5;          /* indigo-600 */
+  --nav-bg: rgba(255,255,255,0.95);
+  --nav-border: #f3f4f6;         /* gray-100 */
+}
+
+.site-container {
+  max-width: var(--site-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/* Global nav helpers */
+.global-nav {
+  background: var(--nav-bg);
+  border-color: var(--nav-border);
+}
+.global-nav a.nav-link {
+  color: var(--nav-text);
+}
+.global-nav a.nav-link:hover {
+  color: var(--nav-hover);
+}

@@ -20,15 +20,17 @@
   - Logo预览功能
   - 替代文本设置
   - 响应式Logo尺寸（高度: 40px-48px，最大宽度: 200px）
+  - **已更新为ZENAVA品牌Logo**
 
 - ✅ **页脚管理**:
   - Logo上传和管理
   - 副标题文本编辑
-  - 版权信息自定义
+  - 版权信息自定义（已更新为"© 2025 ZENAVA. All rights reserved."）
   - 动态内容板块（Scenarios、About Us）
   - 链接管理（支持当前页/新窗口打开）
   - 隐私政策链接（Privacy Policy、Terms & Conditions）
   - Cookie Preferences（无需链接，触发弹窗）
+  - **已更新为ZENAVA品牌Logo**
 
 - ✅ **发布机制**:
   - 草稿/发布状态管理
@@ -48,6 +50,33 @@
 - ✅ 场景页面（营销、销售、客服、内部服务、管理优化）
 - ✅ Cookie同意管理
 - ✅ 语言切换功能
+
+### 4. **首页优化更新（最新）**
+- ✅ **Banner文字更新**: 
+  - 主标题: "ZENAVA"
+  - 副标题: "让企业拥有专属的AI，让每个角色拥有专属的AI助手"
+  - 英文版: "Empower Your Enterprise with Custom AI, Equip Every Role with Personal AI Assistant"
+
+- ✅ **业务价值板块 - "Zenava 能为企业带来什么"**:
+  - 采用现代化卡片布局设计（与营销场景页面风格一致）
+  - 包含6大业务场景：
+    1. **企业营销业务**: 提升转化率，降低获客成本（右侧改为营销转化数据展示）
+    2. **企业销售业务**: 缩短销售周期，提升成交率
+    3. **客户服务业务**: 24/7智能服务，提升满意度
+    4. **门店/经销商运营**: 总部到门店的统一管理
+    5. **产品设计与优化**: 让客户声音成为产品迭代方向（已更新为新样式）
+    6. **品牌与舆情管理**: 实时守护企业品牌安全（已更新为新样式）
+
+- ✅ **页面精简优化**:
+  - 已删除"What Zenava Brings to Your Organization"模块
+  - 已删除"What Our Clients Say"客户评价模块
+  - 删除了Platform Performance标题和说明文字
+  - 更新Enterprise Clients从500+改为5000+
+
+- ✅ **联系方式更新**:
+  - 将"Get in Touch"改为"联系我们"
+  - 简化为邮箱联系方式: marketing@zenava.ai
+  - 移除了原有的联系表单
 
 ## 📁 数据架构
 
@@ -79,7 +108,8 @@
 ### 核心组件
 - `LayoutWithCommonContent.tsx` - 使用数据库配置的布局组件
 - `CommonContentManagement.tsx` - 公共内容管理界面
-- `common-content.tsx` - 公共内容API处理
+- `HomepageDB.tsx` - 首页组件（已完成全面优化）
+- `common-content.tsx` - 公共内容API处理和默认值
 - `upload.tsx` - 图片上传处理
 
 ## 🚀 部署状态
@@ -102,6 +132,7 @@
 - **大小**: 最大5MB
 - **推荐尺寸**: 高度40-48px，宽度根据Logo比例自适应
 - **显示效果**: 导航栏自动适配，页脚白色显示
+- **当前Logo**: ZENAVA品牌PNG图片
 
 ## 🔄 待优化功能
 - [ ] 图片CDN集成（建议使用Cloudflare R2）
@@ -121,12 +152,16 @@
 - Cookie Preferences不需要URL配置，点击触发弹窗
 - 发布公共内容会触发所有页面重新生成
 - 所有更改需要先保存再发布才能生效
+- 业务价值板块采用响应式网格布局，移动端自动适配
+- 联系方式简化为邮箱链接，提升用户体验
 
 ## 最后更新
 - **日期**: 2025-09-01
-- **版本**: 1.2.0
+- **版本**: 1.4.0
 - **更新内容**: 
-  - 修复Logo显示样式问题
-  - 支持PNG Logo正确显示
-  - 优化Logo尺寸（高度40-48px，最大宽度200px）
-  - Cookie Preferences无需URL配置
+  - 移除企业营销业务右侧的表单，改为数据展示
+  - 完成产品设计与优化、品牌与舆情管理的样式更新
+  - 删除"What Zenava Brings to Your Organization"模块
+  - 删除"What Our Clients Say"客户评价模块
+  - 更新Platform Performance，删除标题说明，Enterprise Clients改为5000+
+  - 将"Get in Touch"改为"联系我们"，使用邮箱链接marketing@zenava.ai

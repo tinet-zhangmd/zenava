@@ -85,10 +85,16 @@ export function LayoutWithCommonContent({
           `
         }} />
       </head>
-      <body class="bg-white font-sans">
+      <body class="bg-white font-sans" style={{
+        ...(navigationConfig?.text_color ? { ['--nav-text' as any]: navigationConfig.text_color } : {}),
+        ...(navigationConfig?.hover_color ? { ['--nav-hover' as any]: navigationConfig.hover_color } : {}),
+        ...(navigationConfig?.bg_color ? { ['--nav-bg' as any]: navigationConfig.bg_color } : {}),
+        ...(navigationConfig?.border_color ? { ['--nav-border' as any]: navigationConfig.border_color } : {}),
+        ...(navigationConfig?.font_family ? { fontFamily: navigationConfig.font_family } : {}),
+      }}>
         {/* Navigation */}
-        <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="fixed top-0 w-full global-nav backdrop-blur-md shadow-sm z-50 transition-all duration-300 border-b">
+          <div class="site-container px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-4">
               <div class="flex items-center space-x-8">
                 <a href={getLocalizedPath('/', language)} class="flex items-center space-x-2 group">
@@ -106,7 +112,7 @@ export function LayoutWithCommonContent({
                   )}
                 </a>
                 
-                <div class="hidden md:flex items-center space-x-6">
+                <div class="hidden md:flex items-center" style={{ columnGap: navigationConfig?.gap_x || undefined }}>
                   <div class="relative group">
                     <button class="text-gray-700 hover:text-brand-primary transition-colors flex items-center space-x-1 py-2">
                       <span>{t(translations, 'nav.scenarios')}</span>
@@ -114,7 +120,7 @@ export function LayoutWithCommonContent({
                     </button>
                     <div class="absolute top-full left-0 mt-1 w-64 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-2">
                       <div class="p-2">
-                        <a href={getLocalizedPath('/scenarios/marketing', language)} class="block px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <a href={getLocalizedPath('/scenarios/marketing', language)} class="nav-link block px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
                           <div class="flex items-center space-x-3">
                             <i class="fas fa-bullhorn text-brand-primary"></i>
                             <div>
@@ -123,7 +129,7 @@ export function LayoutWithCommonContent({
                             </div>
                           </div>
                         </a>
-                        <a href={getLocalizedPath('/scenarios/sales', language)} class="block px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <a href={getLocalizedPath('/scenarios/sales', language)} class="nav-link block px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
                           <div class="flex items-center space-x-3">
                             <i class="fas fa-chart-line text-brand-primary"></i>
                             <div>
@@ -132,7 +138,7 @@ export function LayoutWithCommonContent({
                             </div>
                           </div>
                         </a>
-                        <a href={getLocalizedPath('/scenarios/customer-service', language)} class="block px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <a href={getLocalizedPath('/scenarios/customer-service', language)} class="nav-link block px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
                           <div class="flex items-center space-x-3">
                             <i class="fas fa-headset text-brand-primary"></i>
                             <div>
@@ -141,7 +147,7 @@ export function LayoutWithCommonContent({
                             </div>
                           </div>
                         </a>
-                        <a href={getLocalizedPath('/scenarios/internal-service', language)} class="block px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <a href={getLocalizedPath('/scenarios/internal-service', language)} class="nav-link block px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
                           <div class="flex items-center space-x-3">
                             <i class="fas fa-users-cog text-brand-primary"></i>
                             <div>
@@ -150,7 +156,7 @@ export function LayoutWithCommonContent({
                             </div>
                           </div>
                         </a>
-                        <a href={getLocalizedPath('/scenarios/management', language)} class="block px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <a href={getLocalizedPath('/scenarios/management', language)} class="nav-link block px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
                           <div class="flex items-center space-x-3">
                             <i class="fas fa-tasks text-brand-primary"></i>
                             <div>
@@ -163,7 +169,7 @@ export function LayoutWithCommonContent({
                     </div>
                   </div>
                   
-                  <a href={getLocalizedPath('/about', language)} class="text-gray-700 hover:text-brand-primary transition-colors">
+                  <a href={getLocalizedPath('/about', language)} class="nav-link text-gray-700 hover:text-brand-primary transition-colors">
                     {t(translations, 'nav.about')}
                   </a>
                 </div>
@@ -242,13 +248,13 @@ export function LayoutWithCommonContent({
         </div>
         
         {/* Main Content */}
-        <main class="pt-16">
+        <main class="pt-16 site-container">
           {children}
         </main>
         
         {/* Footer */}
         <footer class="bg-gray-900 text-white mt-20">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div class="site-container px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
               {/* Logo and Description */}
               <div class="md:col-span-1">

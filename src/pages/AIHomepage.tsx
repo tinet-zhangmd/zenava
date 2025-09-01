@@ -37,7 +37,7 @@ export const AIHomepage: FC<AIHomepageProps> = ({ language = 'en', pageData, mod
           </div>
         </div>
 
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="site-container px-6 relative z-10">
           <div class="max-w-6xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left Content */}
@@ -181,7 +181,7 @@ export const AIHomepage: FC<AIHomepageProps> = ({ language = 'en', pageData, mod
       <section class="py-20 bg-white relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-b from-gray-50 to-white"></div>
         
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="site-container px-6 relative z-10">
           <div class="text-center mb-16">
             <h2 class="text-5xl lg:text-6xl font-black mb-6">
               <span class="bg-gradient-to-r from-gray-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent">
@@ -280,7 +280,7 @@ export const AIHomepage: FC<AIHomepageProps> = ({ language = 'en', pageData, mod
           </div>
         </div>
         
-        <div class="container mx-auto px-6 relative z-10">
+        <div class="site-container px-6 relative z-10">
           <div class="max-w-4xl mx-auto text-center mb-16">
             <h2 class="text-5xl lg:text-6xl font-black mb-6">
               <span class="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
