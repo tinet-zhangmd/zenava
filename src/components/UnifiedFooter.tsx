@@ -33,8 +33,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       privacyPolicy: 'Privacy Policy',
       termsConditions: 'Terms & Conditions',
       copyright: '© 2024 Zenava. All rights reserved.',
-      email: 'marketing@zenava.ai',
-      followUs: 'Follow Us'
+      email: 'marketing@zenava.ai'
     },
     jp: {
       subtitle: '企業と顧客の対話シナリオのためのAIエージェント',
@@ -52,8 +51,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       privacyPolicy: 'プライバシーポリシー',
       termsConditions: '利用規約',
       copyright: '© 2024 Zenava. All rights reserved.',
-      email: 'marketing@zenava.ai',
-      followUs: 'フォロー'
+      email: 'marketing@zenava.ai'
     },
     hk: {
       subtitle: '企業與客戶對話場景的 AI 智能體',
@@ -71,8 +69,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       privacyPolicy: '隱私政策',
       termsConditions: '條款與條件',
       copyright: '© 2024 Zenava. 版權所有。',
-      email: 'marketing@zenava.ai',
-      followUs: '關注我們'
+      email: 'marketing@zenava.ai'
     }
   }
 
@@ -116,21 +113,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </a>
             </div>
 
-            {/* Social Media */}
-            <div class="mt-6">
-              <p class="text-gray-500 text-sm mb-3">{t.followUs}</p>
-              <div class="flex space-x-4">
-                <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                  <i class="fab fa-linkedin text-xl"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                  <i class="fab fa-twitter text-xl"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                  <i class="fab fa-github text-xl"></i>
-                </a>
-              </div>
-            </div>
+
           </div>
           
           {/* Scenarios Section */}
