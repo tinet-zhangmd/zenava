@@ -41,32 +41,83 @@ export const siteTranslations = {
         marketing: {
           title: 'Marketing Performance Metrics',
           costReduction: 'Average Customer Acquisition Cost Reduced',
-          conversionIncrease: 'Lead Conversion Rate Increased'
+          conversionIncrease: 'Lead Conversion Rate Increased',
+          responseTime: 'Customer Response Time',
+          responseValue: '<30s',
+          channelCoverage: 'Marketing Channel Coverage',
+          channelCount: '10+',
+          dailyInquiries: 'Daily Inquiries Processed',
+          dailyCount: '50,000+'
         },
         sales: {
-          title: 'Sales Performance Metrics',
+          title: 'Sales Enablement Process',
           cycleReduction: 'Sales Cycle Shortened',
-          winRateIncrease: 'Win Rate Improved'
+          winRateIncrease: 'Win Rate Improved',
+          step1Title: 'Real-time Script Recommendation',
+          step1Desc: 'Recommend best scripts based on customer focus',
+          step1Value: 'Real-time',
+          step2Title: 'Knowledge Base Access',
+          step2Desc: 'Instant access to products, competitors, cases',
+          step2Value: 'Seconds',
+          step3Title: 'Intelligent Closing Assistant',
+          step3Desc: '45% increase in closing rate',
+          step3Value: '+45%'
         },
         service: {
-          title: 'Service Performance Metrics',
+          title: 'Intelligent Ticket Processing',
           responseTime: 'Average Response Time',
-          resolutionRate: 'First Contact Resolution'
+          resolutionRate: 'First Contact Resolution',
+          step1Title: 'AI Problem Identification',
+          step1Desc: 'Analyze issue type and urgency',
+          step2Title: 'Knowledge Base Query',
+          step2Desc: 'Match best solutions and cases',
+          step3Title: 'Intelligent Assignment',
+          step3Desc: 'Auto-assign based on skills and load',
+          step4Title: 'Process Closure',
+          step4Desc: 'Track progress, ensure quality'
         },
         internal: {
-          title: 'Operational Metrics',
+          title: 'Operational Efficiency',
           efficiency: 'Process Efficiency Improved',
-          satisfaction: 'Employee Satisfaction'
+          satisfaction: 'Employee Satisfaction',
+          storeConnections: 'Store Connections',
+          storeCount: '500+',
+          dailyProcessing: 'Daily Processing',
+          dailyCount: '10K+',
+          avgResponse: 'Average Response',
+          avgTime: '2 Hours',
+          assignmentEfficiency: 'Assignment Efficiency',
+          efficiencyRate: '85%'
         },
         product: {
-          title: 'Product Innovation Metrics',
+          title: 'Customer Feedback Dashboard',
           insights: 'Customer Insights Generated',
-          iterations: 'Product Iteration Speed'
+          iterations: 'Product Iteration Speed',
+          painPoints: 'Product Pain Points Collected',
+          painPointCount: '1,842',
+          featureAdoption: 'Feature Suggestions Adopted',
+          adoptionRate: '78%',
+          resolutionCycle: 'Issue Resolution Cycle',
+          cycleTime: '3.2 days',
+          monthlyIterations: 'Monthly Product Iterations',
+          iterationCount: '12 versions',
+          satisfactionIncrease: 'Satisfaction Improvement',
+          increaseRate: '+18%'
         },
         brand: {
-          title: 'Brand Protection Metrics',
+          title: 'Real-time Sentiment Monitoring',
           monitoring: 'Real-time Monitoring',
-          response: 'Crisis Response Time'
+          response: 'Crisis Response Time',
+          negativeAlerts: 'Negative Sentiment Alerts',
+          alertCount: '3',
+          sensitiveWords: 'Sensitive Word Detection',
+          detectionRate: '99.8%',
+          brandFavorability: 'Brand Favorability',
+          favorabilityRate: '+12%',
+          responseTime: 'Sentiment Response Time',
+          responseValue: '<5 min',
+          crisisSuccess: 'Crisis Resolution Rate',
+          successRate: '98%'
         }
       }
     },
@@ -93,7 +144,8 @@ export const siteTranslations = {
           'Competitive Analysis',
           'Intelligent Closing Assistance',
           'Performance Analytics'
-        ]
+        ],
+        featureShort: ['Talk Track', 'Competitive Analysis', 'Smart Closing']
       },
       customerService: {
         title: 'Customer Service',
@@ -104,7 +156,8 @@ export const siteTranslations = {
           'Emotion Recognition',
           'Smart Ticketing',
           'Knowledge Management'
-        ]
+        ],
+        featureShort: ['24/7 Response', 'Emotion Recognition', 'Smart Ticketing']
       },
       internalService: {
         title: 'Internal Operations',
@@ -115,7 +168,8 @@ export const siteTranslations = {
           'Intelligent Routing',
           'Data Analytics',
           'Process Automation'
-        ]
+        ],
+        featureShort: ['Unified Portal', 'Smart Assignment', 'Data Analytics']
       },
       management: {
         title: 'Management Optimization',
@@ -126,7 +180,9 @@ export const siteTranslations = {
           'Requirement Extraction',
           'Iteration Loop',
           'Trend Analysis'
-        ]
+        ],
+        featureShort: ['Pain Point Detection', 'Requirement Extraction', 'Iteration Loop'],
+        brandFeatures: ['Risk Alert', 'Sentiment Analysis', 'Quality Control']
       }
     },
     
@@ -199,6 +255,47 @@ export const siteTranslations = {
       responseValue: '< 100ms',
       satisfaction: 'Satisfaction',
       satisfactionValue: '98.7%'
+    },
+    
+    // Sales Process Flow
+    salesProcess: {
+      title: 'Sales Enablement Process',
+      step1: {
+        title: 'Real-time Talk Track',
+        description: 'Best talk track based on customer focus',
+        value: 'Real-time'
+      },
+      step2: {
+        title: 'Knowledge Base Access',
+        description: 'Instant access to products, competitors, cases',
+        value: 'Instant'
+      },
+      step3: {
+        title: 'Smart Closing Assistance',
+        description: '45% closing rate improvement',
+        value: '+45%'
+      }
+    },
+    
+    // Smart Ticket Process
+    ticketProcess: {
+      title: 'Smart Ticket Process',
+      step1: {
+        title: 'AI Problem Detection',
+        description: 'Smart analysis of issue type and urgency'
+      },
+      step2: {
+        title: 'Knowledge Base Access',
+        description: 'Historical solutions and best practices'
+      },
+      step3: {
+        title: 'Smart Routing',
+        description: 'Auto-assign to appropriate agent'
+      },
+      step4: {
+        title: 'Track Resolution',
+        description: 'Real-time status and satisfaction tracking'
+      }
     }
   },
   
@@ -241,7 +338,13 @@ export const siteTranslations = {
         marketing: {
           title: 'マーケティング成果指標',
           costReduction: '平均顧客獲得コスト削減',
-          conversionIncrease: 'リードコンバージョン率向上'
+          conversionIncrease: 'リードコンバージョン率向上',
+          responseTime: '顧客応答時間',
+          responseValue: '<30秒',
+          channelCoverage: 'スマートマーケティングチャネル',
+          channelCount: '10+',
+          dailyInquiries: '日次問い合わせ処理数',
+          dailyCount: '50,000+'
         },
         sales: {
           title: 'セールス成果指標',
@@ -293,7 +396,8 @@ export const siteTranslations = {
           '競合分析',
           'インテリジェントクロージング支援',
           'パフォーマンス分析'
-        ]
+        ],
+        featureShort: ['話術推薦', '競品分析', 'スマート成約']
       },
       customerService: {
         title: 'カスタマーサービス',
@@ -399,6 +503,47 @@ export const siteTranslations = {
       responseValue: '< 100ms',
       satisfaction: '満足度',
       satisfactionValue: '98.7%'
+    },
+    
+    // Sales Process Flow
+    salesProcess: {
+      title: 'セールス支援プロセス',
+      step1: {
+        title: 'リアルタイムトークトラック',
+        description: '顧客の関心事に基づく最適な話術',
+        value: 'リアルタイム'
+      },
+      step2: {
+        title: 'ナレッジベース活用',
+        description: '製品、競合、事例の即時アクセス',
+        value: '即時'
+      },
+      step3: {
+        title: 'インテリジェント成約支援',
+        description: '成約率45%向上',
+        value: '+45%'
+      }
+    },
+    
+    // Smart Ticket Process
+    ticketProcess: {
+      title: 'スマートチケット処理プロセス',
+      step1: {
+        title: 'AI問題検出',
+        description: '問題の種類と緊急度を智能分析'
+      },
+      step2: {
+        title: 'ナレッジベース活用',
+        description: '過去の解決策とベストプラクティス'
+      },
+      step3: {
+        title: 'インテリジェントルーティング',
+        description: '適切なエージェントへ自動割り当て'
+      },
+      step4: {
+        title: '解決状況追跡',
+        description: 'リアルタイムステータスと満足度追跡'
+      }
     }
   },
   
@@ -441,7 +586,13 @@ export const siteTranslations = {
         marketing: {
           title: '行銷成效指標',
           costReduction: '平均獲客成本降低',
-          conversionIncrease: '線索轉化率提升'
+          conversionIncrease: '線索轉化率提升',
+          responseTime: '客戶響應時間',
+          responseValue: '<30秒',
+          channelCoverage: '智能行銷覆蓋渠道',
+          channelCount: '10+',
+          dailyInquiries: '日均處理諮詢量',
+          dailyCount: '50,000+'
         },
         sales: {
           title: '銷售成效指標',
@@ -493,7 +644,8 @@ export const siteTranslations = {
           '競品分析',
           '智能成交輔助',
           '業績分析'
-        ]
+        ],
+        featureShort: ['話術推薦', '競品分析', '智能成交']
       },
       customerService: {
         title: '客戶服務',
@@ -599,6 +751,47 @@ export const siteTranslations = {
       responseValue: '< 100ms',
       satisfaction: '滿意度',
       satisfactionValue: '98.7%'
+    },
+    
+    // Sales Process Flow
+    salesProcess: {
+      title: '銷售賦能流程',
+      step1: {
+        title: '實時話術推薦',
+        description: '根據客戶關注點推薦最佳話術',
+        value: '實時'
+      },
+      step2: {
+        title: '知識庫調用',
+        description: '產品、競品、案例即時調取',
+        value: '秒級'
+      },
+      step3: {
+        title: '智能成交輔助',
+        description: '成交率提升45%',
+        value: '+45%'
+      }
+    },
+    
+    // Smart Ticket Process  
+    ticketProcess: {
+      title: '智能工單處理流程',
+      step1: {
+        title: 'AI定位問題',
+        description: '智能分析客戶問題類型和緊急程度'
+      },
+      step2: {
+        title: '知識庫調用',
+        description: '歷史解決方案和最佳實踐'
+      },
+      step3: {
+        title: '智能路由',
+        description: '自動分配給合適的服務人員'
+      },
+      step4: {
+        title: '跟蹤解決',
+        description: '實時狀態更新和滿意度追蹤'
+      }
     }
   }
 }

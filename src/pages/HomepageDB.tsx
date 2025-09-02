@@ -199,7 +199,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             <div class="flex items-center justify-center space-x-4 mb-6">
               <div class="w-20 h-1 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-full"></div>
               <p class="text-xl md:text-2xl text-gray-300 font-light px-4">
-                构建新型生产力形态
+                {trans.company.vision}
               </p>
               <div class="w-20 h-1 bg-gradient-to-r from-[#0DE0EF] to-[#6438FF] rounded-full"></div>
             </div>
@@ -305,8 +305,8 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   
                   <div class="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
                     <div>
-                      <p class="text-sm text-gray-600">客户响应时间</p>
-                      <p class="text-2xl font-bold text-blue-600">&lt;30秒</p>
+                      <p class="text-sm text-gray-600">{trans.businessValue.metrics.marketing.responseTime}</p>
+                      <p class="text-2xl font-bold text-blue-600">{trans.businessValue.metrics.marketing.responseValue}</p>
                     </div>
                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                       <i class="fas fa-bolt text-blue-600"></i>
@@ -315,12 +315,12 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   
                   <div class="border-t pt-4">
                     <div class="flex items-center justify-between">
-                      <span class="text-sm text-gray-600">智能营销覆盖渠道</span>
-                      <span class="text-sm font-bold text-gray-900">10+</span>
+                      <span class="text-sm text-gray-600">{trans.businessValue.metrics.marketing.channelCoverage}</span>
+                      <span class="text-sm font-bold text-gray-900">{trans.businessValue.metrics.marketing.channelCount}</span>
                     </div>
                     <div class="flex items-center justify-between mt-2">
-                      <span class="text-sm text-gray-600">日均处理咨询量</span>
-                      <span class="text-sm font-bold text-gray-900">50,000+</span>
+                      <span class="text-sm text-gray-600">{trans.businessValue.metrics.marketing.dailyInquiries}</span>
+                      <span class="text-sm font-bold text-gray-900">{trans.businessValue.metrics.marketing.dailyCount}</span>
                     </div>
                   </div>
                 </div>
@@ -331,39 +331,39 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div class="order-2 lg:order-1 bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
                   <div class="space-y-4">
-                  <h4 class="font-bold text-gray-900 mb-4">销售赋能流程</h4>
+                  <h4 class="font-bold text-gray-900 mb-4">{trans.salesProcess.title}</h4>
                   
                   <div class="space-y-3">
                     <div class="flex items-center p-3 bg-blue-50 rounded-lg">
                       <div class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">1</div>
                       <div class="flex-1">
-                        <p class="font-medium">实时话术推荐</p>
-                        <p class="text-sm text-gray-600">根据客户关注点推荐最佳话术</p>
+                        <p class="font-medium">{trans.salesProcess.step1.title}</p>
+                        <p class="text-sm text-gray-600">{trans.salesProcess.step1.description}</p>
                       </div>
                       <div class="text-right">
-                        <span class="text-lg font-bold text-blue-600">实时</span>
+                        <span class="text-lg font-bold text-blue-600">{trans.salesProcess.step1.value}</span>
                       </div>
                     </div>
                     
                     <div class="flex items-center p-3 bg-green-50 rounded-lg">
                       <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">2</div>
                       <div class="flex-1">
-                        <p class="font-medium">知识库调用</p>
-                        <p class="text-sm text-gray-600">产品、竞品、案例即时调取</p>
+                        <p class="font-medium">{trans.salesProcess.step2.title}</p>
+                        <p class="text-sm text-gray-600">{trans.salesProcess.step2.description}</p>
                       </div>
                       <div class="text-right">
-                        <span class="text-lg font-bold text-green-600">秒级</span>
+                        <span class="text-lg font-bold text-green-600">{trans.salesProcess.step2.value}</span>
                       </div>
                     </div>
                     
                     <div class="flex items-center p-3 bg-purple-50 rounded-lg">
                       <div class="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">3</div>
                       <div class="flex-1">
-                        <p class="font-medium">智能成交辅助</p>
-                        <p class="text-sm text-gray-600">成交率提升45%</p>
+                        <p class="font-medium">{trans.salesProcess.step3.title}</p>
+                        <p class="text-sm text-gray-600">{trans.salesProcess.step3.description}</p>
                       </div>
                       <div class="text-right">
-                        <span class="text-lg font-bold text-purple-600">+45%</span>
+                        <span class="text-lg font-bold text-purple-600">{trans.salesProcess.step3.value}</span>
                       </div>
                     </div>
                   </div>
@@ -386,15 +386,15 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 <div class="flex space-x-4">
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>话术推荐</span>
+                    <span>{trans.scenarios.sales.featureShort?.[0] || trans.scenarios.sales.features?.[0] || 'Talk Track'}</span>
                   </div>
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>竞品分析</span>
+                    <span>{trans.scenarios.sales.featureShort?.[1] || trans.scenarios.sales.features?.[1] || 'Competitive Analysis'}</span>
                   </div>
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>智能成交</span>
+                    <span>{trans.scenarios.sales.featureShort?.[2] || trans.scenarios.sales.features?.[2] || 'Smart Closing'}</span>
                   </div>
                 </div>
               </div>
@@ -418,52 +418,52 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 <div class="flex space-x-4">
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>24/7响应</span>
+                    <span>{trans.scenarios.customerService.featureShort?.[0] || trans.scenarios.customerService.features?.[0] || '24/7 Response'}</span>
                   </div>
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>情绪识别</span>
+                    <span>{trans.scenarios.customerService.featureShort?.[1] || trans.scenarios.customerService.features?.[1] || 'Emotion Recognition'}</span>
                   </div>
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>智能工单</span>
+                    <span>{trans.scenarios.customerService.featureShort?.[2] || trans.scenarios.customerService.features?.[2] || 'Smart Ticketing'}</span>
                   </div>
                 </div>
               </div>
               
               <div class="bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
-                <h4 class="font-bold text-gray-900 mb-6">智能工单处理流程</h4>
+                <h4 class="font-bold text-gray-900 mb-6">{trans.ticketProcess.title}</h4>
                 
                 <div class="space-y-4">
                   <div class="flex items-start space-x-4">
                     <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-sm font-bold mt-1">1</div>
                     <div>
-                      <p class="font-medium text-gray-900">AI定位问题</p>
-                      <p class="text-sm text-gray-600">智能分析客户问题类型和紧急程度</p>
+                      <p class="font-medium text-gray-900">{trans.ticketProcess.step1.title}</p>
+                      <p class="text-sm text-gray-600">{trans.ticketProcess.step1.description}</p>
                     </div>
                   </div>
                   
                   <div class="flex items-start space-x-4">
                     <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center text-sm font-bold mt-1">2</div>
                     <div>
-                      <p class="font-medium text-gray-900">知识库调用</p>
-                      <p class="text-sm text-gray-600">匹配最佳解决方案和历史案例</p>
+                      <p class="font-medium text-gray-900">{trans.ticketProcess.step2.title}</p>
+                      <p class="text-sm text-gray-600">{trans.ticketProcess.step2.description}</p>
                     </div>
                   </div>
                   
                   <div class="flex items-start space-x-4">
                     <div class="w-8 h-8 bg-orange-200 rounded-full flex items-center justify-center text-sm font-bold mt-1">3</div>
                     <div>
-                      <p class="font-medium text-gray-900">智能派单</p>
-                      <p class="text-sm text-gray-600">根据技能和负载自动分配专员</p>
+                      <p class="font-medium text-gray-900">{trans.ticketProcess.step3.title}</p>
+                      <p class="text-sm text-gray-600">{trans.ticketProcess.step3.description}</p>
                     </div>
                   </div>
                   
                   <div class="flex items-start space-x-4">
                     <div class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold mt-1">4</div>
                     <div>
-                      <p class="font-medium text-gray-900">处理闭环</p>
-                      <p class="text-sm text-gray-600">跟踪处理进度，确保服务质量</p>
+                      <p class="font-medium text-gray-900">{trans.ticketProcess.step4.title}</p>
+                      <p class="text-sm text-gray-600">{trans.ticketProcess.step4.description}</p>
                     </div>
                   </div>
                 </div>
@@ -474,7 +474,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div class="order-2 lg:order-1 bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
                   <div class="space-y-6">
-                  <h4 class="font-bold text-gray-900 mb-4">运营效率提升</h4>
+                  <h4 class="font-bold text-gray-900 mb-4">{trans.operationsMetrics?.title || '运营效率提升'}</h4>
                   
                   <div class="grid grid-cols-2 gap-4">
                     <div class="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -482,7 +482,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                         <i class="fas fa-store text-green-600 text-2xl"></i>
                         <span class="text-2xl font-bold text-green-600">500+</span>
                       </div>
-                      <p class="text-sm text-gray-700 mt-2">门店接入</p>
+                      <p class="text-sm text-gray-700 mt-2">{trans.operationsMetrics?.storeAccess || '门店接入'}</p>
                     </div>
                     
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -490,23 +490,23 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                         <i class="fas fa-tasks text-blue-600 text-2xl"></i>
                         <span class="text-2xl font-bold text-blue-600">10K+</span>
                       </div>
-                      <p class="text-sm text-gray-700 mt-2">日均处理</p>
+                      <p class="text-sm text-gray-700 mt-2">{trans.operationsMetrics?.dailyProcessing || '日均处理'}</p>
                     </div>
                     
                     <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
                       <div class="flex items-center justify-between">
                         <i class="fas fa-clock text-purple-600 text-2xl"></i>
-                        <span class="text-lg font-bold text-purple-600">2小时</span>
+                        <span class="text-lg font-bold text-purple-600">{trans.operationsMetrics?.responseTime || '2小时'}</span>
                       </div>
-                      <p class="text-sm text-gray-700 mt-2">平均响应</p>
+                      <p class="text-sm text-gray-700 mt-2">{trans.operationsMetrics?.avgResponse || '平均响应'}</p>
                     </div>
                     
                     <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
                       <div class="flex items-center justify-between">
                         <i class="fas fa-chart-line text-orange-600 text-2xl"></i>
-                        <span class="text-lg font-bold text-orange-600">85%</span>
+                        <span class="text-lg font-bold text-orange-600">{trans.operationsMetrics?.efficiencyRate || '85%'}</span>
                       </div>
-                      <p class="text-sm text-gray-700 mt-2">派单效率</p>
+                      <p class="text-sm text-gray-700 mt-2">{trans.operationsMetrics?.dispatchEfficiency || '派单效率'}</p>
                     </div>
                   </div>
                 </div>
@@ -528,15 +528,15 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 <div class="flex space-x-4">
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>统一入口</span>
+                    <span>{trans.scenarios.internalService.featureShort?.[0] || trans.scenarios.internalService.features?.[0] || '统一入口'}</span>
                   </div>
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>智能派单</span>
+                    <span>{trans.scenarios.internalService.featureShort?.[1] || trans.scenarios.internalService.features?.[1] || '智能派单'}</span>
                   </div>
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>数据分析</span>
+                    <span>{trans.scenarios.internalService.featureShort?.[2] || trans.scenarios.internalService.features?.[2] || '数据分析'}</span>
                   </div>
                 </div>
               </div>
@@ -560,27 +560,27 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 <div class="flex space-x-4">
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>痛点识别</span>
+                    <span>{trans.scenarios.management.featureShort?.[0] || trans.scenarios.management.features?.[0] || '痛点识别'}</span>
                   </div>
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>需求提取</span>
+                    <span>{trans.scenarios.management.featureShort?.[1] || trans.scenarios.management.features?.[1] || '需求提取'}</span>
                   </div>
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>迭代闭环</span>
+                    <span>{trans.scenarios.management.featureShort?.[2] || trans.scenarios.management.features?.[2] || '迭代闭环'}</span>
                   </div>
                 </div>
               </div>
               
               <div class="bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
-                <h4 class="font-bold text-gray-900 mb-6">客户反馈分析面板</h4>
+                <h4 class="font-bold text-gray-900 mb-6">{trans.productFeedbackPanel?.title || 'Customer Feedback Analysis Panel'}</h4>
                 
                 <div class="space-y-4">
                   <div class="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
                     <div>
-                      <p class="text-sm text-gray-600">产品痛点收集</p>
-                      <p class="text-2xl font-bold text-purple-600">1,842</p>
+                      <p class="text-sm text-gray-600">{trans.productFeedbackPanel?.painPoints || 'Product Pain Points'}</p>
+                      <p class="text-2xl font-bold text-purple-600">{trans.productFeedbackPanel?.painPointCount || '1,842'}</p>
                     </div>
                     <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                       <i class="fas fa-comments text-purple-600"></i>
@@ -589,8 +589,8 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   
                   <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
                     <div>
-                      <p class="text-sm text-gray-600">功能建议采纳</p>
-                      <p class="text-2xl font-bold text-green-600">78%</p>
+                      <p class="text-sm text-gray-600">{trans.productFeedbackPanel?.featureAdoption || 'Feature Adoption'}</p>
+                      <p class="text-2xl font-bold text-green-600">{trans.productFeedbackPanel?.adoptionRate || '78%'}</p>
                     </div>
                     <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                       <i class="fas fa-lightbulb text-green-600"></i>
@@ -599,8 +599,8 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   
                   <div class="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
                     <div>
-                      <p class="text-sm text-gray-600">问题修复周期</p>
-                      <p class="text-2xl font-bold text-blue-600">3.2天</p>
+                      <p class="text-sm text-gray-600">{trans.productFeedbackPanel?.fixCycle || 'Issue Fix Cycle'}</p>
+                      <p class="text-2xl font-bold text-blue-600">{trans.productFeedbackPanel?.fixTime || '3.2 days'}</p>
                     </div>
                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                       <i class="fas fa-tools text-blue-600"></i>
@@ -609,12 +609,12 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   
                   <div class="border-t pt-4">
                     <div class="flex items-center justify-between">
-                      <span class="text-sm text-gray-600">本月产品迭代</span>
-                      <span class="text-sm font-bold text-gray-900">12个版本</span>
+                      <span class="text-sm text-gray-600">{trans.productFeedbackPanel?.monthlyIterations || 'Monthly Iterations'}</span>
+                      <span class="text-sm font-bold text-gray-900">{trans.productFeedbackPanel?.iterationCount || '12 versions'}</span>
                     </div>
                     <div class="flex items-center justify-between mt-2">
-                      <span class="text-sm text-gray-600">客户满意度提升</span>
-                      <span class="text-sm font-bold text-gray-900">+18%</span>
+                      <span class="text-sm text-gray-600">{trans.productFeedbackPanel?.satisfactionIncrease || 'Satisfaction Increase'}</span>
+                      <span class="text-sm font-bold text-gray-900">{trans.productFeedbackPanel?.satisfactionGrowth || '+18%'}</span>
                     </div>
                   </div>
                 </div>
@@ -624,13 +624,13 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             {/* Brand & Sentiment Management - Solution 6 */}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div class="order-2 lg:order-1 bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
-                <h4 class="font-bold text-gray-900 mb-6">实时舆情监控面板</h4>
+                <h4 class="font-bold text-gray-900 mb-6">{trans.sentimentPanel?.title || 'Real-time Sentiment Monitoring'}</h4>
                 
                 <div class="space-y-4">
                   <div class="flex items-center justify-between p-4 bg-red-50 rounded-lg">
                     <div>
-                      <p class="text-sm text-gray-600">负面情绪预警</p>
-                      <p class="text-2xl font-bold text-red-600">3条</p>
+                      <p class="text-sm text-gray-600">{trans.sentimentPanel?.negativeAlert || 'Negative Sentiment Alert'}</p>
+                      <p class="text-2xl font-bold text-red-600">{trans.sentimentPanel?.alertCount || '3 items'}</p>
                     </div>
                     <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
                       <i class="fas fa-exclamation-triangle text-red-600"></i>
@@ -639,8 +639,8 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   
                   <div class="flex items-center justify-between p-4 bg-yellow-50 rounded-lg">
                     <div>
-                      <p class="text-sm text-gray-600">敏感词检测</p>
-                      <p class="text-2xl font-bold text-yellow-600">99.8%</p>
+                      <p class="text-sm text-gray-600">{trans.sentimentPanel?.sensitiveWords || 'Sensitive Word Detection'}</p>
+                      <p class="text-2xl font-bold text-yellow-600">{trans.sentimentPanel?.detectionRate || '99.8%'}</p>
                     </div>
                     <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
                       <i class="fas fa-shield-alt text-yellow-600"></i>
@@ -649,8 +649,8 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   
                   <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
                     <div>
-                      <p class="text-sm text-gray-600">品牌好感度</p>
-                      <p class="text-2xl font-bold text-green-600">+12%</p>
+                      <p class="text-sm text-gray-600">{trans.sentimentPanel?.brandSentiment || 'Brand Favorability'}</p>
+                      <p class="text-2xl font-bold text-green-600">{trans.sentimentPanel?.sentimentGrowth || '+12%'}</p>
                     </div>
                     <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                       <i class="fas fa-chart-line text-green-600"></i>
@@ -659,12 +659,12 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   
                   <div class="border-t pt-4">
                     <div class="flex items-center justify-between">
-                      <span class="text-sm text-gray-600">舆情响应时间</span>
-                      <span class="text-sm font-bold text-gray-900">&lt;5分钟</span>
+                      <span class="text-sm text-gray-600">{trans.sentimentPanel?.responseTime || 'Response Time'}</span>
+                      <span class="text-sm font-bold text-gray-900">{trans.sentimentPanel?.responseSpeed || '<5 minutes'}</span>
                     </div>
                     <div class="flex items-center justify-between mt-2">
-                      <span class="text-sm text-gray-600">危机处理成功率</span>
-                      <span class="text-sm font-bold text-gray-900">98%</span>
+                      <span class="text-sm text-gray-600">{trans.sentimentPanel?.crisisSuccess || 'Crisis Success Rate'}</span>
+                      <span class="text-sm font-bold text-gray-900">{trans.sentimentPanel?.successRate || '98%'}</span>
                     </div>
                   </div>
                 </div>
@@ -690,15 +690,15 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 <div class="flex space-x-4">
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>风险预警</span>
+                    <span>{trans.scenarios.management?.brandFeatures?.[0] || 'Risk Alert'}</span>
                   </div>
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>情绪分析</span>
+                    <span>{trans.scenarios.management?.brandFeatures?.[1] || 'Sentiment Analysis'}</span>
                   </div>
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>质量管控</span>
+                    <span>{trans.scenarios.management?.brandFeatures?.[2] || 'Quality Control'}</span>
                   </div>
                 </div>
               </div>
