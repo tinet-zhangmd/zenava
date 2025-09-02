@@ -180,16 +180,16 @@ commonContentApi.post('/footer/config', async (c) => {
   try {
     const { logo_url, logo_alt, subtitle_text, copyright_text, status } = body;
     
-    // Check if any config exists
+    // Check if config exists for this language
     const existing = await env.DB.prepare(`
-      SELECT id FROM footer_config ORDER BY id LIMIT 1
-    `).first();
+      SELECT id FROM footer_config WHERE language = ? LIMIT 1
+    `).bind(language).first();
     
     if (existing) {
-      // Update first/primary config
+      // Update existing language-specific config
       await env.DB.prepare(`
         UPDATE footer_config 
-        SET logo_url = ?, logo_alt = ?, logo_subtitle = ?, copyright_text = ?, status = ?, language = ?, updated_at = CURRENT_TIMESTAMP
+        SET logo_url = ?, logo_alt = ?, logo_subtitle = ?, copyright_text = ?, status = ?, updated_at = CURRENT_TIMESTAMP
         WHERE id = ?
       `).bind(
         logo_url || null,
@@ -197,11 +197,23 @@ commonContentApi.post('/footer/config', async (c) => {
         subtitle_text || '企業與客戶對話場景的 AI 智能體',
         copyright_text || `© ${new Date().getFullYear()} ZENAVA. All rights reserved.`,
         status || 'published', // Default to published for immediate reflection
-        language,
         existing.id
       ).run();
+      
+      // IMPORTANT: Sync logo to all other languages (logo should be consistent across languages)
+      if (logo_url !== undefined) {
+        await env.DB.prepare(`
+          UPDATE footer_config 
+          SET logo_url = ?, logo_alt = ?, updated_at = CURRENT_TIMESTAMP
+          WHERE language != ?
+        `).bind(
+          logo_url || null,
+          logo_alt || 'ZENAVA',
+          language
+        ).run();
+      }
     } else {
-      // Create new config
+      // Create new language-specific config
       await env.DB.prepare(`
         INSERT INTO footer_config (logo_url, logo_alt, logo_subtitle, copyright_text, status, language)
         VALUES (?, ?, ?, ?, ?, ?)
@@ -213,6 +225,28 @@ commonContentApi.post('/footer/config', async (c) => {
         status || 'published', // Default to published for immediate reflection
         language
       ).run();
+      
+      // IMPORTANT: Also create records for other languages with the same logo
+      const languages = ['en', 'jp', 'hk'].filter(l => l !== language);
+      for (const lang of languages) {
+        const langExists = await env.DB.prepare(`
+          SELECT id FROM footer_config WHERE language = ? LIMIT 1
+        `).bind(lang).first();
+        
+        if (!langExists) {
+          await env.DB.prepare(`
+            INSERT INTO footer_config (logo_url, logo_alt, logo_subtitle, copyright_text, status, language)
+            VALUES (?, ?, ?, ?, ?, ?)
+          `).bind(
+            logo_url || null,
+            logo_alt || 'ZENAVA',
+            subtitle_text || '企業與客戶對話場景的 AI 智能體',
+            copyright_text || `© ${new Date().getFullYear()} ZENAVA. All rights reserved.`,
+            status || 'published',
+            lang
+          ).run();
+        }
+      }
     }
     
     return c.json({ 
