@@ -29,6 +29,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       aboutUs: 'About Us',
       contact: 'Contact',
       legal: 'Legal',
+      cookiePreferences: 'Cookie Preferences',
       privacyPolicy: 'Privacy Policy',
       termsConditions: 'Terms & Conditions',
       copyright: '© 2024 Zenava. All rights reserved.',
@@ -46,6 +47,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       aboutUs: '会社概要',
       contact: 'お問い合わせ',
       legal: '法的情報',
+      cookiePreferences: 'Cookieの設定',
       privacyPolicy: 'プライバシーポリシー',
       termsConditions: '利用規約',
       copyright: '© 2024 Zenava. All rights reserved.',
@@ -63,6 +65,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       aboutUs: '關於我們',
       contact: '聯繫我們',
       legal: '法律條款',
+      cookiePreferences: 'Cookie 偏好設定',
       privacyPolicy: '隱私政策',
       termsConditions: '條款與條件',
       copyright: '© 2024 Zenava. 版權所有。',
@@ -187,7 +190,14 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
           <div>
             <h4 class="text-white font-semibold mb-4">{t.legal}</h4>
             <ul class="space-y-3">
-
+              <li>
+                <button 
+                  onclick="showCookiePreferences()"
+                  class="text-gray-400 hover:text-white transition-colors text-sm text-left cursor-pointer"
+                >
+                  {t.cookiePreferences}
+                </button>
+              </li>
               <li>
                 <a 
                   href={`${langPrefix}/privacy`}
@@ -215,7 +225,13 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
             
             {/* Additional Bottom Links */}
             <div class="flex flex-wrap gap-6">
-
+              <button 
+                onclick="showCookiePreferences()"
+                class="text-gray-500 hover:text-white transition-colors text-sm cursor-pointer"
+              >
+                <i class="fas fa-cookie-bite mr-2"></i>
+                {t.cookiePreferences}
+              </button>
               <a 
                 href={`${langPrefix}/privacy`}
                 class="text-gray-500 hover:text-white transition-colors text-sm"

@@ -138,15 +138,16 @@ export function LayoutWithUnifiedNav({
               return null;
             }
 
-            // Cookie preferences functionality - temporarily disabled
-            // TODO: Implement complete cookie consent management with UI
+            // Show cookie preferences modal
             function showCookiePreferences() {
-              console.log('Cookie preferences functionality is not yet implemented');
-              // In the future, this will open a modal for managing cookie preferences
+              const modal = document.getElementById('cookie-preferences-modal');
+              if (modal) {
+                modal.classList.remove('hidden');
+              }
             }
 
-            // Cookie consent management - temporarily disabled
-            /* document.addEventListener('DOMContentLoaded', function() {
+            // Cookie consent management
+            document.addEventListener('DOMContentLoaded', function() {
               const banner = document.getElementById('cookie-consent-banner');
               const modal = document.getElementById('cookie-preferences-modal');
               
@@ -227,7 +228,7 @@ export function LayoutWithUnifiedNav({
                 const marketing = document.getElementById('marketing-cookies');
                 if (marketing) marketing.checked = marketingConsent === 'true';
               }
-            }); */
+            });
 
             // Make showCookiePreferences globally available
             window.showCookiePreferences = showCookiePreferences;
