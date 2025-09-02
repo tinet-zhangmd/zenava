@@ -1,5 +1,6 @@
 import { FC, JSX } from 'hono/jsx'
 import { Language, getTranslation } from '../utils/i18n'
+import { getTranslations, t } from '../i18n/translations'
 
 interface HomepageProps {
   language: Language
@@ -9,7 +10,8 @@ interface HomepageProps {
 }
 
 export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modules = [], settings = {} }) => {
-  const t = getTranslation(language)
+  const oldT = getTranslation(language)
+  const trans = getTranslations(language)
   
   // Parse module content safely (handle double-encoded JSON)
   const getModuleContent = (module: any) => {
@@ -51,27 +53,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
     background_image: '/static/hero-bg.jpg'
   };
 
-  // Get features content
-  const featuresContent = findModule('key_features') || {
-    title: t?.features?.title || 'What Zenava Brings to Your Organization',
-    items: [
-      { 
-        icon: 'fas fa-headset', 
-        title: 'Smart Customer Service', 
-        description: 'AI-powered customer support that delivers human-like interactions with 24/7 availability, reducing response times and improving satisfaction rates across all touchpoints.'
-      },
-      { 
-        icon: 'fas fa-chart-trending-up', 
-        title: 'Intelligent Sales & Marketing', 
-        description: 'Accelerate deal closure and boost conversion rates with AI assistants that understand customer needs, qualify leads, and provide personalized recommendations at scale.'
-      },
-      { 
-        icon: 'fas fa-cogs', 
-        title: 'Operational Excellence', 
-        description: 'Streamline internal operations with AI-driven management insights and automated decision support, empowering employees with intelligent internal service capabilities.'
-      }
-    ]
-  };
+
 
   // Get statistics content
   const statsContent = findModule('platform_stats') || {
@@ -111,11 +93,13 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         <div class="site-container px-6 relative z-10">
           <div class="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh]">
   <div class="space-y-6">
-    <div class="text-2xl sm:text-3xl font-bold text-white tracking-wide">Zenava</div>
+    <div class="text-2xl sm:text-3xl font-bold text-white tracking-wide">{trans.company.name}</div>
     <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight">
-      AI Agent for Enterprise Customer Dialogue Scenarios
+      {trans.hero.title}
     </h1>
-    <p class="text-lg sm:text-xl text-gray-300">讓每一次客戶對話都創造實際價值</p>
+    <p class="text-lg sm:text-xl text-gray-300 leading-relaxed">
+      {trans.hero.subtitle}
+    </p>
   </div>
   <div class="relative lg:h-[600px] flex items-center justify-center">
     <div class="relative w-full max-w-md">
@@ -247,10 +231,10 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Zenava 能为企业带来什么
+              {trans.businessValue.title}
             </h2>
             <p class="text-xl text-gray-600">
-              构建AI驱动的未来组织形态，提升协同效率、重塑客户体验，并以客户联络数据驱动企业核心竞争力跃迁
+              {trans.businessValue.subtitle}
             </p>
           </div>
 
@@ -262,13 +246,13 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
                     <i class="fas fa-bullhorn text-purple-600 text-xl"></i>
                   </div>
-                  <h3 class="text-2xl font-bold text-gray-900">企业营销业务</h3>
+                  <h3 class="text-2xl font-bold text-gray-900">{trans.scenarios.marketing.title}</h3>
                 </div>
                 <h4 class="text-lg font-semibold text-purple-600 mb-4">
-                  提升转化率，降低获客成本
+                  {trans.scenarios.marketing.subtitle}
                 </h4>
                 <p class="text-gray-700 mb-6 leading-relaxed">
-                  Zenava 实时识别客户意图，统一话术留资，智能分配高潜线索；基于会话分析反哺营销策略；自动激活沉默客户，提升二次转化；打通多渠道数据，驱动精准触达。
+                  {trans.scenarios.marketing.description}
                 </p>
                 <div class="flex space-x-4">
                   <div class="flex items-center text-sm text-gray-600">
@@ -382,13 +366,13 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
                     <i class="fas fa-chart-line text-blue-600 text-xl"></i>
                   </div>
-                  <h3 class="text-2xl font-bold text-gray-900">企业销售业务</h3>
+                  <h3 class="text-2xl font-bold text-gray-900">{trans.scenarios.sales.title}</h3>
                 </div>
                 <h4 class="text-lg font-semibold text-blue-600 mb-4">
-                  拉高销售中位线，提升转化能力
+                  {trans.scenarios.sales.subtitle}
                 </h4>
                 <p class="text-gray-700 mb-6 leading-relaxed">
-                  识别客户问题，推荐话术，规范销售动作；自动应对客户挑战，调取产品与竞品知识；提炼高转化话术与失败原因，形成可复制方法论；结合客户行为智能推荐产品，辅助成交。
+                  {trans.scenarios.sales.description}
                 </p>
                 <div class="flex space-x-4">
                   <div class="flex items-center text-sm text-gray-600">
@@ -414,13 +398,13 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
                     <i class="fas fa-headset text-orange-600 text-xl"></i>
                   </div>
-                  <h3 class="text-2xl font-bold text-gray-900">客户服务业务</h3>
+                  <h3 class="text-2xl font-bold text-gray-900">{trans.scenarios.customerService.title}</h3>
                 </div>
                 <h4 class="text-lg font-semibold text-orange-600 mb-4">
-                  让服务更快、更准、更有温度
+                  {trans.scenarios.customerService.subtitle}
                 </h4>
                 <p class="text-gray-700 mb-6 leading-relaxed">
-                  全天候响应常见咨询，复杂问题智能分流；识别客户情绪并动态调整应对策略；联动知识库与工单系统，快速定位与处理问题；持续分析服务盲区，实现话术与流程优化。
+                  {trans.scenarios.customerService.description}
                 </p>
                 <div class="flex space-x-4">
                   <div class="flex items-center text-sm text-gray-600">
@@ -524,13 +508,13 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
                     <i class="fas fa-network-wired text-indigo-600 text-xl"></i>
                   </div>
-                  <h3 class="text-2xl font-bold text-gray-900">门店/经销商运营</h3>
+                  <h3 class="text-2xl font-bold text-gray-900">{trans.scenarios.internalService.title}</h3>
                 </div>
                 <h4 class="text-lg font-semibold text-indigo-600 mb-4">
-                  多级、大规模组织的高效运营中枢
+                  {trans.scenarios.internalService.subtitle}
                 </h4>
                 <p class="text-gray-700 mb-6 leading-relaxed">
-                  统一服务入口，集中处理设备、库存、培训等事务；智能派单与进度追踪，提高流转效率；识别高频问题并推送知识，减轻总部负担；通过运营数据分析优化资源与标准。
+                  {trans.scenarios.internalService.description}
                 </p>
                 <div class="flex space-x-4">
                   <div class="flex items-center text-sm text-gray-600">
@@ -549,122 +533,163 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               </div>
             </div>
 
-            {/* Product Design & Optimization */}
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-              <div class="grid lg:grid-cols-2 gap-0">
-                <div class="p-10 lg:p-12">
-                  <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#6438FF]/10 to-[#0DE0EF]/10 rounded-full mb-6">
-                    <i class="fas fa-pencil-ruler text-[#6438FF] mr-2"></i>
-                    <span class="text-[#6438FF] font-semibold">产品设计与优化</span>
+            {/* Product Design & Optimization - Solution 5 */}
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div data-animate="slide-up">
+                <div class="flex items-center mb-6">
+                  <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-pencil-ruler text-purple-600 text-xl"></i>
                   </div>
-                  <h3 class="text-3xl font-bold text-[#000D25] mb-4">
-                    让客户声音成为产品迭代方向
-                  </h3>
-                  <p class="text-gray-600 leading-relaxed mb-6">
-                    从海量对话中自动提取产品痛点与功能建议；量化负面反馈趋势，预警产品问题；形成"客户声音→产品迭代"的闭环；基于真实需求驱动产品创新。
-                  </p>
-                  <div class="flex flex-wrap gap-3">
-                    <span class="px-3 py-1 bg-[#6438FF]/10 text-[#6438FF] rounded-full text-sm font-medium">痛点识别</span>
-                    <span class="px-3 py-1 bg-[#0DE0EF]/10 text-[#0DE0EF] rounded-full text-sm font-medium">需求提取</span>
-                    <span class="px-3 py-1 bg-[#6438FF]/10 text-[#6438FF] rounded-full text-sm font-medium">迭代闭环</span>
+                  <h3 class="text-2xl font-bold text-gray-900">{trans.scenarios.management.title}</h3>
+                </div>
+                <h4 class="text-lg font-semibold text-purple-600 mb-4">
+                  {trans.scenarios.management.subtitle}
+                </h4>
+                <p class="text-gray-700 mb-6 leading-relaxed">
+                  {trans.scenarios.management.description}
+                </p>
+                <div class="flex space-x-4">
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>痛点识别</span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>需求提取</span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>迭代闭环</span>
                   </div>
                 </div>
-                <div class="bg-gradient-to-br from-[#6438FF]/5 to-[#0DE0EF]/5 p-10 lg:p-12 flex items-center justify-center">
-                  <div class="w-full max-w-md">
-                    <img src="/static/product-illustration.svg" alt="Product Optimization" class="w-full h-auto" onerror="this.style.display='none'" />
-                    <div class="bg-white rounded-xl p-6 shadow-lg">
-                      <div class="text-center text-sm text-gray-500 mb-4">客户反馈分析</div>
-                      <div class="space-y-3">
-                        <div class="flex items-center justify-between">
-                          <div class="flex items-center space-x-2">
-                            <span class="px-2 py-1 bg-red-100 text-red-600 text-xs rounded-full font-medium">痛点</span>
-                            <span class="text-sm text-gray-700">加载速度慢</span>
-                          </div>
-                          <span class="text-sm font-bold text-gray-900">342次</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                          <div class="flex items-center space-x-2">
-                            <span class="px-2 py-1 bg-yellow-100 text-yellow-600 text-xs rounded-full font-medium">建议</span>
-                            <span class="text-sm text-gray-700">增加批量操作</span>
-                          </div>
-                          <span class="text-sm font-bold text-gray-900">256次</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                          <div class="flex items-center space-x-2">
-                            <span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded-full font-medium">已修复</span>
-                            <span class="text-sm text-gray-700">登录问题</span>
-                          </div>
-                          <span class="text-sm font-bold text-gray-900">✓</span>
-                        </div>
-                      </div>
-                      <div class="mt-4 p-3 bg-[#6438FF]/10 rounded-lg text-center">
-                        <div class="text-xs text-gray-600">本月改进建议采纳率</div>
-                        <div class="text-2xl font-bold text-[#6438FF]">78%</div>
-                      </div>
+              </div>
+              
+              <div class="bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
+                <h4 class="font-bold text-gray-900 mb-6">客户反馈分析面板</h4>
+                
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
+                    <div>
+                      <p class="text-sm text-gray-600">产品痛点收集</p>
+                      <p class="text-2xl font-bold text-purple-600">1,842</p>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <i class="fas fa-comments text-purple-600"></i>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+                    <div>
+                      <p class="text-sm text-gray-600">功能建议采纳</p>
+                      <p class="text-2xl font-bold text-green-600">78%</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                      <i class="fas fa-lightbulb text-green-600"></i>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+                    <div>
+                      <p class="text-sm text-gray-600">问题修复周期</p>
+                      <p class="text-2xl font-bold text-blue-600">3.2天</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <i class="fas fa-tools text-blue-600"></i>
+                    </div>
+                  </div>
+                  
+                  <div class="border-t pt-4">
+                    <div class="flex items-center justify-between">
+                      <span class="text-sm text-gray-600">本月产品迭代</span>
+                      <span class="text-sm font-bold text-gray-900">12个版本</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                      <span class="text-sm text-gray-600">客户满意度提升</span>
+                      <span class="text-sm font-bold text-gray-900">+18%</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Brand & Sentiment Management */}
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-              <div class="grid lg:grid-cols-2 gap-0">
-                <div class="order-2 lg:order-1 bg-gradient-to-br from-[#0DE0EF]/5 to-[#6438FF]/5 p-10 lg:p-12 flex items-center justify-center">
-                  <div class="w-full max-w-md">
-                    <img src="/static/brand-illustration.svg" alt="Brand Management" class="w-full h-auto" onerror="this.style.display='none'" />
-                    <div class="bg-white rounded-xl p-6 shadow-lg">
-                      <div class="text-center text-sm text-gray-500 mb-4">实时舆情监控</div>
-                      <div class="space-y-3">
-                        <div class="flex items-center space-x-3">
-                          <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                            <i class="fas fa-exclamation-triangle text-red-600"></i>
-                          </div>
-                          <div class="flex-1">
-                            <div class="text-sm font-medium text-gray-900">负面情绪预警</div>
-                            <div class="text-xs text-gray-500">检测到3条高风险对话</div>
-                          </div>
-                          <span class="px-2 py-1 bg-red-100 text-red-600 text-xs rounded-full">紧急</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                          <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
-                            <i class="fas fa-shield-alt text-yellow-600"></i>
-                          </div>
-                          <div class="flex-1">
-                            <div class="text-sm font-medium text-gray-900">敏感词检测</div>
-                            <div class="text-xs text-gray-500">发现2处违规用语</div>
-                          </div>
-                          <span class="px-2 py-1 bg-yellow-100 text-yellow-600 text-xs rounded-full">处理中</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                          <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                            <i class="fas fa-chart-line text-green-600"></i>
-                          </div>
-                          <div class="flex-1">
-                            <div class="text-sm font-medium text-gray-900">品牌好感度</div>
-                            <div class="text-xs text-gray-500">本周提升12%</div>
-                          </div>
-                          <span class="px-2 py-1 bg-green-100 text-green-600 text-xs rounded-full">正常</span>
-                        </div>
-                      </div>
+            {/* Brand & Sentiment Management - Solution 6 */}
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div class="order-2 lg:order-1 bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
+                <h4 class="font-bold text-gray-900 mb-6">实时舆情监控面板</h4>
+                
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between p-4 bg-red-50 rounded-lg">
+                    <div>
+                      <p class="text-sm text-gray-600">负面情绪预警</p>
+                      <p class="text-2xl font-bold text-red-600">3条</p>
+                    </div>
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                      <i class="fas fa-exclamation-triangle text-red-600"></i>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-center justify-between p-4 bg-yellow-50 rounded-lg">
+                    <div>
+                      <p class="text-sm text-gray-600">敏感词检测</p>
+                      <p class="text-2xl font-bold text-yellow-600">99.8%</p>
+                    </div>
+                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                      <i class="fas fa-shield-alt text-yellow-600"></i>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+                    <div>
+                      <p class="text-sm text-gray-600">品牌好感度</p>
+                      <p class="text-2xl font-bold text-green-600">+12%</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                      <i class="fas fa-chart-line text-green-600"></i>
+                    </div>
+                  </div>
+                  
+                  <div class="border-t pt-4">
+                    <div class="flex items-center justify-between">
+                      <span class="text-sm text-gray-600">舆情响应时间</span>
+                      <span class="text-sm font-bold text-gray-900">&lt;5分钟</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                      <span class="text-sm text-gray-600">危机处理成功率</span>
+                      <span class="text-sm font-bold text-gray-900">98%</span>
                     </div>
                   </div>
                 </div>
-                <div class="order-1 lg:order-2 p-10 lg:p-12">
-                  <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#0DE0EF]/10 to-[#6438FF]/10 rounded-full mb-6">
-                    <i class="fas fa-shield-alt text-[#0DE0EF] mr-2"></i>
-                    <span class="text-[#0DE0EF] font-semibold">品牌与舆情管理</span>
+              </div>
+              
+              <div class="order-1 lg:order-2" data-animate="slide-up">
+                <div class="flex items-center mb-6">
+                  <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-shield-alt text-teal-600 text-xl"></i>
                   </div>
-                  <h3 class="text-3xl font-bold text-[#000D25] mb-4">
-                    实时守护企业品牌安全
-                  </h3>
-                  <p class="text-gray-600 leading-relaxed mb-6">
-                    融合社交与客服数据，智能识别舆情风险；实时预警高风险对话，自动触发应对流程；量化客户情绪，优化沟通策略；自动质检服务用语，保障品牌一致性。
-                  </p>
-                  <div class="flex flex-wrap gap-3">
-                    <span class="px-3 py-1 bg-[#0DE0EF]/10 text-[#0DE0EF] rounded-full text-sm font-medium">风险预警</span>
-                    <span class="px-3 py-1 bg-[#6438FF]/10 text-[#6438FF] rounded-full text-sm font-medium">情绪分析</span>
-                    <span class="px-3 py-1 bg-[#0DE0EF]/10 text-[#0DE0EF] rounded-full text-sm font-medium">质量管控</span>
+                  <h3 class="text-2xl font-bold text-gray-900">{language === 'en' ? 'Brand & Reputation Management' : language === 'jp' ? 'ブランド・評判管理' : '品牌與輿情管理'}</h3>
+                </div>
+                <h4 class="text-lg font-semibold text-teal-600 mb-4">
+                  {language === 'en' ? 'Real-time Brand Protection' : language === 'jp' ? 'リアルタイムブランド保護' : '實時守護企業品牌安全'}
+                </h4>
+                <p class="text-gray-700 mb-6 leading-relaxed">
+                  {language === 'en' 
+                    ? 'Integrate social and service data for intelligent risk detection. Real-time alerts for high-risk conversations with automated response workflows. Quantify customer sentiment to optimize communication strategies.'
+                    : language === 'jp'
+                    ? 'ソーシャルとサービスデータを統合し、インテリジェントなリスク検出を実現。高リスク会話のリアルタイムアラートと自動対応ワークフロー。顧客感情を定量化し、コミュニケーション戦略を最適化。'
+                    : '融合社交與客服數據，智能識別輿情風險；實時預警高風險對話，自動觸發應對流程；量化客戶情緒，優化溝通策略；自動質檢服務用語，保障品牌一致性。'}
+                </p>
+                <div class="flex space-x-4">
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>风险预警</span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>情绪分析</span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>质量管控</span>
                   </div>
                 </div>
               </div>
@@ -673,49 +698,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         </div>
       </section>
 
-      {/* Features Section - Zenava Brand Style */}
-      <section id="features" class="py-20 bg-white">
-        <div class="site-container px-6">
-          <div class="text-center mb-16">
-            <h2 class="text-5xl lg:text-6xl font-black text-[#000D25] mb-6 leading-tight">
-              {featuresContent.title || 'Intelligent by Design'}
-            </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Transform your organization with AI-powered dialogue solutions that enhance customer experience, 
-              accelerate business growth, and optimize operational efficiency across all departments.
-            </p>
-          </div>
-          
-          <div class="grid md:grid-cols-3 gap-8">
-            {featuresContent.items?.map((feature: any, index: number) => {
-              const colors = [
-                'from-[#6438FF] to-[#8B5CF6]',
-                'from-[#0DE0EF] to-[#6438FF]', 
-                'from-[#8B5CF6] to-[#0DE0EF]'
-              ];
-              return (
-                <div key={index} class="group relative p-8 bg-gradient-to-br from-gray-50 to-white rounded-3xl border border-gray-100 hover:border-[#6438FF]/20 hover:shadow-2xl hover:shadow-[#6438FF]/10 transition-all duration-500 hover:-translate-y-1">
-                  <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-t-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  
-                  <div class={`w-16 h-16 bg-gradient-to-r ${colors[index % 3]} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                    <i class={`${feature.icon} text-white text-2xl`}></i>
-                  </div>
-                  
-                  <h3 class="text-2xl font-bold text-[#000D25] mb-4">{feature.title}</h3>
-                  <p class="text-gray-600 leading-relaxed mb-6">{feature.description}</p>
-                  
-                  <div class="flex items-center text-[#6438FF] font-semibold group-hover:text-[#0DE0EF] transition-colors">
-                    <span>Learn More</span>
-                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                    </svg>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+
 
       {/* Statistics Section - Zenava Brand Style */}
       <section class="py-20 bg-gradient-to-br from-[#000D25] via-[#1a1f3a] to-[#000D25] text-white relative overflow-hidden">
@@ -806,21 +789,26 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
 
 
 
-      {/* Contact Section */}
-      <section id="contact" class="py-20 bg-white">
-        <div class="site-container px-6">
-          <div class="max-w-4xl mx-auto">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">
-              联系我们
+      {/* Contact Section - Simplified */}
+      <section id="contact" class="relative py-20 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] overflow-hidden">
+        {/* Decorative elements */}
+        <div class="absolute -top-20 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+        
+        <div class="site-container px-6 relative z-10">
+          <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
+              {trans.contact.title}
             </h2>
+            <p class="text-xl text-white/90 mb-8">
+              {trans.contact.subtitle}
+            </p>
             
-            <div class="text-center">
-              <p class="text-xl text-gray-600 mb-8">
-                如有任何问题或商务合作，请通过以下方式联系我们
-              </p>
+            {/* Email Only */}
+            <div class="flex justify-center items-center">
               <a 
                 href="mailto:marketing@zenava.ai" 
-                class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] text-white rounded-lg font-semibold hover:shadow-xl transition-all transform hover:scale-105"
+                class="inline-flex items-center px-8 py-4 bg-white text-[#6438FF] rounded-xl font-bold hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg"
               >
                 <i class="fas fa-envelope mr-3"></i>
                 marketing@zenava.ai

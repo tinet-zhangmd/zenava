@@ -247,6 +247,8 @@ import { SalesScenario } from './pages/SalesScenario'
 import { CustomerServiceScenario } from './pages/CustomerServiceScenario'
 import { InternalServiceScenario } from './pages/InternalServiceScenario'
 import { ManagementScenario } from './pages/ManagementScenario'
+import { PrivacyPolicy } from './pages/PrivacyPolicy'
+import { TermsConditions } from './pages/TermsConditions'
 import { AboutUs } from './pages/AboutUs'
 import { PrivacyPolicy } from './pages/PrivacyPolicy'
 import { TermsAndConditions } from './pages/TermsAndConditions'
@@ -391,6 +393,32 @@ app.get('/jp/about', async (c) => {
 
 app.get('/hk/about', async (c) => {
   return renderScenarioPage(c, AboutUs, 'hk', '/hk/about', '關於我們')
+})
+
+// Privacy Policy routes
+app.get('/privacy', async (c) => {
+  return renderScenarioPage(c, PrivacyPolicy, 'en', '/privacy', 'Privacy Policy')
+})
+
+app.get('/jp/privacy', async (c) => {
+  return renderScenarioPage(c, PrivacyPolicy, 'jp', '/jp/privacy', 'プライバシーポリシー')
+})
+
+app.get('/hk/privacy', async (c) => {
+  return renderScenarioPage(c, PrivacyPolicy, 'hk', '/hk/privacy', '隱私政策')
+})
+
+// Terms & Conditions routes
+app.get('/terms', async (c) => {
+  return renderScenarioPage(c, TermsConditions, 'en', '/terms', 'Terms & Conditions')
+})
+
+app.get('/jp/terms', async (c) => {
+  return renderScenarioPage(c, TermsConditions, 'jp', '/jp/terms', '利用規約')
+})
+
+app.get('/hk/terms', async (c) => {
+  return renderScenarioPage(c, TermsConditions, 'hk', '/hk/terms', '條款與條件')
 })
 
 // Admin Authentication Middleware

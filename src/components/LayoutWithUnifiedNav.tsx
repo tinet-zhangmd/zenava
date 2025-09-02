@@ -1,6 +1,7 @@
 import { html } from 'hono/html'
 import { Language } from '../utils/i18n'
 import { UnifiedNavigation, type NavigationConfig, type NavMenuItem } from './UnifiedNavigation'
+import { UnifiedFooter } from './UnifiedFooter'
 import { CookieConsent, CookiePreferencesModal } from './CookieConsent'
 import { FooterConfig, FooterSection, PrivacyLink } from '../utils/common-content'
 
@@ -104,74 +105,13 @@ export function LayoutWithUnifiedNav({
           {children}
         </main>
 
-        {/* Footer */}
-        <footer class="bg-gray-900 text-white">
-          <div class="site-container px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {/* Logo and Description */}
-              <div class="md:col-span-1">
-                {footerConfig.logo_url ? (
-                  <img 
-                    src={footerConfig.logo_url}
-                    alt={footerConfig.logo_alt}
-                    class="h-10 w-auto object-contain mb-4"
-                    style="max-width: 160px; filter: brightness(0) invert(1);"
-                  />
-                ) : (
-                  <div class="text-2xl font-bold mb-4">ZENAVA</div>
-                )}
-                <p class="text-gray-300 text-sm">{footerConfig.subtitle}</p>
-              </div>
-              
-              {/* Footer Sections */}
-              {footerSections.map((section) => (
-                <div key={section.id}>
-                  <h4 class="text-lg font-semibold mb-4">{section.title}</h4>
-                  <ul class="space-y-2">
-                    {section.links?.map((link) => (
-                      <li key={link.id}>
-                        <a 
-                          href={link.url}
-                          target={link.target || '_self'}
-                          class="text-gray-300 hover:text-white transition-colors text-sm"
-                        >
-                          {link.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-            
-            {/* Footer Bottom */}
-            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-              <p class="text-gray-400 text-sm">{footerConfig.copyright}</p>
-              <div class="flex flex-wrap gap-4 mt-4 md:mt-0">
-                {privacyLinks.map((link) => (
-                  link.url ? (
-                    <a 
-                      href={link.url}
-                      target={link.target || '_self'}
-                      class="text-gray-400 hover:text-white transition-colors text-sm"
-                      key={link.id}
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <button 
-                      id={link.id === 'cookie-preferences' ? 'footer-cookie-preferences' : undefined}
-                      class="text-gray-400 hover:text-white transition-colors cursor-pointer text-sm"
-                      key={link.id}
-                    >
-                      {link.label}
-                    </button>
-                  )
-                ))}
-              </div>
-            </div>
-          </div>
-        </footer>
+        {/* Unified Footer */}
+        <UnifiedFooter 
+          language={language}
+          config={footerConfig}
+          sections={footerSections}
+          privacyLinks={privacyLinks}
+        />
 
         {/* Cookie Consent Components */}
         <CookieConsent language={language} />
@@ -198,17 +138,100 @@ export function LayoutWithUnifiedNav({
               return null;
             }
 
+            // Show cookie preferences modal
+            function showCookiePreferences() {
+              const modal = document.getElementById('cookie-preferences-modal');
+              if (modal) {
+                modal.classList.remove('hidden');
+              }
+            }
+
             // Cookie consent management
             document.addEventListener('DOMContentLoaded', function() {
+              const banner = document.getElementById('cookie-consent-banner');
+              const modal = document.getElementById('cookie-preferences-modal');
+              
+              // Show banner if no consent given
               if (!getCookie('cookie_consent_given')) {
-                document.getElementById('cookie-consent-banner')?.classList.remove('hidden');
+                banner?.classList.remove('hidden');
               }
 
-              // Setup cookie preference handlers
-              document.getElementById('footer-cookie-preferences')?.addEventListener('click', function() {
-                document.getElementById('cookie-preferences-modal')?.classList.remove('hidden');
+              // Cookie consent banner handlers
+              document.getElementById('accept-cookies')?.addEventListener('click', function() {
+                setCookie('cookie_consent_given', 'true');
+                setCookie('cookie_necessary', 'true');
+                setCookie('cookie_analytics', 'true');
+                setCookie('cookie_marketing', 'true');
+                banner?.classList.add('hidden');
               });
+
+              document.getElementById('decline-cookies')?.addEventListener('click', function() {
+                setCookie('cookie_consent_given', 'true');
+                setCookie('cookie_necessary', 'true');
+                setCookie('cookie_analytics', 'false');
+                setCookie('cookie_marketing', 'false');
+                banner?.classList.add('hidden');
+              });
+
+              document.getElementById('customize-cookies')?.addEventListener('click', function() {
+                banner?.classList.add('hidden');
+                showCookiePreferences();
+              });
+
+              // Cookie preferences modal handlers
+              document.getElementById('close-cookie-modal')?.addEventListener('click', function() {
+                modal?.classList.add('hidden');
+              });
+
+              document.getElementById('save-cookie-preferences')?.addEventListener('click', function() {
+                setCookie('cookie_consent_given', 'true');
+                setCookie('cookie_necessary', 'true');
+                
+                const analytics = document.getElementById('analytics-cookies');
+                const marketing = document.getElementById('marketing-cookies');
+                
+                setCookie('cookie_analytics', analytics?.checked ? 'true' : 'false');
+                setCookie('cookie_marketing', marketing?.checked ? 'true' : 'false');
+                
+                modal?.classList.add('hidden');
+              });
+
+              document.getElementById('accept-all-cookies')?.addEventListener('click', function() {
+                setCookie('cookie_consent_given', 'true');
+                setCookie('cookie_necessary', 'true');
+                setCookie('cookie_analytics', 'true');
+                setCookie('cookie_marketing', 'true');
+                
+                const analytics = document.getElementById('analytics-cookies');
+                const marketing = document.getElementById('marketing-cookies');
+                if (analytics) analytics.checked = true;
+                if (marketing) marketing.checked = true;
+                
+                modal?.classList.add('hidden');
+              });
+
+              // Setup cookie preference link handlers
+              document.getElementById('footer-cookie-preferences')?.addEventListener('click', function() {
+                showCookiePreferences();
+              });
+
+              // Set initial checkbox states based on saved preferences
+              const analyticsConsent = getCookie('cookie_analytics');
+              const marketingConsent = getCookie('cookie_marketing');
+              
+              if (analyticsConsent !== null) {
+                const analytics = document.getElementById('analytics-cookies');
+                if (analytics) analytics.checked = analyticsConsent === 'true';
+              }
+              
+              if (marketingConsent !== null) {
+                const marketing = document.getElementById('marketing-cookies');
+                if (marketing) marketing.checked = marketingConsent === 'true';
+              }
             });
+
+            // Make showCookiePreferences globally available
+            window.showCookiePreferences = showCookiePreferences;
           `
         }} />
 

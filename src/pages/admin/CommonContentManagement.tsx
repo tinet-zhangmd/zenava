@@ -74,7 +74,7 @@ export const CommonContentManagement = () => {
                         <i class="fas fa-trash mr-2"></i>清除
                       </button>
                     </div>
-                    <p class="text-xs text-gray-500 mt-1">支持 JPG, PNG, GIF, WebP, SVG 格式，最大 5MB</p>
+                    <p class="text-xs text-gray-500 mt-1">支持 JPG, PNG, GIF, WebP, SVG, ICO, BMP 格式，最大 10MB</p>
                   </div>
 
                   <!-- URL Input -->
@@ -119,7 +119,7 @@ export const CommonContentManagement = () => {
                   <div class="mb-3">
                     <input type="file" id="footer-logo-file" accept="image/*" onchange="handleFooterLogoUpload(this)"
                            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                    <p class="text-xs text-gray-500 mt-1">支持 JPG, PNG, GIF, WebP, SVG 格式，最大 5MB</p>
+                    <p class="text-xs text-gray-500 mt-1">支持 JPG, PNG, GIF, WebP, SVG, ICO, BMP 格式，最大 10MB</p>
                   </div>
                   
                   <!-- URL Input -->
@@ -505,46 +505,64 @@ export const CommonContentManagement = () => {
           try {
             showLoading('正在保存...');
             
-            // Save navigation
-            await fetch('/api/common-content/navigation', {
+            // Save navigation - with published status for immediate reflection
+            const navResponse = await fetch('/api/common-content/navigation', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                logo_url: document.getElementById('nav-logo-url').value,
-                logo_alt: document.getElementById('nav-logo-alt').value,
-                status: 'draft'
+                logo_url: document.getElementById('nav-logo-url').value || uploadedNavLogoUrl,
+                logo_alt: document.getElementById('nav-logo-alt').value || 'ZENAVA',
+                status: 'published' // Set to published for immediate update
               })
             });
             
-            // Save footer config
-            await fetch('/api/common-content/footer/config', {
+            if (!navResponse.ok) {
+              throw new Error('Failed to save navigation config');
+            }
+            
+            // Save footer config - with published status for immediate reflection
+            const footerResponse = await fetch('/api/common-content/footer/config', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                logo_url: document.getElementById('footer-logo-url').value,
-                logo_alt: 'Footer Logo',
-                subtitle_text: document.getElementById('footer-subtitle').value,
-                copyright_text: document.getElementById('footer-copyright').value,
-                status: 'draft'
+                logo_url: document.getElementById('footer-logo-url').value || uploadedFooterLogoUrl,
+                logo_alt: 'ZENAVA',
+                subtitle_text: document.getElementById('footer-subtitle').value || '',
+                copyright_text: document.getElementById('footer-copyright').value || `© ${new Date().getFullYear()} ZENAVA. All rights reserved.`,
+                status: 'published' // Set to published for immediate update
               })
             });
+            
+            if (!footerResponse.ok) {
+              throw new Error('Failed to save footer config');
+            }
             
             hideLoading();
-            showToast('所有更改已保存');
+            showToast('所有更改已保存并立即生效');
+            
+            // Reload data to confirm changes
+            setTimeout(() => {
+              loadNavigationData();
+              loadFooterData();
+            }, 500);
           } catch (error) {
             console.error('Error saving changes:', error);
             hideLoading();
-            showToast('保存失败', 'error');
+            showToast('保存失败: ' + error.message, 'error');
           }
         }
 
         // Publish content
         async function publishContent(type) {
-          if (!confirm('确定要将当前内容发布到生产环境吗？发布后所有页面将重新生成以应用新的导航栏和页脚。')) return;
+          if (!confirm('确定要将当前内容发布到生产环境吗？')) return;
           
           try {
-            showLoading('正在发布并重新生成页面...');
+            showLoading('正在发布...');
             
+            // First save all changes with published status
+            await saveAllChanges();
+            
+            // Then publish to ensure everything is updated
             const response = await fetch('/api/common-content/publish', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -556,14 +574,19 @@ export const CommonContentManagement = () => {
             hideLoading();
             
             if (result.success) {
-              showToast(result.message || '内容已成功发布到生产环境');
+              showToast('内容已成功发布，更改立即生效');
+              // Force reload data
+              setTimeout(() => {
+                loadNavigationData();
+                loadFooterData();
+              }, 500);
             } else {
               showToast(result.error || '发布失败', 'error');
             }
           } catch (error) {
             console.error('Error publishing content:', error);
             hideLoading();
-            showToast('发布失败', 'error');
+            showToast('发布失败: ' + error.message, 'error');
           }
         }
 

@@ -9,9 +9,9 @@ navigation.use('/*', cors())
 // Get navigation configuration and menu items
 navigation.get('/config', async (c) => {
   try {
-    // Get navigation configuration
+    // Get navigation configuration - Always get id=1, check status later if needed
     const configResult = await c.env.DB.prepare(`
-      SELECT * FROM navigation_config WHERE id = 1 AND status = 'published'
+      SELECT * FROM navigation_config WHERE id = 1
     `).first()
     
     // Get menu items

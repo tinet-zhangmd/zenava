@@ -312,9 +312,51 @@ export const CommonContentManagementV2 = () => {
 
         // Load all language data
         async function loadAllLanguageData() {
+          // First load data for each language
           for (const lang of ['en', 'jp', 'hk']) {
             await loadLanguageDataForLang(lang);
           }
+          
+          // Synchronize logos across all languages (single logo configuration)
+          // Navigation logo - use the first non-null logo found
+          let navLogo = null;
+          for (const lang of ['en', 'jp', 'hk']) {
+            if (allLanguageData[lang].navigation?.logo_url) {
+              navLogo = allLanguageData[lang].navigation.logo_url;
+              break;
+            }
+          }
+          // Apply the same logo to all languages
+          if (navLogo) {
+            for (const lang of ['en', 'jp', 'hk']) {
+              if (!allLanguageData[lang].navigation) {
+                allLanguageData[lang].navigation = {};
+              }
+              allLanguageData[lang].navigation.logo_url = navLogo;
+            }
+          }
+          
+          // Footer logo - use the first non-null logo found
+          let footerLogo = null;
+          for (const lang of ['en', 'jp', 'hk']) {
+            if (allLanguageData[lang].footer?.config?.logo_url) {
+              footerLogo = allLanguageData[lang].footer.config.logo_url;
+              break;
+            }
+          }
+          // Apply the same logo to all languages
+          if (footerLogo) {
+            for (const lang of ['en', 'jp', 'hk']) {
+              if (!allLanguageData[lang].footer) {
+                allLanguageData[lang].footer = {};
+              }
+              if (!allLanguageData[lang].footer.config) {
+                allLanguageData[lang].footer.config = {};
+              }
+              allLanguageData[lang].footer.config.logo_url = footerLogo;
+            }
+          }
+          
           // Load current language data to UI
           loadLanguageData(currentLanguage);
         }
@@ -405,7 +447,13 @@ export const CommonContentManagementV2 = () => {
             if (result.success) {
               document.getElementById('nav-logo-url').value = result.url;
               previewNavLogo(result.url);
-              allLanguageData[currentLanguage].navigation.logo_url = result.url;
+              // Update logo for ALL languages (single logo configuration)
+              for (const lang of ['en', 'jp', 'hk']) {
+                if (!allLanguageData[lang].navigation) {
+                  allLanguageData[lang].navigation = {};
+                }
+                allLanguageData[lang].navigation.logo_url = result.url;
+              }
               showToast('Logo上传成功');
             } else {
               showToast(result.error || '上传失败', 'error');
@@ -439,10 +487,16 @@ export const CommonContentManagementV2 = () => {
             if (result.success) {
               document.getElementById('footer-logo-url').value = result.url;
               previewFooterLogo(result.url);
-              if (!allLanguageData[currentLanguage].footer.config) {
-                allLanguageData[currentLanguage].footer.config = {};
+              // Update logo for ALL languages (single logo configuration)
+              for (const lang of ['en', 'jp', 'hk']) {
+                if (!allLanguageData[lang].footer) {
+                  allLanguageData[lang].footer = {};
+                }
+                if (!allLanguageData[lang].footer.config) {
+                  allLanguageData[lang].footer.config = {};
+                }
+                allLanguageData[lang].footer.config.logo_url = result.url;
               }
-              allLanguageData[currentLanguage].footer.config.logo_url = result.url;
               showToast('Logo上传成功');
             } else {
               showToast(result.error || '上传失败', 'error');
@@ -482,7 +536,13 @@ export const CommonContentManagementV2 = () => {
           const url = document.getElementById('nav-logo-url').value;
           if (url) {
             previewNavLogo(url);
-            allLanguageData[currentLanguage].navigation.logo_url = url;
+            // Update logo for ALL languages (single logo configuration)
+            for (const lang of ['en', 'jp', 'hk']) {
+              if (!allLanguageData[lang].navigation) {
+                allLanguageData[lang].navigation = {};
+              }
+              allLanguageData[lang].navigation.logo_url = url;
+            }
           }
         }
 
@@ -491,7 +551,12 @@ export const CommonContentManagementV2 = () => {
           document.getElementById('nav-logo-url').value = '';
           document.getElementById('nav-logo-file').value = '';
           clearNavLogoPreview();
-          allLanguageData[currentLanguage].navigation.logo_url = null;
+          // Clear logo for ALL languages (single logo configuration)
+          for (const lang of ['en', 'jp', 'hk']) {
+            if (allLanguageData[lang].navigation) {
+              allLanguageData[lang].navigation.logo_url = null;
+            }
+          }
         }
 
         // Preview footer logo
@@ -520,10 +585,16 @@ export const CommonContentManagementV2 = () => {
           const url = document.getElementById('footer-logo-url').value;
           if (url) {
             previewFooterLogo(url);
-            if (!allLanguageData[currentLanguage].footer.config) {
-              allLanguageData[currentLanguage].footer.config = {};
+            // Update logo for ALL languages (single logo configuration)
+            for (const lang of ['en', 'jp', 'hk']) {
+              if (!allLanguageData[lang].footer) {
+                allLanguageData[lang].footer = {};
+              }
+              if (!allLanguageData[lang].footer.config) {
+                allLanguageData[lang].footer.config = {};
+              }
+              allLanguageData[lang].footer.config.logo_url = url;
             }
-            allLanguageData[currentLanguage].footer.config.logo_url = url;
           }
         }
 
@@ -532,8 +603,11 @@ export const CommonContentManagementV2 = () => {
           document.getElementById('footer-logo-url').value = '';
           document.getElementById('footer-logo-file').value = '';
           clearFooterLogoPreview();
-          if (allLanguageData[currentLanguage].footer.config) {
-            allLanguageData[currentLanguage].footer.config.logo_url = null;
+          // Clear logo for ALL languages (single logo configuration)
+          for (const lang of ['en', 'jp', 'hk']) {
+            if (allLanguageData[lang].footer && allLanguageData[lang].footer.config) {
+              allLanguageData[lang].footer.config.logo_url = null;
+            }
           }
         }
 
@@ -656,21 +730,29 @@ export const CommonContentManagementV2 = () => {
           try {
             showLoading('正在保存...');
             
-            // Save data for all languages
+            // Save navigation config (single logo for all languages)
+            const navLogoUrl = document.getElementById('nav-logo-url').value || 
+                              allLanguageData['en'].navigation?.logo_url || 
+                              allLanguageData['jp'].navigation?.logo_url || 
+                              allLanguageData['hk'].navigation?.logo_url;
+            
+            await fetch('/api/common-content/navigation', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                logo_url: navLogoUrl,
+                logo_alt: document.getElementById('nav-logo-alt').value || 'ZENAVA',
+                status: 'published'  // Changed from 'draft' to 'published' for immediate effect
+              })
+            });
+            
+            // Save footer config for each language (logo is shared, but text is language-specific)
             for (const lang of ['en', 'jp', 'hk']) {
-              // Save navigation
-              await fetch('/api/common-content/navigation?lang=' + lang, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  logo_url: allLanguageData[lang].navigation?.logo_url || document.getElementById('nav-logo-url').value,
-                  logo_alt: allLanguageData[lang].navigation?.logo_alt || document.getElementById('nav-logo-alt').value,
-                  status: 'draft',
-                  language: lang
-                })
-              });
+              const footerLogoUrl = document.getElementById('footer-logo-url').value || 
+                                   allLanguageData['en'].footer?.config?.logo_url || 
+                                   allLanguageData['jp'].footer?.config?.logo_url || 
+                                   allLanguageData['hk'].footer?.config?.logo_url;
               
-              // Save footer config
               const footerSubtitle = lang === currentLanguage ? document.getElementById('footer-subtitle').value : 
                                    (allLanguageData[lang].footer?.config?.logo_subtitle || languageTexts[lang].subtitle);
               const footerCopyright = lang === currentLanguage ? document.getElementById('footer-copyright').value :
@@ -680,11 +762,11 @@ export const CommonContentManagementV2 = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                  logo_url: allLanguageData[lang].footer?.config?.logo_url || document.getElementById('footer-logo-url').value,
+                  logo_url: footerLogoUrl,
                   logo_alt: 'Footer Logo',
                   subtitle_text: footerSubtitle,
                   copyright_text: footerCopyright,
-                  status: 'draft',
+                  status: 'published',  // Changed from 'draft' to 'published' for immediate effect
                   language: lang
                 })
               });

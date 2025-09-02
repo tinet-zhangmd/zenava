@@ -156,29 +156,51 @@
 - 联系方式简化为邮箱链接，提升用户体验
 
 ## 最后更新
-- **日期**: 2025-09-01
-- **版本**: 2.0.1
+- **日期**: 2025-09-02
+- **版本**: 2.2.0
 - **更新内容**: 
-  - **重大更新：全站统一导航栏系统重构**
+  - **Logo持久化问题修复**（v2.2.0）
+    - 修复了管理后台上传Logo后刷新页面Logo丢失的问题
+    - 实现了统一的Logo管理机制，导航栏和页脚Logo在所有语言版本间共享
+    - 优化了数据加载和保存逻辑，确保Logo配置正确持久化
+    - 支持PNG、JPG等格式，最大10MB
+    - 修复内容：
+      - handleNavLogoUpload() 更新所有语言的Logo
+      - handleFooterLogoUpload() 更新所有语言的Logo
+      - previewNavLogoFromUrl() 和 clearNavLogo() 统一处理
+      - loadAllLanguageData() 同步Logo数据
+      - saveAllChanges() 优化保存逻辑
+  - **重大更新：全站统一Footer系统**（v2.1.0）
+    - 创建UnifiedFooter组件，确保全站Footer一致性
+    - Footer包含以下元素：
+      - Zenava Logo（白色版本）
+      - 公司描述文字
+      - Scenarios菜单及所有子链接（Marketing、Sales、Customer Service、Internal Service、Management Optimization）
+      - Cookie Preferences（点击触发弹窗）
+      - Privacy Policy链接（/privacy）
+      - Terms & Conditions链接（/terms）
+      - 版权信息（© 2024 Zenava. All rights reserved.）
+    - 修复Cookie Preferences功能：
+      - 添加showCookiePreferences全局函数
+      - 完善Cookie管理JavaScript
+      - 支持保存和读取Cookie偏好设置
+      - Cookie弹窗正常显示和关闭
+    - 支持多语言（英语、日语、繁体中文）
+    - 一次修改，全站自动应用
+  - **首页优化更新**（v2.0.3）
+    - 统一"Zenava 能为企业带来什么"模块样式：
+      - 产品设计与优化模块改为统一的左右布局
+      - 品牌与舆情管理模块改为统一的左右布局
+      - 所有6个模块现在保持一致的设计语言
+    - 简化底部联系我们模块：
+      - 保留标题"开启智能对话新篇章"
+      - 仅显示邮箱联系按钮（marketing@zenava.ai）
+      - 删除"预约产品演示"按钮
+      - 使用品牌渐变背景
+  - **导航栏系统重构**（v2.0.0-v2.0.2）
     - 创建UnifiedNavigation组件，统一管理全站导航栏
-    - 新增完整的导航栏配置数据模型：
-      - 支持Logo设置（URL、高度、最大宽度）
-      - 支持导航栏样式（背景色、文字色、悬停色、边框、阴影、模糊效果）
-      - 支持下拉菜单样式自定义
-      - 支持CTA按钮配置
-      - 支持语言切换器配置
-    - 数据库新增三个表：
-      - navigation_config：导航栏全局配置
-      - navigation_menu_items：菜单项配置
-      - navigation_submenu_items：子菜单项配置
+    - 新增完整的导航栏配置数据模型
+    - 数据库新增三个表支持导航配置
     - 支持多语言菜单项和描述
-    - 创建/api/navigation API端点管理导航栏
-    - 所有页面现在使用LayoutWithUnifiedNav布局组件
-    - 确保全站导航栏数据、样式、交互完全一致
-    - 支持通过后台统一管理导航栏配置
-  - **修复遗漏页面的导航栏统一**（v2.0.1）
-    - 修复Customer Service场景页面导航栏
-    - 修复Internal Service场景页面导航栏
-    - 修复Management场景页面导航栏
-    - 修复About Us页面导航栏
-    - 确保全站所有页面100%使用统一导航栏系统
+    - 删除Get Started CTA按钮
+    - 增加Scenarios下拉菜单宽度

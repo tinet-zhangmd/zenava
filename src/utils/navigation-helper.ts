@@ -7,9 +7,10 @@ export async function getNavigationData(
   language: Language = 'en'
 ): Promise<{ config: NavigationConfig; menuItems: NavMenuItem[] }> {
   try {
-    // Get published navigation configuration
+    // Get navigation configuration (always get id=1, regardless of status)
+    // This ensures admin changes are reflected immediately
     const configResult = await db.prepare(`
-      SELECT * FROM navigation_config WHERE id = 1 AND status = 'published'
+      SELECT * FROM navigation_config WHERE id = 1
     `).first()
     
     // Get menu items

@@ -18,20 +18,19 @@ commonContentApi.get('/navigation', async (c) => {
   const language = c.req.query('lang') || 'en';
   
   try {
-    // Get the latest navigation config for specific language
+    // Always get id=1 config (primary configuration)
     const config = await env.DB.prepare(`
       SELECT * FROM navigation_config 
-      WHERE language = ?
-      ORDER BY updated_at DESC 
+      WHERE id = 1
       LIMIT 1
-    `).bind(language).first();
+    `).first();
     
     return c.json({
       success: true,
       data: config || {
         logo_url: null,
         logo_alt: 'Logo',
-        status: 'draft'
+        status: 'published'
       }
     });
   } catch (error: any) {
@@ -46,43 +45,43 @@ commonContentApi.get('/navigation', async (c) => {
 // Update navigation config
 commonContentApi.post('/navigation', async (c) => {
   const { env } = c;
-  const language = c.req.query('lang') || 'en';
   const body = await c.req.json();
   
   try {
     const { logo_url, logo_alt, status } = body;
     
-    // Check if config exists for this language
+    // Always update id=1 config (primary configuration)
     const existing = await env.DB.prepare(`
-      SELECT id FROM navigation_config WHERE language = ? LIMIT 1
-    `).bind(language).first();
+      SELECT id FROM navigation_config WHERE id = 1 LIMIT 1
+    `).first();
     
     if (existing) {
       // Update existing config
       await env.DB.prepare(`
         UPDATE navigation_config 
         SET logo_url = ?, logo_alt = ?, status = ?, updated_at = CURRENT_TIMESTAMP
-        WHERE id = ?
+        WHERE id = 1
       `).bind(
         logo_url || null,
-        logo_alt || 'Logo',
-        status || 'draft',
-        existing.id
+        logo_alt || 'ZENAVA',
+        status || 'published' // Default to published for immediate reflection
       ).run();
     } else {
-      // Create new config
+      // Create new config with id=1
       await env.DB.prepare(`
-        INSERT INTO navigation_config (logo_url, logo_alt, status, language)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO navigation_config (id, logo_url, logo_alt, status)
+        VALUES (1, ?, ?, ?)
       `).bind(
         logo_url || null,
-        logo_alt || 'Logo',
-        status || 'draft',
-        language
+        logo_alt || 'ZENAVA',
+        status || 'published' // Default to published for immediate reflection
       ).run();
     }
     
-    return c.json({ success: true });
+    return c.json({ 
+      success: true, 
+      message: 'Navigation configuration updated successfully' 
+    });
   } catch (error: any) {
     console.error('Error updating navigation config:', error);
     return c.json({ 
@@ -100,13 +99,12 @@ commonContentApi.get('/footer', async (c) => {
   const language = c.req.query('lang') || 'en';
   
   try {
-    // Get footer config for specific language
+    // Get footer config (get the latest regardless of language for consistency)
     const config = await env.DB.prepare(`
       SELECT * FROM footer_config 
-      WHERE language = ?
       ORDER BY updated_at DESC 
       LIMIT 1
-    `).bind(language).first();
+    `).first();
     
     // Get footer sections for the language
     const sections = await env.DB.prepare(`
@@ -182,41 +180,45 @@ commonContentApi.post('/footer/config', async (c) => {
   try {
     const { logo_url, logo_alt, subtitle_text, copyright_text, status } = body;
     
-    // Check if config exists for this language
+    // Check if any config exists
     const existing = await env.DB.prepare(`
-      SELECT id FROM footer_config WHERE language = ? LIMIT 1
-    `).bind(language).first();
+      SELECT id FROM footer_config ORDER BY id LIMIT 1
+    `).first();
     
     if (existing) {
-      // Update existing config
+      // Update first/primary config
       await env.DB.prepare(`
         UPDATE footer_config 
-        SET logo_url = ?, logo_alt = ?, subtitle_text = ?, copyright_text = ?, status = ?, updated_at = CURRENT_TIMESTAMP
+        SET logo_url = ?, logo_alt = ?, logo_subtitle = ?, copyright_text = ?, status = ?, language = ?, updated_at = CURRENT_TIMESTAMP
         WHERE id = ?
       `).bind(
         logo_url || null,
-        logo_alt || 'Logo',
-        subtitle_text || '',
-        copyright_text || `© ${new Date().getFullYear()} Zenava. All rights reserved.`,
-        status || 'draft',
+        logo_alt || 'ZENAVA',
+        subtitle_text || '企業與客戶對話場景的 AI 智能體',
+        copyright_text || `© ${new Date().getFullYear()} ZENAVA. All rights reserved.`,
+        status || 'published', // Default to published for immediate reflection
+        language,
         existing.id
       ).run();
     } else {
       // Create new config
       await env.DB.prepare(`
-        INSERT INTO footer_config (logo_url, logo_alt, subtitle_text, copyright_text, status, language)
+        INSERT INTO footer_config (logo_url, logo_alt, logo_subtitle, copyright_text, status, language)
         VALUES (?, ?, ?, ?, ?, ?)
       `).bind(
         logo_url || null,
-        logo_alt || 'Logo',
-        subtitle_text || '',
-        copyright_text || `© ${new Date().getFullYear()} Zenava. All rights reserved.`,
-        status || 'draft',
+        logo_alt || 'ZENAVA',
+        subtitle_text || '企業與客戶對話場景的 AI 智能體',
+        copyright_text || `© ${new Date().getFullYear()} ZENAVA. All rights reserved.`,
+        status || 'published', // Default to published for immediate reflection
         language
       ).run();
     }
     
-    return c.json({ success: true });
+    return c.json({ 
+      success: true,
+      message: 'Footer configuration updated successfully'
+    });
   } catch (error: any) {
     console.error('Error updating footer config:', error);
     return c.json({ 
@@ -384,7 +386,7 @@ commonContentApi.post('/publish', async (c) => {
   const { type } = body; // 'navigation', 'footer', or 'all'
   
   try {
-    // Update status to published
+    // Update status to published for all languages
     if (type === 'navigation' || type === 'all') {
       await env.DB.prepare(`
         UPDATE navigation_config 
@@ -399,16 +401,21 @@ commonContentApi.post('/publish', async (c) => {
       `).run();
     }
     
-    // Mark all pages for regeneration
-    // This will trigger the frontend to reload navigation and footer from database
-    await env.DB.prepare(`
-      UPDATE page_content 
-      SET updated_at = CURRENT_TIMESTAMP
-    `).run();
+    // Clear any cached data by updating timestamps
+    // This ensures immediate reflection of changes
+    try {
+      await env.DB.prepare(`
+        UPDATE page_content 
+        SET updated_at = CURRENT_TIMESTAMP
+      `).run();
+    } catch (e) {
+      // Table might not exist, ignore error
+      console.log('page_content table might not exist, skipping update');
+    }
     
     return c.json({ 
       success: true,
-      message: 'Content published successfully. All pages will be regenerated with new navigation and footer.'
+      message: 'Content published successfully. Changes will be reflected immediately.'
     });
   } catch (error: any) {
     console.error('Error publishing content:', error);

@@ -49,9 +49,10 @@ export interface PrivacyLink {
 
 export async function getNavigationConfig(db: D1Database, language: string = 'en'): Promise<NavigationConfig> {
   try {
+    // Get the latest navigation config (regardless of status to show immediate updates)
     const config = await db.prepare(`
       SELECT * FROM navigation_config 
-      WHERE status = 'published' AND language = ?
+      WHERE language = ?
       ORDER BY updated_at DESC 
       LIMIT 1
     `).bind(language).first();
@@ -90,10 +91,10 @@ export async function getFooterConfig(db: D1Database, language: string = 'en'): 
   privacyLinks: PrivacyLink[];
 }> {
   try {
-    // Get footer config
+    // Get footer config (regardless of status to show immediate updates)
     const config = await db.prepare(`
       SELECT * FROM footer_config 
-      WHERE status = 'published' AND language = ?
+      WHERE language = ?
       ORDER BY updated_at DESC 
       LIMIT 1
     `).bind(language).first();
