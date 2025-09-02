@@ -480,7 +480,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                     <div class="bg-green-50 border border-green-200 rounded-lg p-4">
                       <div class="flex items-center justify-between">
                         <i class="fas fa-store text-green-600 text-2xl"></i>
-                        <span class="text-2xl font-bold text-green-600">500+</span>
+                        <span class="text-2xl font-bold text-green-600">{trans.operationsMetrics?.storeCount || '500+'}</span>
                       </div>
                       <p class="text-sm text-gray-700 mt-2">{trans.operationsMetrics?.storeAccess || '门店接入'}</p>
                     </div>
@@ -488,7 +488,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
                       <div class="flex items-center justify-between">
                         <i class="fas fa-tasks text-blue-600 text-2xl"></i>
-                        <span class="text-2xl font-bold text-blue-600">10K+</span>
+                        <span class="text-2xl font-bold text-blue-600">{trans.operationsMetrics?.dailyVolume || '10K+'}</span>
                       </div>
                       <p class="text-sm text-gray-700 mt-2">{trans.operationsMetrics?.dailyProcessing || '日均处理'}</p>
                     </div>

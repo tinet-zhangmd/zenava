@@ -296,6 +296,19 @@ export const siteTranslations = {
         title: 'Track Resolution',
         description: 'Real-time status and satisfaction tracking'
       }
+    },
+    
+    // Internal Operations Metrics
+    operationsMetrics: {
+      title: 'Operations Efficiency',
+      storeAccess: 'Store Access',
+      storeCount: '500+',
+      dailyProcessing: 'Daily Processing',
+      dailyVolume: '10K+',
+      avgResponse: 'Avg Response',
+      responseTime: '2hrs',
+      dispatchEfficiency: 'Dispatch Efficiency',
+      efficiencyRate: '85%'
     }
   },
   
@@ -544,6 +557,19 @@ export const siteTranslations = {
         title: '解決状況追跡',
         description: 'リアルタイムステータスと満足度追跡'
       }
+    },
+    
+    // Internal Operations Metrics
+    operationsMetrics: {
+      title: '運用効率向上',
+      storeAccess: '店舗接続',
+      storeCount: '500+',
+      dailyProcessing: '日次処理',
+      dailyVolume: '10K+',
+      avgResponse: '平均応答',
+      responseTime: '2時間',
+      dispatchEfficiency: '派遣効率',
+      efficiencyRate: '85%'
     }
   },
   
@@ -792,6 +818,19 @@ export const siteTranslations = {
         title: '跟蹤解決',
         description: '實時狀態更新和滿意度追蹤'
       }
+    },
+    
+    // Internal Operations Metrics
+    operationsMetrics: {
+      title: '營運效率提升',
+      storeAccess: '門店接入',
+      storeCount: '500+',
+      dailyProcessing: '日均處理',
+      dailyVolume: '10K+',
+      avgResponse: '平均響應',
+      responseTime: '2小時',
+      dispatchEfficiency: '派單效率',
+      efficiencyRate: '85%'
     }
   }
 }
