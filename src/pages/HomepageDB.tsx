@@ -57,12 +57,12 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
 
   // Get statistics content
   const statsContent = findModule('platform_stats') || {
-    title: 'Platform Performance',
+    title: trans.stats?.title || 'Platform Performance',
     stats: [
-      { number: '10M+', label: 'Conversations Handled' },
-      { number: '99.9%', label: 'Uptime SLA' },
-      { number: '500+', label: 'Enterprise Clients' },
-      { number: '4.9/5', label: 'Customer Satisfaction' }
+      { number: '10M+', label: trans.stats?.conversations || 'Conversations Handled' },
+      { number: '99.9%', label: trans.stats?.uptime || 'Uptime SLA' },
+      { number: '5000+', label: trans.stats?.enterprises || 'Enterprise Clients' },
+      { number: '4.9/5', label: trans.stats?.satisfaction || 'Customer Satisfaction' }
     ]
   };
 
@@ -110,46 +110,46 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <i class="fas fa-robot text-white"></i>
             </div>
             <div>
-              <div class="text-white font-semibold">Zenava AI</div>
-              <div class="text-[#0DE0EF] text-sm">Online</div>
+              <div class="text-white font-semibold">{trans.aiSimulation.aiAssistant}</div>
+              <div class="text-[#0DE0EF] text-sm">{trans.aiSimulation.status}</div>
             </div>
           </div>
           <div class="flex items-center space-x-2">
             <div class="w-2 h-2 bg-[#0DE0EF] rounded-full animate-pulse"></div>
-            <span class="text-xs text-gray-300">Live</span>
+            <span class="text-xs text-gray-300">{trans.aiSimulation.live}</span>
           </div>
         </div>
 
         <div class="space-y-4 mb-4" id="ai-sim">
           <div class="flex justify-end ai-step ai-step-1">
             <div class="bg-gradient-to-r from-[#6438FF] to-[#8B5CF6] text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs">
-              <p class="text-sm">您好，我的订单 #A12345 想查询一下物流</p>
+              <p class="text-sm">{trans.aiSimulation.customerQuery}</p>
             </div>
           </div>
           <div class="flex justify-start ai-step ai-step-2 opacity-0" style="animation: fadeIn .6s ease forwards; animation-delay: .8s;">
             <div class="bg-white/10 text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs border border-white/20">
               <div class="flex items-center space-x-2 mb-2">
                 <div class="w-4 h-4 bg-gradient-to-r from-[#0DE0EF] to-[#6438FF] rounded-full"></div>
-                <span class="text-xs text-[#0DE0EF]">正在識別問題...</span>
+                <span class="text-xs text-[#0DE0EF]">{trans.aiSimulation.aiProcessing}</span>
               </div>
-              <p class="text-sm">為您定位訂單資訊中...</p>
+              <p class="text-sm">{trans.aiSimulation.aiLocating}</p>
             </div>
           </div>
           <div class="flex justify-start ai-step ai-step-3 opacity-0" style="animation: fadeIn .6s ease forwards; animation-delay: 1.8s;">
             <div class="bg-white/10 text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs border border-white/20">
-              <p class="text-sm">已找到訂單，包裹已出庫，預計 24 小時內送達。需要我發送追蹤連結嗎？</p>
+              <p class="text-sm">{trans.aiSimulation.aiResponse}</p>
             </div>
           </div>
           <div class="flex justify-end ai-step ai-step-4 opacity-0" style="animation: fadeIn .6s ease forwards; animation-delay: 2.8s;">
             <div class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs">
-              <p class="text-sm">好的，謝謝！請發我追蹤連結 👍</p>
+              <p class="text-sm">{trans.aiSimulation.customerReply}</p>
             </div>
           </div>
         </div>
 
         <div class="flex items-center space-x-3">
           <div class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3">
-            <input type="text" placeholder="輸入訊息..." class="w-full bg-transparent text-white placeholder-gray-400 text-sm outline-none" />
+            <input type="text" placeholder={trans.aiSimulation.inputPlaceholder} class="w-full bg-transparent text-white placeholder-gray-400 text-sm outline-none" />
           </div>
           <button class="w-12 h-12 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-xl flex items-center justify-center hover:scale-105 transition-transform">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
@@ -160,17 +160,17 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
       <div class="absolute -top-4 -right-8 w-32 p-3 bg-gradient-to-r from-[#6438FF]/90 to-[#8B5CF6]/90 backdrop-blur-xl rounded-xl border border-white/20 animate-float">
         <div class="flex items-center space-x-2 mb-1">
           <div class="w-4 h-4 bg-[#0DE0EF] rounded-full"></div>
-          <span class="text-white text-xs font-semibold">Response</span>
+          <span class="text-white text-xs font-semibold">{trans.aiSimulation.responseTime}</span>
         </div>
-        <div class="text-white text-lg font-black">&lt; 100ms</div>
+        <div class="text-white text-lg font-black">{trans.aiSimulation.responseValue}</div>
       </div>
 
       <div class="absolute -bottom-4 -left-8 w-36 p-3 bg-gradient-to-r from-[#0DE0EF]/90 to-[#6438FF]/90 backdrop-blur-xl rounded-xl border border-white/20 animate-float-delayed">
         <div class="flex items-center space-x-2 mb-1">
           <div class="w-4 h-4 bg-white rounded-full"></div>
-          <span class="text-white text-xs font-semibold">Satisfaction</span>
+          <span class="text-white text-xs font-semibold">{trans.aiSimulation.satisfaction}</span>
         </div>
-        <div class="text-white text-lg font-black">98.7%</div>
+        <div class="text-white text-lg font-black">{trans.aiSimulation.satisfactionValue}</div>
       </div>
     </div>
   </div>
@@ -255,28 +255,37 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   {trans.scenarios.marketing.description}
                 </p>
                 <div class="flex space-x-4">
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>意图识别</span>
-                  </div>
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>智能留资</span>
-                  </div>
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>多渠道整合</span>
-                  </div>
+                  {trans.scenarios.marketing.features?.map((feature: string, index: number) => (
+                    <div class="flex items-center text-sm text-gray-600">
+                      <i class="fas fa-check text-green-500 mr-2"></i>
+                      <span>{feature}</span>
+                    </div>
+                  )) || (
+                    <>
+                      <div class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>
+                        <span>{trans.scenarios.marketing.features?.[0]}</span>
+                      </div>
+                      <div class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>
+                        <span>{trans.scenarios.marketing.features?.[1]}</span>
+                      </div>
+                      <div class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>
+                        <span>{trans.scenarios.marketing.features?.[2]}</span>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
               
               <div class="bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
-                <h4 class="font-bold text-gray-900 mb-6">营销转化提升数据</h4>
+                <h4 class="font-bold text-gray-900 mb-6">{trans.businessValue?.metrics?.marketing?.title || 'Marketing Performance'}</h4>
                 
                 <div class="space-y-4">
                   <div class="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
                     <div>
-                      <p class="text-sm text-gray-600">平均获客成本降低</p>
+                      <p class="text-sm text-gray-600">{trans.businessValue?.metrics?.marketing?.costReduction || 'Cost Reduced'}</p>
                       <p class="text-2xl font-bold text-purple-600">43%</p>
                     </div>
                     <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -286,7 +295,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   
                   <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
                     <div>
-                      <p class="text-sm text-gray-600">线索转化率提升</p>
+                      <p class="text-sm text-gray-600">{trans.businessValue?.metrics?.marketing?.conversionIncrease || 'Conversion Increased'}</p>
                       <p class="text-2xl font-bold text-green-600">65%</p>
                     </div>
                     <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">

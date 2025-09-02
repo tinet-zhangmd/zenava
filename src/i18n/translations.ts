@@ -36,7 +36,39 @@ export const siteTranslations = {
     // Business Value
     businessValue: {
       title: 'What Zenava Delivers for Your Enterprise',
-      subtitle: 'Transform organizational capabilities and reshape customer experience through AI-driven dialogue intelligence'
+      subtitle: 'Transform organizational capabilities and reshape customer experience through AI-driven dialogue intelligence',
+      metrics: {
+        marketing: {
+          title: 'Marketing Performance Metrics',
+          costReduction: 'Average Customer Acquisition Cost Reduced',
+          conversionIncrease: 'Lead Conversion Rate Increased'
+        },
+        sales: {
+          title: 'Sales Performance Metrics',
+          cycleReduction: 'Sales Cycle Shortened',
+          winRateIncrease: 'Win Rate Improved'
+        },
+        service: {
+          title: 'Service Performance Metrics',
+          responseTime: 'Average Response Time',
+          resolutionRate: 'First Contact Resolution'
+        },
+        internal: {
+          title: 'Operational Metrics',
+          efficiency: 'Process Efficiency Improved',
+          satisfaction: 'Employee Satisfaction'
+        },
+        product: {
+          title: 'Product Innovation Metrics',
+          insights: 'Customer Insights Generated',
+          iterations: 'Product Iteration Speed'
+        },
+        brand: {
+          title: 'Brand Protection Metrics',
+          monitoring: 'Real-time Monitoring',
+          response: 'Crisis Response Time'
+        }
+      }
     },
     
     // Scenarios/Solutions
@@ -150,6 +182,23 @@ export const siteTranslations = {
       uptime: 'Uptime SLA',
       enterprises: 'Enterprise Clients',
       satisfaction: 'Customer Satisfaction'
+    },
+    
+    // AI Simulation Dialog
+    aiSimulation: {
+      aiAssistant: 'Zenava AI',
+      status: 'Online',
+      live: 'Live',
+      customerQuery: "Hello, I'd like to track my order #A12345",
+      aiProcessing: 'Identifying issue...',
+      aiLocating: 'Locating your order information...',
+      aiResponse: 'Order found. Package shipped, arriving within 24 hours. Need tracking link?',
+      customerReply: 'Yes, please send me the tracking link 👍',
+      inputPlaceholder: 'Type your message...',
+      responseTime: 'Response',
+      responseValue: '< 100ms',
+      satisfaction: 'Satisfaction',
+      satisfactionValue: '98.7%'
     }
   },
   
@@ -187,7 +236,39 @@ export const siteTranslations = {
     // Business Value - Professional tone
     businessValue: {
       title: 'Zenavaが貴社にもたらす価値',
-      subtitle: 'AI駆動の対話インテリジェンスを通じて、組織能力を変革し、顧客体験を再構築します'
+      subtitle: 'AI駆動の対話インテリジェンスを通じて、組織能力を変革し、顧客体験を再構築します',
+      metrics: {
+        marketing: {
+          title: 'マーケティング成果指標',
+          costReduction: '平均顧客獲得コスト削減',
+          conversionIncrease: 'リードコンバージョン率向上'
+        },
+        sales: {
+          title: 'セールス成果指標',
+          cycleReduction: '販売サイクル短縮',
+          winRateIncrease: '成約率向上'
+        },
+        service: {
+          title: 'サービス成果指標',
+          responseTime: '平均応答時間',
+          resolutionRate: '初回解決率'
+        },
+        internal: {
+          title: '運用指標',
+          efficiency: 'プロセス効率向上',
+          satisfaction: '従業員満足度'
+        },
+        product: {
+          title: '製品イノベーション指標',
+          insights: '顧客インサイト生成',
+          iterations: '製品イテレーション速度'
+        },
+        brand: {
+          title: 'ブランド保護指標',
+          monitoring: 'リアルタイム監視',
+          response: '危機対応時間'
+        }
+      }
     },
     
     // Scenarios/Solutions - Industry terminology
@@ -301,6 +382,23 @@ export const siteTranslations = {
       uptime: '稼働率SLA',
       enterprises: '企業クライアント',
       satisfaction: '顧客満足度'
+    },
+    
+    // AI Simulation Dialog
+    aiSimulation: {
+      aiAssistant: 'Zenava AI',
+      status: 'オンライン',
+      live: 'ライブ',
+      customerQuery: 'こんにちは、注文番号 #A12345 の配送状況を確認したいです',
+      aiProcessing: '問題を識別中...',
+      aiLocating: 'ご注文情報を確認中...',
+      aiResponse: 'ご注文を確認しました。商品は発送済みで、24時間以内にお届け予定です。追跡リンクをお送りしますか？',
+      customerReply: 'はい、追跡リンクをお願いします 👍',
+      inputPlaceholder: 'メッセージを入力...',
+      responseTime: 'レスポンス',
+      responseValue: '< 100ms',
+      satisfaction: '満足度',
+      satisfactionValue: '98.7%'
     }
   },
   
@@ -338,7 +436,39 @@ export const siteTranslations = {
     // Business Value
     businessValue: {
       title: 'Zenava能為企業帶來什麼',
-      subtitle: '透過AI驅動的對話智能，變革組織能力，重塑客戶體驗'
+      subtitle: '透過AI驅動的對話智能，變革組織能力，重塑客戶體驗',
+      metrics: {
+        marketing: {
+          title: '行銷成效指標',
+          costReduction: '平均獲客成本降低',
+          conversionIncrease: '線索轉化率提升'
+        },
+        sales: {
+          title: '銷售成效指標',
+          cycleReduction: '銷售週期縮短',
+          winRateIncrease: '成交率提升'
+        },
+        service: {
+          title: '服務成效指標',
+          responseTime: '平均響應時間',
+          resolutionRate: '首次解決率'
+        },
+        internal: {
+          title: '營運指標',
+          efficiency: '流程效率提升',
+          satisfaction: '員工滿意度'
+        },
+        product: {
+          title: '產品創新指標',
+          insights: '客戶洞察產生',
+          iterations: '產品迭代速度'
+        },
+        brand: {
+          title: '品牌保護指標',
+          monitoring: '實時監控',
+          response: '危機響應時間'
+        }
+      }
     },
     
     // Scenarios/Solutions
@@ -452,6 +582,23 @@ export const siteTranslations = {
       uptime: '運行時間SLA',
       enterprises: '企業客戶',
       satisfaction: '客戶滿意度'
+    },
+    
+    // AI Simulation Dialog  
+    aiSimulation: {
+      aiAssistant: 'Zenava AI',
+      status: '在線',
+      live: '實時',
+      customerQuery: '您好，我的訂單 #A12345 想查詢一下物流',
+      aiProcessing: '正在識別問題...',
+      aiLocating: '為您定位訂單資訊中...',
+      aiResponse: '已找到訂單，包裹已出庫，預計 24 小時內送達。需要我發送追蹤連結嗎？',
+      customerReply: '好的，謝謝！請發我追蹤連結 👍',
+      inputPlaceholder: '輸入訊息...',
+      responseTime: '響應時間',
+      responseValue: '< 100ms',
+      satisfaction: '滿意度',
+      satisfactionValue: '98.7%'
     }
   }
 }
