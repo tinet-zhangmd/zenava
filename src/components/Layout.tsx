@@ -1,6 +1,6 @@
 import { html } from 'hono/html'
 import { Language, getTranslation, t, languageFlags, languageNames, getLocalizedPath } from '../utils/i18n'
-import { CookieConsent, CookiePreferencesModal } from './CookieConsent'
+// import { CookieConsent, CookiePreferencesModal } from './CookieConsent' // Temporarily disabled
 
 interface LayoutProps {
   children: any
@@ -218,15 +218,13 @@ export function Layout({ children, language, currentPath, title, description, se
               <div class="flex flex-wrap gap-4 mt-4 md:mt-0 text-center">
                 <a href={getLocalizedPath('/privacy-policy', language)} class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
                 <a href={getLocalizedPath('/terms-and-conditions', language)} class="text-gray-400 hover:text-white transition-colors">Terms & Conditions</a>
-                <button id="footer-cookie-preferences" class="text-gray-400 hover:text-white transition-colors cursor-pointer">Cookie Preferences</button>
               </div>
             </div>
           </div>
         </footer>
 
         {/* Cookie Consent Components */}
-        <CookieConsent language={language} />
-        <CookiePreferencesModal language={language} />
+        {/* Cookie consent components temporarily disabled - implementation pending */}
 
         {/* Cookie Management JavaScript */}
         <script dangerouslySetInnerHTML={{
@@ -407,7 +405,7 @@ export function Layout({ children, language, currentPath, title, description, se
                   hideElement('cookie-preferences-modal');
                 }
               });
-            });
+            }); */
           `
         }} />
 
