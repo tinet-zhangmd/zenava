@@ -1,0 +1,62 @@
+/* Cookie Toggle Switch Styles */
+.cookie-toggle:checked + .cookie-switch {
+  background-color: #3B82F6;
+}
+
+.cookie-toggle:checked + .cookie-switch + .cookie-switch-handle {
+  transform: translateX(1.5rem);
+}
+
+.cookie-switch {
+  transition: background-color 0.2s ease-in-out;
+}
+
+.cookie-switch-handle {
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Cookie Banner Animation */
+#cookie-consent-banner {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Cookie Modal Animation */
+#cookie-preferences-modal {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Cookie Modal Content Animation */
+#cookie-preferences-modal > div > div {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

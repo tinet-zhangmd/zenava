@@ -40,6 +40,7 @@ export function Layout({ children, language, currentPath, title, description, se
         
         {/* Custom Styles */}
         <link href="/static/styles.css" rel="stylesheet" />
+        <link href="/static/cookie-styles.css" rel="stylesheet" />
         
         {/* Tailwind Custom Config */}
         <script dangerouslySetInnerHTML={{

@@ -61,6 +61,7 @@ export function LayoutWithUnifiedNav({
         
         {/* Custom Styles */}
         <link href="/static/styles.css" rel="stylesheet" />
+        <link href="/static/cookie-styles.css" rel="stylesheet" />
         
         {/* Tailwind Custom Config */}
         <script dangerouslySetInnerHTML={{
@@ -157,7 +158,7 @@ export function LayoutWithUnifiedNav({
               }
 
               // Cookie consent banner handlers
-              document.getElementById('accept-cookies')?.addEventListener('click', function() {
+              document.getElementById('cookie-accept-btn')?.addEventListener('click', function() {
                 setCookie('cookie_consent_given', 'true');
                 setCookie('cookie_necessary', 'true');
                 setCookie('cookie_analytics', 'true');
@@ -165,7 +166,7 @@ export function LayoutWithUnifiedNav({
                 banner?.classList.add('hidden');
               });
 
-              document.getElementById('decline-cookies')?.addEventListener('click', function() {
+              document.getElementById('cookie-reject-btn')?.addEventListener('click', function() {
                 setCookie('cookie_consent_given', 'true');
                 setCookie('cookie_necessary', 'true');
                 setCookie('cookie_analytics', 'false');
@@ -173,7 +174,7 @@ export function LayoutWithUnifiedNav({
                 banner?.classList.add('hidden');
               });
 
-              document.getElementById('customize-cookies')?.addEventListener('click', function() {
+              document.getElementById('cookie-settings-btn')?.addEventListener('click', function() {
                 banner?.classList.add('hidden');
                 showCookiePreferences();
               });
@@ -222,11 +223,39 @@ export function LayoutWithUnifiedNav({
               if (analyticsConsent !== null) {
                 const analytics = document.getElementById('analytics-cookies');
                 if (analytics) analytics.checked = analyticsConsent === 'true';
+                updateToggleSwitch(analytics);
               }
               
               if (marketingConsent !== null) {
                 const marketing = document.getElementById('marketing-cookies');
                 if (marketing) marketing.checked = marketingConsent === 'true';
+                updateToggleSwitch(marketing);
+              }
+              
+              // Handle toggle switch clicks
+              document.querySelectorAll('.cookie-toggle').forEach(function(toggle) {
+                const wrapper = toggle.parentElement;
+                if (wrapper && !toggle.disabled) {
+                  wrapper.addEventListener('click', function() {
+                    toggle.checked = !toggle.checked;
+                    updateToggleSwitch(toggle);
+                  });
+                }
+              });
+              
+              function updateToggleSwitch(toggle) {
+                if (!toggle) return;
+                const switchEl = toggle.nextElementSibling;
+                const handle = switchEl?.nextElementSibling;
+                if (toggle.checked) {
+                  if (switchEl) switchEl.classList.add('bg-blue-600');
+                  if (switchEl) switchEl.classList.remove('bg-gray-200');
+                  if (handle) handle.style.transform = 'translateX(1.5rem)';
+                } else {
+                  if (switchEl) switchEl.classList.remove('bg-blue-600');
+                  if (switchEl) switchEl.classList.add('bg-gray-200');
+                  if (handle) handle.style.transform = 'translateX(0)';
+                }
               }
             });
 
