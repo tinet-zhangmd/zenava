@@ -33,12 +33,12 @@ export function SalesScenario({ language }: SalesScenarioProps) {
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center" data-animate="slide-up">
-              <button class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-                <i class="fas fa-play mr-2"></i>
-                {language === 'en' && 'Watch Demo'}
-                {language === 'jp' && 'デモ視聴'}
-                {language === 'hk' && '觀看演示'}
-              </button>
+              <a href="#transformation-journey" class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 inline-block">
+                <i class="fas fa-phone mr-2"></i>
+                {language === 'en' && 'Schedule Consultation'}
+                {language === 'jp' && '相談を予約'}
+                {language === 'hk' && '預約溝通'}
+              </a>
               <button class="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-600 hover:text-white transition-all duration-300">
                 <i class="fas fa-calendar mr-2"></i>
                 {language === 'en' && 'Schedule Demo'}

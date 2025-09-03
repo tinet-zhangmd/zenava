@@ -1,4 +1,5 @@
 import { Language, getTranslation, t } from '../utils/i18n.js'
+import { TransformationCTA } from '../components/TransformationCTA.js'
 
 interface MarketingScenarioProps {
   language: Language
@@ -29,12 +30,12 @@ export function MarketingScenario({ language }: MarketingScenarioProps) {
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center" data-animate="slide-up">
-              <button class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-                <i class="fas fa-play mr-2"></i>
-                {language === 'en' && 'Watch Demo'}
-                {language === 'jp' && 'デモを見る'}
-                {language === 'hk' && '觀看演示'}
-              </button>
+              <a href="#transformation-journey" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 inline-block">
+                <i class="fas fa-phone mr-2"></i>
+                {language === 'en' && 'Schedule Consultation'}
+                {language === 'jp' && '相談を予約'}
+                {language === 'hk' && '預約溝通'}
+              </a>
 
             </div>
           </div>
@@ -673,29 +674,7 @@ export function MarketingScenario({ language }: MarketingScenarioProps) {
       </section>
 
       {/* CTA Section */}
-      <section class="py-20 bg-gray-900 text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6" data-animate="fade-in">
-            {language === 'en' && 'Ready to Transform Your Marketing?'}
-            {language === 'jp' && 'マーケティングを変革する準備はできていますか？'}
-            {language === 'hk' && '準備好變革您的營銷了嗎？'}
-          </h2>
-          <p class="text-xl mb-8 opacity-90" data-animate="fade-in">
-            {language === 'en' && 'Start your AI-powered marketing transformation today'}
-            {language === 'jp' && '今すぐAI駆動のマーケティング変革を始めましょう'}
-            {language === 'hk' && '立即開始您的AI驅動營銷變革'}
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center" data-animate="slide-up">
-            <button class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-              <i class="fas fa-calendar-alt mr-2"></i>
-              {language === 'en' && 'Schedule Demo'}
-              {language === 'jp' && 'デモ予約'}
-              {language === 'hk' && '預約演示'}
-            </button>
-
-          </div>
-        </div>
-      </section>
+      <TransformationCTA language={language} />
     </div>
   )
 }
