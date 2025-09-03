@@ -712,34 +712,7 @@ export function SalesScenario({ language }: SalesScenarioProps) {
       </section>
 
       {/* CTA Section */}
-      <section class="py-20 bg-gray-900 text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6" data-animate="fade-in">
-            {language === 'en' && 'Ready to Accelerate Your Sales?'}
-            {language === 'jp' && '営業を加速する準備はできていますか？'}
-            {language === 'hk' && '準備好加速您的銷售了嗎？'}
-          </h2>
-          <p class="text-xl mb-8 opacity-90" data-animate="fade-in">
-            {language === 'en' && 'Transform your sales team with AI-powered intelligence'}
-            {language === 'jp' && 'AI駆動インテリジェンスで営業チームを変革'}
-            {language === 'hk' && '用AI驅動智能變革您的銷售團隊'}
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center" data-animate="slide-up">
-            <button class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-              <i class="fas fa-calendar-alt mr-2"></i>
-              {language === 'en' && 'Schedule Demo'}
-              {language === 'jp' && 'デモ予約'}
-              {language === 'hk' && '預約演示'}
-            </button>
-            <button class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-gray-900 transition-all duration-300">
-              <i class="fas fa-info-circle mr-2"></i>
-              {language === 'en' && 'Learn More'}
-              {language === 'jp' && '詳細情報'}
-              {language === 'hk' && '了解更多'}
-            </button>
-          </div>
-        </div>
-      </section>
+      <TransformationCTA language={language} />
     </div>
   )
 }
