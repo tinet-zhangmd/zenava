@@ -110,24 +110,13 @@ function getDefaultNavigationConfig(): NavigationConfig {
 function getDefaultMenuItems(): NavMenuItem[] {
   return [
     {
-      id: 'home',
-      type: 'link',
-      label: 'Home',
-      label_en: 'Home',
-      label_jp: 'ホーム',
-      label_hk: '首頁',
-      url: '/',
-      order: 1,
-      visible: true
-    },
-    {
       id: 'scenarios',
       type: 'dropdown',
       label: 'Scenarios',
       label_en: 'Scenarios',
       label_jp: 'シナリオ',
       label_hk: '場景',
-      order: 2,
+      order: 1,
       visible: true,
       children: [
         {
@@ -205,7 +194,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
       label_jp: '私たちについて',
       label_hk: '關於我們',
       url: '/about',
-      order: 3,
+      order: 2,
       visible: true
     }
   ]

@@ -133,9 +133,9 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
         style={navStyles}
       >
         <div class="site-container px-4 sm:px-6 lg:px-8">
-          <div class="flex justify-between items-center h-16">
+          <div class="flex items-center h-16">
             {/* Logo */}
-            <div class="flex-shrink-0">
+            <div class="flex-shrink-0 mr-8">
               <a href={getLocalizedPath('/', currentLanguage)} class="flex items-center">
                 {config.logo_url ? (
                   <img 
@@ -154,7 +154,7 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
             </div>
             
             {/* Desktop Menu */}
-            <div class="hidden md:flex items-center space-x-6">
+            <div class="hidden md:flex items-center space-x-6 flex-1">
               {sortedMenuItems.map(item => (
                 item.type === 'dropdown' && item.children ? (
                   <div class="relative group" key={item.id}>

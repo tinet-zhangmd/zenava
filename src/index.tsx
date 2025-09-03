@@ -427,44 +427,44 @@ async function requireAuth(c: any, next: any) {
   
   // Simple session check - in production, use proper JWT validation
   if (!session || session !== 'admin-authenticated') {
-    return c.redirect('/admin/login')
+    return c.redirect('/ticloudadmin/login')
   }
   
   await next()
 }
 
 // Admin Routes
-app.get('/admin/login', (c) => {
+app.get('/ticloudadmin/login', (c) => {
   const error = c.req.query('error')
   return c.html(<AdminLogin error={error} />)
 })
 
-app.post('/admin/login', async (c) => {
+app.post('/ticloudadmin/login', async (c) => {
   const body = await c.req.formData()
   const email = body.get('email')
   const password = body.get('password')
   
   // Simple authentication - in production, use proper password hashing and validation
-  if (email === 'admin@zenava.com' && password === 'admin123') {
+  if (email === 'ticloudhoutai@zenava.ai' && password === 'tinet.Az2167Hk') {
     // Set session cookie
     setCookie(c, 'admin_session', 'admin-authenticated', {
-      path: '/admin',
+      path: '/ticloudadmin',
       httpOnly: true,
       maxAge: 86400 // 24 hours
     })
-    return c.redirect('/admin')
+    return c.redirect('/ticloudadmin')
   } else {
-    return c.redirect('/admin/login?error=Invalid credentials')
+    return c.redirect('/ticloudadmin/login?error=Invalid credentials')
   }
 })
 
-app.get('/admin/logout', (c) => {
-  deleteCookie(c, 'admin_session', { path: '/admin' })
-  return c.redirect('/admin/login')
+app.get('/ticloudadmin/logout', (c) => {
+  deleteCookie(c, 'admin_session', { path: '/ticloudadmin' })
+  return c.redirect('/ticloudadmin/login')
 })
 
 // Protected Admin Routes
-app.get('/admin', requireAuth, (c) => {
+app.get('/ticloudadmin', requireAuth, (c) => {
   return c.html(
     <AdminLayout title="控制台" currentPath="/admin" user={{ name: '管理员', email: 'admin@zenava.com' }}>
       <Dashboard />
@@ -472,7 +472,7 @@ app.get('/admin', requireAuth, (c) => {
   )
 })
 
-app.get('/admin/content', requireAuth, (c) => {
+app.get('/ticloudadmin/content', requireAuth, (c) => {
   const searchQuery = c.req.query('search') || ''
   const contentType = c.req.query('type') || 'all'
   const status = c.req.query('status') || 'all'
@@ -484,7 +484,7 @@ app.get('/admin/content', requireAuth, (c) => {
   )
 })
 
-app.get('/admin/content/new', requireAuth, (c) => {
+app.get('/ticloudadmin/content/new', requireAuth, (c) => {
   return c.html(
     <AdminLayout title="创建新内容" currentPath="/admin/content">
       <ContentEditor mode="create" />
@@ -492,7 +492,7 @@ app.get('/admin/content/new', requireAuth, (c) => {
   )
 })
 
-app.get('/admin/content/edit/:id', requireAuth, (c) => {
+app.get('/ticloudadmin/content/edit/:id', requireAuth, (c) => {
   const contentId = c.req.param('id')
   
   return c.html(
@@ -502,7 +502,7 @@ app.get('/admin/content/edit/:id', requireAuth, (c) => {
   )
 })
 
-app.get('/admin/seo', requireAuth, (c) => {
+app.get('/ticloudadmin/seo', requireAuth, (c) => {
   return c.html(
     <AdminLayout title="SEO 管理" currentPath="/admin/seo">
       <SEOManagement />
@@ -510,7 +510,7 @@ app.get('/admin/seo', requireAuth, (c) => {
   )
 })
 
-app.get('/admin/i18n', requireAuth, (c) => {
+app.get('/ticloudadmin/i18n', requireAuth, (c) => {
   return c.html(
     <AdminLayout title="多语言管理" currentPath="/admin/i18n">
       <I18nManagement />
@@ -518,7 +518,7 @@ app.get('/admin/i18n', requireAuth, (c) => {
   )
 })
 
-app.get('/admin/media', requireAuth, (c) => {
+app.get('/ticloudadmin/media', requireAuth, (c) => {
   return c.html(
     <AdminLayout title="媒体库" currentPath="/admin/media">
       <MediaLibrary />
@@ -526,7 +526,7 @@ app.get('/admin/media', requireAuth, (c) => {
   )
 })
 
-app.get('/admin/settings', requireAuth, (c) => {
+app.get('/ticloudadmin/settings', requireAuth, (c) => {
   return c.html(
     <AdminLayout title="系统设置" currentPath="/admin/settings">
       <Settings />
@@ -534,7 +534,7 @@ app.get('/admin/settings', requireAuth, (c) => {
   )
 })
 
-app.get('/admin/common-content', requireAuth, (c) => {
+app.get('/ticloudadmin/common-content', requireAuth, (c) => {
   return c.html(
     <AdminLayout title="公共内容管理" currentPath="/admin/common-content">
       <CommonContentManagementV2 />
@@ -542,7 +542,7 @@ app.get('/admin/common-content', requireAuth, (c) => {
   )
 })
 
-app.get('/admin/logs', requireAuth, (c) => {
+app.get('/ticloudadmin/logs', requireAuth, (c) => {
   return c.html(
     <AdminLayout title="操作日志" currentPath="/admin/logs">
       <Logs />
@@ -550,7 +550,7 @@ app.get('/admin/logs', requireAuth, (c) => {
   )
 })
 
-app.get('/admin/publish', requireAuth, (c) => {
+app.get('/ticloudadmin/publish', requireAuth, (c) => {
   return c.html(
     <AdminLayout title="发布管理" currentPath="/admin/publish">
       <PublishManager />
@@ -559,19 +559,19 @@ app.get('/admin/publish', requireAuth, (c) => {
 })
 
 // Admin API Routes
-app.delete('/admin/api/content/:id', requireAuth, async (c) => {
+app.delete('/ticloudadmin/api/content/:id', requireAuth, async (c) => {
   const id = c.req.param('id')
   // In real app, delete from database
   return c.json({ success: true, message: 'Content deleted' })
 })
 
-app.post('/admin/api/content/:id/publish', requireAuth, async (c) => {
+app.post('/ticloudadmin/api/content/:id/publish', requireAuth, async (c) => {
   const id = c.req.param('id')
   // In real app, update database
   return c.json({ success: true, message: 'Content published' })
 })
 
-app.post('/admin/api/seo/analyze/:id', requireAuth, async (c) => {
+app.post('/ticloudadmin/api/seo/analyze/:id', requireAuth, async (c) => {
   const id = c.req.param('id')
   // Mock SEO analysis
   return c.json({ 
@@ -588,7 +588,7 @@ app.post('/admin/api/seo/analyze/:id', requireAuth, async (c) => {
   })
 })
 
-app.post('/admin/api/translate', requireAuth, async (c) => {
+app.post('/ticloudadmin/api/translate', requireAuth, async (c) => {
   const { text, from, to } = await c.req.json()
   
   // Mock translation - in real app, use Google Translate API or similar
@@ -607,7 +607,7 @@ app.post('/admin/api/translate', requireAuth, async (c) => {
   return c.json({ success: true, translation })
 })
 
-app.put('/admin/api/i18n/:key', requireAuth, async (c) => {
+app.put('/ticloudadmin/api/i18n/:key', requireAuth, async (c) => {
   const key = c.req.param('key')
   const { translations } = await c.req.json()
   
@@ -715,7 +715,7 @@ app.get('/api/analytics/:agentId', async (c) => {
 // ==================== CMS Management Routes ====================
 
 // CMS Login Route
-app.get('/cms', (c) => {
+app.get('/ticloudcms', (c) => {
   return c.html(
     <html lang="zh-CN">
       <head>
@@ -914,7 +914,7 @@ app.get('/cms', (c) => {
 })
 
 // CMS Dashboard
-app.get('/cms/dashboard', async (c) => {
+app.get('/ticloudcms/dashboard', async (c) => {
   try {
     // Get system statistics
     const [pagesCount, sitesCount, mediaCount] = await Promise.all([
@@ -1283,7 +1283,7 @@ app.get('/cms/dashboard', async (c) => {
 })
 
 // CMS Content Management
-app.get('/cms/content', async (c) => {
+app.get('/ticloudcms/content', async (c) => {
   try {
     const { results: pages } = await c.env.DB.prepare(`
       SELECT p.*, s.domain
@@ -1365,7 +1365,7 @@ app.get('/cms/content', async (c) => {
 })
 
 // CMS Content Edit Page
-app.get('/cms/content/edit/:id', async (c) => {
+app.get('/ticloudcms/content/edit/:id', async (c) => {
   try {
     const pageId = c.req.param('id');
     
@@ -1421,7 +1421,7 @@ app.get('/cms/content/edit/:id', async (c) => {
 })
 
 // CMS Dashboard
-app.get('/cms/dashboard', async (c) => {
+app.get('/ticloudcms/dashboard', async (c) => {
   try {
     // Get statistics from database
     const [pagesCount, modulesCount, mediaCount] = await Promise.all([

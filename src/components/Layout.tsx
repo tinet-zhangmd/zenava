@@ -91,11 +91,6 @@ export function Layout({ children, language, currentPath, title, description, se
               {/* Navigation Links */}
               <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-8">
-                  <a href={getLocalizedPath('/', language)} 
-                     class="nav-link text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors">
-                    {t(translations, 'nav.home')}
-                  </a>
-
                   {/* Scenarios Dropdown */}
                   <div class="relative group">
                     <button class="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors flex items-center">

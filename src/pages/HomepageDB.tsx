@@ -68,7 +68,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
   return (
     <>
       {/* Hero Section - Zenava Brand Style (Lighter) */}
-      <section id="hero" class="relative bg-gradient-to-br from-[#1a1f3a] via-[#2a3142] to-[#3a425a] text-white min-h-[100vh] flex items-center overflow-hidden">
+      <section id="hero" class="relative bg-gradient-to-br from-white via-[#f0ebff] to-[#5E3AFC] text-white min-h-[100vh] flex items-center overflow-hidden">
         
         {/* Background Elements */}
         <div class="absolute inset-0">
@@ -92,11 +92,11 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         <div class="site-container px-6 relative z-10">
           <div class="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh]">
   <div class="space-y-6">
-    <div class="text-2xl sm:text-3xl font-bold text-white tracking-wide">{trans.company.name}</div>
-    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight">
+    <div class="text-2xl sm:text-3xl font-bold text-gray-800 tracking-wide">{trans.company.name}</div>
+    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 leading-tight">
       {trans.hero.title}
     </h1>
-    <p class="text-lg sm:text-xl text-gray-300 leading-relaxed">
+    <p class="text-lg sm:text-xl text-gray-700 leading-relaxed">
       {trans.hero.subtitle}
     </p>
   </div>
@@ -210,11 +210,11 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             <div class="grid grid-cols-2 gap-12 max-w-lg mx-auto">
               <div class="text-center">
                 <div class="text-3xl lg:text-4xl font-black text-[#6438FF] mb-1">99.9%</div>
-                <div class="text-sm text-gray-400 font-medium">Uptime</div>
+                <div class="text-sm text-gray-400 font-medium">{trans.stats?.uptime || 'Uptime'}</div>
               </div>
               <div class="text-center">
                 <div class="text-3xl lg:text-4xl font-black text-white mb-1">5000+</div>
-                <div class="text-sm text-gray-400 font-medium">Enterprises</div>
+                <div class="text-sm text-gray-400 font-medium">{trans.stats?.enterprises || 'Enterprises'}</div>
               </div>
             </div>
           </div>
@@ -724,7 +724,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             </p>
           </div>
 
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {statsContent.stats?.map((stat: any, index: number) => {
               const icons = [
                 'fas fa-comments',

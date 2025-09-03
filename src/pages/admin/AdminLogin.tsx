@@ -42,7 +42,7 @@ export function AdminLogin({ error }: AdminLoginProps) {
             </div>
             
             {/* Login Form */}
-            <form class="mt-8 space-y-6" method="POST" action="/admin/login">
+            <form class="mt-8 space-y-6" method="POST" action="/ticloudadmin/login">
               <input type="hidden" name="remember" value="true" />
               
               {/* Error Message */}
@@ -67,7 +67,7 @@ export function AdminLogin({ error }: AdminLoginProps) {
                     autocomplete="email" 
                     required 
                     class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                    placeholder="admin@zenava.com"
+                    placeholder="请输入邮箱"
                   />
                 </div>
                 
@@ -96,24 +96,16 @@ export function AdminLogin({ error }: AdminLoginProps) {
                 </div>
               </div>
               
-              <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                  <input 
-                    id="remember-me" 
-                    name="remember-me" 
-                    type="checkbox" 
-                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                  />
-                  <label for="remember-me" class="ml-2 block text-sm text-white">
-                    记住我
-                  </label>
-                </div>
-                
-                <div class="text-sm">
-                  <a href="/admin/forgot-password" class="font-medium text-blue-200 hover:text-white">
-                    忘记密码？
-                  </a>
-                </div>
+              <div class="flex items-center">
+                <input 
+                  id="remember-me" 
+                  name="remember-me" 
+                  type="checkbox" 
+                  class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <label for="remember-me" class="ml-2 block text-sm text-white">
+                  记住我
+                </label>
               </div>
               
               <div>
@@ -126,15 +118,6 @@ export function AdminLogin({ error }: AdminLoginProps) {
                   </span>
                   登录管理后台
                 </button>
-              </div>
-              
-              {/* Demo Credentials */}
-              <div class="mt-6 p-4 bg-white/10 rounded-lg backdrop-blur-sm">
-                <h4 class="text-sm font-medium text-white mb-2">演示账号</h4>
-                <div class="text-xs text-blue-100 space-y-1">
-                  <p>邮箱: admin@zenava.com</p>
-                  <p>密码: admin123</p>
-                </div>
               </div>
             </form>
             
