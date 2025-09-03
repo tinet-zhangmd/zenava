@@ -36,8 +36,14 @@ export function LayoutWithUnifiedNav({
   footerSections,
   privacyLinks
 }: LayoutProps) {
-  const siteTitle = seoTitle || title || 'ZENAVA - AI Agent for Enterprise'
-  const siteDescription = seoDescription || description || 'AI Agent for Enterprise Customer Dialogue Scenarios'
+  const defaultTitle = language === 'jp' ? 'ZENAVA - エンタープライズ向けAIエージェント' : 
+                       language === 'hk' ? 'ZENAVA - 企業級AI代理' : 
+                       'ZENAVA - AI Agent for Enterprise'
+  const defaultDescription = language === 'jp' ? 'マーケティングとサービスシナリオ向けの対話型AIエージェント' :
+                            language === 'hk' ? '營銷和服務場景的對話型AI代理' :
+                            'AI Agent for Enterprise Customer Dialogue Scenarios'
+  const siteTitle = seoTitle || title || defaultTitle
+  const siteDescription = seoDescription || description || defaultDescription
 
   return (
     <html lang={language}>

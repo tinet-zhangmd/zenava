@@ -234,10 +234,45 @@ export const siteTranslations = {
     
     // Statistics
     stats: {
+      title: 'Platform Performance',
       conversations: 'Conversations Handled',
       uptime: 'Uptime SLA',
       enterprises: 'Enterprise Clients',
-      satisfaction: 'Customer Satisfaction'
+      satisfaction: 'Customer Satisfaction',
+      uptimeValue: '99.9%',
+      enterprisesValue: '5000+',
+      satisfactionValue: '4.9/5'
+    },
+
+    
+    // Product Feedback Panel
+    productFeedbackPanel: {
+      title: 'Customer Feedback Analysis Panel',
+      painPoints: 'Product Pain Points',
+      painPointCount: '1,842',
+      featureAdoption: 'Feature Adoption',
+      adoptionRate: '78%',
+      fixCycle: 'Issue Fix Cycle',
+      fixTime: '3.2 days',
+      monthlyIterations: 'Monthly Iterations',
+      iterationCount: '12 versions',
+      satisfactionIncrease: 'Satisfaction Increase',
+      satisfactionGrowth: '+18%'
+    },
+    
+    // Sentiment Panel
+    sentimentPanel: {
+      title: 'Real-time Sentiment Monitoring',
+      negativeAlert: 'Negative Sentiment Alert',
+      alertCount: '3 items',
+      sensitiveWords: 'Sensitive Word Detection',
+      detectionRate: '99.8%',
+      brandSentiment: 'Brand Favorability',
+      sentimentGrowth: '+12%',
+      responseTime: 'Response Time',
+      responseSpeed: '<5 minutes',
+      crisisSuccess: 'Crisis Success Rate',
+      successRate: '98%'
     },
     
     // AI Simulation Dialog
@@ -279,8 +314,11 @@ export const siteTranslations = {
     
     // Platform Performance
     platformPerformance: {
-      title: 'Platform Performance',
-      subtitle: 'Trusted by 5000 enterprise companies worldwide for mission-critical customer interactions'
+      title: 'PLATFORM PERFORMANCE',
+      subtitle: 'Trusted by 5000 enterprise companies worldwide for mission-critical customer interactions',
+      uptime: 'Uptime SLA',
+      enterprisesServed: 'Enterprise Clients',
+      satisfaction: 'Customer Satisfaction'
     },
     
     // Smart Ticket Process
@@ -306,13 +344,13 @@ export const siteTranslations = {
     
     // Internal Operations Metrics
     operationsMetrics: {
-      title: 'Operations Efficiency',
-      storeAccess: 'Store Access',
+      title: 'Operational Efficiency',
+      storeAccess: 'Store Connections',
       storeCount: '500+',
       dailyProcessing: 'Daily Processing',
       dailyVolume: '10K+',
-      avgResponse: 'Avg Response',
-      responseTime: '2hrs',
+      avgResponse: 'Average Response',
+      responseTime: '2 Hours',
       dispatchEfficiency: 'Dispatch Efficiency',
       efficiencyRate: '85%'
     }
@@ -449,7 +487,8 @@ export const siteTranslations = {
           '要件抽出',
           'イテレーションループ',
           'トレンド分析'
-        ]
+        ],
+        brandFeatures: ['リスクアラート', '感情分析', '品質管理']
       }
     },
     
@@ -501,11 +540,47 @@ export const siteTranslations = {
     
     // Statistics
     stats: {
+      title: 'プラットフォームパフォーマンス',
       conversations: '処理済み会話数',
       uptime: '稼働率SLA',
       enterprises: '企業クライアント',
-      satisfaction: '顧客満足度'
+      satisfaction: '顧客満足度',
+      uptimeValue: '99.9%',
+      enterprisesValue: '5000+',
+      satisfactionValue: '4.9/5'
     },
+
+    
+    // Product Feedback Panel
+    productFeedbackPanel: {
+      title: '顧客フィードバック分析パネル',
+      painPoints: '製品の問題点',
+      painPointCount: '1,842',
+      featureAdoption: '機能採用率',
+      adoptionRate: '78%',
+      fixCycle: '問題修正サイクル',
+      fixTime: '3.2日',
+      monthlyIterations: '月間イテレーション',
+      iterationCount: '12バージョン',
+      satisfactionIncrease: '満足度向上',
+      satisfactionGrowth: '+18%'
+    },
+    
+    // Sentiment Panel
+    sentimentPanel: {
+      title: 'リアルタイム感情モニタリング',
+      negativeAlert: 'ネガティブ感情アラート',
+      alertCount: '3件',
+      sensitiveWords: '敏感語検出',
+      detectionRate: '99.8%',
+      brandSentiment: 'ブランド好感度',
+      sentimentGrowth: '+12%',
+      responseTime: '応答時間',
+      responseSpeed: '<5分',
+      crisisSuccess: '危機対応成功率',
+      successRate: '98%'
+    },
+
     
     // AI Simulation Dialog
     aiSimulation: {
@@ -547,7 +622,10 @@ export const siteTranslations = {
     // Platform Performance
     platformPerformance: {
       title: 'プラットフォームパフォーマンス',
-      subtitle: '世界中の5000社の企業様から、ミッションクリティカルな顧客対応で信頼されています'
+      subtitle: '世界中の5000社の企業様から、ミッションクリティカルな顧客対応で信頼されています',
+      uptime: '稼働率SLA',
+      enterprisesServed: '企業クライアント',
+      satisfaction: '顧客満足度'
     },
     
     // Smart Ticket Process
@@ -716,7 +794,8 @@ export const siteTranslations = {
           '需求提取',
           '迭代閉環',
           '趨勢分析'
-        ]
+        ],
+        brandFeatures: ['風險預警', '情緒分析', '品質控制']
       }
     },
     
@@ -768,11 +847,47 @@ export const siteTranslations = {
     
     // Statistics
     stats: {
+      title: '平台性能',
       conversations: '處理對話數',
       uptime: '運行時間SLA',
       enterprises: '企業客戶',
-      satisfaction: '客戶滿意度'
+      satisfaction: '客戶滿意度',
+      uptimeValue: '99.9%',
+      enterprisesValue: '5000+',
+      satisfactionValue: '4.9/5'
     },
+
+    
+    // Product Feedback Panel
+    productFeedbackPanel: {
+      title: '客戶反饋分析面板',
+      painPoints: '產品痛點',
+      painPointCount: '1,842',
+      featureAdoption: '功能採用率',
+      adoptionRate: '78%',
+      fixCycle: '問題修復週期',
+      fixTime: '3.2天',
+      monthlyIterations: '月度迭代',
+      iterationCount: '12個版本',
+      satisfactionIncrease: '滿意度提升',
+      satisfactionGrowth: '+18%'
+    },
+    
+    // Sentiment Panel
+    sentimentPanel: {
+      title: '實時情緒監控',
+      negativeAlert: '負面情緒預警',
+      alertCount: '3項',
+      sensitiveWords: '敏感詞檢測',
+      detectionRate: '99.8%',
+      brandSentiment: '品牌好感度',
+      sentimentGrowth: '+12%',
+      responseTime: '響應時間',
+      responseSpeed: '<5分鐘',
+      crisisSuccess: '危機處理成功率',
+      successRate: '98%'
+    },
+
     
     // AI Simulation Dialog  
     aiSimulation: {
@@ -814,7 +929,10 @@ export const siteTranslations = {
     // Platform Performance
     platformPerformance: {
       title: '平台性能',
-      subtitle: '全球5000家企業信賴，為關鍵客戶互動提供支援'
+      subtitle: '獲得全球5000家企業的信賴，為關鍵客戶互動提供可靠服務',
+      uptime: '運行時間SLA',
+      enterprisesServed: '企業客戶',
+      satisfaction: '客戶滿意度'
     },
     
     // Smart Ticket Process  
