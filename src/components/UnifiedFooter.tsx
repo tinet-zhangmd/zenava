@@ -1,7 +1,7 @@
 import { FC } from 'hono/jsx'
-import { Language } from '../utils/i18n'
-import { FooterConfig, FooterSection, PrivacyLink } from '../utils/common-content'
-import { ZENAVA_LOGO_BASE64 } from '../assets/zenava-logo-base64'
+import { Language } from '../utils/i18n.js'
+import { FooterConfig, FooterSection, PrivacyLink } from '../utils/common-content.js'
+import { ZENAVA_LOGO_BASE64 } from '../assets/zenava-logo-base64.js'
 
 interface UnifiedFooterProps {
   language?: Language

@@ -1,9 +1,9 @@
 import { html } from 'hono/html'
-import { Language } from '../utils/i18n'
+import { Language } from '../utils/i18n.js'
 import { UnifiedNavigation, type NavigationConfig, type NavMenuItem } from './UnifiedNavigation.js'
 import { UnifiedFooter } from './UnifiedFooter.js'
 import { CookieConsent, CookiePreferencesModal } from './CookieConsent.js'
-import { FooterConfig, FooterSection, PrivacyLink } from '../utils/common-content'
+import { FooterConfig, FooterSection, PrivacyLink } from '../utils/common-content.js'
 
 interface LayoutProps {
   children: any

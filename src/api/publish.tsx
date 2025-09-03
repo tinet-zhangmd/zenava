@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { StaticSiteGenerator } from '../lib/static-generator'
+import { StaticSiteGenerator } from '../lib/static-generator.js'
 
 type Bindings = {
   DB: D1Database

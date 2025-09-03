@@ -1,5 +1,5 @@
 import { FC, JSX } from 'hono/jsx'
-import { Language, getTranslation } from '../utils/i18n'
+import { Language, getTranslation } from '../utils/i18n.js'
 
 interface AIHomepageProps {
   language: Language

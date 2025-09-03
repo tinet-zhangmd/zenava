@@ -1,5 +1,5 @@
 import { FC } from 'hono/jsx'
-import { Language } from '../utils/i18n'
+import { Language } from '../utils/i18n.js'
 
 interface CookieConsentProps {
   language: Language

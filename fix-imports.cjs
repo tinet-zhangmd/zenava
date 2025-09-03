@@ -1,53 +1,40 @@
+#!/usr/bin/env node
+
 const fs = require('fs');
 const path = require('path');
+const glob = require('glob');
 
-// Function to fix imports in a file
-function fixImportsInFile(filePath) {
-  let content = fs.readFileSync(filePath, 'utf8');
-  let modified = false;
-
-  // Pattern to match relative imports without extensions
-  const importPattern = /^(import\s+(?:{[^}]+}|\*\s+as\s+\w+|\w+)\s+from\s+['"])(\.\/[^'"]+)(['"])/gm;
+// Function to add .js extension to local imports
+function fixImports(content) {
+  // Match imports from './xxx' or '../xxx' without .js extension
+  const importRegex = /(from\s+['"])(\.\.?\/[^'"]+?)(?<!\.js)(['"])/g;
   
-  content = content.replace(importPattern, (match, prefix, importPath, suffix) => {
-    // Skip if already has extension
-    if (importPath.match(/\.(ts|tsx|js|jsx|json|css)$/)) {
+  return content.replace(importRegex, (match, prefix, importPath, suffix) => {
+    // Don't add .js if it already has an extension
+    if (importPath.includes('.')) {
       return match;
     }
-    
-    // Skip if it's an API import
-    if (importPath.includes('/api/')) {
-      return match;
-    }
-    
-    modified = true;
-    // For TypeScript/React files, add .js extension (will be transpiled)
     return `${prefix}${importPath}.js${suffix}`;
   });
-
-  if (modified) {
-    fs.writeFileSync(filePath, content);
-    console.log(`Fixed: ${filePath}`);
-  }
 }
 
-// Process all TypeScript files
-function processDirectory(dir) {
-  const files = fs.readdirSync(dir);
+// Get all TypeScript files
+const files = glob.sync('src/**/*.{ts,tsx}', { cwd: '/home/user/webapp' });
+
+let fixedCount = 0;
+const fixedFiles = [];
+
+files.forEach(file => {
+  const filePath = path.join('/home/user/webapp', file);
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const fixed = fixImports(content);
   
-  files.forEach(file => {
-    const fullPath = path.join(dir, file);
-    const stat = fs.statSync(fullPath);
-    
-    if (stat.isDirectory() && !file.startsWith('.') && file !== 'node_modules') {
-      processDirectory(fullPath);
-    } else if (file.match(/\.(ts|tsx)$/)) {
-      fixImportsInFile(fullPath);
-    }
-  });
-}
+  if (content !== fixed) {
+    fs.writeFileSync(filePath, fixed);
+    fixedCount++;
+    fixedFiles.push(file);
+  }
+});
 
-// Start processing
-console.log('Fixing import statements...');
-processDirectory('./src');
-console.log('Import fixes complete!');
+console.log(`Fixed ${fixedCount} files:`);
+fixedFiles.forEach(file => console.log(`  - ${file}`));

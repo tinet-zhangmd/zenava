@@ -31,11 +31,11 @@ import { CommonContentManagement } from './pages/admin/CommonContentManagement.j
 import { CommonContentManagementV2 } from './pages/admin/CommonContentManagementV2.js'
 
 // Import CMS API
-import cmsApi from './api/cms'
-import publishApi from './api/publish'
-import commonContentApi from './api/common-content'
-import uploadApi from './api/upload'
-import { navigation } from './api/navigation'
+import cmsApi from './api/cms.js'
+import publishApi from './api/publish.js'
+import commonContentApi from './api/common-content.js'
+import uploadApi from './api/upload.js'
+import { navigation } from './api/navigation.js'
 
 // Define Cloudflare Bindings
 type Bindings = {

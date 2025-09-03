@@ -1,6 +1,6 @@
 import { FC, JSX } from 'hono/jsx'
-import { Language, getTranslation } from '../utils/i18n'
-import { getTranslations, t } from '../i18n/translations'
+import { Language, getTranslation } from '../utils/i18n.js'
+import { getTranslations, t } from '../i18n/translations.js'
 
 interface HomepageProps {
   language: Language

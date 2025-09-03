@@ -1,6 +1,6 @@
 import type { D1Database } from '@cloudflare/workers-types'
 import { Language } from './i18n.js'
-import type { NavigationConfig, NavMenuItem } from '../components/UnifiedNavigation'
+import type { NavigationConfig, NavMenuItem } from '../components/UnifiedNavigation.js'
 
 export async function getNavigationData(
   db: D1Database,

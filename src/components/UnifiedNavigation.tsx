@@ -1,5 +1,5 @@
 import { FC } from 'hono/jsx'
-import { Language, getLocalizedPath, languageFlags, languageNames } from '../utils/i18n'
+import { Language, getLocalizedPath, languageFlags, languageNames } from '../utils/i18n.js'
 
 // Navigation item types
 export interface NavMenuItem {

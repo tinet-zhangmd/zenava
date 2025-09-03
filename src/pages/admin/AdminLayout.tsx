@@ -1,5 +1,5 @@
 import { html } from 'hono/html'
-import { Language } from '../../utils/i18n'
+import { Language } from '../../utils/i18n.js'
 
 interface AdminLayoutProps {
   children: any

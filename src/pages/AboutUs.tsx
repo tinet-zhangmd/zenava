@@ -1,5 +1,5 @@
-import { Language, getTranslation, t } from '../utils/i18n'
-import { getTranslations } from '../i18n/translations'
+import { Language, getTranslation, t } from '../utils/i18n.js'
+import { getTranslations } from '../i18n/translations.js'
 
 interface AboutUsProps {
   language: Language

@@ -1,4 +1,4 @@
-import { Language, getTranslation, t } from '../utils/i18n'
+import { Language, getTranslation, t } from '../utils/i18n.js'
 
 interface CustomerServiceScenarioProps {
   language: Language

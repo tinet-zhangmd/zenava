@@ -1,5 +1,5 @@
-import { Layout } from '../components/Layout'
-import { Language } from '../utils/i18n'
+import { Layout } from '../components/Layout.js'
+import { Language } from '../utils/i18n.js'
 
 interface TermsAndConditionsProps {
   language: Language

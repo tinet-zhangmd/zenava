@@ -1,5 +1,5 @@
 import { html } from 'hono/html'
-import { Language, getTranslation, t, languageFlags, languageNames, getLocalizedPath } from '../utils/i18n'
+import { Language, getTranslation, t, languageFlags, languageNames, getLocalizedPath } from '../utils/i18n.js'
 import { CookieConsent, CookiePreferencesModal } from './CookieConsent.js'
 
 interface LayoutProps {
