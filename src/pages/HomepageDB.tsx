@@ -99,6 +99,19 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
     <p class="text-lg sm:text-xl text-gray-700 leading-relaxed">
       {trans.hero.subtitle}
     </p>
+    
+    {/* CTA Button */}
+    <div class="pt-4">
+      <a 
+        href="#contact" 
+        class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] text-white rounded-xl font-bold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+      >
+        <i class="fas fa-phone mr-3"></i>
+        {language === 'en' ? 'Schedule Consultation' : 
+         language === 'jp' ? '相談を予約' : 
+         '預約諮詢'}
+      </a>
+    </div>
   </div>
   <div class="relative lg:h-[600px] flex items-center justify-center">
     <div class="relative w-full max-w-md">
@@ -820,6 +833,24 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
       </section>
       
       <script dangerouslySetInnerHTML={{__html: `
+        // Smooth scrolling for anchor links
+        document.addEventListener('DOMContentLoaded', function() {
+          const anchorLinks = document.querySelectorAll('a[href^="#"]');
+          anchorLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+              e.preventDefault();
+              const targetId = this.getAttribute('href').substring(1);
+              const targetElement = document.getElementById(targetId);
+              if (targetElement) {
+                targetElement.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }
+            });
+          });
+        });
+        
         // Contact form submission
         document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
           e.preventDefault();
