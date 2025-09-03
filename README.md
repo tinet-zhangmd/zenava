@@ -6,10 +6,24 @@
 - **技术栈**: Hono + TypeScript + Cloudflare Pages + D1 Database + TailwindCSS
 
 ## 🌐 访问地址
-- **开发环境**: https://3000-ijx7klcra0fppaqos5xzg-6532622b.e2b.dev
-- **管理后台**: https://3000-ijx7klcra0fppaqos5xzg-6532622b.e2b.dev/admin
-  - 用户名: `admin@zenava.com`
-  - 密码: `admin123`
+- **开发环境**: http://localhost:3000
+- **管理后台**: http://localhost:3000/ticloudadmin
+  - 用户名: `ticloudhoutai@zenava.ai`
+  - 密码: `tinet.Az2167Hk`
+- **CMS管理**: http://localhost:3000/ticloudcms
+
+## 🆕 最新更新 (2025-01-03)
+
+### 完成的9项任务：
+1. ✅ **平台性能模块居中** - 使用3列网格布局并添加 `max-w-4xl mx-auto` 居中显示
+2. ✅ **主页横幅渐变优化** - 更改为浅色渐变（白色到 #5E3AFC），并调整文字颜色为深灰色以提高对比度
+3. ✅ **修复日文和中文页面翻译问题** - 添加了正确的翻译引用，解决了未翻译的文本
+4. ✅ **CMS路由更改** - 将 `/cms` 路由更改为 `/ticloudcms`
+5. ✅ **管理员登录凭据更新** - 更新为 `ticloudhoutai@zenava.ai` / `tinet.Az2167Hk`
+6. ✅ **移除演示账号信息** - 从登录页面移除了演示账号显示
+7. ✅ **移除忘记密码功能** - 从登录页面移除了忘记密码链接
+8. ✅ **管理路由更改** - 将 `/admin` 路由更改为 `/ticloudadmin`（全局替换25处）
+9. ✅ **导航栏优化** - 移除了Home菜单项，并将剩余菜单项左对齐
 
 ## ✅ 已完成功能
 
