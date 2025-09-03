@@ -1,8 +1,8 @@
 import { html } from 'hono/html'
 import { Language } from '../utils/i18n'
-import { UnifiedNavigation, type NavigationConfig, type NavMenuItem } from './UnifiedNavigation'
-import { UnifiedFooter } from './UnifiedFooter'
-import { CookieConsent, CookiePreferencesModal } from './CookieConsent'
+import { UnifiedNavigation, type NavigationConfig, type NavMenuItem } from './UnifiedNavigation.js'
+import { UnifiedFooter } from './UnifiedFooter.js'
+import { CookieConsent, CookiePreferencesModal } from './CookieConsent.js'
 import { FooterConfig, FooterSection, PrivacyLink } from '../utils/common-content'
 
 interface LayoutProps {
@@ -131,7 +131,7 @@ export function LayoutWithUnifiedNav({
             function setCookie(name, value, days = 365) {
               const expires = new Date();
               expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-              document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Lax';
+              document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Strict;Secure';
             }
 
             function getCookie(name) {

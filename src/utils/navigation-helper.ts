@@ -1,5 +1,5 @@
 import type { D1Database } from '@cloudflare/workers-types'
-import { Language } from './i18n'
+import { Language } from './i18n.js'
 import type { NavigationConfig, NavMenuItem } from '../components/UnifiedNavigation'
 
 export async function getNavigationData(

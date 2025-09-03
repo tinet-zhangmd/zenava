@@ -2,32 +2,33 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { serveStatic } from 'hono/cloudflare-workers'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
-import { Layout } from './components/Layout'
-import { LayoutWithCommonContent } from './components/LayoutWithCommonContent'
-import { LayoutWithUnifiedNav } from './components/LayoutWithUnifiedNav'
-import { Homepage } from './pages/Homepage'
-import { HomepageDB } from './pages/HomepageDB'
-import { getNavigationConfig, getFooterConfig } from './utils/common-content'
-import { getNavigationData } from './utils/navigation-helper'
-import { AIHomepage } from './pages/AIHomepage'
-import { ZenavaHomepage } from './pages/ZenavaHomepage'
-import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/i18n'
+import { securityHeaders, setSecureCookie, sanitizeInputs, requireAuth, rateLimiter, generateCSRFToken, validateCSRFToken, hashPassword, verifyPassword } from './utils/security.js'
+import { Layout } from './components/Layout.js'
+import { LayoutWithCommonContent } from './components/LayoutWithCommonContent.js'
+import { LayoutWithUnifiedNav } from './components/LayoutWithUnifiedNav.js'
+import { Homepage } from './pages/Homepage.js'
+import { HomepageDB } from './pages/HomepageDB.js'
+import { getNavigationConfig, getFooterConfig } from './utils/common-content.js'
+import { getNavigationData } from './utils/navigation-helper.js'
+import { AIHomepage } from './pages/AIHomepage.js'
+import { ZenavaHomepage } from './pages/ZenavaHomepage.js'
+import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/i18n.js'
 
 // Import Admin Pages
-import { AdminLayout } from './pages/admin/AdminLayout'
-import { AdminLogin } from './pages/admin/AdminLogin'
-import { Dashboard } from './pages/admin/Dashboard'
-import { ContentManagement } from './pages/admin/ContentManagement'
-import { ContentManagementDB } from './pages/admin/ContentManagementDB'
-import { ContentEditor } from './pages/admin/ContentEditor'
-import { SEOManagement } from './pages/admin/SEOManagement'
-import { I18nManagement } from './pages/admin/I18nManagement'
-import { MediaLibrary } from './pages/admin/MediaLibrary'
-import { Settings } from './pages/admin/Settings'
-import { Logs } from './pages/admin/Logs'
-import { PublishManager } from './pages/admin/PublishManager'
-import { CommonContentManagement } from './pages/admin/CommonContentManagement'
-import { CommonContentManagementV2 } from './pages/admin/CommonContentManagementV2'
+import { AdminLayout } from './pages/admin/AdminLayout.js'
+import { AdminLogin } from './pages/admin/AdminLogin.js'
+import { Dashboard } from './pages/admin/Dashboard.js'
+import { ContentManagement } from './pages/admin/ContentManagement.js'
+import { ContentManagementDB } from './pages/admin/ContentManagementDB.js'
+import { ContentEditor } from './pages/admin/ContentEditor.js'
+import { SEOManagement } from './pages/admin/SEOManagement.js'
+import { I18nManagement } from './pages/admin/I18nManagement.js'
+import { MediaLibrary } from './pages/admin/MediaLibrary.js'
+import { Settings } from './pages/admin/Settings.js'
+import { Logs } from './pages/admin/Logs.js'
+import { PublishManager } from './pages/admin/PublishManager.js'
+import { CommonContentManagement } from './pages/admin/CommonContentManagement.js'
+import { CommonContentManagementV2 } from './pages/admin/CommonContentManagementV2.js'
 
 // Import CMS API
 import cmsApi from './api/cms'
@@ -42,6 +43,13 @@ type Bindings = {
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
+
+// Apply security headers to all routes
+app.use('*', securityHeaders())
+
+// Rate limiting for auth routes
+app.use('/ticloudadmin/login', rateLimiter(5, 60000)) // 5 attempts per minute
+app.use('/api/*', rateLimiter(100, 60000)) // 100 requests per minute for API
 
 // Enable CORS for API routes
 app.use('/api/*', cors())
@@ -242,17 +250,17 @@ app.get('/hk/', (c) => {
 })
 
 // Import pages
-import { MarketingScenario } from './pages/MarketingScenario'
-import { SalesScenario } from './pages/SalesScenario'
-import { CustomerServiceScenario } from './pages/CustomerServiceScenario'
-import { InternalServiceScenario } from './pages/InternalServiceScenario'
-import { ManagementScenario } from './pages/ManagementScenario'
-import { PrivacyPolicy } from './pages/PrivacyPolicy'
-import { TermsConditions } from './pages/TermsConditions'
-import { AboutUs } from './pages/AboutUs'
-import { PrivacyPolicy } from './pages/PrivacyPolicy'
-import { TermsAndConditions } from './pages/TermsAndConditions'
-import { renderScenarioPage } from './utils/scenario-route-helper'
+import { MarketingScenario } from './pages/MarketingScenario.js'
+import { SalesScenario } from './pages/SalesScenario.js'
+import { CustomerServiceScenario } from './pages/CustomerServiceScenario.js'
+import { InternalServiceScenario } from './pages/InternalServiceScenario.js'
+import { ManagementScenario } from './pages/ManagementScenario.js'
+import { PrivacyPolicy } from './pages/PrivacyPolicy.js'
+import { TermsConditions } from './pages/TermsConditions.js'
+import { AboutUs } from './pages/AboutUs.js'
+import { PrivacyPolicy } from './pages/PrivacyPolicy.js'
+import { TermsAndConditions } from './pages/TermsAndConditions.js'
+import { renderScenarioPage } from './utils/scenario-route-helper.js'
 
 // Privacy Policy routes
 app.get('/privacy-policy', (c) => {
@@ -441,17 +449,25 @@ app.get('/ticloudadmin/login', (c) => {
 
 app.post('/ticloudadmin/login', async (c) => {
   const body = await c.req.formData()
-  const email = body.get('email')
-  const password = body.get('password')
+  const email = sanitizeInputs(body.get('email') as string)
+  const password = body.get('password') as string // Don't sanitize password
   
-  // Simple authentication - in production, use proper password hashing and validation
-  if (email === 'ticloudhoutai@zenava.ai' && password === 'tinet.Az2167Hk') {
-    // Set session cookie
-    setCookie(c, 'admin_session', 'admin-authenticated', {
-      path: '/ticloudadmin',
-      httpOnly: true,
-      maxAge: 86400 // 24 hours
-    })
+  // Get credentials from environment (in production, these should be in KV or D1)
+  const adminEmail = c.env?.ADMIN_EMAIL || 'ticloudhoutai@zenava.ai'
+  // In production, store hashed password, not plain text
+  const adminPassword = c.env?.ADMIN_PASSWORD || 'tinet.Az2167Hk'
+  
+  if (email === adminEmail && password === adminPassword) {
+    // Generate secure session token
+    const sessionToken = crypto.randomUUID()
+    
+    // Set secure session cookie
+    setSecureCookie(c, 'admin_session', sessionToken)
+    
+    // Generate new CSRF token for admin panel
+    const csrfToken = generateCSRFToken()
+    setSecureCookie(c, 'csrf_token', csrfToken)
+    
     return c.redirect('/ticloudadmin')
   } else {
     return c.redirect('/ticloudadmin/login?error=Invalid credentials')

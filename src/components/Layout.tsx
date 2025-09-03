@@ -1,6 +1,6 @@
 import { html } from 'hono/html'
 import { Language, getTranslation, t, languageFlags, languageNames, getLocalizedPath } from '../utils/i18n'
-import { CookieConsent, CookiePreferencesModal } from './CookieConsent'
+import { CookieConsent, CookiePreferencesModal } from './CookieConsent.js'
 
 interface LayoutProps {
   children: any
@@ -231,7 +231,7 @@ export function Layout({ children, language, currentPath, title, description, se
             function setCookie(name, value, days = 365) {
               const expires = new Date();
               expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-              document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Lax';
+              document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/;SameSite=Strict;Secure';
             }
 
             function getCookie(name) {

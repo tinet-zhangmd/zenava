@@ -42,7 +42,7 @@ export function AdminLogin({ error }: AdminLoginProps) {
             </div>
             
             {/* Login Form */}
-            <form class="mt-8 space-y-6" method="POST" action="/ticloudadmin/login">
+            <form class="mt-8 space-y-6" method="post" action="/ticloudadmin/login">
               <input type="hidden" name="remember" value="true" />
               
               {/* Error Message */}

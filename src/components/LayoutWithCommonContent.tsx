@@ -1,6 +1,6 @@
 import { html } from 'hono/html'
 import { Language, getTranslation, t, languageFlags, languageNames, getLocalizedPath } from '../utils/i18n'
-import { CookieConsent, CookiePreferencesModal } from './CookieConsent'
+import { CookieConsent, CookiePreferencesModal } from './CookieConsent.js'
 import { NavigationConfig, FooterConfig, FooterSection, PrivacyLink } from '../utils/common-content'
 
 interface LayoutProps {

@@ -127,3 +127,8 @@ docker-compose.override.yml
 .grunt
 .lock-wscript
 
+
+# Security and environment files
+.dev.vars
+*.env.local
+*.env.production

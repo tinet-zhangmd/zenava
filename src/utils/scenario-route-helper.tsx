@@ -1,8 +1,8 @@
 import { Context } from 'hono'
-import { Language } from './i18n'
+import { Language } from './i18n.js'
 import { LayoutWithUnifiedNav } from '../components/LayoutWithUnifiedNav'
-import { getNavigationData } from './navigation-helper'
-import { getFooterConfig } from './common-content'
+import { getNavigationData } from './navigation-helper.js'
+import { getFooterConfig } from './common-content.js'
 
 export async function renderScenarioPage(
   c: Context,
