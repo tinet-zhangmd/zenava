@@ -146,7 +146,7 @@ export const AIHomepage: FC<AIHomepageProps> = ({ language = 'en', pageData, mod
                     </div>
                     <div>
                       <div class="text-white font-semibold">Real-time Processing</div>
-                      <div class="text-gray-300 text-sm">&lt; 100ms response</div>
+                      <div class="text-gray-300 text-sm">&lt; 1.8s response</div>
                     </div>
                   </div>
                 </div>

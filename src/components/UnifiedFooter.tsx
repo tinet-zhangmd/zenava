@@ -1,6 +1,7 @@
 import { FC } from 'hono/jsx'
 import { Language } from '../utils/i18n'
 import { FooterConfig, FooterSection, PrivacyLink } from '../utils/common-content'
+import { ZENAVA_LOGO_BASE64 } from '../assets/zenava-logo-base64'
 
 interface UnifiedFooterProps {
   language?: Language
@@ -85,8 +86,8 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
           <div class="lg:col-span-2">
             <div class="mb-6">
               <img 
-                src={config?.logo_url || "https://page.gensparksite.com/v1/base64_upload/1476812a0b97e2ad48a012ceb5c7946e"}
-                alt={config?.logo_alt || "ZENAVA"}
+                src={ZENAVA_LOGO_BASE64}
+                alt="ZENAVA"
                 class="h-12 w-auto object-contain mb-4"
                 style="max-width: 180px; filter: brightness(0) invert(1);"
               />
@@ -200,20 +201,15 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </li>
               <li>
                 <a 
-                  href={`${langPrefix}/privacy`}
+                  href="https://helps.live/PrivacyPolicyCn.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   class="text-gray-400 hover:text-white transition-colors text-sm block"
                 >
                   {t.privacyPolicy}
                 </a>
               </li>
-              <li>
-                <a 
-                  href={`${langPrefix}/terms`}
-                  class="text-gray-400 hover:text-white transition-colors text-sm block"
-                >
-                  {t.termsConditions}
-                </a>
-              </li>
+
             </ul>
           </div>
         </div>
@@ -233,16 +229,12 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
                 {t.cookiePreferences}
               </button>
               <a 
-                href={`${langPrefix}/privacy`}
+                href="https://helps.live/PrivacyPolicyCn.html"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="text-gray-500 hover:text-white transition-colors text-sm"
               >
                 {t.privacyPolicy}
-              </a>
-              <a 
-                href={`${langPrefix}/terms`}
-                class="text-gray-500 hover:text-white transition-colors text-sm"
-              >
-                {t.termsConditions}
               </a>
             </div>
           </div>

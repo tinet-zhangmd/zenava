@@ -722,10 +722,10 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <span class="text-[#0DE0EF] text-sm font-bold tracking-wide">PLATFORM PERFORMANCE</span>
             </div>
             <h2 class="text-5xl lg:text-6xl font-black mb-6 leading-tight">
-              {statsContent.title || 'Built for Scale'}
+              {trans.platformPerformance?.title || statsContent.title || 'Platform Performance'}
             </h2>
             <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-              Trusted by 500+ enterprise companies worldwide for mission-critical customer interactions
+              {trans.platformPerformance?.subtitle || 'Trusted by 5000 enterprise companies worldwide for mission-critical customer interactions'}
             </p>
           </div>
 

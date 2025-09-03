@@ -203,24 +203,7 @@ export const CookiePreferencesModal: FC<CookiePreferencesModalProps> = ({ langua
                 </div>
               </div>
 
-              {/* Marketing Cookies */}
-              <div class="flex items-start">
-                <div class="flex-1">
-                  <h3 class="text-sm font-medium text-gray-900">{t.marketing}</h3>
-                  <p class="text-sm text-gray-500 mt-1">{t.marketingDesc}</p>
-                </div>
-                <div class="ml-4">
-                  <div class="relative">
-                    <input
-                      type="checkbox"
-                      id="marketing-cookies"
-                      class="cookie-toggle sr-only"
-                    />
-                    <div class="cookie-switch w-14 h-8 bg-gray-200 rounded-full cursor-pointer transition-colors"></div>
-                    <div class="cookie-switch-handle absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition transform shadow"></div>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
 

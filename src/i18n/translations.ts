@@ -252,7 +252,7 @@ export const siteTranslations = {
       customerReply: 'Yes, please send me the tracking link 👍',
       inputPlaceholder: 'Type your message...',
       responseTime: 'Response',
-      responseValue: '< 100ms',
+      responseValue: '< 1.8s',
       satisfaction: 'Satisfaction',
       satisfactionValue: '98.7%'
     },
@@ -275,6 +275,12 @@ export const siteTranslations = {
         description: '45% closing rate improvement',
         value: '+45%'
       }
+    },
+    
+    // Platform Performance
+    platformPerformance: {
+      title: 'Platform Performance',
+      subtitle: 'Trusted by 5000 enterprise companies worldwide for mission-critical customer interactions'
     },
     
     // Smart Ticket Process
@@ -513,7 +519,7 @@ export const siteTranslations = {
       customerReply: 'はい、追跡リンクをお願いします 👍',
       inputPlaceholder: 'メッセージを入力...',
       responseTime: 'レスポンス',
-      responseValue: '< 100ms',
+      responseValue: '< 1.8s',
       satisfaction: '満足度',
       satisfactionValue: '98.7%'
     },
@@ -536,6 +542,12 @@ export const siteTranslations = {
         description: '成約率45%向上',
         value: '+45%'
       }
+    },
+    
+    // Platform Performance
+    platformPerformance: {
+      title: 'プラットフォームパフォーマンス',
+      subtitle: '世界中の5000社の企業様から、ミッションクリティカルな顧客対応で信頼されています'
     },
     
     // Smart Ticket Process
@@ -774,7 +786,7 @@ export const siteTranslations = {
       customerReply: '好的，謝謝！請發我追蹤連結 👍',
       inputPlaceholder: '輸入訊息...',
       responseTime: '響應時間',
-      responseValue: '< 100ms',
+      responseValue: '< 1.8s',
       satisfaction: '滿意度',
       satisfactionValue: '98.7%'
     },
@@ -797,6 +809,12 @@ export const siteTranslations = {
         description: '成交率提升45%',
         value: '+45%'
       }
+    },
+    
+    // Platform Performance
+    platformPerformance: {
+      title: '平台性能',
+      subtitle: '全球5000家企業信賴，為關鍵客戶互動提供支援'
     },
     
     // Smart Ticket Process  

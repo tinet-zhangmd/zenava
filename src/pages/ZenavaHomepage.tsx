@@ -188,7 +188,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
                     <div class="w-4 h-4 bg-[#0DE0EF] rounded-full"></div>
                     <span class="text-white text-xs font-semibold">Response Time</span>
                   </div>
-                  <div class="text-white text-lg font-black">&lt; 100ms</div>
+                  <div class="text-white text-lg font-black">&lt; 1.8s</div>
                 </div>
 
                 <div class="absolute -bottom-4 -left-8 w-36 p-3 bg-gradient-to-r from-[#0DE0EF]/90 to-[#6438FF]/90 backdrop-blur-xl rounded-xl border border-white/20 animate-float-delayed">
