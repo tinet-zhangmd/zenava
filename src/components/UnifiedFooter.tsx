@@ -92,7 +92,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
                 style="max-width: 180px; filter: brightness(0) invert(1);"
               />
               <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
-                {config?.logo_subtitle || t.subtitle}
+                {t.subtitle}
               </p>
               <p class="text-gray-500 text-xs leading-relaxed max-w-sm mt-2">
                 {language === 'en' 
