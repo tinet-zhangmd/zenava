@@ -33,7 +33,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       cookiePreferences: 'Cookie Preferences',
       privacyPolicy: 'Privacy Policy',
       termsConditions: 'Terms & Conditions',
-      copyright: '© 2024 Zenava. All rights reserved.',
+      copyright: '© 2025 Zenava. All rights reserved.',
       email: 'marketing@zenava.ai'
     },
     jp: {
@@ -51,7 +51,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       cookiePreferences: 'Cookieの設定',
       privacyPolicy: 'プライバシーポリシー',
       termsConditions: '利用規約',
-      copyright: '© 2024 Zenava. All rights reserved.',
+      copyright: '© 2025 Zenava. All rights reserved.',
       email: 'marketing@zenava.ai'
     },
     hk: {
@@ -69,7 +69,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       cookiePreferences: 'Cookie 偏好設定',
       privacyPolicy: '隱私政策',
       termsConditions: '條款與條件',
-      copyright: '© 2024 Zenava. 版權所有。',
+      copyright: '© 2025 Zenava. All rights reserved.',
       email: 'marketing@zenava.ai'
     }
   }
@@ -217,7 +217,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
         {/* Bottom Section with Border */}
         <div class="border-t border-gray-800 pt-8">
           <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p class="text-gray-500 text-sm">{config?.copyright_text || t.copyright}</p>
+            <p class="text-gray-500 text-sm">{t.copyright}</p>
             
             {/* Additional Bottom Links */}
             <div class="flex flex-wrap gap-6">

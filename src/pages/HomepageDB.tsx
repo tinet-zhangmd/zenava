@@ -59,7 +59,6 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
   const statsContent = findModule('platform_stats') || {
     title: trans.stats?.title || 'Platform Performance',
     stats: [
-      { number: '10M+', label: trans.stats?.conversations || 'Conversations Handled' },
       { number: '99.9%', label: trans.stats?.uptime || 'Uptime SLA' },
       { number: '5000+', label: trans.stats?.enterprises || 'Enterprise Clients' },
       { number: '4.9/5', label: trans.stats?.satisfaction || 'Customer Satisfaction' }
@@ -208,11 +207,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             <div class="mb-12"></div>
 
             {/* Stats with Brand Colors */}
-            <div class="grid grid-cols-3 gap-8">
-              <div class="text-center">
-                <div class="text-3xl lg:text-4xl font-black text-[#0DE0EF] mb-1">10M+</div>
-                <div class="text-sm text-gray-400 font-medium">Conversations</div>
-              </div>
+            <div class="grid grid-cols-2 gap-12 max-w-lg mx-auto">
               <div class="text-center">
                 <div class="text-3xl lg:text-4xl font-black text-[#6438FF] mb-1">99.9%</div>
                 <div class="text-sm text-gray-400 font-medium">Uptime</div>

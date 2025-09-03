@@ -76,7 +76,7 @@ export function AboutUs({ language }: AboutUsProps) {
             </div>
             
             {/* Key Metrics */}
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12" data-animate="fade-in">
+            <div class="grid grid-cols-3 gap-6 mt-12" data-animate="fade-in">
               <div class="text-center">
                 <div class="text-3xl font-bold text-primary-600 mb-2">2006</div>
                 <p class="text-sm text-gray-600">
@@ -91,14 +91,6 @@ export function AboutUs({ language }: AboutUsProps) {
                   {language === 'en' && 'HKEX Listed'}
                   {language === 'jp' && '香港証券取引所上場'}
                   {language === 'hk' && '港交所上市'}
-                </p>
-              </div>
-              <div class="text-center">
-                <div class="text-3xl font-bold text-primary-600 mb-2">5+</div>
-                <p class="text-sm text-gray-600">
-                  {language === 'en' && 'Industries Served'}
-                  {language === 'jp' && '導入業界'}
-                  {language === 'hk' && '服務行業'}
                 </p>
               </div>
               <div class="text-center">
