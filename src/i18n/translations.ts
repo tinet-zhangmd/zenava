@@ -6,8 +6,8 @@ export const siteTranslations = {
     // Company & Brand
     company: {
       name: 'Zenava',
-      tagline: 'AI Agent for Enterprise-Customer Dialogue Scenarios',
-      vision: 'Empowering Enterprise Transformation from Human-Driven to AI-Driven',
+      tagline: 'Conversational AI Agent for Marketing and Service Scenarios',
+      vision: 'Empowering enterprise productivity and organizational transformation, achieving the leap from "Human-Driven" to "AI-Driven"',
       description: 'Enterprise-grade AI dialogue solutions that transform customer engagement'
     },
     
@@ -25,8 +25,8 @@ export const siteTranslations = {
     
     // Hero Section
     hero: {
-      title: 'AI Agent for Enterprise-Customer Dialogue Scenarios',
-      subtitle: 'Empowering enterprise transformation from human-driven to AI-driven operations',
+      title: 'Conversational AI Agent for Marketing and Service Scenarios',
+      subtitle: 'Empowering enterprise productivity and organizational transformation, achieving the leap from "Human-Driven" to "AI-Driven"',
       cta: {
         primary: 'Schedule Demo',
         secondary: 'View Solutions'
@@ -322,8 +322,8 @@ export const siteTranslations = {
     // Company & Brand - Japanese with proper honorifics
     company: {
       name: 'Zenava',
-      tagline: '企業と顧客の対話シナリオのためのAIエージェント',
-      vision: '「人力駆動」から「AI駆動」への変革を実現',
+      tagline: 'マーケティングとサービスシナリオ向けの対話型AIエージェント',
+      vision: '企業の生産性と組織形態の変革を支援し、「人力駆動」から「AI駆動」への飛躍を実現',
       description: 'エンタープライズグレードのAI対話ソリューションで顧客エンゲージメントを変革'
     },
     
@@ -341,8 +341,8 @@ export const siteTranslations = {
     
     // Hero Section - Formal business Japanese
     hero: {
-      title: '企業と顧客の対話シナリオのためのAIエージェント',
-      subtitle: '人力駆動からAI駆動への企業変革を支援いたします',
+      title: 'マーケティングとサービスシナリオ向けの対話型AIエージェント',
+      subtitle: '企業の生産性と組織形態の変革を支援し、「人力駆動」から「AI駆動」への飛躍を実現',
       cta: {
         primary: 'デモのご予約',
         secondary: 'ソリューション一覧'
@@ -589,8 +589,8 @@ export const siteTranslations = {
     // Company & Brand - Traditional Chinese (Hong Kong business style)
     company: {
       name: 'Zenava',
-      tagline: '企業與客戶對話場景的AI智能體',
-      vision: '助力企業完成從「人力驅動」到「AI驅動」的跨越',
+      tagline: '面向營銷和服務場景的對話式AI智能體',
+      vision: '助力企業完成生產力與組織形態變革，實現從「人力驅動」到「AI驅動」的跨越',
       description: '企業級AI對話解決方案，革新客戶互動體驗'
     },
     
@@ -608,7 +608,7 @@ export const siteTranslations = {
     
     // Hero Section
     hero: {
-      title: '企業與客戶對話場景的AI智能體',
+      title: '面向營銷和服務場景的對話式AI智能體',
       subtitle: '助力企業完成生產力與組織形態變革，實現從「人力驅動」到「AI驅動」的跨越',
       cta: {
         primary: '預約演示',

@@ -19,7 +19,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
   // Footer translations
   const footerText = {
     en: {
-      subtitle: 'AI Agent for Enterprise-Customer Dialogue Scenarios',
+      subtitle: 'Conversational AI Agent for Marketing and Service Scenarios',
       scenarios: 'Scenarios',
       marketing: 'Marketing',
       sales: 'Sales',
@@ -37,7 +37,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       email: 'marketing@zenava.ai'
     },
     jp: {
-      subtitle: '企業と顧客の対話シナリオのためのAIエージェント',
+      subtitle: 'マーケティングとサービスシナリオ向けの対話型AIエージェント',
       scenarios: 'シナリオ',
       marketing: 'マーケティング',
       sales: 'セールス',
@@ -55,7 +55,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       email: 'marketing@zenava.ai'
     },
     hk: {
-      subtitle: '企業與客戶對話場景的 AI 智能體',
+      subtitle: '面向營銷和服務場景的對話式AI智能體',
       scenarios: '應用場景',
       marketing: '市場營銷',
       sales: '銷售',
@@ -96,10 +96,10 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </p>
               <p class="text-gray-500 text-xs leading-relaxed max-w-sm mt-2">
                 {language === 'en' 
-                  ? 'Empowering Enterprise Transformation from Human-Driven to AI-Driven'
+                  ? 'Empowering enterprise productivity and organizational transformation, achieving the leap from "Human-Driven" to "AI-Driven"'
                   : language === 'jp'
-                  ? '「人力駆動」から「AIドライブ」への飛躍を実現'
-                  : '助力企業完成從「人力驅動」到「AI驅動」的跨越'}
+                  ? '企業の生産性と組織形態の変革を支援し、「人力駆動」から「AI駆動」への飛躍を実現'
+                  : '助力企業完成生產力與組織形態變革，實現從「人力驅動」到「AI驅動」的跨越'}
               </p>
             </div>
             
