@@ -48,98 +48,66 @@ export function AboutUs({ language }: AboutUsProps) {
       {/* Company Introduction Section */}
       <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div data-animate="slide-up">
-              <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                {language === 'en' && 'Company Introduction'}
-                {language === 'jp' && '会社紹介'}
-                {language === 'hk' && '公司介紹'}
-              </h2>
-              <p class="text-lg text-gray-700 mb-8 leading-relaxed">
-                {language === 'en' && 'TI Cloud is a leading provider of intelligent customer engagement solutions. We specialize in cloud-native platforms that combine omnichannel contact centers with conversational AI agents, helping enterprises transform their customer interactions through advanced technology.'}
-                {language === 'jp' && 'TI Cloudは、インテリジェントな顧客エンゲージメントソリューションのリーディングプロバイダーです。私たちは、オムニチャネルコンタクトセンターと対話型AIエージェントを組み合わせたクラウドネイティブプラットフォームを専門とし、先進技術を通じて企業の顧客インタラクションの変革を支援しています。'}
-                {language === 'hk' && 'TI Cloud 是智能客戶互動解決方案的領先供應商。我們專注於結合全渠道聯絡中心與對話式AI智能體的雲原生平台，通過先進技術幫助企業轉型客戶互動。'}
+          <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center" data-animate="fade-in">
+              {language === 'en' && 'Company Introduction'}
+              {language === 'jp' && '会社紹介'}
+              {language === 'hk' && '公司介紹'}
+            </h2>
+            
+            <div class="prose prose-lg max-w-none text-gray-700" data-animate="slide-up">
+              <p class="mb-6 leading-relaxed">
+                {language === 'en' && 'ZENAVA is the flagship product of TI Cloud, a leading intelligent contact center platform provider. It deeply integrates AI Agent technology, AI operational capabilities, and cloud-native contact center capabilities, helping enterprises achieve the leap from "Human-Driven" to "AI-Driven" in productivity and organizational transformation.'}
+                {language === 'jp' && 'ZENAVAは、インテリジェントコンタクトセンタープラットフォームの大手プロバイダーであるTI Cloudの主力製品です。AIエージェント技術、AI運用能力、クラウドネイティブコンタクトセンター機能を深く統合し、企業が「人力駆動」から「AI駆動」への生産性と組織形態の飛躍を実現することを支援します。'}
+                {language === 'hk' && 'ZENAVA 是領先的智能聯絡中心平台供應商 TI Cloud 旗下的核心產品。它將 AI Agent 技術、AI 運營能力、雲原生聯絡中心能力深度融合，幫助企業完成從「人力驅動」向「AI驅動」的生產力與組織形態跨越。'}
               </p>
               
-              <div class="grid grid-cols-2 gap-6">
-                <div class="text-center">
-                  <div class="text-3xl font-bold text-primary-600 mb-2">2006</div>
-                  <p class="text-sm text-gray-600">
-                    {language === 'en' && 'Founded'}
-                    {language === 'jp' && '設立'}
-                    {language === 'hk' && '成立年份'}
-                  </p>
-                </div>
-                <div class="text-center">
-                  <div class="text-3xl font-bold text-primary-600 mb-2">2167.HK</div>
-                  <p class="text-sm text-gray-600">
-                    {language === 'en' && 'HKEX Listed'}
-                    {language === 'jp' && '香港上場'}
-                    {language === 'hk' && '港交所上市'}
-                  </p>
-                </div>
-                <div class="text-center">
-                  <div class="text-3xl font-bold text-primary-600 mb-2">10+</div>
-                  <p class="text-sm text-gray-600">
-                    {language === 'en' && 'Cities Worldwide'}
-                    {language === 'jp' && '世界の都市'}
-                    {language === 'hk' && '全球城市'}
-                  </p>
-                </div>
-                <div class="text-center">
-                  <div class="text-3xl font-bold text-primary-600 mb-2">5000+</div>
-                  <p class="text-sm text-gray-600">
-                    {language === 'en' && 'Enterprise Clients'}
-                    {language === 'jp' && '企業クライアント'}
-                    {language === 'hk' && '企業客戶'}
-                  </p>
-                </div>
-              </div>
+              <p class="mb-6 leading-relaxed">
+                {language === 'en' && 'Unlike traditional AI tools that merely "assist humans," ZENAVA can independently handle end-to-end business tasks while forming a continuously optimized and efficient collaboration with human experts.'}
+                {language === 'jp' && '従来の「人を補助する」だけのAIツールとは異なり、ZENAVAはエンドツーエンドのビジネスタスクを独立して処理でき、人間の専門家と継続的に最適化される効率的な協働を形成します。'}
+                {language === 'hk' && '不同於傳統僅「輔助人」的 AI 工具，ZENAVA 能夠獨立承擔端到端的業務任務，並與人類專家形成持續優化的高效協同。'}
+              </p>
+              
+              <p class="mb-8 leading-relaxed">
+                {language === 'en' && 'Currently, ZENAVA has been successfully deployed across multiple industries including retail, chain stores, manufacturing, automotive, and finance, continuously creating measurable business value and driving comprehensive enterprise transformation in both organizational efficiency upgrades and customer experience enhancement.'}
+                {language === 'jp' && '現在、ZENAVAは小売、チェーン店、製造業、自動車、金融など複数の業界で導入され、測定可能なビジネス価値を継続的に創出し、組織効率の向上と顧客体験の向上の両面で企業の包括的な変革を推進しています。'}
+                {language === 'hk' && '目前，ZENAVA 已在零售、連鎖、製造、汽車、金融等多個行業落地應用，持續創造可衡量的業務價值，在組織效能升級與客戶體驗提升兩個維度推動企業全面變革。'}
+              </p>
             </div>
             
-            <div class="bg-gray-50 p-8 rounded-xl" data-animate="slide-up">
-              <h3 class="text-2xl font-bold text-gray-900 mb-6">
-                {language === 'en' && 'Our Business'}
-                {language === 'jp' && '私たちのビジネス'}
-                {language === 'hk' && '我們的業務'}
-              </h3>
-              
-              <div class="space-y-4">
-                <div class="flex items-start space-x-3">
-                  <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center mt-1">
-                    <i class="fas fa-headset text-primary-600 text-sm"></i>
-                  </div>
-                  <div>
-                    <h4 class="font-semibold text-gray-900 mb-1">
-                      {language === 'en' && 'Omnichannel Contact Center'}
-                      {language === 'jp' && 'オムニチャネルコンタクトセンター'}
-                      {language === 'hk' && '全渠道聯絡中心'}
-                    </h4>
-                    <p class="text-sm text-gray-600">
-                      {language === 'en' && 'Unified platform for voice, chat, email, and social media interactions'}
-                      {language === 'jp' && '音声、チャット、メール、ソーシャルメディアの統合プラットフォーム'}
-                      {language === 'hk' && '語音、聊天、電郵、社交媒體的統一平台'}
-                    </p>
-                  </div>
-                </div>
-                
-                <div class="flex items-start space-x-3">
-                  <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mt-1">
-                    <i class="fas fa-robot text-purple-600 text-sm"></i>
-                  </div>
-                  <div>
-                    <h4 class="font-semibold text-gray-900 mb-1">
-                      {language === 'en' && 'Conversational AI Agents'}
-                      {language === 'jp' && '対話型AIエージェント'}
-                      {language === 'hk' && '對話式AI智能體'}
-                    </h4>
-                    <p class="text-sm text-gray-600">
-                      {language === 'en' && 'Advanced AI agents for intelligent customer interactions'}
-                      {language === 'jp' && 'インテリジェントな顧客インタラクションのための高度なAIエージェント'}
-                      {language === 'hk' && '用於智能客戶互動的高級AI智能體'}
-                    </p>
-                  </div>
-                </div>
+            {/* Key Metrics */}
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12" data-animate="fade-in">
+              <div class="text-center">
+                <div class="text-3xl font-bold text-primary-600 mb-2">2006</div>
+                <p class="text-sm text-gray-600">
+                  {language === 'en' && 'TI Cloud Founded'}
+                  {language === 'jp' && 'TI Cloud設立'}
+                  {language === 'hk' && 'TI Cloud成立'}
+                </p>
+              </div>
+              <div class="text-center">
+                <div class="text-3xl font-bold text-primary-600 mb-2">2167.HK</div>
+                <p class="text-sm text-gray-600">
+                  {language === 'en' && 'HKEX Listed'}
+                  {language === 'jp' && '香港証券取引所上場'}
+                  {language === 'hk' && '港交所上市'}
+                </p>
+              </div>
+              <div class="text-center">
+                <div class="text-3xl font-bold text-primary-600 mb-2">5+</div>
+                <p class="text-sm text-gray-600">
+                  {language === 'en' && 'Industries Served'}
+                  {language === 'jp' && '導入業界'}
+                  {language === 'hk' && '服務行業'}
+                </p>
+              </div>
+              <div class="text-center">
+                <div class="text-3xl font-bold text-primary-600 mb-2">5000+</div>
+                <p class="text-sm text-gray-600">
+                  {language === 'en' && 'Enterprise Clients'}
+                  {language === 'jp' && '企業顧客'}
+                  {language === 'hk' && '企業客戶'}
+                </p>
               </div>
             </div>
           </div>
