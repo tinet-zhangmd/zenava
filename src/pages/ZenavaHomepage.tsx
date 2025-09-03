@@ -114,8 +114,8 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
               {/* Main Interface Card */}
               <div class="relative w-full max-w-md">
                 
-                {/* AI Chat Interface */}
-                <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl border border-gray-700 p-6 shadow-2xl">
+                {/* AI Chat Interface - Dark solid background for better visibility */}
+                <div class="rounded-3xl p-6 shadow-2xl" style="background-color: #0f1419; border: 2px solid #2d3748;">
                   
                   {/* Header */}
                   <div class="flex items-center justify-between mb-6">
@@ -148,7 +148,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
 
                     {/* AI Response */}
                     <div class="flex justify-start">
-                      <div class="bg-gray-800 text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs border border-gray-700">
+                      <div class="text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs" style="background-color: #1a1f2e; border: 1px solid #2d3748;">
                         <div class="flex items-center space-x-2 mb-2">
                           <div class="w-4 h-4 bg-gradient-to-r from-[#0DE0EF] to-[#6438FF] rounded-full"></div>
                           <span class="text-xs text-[#0DE0EF]">AI Processing...</span>
@@ -159,7 +159,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
 
                     {/* Typing indicator */}
                     <div class="flex justify-start">
-                      <div class="bg-gray-850 px-4 py-3 rounded-2xl rounded-bl-sm border border-gray-700">
+                      <div class="px-4 py-3 rounded-2xl rounded-bl-sm" style="background-color: #1a1f2e; border: 1px solid #2d3748;">
                         <div class="flex space-x-1">
                           <div class="w-2 h-2 bg-[#0DE0EF] rounded-full animate-bounce"></div>
                           <div class="w-2 h-2 bg-[#6438FF] rounded-full animate-bounce delay-100"></div>
@@ -171,7 +171,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
 
                   {/* Input Area */}
                   <div class="flex items-center space-x-3">
-                    <div class="flex-1 bg-gray-850 border border-gray-700 rounded-xl px-4 py-3">
+                    <div class="flex-1 rounded-xl px-4 py-3" style="background-color: #1a1f2e; border: 1px solid #2d3748;">
                       <input type="text" placeholder="Type your message..." class="w-full bg-transparent text-white placeholder-gray-400 text-sm outline-none" />
                     </div>
                     <button class="w-12 h-12 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-xl flex items-center justify-center hover:scale-105 transition-transform">
