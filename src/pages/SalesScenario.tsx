@@ -1,4 +1,5 @@
 import { Language, getTranslation, t } from '../utils/i18n.js'
+import { TransformationCTA } from '../components/TransformationCTA.js'
 
 interface SalesScenarioProps {
   language: Language
