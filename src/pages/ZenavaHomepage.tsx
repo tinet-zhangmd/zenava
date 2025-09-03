@@ -120,13 +120,15 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
                   {/* Header */}
                   <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center space-x-3">
-                      <div class="w-10 h-10 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-xl flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                        </svg>
+                      <div class="w-10 h-10 rounded-xl flex items-center justify-center">
+                        <img 
+                          src="https://page.gensparksite.com/v1/base64_upload/5f8fb02c9046a79c81989a0abcc1bf7b" 
+                          alt="Zenava AI Icon" 
+                          class="w-8 h-8 object-contain"
+                        />
                       </div>
                       <div>
-                        <div class="text-white font-semibold">Zenava AI</div>
+                        <div class="font-semibold" style="color: #5E3AFC;">Zenava AI</div>
                         <div class="text-[#0DE0EF] text-sm">Online</div>
                       </div>
                     </div>
@@ -139,19 +141,19 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
                   {/* Chat Messages */}
                   <div class="space-y-4 mb-6">
                     
-                    {/* User Message */}
+                    {/* User Message - Right side with green background */}
                     <div class="flex justify-end">
-                      <div class="bg-gradient-to-r from-[#6438FF] to-[#8B5CF6] text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs">
+                      <div class="text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs" style="background-color: #11B98F;">
                         <p class="text-sm">I need help with order #12345</p>
                       </div>
                     </div>
 
-                    {/* AI Response */}
+                    {/* AI Response - Left side with purple background */}
                     <div class="flex justify-start">
-                      <div class="text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs" style="background-color: #1a1f2e; border: 1px solid #2d3748;">
+                      <div class="text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs" style="background-color: #5E3AFC;">
                         <div class="flex items-center space-x-2 mb-2">
-                          <div class="w-4 h-4 bg-gradient-to-r from-[#0DE0EF] to-[#6438FF] rounded-full"></div>
-                          <span class="text-xs text-[#0DE0EF]">AI Processing...</span>
+                          <div class="w-4 h-4 bg-white/30 rounded-full"></div>
+                          <span class="text-xs text-white/80">AI Processing...</span>
                         </div>
                         <p class="text-sm">I've found your order! It's currently being processed and will ship within 24 hours. Would you like tracking details?</p>
                       </div>
@@ -159,11 +161,11 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
 
                     {/* Typing indicator */}
                     <div class="flex justify-start">
-                      <div class="px-4 py-3 rounded-2xl rounded-bl-sm" style="background-color: #1a1f2e; border: 1px solid #2d3748;">
+                      <div class="px-4 py-3 rounded-2xl rounded-bl-sm" style="background-color: #5E3AFC;">
                         <div class="flex space-x-1">
-                          <div class="w-2 h-2 bg-[#0DE0EF] rounded-full animate-bounce"></div>
-                          <div class="w-2 h-2 bg-[#6438FF] rounded-full animate-bounce delay-100"></div>
-                          <div class="w-2 h-2 bg-[#0DE0EF] rounded-full animate-bounce delay-200"></div>
+                          <div class="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+                          <div class="w-2 h-2 bg-white rounded-full animate-bounce delay-100"></div>
+                          <div class="w-2 h-2 bg-white rounded-full animate-bounce delay-200"></div>
                         </div>
                       </div>
                     </div>
@@ -174,7 +176,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
                     <div class="flex-1 rounded-xl px-4 py-3" style="background-color: #1a1f2e; border: 1px solid #2d3748;">
                       <input type="text" placeholder="Type your message..." class="w-full bg-transparent text-white placeholder-gray-400 text-sm outline-none" />
                     </div>
-                    <button class="w-12 h-12 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-xl flex items-center justify-center hover:scale-105 transition-transform">
+                    <button class="w-12 h-12 bg-gray-600 hover:bg-gray-700 rounded-xl flex items-center justify-center transition-colors">
                       <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                       </svg>
@@ -191,7 +193,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
                   <div class="text-white text-lg font-black">&lt; 1.8s</div>
                 </div>
 
-                <div class="absolute -bottom-4 -left-8 w-36 p-3 bg-gradient-to-r from-[#0DE0EF] to-[#6438FF] rounded-xl border border-[#0DE0EF]/50 shadow-lg animate-float-delayed">
+                <div class="absolute -bottom-4 -left-8 w-36 p-3 bg-gradient-to-r from-[#11B98F] to-[#0DE0EF] rounded-xl border border-[#11B98F]/50 shadow-lg animate-float-delayed">
                   <div class="flex items-center space-x-2 mb-1">
                     <div class="w-4 h-4 bg-white rounded-full"></div>
                     <span class="text-white text-xs font-semibold">Satisfaction Rate</span>
