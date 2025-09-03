@@ -151,9 +151,8 @@ INSERT OR REPLACE INTO navigation_config (
 
 -- Insert default menu items
 INSERT OR REPLACE INTO navigation_menu_items (id, type, label, label_en, label_jp, label_hk, url, order_index, visible) VALUES
-('home', 'link', 'Home', 'Home', 'ホーム', '首頁', '/', 1, 1),
-('scenarios', 'dropdown', 'Scenarios', 'Scenarios', 'シナリオ', '場景', NULL, 2, 1),
-('about', 'link', 'About Us', 'About Us', '私たちについて', '關於我們', '/about', 3, 1);
+('scenarios', 'dropdown', 'Scenarios', 'Scenarios', 'シナリオ', '場景', NULL, 1, 1),
+('about', 'link', 'About Us', 'About Us', '私たちについて', '關於我們', '/about', 2, 1);
 
 -- Insert scenario submenu items
 INSERT OR REPLACE INTO navigation_submenu_items (
