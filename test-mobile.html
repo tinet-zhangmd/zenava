@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Responsiveness Test</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 20px;
+            background: #f3f4f6;
+        }
+        .test-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .status.success { background: #10b981; color: white; }
+        .status.warning { background: #f59e0b; color: white; }
+        .status.error { background: #ef4444; color: white; }
+        iframe {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: white;
+        }
+        .device-frame {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mobile Responsiveness Test Report</h1>
+    
+    <div class="test-section">
+        <h2>✅ Applied Fixes</h2>
+        <ol>
+            <li><strong>Navigation Bar:</strong>
+                <ul>
+                    <li>Added justify-between to ensure proper spacing</li>
+                    <li>Hamburger menu stays on the right</li>
+                    <li>Language switcher remains visible</li>
+                </ul>
+            </li>
+            <li><strong>Footer:</strong>
+                <ul>
+                    <li>Grid: 2 columns on mobile, 4 on tablet, 5 on desktop</li>
+                    <li>Company info spans full width on mobile</li>
+                    <li>Text sizes responsive (text-xs sm:text-sm)</li>
+                </ul>
+            </li>
+            <li><strong>Platform Performance:</strong>
+                <ul>
+                    <li>Single column on mobile, 3 columns on larger screens</li>
+                    <li>Icon sizes: 16x16 on mobile, 20x20 on larger</li>
+                    <li>Text sizes: 3xl on mobile, up to 5xl on desktop</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+    
+    <div class="test-section">
+        <h2>Device Preview</h2>
+        <p>Test URL: <a href="https://3000-ijx7klcra0fppaqos5xzg-6532622b.e2b.dev" target="_blank">https://3000-ijx7klcra0fppaqos5xzg-6532622b.e2b.dev</a></p>
+        
+        <div class="device-frame">
+            <h3>iPhone SE (375px width)</h3>
+            <iframe src="https://3000-ijx7klcra0fppaqos5xzg-6532622b.e2b.dev" style="width: 375px; height: 667px;"></iframe>
+        </div>
+        
+        <div class="device-frame">
+            <h3>iPad (768px width)</h3>
+            <iframe src="https://3000-ijx7klcra0fppaqos5xzg-6532622b.e2b.dev" style="width: 768px; height: 600px;"></iframe>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Expected Behavior</h2>
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr style="background: #f3f4f6;">
+                <th style="padding: 10px; text-align: left; border: 1px solid #d1d5db;">Component</th>
+                <th style="padding: 10px; text-align: left; border: 1px solid #d1d5db;">Mobile (< 640px)</th>
+                <th style="padding: 10px; text-align: left; border: 1px solid #d1d5db;">Desktop (> 1024px)</th>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #d1d5db;">Nav Hamburger</td>
+                <td style="padding: 10px; border: 1px solid #d1d5db;">Visible, right-aligned</td>
+                <td style="padding: 10px; border: 1px solid #d1d5db;">Hidden</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #d1d5db;">Language Switcher</td>
+                <td style="padding: 10px; border: 1px solid #d1d5db;">Visible</td>
+                <td style="padding: 10px; border: 1px solid #d1d5db;">Visible</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #d1d5db;">Footer Grid</td>
+                <td style="padding: 10px; border: 1px solid #d1d5db;">2 columns</td>
+                <td style="padding: 10px; border: 1px solid #d1d5db;">5 columns</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border: 1px solid #d1d5db;">Platform Performance</td>
+                <td style="padding: 10px; border: 1px solid #d1d5db;">1 column</td>
+                <td style="padding: 10px; border: 1px solid #d1d5db;">3 columns</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

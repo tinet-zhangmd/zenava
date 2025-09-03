@@ -81,9 +81,9 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
     <footer class="bg-gradient-to-b from-gray-900 to-black text-white">
       <div class="site-container px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         {/* Top Section */}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-8 mb-12">
-          {/* Company Info - Spans 2 columns on desktop, full width on mobile */}
-          <div class="col-span-1 md:col-span-2 lg:col-span-2">
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-12">
+          {/* Company Info - Full width on mobile */}
+          <div class="col-span-2 sm:col-span-2 md:col-span-2 lg:col-span-2">
             <div class="mb-6">
               <img 
                 src={ZENAVA_LOGO_BASE64}
@@ -124,7 +124,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               <li>
                 <a 
                   href={`${langPrefix}/scenarios/marketing`}
-                  class="text-gray-400 hover:text-white transition-colors text-sm block"
+                  class="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block"
                 >
                   {t.marketing}
                 </a>
@@ -132,7 +132,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               <li>
                 <a 
                   href={`${langPrefix}/scenarios/sales`}
-                  class="text-gray-400 hover:text-white transition-colors text-sm block"
+                  class="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block"
                 >
                   {t.sales}
                 </a>
@@ -140,7 +140,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               <li>
                 <a 
                   href={`${langPrefix}/scenarios/customer-service`}
-                  class="text-gray-400 hover:text-white transition-colors text-sm block"
+                  class="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block"
                 >
                   {t.customerService}
                 </a>
@@ -148,7 +148,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               <li>
                 <a 
                   href={`${langPrefix}/scenarios/internal-service`}
-                  class="text-gray-400 hover:text-white transition-colors text-sm block"
+                  class="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block"
                 >
                   {t.internalService}
                 </a>
@@ -156,7 +156,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               <li>
                 <a 
                   href={`${langPrefix}/scenarios/management`}
-                  class="text-gray-400 hover:text-white transition-colors text-sm block"
+                  class="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block"
                 >
                   {t.management}
                 </a>
@@ -165,13 +165,13 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
           </div>
           
           {/* Company Section */}
-          <div>
-            <h4 class="text-white font-semibold mb-4">{t.company}</h4>
-            <ul class="space-y-3">
+          <div class="col-span-1">
+            <h4 class="text-white font-semibold text-sm sm:text-base mb-3 sm:mb-4">{t.company}</h4>
+            <ul class="space-y-2 sm:space-y-3">
               <li>
                 <a 
                   href={`${langPrefix}/about`}
-                  class="text-gray-400 hover:text-white transition-colors text-sm block"
+                  class="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block"
                 >
                   {t.aboutUs}
                 </a>
@@ -179,7 +179,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               <li>
                 <a 
                   href={`${langPrefix}/#contact`}
-                  class="text-gray-400 hover:text-white transition-colors text-sm block"
+                  class="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block"
                 >
                   {t.contact}
                 </a>
@@ -187,14 +187,14 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
             </ul>
           </div>
           
-          {/* Legal Section */}
-          <div>
-            <h4 class="text-white font-semibold mb-4">{t.legal}</h4>
-            <ul class="space-y-3">
+          {/* Legal Section - Spans 2 cols on mobile for balance */}
+          <div class="col-span-2 sm:col-span-1">
+            <h4 class="text-white font-semibold text-sm sm:text-base mb-3 sm:mb-4">{t.legal}</h4>
+            <ul class="space-y-2 sm:space-y-3">
               <li>
                 <button 
                   onclick="showCookiePreferences()"
-                  class="text-gray-400 hover:text-white transition-colors text-sm text-left cursor-pointer"
+                  class="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm text-left cursor-pointer"
                 >
                   {t.cookiePreferences}
                 </button>
@@ -204,7 +204,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
                   href="https://helps.live/PrivacyPolicyCn.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-gray-400 hover:text-white transition-colors text-sm block"
+                  class="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block"
                 >
                   {t.privacyPolicy}
                 </a>

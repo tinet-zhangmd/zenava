@@ -133,9 +133,9 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
         style={navStyles}
       >
         <div class="site-container px-4 sm:px-6 lg:px-8">
-          <div class="flex items-center h-16">
+          <div class="flex items-center justify-between h-16">
             {/* Logo */}
-            <div class="flex-shrink-0 mr-8">
+            <div class="flex-shrink-0">
               <a href={getLocalizedPath('/', currentLanguage)} class="flex items-center">
                 {config.logo_url ? (
                   <img 
@@ -153,8 +153,8 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
               </a>
             </div>
             
-            {/* Desktop Menu */}
-            <div class="hidden md:flex items-center space-x-6 flex-1">
+            {/* Desktop Menu - Center */}
+            <div class="hidden md:flex items-center space-x-6 flex-1 justify-start ml-8">
               {sortedMenuItems.map(item => (
                 item.type === 'dropdown' && item.children ? (
                   <div class="relative group" key={item.id}>
@@ -233,11 +233,11 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
               )}
             </div>
             
-            {/* Right Section */}
-            <div class="flex items-center space-x-2 md:space-x-4">
-              {/* Language Switcher - Hidden on mobile */}
+            {/* Right Section - Mobile and Desktop */}
+            <div class="flex items-center space-x-3">
+              {/* Language Switcher - Always visible */}
               {config.show_language_switcher !== false && (
-                <div class="relative group hidden md:block">
+                <div class="relative group">
                   <button class="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors">
                     <span class="text-xl">{languageFlags[currentLanguage]}</span>
                     <span class="text-sm font-medium">{languageNames[currentLanguage]}</span>
@@ -261,10 +261,10 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
                 </div>
               )}
               
-              {/* Mobile Menu Button - Properly aligned */}
+              {/* Mobile Menu Button */}
               {config.mobile_menu_enabled !== false && (
                 <button 
-                  class="md:hidden p-2 rounded-lg hover:bg-gray-50"
+                  class="md:hidden p-2 rounded-lg hover:bg-gray-50 transition-colors"
                   onclick="toggleMobileMenu()"
                 >
                   <i class="fas fa-bars text-gray-700 text-xl"></i>
