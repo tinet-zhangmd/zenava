@@ -115,7 +115,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
               <div class="relative w-full max-w-md">
                 
                 {/* AI Chat Interface */}
-                <div class="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-white/20 p-6 shadow-2xl">
+                <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl border border-gray-700 p-6 shadow-2xl">
                   
                   {/* Header */}
                   <div class="flex items-center justify-between mb-6">
@@ -148,7 +148,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
 
                     {/* AI Response */}
                     <div class="flex justify-start">
-                      <div class="bg-white/10 text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs border border-white/20">
+                      <div class="bg-gray-800 text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs border border-gray-700">
                         <div class="flex items-center space-x-2 mb-2">
                           <div class="w-4 h-4 bg-gradient-to-r from-[#0DE0EF] to-[#6438FF] rounded-full"></div>
                           <span class="text-xs text-[#0DE0EF]">AI Processing...</span>
@@ -159,7 +159,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
 
                     {/* Typing indicator */}
                     <div class="flex justify-start">
-                      <div class="bg-white/5 px-4 py-3 rounded-2xl rounded-bl-sm border border-white/10">
+                      <div class="bg-gray-850 px-4 py-3 rounded-2xl rounded-bl-sm border border-gray-700">
                         <div class="flex space-x-1">
                           <div class="w-2 h-2 bg-[#0DE0EF] rounded-full animate-bounce"></div>
                           <div class="w-2 h-2 bg-[#6438FF] rounded-full animate-bounce delay-100"></div>
@@ -171,7 +171,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
 
                   {/* Input Area */}
                   <div class="flex items-center space-x-3">
-                    <div class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3">
+                    <div class="flex-1 bg-gray-850 border border-gray-700 rounded-xl px-4 py-3">
                       <input type="text" placeholder="Type your message..." class="w-full bg-transparent text-white placeholder-gray-400 text-sm outline-none" />
                     </div>
                     <button class="w-12 h-12 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-xl flex items-center justify-center hover:scale-105 transition-transform">
@@ -183,7 +183,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
                 </div>
 
                 {/* Floating Analytics Cards */}
-                <div class="absolute -top-4 -right-8 w-32 p-3 bg-gradient-to-r from-[#6438FF]/90 to-[#8B5CF6]/90 backdrop-blur-xl rounded-xl border border-white/20 animate-float">
+                <div class="absolute -top-4 -right-8 w-32 p-3 bg-gradient-to-r from-[#6438FF] to-[#8B5CF6] rounded-xl border border-[#6438FF]/50 shadow-lg animate-float">
                   <div class="flex items-center space-x-2 mb-1">
                     <div class="w-4 h-4 bg-[#0DE0EF] rounded-full"></div>
                     <span class="text-white text-xs font-semibold">Response Time</span>
@@ -191,7 +191,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
                   <div class="text-white text-lg font-black">&lt; 1.8s</div>
                 </div>
 
-                <div class="absolute -bottom-4 -left-8 w-36 p-3 bg-gradient-to-r from-[#0DE0EF]/90 to-[#6438FF]/90 backdrop-blur-xl rounded-xl border border-white/20 animate-float-delayed">
+                <div class="absolute -bottom-4 -left-8 w-36 p-3 bg-gradient-to-r from-[#0DE0EF] to-[#6438FF] rounded-xl border border-[#0DE0EF]/50 shadow-lg animate-float-delayed">
                   <div class="flex items-center space-x-2 mb-1">
                     <div class="w-4 h-4 bg-white rounded-full"></div>
                     <span class="text-white text-xs font-semibold">Satisfaction Rate</span>
