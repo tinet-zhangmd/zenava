@@ -39,12 +39,6 @@ export function SalesScenario({ language }: SalesScenarioProps) {
                 {language === 'jp' && '相談を予約'}
                 {language === 'hk' && '預約溝通'}
               </a>
-              <button class="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-600 hover:text-white transition-all duration-300">
-                <i class="fas fa-calendar mr-2"></i>
-                {language === 'en' && 'Schedule Demo'}
-                {language === 'jp' && 'デモ予約'}
-                {language === 'hk' && '預約演示'}
-              </button>
             </div>
           </div>
         </div>
