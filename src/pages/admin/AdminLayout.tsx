@@ -53,58 +53,58 @@ export function AdminLayout({ children, title, currentPath, user }: AdminLayoutP
               </h1>
               
               <nav class="space-y-2">
-                <a href="/admin" 
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath === '/admin' ? 'active' : ''}`}>
+                <a href="/ticloudadmin" 
+                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath === '/ticloudadmin' ? 'active' : ''}`}>
                   <i class="fas fa-tachometer-alt mr-3"></i>
                   控制台
                 </a>
                 
-                <a href="/admin/content"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/admin/content') ? 'active' : ''}`}>
+                <a href="/ticloudadmin/content"
+                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/content') ? 'active' : ''}`}>
                   <i class="fas fa-file-alt mr-3"></i>
                   内容管理
                 </a>
                 
-                <a href="/admin/seo"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/admin/seo') ? 'active' : ''}`}>
+                <a href="/ticloudadmin/seo"
+                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/seo') ? 'active' : ''}`}>
                   <i class="fas fa-search mr-3"></i>
                   SEO 管理
                 </a>
                 
-                <a href="/admin/i18n"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/admin/i18n') ? 'active' : ''}`}>
+                <a href="/ticloudadmin/i18n"
+                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/i18n') ? 'active' : ''}`}>
                   <i class="fas fa-globe mr-3"></i>
                   多语言管理
                 </a>
                 
-                <a href="/admin/media"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/admin/media') ? 'active' : ''}`}>
+                <a href="/ticloudadmin/media"
+                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/media') ? 'active' : ''}`}>
                   <i class="fas fa-images mr-3"></i>
                   媒体库
                 </a>
                 
-                <a href="/admin/common-content"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/admin/common-content') ? 'active' : ''}`}>
+                <a href="/ticloudadmin/common-content"
+                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/common-content') ? 'active' : ''}`}>
                   <i class="fas fa-layer-group mr-3"></i>
                   公共内容
                 </a>
                 
-                <a href="/admin/publish"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/admin/publish') ? 'active' : ''}`}>
+                <a href="/ticloudadmin/publish"
+                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/publish') ? 'active' : ''}`}>
                   <i class="fas fa-rocket mr-3"></i>
                   发布管理
                 </a>
                 
-                <a href="/admin/settings"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/admin/settings') ? 'active' : ''}`}>
+                <a href="/ticloudadmin/settings"
+                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/settings') ? 'active' : ''}`}>
                   <i class="fas fa-cog mr-3"></i>
                   系统设置
                 </a>
                 
                 <hr class="my-6 border-slate-600" />
                 
-                <a href="/admin/logs"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/admin/logs') ? 'active' : ''}`}>
+                <a href="/ticloudadmin/logs"
+                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/logs') ? 'active' : ''}`}>
                   <i class="fas fa-list mr-3"></i>
                   操作日志
                 </a>
@@ -133,7 +133,7 @@ export function AdminLayout({ children, title, currentPath, user }: AdminLayoutP
                     <span class="text-sm font-medium">{user?.name || '管理员'}</span>
                   </div>
                   
-                  <a href="/admin/logout" class="text-red-600 hover:text-red-800 text-sm">
+                  <a href="/ticloudadmin/logout" class="text-red-600 hover:text-red-800 text-sm">
                     <i class="fas fa-sign-out-alt mr-1"></i>
                     退出
                   </a>

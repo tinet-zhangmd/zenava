@@ -78,7 +78,7 @@ export function ContentManagement({ searchQuery = '', contentType = 'all', statu
           <h2 class="text-2xl font-bold text-gray-900">Content Management</h2>
           <p class="text-gray-600">Manage all website pages and content</p>
         </div>
-        <a href="/admin/content/new" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+        <a href="/ticloudadmin/content/new" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
           <i class="fas fa-plus mr-2"></i>
           Create New Content
         </a>

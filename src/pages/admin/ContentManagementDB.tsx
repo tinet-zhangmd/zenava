@@ -173,7 +173,7 @@ export const ContentManagementDB: FC<ContentManagementDBProps> = ({ initialPage,
 
         async function loadPages() {
           try {
-            const response = await fetch('/api/cms/pages');
+            const response = await fetch('/api/ticloudcms/pages');
             const data = await response.json();
             
             if (data.success) {
@@ -222,7 +222,7 @@ export const ContentManagementDB: FC<ContentManagementDBProps> = ({ initialPage,
                       </td>
                       <td class="py-3 px-4 text-sm text-gray-600">\${new Date(page.updated_at).toLocaleDateString('zh-CN')}</td>
                       <td class="py-3 px-4">
-                        <a href="/cms/content/edit/\${page.id}" class="text-blue-600 hover:text-blue-700 mr-3">
+                        <a href="/ticloudcms/content/edit/\${page.id}" class="text-blue-600 hover:text-blue-700 mr-3">
                           <i class="fas fa-edit"></i> 编辑
                         </a>
                       </td>
@@ -507,7 +507,7 @@ export const ContentManagementDB: FC<ContentManagementDBProps> = ({ initialPage,
           };
           
           try {
-            const response = await fetch('/api/cms/pages', {
+            const response = await fetch('/api/ticloudcms/pages', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(pageData)
@@ -518,14 +518,14 @@ export const ContentManagementDB: FC<ContentManagementDBProps> = ({ initialPage,
             if (data.success) {
               if (publish && data.data.id) {
                 // Also call publish endpoint
-                await fetch(\`/api/cms/pages/\${data.data.id}/publish\`, { method: 'POST' });
+                await fetch(\`/api/ticloudcms/pages/\${data.data.id}/publish\`, { method: 'POST' });
               }
               
               alert(publish ? '页面已成功发布！' : '页面已保存为草稿！');
               
               // Redirect to list or stay on page
               if (!currentPageId) {
-                window.location.href = '/cms/content';
+                window.location.href = '/ticloudcms/content';
               } else {
                 // Reload to show updated data
                 window.location.reload();
@@ -551,7 +551,7 @@ export const ContentManagementDB: FC<ContentManagementDBProps> = ({ initialPage,
 
         document.getElementById('btn-cancel')?.addEventListener('click', () => {
           if (${initialPage ? 'true' : 'false'}) {
-            window.location.href = '/cms/content';
+            window.location.href = '/ticloudcms/content';
           } else {
             document.getElementById('page-editor').classList.add('hidden');
             document.getElementById('pages-list-container').style.display = 'block';

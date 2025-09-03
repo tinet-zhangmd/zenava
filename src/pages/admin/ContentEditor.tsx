@@ -66,7 +66,7 @@ export function ContentEditor({ contentId, mode }: ContentEditorProps) {
           </p>
         </div>
         <div class="flex space-x-3">
-          <a href="/admin/content" class="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
+          <a href="/ticloudadmin/content" class="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
             <i class="fas fa-times mr-2"></i>Cancel
           </a>
           <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">

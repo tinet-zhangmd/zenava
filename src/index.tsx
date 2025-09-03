@@ -47,7 +47,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 app.use('/api/*', cors())
 
 // Mount CMS API routes
-app.route('/api/cms', cmsApi)
+app.route('/api/ticloudcms', cmsApi)
 app.route('/api/publish', publishApi)
 app.route('/api/common-content', commonContentApi)
 app.route('/api/upload', uploadApi)
@@ -828,7 +828,7 @@ app.get('/ticloudcms', (c) => {
                 </h3>
                 
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                  <a href="/cms/dashboard" class="group relative p-6 bg-gradient-to-br from-blue-600/20 to-indigo-600/20 backdrop-blur-sm rounded-2xl border border-blue-400/30 hover:from-blue-600/30 hover:to-indigo-600/30 transition-all duration-300 hover:scale-105">
+                  <a href="/ticloudcms/dashboard" class="group relative p-6 bg-gradient-to-br from-blue-600/20 to-indigo-600/20 backdrop-blur-sm rounded-2xl border border-blue-400/30 hover:from-blue-600/30 hover:to-indigo-600/30 transition-all duration-300 hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-br from-blue-600/0 to-indigo-600/0 group-hover:from-blue-600/10 group-hover:to-indigo-600/10 rounded-2xl transition-all duration-300"></div>
                     <div class="relative z-10">
                       <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -839,7 +839,7 @@ app.get('/ticloudcms', (c) => {
                     </div>
                   </a>
 
-                  <a href="/cms/content" class="group relative p-6 bg-gradient-to-br from-green-600/20 to-emerald-600/20 backdrop-blur-sm rounded-2xl border border-green-400/30 hover:from-green-600/30 hover:to-emerald-600/30 transition-all duration-300 hover:scale-105">
+                  <a href="/ticloudcms/content" class="group relative p-6 bg-gradient-to-br from-green-600/20 to-emerald-600/20 backdrop-blur-sm rounded-2xl border border-green-400/30 hover:from-green-600/30 hover:to-emerald-600/30 transition-all duration-300 hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-br from-green-600/0 to-emerald-600/0 group-hover:from-green-600/10 group-hover:to-emerald-600/10 rounded-2xl transition-all duration-300"></div>
                     <div class="relative z-10">
                       <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -850,7 +850,7 @@ app.get('/ticloudcms', (c) => {
                     </div>
                   </a>
 
-                  <a href="/cms/ai-tools" class="group relative p-6 bg-gradient-to-br from-purple-600/20 to-pink-600/20 backdrop-blur-sm rounded-2xl border border-purple-400/30 hover:from-purple-600/30 hover:to-pink-600/30 transition-all duration-300 hover:scale-105">
+                  <a href="/ticloudcms/ai-tools" class="group relative p-6 bg-gradient-to-br from-purple-600/20 to-pink-600/20 backdrop-blur-sm rounded-2xl border border-purple-400/30 hover:from-purple-600/30 hover:to-pink-600/30 transition-all duration-300 hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-br from-purple-600/0 to-pink-600/0 group-hover:from-purple-600/10 group-hover:to-pink-600/10 rounded-2xl transition-all duration-300"></div>
                     <div class="relative z-10">
                       <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -861,7 +861,7 @@ app.get('/ticloudcms', (c) => {
                     </div>
                   </a>
 
-                  <a href="/cms/settings" class="group relative p-6 bg-gradient-to-br from-gray-600/20 to-slate-600/20 backdrop-blur-sm rounded-2xl border border-gray-400/30 hover:from-gray-600/30 hover:to-slate-600/30 transition-all duration-300 hover:scale-105">
+                  <a href="/ticloudcms/settings" class="group relative p-6 bg-gradient-to-br from-gray-600/20 to-slate-600/20 backdrop-blur-sm rounded-2xl border border-gray-400/30 hover:from-gray-600/30 hover:to-slate-600/30 transition-all duration-300 hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-br from-gray-600/0 to-slate-600/0 group-hover:from-gray-600/10 group-hover:to-slate-600/10 rounded-2xl transition-all duration-300"></div>
                     <div class="relative z-10">
                       <div class="w-12 h-12 bg-gradient-to-r from-gray-500 to-slate-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -881,11 +881,11 @@ app.get('/ticloudcms', (c) => {
                   API 开发者中心
                 </h4>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <a href="/api/cms/pages" class="group flex items-center text-indigo-300 hover:text-indigo-100 transition-colors">
+                  <a href="/api/ticloudcms/pages" class="group flex items-center text-indigo-300 hover:text-indigo-100 transition-colors">
                     <i class="fas fa-code text-xs mr-2 group-hover:scale-110 transition-transform"></i>
                     <span class="text-sm">页面管理 API</span>
                   </a>
-                  <a href="/api/cms/sites" class="group flex items-center text-purple-300 hover:text-purple-100 transition-colors">
+                  <a href="/api/ticloudcms/sites" class="group flex items-center text-purple-300 hover:text-purple-100 transition-colors">
                     <i class="fas fa-server text-xs mr-2 group-hover:scale-110 transition-transform"></i>
                     <span class="text-sm">站点配置 API</span>
                   </a>
@@ -1171,22 +1171,22 @@ app.get('/ticloudcms/dashboard', async (c) => {
               </h3>
               
               <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <a href="/cms/content/new" class="group relative p-4 bg-gradient-to-br from-blue-600/20 to-indigo-600/20 backdrop-blur-sm rounded-xl border border-blue-400/30 hover:from-blue-600/30 hover:to-indigo-600/30 transition-all duration-300 hover:scale-105 text-center">
+                <a href="/ticloudcms/content/new" class="group relative p-4 bg-gradient-to-br from-blue-600/20 to-indigo-600/20 backdrop-blur-sm rounded-xl border border-blue-400/30 hover:from-blue-600/30 hover:to-indigo-600/30 transition-all duration-300 hover:scale-105 text-center">
                   <i class="fas fa-plus text-2xl text-blue-400 mb-3"></i>
                   <div class="text-white font-medium text-sm">新建页面</div>
                 </a>
                 
-                <a href="/cms/content" class="group relative p-4 bg-gradient-to-br from-green-600/20 to-emerald-600/20 backdrop-blur-sm rounded-xl border border-green-400/30 hover:from-green-600/30 hover:to-emerald-600/30 transition-all duration-300 hover:scale-105 text-center">
+                <a href="/ticloudcms/content" class="group relative p-4 bg-gradient-to-br from-green-600/20 to-emerald-600/20 backdrop-blur-sm rounded-xl border border-green-400/30 hover:from-green-600/30 hover:to-emerald-600/30 transition-all duration-300 hover:scale-105 text-center">
                   <i class="fas fa-edit text-2xl text-green-400 mb-3"></i>
                   <div class="text-white font-medium text-sm">内容管理</div>
                 </a>
                 
-                <a href="/cms/media" class="group relative p-4 bg-gradient-to-br from-purple-600/20 to-pink-600/20 backdrop-blur-sm rounded-xl border border-purple-400/30 hover:from-purple-600/30 hover:to-pink-600/30 transition-all duration-300 hover:scale-105 text-center">
+                <a href="/ticloudcms/media" class="group relative p-4 bg-gradient-to-br from-purple-600/20 to-pink-600/20 backdrop-blur-sm rounded-xl border border-purple-400/30 hover:from-purple-600/30 hover:to-pink-600/30 transition-all duration-300 hover:scale-105 text-center">
                   <i class="fas fa-images text-2xl text-purple-400 mb-3"></i>
                   <div class="text-white font-medium text-sm">媒体库</div>
                 </a>
                 
-                <a href="/cms/publish" class="group relative p-4 bg-gradient-to-br from-red-600/20 to-orange-600/20 backdrop-blur-sm rounded-xl border border-red-400/30 hover:from-red-600/30 hover:to-orange-600/30 transition-all duration-300 hover:scale-105 text-center">
+                <a href="/ticloudcms/publish" class="group relative p-4 bg-gradient-to-br from-red-600/20 to-orange-600/20 backdrop-blur-sm rounded-xl border border-red-400/30 hover:from-red-600/30 hover:to-orange-600/30 transition-all duration-300 hover:scale-105 text-center">
                   <i class="fas fa-rocket text-2xl text-red-400 mb-3"></i>
                   <div class="text-white font-medium text-sm">发布管理</div>
                 </a>
@@ -1294,12 +1294,12 @@ app.get('/ticloudcms/content', async (c) => {
     `).all();
 
     return c.html(
-      <AdminLayout currentPath="/cms/content" title="内容管理">
+      <AdminLayout currentPath="/ticloudcms/content" title="内容管理">
         <div class="min-h-screen bg-gray-50 p-8">
           <div class="max-w-7xl mx-auto">
             <div class="flex justify-between items-center mb-8">
               <h1 class="text-3xl font-bold text-gray-900">📝 内容管理</h1>
-              <a href="/cms/content/new" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+              <a href="/ticloudcms/content/new" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
                 ➕ 新建页面
               </a>
             </div>
@@ -1352,7 +1352,7 @@ app.get('/ticloudcms/content', async (c) => {
     )
   } catch (error: any) {
     return c.html(
-      <AdminLayout currentPath="/cms/content" title="错误">
+      <AdminLayout currentPath="/ticloudcms/content" title="错误">
         <div class="min-h-screen bg-gray-50 p-8">
           <div class="max-w-4xl mx-auto">
             <h1 class="text-2xl font-bold text-red-600">加载错误</h1>
@@ -1379,11 +1379,11 @@ app.get('/ticloudcms/content/edit/:id', async (c) => {
     
     if (!page) {
       return c.html(
-        <AdminLayout currentPath="/cms/content" title="页面不存在">
+        <AdminLayout currentPath="/ticloudcms/content" title="页面不存在">
           <div class="min-h-screen bg-gray-50 p-8">
             <div class="max-w-4xl mx-auto">
               <h1 class="text-2xl font-bold text-red-600">页面不存在</h1>
-              <a href="/cms/content" class="text-blue-600 hover:text-blue-700 mt-4 inline-block">返回内容列表</a>
+              <a href="/ticloudcms/content" class="text-blue-600 hover:text-blue-700 mt-4 inline-block">返回内容列表</a>
             </div>
           </div>
         </AdminLayout>
@@ -1398,7 +1398,7 @@ app.get('/ticloudcms/content/edit/:id', async (c) => {
     `).bind(pageId).all();
     
     return c.html(
-      <AdminLayout currentPath="/cms/content" title={`编辑: ${page.title}`}>
+      <AdminLayout currentPath="/ticloudcms/content" title={`编辑: ${page.title}`}>
         <ContentManagementDB 
           initialPage={page}
           initialModules={modules}
@@ -1407,12 +1407,12 @@ app.get('/ticloudcms/content/edit/:id', async (c) => {
     )
   } catch (error: any) {
     return c.html(
-      <AdminLayout currentPath="/cms/content" title="错误">
+      <AdminLayout currentPath="/ticloudcms/content" title="错误">
         <div class="min-h-screen bg-gray-50 p-8">
           <div class="max-w-4xl mx-auto">
             <h1 class="text-2xl font-bold text-red-600">加载错误</h1>
             <p class="text-gray-700 mt-4">无法加载页面内容: {error.message}</p>
-            <a href="/cms/content" class="text-blue-600 hover:text-blue-700 mt-4 inline-block">返回内容列表</a>
+            <a href="/ticloudcms/content" class="text-blue-600 hover:text-blue-700 mt-4 inline-block">返回内容列表</a>
           </div>
         </div>
       </AdminLayout>
@@ -1431,7 +1431,7 @@ app.get('/ticloudcms/dashboard', async (c) => {
     ]);
     
     return c.html(
-      <AdminLayout currentPath="/cms/dashboard" title="控制台">
+      <AdminLayout currentPath="/ticloudcms/dashboard" title="控制台">
         <Dashboard 
           stats={{
             pages: pagesCount?.count || 0,
@@ -1443,7 +1443,7 @@ app.get('/ticloudcms/dashboard', async (c) => {
     )
   } catch (error: any) {
     return c.html(
-      <AdminLayout currentPath="/cms/dashboard" title="错误">
+      <AdminLayout currentPath="/ticloudcms/dashboard" title="错误">
         <div class="min-h-screen bg-gray-50 p-8">
           <div class="max-w-4xl mx-auto">
             <h1 class="text-2xl font-bold text-red-600">加载错误</h1>

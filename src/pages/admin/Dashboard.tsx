@@ -64,7 +64,7 @@ export function Dashboard({}: DashboardProps) {
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <a href="/admin/content/new" class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+            <a href="/ticloudadmin/content/new" class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
               <i class="fas fa-plus text-blue-600 text-xl mr-3"></i>
               <div>
                 <p class="font-medium text-gray-900">创建新页面</p>
@@ -72,7 +72,7 @@ export function Dashboard({}: DashboardProps) {
               </div>
             </a>
             
-            <a href="/admin/seo" class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+            <a href="/ticloudadmin/seo" class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
               <i class="fas fa-search text-green-600 text-xl mr-3"></i>
               <div>
                 <p class="font-medium text-gray-900">管理 SEO</p>
@@ -80,7 +80,7 @@ export function Dashboard({}: DashboardProps) {
               </div>
             </a>
             
-            <a href="/admin/i18n" class="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">
+            <a href="/ticloudadmin/i18n" class="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">
               <i class="fas fa-globe text-purple-600 text-xl mr-3"></i>
               <div>
                 <p class="font-medium text-gray-900">更新翻译</p>
@@ -88,7 +88,7 @@ export function Dashboard({}: DashboardProps) {
               </div>
             </a>
             
-            <a href="/admin/common-content" class="flex items-center p-4 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors">
+            <a href="/ticloudadmin/common-content" class="flex items-center p-4 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors">
               <i class="fas fa-layer-group text-indigo-600 text-xl mr-3"></i>
               <div>
                 <p class="font-medium text-gray-900">公共内容管理</p>
@@ -96,7 +96,7 @@ export function Dashboard({}: DashboardProps) {
               </div>
             </a>
             
-            <a href="/admin/publish" class="flex items-center p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors">
+            <a href="/ticloudadmin/publish" class="flex items-center p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors">
               <i class="fas fa-rocket text-orange-600 text-xl mr-3"></i>
               <div>
                 <p class="font-medium text-gray-900">发布管理</p>
