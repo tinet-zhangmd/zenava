@@ -157,8 +157,12 @@
 
 ## 最后更新
 - **日期**: 2025-09-03
-- **版本**: 2.4.0
+- **版本**: 2.5.0
 - **更新内容**: 
+  - **界面精简与版权更新**（v2.5.0）
+    - About页面删除"5+ Industries Served"指标，保留三个核心指标
+    - 首页Platform Performance删除"10M+ Conversations Handled"，仅保留Uptime和Enterprise Clients两个指标
+    - Footer版权年份更新为2025，所有语言版本统一为英文格式："© 2025 Zenava. All rights reserved."
   - **About页面公司介绍重构**（v2.4.0）
     - 更新公司介绍内容，突出ZENAVA作为TI Cloud旗下核心产品的定位
     - 强调AI Agent技术与云原生联络中心的深度融合
