@@ -114,27 +114,20 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
               {/* Main Interface Card */}
               <div class="relative w-full max-w-md">
                 
-                {/* AI Chat Interface - Dark solid background for better visibility */}
-                <div class="rounded-3xl p-6 shadow-2xl" style="background-color: #0f1419; border: 2px solid #2d3748;">
+                {/* AI Chat Interface - White background for better visibility */}
+                <div class="rounded-3xl p-6 shadow-2xl bg-white/95 backdrop-blur-sm border-2 border-gray-200">
                   
                   {/* Header */}
                   <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center space-x-3">
-                      <div class="w-10 h-10 rounded-xl flex items-center justify-center">
-                        <img 
-                          src="https://page.gensparksite.com/v1/base64_upload/5f8fb02c9046a79c81989a0abcc1bf7b" 
-                          alt="Zenava AI Icon" 
-                          class="w-8 h-8 object-contain"
-                        />
-                      </div>
                       <div>
-                        <div class="font-semibold" style="color: #5E3AFC;">Zenava AI</div>
+                        <div class="font-semibold text-[#5E3AFC]">Zenava AI</div>
                         <div class="text-[#0DE0EF] text-sm">Online</div>
                       </div>
                     </div>
                     <div class="flex items-center space-x-2">
                       <div class="w-2 h-2 bg-[#0DE0EF] rounded-full animate-pulse"></div>
-                      <span class="text-xs text-gray-300">Live</span>
+                      <span class="text-xs text-gray-600">Live</span>
                     </div>
                   </div>
 
@@ -143,14 +136,14 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
                     
                     {/* User Message - Right side with green background */}
                     <div class="flex justify-end">
-                      <div class="text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs" style="background-color: #11B98F;">
+                      <div class="text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs bg-[#11B98F] shadow-md">
                         <p class="text-sm">I need help with order #12345</p>
                       </div>
                     </div>
 
                     {/* AI Response - Left side with purple background */}
                     <div class="flex justify-start">
-                      <div class="text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs" style="background-color: #5E3AFC;">
+                      <div class="text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs bg-[#5E3AFC] shadow-md">
                         <div class="flex items-center space-x-2 mb-2">
                           <div class="w-4 h-4 bg-white/30 rounded-full"></div>
                           <span class="text-xs text-white/80">AI Processing...</span>
@@ -161,7 +154,7 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
 
                     {/* Typing indicator */}
                     <div class="flex justify-start">
-                      <div class="px-4 py-3 rounded-2xl rounded-bl-sm" style="background-color: #5E3AFC;">
+                      <div class="px-4 py-3 rounded-2xl rounded-bl-sm bg-[#5E3AFC] shadow-md">
                         <div class="flex space-x-1">
                           <div class="w-2 h-2 bg-white rounded-full animate-bounce"></div>
                           <div class="w-2 h-2 bg-white rounded-full animate-bounce delay-100"></div>
@@ -173,10 +166,10 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
 
                   {/* Input Area */}
                   <div class="flex items-center space-x-3">
-                    <div class="flex-1 rounded-xl px-4 py-3" style="background-color: #1a1f2e; border: 1px solid #2d3748;">
-                      <input type="text" placeholder="Type your message..." class="w-full bg-transparent text-white placeholder-gray-400 text-sm outline-none" />
+                    <div class="flex-1 rounded-xl px-4 py-3 bg-gray-100 border border-gray-300">
+                      <input type="text" placeholder="Type your message..." class="w-full bg-transparent text-gray-700 placeholder-gray-500 text-sm outline-none" />
                     </div>
-                    <button class="w-12 h-12 bg-gray-600 hover:bg-gray-700 rounded-xl flex items-center justify-center transition-colors">
+                    <button class="w-12 h-12 bg-[#5E3AFC] hover:bg-[#4f2fd9] rounded-xl flex items-center justify-center transition-colors shadow-md">
                       <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                       </svg>
