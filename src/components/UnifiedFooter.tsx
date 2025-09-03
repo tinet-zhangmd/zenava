@@ -79,22 +79,22 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
 
   return (
     <footer class="bg-gradient-to-b from-gray-900 to-black text-white">
-      <div class="site-container px-4 sm:px-6 lg:px-8 py-16">
+      <div class="site-container px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         {/* Top Section */}
-        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-12">
-          {/* Company Info - Spans 2 columns */}
-          <div class="lg:col-span-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-8 mb-12">
+          {/* Company Info - Spans 2 columns on desktop, full width on mobile */}
+          <div class="col-span-1 md:col-span-2 lg:col-span-2">
             <div class="mb-6">
               <img 
                 src={ZENAVA_LOGO_BASE64}
                 alt="ZENAVA"
-                class="h-12 w-auto object-contain mb-4"
-                style="max-width: 180px; filter: brightness(0) invert(1);"
+                class="h-10 md:h-12 w-auto object-contain mb-4"
+                style="max-width: 160px; filter: brightness(0) invert(1);"
               />
-              <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
+              <p class="text-gray-400 text-sm leading-relaxed max-w-full md:max-w-sm">
                 {t.subtitle}
               </p>
-              <p class="text-gray-500 text-xs leading-relaxed max-w-sm mt-2">
+              <p class="text-gray-500 text-xs leading-relaxed max-w-full md:max-w-sm mt-2">
                 {language === 'en' 
                   ? 'Empowering enterprise productivity and organizational transformation, achieving the leap from "Human-Driven" to "AI-Driven"'
                   : language === 'jp'
@@ -215,15 +215,15 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
         </div>
         
         {/* Bottom Section with Border */}
-        <div class="border-t border-gray-800 pt-8">
+        <div class="border-t border-gray-800 pt-6 md:pt-8">
           <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p class="text-gray-500 text-sm">{t.copyright}</p>
+            <p class="text-gray-500 text-xs md:text-sm text-center md:text-left">{t.copyright}</p>
             
             {/* Additional Bottom Links */}
-            <div class="flex flex-wrap gap-6">
+            <div class="flex flex-wrap justify-center md:justify-end gap-4 md:gap-6">
               <button 
                 onclick="showCookiePreferences()"
-                class="text-gray-500 hover:text-white transition-colors text-sm cursor-pointer"
+                class="text-gray-500 hover:text-white transition-colors text-xs md:text-sm cursor-pointer"
               >
                 <i class="fas fa-cookie-bite mr-2"></i>
                 {t.cookiePreferences}
@@ -232,7 +232,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
                 href="https://helps.live/PrivacyPolicyCn.html"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-gray-500 hover:text-white transition-colors text-sm"
+                class="text-gray-500 hover:text-white transition-colors text-xs md:text-sm"
               >
                 {t.privacyPolicy}
               </a>

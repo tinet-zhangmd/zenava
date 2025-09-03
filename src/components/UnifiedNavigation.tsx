@@ -234,10 +234,10 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
             </div>
             
             {/* Right Section */}
-            <div class="flex items-center space-x-4">
-              {/* Language Switcher */}
+            <div class="flex items-center space-x-2 md:space-x-4">
+              {/* Language Switcher - Hidden on mobile */}
               {config.show_language_switcher !== false && (
-                <div class="relative group">
+                <div class="relative group hidden md:block">
                   <button class="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors">
                     <span class="text-xl">{languageFlags[currentLanguage]}</span>
                     <span class="text-sm font-medium">{languageNames[currentLanguage]}</span>
@@ -261,13 +261,13 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
                 </div>
               )}
               
-              {/* Mobile Menu Button */}
+              {/* Mobile Menu Button - Properly aligned */}
               {config.mobile_menu_enabled !== false && (
                 <button 
                   class="md:hidden p-2 rounded-lg hover:bg-gray-50"
                   onclick="toggleMobileMenu()"
                 >
-                  <i class="fas fa-bars text-gray-700"></i>
+                  <i class="fas fa-bars text-gray-700 text-xl"></i>
                 </button>
               )}
             </div>

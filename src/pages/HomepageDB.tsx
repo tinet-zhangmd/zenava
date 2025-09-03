@@ -713,15 +713,15 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             <div class="inline-flex items-center px-4 py-2 bg-[#6438FF]/20 rounded-full mb-6">
               <span class="text-[#0DE0EF] text-sm font-bold tracking-wide">PLATFORM PERFORMANCE</span>
             </div>
-            <h2 class="text-5xl lg:text-6xl font-black mb-6 leading-tight">
+            <h2 class="text-3xl sm:text-4xl lg:text-6xl font-black mb-4 md:mb-6 leading-tight">
               {trans.platformPerformance?.title || statsContent.title || 'Platform Performance'}
             </h2>
-            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p class="text-base sm:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto px-4 sm:px-0">
               {trans.platformPerformance?.subtitle || 'Trusted by 5000 enterprise companies worldwide for mission-critical customer interactions'}
             </p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto px-4 sm:px-0">
             {statsContent.stats?.map((stat: any, index: number) => {
               const icons = [
                 'fas fa-comments',
@@ -738,12 +738,12 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               const textColors = ['text-[#0DE0EF]', 'text-white', 'text-[#6438FF]', 'text-white'];
               
               return (
-                <div key={index} class="text-center group">
-                  <div class={`w-20 h-20 bg-gradient-to-r ${colors[index]} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <i class={`${icons[index]} text-white text-2xl`}></i>
+                <div key={index} class="text-center group py-4 sm:py-0">
+                  <div class={`w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r ${colors[index]} rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                    <i class={`${icons[index]} text-white text-xl sm:text-2xl`}></i>
                   </div>
-                  <div class={`text-4xl lg:text-5xl font-black ${textColors[index]} mb-2`}>{stat.number}</div>
-                  <div class="text-gray-400 font-medium">{stat.label}</div>
+                  <div class={`text-3xl sm:text-4xl lg:text-5xl font-black ${textColors[index]} mb-1 sm:mb-2`}>{stat.number}</div>
+                  <div class="text-gray-400 text-sm sm:text-base font-medium">{stat.label}</div>
                 </div>
               );
             })}
