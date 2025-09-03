@@ -102,14 +102,18 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
   </div>
   <div class="relative lg:h-[600px] flex items-center justify-center">
     <div class="relative w-full max-w-md">
-      <div class="bg-white/10 border border-white/20 backdrop-blur-xl rounded-3xl p-6 shadow-2xl">
+      <div class="rounded-3xl p-6 shadow-2xl" style="background-color: #0f1419; border: 2px solid #2d3748;">
         <div class="flex items-center justify-between mb-6">
           <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-xl flex items-center justify-center">
-              <i class="fas fa-robot text-white"></i>
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center">
+              <img 
+                src="https://page.gensparksite.com/v1/base64_upload/5f8fb02c9046a79c81989a0abcc1bf7b" 
+                alt="Zenava AI Icon" 
+                class="w-8 h-8 object-contain"
+              />
             </div>
             <div>
-              <div class="text-white font-semibold">{trans.aiSimulation.aiAssistant}</div>
+              <div class="font-semibold" style="color: #5E3AFC;">{trans.aiSimulation.aiAssistant}</div>
               <div class="text-[#0DE0EF] text-sm">{trans.aiSimulation.status}</div>
             </div>
           </div>
@@ -121,36 +125,36 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
 
         <div class="space-y-4 mb-4" id="ai-sim">
           <div class="flex justify-end ai-step ai-step-1">
-            <div class="bg-gradient-to-r from-[#6438FF] to-[#8B5CF6] text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs">
+            <div class="text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs" style="background-color: #11B98F;">
               <p class="text-sm">{trans.aiSimulation.customerQuery}</p>
             </div>
           </div>
           <div class="flex justify-start ai-step ai-step-2 opacity-0" style="animation: fadeIn .6s ease forwards; animation-delay: .8s;">
-            <div class="bg-white/10 text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs border border-white/20">
+            <div class="text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs" style="background-color: #5E3AFC;">
               <div class="flex items-center space-x-2 mb-2">
-                <div class="w-4 h-4 bg-gradient-to-r from-[#0DE0EF] to-[#6438FF] rounded-full"></div>
-                <span class="text-xs text-[#0DE0EF]">{trans.aiSimulation.aiProcessing}</span>
+                <div class="w-4 h-4 bg-white/30 rounded-full"></div>
+                <span class="text-xs text-white/80">{trans.aiSimulation.aiProcessing}</span>
               </div>
               <p class="text-sm">{trans.aiSimulation.aiLocating}</p>
             </div>
           </div>
           <div class="flex justify-start ai-step ai-step-3 opacity-0" style="animation: fadeIn .6s ease forwards; animation-delay: 1.8s;">
-            <div class="bg-white/10 text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs border border-white/20">
+            <div class="text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs" style="background-color: #5E3AFC;">
               <p class="text-sm">{trans.aiSimulation.aiResponse}</p>
             </div>
           </div>
           <div class="flex justify-end ai-step ai-step-4 opacity-0" style="animation: fadeIn .6s ease forwards; animation-delay: 2.8s;">
-            <div class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs">
+            <div class="text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs" style="background-color: #11B98F;">
               <p class="text-sm">{trans.aiSimulation.customerReply}</p>
             </div>
           </div>
         </div>
 
         <div class="flex items-center space-x-3">
-          <div class="flex-1 bg-white/5 border border-white/20 rounded-xl px-4 py-3">
+          <div class="flex-1 rounded-xl px-4 py-3" style="background-color: #1a1f2e; border: 1px solid #2d3748;">
             <input type="text" placeholder={trans.aiSimulation.inputPlaceholder} class="w-full bg-transparent text-white placeholder-gray-400 text-sm outline-none" />
           </div>
-          <button class="w-12 h-12 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] rounded-xl flex items-center justify-center hover:scale-105 transition-transform">
+          <button class="w-12 h-12 bg-gray-600 hover:bg-gray-700 rounded-xl flex items-center justify-center transition-colors">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
           </button>
         </div>
@@ -164,7 +168,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         <div class="text-white text-lg font-black">{trans.aiSimulation.responseValue}</div>
       </div>
 
-      <div class="absolute -bottom-4 -left-8 w-36 p-3 bg-gradient-to-r from-[#0DE0EF]/90 to-[#6438FF]/90 backdrop-blur-xl rounded-xl border border-white/20 animate-float-delayed">
+      <div class="absolute -bottom-4 -left-8 w-36 p-3 bg-gradient-to-r from-[#11B98F] to-[#0DE0EF] rounded-xl border border-[#11B98F]/50 shadow-lg animate-float-delayed">
         <div class="flex items-center space-x-2 mb-1">
           <div class="w-4 h-4 bg-white rounded-full"></div>
           <span class="text-white text-xs font-semibold">{trans.aiSimulation.satisfaction}</span>
