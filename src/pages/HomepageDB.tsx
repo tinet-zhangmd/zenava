@@ -92,7 +92,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         <div class="site-container px-6 relative z-10">
           <div class="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh]">
   <div class="space-y-6">
-    <div class="text-2xl sm:text-3xl font-bold text-gray-800 tracking-wide">{trans.company.name}</div>
+    <div class="font-bold text-gray-800 tracking-wide" style="font-size: 3.875rem;">{trans.company.name}</div>
     <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 leading-tight">
       {trans.hero.title}
     </h1>
