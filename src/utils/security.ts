@@ -300,7 +300,8 @@ export function generateSessionId(): string {
  */
 export const requireAuth = () => {
   return async (c: Context, next: Next) => {
-    const sessionId = getCookie(c, 'session_id')
+    // Check for admin_session cookie (set during login)
+    const sessionId = getCookie(c, 'admin_session') || getCookie(c, 'session_id')
     
     if (!sessionId) {
       // Redirect to login page or return 401
