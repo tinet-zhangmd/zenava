@@ -9,6 +9,9 @@ module.exports = {
       // 完整版本 - 包含D1数据库支持
       args: 'wrangler pages dev dist --d1=zenava-production --local --ip 0.0.0.0 --port 3000',
       
+      // 设置工作目录
+      cwd: '/data/working/www/zenava/webapp',
+      
       env: {
         NODE_ENV: 'production',
         PORT: 3000
@@ -26,10 +29,15 @@ module.exports = {
       out_file: './logs/pm2-out-d1.log',
       log_file: './logs/pm2-combined-d1.log',
       time: true,             // 日志添加时间戳
+      merge_logs: true,       // 合并日志
       
       // 启动超时和重试
       min_uptime: '10s',      // 最小运行时间
       max_restarts: 10,       // 最大重启次数
+      
+      // 解释器参数
+      interpreter: 'node',
+      interpreter_args: '',
       
       // 环境变量
       env_production: {
