@@ -449,7 +449,7 @@ app.get('/ticloudadmin/login', (c) => {
 
 app.post('/ticloudadmin/login', async (c) => {
   const body = await c.req.formData()
-  const email = sanitizeInputs(body.get('email') as string)
+  const email = body.get('email') as string // Don't sanitize email for admin login
   const password = body.get('password') as string // Don't sanitize password
   
   // Get credentials from environment (in production, these should be in KV or D1)
