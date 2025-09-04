@@ -48,7 +48,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 app.use('*', securityHeaders())
 
 // Rate limiting for auth routes
-app.use('/ticloudadmin/login', rateLimiter(5, 60000)) // 5 attempts per minute
+app.use('/ticloudadmin/login', rateLimiter(20, 60000)) // 20 attempts per minute (more lenient for testing)
 app.use('/api/*', rateLimiter(100, 60000)) // 100 requests per minute for API
 
 // Enable CORS for API routes
