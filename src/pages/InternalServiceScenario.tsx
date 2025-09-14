@@ -622,7 +622,7 @@ export function InternalServiceScenario({ language }: InternalServiceScenarioPro
               <div class="order-1 lg:order-2" data-animate="slide-up">
                 <div class="flex items-center mb-6">
                   <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
-                    <i class="fas fa-analytics text-indigo-600 text-xl"></i>
+                    <i class="fas fa-chart-bar text-indigo-600 text-xl"></i>
                   </div>
                   <h3 class="text-2xl font-bold text-gray-900">
                     {language === 'en' && 'Real-time Performance Insights'}
