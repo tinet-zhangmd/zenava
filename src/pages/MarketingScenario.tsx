@@ -210,7 +210,9 @@ export function MarketingScenario({ language }: MarketingScenarioProps) {
                     </div>
                     <div class="flex-1">
                       <p class="bg-gray-100 rounded-lg p-3 mb-3">
-                        "我想了解您們的AI產品價格和功能"
+                        {language === 'en' && '"I want to learn about your AI product pricing and features"'}
+                        {language === 'jp' && '"貴社のAI製品の価格と機能について知りたいです"'}
+                        {language === 'hk' && '"我想了解您們的AI產品價格和功能"'}
                       </p>
                     </div>
                   </div>
