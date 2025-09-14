@@ -63,7 +63,7 @@ export function MarketingScenario({ language }: MarketingScenarioProps) {
             <div class="bg-red-50 border-l-4 border-red-400 p-6 rounded-lg" data-animate="slide-up">
               <div class="flex items-center mb-4">
                 <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-3">
-                  <i class="fas fa-chart-line-down text-red-600"></i>
+                  <i class="fas fa-chart-line text-red-600"></i>
                 </div>
                 <h3 class="text-lg font-bold text-gray-900">
                   {language === 'en' && 'Low Conversion Rate'}
