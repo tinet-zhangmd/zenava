@@ -268,7 +268,7 @@ export function MarketingScenario({ language }: MarketingScenarioProps) {
                             </option>
                           </select>
                         </div>
-                        <button class="w-full mt-3 bg-purple-600 text-white py-2 rounded font-medium">
+                        <button class="w-full mt-3 bg-purple-600 text-white py-2 rounded font-medium opacity-60 cursor-not-allowed" disabled={true}>
                           {language === 'en' && 'Get Custom Solution'}
                           {language === 'jp' && 'カスタムソリューションを取得'}
                           {language === 'hk' && '獲取專屬方案'}
