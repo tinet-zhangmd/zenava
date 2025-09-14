@@ -178,7 +178,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </li>
               <li>
                 <a 
-                  href={`${langPrefix}/#contact`}
+                  href="mailto:marketing@zenava.ai"
                   class="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm block"
                 >
                   {t.contact}
