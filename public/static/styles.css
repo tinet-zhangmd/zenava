@@ -270,3 +270,34 @@ select,
 .global-nav a.nav-link:hover {
   color: var(--nav-hover);
 }
+
+/* Scroll to Top Button */
+#scroll-to-top {
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+#scroll-to-top:hover {
+  transform: scale(1.1);
+}
+
+#scroll-to-top:active {
+  transform: scale(0.95);
+}
+
+/* Smooth fade in/out transitions for the button */
+#scroll-to-top.opacity-100 {
+  opacity: 1;
+}
+
+#scroll-to-top.opacity-0 {
+  opacity: 0;
+}
+
+/* Pointer events control */
+#scroll-to-top.pointer-events-auto {
+  pointer-events: auto;
+}
+
+#scroll-to-top.pointer-events-none {
+  pointer-events: none;
+}
