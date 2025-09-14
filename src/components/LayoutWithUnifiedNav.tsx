@@ -4,6 +4,7 @@ import { UnifiedNavigation, type NavigationConfig, type NavMenuItem } from './Un
 import { UnifiedFooter } from './UnifiedFooter.js'
 import { CookieConsent, CookiePreferencesModal } from './CookieConsent.js'
 import { ScrollToTop } from './ScrollToTop.js'
+import { MobileScrollToTop } from './MobileScrollToTop.js'
 import { FooterConfig, FooterSection, PrivacyLink } from '../utils/common-content.js'
 
 interface LayoutProps {
@@ -121,8 +122,9 @@ export function LayoutWithUnifiedNav({
           privacyLinks={privacyLinks}
         />
 
-        {/* Scroll to Top Button */}
-        <ScrollToTop />
+        {/* Scroll to Top Buttons */}
+        <ScrollToTop />  {/* Desktop version */}
+        <MobileScrollToTop />  {/* Mobile version */}
 
         {/* Cookie Consent Components */}
         <CookieConsent language={language} />
