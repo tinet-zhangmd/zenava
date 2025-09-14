@@ -133,27 +133,27 @@ export function Layout({ children, language, currentPath, title, description, se
               {/* Language Switcher */}
               <div class="flex items-center space-x-4">
                 <div class="relative group">
-                  <button class="flex items-center space-x-1 text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium">
-                    <span>{languageFlags[language]}</span>
-                    <span>{languageNames[language]}</span>
-                    <i class="fas fa-chevron-down text-xs"></i>
+                  <button class="inline-flex items-center align-middle space-x-1 text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium">
+                    <span class="inline-flex items-center" style="font-size: 1rem; line-height: 1;">{languageFlags[language]}</span>
+                    <span class="inline-flex items-center" style="line-height: 1;">{languageNames[language]}</span>
+                    <i class="fas fa-chevron-down text-xs inline-flex items-center" style="line-height: 1;"></i>
                   </button>
                   <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                     <div class="py-2">
                       <a href={getLocalizedPath(currentPath, 'en')} 
-                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 flex items-center space-x-2">
-                        <span>🇺🇸</span>
-                        <span>English</span>
+                         class="px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 inline-flex items-center align-middle space-x-2">
+                        <span class="inline-flex items-center" style="font-size: 1rem; line-height: 1;">🇺🇸</span>
+                        <span class="inline-flex items-center" style="line-height: 1;">English</span>
                       </a>
                       <a href={getLocalizedPath(currentPath, 'jp')}
-                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 flex items-center space-x-2">
-                        <span>🇯🇵</span>
-                        <span>日本語</span>
+                         class="px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 inline-flex items-center align-middle space-x-2">
+                        <span class="inline-flex items-center" style="font-size: 1rem; line-height: 1;">🇯🇵</span>
+                        <span class="inline-flex items-center" style="line-height: 1;">日本語</span>
                       </a>
                       <a href={getLocalizedPath(currentPath, 'hk')}
-                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 flex items-center space-x-2">
-                        <span>🇭🇰</span>
-                        <span>繁體中文</span>
+                         class="px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 inline-flex items-center align-middle space-x-2">
+                        <span class="inline-flex items-center" style="font-size: 1rem; line-height: 1;">🇭🇰</span>
+                        <span class="inline-flex items-center" style="line-height: 1;">繁體中文</span>
                       </a>
                     </div>
                   </div>

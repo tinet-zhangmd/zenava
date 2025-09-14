@@ -178,20 +178,20 @@ export function LayoutWithCommonContent({
               <div class="flex items-center space-x-4">
                 {/* Language Selector */}
                 <div class="relative group">
-                  <button class="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors">
-                    <span class="text-xl">{languageFlags[language]}</span>
-                    <span class="text-sm font-medium text-gray-700">{languageNames[language]}</span>
-                    <i class="fas fa-chevron-down text-xs text-gray-500"></i>
+                  <button class="inline-flex items-center align-middle space-x-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors">
+                    <span class="inline-flex items-center" style="font-size: 1.25rem; line-height: 1;">{languageFlags[language]}</span>
+                    <span class="inline-flex items-center text-sm font-medium text-gray-700" style="line-height: 1;">{languageNames[language]}</span>
+                    <i class="fas fa-chevron-down text-xs text-gray-500 inline-flex items-center" style="line-height: 1;"></i>
                   </button>
                   <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                     <div class="p-2">
                       {(['en', 'jp', 'hk'] as Language[]).map((lang) => (
                         <a 
                           href={getLocalizedPath(currentPath, lang)}
-                          class={`flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors ${lang === language ? 'bg-gray-50' : ''}`}
+                          class={`inline-flex items-center align-middle space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors ${lang === language ? 'bg-gray-50' : ''}`}
                         >
-                          <span class="text-xl">{languageFlags[lang]}</span>
-                          <span class="text-sm font-medium text-gray-700">{languageNames[lang]}</span>
+                          <span class="inline-flex items-center" style="font-size: 1.25rem; line-height: 1;">{languageFlags[lang]}</span>
+                          <span class="inline-flex items-center text-sm font-medium text-gray-700" style="line-height: 1;">{languageNames[lang]}</span>
                         </a>
                       ))}
                     </div>
