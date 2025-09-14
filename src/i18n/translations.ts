@@ -899,7 +899,7 @@ export const siteTranslations = {
       aiLocating: '為您定位訂單資訊中...',
       aiResponse: '已找到訂單，包裹已出庫，預計 24 小時內送達。需要我發送追蹤連結嗎？',
       customerReply: '好的，謝謝！請發我追蹤連結 👍',
-      inputPlaceholder: '輸入訊息...',
+      inputPlaceholder: '輸入您的訊息...',
       responseTime: '響應時間',
       responseValue: '< 1.8s',
       satisfaction: '滿意度',
