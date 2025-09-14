@@ -166,7 +166,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               readonly={true}
             />
           </div>
-          <button class="w-12 h-12 bg-gray-400 rounded-xl flex items-center justify-center shadow-md cursor-not-allowed" disabled={true}>
+          <button class="w-12 h-12 bg-[#5E3AFC] rounded-xl flex items-center justify-center shadow-md cursor-not-allowed" disabled={true}>
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
           </button>
         </div>
