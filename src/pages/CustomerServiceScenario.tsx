@@ -602,7 +602,7 @@ export function CustomerServiceScenario({ language }: CustomerServiceScenarioPro
               <div class="order-1 lg:order-2" data-animate="slide-up">
                 <div class="flex items-center mb-6">
                   <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
-                    <i class="fas fa-crystal-ball text-indigo-600 text-xl"></i>
+                    <i class="fas fa-chart-line text-indigo-600 text-xl"></i>
                   </div>
                   <h3 class="text-2xl font-bold text-gray-900">
                     {language === 'en' && 'Predictive & Proactive Support'}
