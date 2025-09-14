@@ -157,10 +157,16 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         </div>
 
         <div class="flex items-center space-x-3">
-          <div class="flex-1 rounded-xl px-4 py-3 bg-gray-100 border border-gray-300">
-            <input type="text" placeholder={trans.aiSimulation.inputPlaceholder} class="w-full bg-transparent text-gray-700 placeholder-gray-500 text-sm outline-none" />
+          <div class="flex-1 rounded-xl px-4 py-3 bg-gray-100 border border-gray-300 opacity-75 cursor-not-allowed">
+            <input 
+              type="text" 
+              placeholder={trans.aiSimulation.inputPlaceholder} 
+              class="w-full bg-transparent text-gray-700 placeholder-gray-500 text-sm outline-none cursor-not-allowed" 
+              disabled={true}
+              readonly={true}
+            />
           </div>
-          <button class="w-12 h-12 bg-[#5E3AFC] hover:bg-[#4f2fd9] rounded-xl flex items-center justify-center transition-colors shadow-md">
+          <button class="w-12 h-12 bg-gray-400 rounded-xl flex items-center justify-center shadow-md cursor-not-allowed" disabled={true}>
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
           </button>
         </div>
