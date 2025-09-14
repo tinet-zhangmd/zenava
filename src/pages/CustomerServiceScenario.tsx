@@ -247,7 +247,11 @@ export function CustomerServiceScenario({ language }: CustomerServiceScenarioPro
                           {language === 'jp' && 'ご心配をおかけして申し訳ございません。すぐに注文番号#12345の状態を確認いたします...'}
                           {language === 'hk' && '我完全理解您的擔心。讓我立即為您查詢訂單 #12345 的狀態...'}
                         </p>
-                        <p class="text-xs text-green-600 mt-2">✓ 情緒識別 ✓ 即時查詢 ✓ 同理回應</p>
+                        <p class="text-xs text-green-600 mt-2">
+                          {language === 'en' && '✓ Emotion Recognition ✓ Instant Query ✓ Empathetic Response'}
+                          {language === 'jp' && '✓ 感情認識 ✓ 即時照会 ✓ 共感的対応'}
+                          {language === 'hk' && '✓ 情緒識別 ✓ 即時查詢 ✓ 同理回應'}
+                        </p>
                       </div>
                     </div>
                     
