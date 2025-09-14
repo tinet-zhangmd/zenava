@@ -730,7 +730,11 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         <div class="site-container px-6 relative z-10">
           <div class="text-center mb-16">
             <div class="inline-flex items-center px-4 py-2 bg-[#6438FF]/20 rounded-full mb-6">
-              <span class="text-[#0DE0EF] text-sm font-bold tracking-wide">PLATFORM PERFORMANCE</span>
+              <span class="text-[#0DE0EF] text-sm font-bold tracking-wide">
+                {language === 'jp' ? 'プラットフォームパフォーマンス' : 
+                 language === 'hk' ? '平台性能' : 
+                 'PLATFORM PERFORMANCE'}
+              </span>
             </div>
             <h2 class="text-3xl sm:text-4xl lg:text-6xl font-black mb-4 md:mb-6 leading-tight">
               {trans.platformPerformance?.title || statsContent.title || 'Platform Performance'}

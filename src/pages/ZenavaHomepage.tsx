@@ -314,13 +314,21 @@ export const ZenavaHomepage: FC<ZenavaHomepageProps> = ({ language = 'en', pageD
           {/* Section Header */}
           <div class="text-center mb-16">
             <div class="inline-flex items-center px-4 py-2 bg-[#6438FF]/20 rounded-full mb-6">
-              <span class="text-[#0DE0EF] text-sm font-bold tracking-wide">PLATFORM PERFORMANCE</span>
+              <span class="text-[#0DE0EF] text-sm font-bold tracking-wide">
+                {language === 'jp' ? 'プラットフォームパフォーマンス' : 
+                 language === 'hk' ? '平台性能' : 
+                 'PLATFORM PERFORMANCE'}
+              </span>
             </div>
             <h2 class="text-5xl lg:text-6xl font-black mb-6 leading-tight">
-              Built for Scale
+              {language === 'jp' ? 'スケーラブルな設計' : 
+               language === 'hk' ? '為規模而建' : 
+               'Built for Scale'}
             </h2>
             <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-              Trusted by 500+ enterprise companies worldwide for mission-critical customer interactions
+              {language === 'jp' ? '世界中の500社以上の企業様から、ミッションクリティカルな顧客対応で信頼されています' : 
+               language === 'hk' ? '獲得全球500多家企業的信賴，為關鍵客戶互動提供可靠服務' : 
+               'Trusted by 500+ enterprise companies worldwide for mission-critical customer interactions'}
             </p>
           </div>
 
