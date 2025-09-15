@@ -35,32 +35,32 @@ export const siteTranslations = {
     
     // Business Value
     businessValue: {
-      title: 'What Zenava Delivers for Your Enterprise',
+      title: 'What Zenava Can Deliver for Your Enterprise',
       subtitle: 'Transform organizational capabilities and reshape customer experience through AI-driven dialogue intelligence',
       metrics: {
         marketing: {
           title: 'Marketing Performance Metrics',
-          costReduction: 'Average Customer Acquisition Cost Reduced',
-          conversionIncrease: 'Lead Conversion Rate Increased',
-          responseTime: 'Customer Response Time',
+          costReduction: 'Average Customer Acquisition Cost Reduced By',
+          conversionIncrease: 'Lead Conversion Rate Increased By',
+          responseTime: 'Intelligent Marketing Covers 10+ Channels',
           responseValue: '<30s',
           channelCoverage: 'Marketing Channel Coverage',
           channelCount: '10+',
-          dailyInquiries: 'Daily Inquiries Processed',
+          dailyInquiries: 'Daily handled inquiries: 50,000+',
           dailyCount: '50,000+'
         },
         sales: {
           title: 'Sales Enablement Process',
           cycleReduction: 'Sales Cycle Shortened',
           winRateIncrease: 'Win Rate Improved',
-          step1Title: 'Real-time Script Recommendation',
-          step1Desc: 'Recommend best scripts based on customer focus',
+          step1Title: 'Real-time Talk Track',
+          step1Desc: 'Recommend the Best Talk Track Based on Customer Interests',
           step1Value: 'Real-time',
           step2Title: 'Knowledge Base Access',
           step2Desc: 'Instant access to products, competitors, cases',
-          step2Value: 'Seconds',
-          step3Title: 'Intelligent Closing Assistant',
-          step3Desc: '45% increase in closing rate',
+          step2Value: 'Second Level',
+          step3Title: 'Intelligent Deal-Closing Assistance',
+          step3Desc: '45% Increase in Conversion Rate',
           step3Value: '+45%'
         },
         service: {
@@ -77,10 +77,10 @@ export const siteTranslations = {
           step4Desc: 'Track progress, ensure quality'
         },
         internal: {
-          title: 'Operational Efficiency',
+          title: 'Boost Operational Efficiency',
           efficiency: 'Process Efficiency Improved',
           satisfaction: 'Employee Satisfaction',
-          storeConnections: 'Store Connections',
+          storeConnections: 'Stores Connected',
           storeCount: '500+',
           dailyProcessing: 'Daily Processing',
           dailyCount: '10K+',
@@ -95,7 +95,7 @@ export const siteTranslations = {
           iterations: 'Product Iteration Speed',
           painPoints: 'Product Pain Points Collected',
           painPointCount: '1,842',
-          featureAdoption: 'Feature Suggestions Adopted',
+          featureAdoption: 'Feature Adoption Rate',
           adoptionRate: '78%',
           resolutionCycle: 'Issue Resolution Cycle',
           cycleTime: '3.2 days',
@@ -116,7 +116,7 @@ export const siteTranslations = {
           favorabilityRate: '+12%',
           responseTime: 'Sentiment Response Time',
           responseValue: '<5 min',
-          crisisSuccess: 'Crisis Resolution Rate',
+          crisisSuccess: 'Crisis Resolution Success Rate',
           successRate: '98%'
         }
       }
@@ -126,7 +126,7 @@ export const siteTranslations = {
     scenarios: {
       marketing: {
         title: 'Marketing Automation',
-        subtitle: 'Increase Conversion, Reduce Acquisition Cost',
+        subtitle: 'Increase Conversion Rate, Reduce Customer Acquisition Cost',
         description: 'Real-time intent recognition, unified lead capture, intelligent high-potential lead routing. Conversation analytics inform marketing strategy optimization.',
         features: [
           'Intent Recognition',
@@ -137,59 +137,59 @@ export const siteTranslations = {
       },
       sales: {
         title: 'Sales Enablement',
-        subtitle: 'Accelerate Deal Closure, Boost Win Rates',
-        description: 'Real-time talk tracks, competitive intelligence, best practice recommendations. AI-assisted closing strategies proven to increase conversion.',
+        subtitle: 'Shorten sales cycle, increase conversion rate',
+        description: 'Real-Time Talk Track Recommendation, Competitor Knowledge Retrieval, Best Practice Suggestions. Al-assisted deal-closing strategies verify conversion improvement.',
         features: [
           'Talk Track Recommendations',
           'Competitive Analysis',
           'Intelligent Closing Assistance',
           'Performance Analytics'
         ],
-        featureShort: ['Talk Track', 'Competitive Analysis', 'Smart Closing']
+        featureShort: ['Talk Track Recommendation', 'Competitor Analysis', 'Smart Deal-closing']
       },
       customerService: {
         title: 'Customer Service',
         subtitle: 'Faster, Accurate, Empathetic Support',
-        description: '24/7 intelligent response, complex issue routing, sentiment-aware interactions. Knowledge base integration for rapid issue resolution.',
+        description: '24/7 intelligent response, smart routing for complex inquiries, sentiment-aware interactions. Knowledge base integration for fast resolution.',
         features: [
           '24/7 Availability',
           'Emotion Recognition',
-          'Smart Ticketing',
+          'Smart Ticket Processing Workflow',
           'Knowledge Management'
         ],
-        featureShort: ['24/7 Response', 'Emotion Recognition', 'Smart Ticketing']
+        featureShort: ['24/7 Response', 'Emotion Recognition', 'Smart Ticket Processing Workflow']
       },
       internalService: {
         title: 'Internal Operations',
-        subtitle: 'Streamline Multi-tier Organization Management',
-        description: 'Unified service portal for equipment, inventory, and training. Intelligent routing with progress tracking to optimize operational efficiency.',
+        subtitle: 'Efficient Management of Multi-level Organizations',
+        description: 'Unified service portal for equipment, inventory, and training. Intelligent dispatch and progress tracking optimize operational efficiency.',
         features: [
           'Unified Portal',
           'Intelligent Routing',
           'Data Analytics',
           'Process Automation'
         ],
-        featureShort: ['Unified Portal', 'Smart Assignment', 'Data Analytics']
+        featureShort: ['Unified Portal', 'Intelligent Dispatch', 'Data Analytics']
       },
       management: {
         title: 'Management Optimization',
-        subtitle: 'Customer Voice Drives Product Innovation',
-        description: 'Extract product insights from conversations, quantify feedback trends, establish voice-of-customer to product iteration loop.',
+        subtitle: 'Customer Feedback Drives Product lnnovation',
+        description: 'Extract product insights from conversations, quantify feedback trends, establish a closed loop from customer feedback to product iteration.',
         features: [
           'Insight Mining',
           'Requirement Extraction',
           'Iteration Loop',
           'Trend Analysis'
         ],
-        featureShort: ['Pain Point Detection', 'Requirement Extraction', 'Iteration Loop'],
+        featureShort: ['Insights Mining', 'Requirement Extraction', 'lteration Closed Loop'],
         brandFeatures: ['Risk Alert', 'Sentiment Analysis', 'Quality Control']
       }
     },
     
     // Contact Section
     contact: {
-      title: 'Start Your AI Transformation Journey',
-      subtitle: 'See how Zenava can transform your customer dialogue operations',
+      title: 'Unveiling a New Chapter in Intelligent Conversations',
+      subtitle: 'See how Zenava transforms your customer dialogue operations with intelligent upgrades',
       form: {
         name: 'Full Name',
         email: 'Business Email',
@@ -279,14 +279,14 @@ export const siteTranslations = {
     aiSimulation: {
       aiAssistant: 'Zenava AI',
       status: 'Online',
-      live: 'Live',
-      customerQuery: "Hello, I'd like to track my order #A12345",
+      live: 'Real-time',
+      customerQuery: "Hello, l'd like to check the logistics status of my order #A12345",
       aiProcessing: 'Identifying issue...',
       aiLocating: 'Locating your order information...',
-      aiResponse: 'Order found. Package shipped, arriving within 24 hours. Need tracking link?',
-      customerReply: 'Yes, please send me the tracking link 👍',
+      aiResponse: 'We have located your order. The package has been shipped and is expected to be delivered within 24 hours. Would you like me to send you the tracking link?',
+      customerReply: 'Yes, thanks! Please send me the tracking link👍',
       inputPlaceholder: 'Type your message...',
-      responseTime: 'Response',
+      responseTime: 'Response Time',
       responseValue: '< 1.8s',
       satisfaction: 'Satisfaction',
       satisfactionValue: '98.7%'
