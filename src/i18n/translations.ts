@@ -361,7 +361,7 @@ export const siteTranslations = {
     company: {
       name: 'Zenava',
       tagline: 'マーケティングとサービスシナリオ向けの対話型AIエージェント',
-      vision: '企業の生産性と組織形態の変革を支援し、「人力駆動」から「AI駆動」への飛躍を実現',
+      vision: '企業の生産性および組織形態の変革を支援し、「人力主導」から「AI主導」への飛躍を実現',
       description: 'エンタープライズグレードのAI対話ソリューションで顧客エンゲージメントを変革'
     },
     
@@ -380,7 +380,7 @@ export const siteTranslations = {
     // Hero Section - Formal business Japanese
     hero: {
       title: 'マーケティングとサービスシナリオ向けの対話型AIエージェント',
-      subtitle: '企業の生産性と組織形態の変革を支援し、「人力駆動」から「AI駆動」への飛躍を実現',
+      subtitle: '企業の生産性および組織形態の変革を支援し、「人力主導」から「AI主導」への飛躍を実現',
       cta: {
         primary: 'デモのご予約',
         secondary: 'ソリューション一覧'
@@ -389,13 +389,13 @@ export const siteTranslations = {
     
     // Business Value - Professional tone
     businessValue: {
-      title: 'Zenavaが貴社にもたらす価値',
-      subtitle: 'AI駆動の対話インテリジェンスを通じて、組織能力を変革し、顧客体験を再構築します',
+      title: 'Zenavaが御社にもたらす価値',
+      subtitle: 'AI主導の対話インテリジエンスを通じて、組織能力を変革し、顧客体験を再構築',
       metrics: {
         marketing: {
           title: 'マーケティング成果指標',
-          costReduction: '平均顧客獲得コスト削減',
-          conversionIncrease: 'リードコンバージョン率向上',
+          costReduction: '平均顧客獲得コスト43%削減',
+          conversionIncrease: 'リードコンバージョン疗65%向上',
           responseTime: '顧客応答時間',
           responseValue: '<30秒',
           channelCoverage: 'スマートマーケティングチャネル',
@@ -435,8 +435,8 @@ export const siteTranslations = {
     scenarios: {
       marketing: {
         title: 'マーケティング自動化',
-        subtitle: 'コンバージョン向上、獲得コスト削減',
-        description: 'リアルタイム意図認識、統一リード獲得、インテリジェントな高ポテンシャルリードルーティング。会話分析がマーケティング戦略の最適化を支援。',
+        subtitle: 'コンバージョン向上、顧客獲得コスト削減',
+        description: '顧客の意図をリアルタイムで把握し、潜在リードを効率的に分配。会話分析でマーケティング戦略を最適化。',
         features: [
           '意図認識',
           'スマートリード獲得',
@@ -445,16 +445,16 @@ export const siteTranslations = {
         ]
       },
       sales: {
-        title: 'セールス支援',
-        subtitle: '成約率向上、勝率アップ',
-        description: 'リアルタイムトークトラック、競合インテリジェンス、ベストプラクティス推奨。AI支援のクロージング戦略でコンバージョン向上を実証。',
+        title: 'セールス支援プロセス',
+        subtitle: '成約周期短縮、成約率アップ',
+        description: 'リアルタイムトークスクリプト推奨、競合情報活用、ベストプラクティス提案。AIで成約戦略を支援し、コンバージョン向上を実現。',
         features: [
           'トークトラック推奨',
           '競合分析',
           'インテリジェントクロージング支援',
           'パフォーマンス分析'
         ],
-        featureShort: ['話術推薦', '競品分析', 'スマート成約']
+        featureShort: ['トークスクリプト推奨', '競合分析', 'スマート成約']
       },
       customerService: {
         title: 'カスタマーサービス',
@@ -468,11 +468,11 @@ export const siteTranslations = {
         ]
       },
       internalService: {
-        title: '社内オペレーション',
+        title: '社内運営',
         subtitle: '多層組織管理の効率化',
-        description: '設備、在庫、トレーニングの統一サービスポータル。進捗追跡付きインテリジェントルーティングで運用効率を最適化。',
+        description: 'サービスの統一窓口で、設備、在庫、研修業務を処理。スマートディスパッチと進捗管理で、運営効率を最適化。',
         features: [
-          '統一ポータル',
+          '統一窓口',
           'インテリジェントルーティング',
           'データ分析',
           'プロセス自動化'
@@ -481,10 +481,10 @@ export const siteTranslations = {
       management: {
         title: '経営最適化',
         subtitle: '顧客の声が製品イノベーションを推進',
-        description: '会話から製品インサイトを抽出、フィードバックトレンドを定量化、顧客の声から製品イテレーションループを確立。',
+        description: '会話から製品に関するインサイトを抽出し、フィードバックの傾向を定量化。顧客の声を製品アップデートに活かすサイクルを構築',
         features: [
           'インサイトマイニング',
-          '要件抽出',
+          'ニーズ抽出',
           'イテレーションループ',
           'トレンド分析'
         ],
@@ -560,7 +560,7 @@ export const siteTranslations = {
       adoptionRate: '78%',
       fixCycle: '問題修正サイクル',
       fixTime: '3.2日',
-      monthlyIterations: '月間イテレーション',
+      monthlyIterations: '月次アップデート',
       iterationCount: '12バージョン',
       satisfactionIncrease: '満足度向上',
       satisfactionGrowth: '+18%'
@@ -571,7 +571,7 @@ export const siteTranslations = {
       title: 'リアルタイム感情モニタリング',
       negativeAlert: 'ネガティブ感情アラート',
       alertCount: '3件',
-      sensitiveWords: '敏感語検出',
+      sensitiveWords: 'センシティブワード検出',
       detectionRate: '99.8%',
       brandSentiment: 'ブランド好感度',
       sentimentGrowth: '+12%',
@@ -603,8 +603,8 @@ export const siteTranslations = {
     salesProcess: {
       title: 'セールス支援プロセス',
       step1: {
-        title: 'リアルタイムトークトラック',
-        description: '顧客の関心事に基づく最適な話術',
+        title: 'セールス支援プロセス',
+        description: 'リアルタイムトークスクリプト推奨',
         value: 'リアルタイム'
       },
       step2: {
@@ -624,7 +624,7 @@ export const siteTranslations = {
       title: 'プラットフォームパフォーマンス',
       subtitle: '世界中の5000社の企業様から、ミッションクリティカルな顧客対応で信頼されています',
       uptime: '稼働率SLA',
-      enterprisesServed: '企業クライアント',
+      enterprisesServed: '企業顧客',
       satisfaction: '顧客満足度'
     },
     
@@ -633,7 +633,7 @@ export const siteTranslations = {
       title: 'スマートチケット処理プロセス',
       step1: {
         title: 'AI問題検出',
-        description: '問題の種類と緊急度を智能分析'
+        description: '問題の種類と緊急度をスマートに分析'
       },
       step2: {
         title: 'ナレッジベース活用',
@@ -658,7 +658,7 @@ export const siteTranslations = {
       dailyVolume: '10K+',
       avgResponse: '平均応答',
       responseTime: '2時間',
-      dispatchEfficiency: '派遣効率',
+      dispatchEfficiency: 'ディスパッチ効率',
       efficiencyRate: '85%'
     }
   },
