@@ -693,7 +693,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 </h4>
                 <p class="text-gray-700 mb-6 leading-relaxed">
                   {language === 'en' 
-                    ? 'Integrate social and service data for intelligent risk detection. Real-time alerts for high-risk conversations with automated response workflows. Quantify customer sentiment to optimize communication strategies.'
+                    ? 'Integrate social and service data for intelligent risk detection. Real-time alerts for high-risk conversations with automated response workflows.Quantify customer sentiment to optimize communication strategies. Automatically perform quality checks on service language to ensure brand consistency.'
                     : language === 'jp'
                     ? 'ソーシャルとサービスデータを統合し、インテリジェントなリスク検出を実現。高リスク会話のリアルタイムアラートと自動対応ワークフロー。顧客感情を定量化し、コミュニケーション戦略を最適化。'
                     : '融合社交與客服數據，智能識別輿情風險；實時預警高風險對話，自動觸發應對流程；量化客戶情緒，優化溝通策略；自動質檢服務用語，保障品牌一致性。'}

@@ -194,8 +194,8 @@ INSERT OR REPLACE INTO navigation_submenu_items (
 
 ('management', 'scenarios',
   'Zenava for Management', 'Zenava for Management', '管理最適化向けZenava', '管理優化',
-  'Customer insights for competitive advantage',
-  'Customer insights for competitive advantage',
+  'Drive competitive advantage through customer insights',
+  'Drive competitive advantage through customer insights',
   '競争優位のための顧客インサイト',
   '客戶洞察驅動競爭優勢',
   '/scenarios/management', 'fas fa-tasks', 5, 1);
