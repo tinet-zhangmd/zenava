@@ -98,7 +98,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
                 {language === 'en' 
                   ? 'Empowering enterprise productivity and organizational transformation, achieving the leap from "Human-Driven" to "AI-Driven"'
                   : language === 'jp'
-                  ? '企業の生産性と組織形態の変革を支援し、「人力駆動」から「AI駆動」への飛躍を実現'
+                  ? '企業の生産性および組織形態の変革を支援し、「人力主導」から「AI主導」への飛躍を実現'
                   : '助力企業完成生產力與組織形態變革，實現從「人力驅動」到「AI驅動」的跨越'}
               </p>
             </div>

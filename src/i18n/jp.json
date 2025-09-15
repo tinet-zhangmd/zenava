@@ -43,7 +43,7 @@
   "scenarios": {
     "marketing": {
       "title": "マーケティング向けZenava",
-      "subtitle": "AI駆動のリード生成、資格認定、コンバージョン最適化。",
+      "subtitle": "AIによる潜在顧客の獲得およびコンバージョン最適化。",
       "challenges": {
         "title": "現在のマーケティング課題",
         "conversion": "不適切なリードガイダンスと一貫性のないメッセージングによる低コンバージョン率",
@@ -54,7 +54,7 @@
     },
     "sales": {
       "title": "営業向けZenava",
-      "subtitle": "AI駆動の営業ガイダンス、パーソナライズされた推奨、コンバージョン最適化。"
+      "subtitle": "AIによる営業ガイダンスと推奨。"
     },
     "customer_service": {
       "title": "カスタマーサービス向けZenava", 
