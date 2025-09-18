@@ -6,6 +6,7 @@ import { CookieConsent, CookiePreferencesModal } from './CookieConsent.js'
 import { ScrollToTop } from './ScrollToTop.js'
 import { MobileScrollToTop } from './MobileScrollToTop.js'
 import { FooterConfig, FooterSection, PrivacyLink } from '../utils/common-content.js'
+import { BaiduAnalyticsScript } from './BaiduAnalytics.js'
 
 interface LayoutProps {
   children: any
@@ -99,6 +100,9 @@ export function LayoutWithUnifiedNav({
             }
           `
         }} />
+        
+        {/* Baidu Analytics */}
+        <BaiduAnalyticsScript />
       </head>
       <body class="bg-white">
         {/* Unified Navigation */}

@@ -24,6 +24,19 @@ export function AdminLogin({ error }: AdminLoginProps) {
             }
           `
         }} />
+        
+        {/* Baidu Analytics */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?7948de4d0f78a0d3290eb6d24d2b1696";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+          `
+        }} />
       </head>
       <body class="login-bg">
         <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">

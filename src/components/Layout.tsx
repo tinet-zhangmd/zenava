@@ -1,6 +1,7 @@
 import { html } from 'hono/html'
 import { Language, getTranslation, t, languageFlags, languageNames, getLocalizedPath } from '../utils/i18n.js'
 import { CookieConsent, CookiePreferencesModal } from './CookieConsent.js'
+import { BaiduAnalyticsScript } from './BaiduAnalytics.js'
 
 interface LayoutProps {
   children: any
@@ -70,6 +71,9 @@ export function Layout({ children, language, currentPath, title, description, se
             }
           `
         }} />
+        
+        {/* Baidu Analytics */}
+        <BaiduAnalyticsScript />
       </head>
       <body class="bg-white">
         {/* Navigation */}

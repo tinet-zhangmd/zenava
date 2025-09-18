@@ -2,6 +2,7 @@ import { html } from 'hono/html'
 import { Language, getTranslation, t, languageFlags, languageNames, getLocalizedPath } from '../utils/i18n.js'
 import { CookieConsent, CookiePreferencesModal } from './CookieConsent.js'
 import { NavigationConfig, FooterConfig, FooterSection, PrivacyLink } from '../utils/common-content.js'
+import { BaiduAnalyticsScript } from './BaiduAnalytics.js'
 
 interface LayoutProps {
   children: any
@@ -84,6 +85,9 @@ export function LayoutWithCommonContent({
             }
           `
         }} />
+        
+        {/* Baidu Analytics */}
+        <BaiduAnalyticsScript />
       </head>
       <body class="bg-white font-sans" style={{
         ...(navigationConfig?.text_color ? { ['--nav-text' as any]: navigationConfig.text_color } : {}),
