@@ -744,7 +744,19 @@ app.get('/ticloudcms', (c) => {
             }
           `
         }}></script>
-
+        
+        {/* Baidu Analytics */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?7948de4d0f78a0d3290eb6d24d2b1696";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+          `
+        }} />
       </head>
       <body class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
         {/* Background Effects */}
@@ -961,6 +973,19 @@ app.get('/ticloudcms/dashboard', async (c) => {
               .animate-pulse-glow { 
                 animation: pulse-glow 2s ease-in-out infinite; 
               }
+            `
+          }} />
+          
+          {/* Baidu Analytics */}
+          <script dangerouslySetInnerHTML={{
+            __html: `
+              var _hmt = _hmt || [];
+              (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?7948de4d0f78a0d3290eb6d24d2b1696";
+                var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+              })();
             `
           }} />
         </head>
@@ -1269,6 +1294,19 @@ app.get('/ticloudcms/dashboard', async (c) => {
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <title>系统错误 - Zenava AI CMS</title>
           <script src="https://cdn.tailwindcss.com"></script>
+          
+          {/* Baidu Analytics */}
+          <script dangerouslySetInnerHTML={{
+            __html: `
+              var _hmt = _hmt || [];
+              (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?7948de4d0f78a0d3290eb6d24d2b1696";
+                var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+              })();
+            `
+          }} />
         </head>
         <body class="min-h-screen bg-gradient-to-br from-red-900 to-gray-900 text-white flex items-center justify-center">
           <div class="max-w-md mx-auto text-center p-8">
