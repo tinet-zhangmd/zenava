@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>百度统计测试页面</title>
+    
+    <!-- 百度统计代码 -->
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7948de4d0f78a0d3290eb6d24d2b1696";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+    </script>
+</head>
+<body>
+    <h1>百度统计测试页面</h1>
+    <p>当前时间：<span id="time"></span></p>
+    <p>统计状态：<span id="status">检查中...</span></p>
+    
+    <h2>测试信息：</h2>
+    <ul>
+        <li>页面URL: <span id="url"></span></li>
+        <li>_hmt 对象状态: <span id="hmt-status"></span></li>
+        <li>百度统计脚本加载: <span id="script-status"></span></li>
+    </ul>
+
+    <h2>手动触发事件：</h2>
+    <button onclick="trackEvent()">发送测试事件</button>
+    <div id="event-result"></div>
+
+    <script>
+        // 显示当前时间
+        document.getElementById('time').textContent = new Date().toLocaleString('zh-CN');
+        
+        // 显示URL
+        document.getElementById('url').textContent = window.location.href;
+        
+        // 检查 _hmt 对象
+        setTimeout(function() {
+            if (typeof _hmt !== 'undefined') {
+                document.getElementById('hmt-status').textContent = '✅ _hmt 对象已创建';
+                document.getElementById('status').textContent = '✅ 百度统计已加载';
+                
+                // 检查 _hmt 数组内容
+                console.log('_hmt 对象内容:', _hmt);
+                
+                // 检查是否有百度统计脚本
+                var scripts = document.getElementsByTagName('script');
+                var baiduScriptFound = false;
+                for (var i = 0; i < scripts.length; i++) {
+                    if (scripts[i].src && scripts[i].src.includes('hm.baidu.com')) {
+                        baiduScriptFound = true;
+                        document.getElementById('script-status').textContent = '✅ 脚本已加载: ' + scripts[i].src;
+                        break;
+                    }
+                }
+                
+                if (!baiduScriptFound) {
+                    document.getElementById('script-status').textContent = '❌ 未找到百度统计脚本';
+                }
+            } else {
+                document.getElementById('hmt-status').textContent = '❌ _hmt 对象未定义';
+                document.getElementById('status').textContent = '❌ 百度统计未加载';
+            }
+        }, 2000);
+        
+        // 手动发送事件
+        function trackEvent() {
+            if (typeof _hmt !== 'undefined') {
+                try {
+                    _hmt.push(['_trackEvent', 'test', 'click', 'button']);
+                    document.getElementById('event-result').innerHTML = 
+                        '<p style="color: green;">✅ 事件已发送: category=test, action=click, label=button</p>';
+                    console.log('百度统计事件已发送');
+                } catch(e) {
+                    document.getElementById('event-result').innerHTML = 
+                        '<p style="color: red;">❌ 发送失败: ' + e.message + '</p>';
+                }
+            } else {
+                document.getElementById('event-result').innerHTML = 
+                    '<p style="color: red;">❌ _hmt 对象未定义</p>';
+            }
+        }
+    </script>
+</body>
+</html>
