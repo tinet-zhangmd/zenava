@@ -22,11 +22,11 @@ export const securityHeaders = () => {
     c.header('Referrer-Policy', 'strict-origin-when-cross-origin')
     c.header('Content-Security-Policy', 
       "default-src 'self'; " +
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; " +
-      "style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; " +
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://hm.baidu.com https://cdn.quilljs.com; " +
+      "style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://cdn.quilljs.com; " +
       "font-src 'self' https://cdn.jsdelivr.net data:; " +
-      "img-src 'self' data: https:; " +
-      "connect-src 'self';"
+      "img-src 'self' data: https: blob:; " +
+      "connect-src 'self' https://hm.baidu.com;"
     )
     
     // Remove sensitive headers
