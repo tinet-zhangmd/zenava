@@ -1,0 +1,103 @@
+{
+  "site": {
+    "title": "Zenava",
+    "description": "面向企业客户对话场景的AI智能体"
+  },
+  "nav": {
+    "home": "首页",
+    "scenarios": "解决方案",
+    "marketing": "营销",
+    "sales": "销售",
+    "customer_service": "客户服务",
+    "internal_service": "内部服务",
+    "management": "管理优化",
+    "about": "关于我们",
+    "contact": "联系我们"
+  },
+  "hero": {
+    "title": "Zenava",
+    "subtitle": "面向企业客户对话场景的AI智能体",
+    "description": "先进的AI智能体，将客户对话从解答转变为行动，驱动企业智能化升级。",
+    "cta_primary": "立即开始",
+    "cta_secondary": "了解更多"
+  },
+  "features": {
+    "title": "Zenava能为企业带来什么",
+    "subtitle": "AI驱动的解决方案，提升效率并优化客户体验",
+    "customers": {
+      "title": "为您的客户",
+      "subtitle": "即时响应，快速解决",
+      "description": "通过语音、文本和工单提供多渠道支持，智能响应。高级情感AI维护客户关系并提升忠诚度。"
+    },
+    "employees": {
+      "title": "为您的员工",
+      "subtitle": "帮助人工员工更高效地工作",
+      "description": "AI助手提供智能回复建议、自动工单处理、对话摘要和情绪分析。为全球团队提供无缝多语言翻译。"
+    },
+    "enterprise": {
+      "title": "为您的企业",
+      "subtitle": "用真实声音提供商业决策",
+      "description": "跨渠道分析生成可操作的洞察，优化服务、流程和产品。通过性能分析持续改进。"
+    }
+  },
+  "scenarios": {
+    "marketing": {
+      "title": "Zenava 营销场景",
+      "subtitle": "AI驱动的线索生成、资格认证和转化优化。",
+      "challenges": {
+        "title": "当前营销挑战",
+        "conversion": "线索引导不足和消息不一致导致转化率低",
+        "assignment": "手动线索分配浪费销售资源",
+        "reactivation": "沉默线索未被重新激活",
+        "data": "数据盲区导致营销优化路径不清晰"
+      },
+      "solutions": {
+        "title": "Zenava 营销解决方案",
+        "subtitle": "提升转化率，降低获客成本",
+        "lead_guidance": "智能线索引导",
+        "scoring": "线索评分与智能分配",
+        "reactivation": "重新激活流失线索",
+        "analysis": "对话分析驱动优化"
+      }
+    },
+    "sales": {
+      "title": "Zenava 销售场景",
+      "subtitle": "AI赋能的销售指导、个性化推荐和转化优化。",
+      "challenges": {
+        "title": "当前销售挑战",
+        "guidance": "基于经验的流程导致消息不一致",
+        "response": "响应延迟损害客户信任",
+        "optimization": "无法复制成功的销售实践",
+        "conversion": "跟进时机不当打破转化链条"
+      }
+    },
+    "customer_service": {
+      "title": "Zenava 客户服务",
+      "subtitle": "自主处理80%的服务任务，为复杂问题提供智能人工协助。"
+    },
+    "internal_service": {
+      "title": "Zenava 内部服务",
+      "subtitle": "为大型组织简化内部服务，降低成本并提升效率。"
+    },
+    "management": {
+      "title": "Zenava 管理优化",
+      "subtitle": "客户洞察驱动可操作的优化，获得竞争优势。"
+    }
+  },
+  "about": {
+    "title": "关于天润云",
+    "subtitle": "科技赋能，成就客户",
+    "description": "AI驱动的客户互动解决方案领域领先企业",
+    "values": {
+      "experience": "跨行业经验丰富",
+      "enterprise": "受财富500强公司信赖",
+      "models": "先进的多AI模型架构",
+      "integration": "即插即用的企业集成"
+    }
+  },
+  "footer": {
+    "copyright": "© 2024 天润云. 版权所有。",
+    "privacy": "隐私政策",
+    "terms": "服务条款"
+  }
+}

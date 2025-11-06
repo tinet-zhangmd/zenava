@@ -968,13 +968,367 @@ export const siteTranslations = {
       dispatchEfficiency: '派單效率',
       efficiencyRate: '85%'
     }
+  },
+  
+  zh: {
+    // 公司与品牌 - 简体中文
+    company: {
+      name: 'Zenava',
+      tagline: '面向营销和服务场景的对话式AI智能体',
+      vision: '助力企业完成生产力与组织形态变革，实现从"人力驱动"到"AI驱动"的跨越',
+      description: '企业级AI对话解决方案，革新客户互动体验'
+    },
+    
+    // 导航
+    nav: {
+      home: '首页',
+      scenarios: '解决方案',
+      about: '关于我们',
+      contact: '联系我们',
+      getStarted: '立即开始',
+      learnMore: '了解更多',
+      bookDemo: '预约演示',
+      language: '语言'
+    },
+    
+    // 主横幅区
+    hero: {
+      title: '面向营销和服务场景的对话式AI智能体',
+      subtitle: '助力企业完成生产力与组织形态变革，实现从"人力驱动"到"AI驱动"的跨越',
+      cta: {
+        primary: '预约演示',
+        secondary: '查看方案'
+      }
+    },
+    
+    // 业务价值
+    businessValue: {
+      title: 'Zenava能为企业带来什么',
+      subtitle: '通过AI驱动的对话智能，变革组织能力，重塑客户体验',
+      metrics: {
+        marketing: {
+          title: '营销成效指标',
+          costReduction: '平均获客成本降低',
+          conversionIncrease: '线索转化率提升',
+          responseTime: '客户响应时间',
+          responseValue: '<30秒',
+          channelCoverage: '智能营销覆盖渠道',
+          channelCount: '10+',
+          dailyInquiries: '日均处理咨询量',
+          dailyCount: '50,000+'
+        },
+        sales: {
+          title: '销售成效指标',
+          cycleReduction: '销售周期缩短',
+          winRateIncrease: '成交率提升',
+          step1Title: '实时话术推荐',
+          step1Desc: '根据客户关注点推荐最佳话术',
+          step1Value: '实时',
+          step2Title: '知识库调用',
+          step2Desc: '产品、竞品、案例即时调取',
+          step2Value: '秒级',
+          step3Title: '智能成交辅助',
+          step3Desc: '成交率提升45%',
+          step3Value: '+45%'
+        },
+        service: {
+          title: '服务成效指标',
+          responseTime: '平均响应时间',
+          resolutionRate: '首次解决率',
+          step1Title: 'AI定位问题',
+          step1Desc: '智能分析客户问题类型和紧急程度',
+          step2Title: '知识库调用',
+          step2Desc: '历史解决方案和最佳实践',
+          step3Title: '智能路由',
+          step3Desc: '根据技能和负载自动分配',
+          step4Title: '跟踪解决',
+          step4Desc: '实时状态更新和质量保证'
+        },
+        internal: {
+          title: '运营效率提升',
+          efficiency: '流程效率提升',
+          satisfaction: '员工满意度',
+          storeConnections: '门店接入',
+          storeCount: '500+',
+          dailyProcessing: '日均处理',
+          dailyCount: '10K+',
+          avgResponse: '平均响应',
+          avgTime: '2小时',
+          assignmentEfficiency: '派单效率',
+          efficiencyRate: '85%'
+        },
+        product: {
+          title: '客户反馈仪表盘',
+          insights: '客户洞察生成',
+          iterations: '产品迭代速度',
+          painPoints: '产品痛点收集',
+          painPointCount: '1,842',
+          featureAdoption: '功能采用率',
+          adoptionRate: '78%',
+          resolutionCycle: '问题解决周期',
+          cycleTime: '3.2天',
+          monthlyIterations: '月度产品迭代',
+          iterationCount: '12个版本',
+          satisfactionIncrease: '满意度提升',
+          increaseRate: '+18%'
+        },
+        brand: {
+          title: '实时舆情监控',
+          monitoring: '实时监控',
+          response: '危机响应时间',
+          negativeAlerts: '负面情绪预警',
+          alertCount: '3',
+          sensitiveWords: '敏感词检测',
+          detectionRate: '99.8%',
+          brandFavorability: '品牌好感度',
+          favorabilityRate: '+12%',
+          responseTime: '舆情响应时间',
+          responseValue: '<5分钟',
+          crisisSuccess: '危机处理成功率',
+          successRate: '98%'
+        }
+      }
+    },
+    
+    // 场景/解决方案
+    scenarios: {
+      marketing: {
+        title: '市场营销自动化',
+        subtitle: '提升转化率，降低获客成本',
+        description: '实时识别客户意图，统一话术留资，智能分配高潜线索。基于会话分析反哺营销策略优化。',
+        features: [
+          '意图识别',
+          '智能留资',
+          '多渠道整合',
+          '预测分析'
+        ]
+      },
+      sales: {
+        title: '销售赋能',
+        subtitle: '缩短成交周期，提升成交率',
+        description: '实时话术推荐，竞品知识调用，最佳实践建议。AI辅助成交策略，验证转化提升。',
+        features: [
+          '话术推荐',
+          '竞品分析',
+          '智能成交辅助',
+          '业绩分析'
+        ],
+        featureShort: ['话术推荐', '竞品分析', '智能成交']
+      },
+      customerService: {
+        title: '客户服务',
+        subtitle: '更快、更准、更有温度',
+        description: '全天候智能响应，复杂问题智能分流，情绪感知互动。知识库联动快速解决问题。',
+        features: [
+          '24/7响应',
+          '情绪识别',
+          '智能工单',
+          '知识管理'
+        ],
+        featureShort: ['24/7响应', '情绪识别', '智能工单处理流程']
+      },
+      internalService: {
+        title: '内部运营',
+        subtitle: '多层级组织高效管理',
+        description: '统一服务入口处理设备、库存、培训事务。智能派单与进度追踪，优化运营效率。',
+        features: [
+          '统一入口',
+          '智能派单',
+          '数据分析',
+          '流程自动化'
+        ],
+        featureShort: ['统一入口', '智能派单', '数据分析']
+      },
+      management: {
+        title: '管理优化',
+        subtitle: '客户声音驱动产品创新',
+        description: '从对话中提取产品洞察，量化反馈趋势，建立客户声音到产品迭代闭环。',
+        features: [
+          '洞察挖掘',
+          '需求提取',
+          '迭代闭环',
+          '趋势分析'
+        ],
+        featureShort: ['洞察挖掘', '需求提取', '迭代闭环'],
+        brandFeatures: ['风险预警', '情绪分析', '品质控制']
+      }
+    },
+    
+    // 联系区
+    contact: {
+      title: '开启智能对话新篇章',
+      subtitle: '让Zenava AI助力您的企业实现客户对话场景的智能化升级',
+      form: {
+        name: '姓名',
+        email: '商务邮箱',
+        company: '公司名称',
+        message: '咨询内容',
+        submit: '发送消息'
+      },
+      cta: {
+        demo: '预约演示',
+        download: '下载产品手册'
+      }
+    },
+    
+    // 页脚
+    footer: {
+      sections: {
+        solutions: '解决方案',
+        company: '公司',
+        legal: '法律条款',
+        resources: '资源'
+      },
+      links: {
+        about: '关于我们',
+        contact: '联系我们',
+        privacy: '隐私政策',
+        terms: '服务条款',
+        cookies: 'Cookie偏好设置'
+      },
+      copyright: '© 2024 Zenava. 版权所有。',
+      followUs: '关注我们'
+    },
+    
+    // 常用操作
+    actions: {
+      learnMore: '了解更多',
+      getStarted: '立即开始',
+      contactUs: '联系我们',
+      bookDemo: '预约演示',
+      download: '下载',
+      viewAll: '查看全部'
+    },
+    
+    // 统计数据
+    stats: {
+      title: '平台性能',
+      conversations: '处理对话数',
+      uptime: '运行时间SLA',
+      enterprises: '企业客户',
+      satisfaction: '客户满意度',
+      uptimeValue: '99.9%',
+      enterprisesValue: '5000+',
+      satisfactionValue: '4.9/5'
+    },
+
+    
+    // 产品反馈面板
+    productFeedbackPanel: {
+      title: '客户反馈分析面板',
+      painPoints: '产品痛点',
+      painPointCount: '1,842',
+      featureAdoption: '功能采用率',
+      adoptionRate: '78%',
+      fixCycle: '问题修复周期',
+      fixTime: '3.2天',
+      monthlyIterations: '月度迭代',
+      iterationCount: '12个版本',
+      satisfactionIncrease: '满意度提升',
+      satisfactionGrowth: '+18%'
+    },
+    
+    // 舆情面板
+    sentimentPanel: {
+      title: '实时舆情监控',
+      negativeAlert: '负面情绪预警',
+      alertCount: '3项',
+      sensitiveWords: '敏感词检测',
+      detectionRate: '99.8%',
+      brandSentiment: '品牌好感度',
+      sentimentGrowth: '+12%',
+      responseTime: '响应时间',
+      responseSpeed: '<5分钟',
+      crisisSuccess: '危机处理成功率',
+      successRate: '98%'
+    },
+    
+    // AI模拟对话
+    aiSimulation: {
+      aiAssistant: 'Zenava AI',
+      status: '在线',
+      live: '实时',
+      customerQuery: '你好，我的订单 #A12345 想查询一下物流',
+      aiProcessing: '正在识别问题...',
+      aiLocating: '为您定位订单信息中...',
+      aiResponse: '已找到订单，包裹已出库，预计 24 小时内送达。需要我发送追踪链接吗？',
+      customerReply: '好的，谢谢！请发我追踪链接 👍',
+      inputPlaceholder: '输入您的消息...',
+      responseTime: '响应时间',
+      responseValue: '< 1.8s',
+      satisfaction: '满意度',
+      satisfactionValue: '98.7%'
+    },
+    
+    // 销售流程
+    salesProcess: {
+      title: '销售赋能流程',
+      step1: {
+        title: '实时话术推荐',
+        description: '根据客户关注点推荐最佳话术',
+        value: '实时'
+      },
+      step2: {
+        title: '知识库调用',
+        description: '产品、竞品、案例即时调取',
+        value: '秒级'
+      },
+      step3: {
+        title: '智能成交辅助',
+        description: '成交率提升45%',
+        value: '+45%'
+      }
+    },
+    
+    // 平台性能
+    platformPerformance: {
+      title: '平台性能',
+      subtitle: '获得全球5000家企业的信赖，为关键客户互动提供可靠服务',
+      uptime: '运行时间SLA',
+      enterprisesServed: '企业客户',
+      satisfaction: '客户满意度'
+    },
+    
+    // 智能工单流程
+    ticketProcess: {
+      title: '智能工单处理流程',
+      step1: {
+        title: 'AI定位问题',
+        description: '智能分析客户问题类型和紧急程度'
+      },
+      step2: {
+        title: '知识库调用',
+        description: '历史解决方案和最佳实践'
+      },
+      step3: {
+        title: '智能路由',
+        description: '自动分配给合适的服务人员'
+      },
+      step4: {
+        title: '跟踪解决',
+        description: '实时状态更新和满意度追踪'
+      }
+    },
+    
+    // 内部运营指标
+    operationsMetrics: {
+      title: '运营效率提升',
+      storeAccess: '门店接入',
+      storeCount: '500+',
+      dailyProcessing: '日均处理',
+      dailyVolume: '10K+',
+      avgResponse: '平均响应',
+      responseTime: '2小时',
+      dispatchEfficiency: '派单效率',
+      efficiencyRate: '85%'
+    }
   }
 }
 
-export type Language = 'en' | 'jp' | 'hk'
+export type Language = 'zh' | 'en' | 'jp' | 'hk'
 
 export function getTranslations(language: Language) {
-  return siteTranslations[language] || siteTranslations.en
+  return siteTranslations[language] || siteTranslations.zh
 }
 
 // Helper to get nested translation
