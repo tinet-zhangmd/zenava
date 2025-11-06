@@ -99,6 +99,62 @@ app.get('/', (c) => {
   )
 })
 
+app.get('/en', (c) => {
+  const language: Language = 'en'
+  const currentPath = '/en'
+  
+  // Use static data for navigation and footer
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <HomepageDB 
+        language={language}
+        pageData={null}
+        modules={[]}
+        settings={{}}
+      />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/zh', (c) => {
+  const language: Language = 'zh'
+  const currentPath = '/zh'
+  
+  // Use static data for navigation and footer
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <HomepageDB 
+        language={language}
+        pageData={null}
+        modules={[]}
+        settings={{}}
+      />
+    </LayoutWithUnifiedNav>
+  )
+})
+
 app.get('/jp', (c) => {
   const language: Language = 'jp'
   const currentPath = '/jp'
@@ -156,6 +212,14 @@ app.get('/hk', (c) => {
 })
 
 // Add support for trailing slash routes
+app.get('/en/', (c) => {
+  return c.redirect('/en')
+})
+
+app.get('/zh/', (c) => {
+  return c.redirect('/zh')
+})
+
 app.get('/jp/', (c) => {
   return c.redirect('/jp')
 })
@@ -183,6 +247,16 @@ app.get('/privacy-policy', (c) => {
   return c.html(<PrivacyPolicy language={language} />)
 })
 
+app.get('/en/privacy-policy', (c) => {
+  const language: Language = 'en'
+  return c.html(<PrivacyPolicy language={language} />)
+})
+
+app.get('/zh/privacy-policy', (c) => {
+  const language: Language = 'zh'
+  return c.html(<PrivacyPolicy language={language} />)
+})
+
 app.get('/jp/privacy-policy', (c) => {
   const language: Language = 'jp'
   return c.html(<PrivacyPolicy language={language} />)
@@ -196,6 +270,16 @@ app.get('/hk/privacy-policy', (c) => {
 // Terms and Conditions routes
 app.get('/terms-and-conditions', (c) => {
   const language: Language = 'en'
+  return c.html(<TermsAndConditions language={language} />)
+})
+
+app.get('/en/terms-and-conditions', (c) => {
+  const language: Language = 'en'
+  return c.html(<TermsAndConditions language={language} />)
+})
+
+app.get('/zh/terms-and-conditions', (c) => {
+  const language: Language = 'zh'
   return c.html(<TermsAndConditions language={language} />)
 })
 
@@ -214,6 +298,14 @@ app.get('/scenarios/marketing', (c) => {
   return renderScenarioPage(c, MarketingScenario, 'en', '/scenarios/marketing', 'Zenava for Marketing')
 })
 
+app.get('/en/scenarios/marketing', (c) => {
+  return renderScenarioPage(c, MarketingScenario, 'en', '/en/scenarios/marketing', 'Zenava for Marketing')
+})
+
+app.get('/zh/scenarios/marketing', (c) => {
+  return renderScenarioPage(c, MarketingScenario, 'zh', '/zh/scenarios/marketing', 'Zenava 营销场景')
+})
+
 app.get('/jp/scenarios/marketing', (c) => {
   return renderScenarioPage(c, MarketingScenario, 'jp', '/jp/scenarios/marketing', 'マーケティング向けZenava')
 })
@@ -225,6 +317,14 @@ app.get('/hk/scenarios/marketing', (c) => {
 // Sales Scenario routes
 app.get('/scenarios/sales', (c) => {
   return renderScenarioPage(c, SalesScenario, 'en', '/scenarios/sales', 'Zenava for Sales')
+})
+
+app.get('/en/scenarios/sales', (c) => {
+  return renderScenarioPage(c, SalesScenario, 'en', '/en/scenarios/sales', 'Zenava for Sales')
+})
+
+app.get('/zh/scenarios/sales', (c) => {
+  return renderScenarioPage(c, SalesScenario, 'zh', '/zh/scenarios/sales', 'Zenava 销售场景')
 })
 
 app.get('/jp/scenarios/sales', (c) => {
@@ -240,6 +340,14 @@ app.get('/scenarios/customer-service', (c) => {
   return renderScenarioPage(c, CustomerServiceScenario, 'en', '/scenarios/customer-service', 'Zenava for Customer Service')
 })
 
+app.get('/en/scenarios/customer-service', (c) => {
+  return renderScenarioPage(c, CustomerServiceScenario, 'en', '/en/scenarios/customer-service', 'Zenava for Customer Service')
+})
+
+app.get('/zh/scenarios/customer-service', (c) => {
+  return renderScenarioPage(c, CustomerServiceScenario, 'zh', '/zh/scenarios/customer-service', 'Zenava 客服场景')
+})
+
 app.get('/jp/scenarios/customer-service', (c) => {
   return renderScenarioPage(c, CustomerServiceScenario, 'jp', '/jp/scenarios/customer-service', 'カスタマーサービス向けZenava')
 })
@@ -253,6 +361,14 @@ app.get('/scenarios/internal-service', (c) => {
   return renderScenarioPage(c, InternalServiceScenario, 'en', '/scenarios/internal-service', 'Zenava for Internal Service')
 })
 
+app.get('/en/scenarios/internal-service', (c) => {
+  return renderScenarioPage(c, InternalServiceScenario, 'en', '/en/scenarios/internal-service', 'Zenava for Internal Service')
+})
+
+app.get('/zh/scenarios/internal-service', (c) => {
+  return renderScenarioPage(c, InternalServiceScenario, 'zh', '/zh/scenarios/internal-service', 'Zenava 内部服务')
+})
+
 app.get('/jp/scenarios/internal-service', (c) => {
   return renderScenarioPage(c, InternalServiceScenario, 'jp', '/jp/scenarios/internal-service', '社内サービス向けZenava')
 })
@@ -264,6 +380,14 @@ app.get('/hk/scenarios/internal-service', (c) => {
 // Management Scenario routes
 app.get('/scenarios/management', (c) => {
   return renderScenarioPage(c, ManagementScenario, 'en', '/scenarios/management', 'Zenava for Management')
+})
+
+app.get('/en/scenarios/management', (c) => {
+  return renderScenarioPage(c, ManagementScenario, 'en', '/en/scenarios/management', 'Zenava for Management')
+})
+
+app.get('/zh/scenarios/management', (c) => {
+  return renderScenarioPage(c, ManagementScenario, 'zh', '/zh/scenarios/management', 'Zenava 管理优化')
 })
 
 app.get('/jp/scenarios/management', (c) => {
@@ -283,6 +407,26 @@ app.get('/scenarios/:scenario', (c) => {
   if (scenario === 'internal-service') return c.redirect('/scenarios/internal-service')
   if (scenario === 'management') return c.redirect('/scenarios/management')
   return c.html(`<h1>Scenario: ${scenario} (EN) - Coming Soon</h1>`)
+})
+
+app.get('/en/scenarios/:scenario', (c) => {
+  const scenario = c.req.param('scenario')
+  if (scenario === 'marketing') return c.redirect('/en/scenarios/marketing')
+  if (scenario === 'sales') return c.redirect('/en/scenarios/sales')
+  if (scenario === 'customer-service') return c.redirect('/en/scenarios/customer-service')
+  if (scenario === 'internal-service') return c.redirect('/en/scenarios/internal-service')
+  if (scenario === 'management') return c.redirect('/en/scenarios/management')
+  return c.html(`<h1>Scenario: ${scenario} (EN) - Coming Soon</h1>`)
+})
+
+app.get('/zh/scenarios/:scenario', (c) => {
+  const scenario = c.req.param('scenario')
+  if (scenario === 'marketing') return c.redirect('/zh/scenarios/marketing')
+  if (scenario === 'sales') return c.redirect('/zh/scenarios/sales')
+  if (scenario === 'customer-service') return c.redirect('/zh/scenarios/customer-service')
+  if (scenario === 'internal-service') return c.redirect('/zh/scenarios/internal-service')
+  if (scenario === 'management') return c.redirect('/zh/scenarios/management')
+  return c.html(`<h1>场景: ${scenario} (ZH) - 即将推出</h1>`)
 })
 
 app.get('/jp/scenarios/:scenario', (c) => {
@@ -310,6 +454,14 @@ app.get('/about', (c) => {
   return renderScenarioPage(c, AboutUs, 'en', '/about', 'About Us')
 })
 
+app.get('/en/about', (c) => {
+  return renderScenarioPage(c, AboutUs, 'en', '/en/about', 'About Us')
+})
+
+app.get('/zh/about', (c) => {
+  return renderScenarioPage(c, AboutUs, 'zh', '/zh/about', '关于我们')
+})
+
 app.get('/jp/about', (c) => {
   return renderScenarioPage(c, AboutUs, 'jp', '/jp/about', '私たちについて')
 })
@@ -321,6 +473,14 @@ app.get('/hk/about', (c) => {
 // Privacy Policy routes
 app.get('/privacy', (c) => {
   return renderScenarioPage(c, PrivacyPolicy, 'en', '/privacy', 'Privacy Policy')
+})
+
+app.get('/en/privacy', (c) => {
+  return renderScenarioPage(c, PrivacyPolicy, 'en', '/en/privacy', 'Privacy Policy')
+})
+
+app.get('/zh/privacy', (c) => {
+  return renderScenarioPage(c, PrivacyPolicy, 'zh', '/zh/privacy', '隐私政策')
 })
 
 app.get('/jp/privacy', (c) => {

@@ -6,6 +6,7 @@ export interface NavMenuItem {
   id: string
   type: 'link' | 'dropdown'
   label: string
+  label_zh?: string
   label_en?: string
   label_jp?: string
   label_hk?: string
@@ -20,10 +21,12 @@ export interface NavMenuItem {
 export interface NavSubItem {
   id: string
   label: string
+  label_zh?: string
   label_en?: string
   label_jp?: string
   label_hk?: string
   description?: string
+  description_zh?: string
   description_en?: string
   description_jp?: string
   description_hk?: string
@@ -63,6 +66,7 @@ export interface NavigationConfig {
   // CTA Button
   cta_enabled?: boolean
   cta_text?: string
+  cta_text_zh?: string
   cta_text_en?: string
   cta_text_jp?: string
   cta_text_hk?: string

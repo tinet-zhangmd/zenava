@@ -1,0 +1,971 @@
+---
+alwaysApply: true
+---
+---
+alwaysApply: true
+---
+# Zenava 项目 - Cursor AI 配置模板
+
+## 项目概述
+这是一个企业级AI对话解决方案的官网项目，使用Hono框架构建，部署在Cloudflare Pages上，支持多语言和CMS内容管理。
+
+## 技术栈
+- **框架**: Hono (轻量级Web框架)
+- **构建工具**: Vite
+- **运行时**: Cloudflare Workers/Pages
+- **语言**: TypeScript
+- **UI**: Hono JSX (不是React!)
+- **数据库**: Cloudflare D1 (SQLite)
+- **进程管理**: PM2
+- **部署**: Cloudflare Pages + Aliyun
+
+## 代码规范
+
+### 文件结构规则
+1. API路由放在 `src/api/` 目录
+2. 页面组件放在 `src/pages/` 目录
+3. 可复用组件放在 `src/components/` 目录
+4. 工具函数放在 `src/utils/` 目录
+5. 翻译文件放在 `src/i18n/` 目录
+6. 数据库迁移放在 `migrations/` 目录
+
+### TypeScript规范
+- 严格模式开启 (`strict: true`)
+- 使用ESNext目标和模块系统
+- JSX使用 `hono/jsx` 而不是 React
+- 导入顺序：外部依赖 -> Hono核心 -> 本地模块 -> 类型定义
+
+### JSX组件规范
+```typescript
+// ✅ 正确：使用 Hono JSX
+import { FC } from 'hono/jsx'
+
+export const MyComponent: FC = () => {
+  return <div>Content</div>
+}
+
+// ❌ 错误：不要使用 React
+import React from 'react' // 项目中没有React依赖
+```
+
+### 路由规范
+```typescript
+// ✅ 使用 Hono 路由
+import { Hono } from 'hono'
+
+const app = new Hono()
+
+app.get('/api/endpoint', async (c) => {
+  const db = c.env.DB // Cloudflare D1
+  return c.json({ data: [] })
+})
+```
+
+### 多语言处理
+- 所有用户可见文本必须通过 `src/i18n/translations.ts` 管理
+- 支持的语言代码：`zh` (简体中文)、`en` (英文)、`hk` (繁体中文)、`jp` (日文)
+- **主要输入语言**: 中文简体 (zh)
+- **自动翻译机制**: 输入简体中文后，自动生成其他三种语言
+- 新增文本必须同时包含四种语言的翻译
+- 使用 `getTranslations(lang)` 工具函数获取翻译
+
+#### 🤖 自动翻译工作流程
+
+**当用户提供中文简体文案时：**
+1. ✅ 接收用户输入的简体中文内容
+2. 🤖 自动生成英文 (en) 翻译
+3. 🤖 自动生成日文 (jp) 翻译
+4. 🤖 自动生成繁体中文 (hk) 翻译
+5. 📝 同时更新所有四种语言版本
+6. ✅ 保持专业术语和品牌名称的一致性
+
+**翻译质量标准：**
+- 英文：符合国际企业级标准，参考 Salesforce、HubSpot、Zendesk 等
+- 日文：使用敬语和商务用语，符合日本企业习惯
+- 繁体中文：使用香港/台湾商务用语，避免大陆用语
+- 保持技术术语的专业性（AI、KPI、Dashboard 等）
+
+### 数据库规则
+- 使用 Cloudflare D1 (基于SQLite)
+- 所有schema变更必须通过迁移文件 (`migrations/*.sql`)
+- 本地开发使用：`npm run db:migrate:local`
+- 生产部署使用：`npm run db:migrate:prod`
+- 数据库访问通过 `c.env.DB` 获取
+
+#### ⚠️ 重要：修改数据库数据后的操作
+
+**每次修改迁移文件（`migrations/*.sql`）中的数据后，必须重置数据库：**
+
+```bash
+npm run db:reset
+```
+
+**此命令会：**
+1. 删除本地数据库文件（`.wrangler/state/v3/d1`）
+2. 重新运行所有迁移文件（按顺序执行 `0001_*.sql` 到 `00XX_*.sql`）
+3. 执行种子数据填充（`seed.sql`）
+
+**什么时候需要运行？**
+- ✅ 修改了 `migrations/*.sql` 文件中的 `INSERT` 或 `UPDATE` 语句
+- ✅ 修改了表结构（`ALTER TABLE`、`CREATE TABLE`）
+- ✅ 数据库数据不一致或出现错误
+- ❌ 只修改了代码（如 `navigation-helper.ts`），不需要重置数据库
+
+**开发模式 vs 数据库模式：**
+
+| 修改内容 | 是否需要 db:reset | 原因 |
+|---------|------------------|------|
+| 修改 `src/utils/navigation-helper.ts` 中的 `getDefaultMenuItems()` | ❌ 否（如果 `isDev=true`） | 开发模式直接用代码配置 |
+| 修改 `migrations/0008_unified_navigation.sql` 中的 `INSERT` 语句 | ✅ 是（如果 `isDev=false`） | 需要更新数据库实际数据 |
+| 修改 `src/components/UnifiedNavigation.tsx` 组件 | ❌ 否 | 纯前端组件修改 |
+
+**开发建议：**
+- 🔧 **快速开发**：保持 `isDev = true`，直接修改代码中的默认配置
+- 🗄️ **测试数据库**：设置 `isDev = false`，修改 SQL 文件并运行 `npm run db:reset`
+- 🚀 **生产部署**：设置 `isDev = false`，通过 CMS 后台管理数据
+
+#### 💡 最佳实践：避免维护两份数据
+
+**问题**：当前存在两份数据源需要同步维护
+1. 代码中的默认配置（`src/utils/navigation-helper.ts`）
+2. 数据库中的配置（`migrations/*.sql`）
+
+**推荐工作流（只维护一份数据）：**
+
+```
+📅 日常开发（90% 时间）
+  ├─ 设置 isDev = true
+  ├─ 只修改 src/utils/navigation-helper.ts 中的代码配置
+  ├─ 保存文件 → Vite 自动热重载 ✅
+  └─ 无需修改 SQL 文件，无需运行 db:reset
+
+📦 准备部署（偶尔一次）
+  ├─ 将最终配置手动同步到 migrations/*.sql
+  ├─ 运行 npm run db:reset 验证数据库
+  ├─ 设置 isDev = false（让生产环境使用数据库）
+  └─ 部署到生产环境
+
+🚀 生产环境
+  ├─ isDev = false（使用数据库）
+  ├─ 客户通过 CMS 后台可视化修改导航
+  └─ 修改立即生效，无需重新部署代码
+```
+
+**实际操作示例：**
+
+```typescript
+// ✅ 开发时（推荐）
+const isDev = true
+// 只需修改下面的代码：
+function getDefaultMenuItems() {
+  return [
+    { label: '产品', label_en: 'Products', ... }  // 👈 直接改这里
+  ]
+}
+// 保存 → 立即生效，无需管数据库 ✅
+
+// ✅ 部署前（一次性）
+// 1. 设置 isDev = false（让生产环境使用数据库，如果需要）
+// 2. 部署
+// 注意：不需要手动同步到 SQL 文件！代码中的默认配置会自动生效
+
+// ✅ 生产环境
+// 客户访问 /cms 后台，在界面上修改导航，无需改代码
+```
+
+**为什么这样设计？**
+- 🚀 **开发效率**：改代码比改数据库快 10 倍
+- 🎯 **生产灵活**：客户可以通过 CMS 动态修改，无需技术人员
+- 🛡️ **容错机制**：数据库挂了也能用默认配置，网站不崩溃
+
+**⚠️ 重要：迁移文件不包含业务数据**
+
+`migrations/*.sql` 文件只负责**创建表结构**，不插入业务数据：
+
+```sql
+-- ✅ 正确：只创建表
+CREATE TABLE navigation_menu_items (
+  id TEXT PRIMARY KEY,
+  type TEXT NOT NULL,
+  label TEXT NOT NULL,
+  ...
+);
+
+-- ❌ 不推荐：在迁移文件中插入数据
+INSERT INTO navigation_menu_items VALUES ('products', ...);
+```
+
+**原因：**
+- 避免维护两份数据（代码 + SQL）
+- 业务数据应该在代码中定义或通过 CMS 管理
+- 迁移文件只关注数据库结构，不关注内容
+
+**数据来源优先级：**
+1. 🥇 **CMS 后台修改的数据**（存在数据库中）
+2. 🥈 **代码中的默认配置**（`getDefaultMenuItems()`）
+3. 🥉 **迁移文件**（只创建空表）
+
+### CMS内容管理
+- CMS相关API在 `src/api/cms.tsx`
+- 支持动态内容管理（页面内容、导航、页脚等）
+- 使用 `common_content` 表存储通用内容
+- 使用 `navigation_items` 表存储导航结构
+
+### 环境和部署
+
+#### 开发环境选择
+
+**方式1: Vite 开发模式（快速开发，无数据库）**
+```bash
+npm run dev                    # 启动 Vite 开发服务器 (http://localhost:5173)
+```
+- ✅ 热重载（HMR），代码修改立即生效
+- ✅ 开发速度快
+- ❌ 无法连接 D1 数据库
+- 📌 适用场景：纯前端页面开发、样式调整
+
+**方式2: Wrangler 开发模式（完整环境，含数据库）**
+```bash
+# 单次构建启动
+npm run build                  # 先构建
+npm run dev:sandbox            # 启动 Wrangler (http://localhost:3000)
+
+# 或使用 PM2（推荐生产模拟）
+npm run pm2:start:d1           # 启动 PM2 带 D1 数据库
+```
+- ✅ 完整 D1 数据库支持
+- ✅ 真实 Cloudflare Pages 环境
+- ❌ 每次修改需要重新构建
+- 📌 适用场景：API开发、数据库操作、CMS功能测试
+
+**方式3: Watch 模式（推荐！兼顾速度和功能）**
+```bash
+# 终端1: 自动监听并构建
+npm run build -- --watch
+
+# 终端2: 启动 Wrangler 服务器
+npx wrangler pages dev dist --d1=zenava-production --local --port 3000
+```
+- ✅ 文件修改自动重新构建
+- ✅ 有 D1 数据库访问
+- ⚡ 相对快速的开发体验
+- 📌 适用场景：全栈开发，推荐日常使用
+
+#### 为什么需要构建？
+- Wrangler Pages Dev 运行的是 **Cloudflare Worker 格式**代码（`dist/_worker.js`）
+- D1 数据库是 Cloudflare 的服务，只能在 Cloudflare 环境中使用
+- Vite 开发服务器是纯 Node.js 环境，无法访问 Cloudflare 特有的 Bindings（如 D1、KV 等）
+
+#### 其他命令
+- 本地预览：`npm run preview`
+- 构建：`npm run build`
+- 生产部署：`npm run deploy:prod`
+
+## 编码最佳实践
+
+### 1. 类型安全
+- 为所有函数参数和返回值添加类型注解
+- 使用接口定义数据结构
+- 避免使用 `any` 类型
+
+### 2. 错误处理
+```typescript
+// ✅ 正确的错误处理
+try {
+  const result = await db.prepare('SELECT * FROM table').all()
+  return c.json(result)
+} catch (error) {
+  console.error('Database error:', error)
+  return c.json({ error: 'Internal server error' }, 500)
+}
+```
+
+### 3. 安全性
+- 使用参数化查询防止SQL注入
+- 验证所有用户输入
+- 使用 `src/utils/security.ts` 中的安全工具函数
+- API端点需要适当的权限验证
+
+### 4. 性能优化
+- 使用Cloudflare KV/Cache进行缓存
+- 优化数据库查询，避免N+1问题
+- 静态资源使用CDN
+- 图片使用base64或优化的格式
+
+### 5. 响应式设计
+
+⚠️ **关键要求：网站必须是响应式的，在手机端以合理方式正常展示**
+
+#### 响应式设计原则
+- **移动优先（Mobile First）**: 优先考虑移动端体验
+- **断点设计**: 使用 Tailwind CSS 的响应式断点（sm、md、lg、xl、2xl）
+- **触摸友好**: 按钮和链接至少 44x44px，适合手指点击
+- **可读性**: 移动端字体大小至少 16px，避免用户需要缩放
+
+#### Tailwind CSS 响应式断点
+```css
+/* 默认: < 640px (移动端) */
+.text-base
+
+/* sm: >= 640px (小屏平板) */
+sm:text-lg
+
+/* md: >= 768px (平板) */
+md:text-xl
+
+/* lg: >= 1024px (小屏电脑) */
+lg:text-2xl
+
+/* xl: >= 1280px (桌面) */
+xl:text-3xl
+
+/* 2xl: >= 1536px (大屏) */
+2xl:text-4xl
+```
+
+#### 响应式开发规范
+
+**✅ 必须遵守：**
+1. **使用响应式类名**
+   ```typescript
+   // ✅ 正确：使用响应式断点
+   <div class="px-4 sm:px-6 lg:px-8">
+   <h1 class="text-2xl md:text-4xl lg:text-5xl">
+   
+   // ❌ 错误：固定尺寸
+   <div style="width: 1200px">
+   <h1 style="font-size: 48px">
+   ```
+
+2. **布局自适应**
+   ```typescript
+   // ✅ 移动端单列，桌面端多列
+   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+   
+   // ✅ 响应式隐藏/显示
+   <div class="hidden md:block">桌面端显示</div>
+   <div class="block md:hidden">移动端显示</div>
+   ```
+
+3. **文字大小适配**
+   ```typescript
+   // ✅ 响应式字体
+   <h1 class="text-3xl md:text-5xl lg:text-6xl">
+   <p class="text-base md:text-lg lg:text-xl">
+   
+   // ✅ 行高和间距
+   <div class="leading-relaxed md:leading-loose">
+   <div class="space-y-4 md:space-y-6 lg:space-y-8">
+   ```
+
+4. **图片和媒体**
+   ```typescript
+   // ✅ 响应式图片
+   <img class="w-full h-auto" src="..." alt="...">
+   
+   // ✅ 容器宽度限制
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+   ```
+
+5. **导航菜单**
+   ```typescript
+   // ✅ 移动端汉堡菜单，桌面端横向导航
+   <div class="md:hidden">
+     <button onclick="toggleMobileMenu()">☰</button>
+   </div>
+   <div class="hidden md:flex md:space-x-6">
+     <a href="#">菜单项</a>
+   </div>
+   ```
+
+#### 移动端测试清单
+
+**必须在以下设备/尺寸测试：**
+- ✅ iPhone SE (375px)
+- ✅ iPhone 12/13/14 (390px)
+- ✅ iPhone 14 Pro Max (430px)
+- ✅ iPad Mini (768px)
+- ✅ iPad Pro (1024px)
+
+**测试检查项：**
+1. ✅ 文字清晰可读，无需缩放
+2. ✅ 按钮和链接易于点击
+3. ✅ 图片不溢出容器
+4. ✅ 表单输入框大小合适
+5. ✅ 横向滚动条不出现（除特殊设计）
+6. ✅ 导航菜单可正常使用
+7. ✅ CTA 按钮显眼且易点击
+8. ✅ 页脚信息完整显示
+
+#### 现有响应式资源
+- 样式文件：`mobile-optimization.css`
+- 样式文件：`responsive-optimization.css`
+- 测试页面：`test-mobile.html`
+
+#### Chrome DevTools 测试
+```bash
+# 打开开发者工具
+F12 或 Cmd+Option+I
+
+# 切换到设备模式
+Cmd+Shift+M (Mac) 或 Ctrl+Shift+M (Windows)
+
+# 测试不同设备尺寸
+选择预设设备或自定义尺寸
+```
+
+#### 常见响应式问题和解决方案
+
+**问题 1: 移动端文字过小**
+```typescript
+// ❌ 问题
+<h1 class="text-6xl">标题</h1>
+
+// ✅ 解决
+<h1 class="text-3xl md:text-5xl lg:text-6xl">标题</h1>
+```
+
+**问题 2: 内容溢出屏幕**
+```typescript
+// ❌ 问题
+<div class="w-[1200px]">内容</div>
+
+// ✅ 解决
+<div class="w-full max-w-7xl mx-auto px-4">内容</div>
+```
+
+**问题 3: 移动端导航不可用**
+```typescript
+// ✅ 添加移动端菜单
+<button class="md:hidden" onclick="toggleMobileMenu()">
+  <i class="fas fa-bars"></i>
+</button>
+<div id="mobileMenu" class="md:hidden hidden">
+  <!-- 移动端菜单内容 -->
+</div>
+```
+
+**问题 4: 图片尺寸不适配**
+```typescript
+// ❌ 问题
+<img src="..." style="width: 800px">
+
+// ✅ 解决
+<img src="..." class="w-full h-auto max-w-3xl">
+```
+
+#### 响应式修改工作流
+
+当修改文案或内容时：
+1. ✅ 保存文件后，在桌面端检查
+2. ✅ 切换到移动端视图（DevTools）
+3. ✅ 检查各个断点（375px、768px、1024px）
+4. ✅ 确认文字、按钮、图片都正常显示
+5. ✅ 测试交互功能（点击、滚动、表单）
+
+#### ⚠️ 响应式禁止操作
+
+1. ❌ 不要使用固定像素宽度（除非必要）
+2. ❌ 不要使用过小的字体（移动端 < 14px）
+3. ❌ 不要使用过小的点击目标（< 44px）
+4. ❌ 不要假设用户使用桌面端
+5. ❌ 不要忽略移动端测试
+
+## 常用命令
+
+### 开发
+```bash
+npm run dev                    # Vite开发服务器
+npm run dev:sandbox           # Wrangler开发环境（推荐）
+npm run build                 # 构建项目
+npm run preview               # 预览构建结果
+```
+
+### PM2进程管理
+```bash
+npm run pm2:start             # 启动PM2
+npm run pm2:start:d1          # 启动PM2（带D1数据库）
+npm run pm2:stop              # 停止所有进程
+npm run pm2:restart           # 重启所有进程
+npm run pm2:logs              # 查看日志
+npm run pm2:monit             # 监控
+```
+
+### 数据库
+```bash
+npm run db:migrate:local      # 本地迁移
+npm run db:migrate:prod       # 生产迁移
+npm run db:seed              # 填充种子数据
+npm run db:reset             # 重置数据库
+```
+
+### 部署
+```bash
+npm run deploy               # 部署到Cloudflare
+npm run deploy:prod          # 部署到生产环境
+```
+
+## AI辅助编码指导
+
+### 当我说"添加新页面"时
+1. 在 `src/pages/` 创建新的 `.tsx` 文件
+2. 使用 Hono JSX 编写组件
+3. 在 `src/index.tsx` 添加路由
+4. 在 `src/i18n/translations.ts` 添加多语言文本
+5. 更新导航（如需要）
+
+### 当我说"添加API端点"时
+1. 在 `src/api/` 创建或更新文件
+2. 使用 Hono 路由语法
+3. 添加类型定义
+4. 实现错误处理
+5. 添加必要的安全验证
+
+### 当我说"数据库变更"时
+1. 创建新的迁移文件 `migrations/XXXX_description.sql`
+2. 编写SQL DDL语句
+3. 运行 `npm run db:migrate:local` 测试
+4. 更新相关的API和类型定义
+
+### 当我说"添加翻译"时
+1. 用户只需提供**简体中文**文案
+2. AI 自动生成 `en`、`jp`、`hk` 三个语言版本
+3. 编辑 `src/i18n/translations.ts`
+4. 在对应的嵌套对象中添加 `zh`、`en`、`jp`、`hk` 四个语言版本
+5. 保持翻译结构一致
+6. 使用专业术语（参考 Avaya、Genesys 等行业标准）
+
+**示例：**
+```typescript
+// 用户输入："添加翻译：实时数据分析"
+// AI 自动生成并添加：
+scenarios: {
+  newFeature: {
+    zh: '实时数据分析',
+    en: 'Real-time Data Analytics',
+    jp: 'リアルタイムデータ分析',
+    hk: '實時數據分析'
+  }
+}
+```
+
+### 当我说"优化性能"时
+1. 检查数据库查询效率
+2. 添加适当的索引
+3. 使用Cloudflare缓存
+4. 优化静态资源加载
+5. 检查并优化打包大小
+
+### 当我说"修复bug"时
+1. 先理解问题的根本原因
+2. 检查相关的日志文件 (`logs/`)
+3. 编写修复方案
+4. 考虑边界情况
+5. 测试修复结果
+
+## 项目特定规则
+
+### 1. 品牌一致性
+- 公司名称：Zenava
+- Slogan: "Conversational AI Agent for Marketing and Service Scenarios"
+- Logo使用 `src/assets/zenava-logo-base64.ts`
+
+### 2. 分析和追踪
+- 使用百度统计（已集成）
+- 组件：`src/components/BaiduAnalytics.tsx`
+- Cookie管理：`src/components/CookieConsent.tsx`
+
+### 3. 布局组件
+- 统一导航：`UnifiedNavigation.tsx`
+- 统一页脚：`UnifiedFooter.tsx`
+- 带公共内容的布局：`LayoutWithCommonContent.tsx`
+
+### 4. 路由辅助
+- 使用 `src/utils/scenario-route-helper.tsx` 处理场景路由
+- 使用 `src/utils/navigation-helper.ts` 处理导航逻辑
+
+### 5. 静态生成
+- 使用 `src/lib/static-generator.ts` 生成静态页面
+- 支持预渲染关键页面
+
+## 文档参考
+- `DEPLOYMENT_GUIDE.md` - 部署指南
+- `ALIYUN_DEPLOYMENT_GUIDE.md` - 阿里云部署
+- `PM2_STARTUP_GUIDE.md` - PM2启动指南
+- `MULTILINGUAL_IMPROVEMENT_PLAN.md` - 多语言改进计划
+- `SECURITY_DEPLOYMENT_CHECKLIST.md` - 安全检查清单
+
+## 注意事项
+
+### ⚠️ 禁止操作
+- ❌ 不要直接修改 `dist/` 目录内容（这是构建输出）
+- ❌ 不要提交 `node_modules/` 到版本控制
+- ❌ 不要在代码中硬编码敏感信息（使用环境变量）
+- ❌ 不要绕过数据库迁移直接修改表结构
+- ❌ 不要混用React和Hono JSX
+- ❌ 不要忘记为新文本添加所有语言的翻译
+
+### ✅ 推荐操作
+- ✅ 使用TypeScript的严格类型检查
+- ✅ 遵循现有的代码组织结构
+- ✅ 编写清晰的提交信息
+- ✅ 测试多语言场景
+- ✅ 在本地测试后再部署
+- ✅ 保持API响应格式一致
+- ✅ 记录重要的配置变更
+
+## Management Optimization 页面文案修改规则
+
+### 页面文件位置
+- **文件路径**: `src/pages/ManagementScenario.tsx`
+- **URL路由**: `/scenarios/management`
+- **支持语言**: 简体中文(zh)、英文(en)、日文(jp)、繁体中文(hk)
+- **主要输入语言**: 简体中文 (zh) - 其他语言自动生成
+
+### 页面结构说明（6个版块）
+
+#### 📌 版块 1: 头部导航（统一组件）
+**组件**: `UnifiedNavigation.tsx`
+**内容**: Logo、导航菜单（Scenarios、About Us）、语言切换器
+**修改方式**: 通过数据库或导航配置文件修改，不直接修改此文件
+
+---
+
+#### 📌 版块 2: Hero Banner（英雄横幅）
+**代码位置**: `ManagementScenario.tsx` 第 14-50 行左右
+**包含元素**:
+- 主标题: "Zenava Management AI"
+- 副标题: "Optimize business operations with intelligent insights..."
+- CTA按钮: "Schedule Consultation"
+
+**修改示例**:
+```typescript
+// 主标题（第 24-28 行）
+{language === 'zh' && 'Zenava 管理优化 AI'}
+{language === 'en' && 'Zenava Management AI'}
+{language === 'jp' && 'Zenava マネジメント AI'}
+{language === 'hk' && 'Zenava 管理 AI'}
+
+// 副标题（第 31-35 行）
+{language === 'zh' && '通过智能洞察和自动化决策支持优化业务运营'}
+{language === 'en' && 'Optimize business operations with intelligent insights and automated decision support'}
+{language === 'jp' && 'インテリジェントな洞察と自動化された意思決定支援でビジネス運営を最適化'}
+{language === 'hk' && '通過智能洞察和自動化決策支持優化業務運營'}
+```
+
+**🤖 自动翻译工作流：**
+当您只提供简体中文时，AI 会：
+1. 接收：`'通过智能洞察和自动化决策支持优化业务运营'`
+2. 自动生成英文：`'Optimize business operations with intelligent insights and automated decision support'`
+3. 自动生成日文：`'インテリジェントな洞察と自動化された意思決定支援でビジネス運営を最適化'`
+4. 自动生成繁体：`'通過智能洞察和自動化決策支持優化業務運營'`
+5. 同时更新所有四个语言版本到代码中
+
+---
+
+#### 📌 版块 3: Challenges Section（挑战部分）
+**代码位置**: `ManagementScenario.tsx` 约第 60-150 行
+**标题**: "Management & Operations Challenges"
+**包含4个挑战卡片**:
+1. **Data Fragmentation** (数据碎片化)
+2. **Manual Reporting** (手动报告)
+3. **Limited Performance Visibility** (有限的性能可见性)
+4. **Reactive Decision Making** (反应式决策)
+
+**修改示例**:
+```typescript
+// 挑战卡片标题和描述
+{language === 'zh' && '数据碎片化'}
+{language === 'en' && 'Data Fragmentation'}
+{language === 'jp' && 'データの断片化'}
+{language === 'hk' && '數據碎片化'}
+```
+
+---
+
+#### 📌 版块 4: Solutions Section（解决方案部分）
+**代码位置**: `ManagementScenario.tsx` 约第 200-500 行
+**标题**: "Zenava Management Solutions"
+**副标题**: "Empower leadership with AI-driven insights..."
+
+**左侧内容**:
+- 主标题: "Unified Business Intelligence"
+- 副标题: "One Dashboard, Complete Business View"
+- 功能列表: Real-time KPIs、Predictive Analytics、Executive Reporting
+
+**右侧内容**:
+- Executive Dashboard Overview（仪表板截图）
+- 包含: Revenue Growth、Employee Satisfaction、Operational Efficiency、Customer Retention 等指标
+
+**下方包含**:
+- Performance Monitoring Categories（性能监控分类）
+- Automated Performance Monitoring（自动化性能监控）
+
+**修改示例**:
+```typescript
+// 解决方案标题
+{language === 'zh' && '统一商业智能'}
+{language === 'en' && 'Unified Business Intelligence'}
+{language === 'jp' && '統合ビジネスインテリジェンス'}
+{language === 'hk' && '統一業務智能'}
+```
+
+---
+
+#### 📌 版块 5: CTA Section（行动号召部分）
+**组件**: `TransformationCTA.tsx`（可能）或直接在页面中
+**代码位置**: `ManagementScenario.tsx` 约第 600-650 行
+**包含元素**:
+- 标题: "Start Your AI Transformation Journey"
+- 副标题: "Join thousands of enterprises already transforming..."
+- 联系方式: marketing@zenava.ai
+- 背景: 紫色到蓝色渐变
+
+**修改示例**:
+```typescript
+{language === 'zh' && '开启您的 AI 转型之旅'}
+{language === 'en' && 'Start Your AI Transformation Journey'}
+{language === 'jp' && 'AI変革の旅を始めましょう'}
+{language === 'hk' && '開啟您的 AI 轉型之旅'}
+```
+
+---
+
+#### 📌 版块 6: Footer（页脚）
+**组件**: `UnifiedFooter.tsx`
+**内容**: 
+- 左侧: 公司名称、Slogan、邮箱
+- 中间: Scenarios 链接列表
+- 右侧: Company 链接、Legal Terms
+**修改方式**: 通过数据库或页脚配置文件修改
+
+---
+
+### 文案修改工作流程
+
+#### 🚀 当我说"修改 Management 页面的 Banner 标题为：智能化管理平台"时:
+1. ✅ 接收简体中文输入：`'智能化管理平台'`
+2. 🤖 自动生成英文翻译：`'Intelligent Management Platform'`
+3. 🤖 自动生成日文翻译：`'インテリジェント管理プラットフォーム'`
+4. 🤖 自动生成繁体翻译：`'智能化管理平台'`
+5. 📂 打开 `src/pages/ManagementScenario.tsx`
+6. 📍 定位到 Hero Banner 部分（约第 22-28 行）
+7. 📝 同时更新四种语言的标题文本
+8. 💾 保存文件，Vite 自动热重载
+
+#### 当我说"修改 Challenges 卡片文案"时:
+1. 打开 `src/pages/ManagementScenario.tsx`
+2. 定位到 Challenges Section（约第 60-150 行）
+3. 找到对应的挑战卡片
+4. 修改标题和描述文本
+5. 确保 en/jp/hk 三种语言都更新
+
+#### 当我说"修改 Solutions 部分内容"时:
+1. 打开 `src/pages/ManagementScenario.tsx`
+2. 定位到 Solutions Section（约第 200-500 行）
+3. 修改对应的功能标题、描述或数据指标
+4. 保持左右两侧内容的协调性
+
+#### 当我说"修改 CTA 按钮文案"时:
+1. 找到 CTA 部分（约第 35-40 行或 600-650 行）
+2. 修改按钮文本
+3. 确保三种语言的按钮文案都准确
+
+---
+
+### 文案修改注意事项
+
+#### ✅ 必须遵守:
+1. **四语同步**: 修改文案时必须同时更新 zh、en、jp、hk 四个语言版本
+2. **自动翻译**: 用户只需提供简体中文，AI 自动生成其他三种语言
+3. **保持格式**: 不要修改 JSX 标签、class 名称、样式类
+4. **字符长度**: 注意不同语言的长度差异，避免 UI 破坏
+5. **品牌一致性**: 保持 "Zenava" 品牌名称统一，不要翻译
+6. **专业术语**: 使用行业标准术语（参考 Avaya、Genesys 等）
+7. **翻译质量**: 
+   - 简体中文：简洁专业，符合国内企业用语
+   - 英文：国际化标准，ToB 商务风格
+   - 日文：敬语表达，符合日本商务习惯
+   - 繁体中文：港台用语，避免简体直译
+
+#### ❌ 禁止操作:
+1. ❌ 不要修改 JSX 结构和 HTML 标签
+2. ❌ 不要修改 CSS class 名称
+3. ❌ 不要删除或添加新的 div、section 等容器
+4. ❌ 不要修改渐变色、动画、响应式断点
+5. ❌ 不要改变组件导入语句
+
+#### 📝 文案修改模板:
+```typescript
+// ✅ 正确的文案修改（包含四种语言）
+{language === 'zh' && '新的简体中文文案'}
+{language === 'en' && '新的英文文案'}
+{language === 'jp' && '新的日文文案'}
+{language === 'hk' && '新的繁体中文文案'}
+
+// 🤖 用户只需提供简体中文，AI 自动生成其他语言
+用户输入: "修改标题为：智能商业分析平台"
+AI 自动生成:
+{language === 'zh' && '智能商业分析平台'}
+{language === 'en' && 'Intelligent Business Analytics Platform'}
+{language === 'jp' && 'インテリジェントビジネス分析プラットフォーム'}
+{language === 'hk' && '智能商業分析平台'}
+
+// ❌ 错误的修改（破坏了结构）
+<h1>新的标题</h1>  // 这会破坏多语言逻辑
+```
+
+---
+
+### 快速定位文案位置
+
+**使用 VS Code 搜索功能**:
+1. 按 `Cmd/Ctrl + F` 打开搜索
+2. 输入要修改的英文文案
+3. 快速定位到对应行
+4. 同时修改三种语言版本
+
+**常见文案关键词**:
+- Banner: "Zenava Management AI"
+- Challenges: "Data Fragmentation", "Manual Reporting"
+- Solutions: "Unified Business Intelligence"
+- CTA: "Start Your AI Transformation"
+
+---
+
+### 测试验证步骤
+
+修改文案后，需要验证：
+1. ✅ 在浏览器中检查**四种语言版本**（zh、en、jp、hk）
+2. ✅ 确认文案没有溢出或换行异常
+3. ✅ **检查移动端响应式显示**（必须！）
+4. ✅ 验证 CTA 按钮功能正常
+5. ✅ 确保没有 TypeScript 编译错误
+6. ✅ 验证自动翻译的质量和准确性
+7. ✅ 检查专业术语的一致性
+
+**语言切换测试路径：**
+- 简体中文：`/zh/scenarios/management`
+- 英文：`/scenarios/management` 或 `/en/scenarios/management`
+- 日文：`/jp/scenarios/management`
+- 繁体中文：`/hk/scenarios/management`
+
+---
+
+### 📱 响应式测试要求（关键！）
+
+**每次修改文案后必须测试移动端：**
+
+#### 快速移动端测试步骤
+1. 打开 Chrome DevTools（F12 或 Cmd+Option+I）
+2. 切换到设备模式（Cmd+Shift+M）
+3. 测试以下断点：
+   - ✅ **375px** - iPhone SE（最小移动端）
+   - ✅ **390px** - iPhone 12/13/14
+   - ✅ **768px** - iPad（平板）
+   - ✅ **1024px** - 小屏电脑
+
+#### 移动端检查清单
+
+**版块 1: 头部导航**
+- ✅ Logo 大小适中，不过大
+- ✅ 移动端显示汉堡菜单（☰）
+- ✅ 语言切换器可点击
+- ✅ 菜单点击后正常展开
+- ✅ 二级导航每列最大支持5个产品内容块，超出后则分列展示（每列最多5个）
+
+**版块 2: Banner**
+- ✅ 标题文字大小合适（text-3xl md:text-5xl）
+- ✅ 副标题在移动端可读
+- ✅ CTA 按钮大小适中（至少 44px 高）
+- ✅ 背景渐变正常显示
+
+**版块 3: Challenges 卡片**
+- ✅ 移动端单列显示（grid-cols-1）
+- ✅ 卡片间距合理
+- ✅ 图标和文字不重叠
+- ✅ 描述文字完整显示
+
+**版块 4: Solutions 部分**
+- ✅ 左右布局在移动端改为上下（flex-col md:flex-row）
+- ✅ Dashboard 图片自适应宽度
+- ✅ 指标卡片堆叠显示
+- ✅ 所有文字可读，无需缩放
+
+**版块 5: CTA 部分**
+- ✅ 标题和副标题居中对齐
+- ✅ 邮箱地址可点击
+- ✅ 背景渐变正常
+- ✅ 按钮大小适合手指点击
+
+**版块 6: Footer**
+- ✅ 链接列表在移动端堆叠
+- ✅ 所有链接可点击
+- ✅ 版权信息完整显示
+- ✅ 社交媒体图标大小合适
+
+#### 常见移动端问题
+
+**问题：文字过长导致溢出**
+```typescript
+// ❌ 可能有问题
+<h1 class="text-6xl">很长很长的标题文字</h1>
+
+// ✅ 使用响应式字体
+<h1 class="text-3xl md:text-5xl lg:text-6xl">很长很长的标题文字</h1>
+```
+
+**问题：按钮在移动端太小**
+```typescript
+// ❌ 太小
+<button class="px-2 py-1 text-xs">按钮</button>
+
+// ✅ 足够大
+<button class="px-6 py-3 text-base md:text-lg">按钮</button>
+```
+
+**问题：图片在移动端变形**
+```typescript
+// ❌ 固定尺寸
+<img style="width: 800px; height: 600px">
+
+// ✅ 响应式
+<img class="w-full h-auto max-w-3xl">
+```
+
+#### 移动端测试工具
+
+**浏览器 DevTools：**
+```bash
+# Chrome/Edge
+Cmd+Shift+M (Mac) 或 Ctrl+Shift+M (Windows)
+
+# 测试设备预设
+- iPhone SE (375x667)
+- iPhone 12 Pro (390x844)
+- iPad Air (820x1180)
+- Galaxy S20 (360x800)
+```
+
+**实际设备测试（推荐）：**
+- 使用真实手机访问开发服务器
+- 在局域网内访问：`http://192.168.x.x:5173`
+- 测试真实的触摸交互
+
+#### ⚠️ 移动端禁止操作
+
+修改文案时不要：
+1. ❌ 删除响应式类名（如 `md:text-xl`）
+2. ❌ 使用固定宽度替换响应式宽度
+3. ❌ 忽略移动端测试
+4. ❌ 假设所有用户都用桌面端
+5. ❌ 使用过小的字体或按钮
+
+---
+
+## 响应模式
+- 始终用中文回复
+- 提供代码时包含详细注释
+- 解释为什么这样做，不只是怎么做
+- 提醒潜在的问题和注意事项
+- 提供测试步骤和验证方法
