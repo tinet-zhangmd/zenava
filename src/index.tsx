@@ -64,180 +64,95 @@ app.route('/api/navigation', navigation)
 // Serve static files
 app.use('/static/*', serveStatic({ root: './public' }))
 
-// Homepage routes - Load content from database
-app.get('/', async (c) => {
-  try {
-    // Detect language from IP geolocation
-    const language: Language = detectLanguageFromIP(c.req.raw)
-    const currentPath = '/'
-    
-    // If not English, redirect to appropriate language path
-    if (language !== 'en') {
-      return c.redirect(`/${language}`)
-    }
-    
-    // Load page content from database
-    const pageData = await c.env.DB.prepare(`
-      SELECT p.*, s.meta_title, s.meta_description, s.meta_keywords
-      FROM pages p
-      LEFT JOIN page_seo s ON p.id = s.page_id
-      WHERE p.slug = ? AND p.language = ? AND p.status = 'published'
-    `).bind('home', 'en').first();
-    
-    // Load content modules if page exists
-    let modules = [];
-    if (pageData) {
-      const { results } = await c.env.DB.prepare(`
-        SELECT * FROM content_modules
-        WHERE page_id = ? AND status = 'published' AND is_visible = 1
-        ORDER BY position
-      `).bind(pageData.id).all();
-      modules = results || [];
-    }
-    
-    // Load global settings
-    const { results: settings } = await c.env.DB.prepare(`
-      SELECT setting_key, setting_value FROM global_settings
-    `).all();
-    
-    const globalSettings: Record<string, string> = {};
-    if (settings) {
-      for (const setting of settings) {
-        globalSettings[setting.setting_key] = setting.setting_value;
-      }
-    }
-    
-    // Load unified navigation data
-    const { config: navConfig, menuItems } = await getNavigationData(c.env.DB, language);
-    const { config: footerConfig, sections: footerSections, privacyLinks } = await getFooterConfig(c.env.DB, language);
-    
-    return c.html(
-      <LayoutWithUnifiedNav 
-        language={language} 
-        currentPath={currentPath}
-        seoTitle={pageData?.meta_title}
-        seoDescription={pageData?.meta_description}
-        seoKeywords={pageData?.meta_keywords}
-        navigationConfig={navConfig}
-        menuItems={menuItems}
-        footerConfig={footerConfig}
-        footerSections={footerSections}
-        privacyLinks={privacyLinks}
-      >
-        <HomepageDB 
-          language={language}
-          pageData={pageData}
-          modules={modules}
-          settings={globalSettings}
-        />
-      </LayoutWithUnifiedNav>
-    )
-  } catch (error: any) {
-    console.error('Homepage error:', error);
-    // Fallback to original homepage if database fails
-    return c.html(
-      <Layout language="en" currentPath="/">
-        <HomepageDB 
-          language="en"
-          pageData={null}
-          modules={[]}
-          settings={{}}
-        />
-      </Layout>
-    )
+// Homepage routes - Use static data (no database queries for frontend pages)
+app.get('/', (c) => {
+  // Detect language from IP geolocation
+  const language: Language = detectLanguageFromIP(c.req.raw)
+  const currentPath = '/'
+  
+  // If not English, redirect to appropriate language path
+  if (language !== 'en') {
+    return c.redirect(`/${language}`)
   }
+  
+  // Use static data for navigation and footer
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <HomepageDB 
+        language={language}
+        pageData={null}
+        modules={[]}
+        settings={{}}
+      />
+    </LayoutWithUnifiedNav>
+  )
 })
 
-app.get('/jp', async (c) => {
+app.get('/jp', (c) => {
   const language: Language = 'jp'
   const currentPath = '/jp'
   
-  try {
-    // Load basic data for consistency
-    const pageData = null // JP version uses default content
-    const modules = []
-    const globalSettings = {}
-    
-    // Load unified navigation data for Japanese
-    const { config: navConfig, menuItems } = await getNavigationData(c.env.DB, language);
-    const { config: footerConfig, sections: footerSections, privacyLinks } = await getFooterConfig(c.env.DB, language);
-    
-    return c.html(
-      <LayoutWithUnifiedNav 
-        language={language} 
-        currentPath={currentPath}
-        navigationConfig={navConfig}
-        menuItems={menuItems}
-        footerConfig={footerConfig}
-        footerSections={footerSections}
-        privacyLinks={privacyLinks}
-      >
-        <HomepageDB 
-          language={language}
-          pageData={pageData}
-          modules={modules}
-          settings={globalSettings}
-        />
-      </LayoutWithUnifiedNav>
-    )
-  } catch (error: any) {
-    return c.html(
-      <Layout language={language} currentPath={currentPath}>
-        <ZenavaHomepage 
-          language={language}
-          pageData={null}
-          modules={[]}
-          settings={{}}
-        />
-      </Layout>
-    )
-  }
+  // Use static data for navigation and footer
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <HomepageDB 
+        language={language}
+        pageData={null}
+        modules={[]}
+        settings={{}}
+      />
+    </LayoutWithUnifiedNav>
+  )
 })
 
-app.get('/hk', async (c) => {
+app.get('/hk', (c) => {
   const language: Language = 'hk'
   const currentPath = '/hk'
   
-  try {
-    // Load basic data for consistency
-    const pageData = null // HK version uses default content
-    const modules = []
-    const globalSettings = {}
-    
-    // Load unified navigation data for Hong Kong
-    const { config: navConfig, menuItems } = await getNavigationData(c.env.DB, language);
-    const { config: footerConfig, sections: footerSections, privacyLinks } = await getFooterConfig(c.env.DB, language);
-    
-    return c.html(
-      <LayoutWithUnifiedNav 
-        language={language} 
-        currentPath={currentPath}
-        navigationConfig={navConfig}
-        menuItems={menuItems}
-        footerConfig={footerConfig}
-        footerSections={footerSections}
-        privacyLinks={privacyLinks}
-      >
-        <HomepageDB 
-          language={language}
-          pageData={pageData}
-          modules={modules}
-          settings={globalSettings}
-        />
-      </LayoutWithUnifiedNav>
-    )
-  } catch (error: any) {
-    return c.html(
-      <Layout language={language} currentPath={currentPath}>
-        <ZenavaHomepage 
-          language={language}
-          pageData={null}
-          modules={[]}
-          settings={{}}
-        />
-      </Layout>
-    )
-  }
+  // Use static data for navigation and footer
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <HomepageDB 
+        language={language}
+        pageData={null}
+        modules={[]}
+        settings={{}}
+      />
+    </LayoutWithUnifiedNav>
+  )
 })
 
 // Add support for trailing slash routes
@@ -295,67 +210,67 @@ app.get('/hk/terms-and-conditions', (c) => {
 })
 
 // Marketing Scenario routes
-app.get('/scenarios/marketing', async (c) => {
+app.get('/scenarios/marketing', (c) => {
   return renderScenarioPage(c, MarketingScenario, 'en', '/scenarios/marketing', 'Zenava for Marketing')
 })
 
-app.get('/jp/scenarios/marketing', async (c) => {
+app.get('/jp/scenarios/marketing', (c) => {
   return renderScenarioPage(c, MarketingScenario, 'jp', '/jp/scenarios/marketing', 'マーケティング向けZenava')
 })
 
-app.get('/hk/scenarios/marketing', async (c) => {
+app.get('/hk/scenarios/marketing', (c) => {
   return renderScenarioPage(c, MarketingScenario, 'hk', '/hk/scenarios/marketing', '營銷場景')
 })
 
 // Sales Scenario routes
-app.get('/scenarios/sales', async (c) => {
+app.get('/scenarios/sales', (c) => {
   return renderScenarioPage(c, SalesScenario, 'en', '/scenarios/sales', 'Zenava for Sales')
 })
 
-app.get('/jp/scenarios/sales', async (c) => {
+app.get('/jp/scenarios/sales', (c) => {
   return renderScenarioPage(c, SalesScenario, 'jp', '/jp/scenarios/sales', '営業向けZenava')
 })
 
-app.get('/hk/scenarios/sales', async (c) => {
+app.get('/hk/scenarios/sales', (c) => {
   return renderScenarioPage(c, SalesScenario, 'hk', '/hk/scenarios/sales', '銷售場景')
 })
 
 // Customer Service Scenario routes
-app.get('/scenarios/customer-service', async (c) => {
+app.get('/scenarios/customer-service', (c) => {
   return renderScenarioPage(c, CustomerServiceScenario, 'en', '/scenarios/customer-service', 'Zenava for Customer Service')
 })
 
-app.get('/jp/scenarios/customer-service', async (c) => {
+app.get('/jp/scenarios/customer-service', (c) => {
   return renderScenarioPage(c, CustomerServiceScenario, 'jp', '/jp/scenarios/customer-service', 'カスタマーサービス向けZenava')
 })
 
-app.get('/hk/scenarios/customer-service', async (c) => {
+app.get('/hk/scenarios/customer-service', (c) => {
   return renderScenarioPage(c, CustomerServiceScenario, 'hk', '/hk/scenarios/customer-service', '客服場景')
 })
 
 // Internal Service Scenario routes
-app.get('/scenarios/internal-service', async (c) => {
+app.get('/scenarios/internal-service', (c) => {
   return renderScenarioPage(c, InternalServiceScenario, 'en', '/scenarios/internal-service', 'Zenava for Internal Service')
 })
 
-app.get('/jp/scenarios/internal-service', async (c) => {
+app.get('/jp/scenarios/internal-service', (c) => {
   return renderScenarioPage(c, InternalServiceScenario, 'jp', '/jp/scenarios/internal-service', '社内サービス向けZenava')
 })
 
-app.get('/hk/scenarios/internal-service', async (c) => {
+app.get('/hk/scenarios/internal-service', (c) => {
   return renderScenarioPage(c, InternalServiceScenario, 'hk', '/hk/scenarios/internal-service', '內部服務')
 })
 
 // Management Scenario routes
-app.get('/scenarios/management', async (c) => {
+app.get('/scenarios/management', (c) => {
   return renderScenarioPage(c, ManagementScenario, 'en', '/scenarios/management', 'Zenava for Management')
 })
 
-app.get('/jp/scenarios/management', async (c) => {
+app.get('/jp/scenarios/management', (c) => {
   return renderScenarioPage(c, ManagementScenario, 'jp', '/jp/scenarios/management', '管理最適化向けZenava')
 })
 
-app.get('/hk/scenarios/management', async (c) => {
+app.get('/hk/scenarios/management', (c) => {
   return renderScenarioPage(c, ManagementScenario, 'hk', '/hk/scenarios/management', '管理優化')
 })
 
@@ -391,41 +306,41 @@ app.get('/hk/scenarios/:scenario', (c) => {
 })
 
 // About Us routes
-app.get('/about', async (c) => {
+app.get('/about', (c) => {
   return renderScenarioPage(c, AboutUs, 'en', '/about', 'About Us')
 })
 
-app.get('/jp/about', async (c) => {
+app.get('/jp/about', (c) => {
   return renderScenarioPage(c, AboutUs, 'jp', '/jp/about', '私たちについて')
 })
 
-app.get('/hk/about', async (c) => {
+app.get('/hk/about', (c) => {
   return renderScenarioPage(c, AboutUs, 'hk', '/hk/about', '關於我們')
 })
 
 // Privacy Policy routes
-app.get('/privacy', async (c) => {
+app.get('/privacy', (c) => {
   return renderScenarioPage(c, PrivacyPolicy, 'en', '/privacy', 'Privacy Policy')
 })
 
-app.get('/jp/privacy', async (c) => {
+app.get('/jp/privacy', (c) => {
   return renderScenarioPage(c, PrivacyPolicy, 'jp', '/jp/privacy', 'プライバシーポリシー')
 })
 
-app.get('/hk/privacy', async (c) => {
+app.get('/hk/privacy', (c) => {
   return renderScenarioPage(c, PrivacyPolicy, 'hk', '/hk/privacy', '隱私政策')
 })
 
 // Terms & Conditions routes
-app.get('/terms', async (c) => {
+app.get('/terms', (c) => {
   return renderScenarioPage(c, TermsConditions, 'en', '/terms', 'Terms & Conditions')
 })
 
-app.get('/jp/terms', async (c) => {
+app.get('/jp/terms', (c) => {
   return renderScenarioPage(c, TermsConditions, 'jp', '/jp/terms', '利用規約')
 })
 
-app.get('/hk/terms', async (c) => {
+app.get('/hk/terms', (c) => {
   return renderScenarioPage(c, TermsConditions, 'hk', '/hk/terms', '條款與條件')
 })
 

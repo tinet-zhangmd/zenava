@@ -1,88 +1,14 @@
-import type { D1Database } from '@cloudflare/workers-types'
 import { Language } from './i18n.js'
 import type { NavigationConfig, NavMenuItem } from '../components/UnifiedNavigation.js'
 
-export async function getNavigationData(
-  db: D1Database,
+// 前端页面使用静态数据，不再从数据库读取
+export function getNavigationData(
   language: Language = 'en'
-): Promise<{ config: NavigationConfig; menuItems: NavMenuItem[] }> {
-  try {
-    // Get navigation configuration (always get id=1, regardless of status)
-    // This ensures admin changes are reflected immediately
-    const configResult = await db.prepare(`
-      SELECT * FROM navigation_config WHERE id = 1
-    `).first()
-    
-    // Get menu items
-    const menuItems = await db.prepare(`
-      SELECT * FROM navigation_menu_items 
-      WHERE visible = 1 
-      ORDER BY order_index
-    `).all()
-    
-    // Get submenu items for each dropdown menu
-    const menuItemsWithChildren = await Promise.all(
-      menuItems.results.map(async (item) => {
-        if (item.type === 'dropdown') {
-          const children = await db.prepare(`
-            SELECT * FROM navigation_submenu_items 
-            WHERE parent_id = ? AND visible = 1 
-            ORDER BY order_index
-          `).bind(item.id).all()
-          
-          return {
-            ...item,
-            order: item.order_index,
-            children: children.results.map((child: any) => ({
-              ...child,
-              order: child.order_index
-            }))
-          }
-        }
-        return {
-          ...item,
-          order: item.order_index
-        }
-      })
-    )
-    
-    // Parse available languages
-    let availableLanguages = ['en', 'jp', 'hk'] as Language[]
-    if (configResult?.available_languages) {
-      try {
-        availableLanguages = JSON.parse(configResult.available_languages as string)
-      } catch (e) {
-        console.error('Error parsing available_languages:', e)
-      }
-    }
-    
-    // If no config found, return defaults
-    if (!configResult) {
-      return {
-        config: getDefaultNavigationConfig(),
-        menuItems: getDefaultMenuItems()
-      }
-    }
-    
-    return {
-      config: {
-        ...configResult,
-        nav_blur: configResult.nav_blur === 1,
-        nav_fixed: configResult.nav_fixed === 1,
-        mobile_menu_enabled: configResult.mobile_menu_enabled === 1,
-        cta_enabled: configResult.cta_enabled === 1,
-        show_language_switcher: configResult.show_language_switcher === 1,
-        available_languages: availableLanguages
-      } as NavigationConfig,
-      menuItems: menuItemsWithChildren as NavMenuItem[]
-    }
-  } catch (error) {
-    console.error('Error getting navigation data:', error)
-    // Return default configuration on error
-    return {
-      config: getDefaultNavigationConfig(),
-      menuItems: getDefaultMenuItems()
-    }
+): { config: NavigationConfig; menuItems: NavMenuItem[] } {
+  // 直接返回静态默认配置
+  return {
+    config: getDefaultNavigationConfig(),
+    menuItems: getDefaultMenuItems()
   }
 }
 

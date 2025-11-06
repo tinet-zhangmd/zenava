@@ -4,7 +4,8 @@ import { LayoutWithUnifiedNav } from '../components/LayoutWithUnifiedNav.js'
 import { getNavigationData } from './navigation-helper.js'
 import { getFooterConfig } from './common-content.js'
 
-export async function renderScenarioPage(
+// 前端页面使用静态数据，不再从数据库读取
+export function renderScenarioPage(
   c: Context,
   ScenarioComponent: any,
   language: Language,
@@ -12,9 +13,9 @@ export async function renderScenarioPage(
   title?: string
 ) {
   try {
-    // Load unified navigation data
-    const { config: navConfig, menuItems } = await getNavigationData(c.env.DB, language)
-    const { config: footerConfig, sections: footerSections, privacyLinks } = await getFooterConfig(c.env.DB, language)
+    // 使用静态数据，不再传递数据库参数
+    const { config: navConfig, menuItems } = getNavigationData(language)
+    const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language)
     
     return c.html(
       <LayoutWithUnifiedNav
