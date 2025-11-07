@@ -3,7 +3,7 @@
 ## 项目概览
 - **名称**: Zenava CMS
 - **目标**: 为Zenava网站提供完整的内容管理解决方案，支持多语言、SEO优化和公共内容管理
-- **技术栈**: Hono + TypeScript + Cloudflare Pages + D1 Database + TailwindCSS
+- **技术栈**: Hono + TypeScript + Cloudflare Pages + D1 Database + TailwindCSS + fontawesome图标库
 
 ## 🌐 访问地址
 - **开发环境**: http://localhost:3000

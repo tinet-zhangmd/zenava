@@ -35,8 +35,8 @@ export const siteTranslations = {
     
     // Business Value
     businessValue: {
-      title: 'What Zenava Can Deliver for Your Enterprise',
-      subtitle: 'Transform organizational capabilities and reshape customer experience through AI-driven dialogue intelligence',
+      title: 'ZENAVA Modification',
+      subtitle: 'This is the subtitle',
       metrics: {
         marketing: {
           title: 'Marketing Performance Metrics',
@@ -389,8 +389,8 @@ export const siteTranslations = {
     
     // Business Value - Professional tone
     businessValue: {
-      title: 'Zenavaが御社にもたらす価値',
-      subtitle: 'AI主導の対話インテリジエンスを通じて、組織能力を変革し、顧客体験を再構築',
+      title: 'ZENAVA改修',
+      subtitle: 'これはサブタイトルです',
       metrics: {
         marketing: {
           title: 'マーケティング成果指標',
@@ -696,8 +696,8 @@ export const siteTranslations = {
     
     // Business Value
     businessValue: {
-      title: 'Zenava能為企業帶來什麼',
-      subtitle: '透過AI驅動的對話智能，變革組織能力，重塑客戶體驗',
+      title: 'ZENAVA修改',
+      subtitle: '這是副標題',
       metrics: {
         marketing: {
           title: '行銷成效指標',
@@ -1003,8 +1003,8 @@ export const siteTranslations = {
     
     // 业务价值
     businessValue: {
-      title: 'Zenava能为企业带来什么',
-      subtitle: '通过AI驱动的对话智能，变革组织能力，重塑客户体验',
+      title: 'ZENAVA修改',
+      subtitle: '这是副标题',
       metrics: {
         marketing: {
           title: '营销成效指标',

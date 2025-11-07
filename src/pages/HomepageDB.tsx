@@ -250,90 +250,91 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
           </div>
 
           <div class="space-y-16">
-            {/* Marketing Business - Solution 1 */}
+            {/* 版块3 - 第1项：左文右图 */}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* 左侧：文字内容 */}
               <div data-animate="slide-up">
-                <div class="flex items-center mb-6">
-                  <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
-                    <i class="fas fa-bullhorn text-purple-600 text-xl"></i>
+                {/* 标题行（可点击） */}
+                <a 
+                  href="https://www.baidu.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center mb-6 group cursor-pointer"
+                >
+                  <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-purple-200 transition-colors">
+                    <i class="fas fa-robot text-purple-600 text-xl"></i>
                   </div>
-                  <h3 class="text-2xl font-bold text-gray-900">{trans.scenarios.marketing.title}</h3>
-                </div>
-                <h4 class="text-lg font-semibold text-purple-600 mb-4">
-                  {trans.scenarios.marketing.subtitle}
+                  <h3 class="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
+                    {language === 'zh' && 'AI驱动的营销自动化'}
+                    {language === 'en' && 'AI-Driven Marketing Automation'}
+                    {language === 'jp' && 'AI駆動のマーケティングオートメーション'}
+                    {language === 'hk' && 'AI驅動的營銷自動化'}
+                  </h3>
+                </a>
+                <h4 class="text-lg md:text-xl font-semibold text-purple-600 mb-4">
+                  {language === 'zh' && '智能获客，精准转化'}
+                  {language === 'en' && 'Intelligent Lead Generation, Precise Conversion'}
+                  {language === 'jp' && 'スマートリード獲得、正確なコンバージョン'}
+                  {language === 'hk' && '智能獲客，精準轉化'}
                 </h4>
-                <p class="text-gray-700 mb-6 leading-relaxed">
-                  {trans.scenarios.marketing.description}
+                <p class="text-base md:text-lg text-gray-700 mb-6 leading-relaxed">
+                  {language === 'zh' && '通过AI智能获客识别'}
+                  {language === 'en' && 'Through AI-powered intelligent customer acquisition and recognition'}
+                  {language === 'jp' && 'AIによるスマートな顧客獲得と認識'}
+                  {language === 'hk' && '通過AI智能獲客識別'}
                 </p>
-                <div class="flex space-x-4">
-                  {trans.scenarios.marketing.features?.map((feature: string, index: number) => (
-                    <div class="flex items-center text-sm text-gray-600">
-                      <i class="fas fa-check text-green-500 mr-2"></i>
-                      <span>{feature}</span>
-                    </div>
-                  )) || (
-                    <>
-                      <div class="flex items-center text-sm text-gray-600">
-                        <i class="fas fa-check text-green-500 mr-2"></i>
-                        <span>{trans.scenarios.marketing.features?.[0]}</span>
-                      </div>
-                      <div class="flex items-center text-sm text-gray-600">
-                        <i class="fas fa-check text-green-500 mr-2"></i>
-                        <span>{trans.scenarios.marketing.features?.[1]}</span>
-                      </div>
-                      <div class="flex items-center text-sm text-gray-600">
-                        <i class="fas fa-check text-green-500 mr-2"></i>
-                        <span>{trans.scenarios.marketing.features?.[2]}</span>
-                      </div>
-                    </>
-                  )}
+                <div class="flex flex-wrap gap-4 mb-6">
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>
+                      {language === 'zh' && '智能识别'}
+                      {language === 'en' && 'Smart Recognition'}
+                      {language === 'jp' && 'スマート認識'}
+                      {language === 'hk' && '智能識別'}
+                    </span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>
+                      {language === 'zh' && '实时优化'}
+                      {language === 'en' && 'Real-time Optimization'}
+                      {language === 'jp' && 'リアルタイム最適化'}
+                      {language === 'hk' && '實時優化'}
+                    </span>
+                  </div>
                 </div>
+                
+                {/* 按钮 */}
+                <a 
+                  href="https://www.baidu.com" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
+                >
+                  <span>
+                    {language === 'zh' && '了解更多营销自动化'}
+                    {language === 'en' && 'Learn More About Marketing Automation'}
+                    {language === 'jp' && 'マーケティングオートメーションの詳細'}
+                    {language === 'hk' && '了解更多營銷自動化'}
+                  </span>
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </a>
               </div>
               
-              <div class="bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
-                <h4 class="font-bold text-gray-900 mb-6">{trans.businessValue?.metrics?.marketing?.title || 'Marketing Performance'}</h4>
-                
-                <div class="space-y-4">
-                  <div class="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
-                    <div>
-                      <p class="text-sm text-gray-600">{trans.businessValue?.metrics?.marketing?.costReduction || 'Cost Reduced'}</p>
-                      <p class="text-2xl font-bold text-purple-600">43%</p>
-                    </div>
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                      <i class="fas fa-arrow-down text-purple-600"></i>
-                    </div>
-                  </div>
-                  
-                  <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
-                    <div>
-                      <p class="text-sm text-gray-600">{trans.businessValue?.metrics?.marketing?.conversionIncrease || 'Conversion Increased'}</p>
-                      <p class="text-2xl font-bold text-green-600">65%</p>
-                    </div>
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                      <i class="fas fa-arrow-up text-green-600"></i>
-                    </div>
-                  </div>
-                  
-                  <div class="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
-                    <div>
-                      <p class="text-sm text-gray-600">{trans.businessValue.metrics.marketing.responseTime}</p>
-                      <p class="text-2xl font-bold text-blue-600">{trans.businessValue.metrics.marketing.responseValue}</p>
-                    </div>
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <i class="fas fa-bolt text-blue-600"></i>
-                    </div>
-                  </div>
-                  
-                  <div class="border-t pt-4">
-                    <div class="flex items-center justify-between">
-                      <span class="text-sm text-gray-600">{trans.businessValue.metrics.marketing.channelCoverage}</span>
-                      <span class="text-sm font-bold text-gray-900">{trans.businessValue.metrics.marketing.channelCount}</span>
-                    </div>
-                    <div class="flex items-center justify-between mt-2">
-                      <span class="text-sm text-gray-600">{trans.businessValue.metrics.marketing.dailyInquiries}</span>
-                      <span class="text-sm font-bold text-gray-900">{trans.businessValue.metrics.marketing.dailyCount}</span>
-                    </div>
-                  </div>
+              {/* 右侧：图片 */}
+              <div class="relative" data-animate="slide-up">
+                <div class="rounded-xl overflow-hidden shadow-xl">
+                  <img 
+                    src="/assets/images/right-one.png" 
+                    alt={
+                      language === 'zh' ? '实体图片' :
+                      language === 'en' ? 'Physical Image' :
+                      language === 'jp' ? '実体画像' :
+                      '實體圖片'
+                    }
+                    class="w-full h-auto object-cover"
+                    loading="lazy"
+                  />
                 </div>
               </div>
             </div>
@@ -382,19 +383,25 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               </div>
 
               <div class="order-1 lg:order-2" data-animate="slide-up">
-                <div class="flex items-center mb-6">
-                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                {/* 标题行（可点击） */}
+                <a 
+                  href="https://www.baidu.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center mb-6 group cursor-pointer"
+                >
+                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-200 transition-colors">
                     <i class="fas fa-chart-line text-blue-600 text-xl"></i>
                   </div>
-                  <h3 class="text-2xl font-bold text-gray-900">{trans.scenarios.sales.title}</h3>
-                </div>
+                  <h3 class="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">{trans.scenarios.sales.title}</h3>
+                </a>
                 <h4 class="text-lg font-semibold text-blue-600 mb-4">
                   {trans.scenarios.sales.subtitle}
                 </h4>
                 <p class="text-gray-700 mb-6 leading-relaxed">
                   {trans.scenarios.sales.description}
                 </p>
-                <div class="flex space-x-4">
+                <div class="flex space-x-4 mb-6">
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
                     <span>{trans.scenarios.sales.featureShort?.[0] || trans.scenarios.sales.features?.[0] || 'Talk Track'}</span>
@@ -408,25 +415,47 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                     <span>{trans.scenarios.sales.featureShort?.[2] || trans.scenarios.sales.features?.[2] || 'Smart Closing'}</span>
                   </div>
                 </div>
+                
+                {/* 按钮 */}
+                <a 
+                  href="https://www.baidu.com" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
+                >
+                  <span>
+                    {language === 'zh' && '了解更多智能销售'}
+                    {language === 'en' && 'Learn More About Sales'}
+                    {language === 'jp' && '営業の詳細'}
+                    {language === 'hk' && '了解更多智能銷售'}
+                  </span>
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </a>
               </div>
             </div>
 
             {/* Customer Service Business - Solution 3 */}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div data-animate="slide-up">
-                <div class="flex items-center mb-6">
-                  <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                {/* 标题行（可点击） */}
+                <a 
+                  href="https://www.baidu.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center mb-6 group cursor-pointer"
+                >
+                  <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-orange-200 transition-colors">
                     <i class="fas fa-headset text-orange-600 text-xl"></i>
                   </div>
-                  <h3 class="text-2xl font-bold text-gray-900">{trans.scenarios.customerService.title}</h3>
-                </div>
+                  <h3 class="text-2xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors">{trans.scenarios.customerService.title}</h3>
+                </a>
                 <h4 class="text-lg font-semibold text-orange-600 mb-4">
                   {trans.scenarios.customerService.subtitle}
                 </h4>
                 <p class="text-gray-700 mb-6 leading-relaxed">
                   {trans.scenarios.customerService.description}
                 </p>
-                <div class="flex space-x-4">
+                <div class="flex space-x-4 mb-6">
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
                     <span>{trans.scenarios.customerService.featureShort?.[0] || trans.scenarios.customerService.features?.[0] || '24/7 Response'}</span>
@@ -440,6 +469,22 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                     <span>{trans.scenarios.customerService.featureShort?.[2] || trans.scenarios.customerService.features?.[2] || 'Smart Ticketing'}</span>
                   </div>
                 </div>
+                
+                {/* 按钮 */}
+                <a 
+                  href="https://www.baidu.com" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
+                >
+                  <span>
+                    {language === 'zh' && '了解更多客户服务'}
+                    {language === 'en' && 'Learn More About Customer Service'}
+                    {language === 'jp' && 'カスタマーサービスの詳細'}
+                    {language === 'hk' && '了解更多客戶服務'}
+                  </span>
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </a>
               </div>
               
               <div class="bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
@@ -481,62 +526,50 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               </div>
             </div>
 
-            {/* Store/Dealer Operations - Solution 4 */}
+            {/* Internal Service - Solution 4 */}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div class="order-2 lg:order-1 bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
-                  <div class="space-y-6">
-                  <h4 class="font-bold text-gray-900 mb-4">{trans.operationsMetrics?.title || '运营效率提升'}</h4>
-                  
-                  <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-                      <div class="flex items-center justify-between">
-                        <i class="fas fa-store text-green-600 text-2xl"></i>
-                        <span class="text-2xl font-bold text-green-600">{trans.operationsMetrics?.storeCount || '500+'}</span>
-                      </div>
-                      <p class="text-sm text-gray-700 mt-2">{trans.operationsMetrics?.storeAccess || '门店接入'}</p>
-                    </div>
-                    
-                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <div class="flex items-center justify-between">
-                        <i class="fas fa-tasks text-blue-600 text-2xl"></i>
-                        <span class="text-2xl font-bold text-blue-600">{trans.operationsMetrics?.dailyVolume || '10K+'}</span>
-                      </div>
-                      <p class="text-sm text-gray-700 mt-2">{trans.operationsMetrics?.dailyProcessing || '日均处理'}</p>
-                    </div>
-                    
-                    <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
-                      <div class="flex items-center justify-between">
-                        <i class="fas fa-clock text-purple-600 text-2xl"></i>
-                        <span class="text-lg font-bold text-purple-600">{trans.operationsMetrics?.responseTime || '2小时'}</span>
-                      </div>
-                      <p class="text-sm text-gray-700 mt-2">{trans.operationsMetrics?.avgResponse || '平均响应'}</p>
-                    </div>
-                    
-                    <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
-                      <div class="flex items-center justify-between">
-                        <i class="fas fa-chart-line text-orange-600 text-2xl"></i>
-                        <span class="text-lg font-bold text-orange-600">{trans.operationsMetrics?.efficiencyRate || '85%'}</span>
-                      </div>
-                      <p class="text-sm text-gray-700 mt-2">{trans.operationsMetrics?.dispatchEfficiency || '派单效率'}</p>
-                    </div>
-                  </div>
+              {/* 左侧：视频 */}
+              <div class="order-2 lg:order-1 relative" data-animate="slide-up">
+                <div class="rounded-xl overflow-hidden shadow-xl">
+                  <video 
+                    src="/assets/video/codegen.mov"
+                    class="w-full h-auto"
+                    autoplay
+                    loop
+                    muted
+                    controls
+                    playsinline
+                  >
+                    <p class="p-8 bg-gray-100 text-center">
+                      {language === 'zh' && '您的浏览器不支持视频播放'}
+                      {language === 'en' && 'Your browser does not support video playback'}
+                      {language === 'jp' && 'お使いのブラウザは動画再生に対応していません'}
+                      {language === 'hk' && '您的瀏覽器不支持視頻播放'}
+                    </p>
+                  </video>
                 </div>
               </div>
               
               <div class="order-1 lg:order-2" data-animate="slide-up">
-                <div class="flex items-center mb-6">
-                  <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4">
+                {/* 标题行（可点击） */}
+                <a 
+                  href="https://www.baidu.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center mb-6 group cursor-pointer"
+                >
+                  <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-indigo-200 transition-colors">
                     <i class="fas fa-network-wired text-indigo-600 text-xl"></i>
                   </div>
-                  <h3 class="text-2xl font-bold text-gray-900">{trans.scenarios.internalService.title}</h3>
-                </div>
+                  <h3 class="text-2xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">{trans.scenarios.internalService.title}</h3>
+                </a>
                 <h4 class="text-lg font-semibold text-indigo-600 mb-4">
                   {trans.scenarios.internalService.subtitle}
                 </h4>
                 <p class="text-gray-700 mb-6 leading-relaxed">
                   {trans.scenarios.internalService.description}
                 </p>
-                <div class="flex space-x-4">
+                <div class="flex space-x-4 mb-6">
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
                     <span>{trans.scenarios.internalService.featureShort?.[0] || trans.scenarios.internalService.features?.[0] || '统一入口'}</span>
@@ -550,25 +583,47 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                     <span>{trans.scenarios.internalService.featureShort?.[2] || trans.scenarios.internalService.features?.[2] || '数据分析'}</span>
                   </div>
                 </div>
+                
+                {/* 按钮 */}
+                <a 
+                  href="https://www.baidu.com" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
+                >
+                  <span>
+                    {language === 'zh' && '了解更多内部服务'}
+                    {language === 'en' && 'Learn More About Internal Service'}
+                    {language === 'jp' && '社内サービスの詳細'}
+                    {language === 'hk' && '了解更多內部服務'}
+                  </span>
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </a>
               </div>
             </div>
 
             {/* Product Design & Optimization - Solution 5 */}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div data-animate="slide-up">
-                <div class="flex items-center mb-6">
-                  <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                {/* 标题行（可点击） */}
+                <a 
+                  href="https://www.baidu.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center mb-6 group cursor-pointer"
+                >
+                  <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-purple-200 transition-colors">
                     <i class="fas fa-pencil-ruler text-purple-600 text-xl"></i>
                   </div>
-                  <h3 class="text-2xl font-bold text-gray-900">{trans.scenarios.management.title}</h3>
-                </div>
+                  <h3 class="text-2xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">{trans.scenarios.management.title}</h3>
+                </a>
                 <h4 class="text-lg font-semibold text-purple-600 mb-4">
                   {trans.scenarios.management.subtitle}
                 </h4>
                 <p class="text-gray-700 mb-6 leading-relaxed">
                   {trans.scenarios.management.description}
                 </p>
-                <div class="flex space-x-4">
+                <div class="flex space-x-4 mb-6">
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
                     <span>{trans.scenarios.management.featureShort?.[0] || trans.scenarios.management.features?.[0] || '痛点识别'}</span>
@@ -582,6 +637,22 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                     <span>{trans.scenarios.management.featureShort?.[2] || trans.scenarios.management.features?.[2] || '迭代闭环'}</span>
                   </div>
                 </div>
+                
+                {/* 按钮 */}
+                <a 
+                  href="https://www.baidu.com" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
+                >
+                  <span>
+                    {language === 'zh' && '了解更多管理优化'}
+                    {language === 'en' && 'Learn More About Management'}
+                    {language === 'jp' && '管理の詳細'}
+                    {language === 'hk' && '了解更多管理優化'}
+                  </span>
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </a>
               </div>
               
               <div class="bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
@@ -682,12 +753,18 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               </div>
               
               <div class="order-1 lg:order-2" data-animate="slide-up">
-                <div class="flex items-center mb-6">
-                  <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mr-4">
+                {/* 标题行（可点击） */}
+                <a 
+                  href="https://www.baidu.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center mb-6 group cursor-pointer"
+                >
+                  <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-teal-200 transition-colors">
                     <i class="fas fa-shield-alt text-teal-600 text-xl"></i>
                   </div>
-                  <h3 class="text-2xl font-bold text-gray-900">{language === 'en' ? 'Brand & Reputation Management' : language === 'jp' ? 'ブランド・評判管理' : '品牌與輿情管理'}</h3>
-                </div>
+                  <h3 class="text-2xl font-bold text-gray-900 group-hover:text-teal-600 transition-colors">{language === 'en' ? 'Brand & Reputation Management' : language === 'jp' ? 'ブランド・評判管理' : '品牌與輿情管理'}</h3>
+                </a>
                 <h4 class="text-lg font-semibold text-teal-600 mb-4">
                   {language === 'en' ? 'Real-time Brand Protection' : language === 'jp' ? 'リアルタイムブランド保護' : '實時守護企業品牌安全'}
                 </h4>
@@ -698,7 +775,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                     ? 'ソーシャルとサービスデータを統合し、インテリジェントなリスク検出を実現。高リスク会話のリアルタイムアラートと自動対応ワークフロー。顧客感情を定量化し、コミュニケーション戦略を最適化。'
                     : '融合社交與客服數據，智能識別輿情風險；實時預警高風險對話，自動觸發應對流程；量化客戶情緒，優化溝通策略；自動質檢服務用語，保障品牌一致性。'}
                 </p>
-                <div class="flex space-x-4">
+                <div class="flex space-x-4 mb-6">
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
                     <span>{trans.scenarios.management?.brandFeatures?.[0] || 'Risk Alert'}</span>
@@ -712,6 +789,22 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                     <span>{trans.scenarios.management?.brandFeatures?.[2] || 'Quality Control'}</span>
                   </div>
                 </div>
+                
+                {/* 按钮 */}
+                <a 
+                  href="https://www.baidu.com" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
+                >
+                  <span>
+                    {language === 'zh' && '了解更多品牌管理'}
+                    {language === 'en' && 'Learn More About Brand Management'}
+                    {language === 'jp' && 'ブランド管理の詳細'}
+                    {language === 'hk' && '了解更多品牌管理'}
+                  </span>
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </a>
               </div>
             </div>
           </div>

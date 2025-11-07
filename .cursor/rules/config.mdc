@@ -614,6 +614,574 @@ scenarios: {
 - ✅ 保持API响应格式一致
 - ✅ 记录重要的配置变更
 
+## 首页"版块3：核心能力与成效"修改规则
+
+### 版块定位
+- **文件路径**: `src/pages/HomepageDB.tsx` 或 `src/components/CapabilitiesSection.tsx`
+- **版块位置**: 首页第三个主要内容区域
+- **版块功能**: 展示 Zenava 的核心能力和实际成效，通过左右交替布局呈现
+- **支持语言**: 简体中文(zh)、英文(en)、日文(jp)、繁体中文(hk)
+- **主要输入语言**: 简体中文 (zh) - 其他语言自动生成
+
+### 版块结构说明（左右交替布局）
+
+#### 🎨 布局规则
+- **第1项**: 左边文字 → 右边图片
+- **第2项**: 右边文字 → 左边图片
+- **第3项**: 左边文字 → 右边图片
+- **第4项**: 右边文字 → 左边图片
+- 以此类推，奇数项左文右图，偶数项右文左图
+
+#### 📍 文字区域包含元素
+**包含元素**:
+- 图标 (icon)
+- 主标题（如："市场营销自动化"）
+- 副标题（如："提升转化率，降低获客成本"）
+- 功能描述段落（1-2句话）
+- 功能标签列表（3-5个标签）
+
+#### 📍 图片区域包含元素
+**包含元素**:
+- 主图片（展示产品界面、数据可视化、使用场景等）
+- 图片描述（可选）
+- 图片链接/路径
+
+---
+
+### 🎯 快速修改模板
+
+版块3由**多个子项**组成，每个子项包含**文字区**和**图片区**，按照左右交替布局。
+
+#### 完整版块3数据结构
+
+```typescript
+// 版块3：包含多个子项的数组
+const capabilitiesItems = [
+  // 第1项：左文右图
+  {
+    id: 'item-1',
+    layout: 'text-left',  // 文字在左，图片在右
+    
+    // 文字区域
+    content: {
+      icon: 'fas fa-bullhorn',  // Font Awesome 图标
+      title: {
+        zh: '【主标题-简体中文】',
+        en: '【AI自动生成】',
+        jp: '【AI自动生成】',
+        hk: '【AI自动生成】'
+      },
+      subtitle: {
+        zh: '【副标题-简体中文】',
+        en: '【AI自动生成】',
+        jp: '【AI自动生成】',
+        hk: '【AI自动生成】'
+      },
+      description: {
+        zh: '【描述段落-简体中文，1-2句话】',
+        en: '【AI自动生成】',
+        jp: '【AI自动生成】',
+        hk: '【AI自动生成】'
+      },
+      features: [
+        { zh: '【标签1】', en: '【AI自动生成】', jp: '【AI自动生成】', hk: '【AI自动生成】' },
+        { zh: '【标签2】', en: '【AI自动生成】', jp: '【AI自动生成】', hk: '【AI自动生成】' },
+        { zh: '【标签3】', en: '【AI自动生成】', jp: '【AI自动生成】', hk: '【AI自动生成】' }
+      ]
+    },
+    
+    // 图片区域
+    image: {
+      src: '/images/capability-1.png',  // 图片路径
+      alt: {
+        zh: '【图片描述-简体中文】',
+        en: '【AI自动生成】',
+        jp: '【AI自动生成】',
+        hk: '【AI自动生成】'
+      }
+    }
+  },
+  
+  // 第2项：右文左图
+  {
+    id: 'item-2',
+    layout: 'text-right',  // 文字在右，图片在左
+    
+    content: { /* 同上结构 */ },
+    image: { /* 同上结构 */ }
+  },
+  
+  // 第3项：左文右图
+  {
+    id: 'item-3',
+    layout: 'text-left',
+    
+    content: { /* 同上结构 */ },
+    image: { /* 同上结构 */ }
+  }
+]
+```
+
+---
+
+#### 模板：添加或修改单个子项
+
+**当我说："修改版块3第1项"或"添加版块3新项"时，使用此模板：**
+
+```typescript
+// 📝 单个子项模板
+{
+  id: 'item-【序号】',
+  layout: '【自动判断：奇数项 text-left，偶数项 text-right】',
+  
+  // 文字区域（四种语言）
+  content: {
+    icon: 'fas fa-【图标名】',  // robot, bullhorn, chart-line, headset, users-cog 等
+    
+    title: {
+      zh: '【主标题-简体中文】',
+      en: '【AI自动生成】',
+      jp: '【AI自动生成】',
+      hk: '【AI自动生成】'
+    },
+    
+    // 标题链接（可选，用户提供）
+    titleLink: '【用户提供的链接】',  // 如：/scenarios/marketing 或 https://...
+    
+    subtitle: {
+      zh: '【副标题-简体中文】',
+      en: '【AI自动生成】',
+      jp: '【AI自动生成】',
+      hk: '【AI自动生成】'
+    },
+    
+    description: {
+      zh: '【描述-简体中文，建议30-50字】',
+      en: '【AI自动生成】',
+      jp: '【AI自动生成】',
+      hk: '【AI自动生成】'
+    },
+    
+    features: [
+      { zh: '【标签1】', en: '【AI自动生成】', jp: '【AI自动生成】', hk: '【AI自动生成】' },
+      { zh: '【标签2】', en: '【AI自动生成】', jp: '【AI自动生成】', hk: '【AI自动生成】' },
+      { zh: '【标签3】', en: '【AI自动生成】', jp: '【AI自动生成】', hk: '【AI自动生成】' },
+      { zh: '【标签4】', en: '【AI自动生成】', jp: '【AI自动生成】', hk: '【AI自动生成】' }
+    ],
+    
+    // 按钮配置（必需）
+    button: {
+      text: {
+        zh: '了解更多【主题名称】',  // 如：了解更多市场营销
+        en: '【AI自动生成】',          // 如：Learn More About Marketing
+        jp: '【AI自动生成】',          // 如：マーケティングの詳細
+        hk: '【AI自动生成】'           // 如：了解更多【主題名稱】
+      },
+      url: '【用户提供的链接】'  // 如：/scenarios/marketing 或 https://...
+    }
+  },
+  
+  // 媒体区域（图片或视频，根据文件后缀自动识别）
+  media: {
+    src: '/images/【文件名.后缀】',  // 图片：.png/.jpg/.jpeg/.gif/.webp/.svg，视频：.mp4/.webm/.ogg/.mov/.avi
+    type: 'auto',  // 自动根据文件后缀识别：图片或视频
+    alt: {
+      zh: '【媒体描述-简体中文】',
+      en: '【AI自动生成】',
+      jp: '【AI自动生成】',
+      hk: '【AI自动生成】'
+    },
+    // 视频专属配置（可选，仅当媒体类型为视频时使用）
+    autoplay?: boolean,  // 是否自动播放（默认 false）
+    loop?: boolean,      // 是否循环播放（默认 false）
+    muted?: boolean,     // 是否静音（默认 true，自动播放时必须为 true）
+    controls?: boolean   // 是否显示控制条（默认 true）
+  }
+}
+```
+
+---
+
+### 📝 用户输入格式（简化版）
+
+**用户只需提供简体中文，按以下格式输入：**
+
+#### 示例 1：修改第1项（图片）
+```
+修改版块3第1项：
+- 图标：fas fa-robot
+- 标题：市场营销自动化
+- 标题链接：/scenarios/marketing
+- 副标题：提升转化率，降低获客成本
+- 描述：实时识别客户意图，统一话术留资，智能分配高潜线索，基于会话分析反哺营销策略优化。
+- 标签：意图识别、智能留资、多渠道整合、预测分析
+- 按钮：了解更多市场营销
+- 按钮链接：/scenarios/marketing
+- 媒体：/images/marketing-automation.png
+- 媒体描述：市场营销自动化界面展示
+```
+
+#### 示例 2：修改第2项（外部图片）
+```
+修改版块3第2项：
+- 图标：fas fa-chart-line
+- 标题：智能销售赋能
+- 标题链接：/scenarios/sales
+- 副标题：缩短销售周期，提升成单率
+- 描述：AI自动分析客户画像，提供精准销售建议，智能跟进提醒，帮助销售团队聚焦高价值客户。
+- 标签：客户画像、智能推荐、跟进提醒、销售预测
+- 按钮：了解更多智能销售
+- 按钮链接：/scenarios/sales
+- 媒体：https://example.com/sales-ai.png
+- 媒体描述：智能销售系统数据面板
+```
+
+#### 示例 3：添加新项（视频）
+```
+添加版块3新项：
+- 图标：fas fa-headset
+- 标题：7x24智能客服
+- 标题链接：/scenarios/customer-service
+- 副标题：全天候响应，零等待
+- 描述：AI智能客服系统实现全天候服务，自动处理常见问题，情感识别提升体验，工单自动分配。
+- 标签：智能应答、情感识别、多轮对话、自动工单
+- 按钮：了解更多客户服务
+- 按钮链接：/scenarios/customer-service
+- 媒体：/videos/customer-service-demo.mp4
+- 媒体描述：智能客服对话演示视频
+- 视频配置：自动播放、循环播放、静音
+```
+
+---
+
+### 🔘 按钮样式规范
+
+每个版块3子项的文字区域下方**必须包含一个按钮**，按钮用于引导用户了解更多详情。
+
+#### 按钮样式（参考红框示例图）
+```typescript
+// 按钮 Tailwind CSS 类名
+class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
+```
+
+#### 按钮样式说明
+- **形状**: 圆角按钮 (`rounded-full`)
+- **边框**: 2px 橙色边框 (`border-2 border-orange-500`)
+- **文字颜色**: 橙色 (`text-orange-500`)
+- **内边距**: 左右 `px-6`，上下 `py-3`
+- **悬停效果**: 橙色背景 + 白色文字 (`hover:bg-orange-500 hover:text-white`)
+- **过渡动画**: 300ms 平滑过渡 (`transition-all duration-300`)
+- **字体**: 加粗 (`font-semibold`)
+
+#### 按钮文案格式
+```
+中文：了解更多【主题名称】
+英文：Learn More About 【Topic】
+日文：【主题名称】の詳細
+繁体：了解更多【主題名稱】
+```
+
+#### 按钮示例
+| 主题 | 简体中文 | 英文 | 日文 | 繁体 |
+|------|----------|------|------|------|
+| 市场营销 | 了解更多市场营销 | Learn More About Marketing | マーケティングの詳細 | 了解更多市場營銷 |
+| 智能销售 | 了解更多智能销售 | Learn More About Sales | 営業の詳細 | 了解更多智能銷售 |
+| 客户服务 | 了解更多客户服务 | Learn More About Customer Service | カスタマーサービスの詳細 | 了解更多客戶服務 |
+
+---
+
+### 🤖 AI 自动处理流程
+
+当用户提供简体中文后，AI会：
+
+1. ✅ **接收简体中文输入**（包括按钮文字、链接、媒体文件）
+2. 🤖 **自动生成英文翻译**（符合国际企业级标准）
+3. 🤖 **自动生成日文翻译**（使用敬语和商务用语）
+4. 🤖 **自动生成繁体中文翻译**（使用港台商务用语）
+5. 📍 **自动判断布局方向**（第1、3、5项左文右图，第2、4、6项右文左图）
+6. 🔘 **自动生成按钮四语言版本**
+7. 🎬 **自动识别媒体类型**（根据文件后缀判断图片或视频）
+8. 📂 **打开对应文件**（`src/pages/HomepageDB.tsx` 或组件文件）
+9. 📝 **更新或添加对应的子项数据**（包括按钮和媒体配置）
+10. 💾 **保存文件**，Vite 自动热重载
+
+---
+
+### 📋 完整版块3修改示例
+
+**用户输入：**
+```
+修改版块3完整内容，包含3个子项：
+
+第1项：
+- 标题：市场营销自动化
+- 副标题：提升转化率，降低获客成本
+- 描述：实时识别客户意图，统一话术留资，智能分配高潜线索，基于会话分析反哺营销策略优化。
+- 标签：意图识别、智能留资、多渠道整合、预测分析
+- 按钮：了解更多市场营销
+- 链接：/scenarios/marketing
+- 媒体：/images/marketing.png
+
+第2项：
+- 标题：智能销售赋能
+- 副标题：缩短销售周期，提升成单率
+- 描述：AI自动分析客户画像，提供精准销售建议，智能跟进提醒，帮助销售团队聚焦高价值客户。
+- 标签：客户画像、智能推荐、跟进提醒、销售预测
+- 按钮：了解更多智能销售
+- 链接：/scenarios/sales
+- 媒体：/videos/sales-demo.mp4
+
+第3项：
+- 标题：7x24智能客服
+- 副标题：全天候响应，零等待
+- 描述：AI智能客服系统实现全天候服务，自动处理常见问题，情感识别提升体验，工单自动分配。
+- 标签：智能应答、情感识别、多轮对话、自动工单
+- 按钮：了解更多客户服务
+- 链接：/scenarios/customer-service
+- 媒体：/images/service.png
+```
+
+**AI 会自动：**
+- ✅ 为每个子项生成四种语言版本
+- ✅ 第1项设置为左文右图
+- ✅ 第2项设置为右文左图
+- ✅ 第3项设置为左文右图
+- ✅ 更新代码中的完整数据结构
+
+---
+
+### ✅ 修改注意事项
+
+#### 必须遵守：
+1. **四语同步**: 所有文字内容必须包含 zh、en、jp、hk 四个语言版本
+2. **自动翻译**: 用户只提供简体中文，AI 自动生成其他三种语言
+3. **按钮必需**: 每个子项的文字区域下方必须包含按钮（橙色圆角样式）
+4. **按钮四语**: 按钮文字必须包含四种语言版本
+5. **保持格式**: 不要修改 JSX 结构、CSS 类名
+6. **品牌名称**: "Zenava" 不翻译，保持统一
+7. **响应式**: 确保移动端正常显示
+8. **布局交替**: 自动判断奇偶数，设置正确的布局方向
+
+#### ❌ 禁止操作：
+1. ❌ 不要修改组件结构（div、section 等）
+2. ❌ 不要删除响应式类名（md:、lg: 等）
+3. ❌ 不要手动设置布局方向（由奇偶数自动判断）
+4. ❌ 不要修改图片容器的响应式样式
+5. ❌ 不要破坏左右交替的规则
+
+#### 📏 内容长度建议：
+- **主标题**: 4-8个汉字（英文 2-5 个单词）
+- **副标题**: 8-15个汉字（英文 5-10 个单词）
+- **描述段落**: 30-50个汉字（英文 20-40 个单词）
+- **功能标签**: 每个 2-5个汉字（英文 1-3 个单词）
+- **图片alt**: 10-20个汉字（英文 5-15 个单词）
+
+---
+
+### 🎨 可用的图标类名（Font Awesome）
+
+```typescript
+// 常用图标
+'fas fa-robot'          // 机器人（AI）
+'fas fa-bullhorn'       // 喇叭（营销）
+'fas fa-chart-line'     // 图表（销售）
+'fas fa-headset'        // 耳机（客服）
+'fas fa-users-cog'      // 用户管理（内部服务）
+'fas fa-tasks'          // 任务（管理）
+'fas fa-comments'       // 对话（消息）
+'fas fa-microphone'     // 麦克风（语音）
+'fas fa-brain'          // 大脑（智能）
+'fas fa-magic'          // 魔法（自动化）
+'fas fa-cogs'           // 齿轮（设置/配置）
+'fas fa-shield-alt'     // 盾牌（安全）
+'fas fa-rocket'         // 火箭（快速/增长）
+```
+
+---
+
+### 🎬 媒体要求（图片 & 视频）
+
+#### 🔍 媒体类型自动识别
+
+AI 会根据文件后缀**自动识别**媒体类型：
+
+| 后缀名 | 媒体类型 | 说明 |
+|--------|----------|------|
+| `.png`, `.jpg`, `.jpeg` | 图片 | 常用图片格式 |
+| `.gif`, `.webp`, `.svg` | 图片 | 动图和矢量图 |
+| `.mp4`, `.webm`, `.ogg` | 视频 | Web 常用视频格式 |
+| `.mov`, `.avi` | 视频 | 其他视频格式 |
+
+**自动识别逻辑**:
+```typescript
+const isVideo = /\.(mp4|webm|ogg|mov|avi)$/i.test(src);
+const isImage = /\.(png|jpg|jpeg|gif|webp|svg)$/i.test(src);
+```
+
+---
+
+#### 📸 图片规范
+
+**格式和尺寸**:
+- **推荐格式**: PNG（透明背景）、JPG、WebP
+- **推荐尺寸**: 宽度 800-1200px，高度 600-800px
+- **长宽比**: 4:3 或 16:9
+- **文件大小**: < 500KB（优化后）
+
+**路径规范**:
+```typescript
+// ✅ 本地图片（推荐）
+'/images/capability-marketing.png'
+'/assets/images/product-screenshot.jpg'
+
+// ✅ 外部图片（使用 CDN）
+'https://cdn.example.com/images/marketing.webp'
+
+// ❌ 不推荐：相对路径
+'../images/marketing.png'
+```
+
+**内容建议**:
+1. **产品界面截图** - 展示实际功能界面
+2. **数据可视化** - 图表、仪表板、KPI展示
+3. **使用场景插画** - 业务场景示意图
+4. **3D渲染图** - 高端科技感视觉
+5. **客户案例图** - 真实客户使用场景
+
+---
+
+#### 🎥 视频规范
+
+**格式和尺寸**:
+- **推荐格式**: MP4（H.264编码）、WebM
+- **推荐尺寸**: 1920x1080 (1080p) 或 1280x720 (720p)
+- **长宽比**: 16:9
+- **文件大小**: < 10MB（优化后）
+- **时长**: 建议 15-60 秒
+
+**路径规范**:
+```typescript
+// ✅ 本地视频（推荐）
+'/videos/product-demo.mp4'
+'/assets/videos/customer-service-intro.webm'
+
+// ✅ 外部视频（使用 CDN）
+'https://cdn.example.com/videos/marketing-demo.mp4'
+```
+
+**视频配置选项**:
+```typescript
+// 用户可在输入中指定（可选）
+- 视频配置：自动播放、循环播放、静音、显示控制条
+```
+
+| 配置项 | 说明 | 默认值 | 用途 |
+|--------|------|--------|------|
+| 自动播放 | `autoplay` | `false` | 页面加载时自动播放 |
+| 循环播放 | `loop` | `false` | 视频结束后重新播放 |
+| 静音 | `muted` | `true` | 静音播放（自动播放时必须） |
+| 显示控制条 | `controls` | `true` | 显示播放/暂停按钮 |
+
+**内容建议**:
+1. **产品演示** - 展示核心功能操作流程
+2. **功能介绍** - 讲解产品特点和优势
+3. **客户案例** - 真实客户使用视频
+4. **动画效果** - 数据流转、系统架构可视化
+5. **宣传片** - 品牌形象展示
+
+---
+
+#### 🔗 媒体路径规范（统一）
+
+```typescript
+// ✅ 推荐：本地资源
+'/images/marketing.png'          // 图片
+'/videos/demo.mp4'               // 视频
+
+// ✅ 推荐：CDN 资源
+'https://cdn.example.com/images/screenshot.jpg'
+'https://cdn.example.com/videos/intro.mp4'
+
+// ❌ 不推荐：相对路径
+'../images/marketing.png'
+'./videos/demo.mp4'
+```
+
+---
+
+### 📱 移动端响应式检查
+
+修改版块3后，必须检查：
+
+#### 布局响应式
+- ✅ 左右两栏在移动端改为上下堆叠（`flex-col md:flex-row`）
+- ✅ 第1、3、5项（左文右图）在移动端变为：文字在上，图片在下
+- ✅ 第2、4、6项（右文左图）在移动端变为：文字在上，图片在下
+- ✅ 图片宽度在移动端自适应（`w-full md:w-1/2`）
+
+#### 文字响应式
+- ✅ 主标题大小适中（`text-2xl md:text-3xl lg:text-4xl`）
+- ✅ 副标题大小适中（`text-lg md:text-xl`）
+- ✅ 描述段落可读（`text-base md:text-lg`）
+- ✅ 功能标签自动换行不溢出
+- ✅ 图标大小合适（`text-3xl md:text-4xl`）
+
+#### 图片响应式
+- ✅ 图片在移动端正常显示，不变形
+- ✅ 图片加载失败有 alt 文字提示
+- ✅ 图片圆角和阴影正常（`rounded-lg shadow-lg`）
+- ✅ 图片容器间距合理（`mb-8 md:mb-0`）
+
+#### 间距和对齐
+- ✅ 各子项之间间距合理（`space-y-16 md:space-y-24`）
+- ✅ 内容左右边距适中（`px-4 md:px-8 lg:px-12`）
+- ✅ 文字和图片垂直居中对齐（桌面端）
+- ✅ 文字和图片水平居中（移动端）
+
+---
+
+### 🚀 测试验证步骤
+
+修改后必须验证：
+
+#### 1. 多语言测试
+- ✅ 在浏览器中检查**四种语言版本**
+- ✅ 验证每种语言的文字长度不会破坏布局
+- ✅ 检查功能标签在不同语言下不溢出
+
+**语言切换测试路径：**
+- 简体中文：`http://localhost:5173`
+- 英文：`http://localhost:5173/en`
+- 日文：`http://localhost:5173/jp`
+- 繁体中文：`http://localhost:5173/hk`
+
+#### 2. 响应式测试（必须！）
+- ✅ 切换到移动端视图（DevTools: Cmd/Ctrl+Shift+M）
+- ✅ 测试 iPhone SE (375px)
+- ✅ 测试 iPhone 12/13/14 (390px)
+- ✅ 测试 iPad (768px)
+- ✅ 测试桌面端 (1024px+)
+
+#### 3. 布局交替验证
+- ✅ 第1项：桌面端左文右图，移动端文字在上
+- ✅ 第2项：桌面端右文左图，移动端文字在上
+- ✅ 第3项：桌面端左文右图，移动端文字在上
+- ✅ 确认每个子项的 `layout` 属性正确
+
+#### 4. 图片验证
+- ✅ 所有图片路径正确，能正常加载
+- ✅ 图片有正确的 alt 描述（四种语言）
+- ✅ 图片在不同屏幕尺寸下不变形
+- ✅ 图片加载速度可接受（< 2秒）
+
+#### 5. 代码验证
+- ✅ 确保没有 TypeScript 编译错误
+- ✅ 运行 `npm run build` 成功
+- ✅ 检查控制台无 JavaScript 错误
+- ✅ 检查图片路径无 404 错误
+
+---
+
 ## Management Optimization 页面文案修改规则
 
 ### 页面文件位置
@@ -960,6 +1528,720 @@ Cmd+Shift+M (Mac) 或 Ctrl+Shift+M (Windows)
 3. ❌ 忽略移动端测试
 4. ❌ 假设所有用户都用桌面端
 5. ❌ 使用过小的字体或按钮
+
+---
+
+## 底部Footer修改规则
+
+### Footer定位
+- **文件路径**: `src/components/UnifiedFooter.tsx`
+- **组件位置**: 所有页面底部
+- **组件功能**: 展示公司信息、导航链接、社交媒体、版权信息
+- **支持语言**: 简体中文(zh)、英文(en)、日文(jp)、繁体中文(hk)
+- **主要输入语言**: 简体中文 (zh) - 其他语言自动生成
+
+### Footer结构说明
+
+#### 🎨 整体布局
+- **分为左右两部分**（桌面端）
+- **移动端上下堆叠**（单列布局）
+- **背景色**: 深色主题（如 `bg-gray-900` 或 `bg-[#1a2332]`）
+- **文字颜色**: 浅色系（`text-gray-300`、`text-white`）
+
+---
+
+### 📍 左侧内容区域（从上到下）
+
+#### 1. LOGO（可点击）
+```typescript
+{
+  logo: {
+    src: 'src/assets/zenava-logo-base64.ts',  // 使用现有Logo
+    alt: {
+      zh: 'ZENAVA Logo',
+      en: 'ZENAVA Logo',
+      jp: 'ZENAVA ロゴ',
+      hk: 'ZENAVA Logo'
+    },
+    link: '【用户提供的链接】'  // 如：'/' 或 'https://...'
+  }
+}
+```
+
+**样式要求**:
+- Logo 高度: `h-8` 或 `h-10`（约32-40px）
+- 可点击，鼠标悬停显示手型光标
+- 点击跳转到首页或指定链接
+
+---
+
+#### 2. 短标题（Slogan）
+```typescript
+{
+  slogan: {
+    zh: '【短标题-简体中文】',
+    en: '【AI自动生成】',
+    jp: '【AI自动生成】',
+    hk: '【AI自动生成】'
+  }
+}
+```
+
+**示例**:
+- 简体中文: `'Conversational AI Agent for Marketing and Service Scenarios'`
+- 英文: `'AI-Powered Conversational Solutions'`
+- 日文: `'マーケティングとサービスシナリオのための会話型AIエージェント'`
+- 繁体中文: `'營銷與服務場景的對話式AI代理'`
+
+**样式要求**:
+- 字体大小: `text-sm` 或 `text-base`（14-16px）
+- 颜色: `text-gray-400` 或 `text-gray-300`
+- 行高: `leading-relaxed`
+- 最大宽度: `max-w-md`（避免过宽）
+
+---
+
+#### 3. 描述文字
+```typescript
+{
+  description: {
+    zh: '【描述-简体中文，建议50-80字】',
+    en: '【AI自动生成】',
+    jp: '【AI自动生成】',
+    hk: '【AI自动生成】'
+  }
+}
+```
+
+**示例**:
+- 简体中文: `'助力企业完成生产力与组织形态变革，实现从「人力驱动」到「AI驱动」的跨越'`
+- 英文: `'Empowering enterprises to transform productivity and organizational structure, from human-driven to AI-driven'`
+
+**样式要求**:
+- 字体大小: `text-sm`（14px）
+- 颜色: `text-gray-400`
+- 行高: `leading-relaxed`
+- 最大宽度: `max-w-md`
+- 上下边距: `mt-4 mb-6`
+
+---
+
+#### 4. 邮箱地址
+```typescript
+{
+  email: {
+    address: 'marketing@zenava.ai',
+    icon: 'fas fa-envelope',  // Font Awesome 图标
+    label: {
+      zh: '联系邮箱',
+      en: 'Email',
+      jp: 'メール',
+      hk: '聯繫郵箱'
+    }
+  }
+}
+```
+
+**样式要求**:
+- 字体大小: `text-sm`
+- 颜色: `text-gray-300`（默认），`hover:text-white`（悬停）
+- 图标: `mr-2`（右边距）
+- 可点击: `<a href="mailto:marketing@zenava.ai">`
+- 悬停效果: 下划线或颜色变亮
+
+---
+
+#### 5. 社交媒体标签（国外媒体）
+
+```typescript
+{
+  socialMedia: [
+    {
+      name: 'LinkedIn',
+      icon: 'fab fa-linkedin',  // Font Awesome Brands
+      url: '【用户提供的LinkedIn链接】',
+      hoverColor: 'hover:text-blue-500'
+    },
+    {
+      name: 'Twitter',
+      icon: 'fab fa-twitter',
+      url: '【用户提供的Twitter链接】',
+      hoverColor: 'hover:text-sky-400'
+    },
+    {
+      name: 'Facebook',
+      icon: 'fab fa-facebook',
+      url: '【用户提供的Facebook链接】',
+      hoverColor: 'hover:text-blue-600'
+    },
+    {
+      name: 'YouTube',
+      icon: 'fab fa-youtube',
+      url: '【用户提供的YouTube链接】',
+      hoverColor: 'hover:text-red-500'
+    },
+    {
+      name: 'GitHub',
+      icon: 'fab fa-github',
+      url: '【用户提供的GitHub链接】',
+      hoverColor: 'hover:text-gray-400'
+    }
+  ]
+}
+```
+
+**样式要求**:
+- 布局: 横向排列 `flex space-x-4`
+- 图标大小: `text-xl` 或 `text-2xl`（20-24px）
+- 默认颜色: `text-gray-400`
+- 悬停效果: 
+  - 颜色变亮（如 LinkedIn 变蓝色）
+  - 轻微放大 `hover:scale-110 transition-transform`
+  - 平滑过渡 `transition-all duration-300`
+- 新窗口打开: `target="_blank" rel="noopener noreferrer"`
+
+**可用社交媒体图标**:
+```typescript
+'fab fa-linkedin'      // LinkedIn
+'fab fa-twitter'       // Twitter (X)
+'fab fa-facebook'      // Facebook
+'fab fa-instagram'     // Instagram
+'fab fa-youtube'       // YouTube
+'fab fa-github'        // GitHub
+'fab fa-wechat'        // 微信
+'fab fa-weibo'         // 微博
+'fab fa-tiktok'        // TikTok
+'fab fa-telegram'      // Telegram
+```
+
+---
+
+#### 6. 商标版权信息
+```typescript
+{
+  copyright: {
+    year: 'auto',  // 自动获取当前年份：new Date().getFullYear()
+    company: 'Zenava',
+    text: {
+      zh: '© {year} Zenava. 保留所有权利。',
+      en: '© {year} Zenava. All rights reserved.',
+      jp: '© {year} Zenava. 全著作権所有。',
+      hk: '© {year} Zenava. 保留所有權利。'
+    }
+  }
+}
+```
+
+**样式要求**:
+- 字体大小: `text-xs` 或 `text-sm`（12-14px）
+- 颜色: `text-gray-500`
+- 位置: 左侧最底部或整个Footer最底部（横跨全宽）
+- 上边距: `mt-8` 或 `pt-8 border-t border-gray-800`（顶部分割线）
+
+---
+
+### 📍 右侧内容区域（导航链接）
+
+#### 🎨 布局规则
+- **一级菜单**: 从左到右排列（4列）
+- **二级菜单**: 从上到下排列（每列最多5-8个链接）
+- **响应式**: 移动端改为单列，手风琴式展开（可选）
+
+#### 一级菜单结构
+
+```typescript
+{
+  navigationColumns: [
+    // 第1列：产品
+    {
+      title: {
+        zh: '产品',
+        en: 'Products',
+        jp: '製品',
+        hk: '產品'
+      },
+      links: [
+        {
+          label: {
+            zh: 'AI agents',
+            en: 'AI agents',
+            jp: 'AI agents',
+            hk: 'AI agents'
+          },
+          url: '/products/ai-agents'
+        },
+        {
+          label: {
+            zh: '传讯与即时对话',
+            en: 'Messaging & Chat',
+            jp: 'メッセージング＆チャット',
+            hk: '傳訊與即時對話'
+          },
+          url: '/products/messaging'
+        },
+        {
+          label: {
+            zh: 'Voice',
+            en: 'Voice',
+            jp: 'Voice',
+            hk: 'Voice'
+          },
+          url: '/products/voice'
+        }
+      ]
+    },
+    
+    // 第2列：行业
+    {
+      title: {
+        zh: '行业',
+        en: 'Industries',
+        jp: '業界',
+        hk: '行業'
+      },
+      links: [
+        {
+          label: {
+            zh: '零售',
+            en: 'Retail',
+            jp: '小売',
+            hk: '零售'
+          },
+          url: '/industries/retail'
+        },
+        {
+          label: {
+            zh: '汽车产业',
+            en: 'Automotive',
+            jp: '自動車産業',
+            hk: '汽車產業'
+          },
+          url: '/industries/automotive'
+        },
+        {
+          label: {
+            zh: '软件',
+            en: 'Software',
+            jp: 'ソフトウェア',
+            hk: '軟件'
+          },
+          url: '/industries/software'
+        },
+        {
+          label: {
+            zh: '饭店·旅游',
+            en: 'Hospitality & Tourism',
+            jp: 'ホスピタリティ＆ツーリズム',
+            hk: '飯店·旅遊'
+          },
+          url: '/industries/hospitality'
+        }
+      ]
+    },
+    
+    // 第3列：资源中心
+    {
+      title: {
+        zh: '资源中心',
+        en: 'Resources',
+        jp: 'リソース',
+        hk: '資源中心'
+      },
+      links: [
+        {
+          label: {
+            zh: '博客',
+            en: 'Blog',
+            jp: 'ブログ',
+            hk: '博客'
+          },
+          url: '/resources/blog'
+        },
+        {
+          label: {
+            zh: '报告',
+            en: 'Reports',
+            jp: 'レポート',
+            hk: '報告'
+          },
+          url: '/resources/reports'
+        },
+        {
+          label: {
+            zh: '视频',
+            en: 'Videos',
+            jp: 'ビデオ',
+            hk: '視頻'
+          },
+          url: '/resources/videos'
+        }
+      ]
+    },
+    
+    // 第4列：关于我们
+    {
+      title: {
+        zh: '关于我们',
+        en: 'Company',
+        jp: '会社情報',
+        hk: '關於我們'
+      },
+      links: [
+        {
+          label: {
+            zh: 'About Us',
+            en: 'About Us',
+            jp: '会社概要',
+            hk: 'About Us'
+          },
+          url: '/about'
+        },
+        {
+          label: {
+            zh: 'Contact Us',
+            en: 'Contact Us',
+            jp: 'お問い合わせ',
+            hk: 'Contact Us'
+          },
+          url: '/contact'
+        },
+        {
+          label: {
+            zh: 'Cookie Preferences',
+            en: 'Cookie Preferences',
+            jp: 'Cookie設定',
+            hk: 'Cookie Preferences'
+          },
+          url: '/cookie-preferences'
+        },
+        {
+          label: {
+            zh: 'Privacy Policy',
+            en: 'Privacy Policy',
+            jp: 'プライバシーポリシー',
+            hk: 'Privacy Policy'
+          },
+          url: '/privacy-policy'
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### 右侧样式要求
+
+**一级标题样式**:
+- 字体大小: `text-sm` 或 `text-base`（14-16px）
+- 颜色: `text-white` 或 `text-gray-200`
+- 字重: `font-semibold` 或 `font-bold`
+- 下边距: `mb-4`
+
+**二级链接样式**:
+- 字体大小: `text-sm`（14px）
+- 颜色: `text-gray-400`（默认），`hover:text-white`（悬停）
+- 间距: `space-y-3`（上下间距）
+- 悬停效果: 
+  - 颜色变亮
+  - 轻微右移 `hover:translate-x-1 transition-transform`
+  - 平滑过渡 `transition-all duration-200`
+
+**列布局样式**:
+- 桌面端: `grid grid-cols-4 gap-8 lg:gap-12`（4列）
+- 平板端: `md:grid-cols-2`（2列）
+- 移动端: `grid-cols-1`（1列）
+
+---
+
+### 📝 用户输入格式（简化版）
+
+**用户只需提供简体中文，按以下格式输入：**
+
+#### 示例 1：修改左侧内容
+```
+修改Footer左侧内容：
+- Logo链接：/
+- 短标题：Conversational AI Agent for Marketing and Service Scenarios
+- 描述：助力企业完成生产力与组织形态变革，实现从「人力驱动」到「AI驱动」的跨越
+- 邮箱：marketing@zenava.ai
+- 社交媒体：LinkedIn, Twitter, Facebook, YouTube
+- LinkedIn链接：https://www.linkedin.com/company/zenava
+- Twitter链接：https://twitter.com/zenava
+- Facebook链接：https://www.facebook.com/zenava
+- YouTube链接：https://www.youtube.com/zenava
+```
+
+#### 示例 2：修改右侧导航
+```
+修改Footer右侧导航：
+
+产品列：
+- AI agents → /products/ai-agents
+- 传讯与即时对话 → /products/messaging
+- Voice → /products/voice
+
+行业列：
+- 零售 → /industries/retail
+- 汽车产业 → /industries/automotive
+- 软件 → /industries/software
+- 饭店·旅游 → /industries/hospitality
+
+资源中心列：
+- 博客 → /resources/blog
+- 报告 → /resources/reports
+- 视频 → /resources/videos
+
+关于我们列：
+- About Us → /about
+- Contact Us → /contact
+- Cookie Preferences → /cookie-preferences
+- Privacy Policy → /privacy-policy
+```
+
+#### 示例 3：修改版权信息
+```
+修改Footer版权信息：
+- 公司名称：Zenava
+- 版权文字：保留所有权利
+```
+
+---
+
+### 🤖 AI 自动处理流程
+
+当用户提供简体中文后，AI会：
+
+1. ✅ **接收简体中文输入**（Logo链接、描述、邮箱、社交媒体、导航链接）
+2. 🤖 **自动生成英文翻译**（符合国际企业级标准）
+3. 🤖 **自动生成日文翻译**（使用敬语和商务用语）
+4. 🤖 **自动生成繁体中文翻译**（使用港台商务用语）
+5. 📂 **打开对应文件**（`src/components/UnifiedFooter.tsx`）
+6. 📝 **更新Footer数据结构**（包括左侧和右侧内容）
+7. 💾 **保存文件**，Vite 自动热重载
+
+---
+
+### ✅ 修改注意事项
+
+#### 必须遵守：
+1. **四语同步**: 所有文字内容必须包含 zh、en、jp、hk 四个语言版本
+2. **自动翻译**: 用户只提供简体中文，AI 自动生成其他三种语言
+3. **保持格式**: 不要修改 JSX 结构、CSS 类名
+4. **品牌名称**: "Zenava" 不翻译，保持统一
+5. **链接有效**: 确保所有链接可用，内部链接使用相对路径
+6. **响应式**: 确保移动端正常显示
+7. **悬停效果**: 所有可点击元素必须有悬停反馈
+
+#### ❌ 禁止操作：
+1. ❌ 不要修改组件结构（div、section 等）
+2. ❌ 不要删除响应式类名（md:、lg: 等）
+3. ❌ 不要修改背景色主题（深色系）
+4. ❌ 不要删除社交媒体图标的悬停效果
+5. ❌ 不要使用绝对定位破坏布局
+
+#### 📏 内容长度建议：
+- **短标题**: 40-60个汉字（英文 20-40 个单词）
+- **描述文字**: 50-80个汉字（英文 30-50 个单词）
+- **导航标题**: 2-5个汉字（英文 1-3 个单词）
+- **导航链接**: 2-8个汉字（英文 1-5 个单词）
+- **版权文字**: 10-20个汉字（英文 5-15 个单词）
+
+---
+
+### 🎨 Footer样式规范
+
+#### 整体容器
+```typescript
+<footer class="bg-gray-900 text-gray-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    {/* Footer 内容 */}
+  </div>
+</footer>
+```
+
+#### 左右分栏布局
+```typescript
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+  {/* 左侧：占1列（lg:col-span-1） */}
+  <div class="lg:col-span-1">
+    {/* Logo, Slogan, 描述, 邮箱, 社交媒体 */}
+  </div>
+  
+  {/* 右侧：占2列（lg:col-span-2） */}
+  <div class="lg:col-span-2">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      {/* 4个导航列 */}
+    </div>
+  </div>
+</div>
+```
+
+#### 社交媒体图标悬停效果
+```typescript
+<a 
+  href={socialLink}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="text-gray-400 hover:text-blue-500 hover:scale-110 transition-all duration-300"
+>
+  <i class={`fab fa-${platform} text-xl`}></i>
+</a>
+```
+
+---
+
+### 📱 移动端响应式检查
+
+修改Footer后，必须检查：
+
+#### 布局响应式
+- ✅ 桌面端左右分栏（1:2比例）
+- ✅ 移动端上下堆叠（单列）
+- ✅ 导航列在移动端2列（`grid-cols-2`）
+- ✅ 社交媒体图标不溢出
+- ✅ Logo大小适中
+
+#### 文字响应式
+- ✅ 描述文字可读（`text-sm`）
+- ✅ 链接大小适中（至少 `text-sm`）
+- ✅ 版权文字清晰（`text-xs` 或 `text-sm`）
+- ✅ 标题加粗可见（`font-semibold`）
+
+#### 交互响应式
+- ✅ 所有链接可点击（点击区域足够大）
+- ✅ 社交媒体图标悬停变色
+- ✅ 邮箱链接可点击跳转邮件客户端
+- ✅ 外部链接新窗口打开
+
+#### 间距响应式
+- ✅ 内容间距合理（`py-12 lg:py-16`）
+- ✅ 列间距适中（`gap-8 lg:gap-12`）
+- ✅ 版权信息与内容分离（`pt-8 border-t`）
+- ✅ 移动端不过度拥挤
+
+---
+
+### 🚀 测试验证步骤
+
+修改后必须验证：
+
+#### 1. 多语言测试
+- ✅ 在浏览器中检查**四种语言版本**
+- ✅ 验证每种语言的文字长度不会破坏布局
+- ✅ 检查链接在不同语言下正确跳转
+
+**语言切换测试路径：**
+- 简体中文：`http://localhost:5173`
+- 英文：`http://localhost:5173/en`
+- 日文：`http://localhost:5173/jp`
+- 繁体中文：`http://localhost:5173/hk`
+
+#### 2. 响应式测试（必须！）
+- ✅ 切换到移动端视图（DevTools: Cmd/Ctrl+Shift+M）
+- ✅ 测试 iPhone SE (375px)
+- ✅ 测试 iPhone 12/13/14 (390px)
+- ✅ 测试 iPad (768px)
+- ✅ 测试桌面端 (1024px+)
+
+#### 3. 交互测试
+- ✅ 点击Logo跳转到首页
+- ✅ 点击邮箱打开邮件客户端
+- ✅ 点击社交媒体图标跳转到对应平台
+- ✅ 悬停链接显示正确的颜色变化
+- ✅ 所有导航链接可点击
+
+#### 4. 外观测试
+- ✅ 背景色为深色（`bg-gray-900`）
+- ✅ 文字颜色清晰可读
+- ✅ 社交媒体图标悬停变色
+- ✅ Logo 清晰显示
+- ✅ 版权信息在底部显示
+
+#### 5. 代码验证
+- ✅ 确保没有 TypeScript 编译错误
+- ✅ 运行 `npm run build` 成功
+- ✅ 检查控制台无 JavaScript 错误
+- ✅ 检查所有链接无 404 错误
+
+---
+
+### 💡 社交媒体平台推荐
+
+#### 国外主流平台
+```typescript
+const socialMediaPlatforms = [
+  { name: 'LinkedIn', icon: 'fab fa-linkedin', color: 'hover:text-blue-500' },
+  { name: 'Twitter', icon: 'fab fa-twitter', color: 'hover:text-sky-400' },
+  { name: 'Facebook', icon: 'fab fa-facebook', color: 'hover:text-blue-600' },
+  { name: 'Instagram', icon: 'fab fa-instagram', color: 'hover:text-pink-500' },
+  { name: 'YouTube', icon: 'fab fa-youtube', color: 'hover:text-red-500' },
+  { name: 'GitHub', icon: 'fab fa-github', color: 'hover:text-gray-300' }
+]
+```
+
+#### 国内平台（可选）
+```typescript
+const domesticPlatforms = [
+  { name: '微信', icon: 'fab fa-weixin', color: 'hover:text-green-500' },
+  { name: '微博', icon: 'fab fa-weibo', color: 'hover:text-red-400' }
+]
+```
+
+---
+
+### 🔄 Footer完整示例结构
+
+```typescript
+// Footer 完整数据结构
+const footerConfig = {
+  // 左侧内容
+  left: {
+    logo: {
+      src: zenavaLogoBase64,
+      link: '/',
+      alt: { zh: 'ZENAVA Logo', en: 'ZENAVA Logo', jp: 'ZENAVA ロゴ', hk: 'ZENAVA Logo' }
+    },
+    slogan: {
+      zh: 'Conversational AI Agent for Marketing and Service Scenarios',
+      en: 'AI-Powered Conversational Solutions',
+      jp: 'マーケティングとサービスシナリオのための会話型AIエージェント',
+      hk: '營銷與服務場景的對話式AI代理'
+    },
+    description: {
+      zh: '助力企业完成生产力与组织形态变革，实现从「人力驱动」到「AI驱动」的跨越',
+      en: 'Empowering enterprises to transform productivity from human-driven to AI-driven',
+      jp: '企業の生産性と組織形態の変革を支援し、「人力駆動」から「AI駆動」への飛躍を実現',
+      hk: '助力企業完成生產力與組織形態變革，實現從「人力驅動」到「AI驅動」的跨越'
+    },
+    email: {
+      address: 'marketing@zenava.ai',
+      icon: 'fas fa-envelope'
+    },
+    socialMedia: [
+      { name: 'LinkedIn', icon: 'fab fa-linkedin', url: 'https://linkedin.com/company/zenava' },
+      { name: 'Twitter', icon: 'fab fa-twitter', url: 'https://twitter.com/zenava' },
+      { name: 'Facebook', icon: 'fab fa-facebook', url: 'https://facebook.com/zenava' },
+      { name: 'YouTube', icon: 'fab fa-youtube', url: 'https://youtube.com/zenava' }
+    ],
+    copyright: {
+      zh: `© ${new Date().getFullYear()} Zenava. 保留所有权利。`,
+      en: `© ${new Date().getFullYear()} Zenava. All rights reserved.`,
+      jp: `© ${new Date().getFullYear()} Zenava. 全著作権所有。`,
+      hk: `© ${new Date().getFullYear()} Zenava. 保留所有權利。`
+    }
+  },
+  
+  // 右侧导航列
+  right: {
+    columns: [
+      { title: { zh: '产品', en: 'Products', jp: '製品', hk: '產品' }, links: [...] },
+      { title: { zh: '行业', en: 'Industries', jp: '業界', hk: '行業' }, links: [...] },
+      { title: { zh: '资源中心', en: 'Resources', jp: 'リソース', hk: '資源中心' }, links: [...] },
+      { title: { zh: '关于我们', en: 'Company', jp: '会社情報', hk: '關於我們' }, links: [...] }
+    ]
+  }
+}
+```
 
 ---
 
