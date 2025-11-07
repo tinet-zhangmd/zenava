@@ -1,0 +1,211 @@
+---
+alwaysApply: true
+---
+# Zenava 项目 - 数据库与部署规则
+
+## 数据库规则
+- 使用 Cloudflare D1 (基于SQLite)
+- 所有schema变更必须通过迁移文件 (`migrations/*.sql`)
+- 本地开发使用：`npm run db:migrate:local`
+- 生产部署使用：`npm run db:migrate:prod`
+- 数据库访问通过 `c.env.DB` 获取
+
+## ⚠️ 重要：修改数据库数据后的操作
+
+**每次修改迁移文件（`migrations/*.sql`）中的数据后，必须重置数据库：**
+
+```bash
+npm run db:reset
+```
+
+**此命令会：**
+1. 删除本地数据库文件（`.wrangler/state/v3/d1`）
+2. 重新运行所有迁移文件（按顺序执行 `0001_*.sql` 到 `00XX_*.sql`）
+3. 执行种子数据填充（`seed.sql`）
+
+**什么时候需要运行？**
+- ✅ 修改了 `migrations/*.sql` 文件中的 `INSERT` 或 `UPDATE` 语句
+- ✅ 修改了表结构（`ALTER TABLE`、`CREATE TABLE`）
+- ✅ 数据库数据不一致或出现错误
+- ❌ 只修改了代码（如 `navigation-helper.ts`），不需要重置数据库
+
+**开发模式 vs 数据库模式：**
+
+| 修改内容 | 是否需要 db:reset | 原因 |
+|---------|------------------|------|
+| 修改 `src/utils/navigation-helper.ts` 中的 `getDefaultMenuItems()` | ❌ 否（如果 `isDev=true`） | 开发模式直接用代码配置 |
+| 修改 `migrations/0008_unified_navigation.sql` 中的 `INSERT` 语句 | ✅ 是（如果 `isDev=false`） | 需要更新数据库实际数据 |
+| 修改 `src/components/UnifiedNavigation.tsx` 组件 | ❌ 否 | 纯前端组件修改 |
+
+**开发建议：**
+- 🔧 **快速开发**：保持 `isDev = true`，直接修改代码中的默认配置
+- 🗄️ **测试数据库**：设置 `isDev = false`，修改 SQL 文件并运行 `npm run db:reset`
+- 🚀 **生产部署**：设置 `isDev = false`，通过 CMS 后台管理数据
+
+## 💡 最佳实践：避免维护两份数据
+
+**问题**：当前存在两份数据源需要同步维护
+1. 代码中的默认配置（`src/utils/navigation-helper.ts`）
+2. 数据库中的配置（`migrations/*.sql`）
+
+**推荐工作流（只维护一份数据）：**
+
+```
+📅 日常开发（90% 时间）
+  ├─ 设置 isDev = true
+  ├─ 只修改 src/utils/navigation-helper.ts 中的代码配置
+  ├─ 保存文件 → Vite 自动热重载 ✅
+  └─ 无需修改 SQL 文件，无需运行 db:reset
+
+📦 准备部署（偶尔一次）
+  ├─ 将最终配置手动同步到 migrations/*.sql
+  ├─ 运行 npm run db:reset 验证数据库
+  ├─ 设置 isDev = false（让生产环境使用数据库）
+  └─ 部署到生产环境
+
+🚀 生产环境
+  ├─ isDev = false（使用数据库）
+  ├─ 客户通过 CMS 后台可视化修改导航
+  └─ 修改立即生效，无需重新部署代码
+```
+
+**为什么这样设计？**
+- 🚀 **开发效率**：改代码比改数据库快 10 倍
+- 🎯 **生产灵活**：客户可以通过 CMS 动态修改，无需技术人员
+- 🛡️ **容错机制**：数据库挂了也能用默认配置，网站不崩溃
+
+**⚠️ 重要：迁移文件不包含业务数据**
+
+`migrations/*.sql` 文件只负责**创建表结构**，不插入业务数据：
+
+```sql
+-- ✅ 正确：只创建表
+CREATE TABLE navigation_menu_items (
+  id TEXT PRIMARY KEY,
+  type TEXT NOT NULL,
+  label TEXT NOT NULL,
+  ...
+);
+
+-- ❌ 不推荐：在迁移文件中插入数据
+INSERT INTO navigation_menu_items VALUES ('products', ...);
+```
+
+**数据来源优先级：**
+1. 🥇 **CMS 后台修改的数据**（存在数据库中）
+2. 🥈 **代码中的默认配置**（`getDefaultMenuItems()`）
+3. 🥉 **迁移文件**（只创建空表）
+
+## CMS内容管理
+- CMS相关API在 `src/api/cms.tsx`
+- 支持动态内容管理（页面内容、导航、页脚等）
+- 使用 `common_content` 表存储通用内容
+- 使用 `navigation_items` 表存储导航结构
+
+## 环境和部署
+
+### 开发环境选择
+
+**方式1: Vite 开发模式（快速开发，无数据库）**
+```bash
+npm run dev                    # 启动 Vite 开发服务器 (http://localhost:5173)
+```
+- ✅ 热重载（HMR），代码修改立即生效
+- ✅ 开发速度快
+- ❌ 无法连接 D1 数据库
+- 📌 适用场景：纯前端页面开发、样式调整
+
+**方式2: Wrangler 开发模式（完整环境，含数据库）**
+```bash
+# 单次构建启动
+npm run build                  # 先构建
+npm run dev:sandbox            # 启动 Wrangler (http://localhost:3000)
+
+# 或使用 PM2（推荐生产模拟）
+npm run pm2:start:d1           # 启动 PM2 带 D1 数据库
+```
+- ✅ 完整 D1 数据库支持
+- ✅ 真实 Cloudflare Pages 环境
+- ❌ 每次修改需要重新构建
+- 📌 适用场景：API开发、数据库操作、CMS功能测试
+
+**方式3: Watch 模式（推荐！兼顾速度和功能）**
+```bash
+# 终端1: 自动监听并构建
+npm run build -- --watch
+
+# 终端2: 启动 Wrangler 服务器
+npx wrangler pages dev dist --d1=zenava-production --local --port 3000
+```
+- ✅ 文件修改自动重新构建
+- ✅ 有 D1 数据库访问
+- ⚡ 相对快速的开发体验
+- 📌 适用场景：全栈开发，推荐日常使用
+
+### 为什么需要构建？
+- Wrangler Pages Dev 运行的是 **Cloudflare Worker 格式**代码（`dist/_worker.js`）
+- D1 数据库是 Cloudflare 的服务，只能在 Cloudflare 环境中使用
+- Vite 开发服务器是纯 Node.js 环境，无法访问 Cloudflare 特有的 Bindings（如 D1、KV 等）
+
+## 常用命令
+
+### 开发
+```bash
+npm run dev                    # Vite开发服务器
+npm run dev:sandbox           # Wrangler开发环境（推荐）
+npm run build                 # 构建项目
+npm run preview               # 预览构建结果
+```
+
+### PM2进程管理
+```bash
+npm run pm2:start             # 启动PM2
+npm run pm2:start:d1          # 启动PM2（带D1数据库）
+npm run pm2:stop              # 停止所有进程
+npm run pm2:restart           # 重启所有进程
+npm run pm2:logs              # 查看日志
+npm run pm2:monit             # 监控
+```
+
+### 数据库
+```bash
+npm run db:migrate:local      # 本地迁移
+npm run db:migrate:prod       # 生产迁移
+npm run db:seed              # 填充种子数据
+npm run db:reset             # 重置数据库
+```
+
+### 部署
+```bash
+npm run deploy               # 部署到Cloudflare
+npm run deploy:prod          # 部署到生产环境
+```
+
+## 文档参考
+- `DEPLOYMENT_GUIDE.md` - 部署指南
+- `ALIYUN_DEPLOYMENT_GUIDE.md` - 阿里云部署
+- `PM2_STARTUP_GUIDE.md` - PM2启动指南
+- `MULTILINGUAL_IMPROVEMENT_PLAN.md` - 多语言改进计划
+- `SECURITY_DEPLOYMENT_CHECKLIST.md` - 安全检查清单
+
+## AI辅助编码指导
+
+### 当我说"数据库变更"时
+1. 创建新的迁移文件 `migrations/XXXX_description.sql`
+2. 编写SQL DDL语句
+3. 运行 `npm run db:migrate:local` 测试
+4. 更新相关的API和类型定义
+
+### 当我说"优化性能"时
+1. 检查数据库查询效率
+2. 添加适当的索引
+3. 使用Cloudflare缓存
+4. 优化静态资源加载
+5. 检查并优化打包大小
+
+### 当我说"修复bug"时
+1. 先理解问题的根本原因
+2. 检查相关的日志文件 (`logs/`)
+3. 编写修复方案
+4. 考虑边界情况
+5. 测试修复结果

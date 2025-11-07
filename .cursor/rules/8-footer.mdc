@@ -1,0 +1,209 @@
+---
+alwaysApply: true
+---
+# Zenava 项目 - 底部Footer修改规则
+
+## Footer定位
+- **文件路径**: `src/components/UnifiedFooter.tsx`
+- **组件位置**: 所有页面底部
+- **组件功能**: 展示公司信息、导航链接、社交媒体、版权信息
+- **支持语言**: 简体中文(zh)、英文(en)、日文(jp)、繁体中文(hk)
+- **主要输入语言**: 简体中文 (zh) - 其他语言自动生成
+
+## Footer结构说明
+
+### 🎨 整体布局
+- **分为左右两部分**（桌面端）
+- **移动端上下堆叠**（单列布局）
+- **背景色**: 深色主题（如 `bg-gray-900` 或 `bg-[#1a2332]`）
+- **文字颜色**: 浅色系（`text-gray-300`、`text-white`）
+
+---
+
+## 📍 左侧内容区域（从上到下）
+
+### 1. LOGO（可点击）
+```typescript
+{
+  logo: {
+    src: 'src/assets/zenava-logo-base64.ts',
+    alt: { zh: 'ZENAVA Logo', en: 'ZENAVA Logo', jp: 'ZENAVA ロゴ', hk: 'ZENAVA Logo' },
+    link: '/'  // 如：'/' 或 'https://...'
+  }
+}
+```
+
+### 2. 短标题（Slogan）
+```typescript
+{
+  slogan: {
+    zh: '【短标题-简体中文】',
+    en: '【AI自动生成】',
+    jp: '【AI自动生成】',
+    hk: '【AI自动生成】'
+  }
+}
+```
+
+### 3. 描述文字
+```typescript
+{
+  description: {
+    zh: '【描述-简体中文，建议50-80字】',
+    en: '【AI自动生成】',
+    jp: '【AI自动生成】',
+    hk: '【AI自动生成】'
+  }
+}
+```
+
+### 4. 邮箱地址
+```typescript
+{
+  email: {
+    address: 'marketing@zenava.ai',
+    icon: 'fas fa-envelope',
+    label: { zh: '联系邮箱', en: 'Email', jp: 'メール', hk: '聯繫郵箱' }
+  }
+}
+```
+
+### 5. 社交媒体标签
+
+```typescript
+{
+  socialMedia: [
+    { name: 'LinkedIn', icon: 'fab fa-linkedin', url: '【LinkedIn链接】', hoverColor: 'hover:text-blue-500' },
+    { name: 'Twitter', icon: 'fab fa-twitter', url: '【Twitter链接】', hoverColor: 'hover:text-sky-400' },
+    { name: 'Facebook', icon: 'fab fa-facebook', url: '【Facebook链接】', hoverColor: 'hover:text-blue-600' },
+    { name: 'YouTube', icon: 'fab fa-youtube', url: '【YouTube链接】', hoverColor: 'hover:text-red-500' }
+  ]
+}
+```
+
+**可用社交媒体图标**:
+```typescript
+'fab fa-linkedin'      // LinkedIn
+'fab fa-twitter'       // Twitter (X)
+'fab fa-facebook'      // Facebook
+'fab fa-instagram'     // Instagram
+'fab fa-youtube'       // YouTube
+'fab fa-github'        // GitHub
+```
+
+### 6. 商标版权信息
+```typescript
+{
+  copyright: {
+    year: 'auto',  // 自动获取当前年份：new Date().getFullYear()
+    company: 'Zenava',
+    text: {
+      zh: '© {year} Zenava. 保留所有权利。',
+      en: '© {year} Zenava. All rights reserved.',
+      jp: '© {year} Zenava. 全著作権所有。',
+      hk: '© {year} Zenava. 保留所有權利。'
+    }
+  }
+}
+```
+
+---
+
+## 📍 右侧内容区域（导航链接）
+
+### 一级菜单结构
+
+```typescript
+{
+  navigationColumns: [
+    // 第1列：产品
+    {
+      title: { zh: '产品', en: 'Products', jp: '製品', hk: '產品' },
+      links: [
+        { label: { zh: 'AI agents', en: 'AI agents', ... }, url: '/products/ai-agents' },
+        { label: { zh: '传讯与即时对话', en: 'Messaging & Chat', ... }, url: '/products/messaging' },
+        { label: { zh: 'Voice', en: 'Voice', ... }, url: '/products/voice' }
+      ]
+    },
+    // 第2列：行业
+    // 第3列：资源中心
+    // 第4列：关于我们
+  ]
+}
+```
+
+---
+
+## 📝 用户输入格式示例
+
+### 示例 1：修改左侧内容
+```
+修改Footer左侧内容：
+- Logo链接：/
+- 短标题：Conversational AI Agent for Marketing and Service Scenarios
+- 描述：助力企业完成生产力与组织形态变革，实现从「人力驱动」到「AI驱动」的跨越
+- 邮箱：marketing@zenava.ai
+- 社交媒体：LinkedIn, Twitter, Facebook, YouTube
+- LinkedIn链接：https://www.linkedin.com/company/zenava
+```
+
+### 示例 2：修改右侧导航
+```
+修改Footer右侧导航：
+
+产品列：
+- AI agents → /products/ai-agents
+- 传讯与即时对话 → /products/messaging
+- Voice → /products/voice
+```
+
+---
+
+## ✅ 修改注意事项
+
+### 必须遵守：
+1. **四语同步**: 所有文字内容必须包含 zh、en、jp、hk 四个语言版本
+2. **自动翻译**: 用户只提供简体中文，AI 自动生成其他三种语言
+3. **保持格式**: 不要修改 JSX 结构、CSS 类名
+4. **品牌名称**: "Zenava" 不翻译，保持统一
+5. **链接有效**: 确保所有链接可用，内部链接使用相对路径
+6. **响应式**: 确保移动端正常显示
+7. **悬停效果**: 所有可点击元素必须有悬停反馈
+
+### ❌ 禁止操作：
+1. ❌ 不要修改组件结构（div、section 等）
+2. ❌ 不要删除响应式类名（md:、lg: 等）
+3. ❌ 不要修改背景色主题（深色系）
+4. ❌ 不要删除社交媒体图标的悬停效果
+5. ❌ 不要使用绝对定位破坏布局
+
+---
+
+## 🚀 测试验证步骤
+
+### 1. 多语言测试
+- ✅ 在浏览器中检查**四种语言版本**
+- ✅ 验证每种语言的文字长度不会破坏布局
+- ✅ 检查链接在不同语言下正确跳转
+
+### 2. 响应式测试（必须！）
+- ✅ 切换到移动端视图（DevTools: Cmd/Ctrl+Shift+M）
+- ✅ 测试 iPhone SE (375px)
+- ✅ 测试 iPhone 12/13/14 (390px)
+- ✅ 测试 iPad (768px)
+- ✅ 测试桌面端 (1024px+)
+
+### 3. 交互测试
+- ✅ 点击Logo跳转到首页
+- ✅ 点击邮箱打开邮件客户端
+- ✅ 点击社交媒体图标跳转到对应平台
+- ✅ 悬停链接显示正确的颜色变化
+- ✅ 所有导航链接可点击
+
+---
+
+## 📞 技术支持
+
+如有问题，请联系：
+- 邮箱：marketing@zenava.ai
+- 文档：`.cursor/rules/8-footer.mdc`

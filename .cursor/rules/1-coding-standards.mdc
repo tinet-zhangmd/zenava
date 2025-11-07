@@ -1,0 +1,126 @@
+---
+alwaysApply: true
+---
+# Zenava 项目 - 编码规范
+
+## 文件结构规则
+1. API路由放在 `src/api/` 目录
+2. 页面组件放在 `src/pages/` 目录
+3. 可复用组件放在 `src/components/` 目录
+4. 工具函数放在 `src/utils/` 目录
+5. 翻译文件放在 `src/i18n/` 目录
+6. 数据库迁移放在 `migrations/` 目录
+
+## TypeScript规范
+- 严格模式开启 (`strict: true`)
+- 使用ESNext目标和模块系统
+- JSX使用 `hono/jsx` 而不是 React
+- 导入顺序：外部依赖 -> Hono核心 -> 本地模块 -> 类型定义
+
+## JSX组件规范
+```typescript
+// ✅ 正确：使用 Hono JSX
+import { FC } from 'hono/jsx'
+
+export const MyComponent: FC = () => {
+  return <div>Content</div>
+}
+
+// ❌ 错误：不要使用 React
+import React from 'react' // 项目中没有React依赖
+```
+
+## 路由规范
+```typescript
+// ✅ 使用 Hono 路由
+import { Hono } from 'hono'
+
+const app = new Hono()
+
+app.get('/api/endpoint', async (c) => {
+  const db = c.env.DB // Cloudflare D1
+  return c.json({ data: [] })
+})
+```
+
+## 编码最佳实践
+
+### 1. 类型安全
+- 为所有函数参数和返回值添加类型注解
+- 使用接口定义数据结构
+- 避免使用 `any` 类型
+
+### 2. 错误处理
+```typescript
+// ✅ 正确的错误处理
+try {
+  const result = await db.prepare('SELECT * FROM table').all()
+  return c.json(result)
+} catch (error) {
+  console.error('Database error:', error)
+  return c.json({ error: 'Internal server error' }, 500)
+}
+```
+
+### 3. 安全性
+- 使用参数化查询防止SQL注入
+- 验证所有用户输入
+- 使用 `src/utils/security.ts` 中的安全工具函数
+- API端点需要适当的权限验证
+
+### 4. 性能优化
+- 使用Cloudflare KV/Cache进行缓存
+- 优化数据库查询，避免N+1问题
+- 静态资源使用CDN
+- 图片使用base64或优化的格式
+
+## 项目特定规则
+
+### 1. 品牌一致性
+- 公司名称：Zenava
+- Slogan: "Conversational AI Agent for Marketing and Service Scenarios"
+- Logo使用 `src/assets/zenava-logo-base64.ts`
+
+### 2. 分析和追踪
+- 使用百度统计（已集成）
+- 组件：`src/components/BaiduAnalytics.tsx`
+- Cookie管理：`src/components/CookieConsent.tsx`
+
+### 3. 布局组件
+- 统一导航：`UnifiedNavigation.tsx`
+- 统一页脚：`UnifiedFooter.tsx`
+- 带公共内容的布局：`LayoutWithCommonContent.tsx`
+
+### 4. 路由辅助
+- 使用 `src/utils/scenario-route-helper.tsx` 处理场景路由
+- 使用 `src/utils/navigation-helper.ts` 处理导航逻辑
+
+### 5. 静态生成
+- 使用 `src/lib/static-generator.ts` 生成静态页面
+- 支持预渲染关键页面
+
+## 注意事项
+
+### ⚠️ 禁止操作
+- ❌ 不要直接修改 `dist/` 目录内容（这是构建输出）
+- ❌ 不要提交 `node_modules/` 到版本控制
+- ❌ 不要在代码中硬编码敏感信息（使用环境变量）
+- ❌ 不要绕过数据库迁移直接修改表结构
+- ❌ 不要混用React和Hono JSX
+- ❌ 不要忘记为新文本添加所有语言的翻译
+
+### ✅ 推荐操作
+- ✅ 使用TypeScript的严格类型检查
+- ✅ 遵循现有的代码组织结构
+- ✅ 编写清晰的提交信息
+- ✅ 测试多语言场景
+- ✅ 在本地测试后再部署
+- ✅ 保持API响应格式一致
+- ✅ 记录重要的配置变更
+
+## 响应模式
+- 始终用中文回复
+- 提供代码时包含详细注释
+- 解释为什么这样做，不只是怎么做
+- 提醒潜在的问题和注意事项
+- 提供测试步骤和验证方法

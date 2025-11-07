@@ -164,7 +164,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               alt: { zh: '智能销售系统界面', en: 'Intelligent Sales System Interface', jp: 'インテリジェント営業システムインターフェース', hk: '智能銷售系統界面' }
             }
           },
-          // 第3页 - 原Banner 2：测试banner
+          // 第3页 - 智能AI平台
           {
             id: 'slide-3',
             background: {
@@ -173,38 +173,43 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             },
             leftContent: {
               siteName: {
-                zh: 'ZENAVA Marketing',
-                en: 'ZENAVA Marketing',
-                jp: 'ZENAVA Marketing',
-                hk: 'ZENAVA Marketing'
+                zh: '智能AI平台',
+                en: 'Intelligent AI Platform',
+                jp: 'インテリジェントAIプラットフォーム',
+                hk: '智能AI平台'
               },
               mainTitle: {
-                zh: '测试banner',
-                en: 'Test Banner',
-                jp: 'テストバナー',
-                hk: '測試banner'
+                zh: '4345323',
+                en: '4345323',
+                jp: '4345323',
+                hk: '4345323'
               },
               description: {
-                zh: '实时识别客户意图，智能分配高潜线索，基于会话分析优化营销策略，提升转化率降低获客成本实时识别客户意图，智能分配高潜线索，基于会话分析优化营销策略，提升转化率降低获客成本',
-                en: 'Real-time customer intent recognition, intelligent lead allocation, optimize marketing strategies based on conversation analysis, improve conversion rates and reduce customer acquisition costs. Real-time customer intent recognition, intelligent lead allocation, optimize marketing strategies based on conversation analysis, improve conversion rates and reduce customer acquisition costs.',
-                jp: 'リアルタイムで顧客の意図を認識し、スマートにリードを配分し、会話分析に基づいてマーケティング戦略を最適化し、コンバージョン率を向上させ、顧客獲得コストを削減します。リアルタイムで顧客の意図を認識し、スマートにリードを配分し、会話分析に基づいてマーケティング戦略を最適化し、コンバージョン率を向上させ、顧客獲得コストを削減します。',
-                hk: '實時識別客戶意圖，智能分配高潛線索，基於會話分析優化營銷策略，提升轉化率降低獲客成本實時識別客戶意圖，智能分配高潛線索，基於會話分析優化營銷策略，提升轉化率降低獲客成本'
+                zh: '43244444444',
+                en: '43244444444',
+                jp: '43244444444',
+                hk: '43244444444'
               },
               button: {
                 text: {
-                  zh: '了解更多营销方案',
-                  en: 'Learn More About Marketing Solutions',
-                  jp: 'マーケティングソリューションの詳細',
-                  hk: '了解更多營銷方案'
+                  zh: '预约咨询',
+                  en: 'Schedule Consultation',
+                  jp: '相談を予約',
+                  hk: '預約諮詢'
                 },
-                link: '/scenarios/marketing',
-                icon: 'fas fa-chart-line'
+                link: 'https://www.baidu.com',
+                icon: 'fas fa-phone'
               }
             },
             rightImage: {
               type: 'image',
-              src: '/assets/images/marketing-automation.png',
-              alt: { zh: '营销自动化系统界面展示', en: 'Marketing Automation System Interface', jp: 'マーケティングオートメーションシステムインターフェース', hk: '營銷自動化系統界面展示' }
+              src: '/assets/images/test.png',
+              alt: { 
+                zh: '智能AI平台展示', 
+                en: 'Intelligent AI Platform Display', 
+                jp: 'インテリジェントAIプラットフォームディスプレイ', 
+                hk: '智能AI平台展示' 
+              }
             }
           },
           // 第4页 - 原Banner 3：7x24智能客服

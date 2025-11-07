@@ -1,0 +1,197 @@
+---
+alwaysApply: true
+---
+# Zenava 项目 - 首页"版块3：核心能力与成效"修改规则
+
+## 版块定位
+- **文件路径**: `src/pages/HomepageDB.tsx` 或 `src/components/CapabilitiesSection.tsx`
+- **版块位置**: 首页第三个主要内容区域
+- **版块功能**: 展示 Zenava 的核心能力和实际成效，通过左右交替布局呈现
+- **支持语言**: 简体中文(zh)、英文(en)、日文(jp)、繁体中文(hk)
+- **主要输入语言**: 简体中文 (zh) - 其他语言自动生成
+
+## 版块结构说明（左右交替布局）
+
+### 🎨 布局规则
+- **第1项**: 左边文字 → 右边图片
+- **第2项**: 右边文字 → 左边图片
+- **第3项**: 左边文字 → 右边图片
+- **第4项**: 右边文字 → 左边图片
+- 以此类推，奇数项左文右图，偶数项右文左图
+
+### 📍 文字区域包含元素
+- 图标 (icon)
+- 主标题（如："市场营销自动化"）
+- 副标题（如："提升转化率，降低获客成本"）
+- 功能描述段落（1-2句话）
+- 功能标签列表（3-5个标签）
+- 按钮（必需）
+
+### 📍 图片区域包含元素
+- 主图片（展示产品界面、数据可视化、使用场景等）
+- 图片描述（可选）
+- 图片链接/路径
+
+---
+
+## 🎯 快速修改模板
+
+```typescript
+{
+  id: 'item-【序号】',
+  layout: '【自动判断：奇数项 text-left，偶数项 text-right】',
+  
+  // 文字区域（四种语言）
+  content: {
+    icon: 'fas fa-【图标名】',  // robot, bullhorn, chart-line, headset, users-cog 等
+    
+    title: {
+      zh: '【主标题-简体中文】',
+      en: '【AI自动生成】',
+      jp: '【AI自动生成】',
+      hk: '【AI自动生成】'
+    },
+    
+    // 标题链接（可选，用户提供）
+    titleLink: '【用户提供的链接】',  // 如：/scenarios/marketing 或 https://...
+    
+    subtitle: {
+      zh: '【副标题-简体中文】',
+      en: '【AI自动生成】',
+      jp: '【AI自动生成】',
+      hk: '【AI自动生成】'
+    },
+    
+    description: {
+      zh: '【描述-简体中文，建议30-50字】',
+      en: '【AI自动生成】',
+      jp: '【AI自动生成】',
+      hk: '【AI自动生成】'
+    },
+    
+    features: [
+      { zh: '【标签1】', en: '【AI自动生成】', jp: '【AI自动生成】', hk: '【AI自动生成】' },
+      { zh: '【标签2】', en: '【AI自动生成】', jp: '【AI自动生成】', hk: '【AI自动生成】' },
+      { zh: '【标签3】', en: '【AI自动生成】', jp: '【AI自动生成】', hk: '【AI自动生成】' },
+      { zh: '【标签4】', en: '【AI自动生成】', jp: '【AI自动生成】', hk: '【AI自动生成】' }
+    ],
+    
+    // 按钮配置（必需）
+    button: {
+      text: {
+        zh: '了解更多【主题名称】',  // 如：了解更多市场营销
+        en: '【AI自动生成】',          // 如：Learn More About Marketing
+        jp: '【AI自动生成】',          // 如：マーケティングの詳細
+        hk: '【AI自动生成】'           // 如：了解更多【主題名稱】
+      },
+      url: '【用户提供的链接】'  // 如：/scenarios/marketing 或 https://...
+    }
+  },
+  
+  // 媒体区域（图片或视频，根据文件后缀自动识别）
+  media: {
+    src: '/images/【文件名.后缀】',  // 图片：.png/.jpg/.jpeg/.gif/.webp/.svg，视频：.mp4/.webm/.ogg/.mov/.avi
+    type: 'auto',  // 自动根据文件后缀识别：图片或视频
+    alt: {
+      zh: '【媒体描述-简体中文】',
+      en: '【AI自动生成】',
+      jp: '【AI自动生成】',
+      hk: '【AI自动生成】'
+    },
+    // 视频专属配置（可选，仅当媒体类型为视频时使用）
+    autoplay?: boolean,  // 是否自动播放（默认 false）
+    loop?: boolean,      // 是否循环播放（默认 false）
+    muted?: boolean,     // 是否静音（默认 true，自动播放时必须为 true）
+    controls?: boolean   // 是否显示控制条（默认 true）
+  }
+}
+```
+
+---
+
+## 📝 用户输入格式示例
+
+### 示例 1：修改第1项（图片）
+```
+修改版块3第1项：
+- 图标：fas fa-robot
+- 标题：市场营销自动化
+- 标题链接：/scenarios/marketing
+- 副标题：提升转化率，降低获客成本
+- 描述：实时识别客户意图，统一话术留资，智能分配高潜线索，基于会话分析反哺营销策略优化。
+- 标签：意图识别、智能留资、多渠道整合、预测分析
+- 按钮：了解更多市场营销
+- 按钮链接：/scenarios/marketing
+- 媒体：/assets/images/capabilities/marketing-automation.png
+- 媒体描述：市场营销自动化界面展示
+```
+
+---
+
+## 🔘 按钮样式规范
+
+**按钮 Tailwind CSS 类名**：
+```typescript
+class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
+```
+
+**按钮样式说明**：
+- **形状**: 圆角按钮 (`rounded-full`)
+- **边框**: 2px 橙色边框 (`border-2 border-orange-500`)
+- **文字颜色**: 橙色 (`text-orange-500`)
+- **内边距**: 左右 `px-6`，上下 `py-3`
+- **悬停效果**: 橙色背景 + 白色文字 (`hover:bg-orange-500 hover:text-white`)
+- **过渡动画**: 300ms 平滑过渡 (`transition-all duration-300`)
+
+---
+
+## ✅ 修改注意事项
+
+### 必须遵守：
+1. **四语同步**: 所有文字内容必须包含 zh、en、jp、hk 四个语言版本
+2. **自动翻译**: 用户只提供简体中文，AI 自动生成其他三种语言
+3. **按钮必需**: 每个子项的文字区域下方必须包含按钮（橙色圆角样式）
+4. **按钮四语**: 按钮文字必须包含四种语言版本
+5. **保持格式**: 不要修改 JSX 结构、CSS 类名
+6. **品牌名称**: "Zenava" 不翻译，保持统一
+7. **响应式**: 确保移动端正常显示
+8. **布局交替**: 自动判断奇偶数，设置正确的布局方向
+
+### ❌ 禁止操作：
+1. ❌ 不要修改组件结构（div、section 等）
+2. ❌ 不要删除响应式类名（md:、lg: 等）
+3. ❌ 不要手动设置布局方向（由奇偶数自动判断）
+4. ❌ 不要修改图片容器的响应式样式
+5. ❌ 不要破坏左右交替的规则
+
+### 📏 内容长度建议：
+- **主标题**: 4-8个汉字（英文 2-5 个单词）
+- **副标题**: 8-15个汉字（英文 5-10 个单词）
+- **描述段落**: 30-50个汉字（英文 20-40 个单词）
+- **功能标签**: 每个 2-5个汉字（英文 1-3 个单词）
+- **图片alt**: 10-20个汉字（英文 5-15 个单词）
+
+---
+
+## 🎨 可用的图标类名（Font Awesome）
+
+```typescript
+'fas fa-robot'          // 机器人（AI）
+'fas fa-bullhorn'       // 喇叭（营销）
+'fas fa-chart-line'     // 图表（销售）
+'fas fa-headset'        // 耳机（客服）
+'fas fa-users-cog'      // 用户管理（内部服务）
+'fas fa-tasks'          // 任务（管理）
+'fas fa-comments'       // 对话（消息）
+'fas fa-microphone'     // 麦克风（语音）
+'fas fa-brain'          // 大脑（智能）
+'fas fa-magic'          // 魔法（自动化）
+```
+
+---
+
+## 📞 技术支持
+
+如有问题，请联系：
+- 邮箱：marketing@zenava.ai
+- 文档：`.cursor/rules/6-homepage-section3.mdc`
