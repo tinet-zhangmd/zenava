@@ -268,6 +268,47 @@ function getDefaultMenuItems(): NavMenuItem[] {
         }
       ]
     },
+    // 一级导航：解决方案测试
+    {
+      id: 'solutions-test',
+      type: 'dropdown',
+      label: 'Solutions Test',
+      label_zh: '解决方案测试',
+      label_en: 'Solutions Test',
+      label_jp: 'ソリューションテスト',
+      label_hk: '解決方案測試',
+      icon: 'fas fa-lightbulb',
+      order: 3,
+      visible: true,
+      children: [
+        {
+          id: 'customer-service',
+          label: 'Intelligent Customer Service',
+          label_zh: '智能客服',
+          label_en: 'Intelligent Customer Service',
+          label_jp: 'インテリジェントカスタマーサービス',
+          label_hk: '智能客服',
+          url: '/solutions/customer-service',
+          icon: 'fas fa-headset',
+          order: 1,
+          visible: true,
+          target: '_self'
+        },
+        {
+          id: 'sales-acceleration',
+          label: 'Sales Acceleration',
+          label_zh: '销售加速',
+          label_en: 'Sales Acceleration',
+          label_jp: 'セールスアクセラレーション',
+          label_hk: '銷售加速',
+          url: '/solutions/sales',
+          icon: 'fas fa-chart-line',
+          order: 2,
+          visible: true,
+          target: '_self'
+        }
+      ]
+    },
     // 一级导航：行业
     {
       id: 'industries',
@@ -277,7 +318,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
       label_en: 'Industries',
       label_jp: '業界',
       label_hk: '行業',
-      order: 3,
+      order: 4,
       visible: true,
       children: [
         {
@@ -339,7 +380,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
       label_en: 'Resources',
       label_jp: 'リソースセンター',
       label_hk: '資源中心',
-      order: 4,
+      order: 5,
       visible: true,
       children: [
         {
@@ -390,7 +431,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
       label_jp: 'カスタマーサポート',
       label_hk: '客戶支持',
       url: '/support',
-      order: 5,
+      order: 6,
       visible: true
     }
   ]

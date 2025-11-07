@@ -1,0 +1,182 @@
+---
+alwaysApply: true
+---
+# Zenava 项目 - 响应式设计规则
+
+⚠️ **关键要求：网站必须是响应式的，在手机端以合理方式正常展示**
+
+## 响应式设计原则
+- **移动优先（Mobile First）**: 优先考虑移动端体验
+- **断点设计**: 使用 Tailwind CSS 的响应式断点（sm、md、lg、xl、2xl）
+- **触摸友好**: 按钮和链接至少 44x44px，适合手指点击
+- **可读性**: 移动端字体大小至少 16px，避免用户需要缩放
+
+## Tailwind CSS 响应式断点
+```css
+/* 默认: < 640px (移动端) */
+.text-base
+
+/* sm: >= 640px (小屏平板) */
+sm:text-lg
+
+/* md: >= 768px (平板) */
+md:text-xl
+
+/* lg: >= 1024px (小屏电脑) */
+lg:text-2xl
+
+/* xl: >= 1280px (桌面) */
+xl:text-3xl
+
+/* 2xl: >= 1536px (大屏) */
+2xl:text-4xl
+```
+
+## 响应式开发规范
+
+### ✅ 必须遵守：
+
+**1. 使用响应式类名**
+```typescript
+// ✅ 正确：使用响应式断点
+<div class="px-4 sm:px-6 lg:px-8">
+<h1 class="text-2xl md:text-4xl lg:text-5xl">
+
+// ❌ 错误：固定尺寸
+<div style="width: 1200px">
+<h1 style="font-size: 48px">
+```
+
+**2. 布局自适应**
+```typescript
+// ✅ 移动端单列，桌面端多列
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+// ✅ 响应式隐藏/显示
+<div class="hidden md:block">桌面端显示</div>
+<div class="block md:hidden">移动端显示</div>
+```
+
+**3. 文字大小适配**
+```typescript
+// ✅ 响应式字体
+<h1 class="text-3xl md:text-5xl lg:text-6xl">
+<p class="text-base md:text-lg lg:text-xl">
+
+// ✅ 行高和间距
+<div class="leading-relaxed md:leading-loose">
+<div class="space-y-4 md:space-y-6 lg:space-y-8">
+```
+
+**4. 图片和媒体**
+```typescript
+// ✅ 响应式图片
+<img class="w-full h-auto" src="..." alt="...">
+
+// ✅ 容器宽度限制
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+```
+
+**5. 导航菜单**
+```typescript
+// ✅ 移动端汉堡菜单，桌面端横向导航
+<div class="md:hidden">
+  <button onclick="toggleMobileMenu()">☰</button>
+</div>
+<div class="hidden md:flex md:space-x-6">
+  <a href="#">菜单项</a>
+</div>
+```
+
+## 移动端测试清单
+
+**必须在以下设备/尺寸测试：**
+- ✅ iPhone SE (375px)
+- ✅ iPhone 12/13/14 (390px)
+- ✅ iPhone 14 Pro Max (430px)
+- ✅ iPad Mini (768px)
+- ✅ iPad Pro (1024px)
+
+**测试检查项：**
+1. ✅ 文字清晰可读，无需缩放
+2. ✅ 按钮和链接易于点击
+3. ✅ 图片不溢出容器
+4. ✅ 表单输入框大小合适
+5. ✅ 横向滚动条不出现（除特殊设计）
+6. ✅ 导航菜单可正常使用
+7. ✅ CTA 按钮显眼且易点击
+8. ✅ 页脚信息完整显示
+
+## Chrome DevTools 测试
+```bash
+# 打开开发者工具
+F12 或 Cmd+Option+I
+
+# 切换到设备模式
+Cmd+Shift+M (Mac) 或 Ctrl+Shift+M (Windows)
+
+# 测试不同设备尺寸
+选择预设设备或自定义尺寸
+```
+
+## 常见响应式问题和解决方案
+
+**问题 1: 移动端文字过小**
+```typescript
+// ❌ 问题
+<h1 class="text-6xl">标题</h1>
+
+// ✅ 解决
+<h1 class="text-3xl md:text-5xl lg:text-6xl">标题</h1>
+```
+
+**问题 2: 内容溢出屏幕**
+```typescript
+// ❌ 问题
+<div class="w-[1200px]">内容</div>
+
+// ✅ 解决
+<div class="w-full max-w-7xl mx-auto px-4">内容</div>
+```
+
+**问题 3: 移动端导航不可用**
+```typescript
+// ✅ 添加移动端菜单
+<button class="md:hidden" onclick="toggleMobileMenu()">
+  <i class="fas fa-bars"></i>
+</button>
+<div id="mobileMenu" class="md:hidden hidden">
+  <!-- 移动端菜单内容 -->
+</div>
+```
+
+**问题 4: 图片尺寸不适配**
+```typescript
+// ❌ 问题
+<img src="..." style="width: 800px">
+
+// ✅ 解决
+<img src="..." class="w-full h-auto max-w-3xl">
+```
+
+## 响应式修改工作流
+
+当修改文案或内容时：
+1. ✅ 保存文件后，在桌面端检查
+2. ✅ 切换到移动端视图（DevTools）
+3. ✅ 检查各个断点（375px、768px、1024px）
+4. ✅ 确认文字、按钮、图片都正常显示
+5. ✅ 测试交互功能（点击、滚动、表单）
+
+## ⚠️ 响应式禁止操作
+
+1. ❌ 不要使用固定像素宽度（除非必要）
+2. ❌ 不要使用过小的字体（移动端 < 14px）
+3. ❌ 不要使用过小的点击目标（< 44px）
+4. ❌ 不要假设用户使用桌面端
+5. ❌ 不要忽略移动端测试
+
+## 现有响应式资源
+- 样式文件：`mobile-optimization.css`
+- 样式文件：`responsive-optimization.css`
+- 测试页面：`test-mobile.html`
