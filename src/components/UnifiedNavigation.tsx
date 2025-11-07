@@ -25,11 +25,6 @@ export interface NavSubItem {
   label_en?: string
   label_jp?: string
   label_hk?: string
-  description?: string
-  description_zh?: string
-  description_en?: string
-  description_jp?: string
-  description_hk?: string
   url: string
   icon?: string
   order: number
@@ -99,11 +94,6 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
     return item[langKey] || item.label || ''
   }
   
-  const getDescription = (item: any) => {
-    const langKey = `description_${currentLanguage}` as keyof typeof item
-    return item[langKey] || item.description || ''
-  }
-  
   const getCtaText = () => {
     const langKey = `cta_text_${currentLanguage}` as keyof NavigationConfig
     return config[langKey] || config.cta_text || 'Get Started'
@@ -171,42 +161,59 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
                       <i class="fas fa-chevron-down text-xs"></i>
                     </button>
                     
-                    <div 
-                      class="absolute left-0 mt-2 w-96 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0"
-                      style={dropdownStyles}
-                    >
-                      <div class="p-2">
-                        {item.children
-                          .filter(child => child.visible)
-                          .sort((a, b) => a.order - b.order)
-                          .map(child => (
-                            <a 
-                              href={getLocalizedPath(child.url, currentLanguage)}
-                              target={child.target || '_self'}
-                              class="block px-4 py-3 rounded-lg transition-colors hover:bg-gray-50"
-                              key={child.id}
-                            >
-                              <div class="flex items-start space-x-3">
-                                {child.icon && (
-                                  <div class="mt-0.5">
-                                    <i class={`${child.icon} text-primary-600`}></i>
-                                  </div>
-                                )}
-                                <div class="flex-1">
-                                  <div class="font-medium text-gray-900">
-                                    {getLabel(child)}
-                                  </div>
-                                  {child.description && (
-                                    <div class="text-xs text-gray-500 mt-1 line-clamp-2">
-                                      {getDescription(child)}
+                    {(() => {
+                      const visibleChildren = item.children.filter(c => c.visible).sort((a, b) => a.order - b.order);
+                      const childCount = visibleChildren.length;
+                      
+                      // 根据子菜单数量决定列数和宽度
+                      let gridCols = 'grid-cols-1';
+                      let dropdownWidth = 'w-96';  // 384px
+                      
+                      if (childCount > 10) {
+                        gridCols = 'grid-cols-3';
+                        dropdownWidth = 'w-[900px]';  // 3列
+                      } else if (childCount > 5) {
+                        gridCols = 'grid-cols-2';
+                        dropdownWidth = 'w-[600px]';  // 2列
+                      }
+                      
+                      return (
+                        <div 
+                          class={`absolute left-0 mt-2 ${dropdownWidth} opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0`}
+                          style={dropdownStyles}
+                        >
+                          <div class={`p-2 ${childCount > 5 ? `grid gap-2 ${gridCols}` : ''}`}>
+                            {visibleChildren.map(child => {
+                              const isExternalLink = child.url.startsWith('http://') || child.url.startsWith('https://');
+                              const targetAttr = child.target || '_self';
+                              
+                              return (
+                                <a 
+                                  href={isExternalLink ? child.url : getLocalizedPath(child.url, currentLanguage)}
+                                  target={targetAttr}
+                                  rel={isExternalLink && targetAttr === '_blank' ? 'noopener noreferrer' : undefined}
+                                  class="block px-4 py-3 rounded-lg transition-colors hover:bg-gray-50"
+                                  key={child.id}
+                                >
+                                  <div class="flex items-center space-x-3">
+                                    {child.icon && (
+                                      <div class="flex-shrink-0">
+                                        <i class={`${child.icon} text-primary-600`}></i>
+                                      </div>
+                                    )}
+                                  <div class="flex-1 min-w-0">
+                                    <div class="font-medium text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap" style="max-width: 150px;" title={getLabel(child)}>
+                                      {getLabel(child)}
                                     </div>
-                                  )}
-                                </div>
-                              </div>
-                            </a>
-                          ))}
-                      </div>
-                    </div>
+                                  </div>
+                                  </div>
+                                </a>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })()}
                   </div>
                 ) : (
                   <a 
