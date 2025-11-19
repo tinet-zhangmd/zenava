@@ -12,6 +12,7 @@ import { getNavigationConfig, getFooterConfig } from './utils/common-content.js'
 import { getNavigationData } from './utils/navigation-helper.js'
 import { AIHomepage } from './pages/AIHomepage.js'
 import { ZenavaHomepage } from './pages/ZenavaHomepage.js'
+import { AiAgentsPage } from './pages/products/AiAgents.js'
 import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/i18n.js'
 
 // Import Admin Pages
@@ -62,7 +63,10 @@ app.route('/api/upload', uploadApi)
 app.route('/api/navigation', navigation)
 
 // Serve static files
+// Note: In Wrangler Pages, static files in dist/ are served automatically by Wrangler
+// We only need to handle /static/* if it's not in dist/
 app.use('/static/*', serveStatic({ root: './public' }))
+// /assets/* files are in dist/assets/ and should be served by Wrangler automatically
 
 // Homepage routes - Use static data (no database queries for frontend pages)
 app.get('/', (c) => {
@@ -207,6 +211,54 @@ app.get('/hk', (c) => {
         modules={[]}
         settings={{}}
       />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// AI Agents Page Routes
+app.get('/products/ai-agents', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/products/ai-agents'
+  
+  // Use static data for navigation and footer
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <AiAgentsPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/products/ai-agents', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/products/ai-agents`
+  
+  // Use static data for navigation and footer
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <AiAgentsPage language={language} />
     </LayoutWithUnifiedNav>
   )
 })

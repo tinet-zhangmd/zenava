@@ -70,6 +70,30 @@ export interface NavigationConfig {
   cta_text_color?: string
   cta_hover_bg?: string
   
+  // Header Buttons (右侧按钮组)
+  header_buttons_enabled?: boolean
+  
+  // Button 1 - Contact Us (紫色按钮)
+  btn1_enabled?: boolean
+  btn1_text?: string
+  btn1_text_zh?: string
+  btn1_text_en?: string
+  btn1_text_jp?: string
+  btn1_text_hk?: string
+  btn1_url?: string
+  btn1_bg_color?: string
+  btn1_text_color?: string
+  
+  // Button 2 - Buy with AWS (渐变蓝色按钮)
+  btn2_enabled?: boolean
+  btn2_text?: string
+  btn2_text_zh?: string
+  btn2_text_en?: string
+  btn2_text_jp?: string
+  btn2_text_hk?: string
+  btn2_url?: string
+  btn2_target?: '_self' | '_blank'
+  
   // Language switcher
   show_language_switcher?: boolean
   available_languages?: Language[]
@@ -97,6 +121,16 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
   const getCtaText = () => {
     const langKey = `cta_text_${currentLanguage}` as keyof NavigationConfig
     return config[langKey] || config.cta_text || 'Get Started'
+  }
+  
+  const getBtn1Text = () => {
+    const langKey = `btn1_text_${currentLanguage}` as keyof NavigationConfig
+    return config[langKey] || config.btn1_text || 'Contact Us'
+  }
+  
+  const getBtn2Text = () => {
+    const langKey = `btn2_text_${currentLanguage}` as keyof NavigationConfig
+    return config[langKey] || config.btn2_text || 'Buy with AWS'
   }
   
   // Sort items by order
@@ -272,6 +306,40 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
                 </div>
               )}
               
+              {/* Header Buttons */}
+              {config.header_buttons_enabled !== false && (
+                <div class="hidden md:flex items-center space-x-3">
+                  {/* Button 1 - Contact Us (紫色按钮) */}
+                  {config.btn1_enabled !== false && config.btn1_url && (
+                    <a 
+                      href={getLocalizedPath(config.btn1_url, currentLanguage)}
+                      class="px-5 py-2 rounded-lg font-medium text-sm transition-all hover:shadow-lg hover:scale-105"
+                      style={{
+                        backgroundColor: config.btn1_bg_color || '#7c3aed',
+                        color: config.btn1_text_color || '#ffffff'
+                      }}
+                    >
+                      {getBtn1Text()}
+                    </a>
+                  )}
+                  
+                  {/* Button 2 - Buy with AWS (渐变蓝色按钮) */}
+                  {config.btn2_enabled !== false && config.btn2_url && (
+                    <a 
+                      href={config.btn2_url}
+                      target={config.btn2_target || '_blank'}
+                      rel={config.btn2_target === '_blank' ? 'noopener noreferrer' : undefined}
+                      class="px-5 py-2 rounded-lg font-medium text-sm text-white transition-all hover:shadow-lg hover:scale-105"
+                      style={{
+                        background: 'linear-gradient(90deg, #6366f1 0%, #06b6d4 100%)'
+                      }}
+                    >
+                      {getBtn2Text()} <span class="ml-1">→</span>
+                    </a>
+                  )}
+                </div>
+              )}
+              
               {/* Mobile Menu Button */}
               {config.mobile_menu_enabled !== false && (
                 <button 
@@ -349,6 +417,40 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
                 >
                   {getCtaText()}
                 </a>
+              )}
+              
+              {/* Mobile Header Buttons */}
+              {config.header_buttons_enabled !== false && (
+                <div class="space-y-3 mt-4">
+                  {/* Button 1 - Contact Us (紫色按钮) */}
+                  {config.btn1_enabled !== false && config.btn1_url && (
+                    <a 
+                      href={getLocalizedPath(config.btn1_url, currentLanguage)}
+                      class="block w-full px-6 py-3 rounded-lg font-semibold text-center"
+                      style={{
+                        backgroundColor: config.btn1_bg_color || '#7c3aed',
+                        color: config.btn1_text_color || '#ffffff'
+                      }}
+                    >
+                      {getBtn1Text()}
+                    </a>
+                  )}
+                  
+                  {/* Button 2 - Buy with AWS (渐变蓝色按钮) */}
+                  {config.btn2_enabled !== false && config.btn2_url && (
+                    <a 
+                      href={config.btn2_url}
+                      target={config.btn2_target || '_blank'}
+                      rel={config.btn2_target === '_blank' ? 'noopener noreferrer' : undefined}
+                      class="block w-full px-6 py-3 rounded-lg font-semibold text-center text-white"
+                      style={{
+                        background: 'linear-gradient(90deg, #6366f1 0%, #06b6d4 100%)'
+                      }}
+                    >
+                      {getBtn2Text()} <span class="ml-1">→</span>
+                    </a>
+                  )}
+                </div>
               )}
             </div>
           </div>

@@ -70,90 +70,45 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
       {/* Banner Configuration - 轮播横幅配置 */}
       {(() => {
         // 🎯 Banner 数据配置（支持最多8页）
+        // 翻译数据已迁移到 src/i18n/translations.ts 中的 banners 配置
         const bannerSlides = [
-          // 第1页
+          // 第1页 - 企业级AI对话解决方案（左文右图模式）
           {
             id: 'slide-1',
-            // 背景色配置（渐变色）
+            layout: 'split',  // 布局模式：'split' 或 'full-image'
             background: {
-              gradient: 'from-white via-[#f0ebff] to-[#5E3AFC]', // Tailwind CSS 渐变类名
-              pattern: true, // 是否显示网格图案
+              gradient: 'from-white via-[#f0ebff] to-[#5E3AFC]',
+              pattern: true,
             },
-            // 左侧文字内容
             leftContent: {
-              siteName: {
-                zh: 'ZENAVA',
-                en: 'ZENAVA',
-                jp: 'ZENAVA',
-                hk: 'ZENAVA'
-              },
-              mainTitle: {
-                zh: '企业级AI对话解决方案',
-                en: 'Enterprise AI Conversation Solutions',
-                jp: '企業向けAI会話ソリューション',
-                hk: '企業級AI對話解決方案'
-              },
-              description: {
-                zh: '通过智能AI助手转变您的客户服务，提升客户体验，降低运营成本',
-                en: 'Transform your customer service with intelligent AI agents, enhance customer experience, reduce operational costs',
-                jp: 'インテリジェントなAIアシスタントでカスタマーサービスを変革し、顧客体験を向上させ、運用コストを削減',
-                hk: '通過智能AI助手轉變您的客戶服務，提升客戶體驗，降低運營成本'
-              },
+              siteName: trans.banners.slide1.siteName,
+              mainTitle: trans.banners.slide1.mainTitle,
+              description: trans.banners.slide1.description,
               button: {
-                text: {
-                  zh: '预约咨询',
-                  en: 'Schedule Consultation',
-                  jp: '相談を予約',
-                  hk: '預約諮詢'
-                },
+                text: trans.banners.slide1.buttonText,
                 link: '#contact',
                 icon: 'fas fa-phone'
               }
             },
-            // 右侧图片
             rightImage: {
-              type: 'component', // 'image' 或 'component'
-              // 如果 type === 'image'，使用以下配置：
-              // src: '/images/banner-1.png',
-              // alt: { zh: '横幅图片1', en: 'Banner Image 1', jp: 'バナー画像1', hk: '橫幅圖片1' }
-              
-              // 如果 type === 'component'，显示现有的AI对话模拟组件
+              type: 'component',
               component: 'ai-simulation'
             }
           },
-          // 第2页 - 新增：智能销售赋能系统
+          // 第2页 - 智能销售赋能系统（左文右图模式）
           {
             id: 'slide-2',
+            layout: 'split',
             background: {
               gradient: 'from-orange-50 via-amber-50 to-yellow-50',
               pattern: false,
             },
             leftContent: {
-              siteName: {
-                zh: 'ZENAVA Sales',
-                en: 'ZENAVA Sales',
-                jp: 'ZENAVA Sales',
-                hk: 'ZENAVA Sales'
-              },
-              mainTitle: {
-                zh: '智能销售赋能系统',
-                en: 'Intelligent Sales Enablement System',
-                jp: 'インテリジェント営業支援システム',
-                hk: '智能銷售賦能系統'
-              },
-              description: {
-                zh: 'AI驱动的销售智能化平台，精准客户画像分析，智能推荐销售策略，提升成单率缩短销售周期',
-                en: 'AI-driven intelligent sales platform, precise customer profile analysis, intelligent sales strategy recommendations, improve closing rates and shorten sales cycles',
-                jp: 'AI駆動のインテリジェント営業プラットフォーム、正確な顧客プロファイル分析、インテリジェントな営業戦略の推奨、成約率を向上させ、営業サイクルを短縮',
-                hk: 'AI驅動的銷售智能化平台，精準客戶畫像分析，智能推薦銷售策略，提升成單率縮短銷售週期'
-              },
+              siteName: trans.banners.slide2.siteName,
+              mainTitle: trans.banners.slide2.mainTitle,
+              description: trans.banners.slide2.description,
               button: {
-                text: {
-                  zh: '了解销售方案',
-                  en: 'Learn About Sales Solutions',
-                  jp: '営業ソリューションの詳細',
-                  hk: '了解銷售方案'
-                },
+                text: trans.banners.slide2.buttonText,
                 link: '/scenarios/sales',
                 icon: 'fas fa-rocket'
               }
@@ -161,42 +116,23 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             rightImage: {
               type: 'image',
               src: '/assets/images/sales-ai.png',
-              alt: { zh: '智能销售系统界面', en: 'Intelligent Sales System Interface', jp: 'インテリジェント営業システムインターフェース', hk: '智能銷售系統界面' }
+              alt: trans.banners.slide2.imageAlt
             }
           },
-          // 第3页 - 智能AI平台
+          // 第3页 - 智能AI平台（左文右图模式）
           {
             id: 'slide-3',
+            layout: 'split',
             background: {
               gradient: 'from-blue-50 via-purple-50 to-pink-50',
               pattern: true,
             },
             leftContent: {
-              siteName: {
-                zh: '智能AI平台',
-                en: 'Intelligent AI Platform',
-                jp: 'インテリジェントAIプラットフォーム',
-                hk: '智能AI平台'
-              },
-              mainTitle: {
-                zh: '4345323',
-                en: '4345323',
-                jp: '4345323',
-                hk: '4345323'
-              },
-              description: {
-                zh: '43244444444',
-                en: '43244444444',
-                jp: '43244444444',
-                hk: '43244444444'
-              },
+              siteName: trans.banners.slide3.siteName,
+              mainTitle: trans.banners.slide3.mainTitle,
+              description: trans.banners.slide3.description,
               button: {
-                text: {
-                  zh: '预约咨询',
-                  en: 'Schedule Consultation',
-                  jp: '相談を予約',
-                  hk: '預約諮詢'
-                },
+                text: trans.banners.slide3.buttonText,
                 link: 'https://www.baidu.com',
                 icon: 'fas fa-phone'
               }
@@ -204,47 +140,23 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             rightImage: {
               type: 'image',
               src: '/assets/images/test.png',
-              alt: { 
-                zh: '智能AI平台展示', 
-                en: 'Intelligent AI Platform Display', 
-                jp: 'インテリジェントAIプラットフォームディスプレイ', 
-                hk: '智能AI平台展示' 
-              }
+              alt: trans.banners.slide3.imageAlt
             }
           },
-          // 第4页 - 原Banner 3：7x24智能客服
+          // 第4页 - 7x24智能客服（左文右图模式）
           {
             id: 'slide-4',
+            layout: 'split',
             background: {
               gradient: 'from-green-50 via-teal-50 to-blue-50',
               pattern: false,
             },
             leftContent: {
-              siteName: {
-                zh: 'ZENAVA',
-                en: 'ZENAVA',
-                jp: 'ZENAVA',
-                hk: 'ZENAVA'
-              },
-              mainTitle: {
-                zh: '7x24智能客服',
-                en: '7x24 Intelligent Customer Service',
-                jp: '7x24スマートカスタマーサービス',
-                hk: '7x24智能客服'
-              },
-              description: {
-                zh: 'AI智能客服系统实现全天候服务，自动处理常见问题，情感识别提升体验',
-                en: 'AI-powered customer service system provides 24/7 service, automatically handles common issues, emotion recognition enhances experience',
-                jp: 'AIスマートカスタマーサービスシステムは24時間365日のサービスを実現し、よくある質問を自動処理し、感情認識で体験を向上',
-                hk: 'AI智能客服系統實現全天候服務，自動處理常見問題，情感識別提升體驗'
-              },
+              siteName: trans.banners.slide4.siteName,
+              mainTitle: trans.banners.slide4.mainTitle,
+              description: trans.banners.slide4.description,
               button: {
-                text: {
-                  zh: '查看详情',
-                  en: 'View Details',
-                  jp: '詳細を見る',
-                  hk: '查看詳情'
-                },
+                text: trans.banners.slide4.buttonText,
                 link: '/scenarios/customer-service',
                 icon: 'fas fa-headset'
               }
@@ -252,8 +164,21 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             rightImage: {
               type: 'image',
               src: '/assets/images/right-one.png',
-              alt: { zh: '智能客服', en: 'Intelligent Customer Service', jp: 'スマートカスタマーサービス', hk: '智能客服' }
+              alt: trans.banners.slide4.imageAlt
             }
+          },
+          // 第5页 - 营销活动Banner（全图模式）
+          {
+            id: 'slide-5',
+            layout: 'full-image',
+            fullImage: {
+              src: '/assets/images/banner-full-marketing.jpg',
+              alt: trans.banners.slide5.imageAlt,
+              overlay: false,  // 不显示遮罩层
+            },
+            // 不提供 overlayContent，表示不显示文字内容
+            // 整个Banner可点击跳转
+            clickLink: '/scenarios/marketing'
           }
         ];
 
@@ -269,167 +194,257 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               
               {/* Banner Slides Container */}
               <div id="banner-slides" class="absolute inset-0 transition-opacity duration-700">
-                {displaySlides.map((slide, index) => (
-                  <div 
-                    key={slide.id}
-                    data-slide-index={index}
-                    class={`banner-slide absolute inset-0 bg-gradient-to-br ${slide.background.gradient} transition-opacity duration-700 ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-                  >
-                    {/* Background Pattern */}
-                    {slide.background.pattern && (
-                      <div class="absolute inset-0 opacity-20">
-                        <div class="w-full h-full" style="background-image: radial-gradient(circle at 2px 2px, #6438FF 1px, transparent 0); background-size: 40px 40px;"></div>
-                      </div>
-                    )}
-                    
-                    {/* Floating Elements */}
-                    <div class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-[#6438FF]/20 to-[#0DE0EF]/20 rounded-full blur-3xl animate-float"></div>
-                    <div class="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-[#0DE0EF]/20 to-[#6438FF]/20 rounded-full blur-3xl animate-float-delayed"></div>
-
-                    {/* Content Container */}
-                    <div class="site-container px-6 relative z-10 h-full flex items-center">
-                      <div class="grid lg:grid-cols-2 gap-12 items-center w-full min-h-[70vh]">
-                        {/* 左侧：文字内容 */}
-                        <div class="space-y-6">
-                          {/* 官网名称 */}
-                          <div class="font-bold text-gray-800 tracking-wide text-3xl">
-                            {language === 'zh' && slide.leftContent.siteName.zh}
-                            {language === 'en' && slide.leftContent.siteName.en}
-                            {language === 'jp' && slide.leftContent.siteName.jp}
-                            {language === 'hk' && slide.leftContent.siteName.hk}
-                          </div>
-                          
-                          {/* 主标题 */}
-                          <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 leading-tight">
-                            {language === 'zh' && slide.leftContent.mainTitle.zh}
-                            {language === 'en' && slide.leftContent.mainTitle.en}
-                            {language === 'jp' && slide.leftContent.mainTitle.jp}
-                            {language === 'hk' && slide.leftContent.mainTitle.hk}
-                          </h1>
-                          
-                          {/* 概述 */}
-                          <p class="text-lg sm:text-xl text-gray-700 leading-relaxed">
-                            {language === 'zh' && slide.leftContent.description.zh}
-                            {language === 'en' && slide.leftContent.description.en}
-                            {language === 'jp' && slide.leftContent.description.jp}
-                            {language === 'hk' && slide.leftContent.description.hk}
-                          </p>
-                          
-                          {/* CTA Button */}
-                          <div class="pt-4">
-                            <a 
-                              href={slide.leftContent.button.link} 
-                              class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] text-white rounded-xl font-bold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
-                            >
-                              <i class={`${slide.leftContent.button.icon} mr-3`}></i>
-                              {language === 'zh' && slide.leftContent.button.text.zh}
-                              {language === 'en' && slide.leftContent.button.text.en}
-                              {language === 'jp' && slide.leftContent.button.text.jp}
-                              {language === 'hk' && slide.leftContent.button.text.hk}
-                            </a>
-                          </div>
+                {displaySlides.map((slide, index) => {
+                  const layout = slide.layout || 'split';  // 默认使用 split 模式（向后兼容）
+                  
+                  // 全图模式渲染
+                  if (layout === 'full-image') {
+                    const fullImageSlide = slide as any;  // 类型断言：全图模式
+                    const slideContent = (
+                      <>
+                        {/* 全图背景 */}
+        <div class="absolute inset-0">
+                          <img 
+                            src={fullImageSlide.fullImage.src} 
+                            alt={fullImageSlide.fullImage.alt}
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                          />
                         </div>
                         
-                        {/* 右侧：图片或组件 */}
-                        <div class="relative lg:h-[600px] flex items-center justify-center">
-                          {slide.rightImage.type === 'image' ? (
-                            // 显示图片
-                            <div class="w-full h-full flex items-center justify-center">
-                              <img 
-                                src={slide.rightImage.src} 
-                                alt={
-                                  language === 'zh' ? slide.rightImage.alt.zh :
-                                  language === 'en' ? slide.rightImage.alt.en :
-                                  language === 'jp' ? slide.rightImage.alt.jp :
-                                  slide.rightImage.alt.hk
-                                }
-                                class="w-full h-auto max-w-lg rounded-xl shadow-2xl object-cover"
-                                loading="lazy"
-                              />
+                        {/* 遮罩层（可选） */}
+                        {fullImageSlide.fullImage.overlay && (
+                          <div class={`absolute inset-0 ${fullImageSlide.fullImage.overlayColor || 'bg-black/40'}`}></div>
+                        )}
+                        
+                        {/* 文字内容（可选） */}
+                        {fullImageSlide.overlayContent && (() => {
+                          // 根据 position 设置文字位置样式
+                          const positionClasses: Record<string, string> = {
+                            'center': 'items-center justify-center text-center',
+                            'top-left': 'items-start justify-start text-left',
+                            'top-right': 'items-start justify-end text-right',
+                            'bottom-left': 'items-end justify-start text-left',
+                            'bottom-right': 'items-end justify-end text-right',
+                            'bottom-center': 'items-end justify-center text-center'
+                          };
+                          const position = fullImageSlide.overlayContent.position || 'center';
+                          const positionClass = positionClasses[position] || positionClasses['center'];
+                          
+                          return (
+                            <div class={`site-container px-6 relative z-10 h-full flex ${positionClass}`}>
+                              <div class="max-w-4xl space-y-6">
+                                {/* 官网名称（可选） */}
+                                {fullImageSlide.overlayContent.siteName && (
+                                  <div class="font-bold text-white tracking-wide text-3xl drop-shadow-lg">
+                                    {fullImageSlide.overlayContent.siteName}
+                                  </div>
+                                )}
+                                
+                                {/* 主标题（可选） */}
+                                {fullImageSlide.overlayContent.mainTitle && (
+                                  <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight drop-shadow-lg">
+                                    {fullImageSlide.overlayContent.mainTitle}
+                                  </h1>
+                                )}
+                                
+                                {/* 概述（可选） */}
+                                {fullImageSlide.overlayContent.description && (
+                                  <p class="text-lg sm:text-xl text-white leading-relaxed drop-shadow-md">
+                                    {fullImageSlide.overlayContent.description}
+                                  </p>
+                                )}
+                                
+                                {/* CTA Button（可选） */}
+                                {fullImageSlide.overlayContent.button && (
+                                  <div class="pt-4">
+                                    <a 
+                                      href={fullImageSlide.overlayContent.button.link} 
+                                      class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] text-white rounded-xl font-bold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                                    >
+                                      <i class={`${fullImageSlide.overlayContent.button.icon} mr-3`}></i>
+                                      {fullImageSlide.overlayContent.button.text}
+                                    </a>
+                                  </div>
+                                )}
+                              </div>
                             </div>
-                          ) : (
-                            // 显示AI对话模拟组件
-                            <div class="relative w-full max-w-md">
-                              <div class="rounded-3xl p-6 shadow-2xl bg-white/95 backdrop-blur-sm border-2 border-gray-200">
-                                <div class="flex items-center justify-between mb-6">
-                                  <div class="flex items-center space-x-3">
-                                    <div>
-                                      <div class="font-semibold text-[#5E3AFC]">{trans.aiSimulation.aiAssistant}</div>
-                                      <div class="text-[#0DE0EF] text-sm">{trans.aiSimulation.status}</div>
-                                    </div>
-                                  </div>
-                                  <div class="flex items-center space-x-2">
-                                    <div class="w-2 h-2 bg-[#0DE0EF] rounded-full animate-pulse"></div>
-                                    <span class="text-xs text-gray-600">{trans.aiSimulation.live}</span>
-                                  </div>
-                                </div>
+                          );
+                        })()}
+                      </>
+                    );
+                    
+                    // 如果有链接，使用 a 标签包裹；否则使用 div
+                    if (fullImageSlide.clickLink) {
+                      return (
+                        <a
+                          key={slide.id}
+                          href={fullImageSlide.clickLink}
+                          data-slide-index={index}
+                          class={`banner-slide absolute inset-0 transition-opacity duration-700 block cursor-pointer ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                        >
+                          {slideContent}
+                        </a>
+                      );
+                    } else {
+                      return (
+                        <div
+                          key={slide.id}
+                          data-slide-index={index}
+                          class={`banner-slide absolute inset-0 transition-opacity duration-700 ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                        >
+                          {slideContent}
+                        </div>
+                      );
+                    }
+                  }
+                  
+                  // 左文右图模式渲染（原有逻辑）
+                  return (
+                    <div 
+                      key={slide.id}
+                      data-slide-index={index}
+                      class={`banner-slide absolute inset-0 bg-gradient-to-br ${slide.background.gradient} transition-opacity duration-700 ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                    >
+                      {/* Background Pattern */}
+                      {slide.background.pattern && (
+          <div class="absolute inset-0 opacity-20">
+            <div class="w-full h-full" style="background-image: radial-gradient(circle at 2px 2px, #6438FF 1px, transparent 0); background-size: 40px 40px;"></div>
+          </div>
+                      )}
+          
+          {/* Floating Elements */}
+          <div class="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-[#6438FF]/20 to-[#0DE0EF]/20 rounded-full blur-3xl animate-float"></div>
+          <div class="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-[#0DE0EF]/20 to-[#6438FF]/20 rounded-full blur-3xl animate-float-delayed"></div>
+          
+                      {/* Content Container */}
+                      <div class="site-container px-6 relative z-10 h-full flex items-center">
+                        <div class="grid lg:grid-cols-2 gap-12 items-center w-full min-h-[70vh]">
+                          {/* 左侧：文字内容 */}
+                          <div class="space-y-6">
+                            {/* 官网名称 */}
+                            <div class="font-bold text-gray-800 tracking-wide text-3xl">
+                              {slide.leftContent.siteName}
+        </div>
 
-                                <div class="space-y-4 mb-4">
-                                  <div class="flex justify-end">
-                                    <div class="text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs bg-[#11B98F] shadow-md">
-                                      <p class="text-sm">{trans.aiSimulation.customerQuery}</p>
-                                    </div>
-                                  </div>
-                                  <div class="flex justify-start opacity-0 animate-fadeIn" style="animation-delay: 0.8s;">
-                                    <div class="text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs bg-[#5E3AFC] shadow-md">
-                                      <div class="flex items-center space-x-2 mb-2">
-                                        <div class="w-4 h-4 bg-white/30 rounded-full"></div>
-                                        <span class="text-xs text-white/80">{trans.aiSimulation.aiProcessing}</span>
-                                      </div>
-                                      <p class="text-sm">{trans.aiSimulation.aiLocating}</p>
-                                    </div>
-                                  </div>
-                                  <div class="flex justify-start opacity-0 animate-fadeIn" style="animation-delay: 1.8s;">
-                                    <div class="text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs bg-[#5E3AFC] shadow-md">
-                                      <p class="text-sm">{trans.aiSimulation.aiResponse}</p>
-                                    </div>
-                                  </div>
+                            {/* 主标题 */}
+    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 leading-tight">
+                              {slide.leftContent.mainTitle}
+    </h1>
+                            
+                            {/* 概述 */}
+    <p class="text-lg sm:text-xl text-gray-700 leading-relaxed">
+                              {slide.leftContent.description}
+    </p>
+    
+    {/* CTA Button */}
+    <div class="pt-4">
+      <a 
+                                href={slide.leftContent.button.link} 
+        class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] text-white rounded-xl font-bold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+      >
+                                <i class={`${slide.leftContent.button.icon} mr-3`}></i>
+                                {slide.leftContent.button.text}
+      </a>
+    </div>
+  </div>
+                          
+                          {/* 右侧：图片或组件 */}
+  <div class="relative lg:h-[600px] flex items-center justify-center">
+                            {slide.rightImage.type === 'image' ? (
+                              // 显示图片
+                              <div class="w-full h-full flex items-center justify-center">
+                                <img 
+                                  src={slide.rightImage.src} 
+                                  alt={slide.rightImage.alt}
+                                  class="w-full h-auto max-w-lg rounded-xl shadow-2xl object-cover"
+                                  loading="lazy"
+                                />
+                              </div>
+                            ) : (
+                              // 显示AI对话模拟组件
+    <div class="relative w-full max-w-md">
+      <div class="rounded-3xl p-6 shadow-2xl bg-white/95 backdrop-blur-sm border-2 border-gray-200">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center space-x-3">
+            <div>
+              <div class="font-semibold text-[#5E3AFC]">{trans.aiSimulation.aiAssistant}</div>
+              <div class="text-[#0DE0EF] text-sm">{trans.aiSimulation.status}</div>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <div class="w-2 h-2 bg-[#0DE0EF] rounded-full animate-pulse"></div>
+            <span class="text-xs text-gray-600">{trans.aiSimulation.live}</span>
+          </div>
+        </div>
+
+                                  <div class="space-y-4 mb-4">
+                                    <div class="flex justify-end">
+            <div class="text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs bg-[#11B98F] shadow-md">
+              <p class="text-sm">{trans.aiSimulation.customerQuery}</p>
+            </div>
+          </div>
+                                    <div class="flex justify-start opacity-0 animate-fadeIn" style="animation-delay: 0.8s;">
+            <div class="text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs bg-[#5E3AFC] shadow-md">
+              <div class="flex items-center space-x-2 mb-2">
+                <div class="w-4 h-4 bg-white/30 rounded-full"></div>
+                <span class="text-xs text-white/80">{trans.aiSimulation.aiProcessing}</span>
+              </div>
+              <p class="text-sm">{trans.aiSimulation.aiLocating}</p>
+            </div>
+          </div>
+                                    <div class="flex justify-start opacity-0 animate-fadeIn" style="animation-delay: 1.8s;">
+            <div class="text-white px-4 py-3 rounded-2xl rounded-bl-sm max-w-xs bg-[#5E3AFC] shadow-md">
+              <p class="text-sm">{trans.aiSimulation.aiResponse}</p>
+            </div>
+          </div>
                                   <div class="flex justify-end opacity-0 animate-fadeIn" style="animation-delay: 2.8s;">
-                                    <div class="text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs bg-[#11B98F] shadow-md">
-                                      <p class="text-sm">{trans.aiSimulation.customerReply}</p>
-                                    </div>
-                                  </div>
-                                </div>
+            <div class="text-white px-4 py-3 rounded-2xl rounded-br-sm max-w-xs bg-[#11B98F] shadow-md">
+              <p class="text-sm">{trans.aiSimulation.customerReply}</p>
+            </div>
+          </div>
+        </div>
 
-                                <div class="flex items-center space-x-3">
-                                  <div class="flex-1 rounded-xl px-4 py-3 bg-gray-100 border border-gray-300 opacity-75 cursor-not-allowed">
-                                    <input 
-                                      type="text" 
-                                      placeholder={trans.aiSimulation.inputPlaceholder} 
-                                      class="w-full bg-transparent text-gray-700 placeholder-gray-500 text-sm outline-none cursor-not-allowed" 
-                                      disabled={true}
-                                      readonly={true}
-                                    />
-                                  </div>
-                                  <button class="w-12 h-12 bg-[#5E3AFC] hover:bg-[#5E3AFC] rounded-xl flex items-center justify-center shadow-md cursor-not-allowed opacity-70" disabled={true}>
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
-                                  </button>
-                                </div>
-                              </div>
+        <div class="flex items-center space-x-3">
+          <div class="flex-1 rounded-xl px-4 py-3 bg-gray-100 border border-gray-300 opacity-75 cursor-not-allowed">
+            <input 
+              type="text" 
+              placeholder={trans.aiSimulation.inputPlaceholder} 
+              class="w-full bg-transparent text-gray-700 placeholder-gray-500 text-sm outline-none cursor-not-allowed" 
+              disabled={true}
+              readonly={true}
+            />
+          </div>
+          <button class="w-12 h-12 bg-[#5E3AFC] hover:bg-[#5E3AFC] rounded-xl flex items-center justify-center shadow-md cursor-not-allowed opacity-70" disabled={true}>
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+          </button>
+        </div>
+      </div>
 
-                              <div class="absolute -top-4 -right-8 w-32 p-3 bg-gradient-to-r from-[#6438FF]/90 to-[#8B5CF6]/90 backdrop-blur-xl rounded-xl border border-white/20 animate-float">
-                                <div class="flex items-center space-x-2 mb-1">
-                                  <div class="w-4 h-4 bg-[#0DE0EF] rounded-full"></div>
-                                  <span class="text-white text-xs font-semibold">{trans.aiSimulation.responseTime}</span>
-                                </div>
-                                <div class="text-white text-lg font-black">{trans.aiSimulation.responseValue}</div>
-                              </div>
+      <div class="absolute -top-4 -right-8 w-32 p-3 bg-gradient-to-r from-[#6438FF]/90 to-[#8B5CF6]/90 backdrop-blur-xl rounded-xl border border-white/20 animate-float">
+        <div class="flex items-center space-x-2 mb-1">
+          <div class="w-4 h-4 bg-[#0DE0EF] rounded-full"></div>
+          <span class="text-white text-xs font-semibold">{trans.aiSimulation.responseTime}</span>
+        </div>
+        <div class="text-white text-lg font-black">{trans.aiSimulation.responseValue}</div>
+      </div>
 
-                              <div class="absolute -bottom-4 -left-8 w-36 p-3 bg-gradient-to-r from-[#11B98F] to-[#0DE0EF] rounded-xl border border-[#11B98F]/50 shadow-lg animate-float-delayed">
-                                <div class="flex items-center space-x-2 mb-1">
-                                  <div class="w-4 h-4 bg-white rounded-full"></div>
-                                  <span class="text-white text-xs font-semibold">{trans.aiSimulation.satisfaction}</span>
-                                </div>
-                                <div class="text-white text-lg font-black">{trans.aiSimulation.satisfactionValue}</div>
-                              </div>
-                            </div>
-                          )}
+      <div class="absolute -bottom-4 -left-8 w-36 p-3 bg-gradient-to-r from-[#11B98F] to-[#0DE0EF] rounded-xl border border-[#11B98F]/50 shadow-lg animate-float-delayed">
+        <div class="flex items-center space-x-2 mb-1">
+          <div class="w-4 h-4 bg-white rounded-full"></div>
+          <span class="text-white text-xs font-semibold">{trans.aiSimulation.satisfaction}</span>
+        </div>
+        <div class="text-white text-lg font-black">{trans.aiSimulation.satisfactionValue}</div>
+      </div>
+    </div>
+                            )}
+  </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  );
+                })}
+</div>
 
               {/* Pagination Indicators - 翻页指示器 */}
               {showPagination && (
@@ -443,7 +458,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                       aria-label={`Go to slide ${index + 1}`}
                     ></button>
                   ))}
-                </div>
+            </div>
               )}
 
               {/* Banner Carousel Script */}
@@ -523,11 +538,95 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   });
                 })();
               `}} />
-            </section>
+      </section>
           </>
         );
       })()}
       
+
+      {/* Other Resources Section - 其他资源 */}
+      <section class="py-16 md:py-20 bg-gradient-to-tr from-blue-200 via-purple-200 to-pink-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Resource Cards - 两个卡片水平排列 */}
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
+            {/* Card 1 - Voice Connectivity */}
+            <div class="bg-white rounded-3xl p-8 md:p-10 shadow-xl">
+              {/* Icon 和 Title 水平排列 */}
+              <div class="flex items-center mb-8">
+                {/* Icon - 浅蓝紫渐变背景，白色图标 */}
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center flex-shrink-0 mr-4">
+                  <i class="fas fa-microphone text-white text-2xl"></i>
+              </div>
+                
+                {/* Title - 在图标右侧 */}
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-900 flex-1">
+                  {trans.otherResources.cards.voiceConnectivity.title}
+                </h3>
+            </div>
+
+              {/* Buttons */}
+              <div class="flex flex-col sm:flex-row gap-3">
+                {/* Learn More Button - 紫色，带白色圆形图标 */}
+                <a 
+                  href="#"
+                  class="inline-flex items-center justify-center px-6 py-3 bg-[#6438FF] text-white rounded-full font-medium hover:bg-[#5a2ee6] transition-all duration-300"
+                >
+                  <span class="inline-flex items-center justify-center w-5 h-5 bg-white rounded-full mr-2">
+                    <span class="text-[#6438FF] text-xs font-bold">+</span>
+              </span>
+                  <span>{trans.otherResources.cards.voiceConnectivity.learnMore}</span>
+                </a>
+                
+                {/* Book Demo Button - 白色背景，黑色边框 */}
+                <a 
+                  href="#"
+                  class="inline-flex items-center justify-center px-6 py-3 bg-white border-2 border-gray-900 text-gray-900 rounded-full font-medium hover:bg-gray-50 transition-all duration-300"
+                >
+                  {trans.otherResources.cards.voiceConnectivity.bookDemo}
+                </a>
+              </div>
+            </div>
+
+            {/* Card 2 - Live Chat */}
+            <div class="bg-white rounded-3xl p-8 md:p-10 shadow-xl">
+              {/* Icon 和 Title 水平排列 */}
+              <div class="flex items-center mb-8">
+                {/* Icon - 浅蓝紫渐变背景，白色图标 */}
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center flex-shrink-0 mr-4">
+                  <i class="fas fa-comment-dots text-white text-2xl"></i>
+                </div>
+                
+                {/* Title - 在图标右侧 */}
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-900 flex-1">
+                  {trans.otherResources.cards.liveChat.title}
+                </h3>
+              </div>
+              
+              {/* Buttons */}
+              <div class="flex flex-col sm:flex-row gap-3">
+                {/* Learn More Button - 紫色，带白色圆形图标 */}
+                <a 
+                  href="#"
+                  class="inline-flex items-center justify-center px-6 py-3 bg-[#6438FF] text-white rounded-full font-medium hover:bg-[#5a2ee6] transition-all duration-300"
+                >
+                  <span class="inline-flex items-center justify-center w-5 h-5 bg-white rounded-full mr-2">
+                    <span class="text-[#6438FF] text-xs font-bold">+</span>
+                  </span>
+                  <span>{trans.otherResources.cards.liveChat.learnMore}</span>
+                </a>
+                
+                {/* Book Demo Button - 白色背景，黑色边框 */}
+                <a 
+                  href="#"
+                  class="inline-flex items-center justify-center px-6 py-3 bg-white border-2 border-gray-900 text-gray-900 rounded-full font-medium hover:bg-gray-50 transition-all duration-300"
+                >
+                  {trans.otherResources.cards.liveChat.bookDemo}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Zenava Business Value Section - Matching Marketing Solutions Style */}
       <section class="py-20 bg-gray-50">
@@ -557,42 +656,23 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                     <i class="fas fa-robot text-purple-600 text-xl"></i>
                   </div>
                   <h3 class="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
-                    {language === 'zh' && 'AI驱动的营销自动化'}
-                    {language === 'en' && 'AI-Driven Marketing Automation'}
-                    {language === 'jp' && 'AI駆動のマーケティングオートメーション'}
-                    {language === 'hk' && 'AI驅動的營銷自動化'}
+                    {trans.scenarios.marketing.section3?.mainTitle || trans.scenarios.marketing.title}
                   </h3>
                 </a>
                 <h4 class="text-lg md:text-xl font-semibold text-purple-600 mb-4">
-                  {language === 'zh' && '智能获客，精准转化'}
-                  {language === 'en' && 'Intelligent Lead Generation, Precise Conversion'}
-                  {language === 'jp' && 'スマートリード獲得、正確なコンバージョン'}
-                  {language === 'hk' && '智能獲客，精準轉化'}
+                  {trans.scenarios.marketing.section3?.subtitle || trans.scenarios.marketing.subtitle}
                 </h4>
                 <p class="text-base md:text-lg text-gray-700 mb-6 leading-relaxed">
-                  {language === 'zh' && '通过AI智能获客识别'}
-                  {language === 'en' && 'Through AI-powered intelligent customer acquisition and recognition'}
-                  {language === 'jp' && 'AIによるスマートな顧客獲得と認識'}
-                  {language === 'hk' && '通過AI智能獲客識別'}
+                  {trans.scenarios.marketing.section3?.description || trans.scenarios.marketing.description}
                 </p>
                 <div class="flex flex-wrap gap-4 mb-6">
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>
-                      {language === 'zh' && '智能识别'}
-                      {language === 'en' && 'Smart Recognition'}
-                      {language === 'jp' && 'スマート認識'}
-                      {language === 'hk' && '智能識別'}
-                    </span>
+                    <span>{trans.scenarios.marketing.section3?.tag1 || trans.scenarios.marketing.features?.[0] || '智能识别'}</span>
                   </div>
                   <div class="flex items-center text-sm text-gray-600">
                     <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>
-                      {language === 'zh' && '实时优化'}
-                      {language === 'en' && 'Real-time Optimization'}
-                      {language === 'jp' && 'リアルタイム最適化'}
-                      {language === 'hk' && '實時優化'}
-                    </span>
+                    <span>{trans.scenarios.marketing.section3?.tag2 || trans.scenarios.marketing.features?.[1] || '实时优化'}</span>
                   </div>
                 </div>
                 
@@ -603,12 +683,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   rel="noopener noreferrer"
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
                 >
-                  <span>
-                    {language === 'zh' && '了解更多营销自动化'}
-                    {language === 'en' && 'Learn More About Marketing Automation'}
-                    {language === 'jp' && 'マーケティングオートメーションの詳細'}
-                    {language === 'hk' && '了解更多營銷自動化'}
-                  </span>
+                  <span>{trans.scenarios.marketing.section3?.buttonText || trans.scenarios.marketing.title}</span>
                   <i class="fas fa-arrow-right ml-2"></i>
                 </a>
               </div>
@@ -618,12 +693,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 <div class="rounded-xl overflow-hidden shadow-xl">
                   <img 
                     src="/assets/images/right-one.png" 
-                    alt={
-                      language === 'zh' ? '实体图片' :
-                      language === 'en' ? 'Physical Image' :
-                      language === 'jp' ? '実体画像' :
-                      '實體圖片'
-                    }
+                    alt={trans.scenarios.marketing.section3?.imageAlt || 'Marketing Automation'}
                     class="w-full h-auto object-cover"
                     loading="lazy"
                   />
@@ -715,12 +785,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   rel="noopener noreferrer"
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
                 >
-                  <span>
-                    {language === 'zh' && '了解更多智能销售'}
-                    {language === 'en' && 'Learn More About Sales'}
-                    {language === 'jp' && '営業の詳細'}
-                    {language === 'hk' && '了解更多智能銷售'}
-                  </span>
+                  <span>{trans.scenarios.sales.buttonText || trans.scenarios.sales.title}</span>
                   <i class="fas fa-arrow-right ml-2"></i>
                 </a>
               </div>
@@ -769,12 +834,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   rel="noopener noreferrer"
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
                 >
-                  <span>
-                    {language === 'zh' && '了解更多客户服务'}
-                    {language === 'en' && 'Learn More About Customer Service'}
-                    {language === 'jp' && 'カスタマーサービスの詳細'}
-                    {language === 'hk' && '了解更多客戶服務'}
-                  </span>
+                  <span>{trans.scenarios.customerService.buttonText || trans.scenarios.customerService.title}</span>
                   <i class="fas fa-arrow-right ml-2"></i>
                 </a>
               </div>
@@ -833,10 +893,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                     playsinline
                   >
                     <p class="p-8 bg-gray-100 text-center">
-                      {language === 'zh' && '您的浏览器不支持视频播放'}
-                      {language === 'en' && 'Your browser does not support video playback'}
-                      {language === 'jp' && 'お使いのブラウザは動画再生に対応していません'}
-                      {language === 'hk' && '您的瀏覽器不支持視頻播放'}
+                      {trans.scenarios.internalService.videoError || 'Your browser does not support video playback'}
                     </p>
                   </video>
                 </div>
@@ -883,12 +940,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   rel="noopener noreferrer"
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
                 >
-                  <span>
-                    {language === 'zh' && '了解更多内部服务'}
-                    {language === 'en' && 'Learn More About Internal Service'}
-                    {language === 'jp' && '社内サービスの詳細'}
-                    {language === 'hk' && '了解更多內部服務'}
-                  </span>
+                  <span>{trans.scenarios.internalService.buttonText || trans.scenarios.internalService.title}</span>
                   <i class="fas fa-arrow-right ml-2"></i>
                 </a>
               </div>
@@ -937,12 +989,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   rel="noopener noreferrer"
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
                 >
-                  <span>
-                    {language === 'zh' && '了解更多管理优化'}
-                    {language === 'en' && 'Learn More About Management'}
-                    {language === 'jp' && '管理の詳細'}
-                    {language === 'hk' && '了解更多管理優化'}
-                  </span>
+                  <span>{trans.scenarios.management.buttonText || trans.scenarios.management.title}</span>
                   <i class="fas fa-arrow-right ml-2"></i>
                 </a>
               </div>
@@ -1104,140 +1151,6 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
       </section>
 
 
-
-      {/* Other Resources Section - 其他资源 */}
-      <section class="py-20 bg-[#1a2332] text-white relative overflow-hidden">
-        {/* Background decorative elements */}
-        <div class="absolute inset-0">
-          <div class="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-[#6438FF]/10 to-[#0DE0EF]/10 rounded-full blur-3xl"></div>
-          <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-r from-[#0DE0EF]/10 to-[#6438FF]/10 rounded-full blur-3xl"></div>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Section Title */}
-          <div class="text-center mb-12">
-            <h2 class="text-3xl sm:text-4xl font-bold mb-4">
-              {language === 'zh' && '其他资源'}
-              {language === 'en' && 'Other Resources'}
-              {language === 'jp' && 'その他のリソース'}
-              {language === 'hk' && '其他資源'}
-            </h2>
-          </div>
-
-          {/* Resource Cards Grid */}
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Card 1 - 直播 */}
-            <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group">
-              {/* Card Image */}
-              <div class="relative h-48 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20"></div>
-                <div class="relative z-10 transform group-hover:scale-110 transition-transform duration-300">
-                  <div class="w-32 h-32 bg-white/90 rounded-2xl shadow-xl flex items-center justify-center">
-                    <i class="fas fa-video text-blue-500 text-5xl"></i>
-                  </div>
-                </div>
-                {/* Tag */}
-                <div class="absolute top-4 left-4 bg-orange-400 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center space-x-1">
-                  <i class="fas fa-circle text-[8px]"></i>
-                  <span>
-                    {language === 'zh' && '直播'}
-                    {language === 'en' && 'Live'}
-                    {language === 'jp' && 'ライブ'}
-                    {language === 'hk' && '直播'}
-                  </span>
-                </div>
-              </div>
-              {/* Card Content */}
-              <div class="p-5">
-                <h3 class="text-gray-900 font-bold text-base mb-2">
-                  {language === 'zh' && '《提升跨渠道沟通的AI生产力》'}
-                  {language === 'en' && 'Enhancing AI Productivity in Cross-Channel Communication'}
-                  {language === 'jp' && '《クロスチャネルコミュニケーションのAI生産性向上》'}
-                  {language === 'hk' && '《提升跨渠道溝通的AI生產力》'}
-                </h3>
-              </div>
-            </div>
-
-            {/* Card 2 - 行业报告 */}
-            <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group">
-              <div class="relative h-48 bg-gradient-to-br from-green-100 to-teal-200 flex items-center justify-center overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-green-400/20 to-teal-400/20"></div>
-                <div class="relative z-10 transform group-hover:scale-110 transition-transform duration-300">
-                  <div class="w-32 h-32 bg-white/90 rounded-2xl shadow-xl flex items-center justify-center">
-                    <i class="fas fa-book text-green-500 text-5xl"></i>
-                  </div>
-                </div>
-                <div class="absolute top-4 left-4 bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-xs font-semibold">
-                  {language === 'zh' && '行业报告'}
-                  {language === 'en' && 'Report'}
-                  {language === 'jp' && '業界レポート'}
-                  {language === 'hk' && '行業報告'}
-                </div>
-              </div>
-              <div class="p-5">
-                <h3 class="text-gray-900 font-bold text-base mb-2">
-                  {language === 'zh' && '《提升跨渠道沟通的AI生产力》'}
-                  {language === 'en' && 'Enhancing AI Productivity in Cross-Channel Communication'}
-                  {language === 'jp' && '《クロスチャネルコミュニケーションのAI生産性向上》'}
-                  {language === 'hk' && '《提升跨渠道溝通的AI生產力》'}
-                </h3>
-              </div>
-            </div>
-
-            {/* Card 3 - 博客 */}
-            <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group">
-              <div class="relative h-48 bg-gradient-to-br from-orange-100 to-amber-200 flex items-center justify-center overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-amber-400/20"></div>
-                <div class="relative z-10 transform group-hover:scale-110 transition-transform duration-300">
-                  <div class="w-32 h-32 bg-white/90 rounded-2xl shadow-xl flex items-center justify-center">
-                    <i class="fas fa-pen-fancy text-orange-500 text-5xl"></i>
-                  </div>
-                </div>
-                <div class="absolute top-4 left-4 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                  {language === 'zh' && '博客'}
-                  {language === 'en' && 'Blog'}
-                  {language === 'jp' && 'ブログ'}
-                  {language === 'hk' && '博客'}
-                </div>
-              </div>
-              <div class="p-5">
-                <h3 class="text-gray-900 font-bold text-base mb-2">
-                  {language === 'zh' && '《提升跨渠道沟通的AI生产力》'}
-                  {language === 'en' && 'Enhancing AI Productivity in Cross-Channel Communication'}
-                  {language === 'jp' && '《クロスチャネルコミュニケーションのAI生産性向上》'}
-                  {language === 'hk' && '《提升跨渠道溝通的AI生產力》'}
-                </h3>
-              </div>
-            </div>
-
-            {/* Card 4 - 文章 */}
-            <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group">
-              <div class="relative h-48 bg-gradient-to-br from-cyan-100 to-blue-200 flex items-center justify-center overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-blue-400/20"></div>
-                <div class="relative z-10 transform group-hover:scale-110 transition-transform duration-300">
-                  <div class="w-32 h-32 bg-white/90 rounded-2xl shadow-xl flex items-center justify-center">
-                    <i class="fas fa-file-alt text-cyan-500 text-5xl"></i>
-                  </div>
-                </div>
-                <div class="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                  {language === 'zh' && '文章'}
-                  {language === 'en' && 'Article'}
-                  {language === 'jp' && '記事'}
-                  {language === 'hk' && '文章'}
-                </div>
-              </div>
-              <div class="p-5">
-                <h3 class="text-gray-900 font-bold text-base mb-2">
-                  {language === 'zh' && '《提升跨渠道沟通的AI生产力》'}
-                  {language === 'en' && 'Enhancing AI Productivity in Cross-Channel Communication'}
-                  {language === 'jp' && '《クロスチャネルコミュニケーションのAI生産性向上》'}
-                  {language === 'hk' && '《提升跨渠道溝通的AI生產力》'}
-                </h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Render additional dynamic modules */}
       {modules.filter(m => !['main_hero', 'key_features', 'platform_stats'].includes(m.module_name)).map((module, index) => {

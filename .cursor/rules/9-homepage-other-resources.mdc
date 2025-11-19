@@ -1,0 +1,287 @@
+---
+alwaysApply: true
+---
+# Zenava 项目 - 首页"其他资源"版块修改规则
+
+## 版块定位
+- **文件路径**: `src/pages/HomepageDB.tsx` (第 1071-1143 行左右)
+- **翻译文件**: `src/i18n/translations.ts` (第 261+ 行，`otherResources` 配置)
+- **版块位置**: Banner 轮播下方
+- **版块功能**: 展示两个资源卡片（Voice Connectivity 和 Live Chat），每个卡片包含图标、标题和两个按钮
+- **支持语言**: 简体中文(zh)、英文(en)、日文(jp)、繁体中文(hk)
+- **主要输入语言**: 简体中文 (zh) - 其他语言自动生成
+
+## 🎯 数据架构（重要！）
+- **翻译数据**: 所有文字内容（标题、按钮文字）统一存放在 `src/i18n/translations.ts` 的 `otherResources` 配置中
+- **配置数据**: 图标类名、按钮链接、卡片样式等配置保留在 `HomepageDB.tsx` 中
+- **使用方式**: `HomepageDB.tsx` 通过 `trans.otherResources.cards.voiceConnectivity.title` 读取翻译
+
+## 版块结构说明
+
+### 🎨 整体布局
+- **背景**: 渐变色（从浅蓝 `blue-50` 到浅紫 `purple-50`）
+- **布局**: 两个白色卡片水平排列（桌面端），移动端垂直堆叠
+- **卡片样式**: 白色背景、圆角、阴影、悬停效果
+
+### 📍 每个卡片包含元素
+1. **图标** (Icon)
+   - 浅蓝色背景 (`bg-blue-100`)
+   - 圆角正方形 (`rounded-xl`)
+   - Font Awesome 图标（麦克风或聊天图标）
+   
+2. **标题** (Title)
+   - 大号粗体黑色文字
+   - 响应式字体大小 (`text-2xl md:text-3xl`)
+
+3. **按钮组** (Buttons)
+   - **按钮1**: 紫色渐变按钮（"了解详情"）+ 右箭头图标
+   - **按钮2**: 白色边框按钮（"预约演示"）
+
+---
+
+## 📝 数据结构说明
+
+### 📁 文件 1：翻译文件 (`src/i18n/translations.ts`)
+
+```typescript
+// 在 siteTranslations 的每个语言（zh/en/jp/hk）中添加：
+otherResources: {
+  title: '其他资源',  // 版块标题（当前未使用，保留备用）
+  cards: {
+    voiceConnectivity: {
+      title: 'Voice Connectivity',  // 卡片标题
+      learnMore: '了解详情',          // 紫色按钮文字
+      bookDemo: '预约演示'            // 白色按钮文字
+    },
+    liveChat: {
+      title: 'Live Chat',           // 卡片标题
+      learnMore: '了解详情',          // 紫色按钮文字
+      bookDemo: '预约演示'            // 白色按钮文字
+    }
+  }
+}
+```
+
+### 📁 文件 2：配置文件 (`src/pages/HomepageDB.tsx`)
+
+```typescript
+{/* Card 1 - Voice Connectivity */}
+<div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+  {/* Icon */}
+  <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+    <i class="fas fa-microphone text-blue-500 text-2xl"></i>  // 图标类名（配置）
+  </div>
+  
+  {/* Title */}
+  <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+    {trans.otherResources.cards.voiceConnectivity.title}  // 从翻译读取
+  </h3>
+  
+  {/* Buttons */}
+  <div class="flex flex-col sm:flex-row gap-4">
+    {/* Learn More Button */}
+    <a 
+      href="#"  // 按钮链接（配置）
+      class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#6438FF] to-[#8B5CF6] text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+    >
+      <span>{trans.otherResources.cards.voiceConnectivity.learnMore}</span>  // 从翻译读取
+      <i class="fas fa-arrow-right ml-2"></i>  // 图标（配置）
+    </a>
+    
+    {/* Book Demo Button */}
+    <a 
+      href="#"  // 按钮链接（配置）
+      class="inline-flex items-center justify-center px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-gray-400 hover:bg-gray-50 transition-all duration-300"
+    >
+      {trans.otherResources.cards.voiceConnectivity.bookDemo}  // 从翻译读取
+    </a>
+  </div>
+</div>
+```
+
+---
+
+## 📝 修改流程（重要！）
+
+### 🎯 两步修改流程
+
+**步骤1：修改翻译文字** (`src/i18n/translations.ts`)
+- 修改卡片标题、按钮文字
+- 用户只需提供简体中文，AI 自动生成英文、日文、繁体中文
+
+**步骤2：修改配置** (`src/pages/HomepageDB.tsx`)
+- 修改图标类名、按钮链接
+
+---
+
+### 示例 1：修改卡片标题和按钮文字
+
+**用户输入**（只需提供简体中文）：
+```
+修改"其他资源"版块：
+- 卡片1标题：语音连接
+- 卡片1按钮1：了解更多
+- 卡片1按钮2：预约演示
+- 卡片2标题：实时聊天
+- 卡片2按钮1：了解更多
+- 卡片2按钮2：预约演示
+```
+
+**AI 操作**：
+只需修改 `translations.ts` 中 `otherResources.cards` 的对应字段（四种语言同步更新）
+
+---
+
+### 示例 2：修改按钮链接
+
+**用户输入**：
+```
+修改"其他资源"版块按钮链接：
+- 卡片1"了解详情"按钮链接：/products/voice
+- 卡片1"预约演示"按钮链接：/contact
+- 卡片2"了解详情"按钮链接：/products/chat
+- 卡片2"预约演示"按钮链接：/contact
+```
+
+**AI 操作**：
+只需修改 `HomepageDB.tsx` 中对应卡片的 `href` 属性
+
+---
+
+### 示例 3：修改图标
+
+**用户输入**：
+```
+修改"其他资源"版块图标：
+- 卡片1图标：fas fa-phone-alt
+- 卡片2图标：fas fa-comment-dots
+```
+
+**AI 操作**：
+只需修改 `HomepageDB.tsx` 中对应卡片的图标类名
+
+---
+
+## 🎨 版块组成部分详解
+
+### 1. 背景配置
+
+**当前配置**：
+```typescript
+class="bg-gradient-to-b from-blue-50 to-purple-50"
+```
+
+**可选渐变组合**：
+
+| 风格 | 渐变类名 | 效果 |
+|-----|---------|-----|
+| 蓝紫渐变（当前） | `from-blue-50 to-purple-50` | 清新、现代 |
+| 粉紫渐变 | `from-pink-50 to-purple-50` | 柔和、温馨 |
+| 蓝绿渐变 | `from-blue-50 to-teal-50` | 清新、自然 |
+| 橙黄渐变 | `from-orange-50 to-yellow-50` | 温暖、活力 |
+| 灰蓝渐变 | `from-gray-50 to-blue-50` | 商务、专业 |
+
+### 2. 图标配置
+
+**当前图标**：
+- 卡片1：`fas fa-microphone`（麦克风）
+- 卡片2：`fas fa-comments`（聊天）
+
+**常用图标类名**：
+
+| 图标类名 | 图标 | 用途 |
+|---------|-----|-----|
+| `fas fa-microphone` | 🎤 | 语音、通话 |
+| `fas fa-comments` | 💬 | 聊天、消息 |
+| `fas fa-phone-alt` | 📞 | 电话、语音 |
+| `fas fa-comment-dots` | 💭 | 对话、聊天 |
+| `fas fa-headset` | 🎧 | 客服、支持 |
+| `fas fa-video` | 📹 | 视频通话 |
+
+### 3. 按钮样式
+
+**紫色按钮**（"了解详情"）：
+```typescript
+class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#6438FF] to-[#8B5CF6] text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+```
+
+**白色按钮**（"预约演示"）：
+```typescript
+class="inline-flex items-center justify-center px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-gray-400 hover:bg-gray-50 transition-all duration-300"
+```
+
+---
+
+## ✅ 修改注意事项
+
+### 必须遵守：
+1. **四语同步**: 所有文字内容必须包含 zh、en、jp、hk 四个语言版本
+2. **自动翻译**: 用户只提供简体中文，AI 自动生成其他三种语言
+3. **保持格式**: 不要修改 JSX 结构、CSS 类名
+4. **响应式**: 确保移动端正常显示（卡片会自动垂直堆叠）
+5. **链接有效**: 确保所有链接可用，内部链接使用相对路径
+6. **图标一致**: 使用 Font Awesome 图标，保持风格统一
+
+### ❌ 禁止操作：
+1. ❌ 不要修改卡片的基本结构（div、section 等）
+2. ❌ 不要删除响应式类名（md:、sm: 等）
+3. ❌ 不要修改按钮的样式类名
+4. ❌ 不要破坏两个卡片的水平布局
+5. ❌ 不要使用过长的标题（建议 < 20 个字符）
+
+### 📏 内容长度建议：
+
+| 内容 | 简体中文 | 英文 | 说明 |
+|-----|---------|-----|-----|
+| 卡片标题 | 4-15个汉字 | 2-8个单词 | 简短描述 |
+| 按钮文字 | 2-6个汉字 | 1-4个单词 | 简短行动号召 |
+
+---
+
+## 🚀 测试验证步骤
+
+修改后必须验证：
+
+### 1. 多语言测试
+- ✅ 在浏览器中检查**四种语言版本**
+- ✅ 验证每种语言的文字长度不会破坏布局
+- ✅ 检查按钮文字在不同语言下不溢出
+
+### 2. 响应式测试（必须！）
+- ✅ 切换到移动端视图（DevTools: Cmd/Ctrl+Shift+M）
+- ✅ 测试 iPhone SE (375px) - 卡片应垂直堆叠
+- ✅ 测试 iPhone 12/13/14 (390px)
+- ✅ 测试 iPad (768px) - 卡片应水平排列
+- ✅ 测试桌面端 (1024px+)
+
+### 3. 交互测试
+- ✅ 悬停卡片显示阴影效果
+- ✅ 点击按钮正确跳转
+- ✅ 按钮悬停效果正常
+- ✅ 紫色按钮悬停时放大效果
+
+---
+
+## 🎓 特殊场景处理
+
+### 场景1：添加第三个卡片
+**操作**：
+1. 在 `translations.ts` 中添加 `card3` 配置
+2. 在 `HomepageDB.tsx` 中添加第三个卡片 JSX
+3. 修改 `grid-cols-2` 为 `grid-cols-3`（桌面端）
+
+### 场景2：修改背景颜色
+**操作**：
+修改 `bg-gradient-to-b from-blue-50 to-purple-50` 为其他渐变组合
+
+### 场景3：修改卡片间距
+**操作**：
+修改 `gap-8` 为其他值（如 `gap-6`、`gap-10`）
+
+---
+
+## 📞 技术支持
+
+如有问题，请联系：
+- 邮箱：marketing@zenava.ai
+- 文档：`.cursor/rules/9-homepage-other-resources.mdc`

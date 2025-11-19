@@ -133,7 +133,16 @@ export const siteTranslations = {
           'Smart Lead Capture',
           'Multi-channel Integration',
           'Predictive Analytics'
-        ]
+        ],
+        section3: {
+          mainTitle: 'AI-Driven Marketing Automation',
+          subtitle: 'Intelligent Lead Generation, Precise Conversion',
+          description: 'Through AI-powered intelligent customer acquisition and recognition',
+          tag1: 'Smart Recognition',
+          tag2: 'Real-time Optimization',
+          buttonText: 'Learn More About Marketing Automation',
+          imageAlt: 'Physical Image'
+        }
       },
       sales: {
         title: 'Sales Enablement',
@@ -145,7 +154,8 @@ export const siteTranslations = {
           'Intelligent Closing Assistance',
           'Performance Analytics'
         ],
-        featureShort: ['Talk Track Recommendation', 'Competitor Analysis', 'Smart Deal-closing']
+        featureShort: ['Talk Track Recommendation', 'Competitor Analysis', 'Smart Deal-closing'],
+        buttonText: 'Learn More About Sales'
       },
       customerService: {
         title: 'Customer Service',
@@ -157,7 +167,8 @@ export const siteTranslations = {
           'Smart Ticket Processing Workflow',
           'Knowledge Management'
         ],
-        featureShort: ['24/7 Response', 'Emotion Recognition', 'Smart Ticket Processing Workflow']
+        featureShort: ['24/7 Response', 'Emotion Recognition', 'Smart Ticket Processing Workflow'],
+        buttonText: 'Learn More About Customer Service'
       },
       internalService: {
         title: 'Internal Operations',
@@ -169,7 +180,9 @@ export const siteTranslations = {
           'Data Analytics',
           'Process Automation'
         ],
-        featureShort: ['Unified Portal', 'Intelligent Dispatch', 'Data Analytics']
+        featureShort: ['Unified Portal', 'Intelligent Dispatch', 'Data Analytics'],
+        buttonText: 'Learn More About Internal Service',
+        videoError: 'Your browser does not support video playback'
       },
       management: {
         title: 'Management Optimization',
@@ -182,7 +195,8 @@ export const siteTranslations = {
           'Trend Analysis'
         ],
         featureShort: ['Insights Mining', 'Requirement Extraction', 'lteration Closed Loop'],
-        brandFeatures: ['Risk Alert', 'Sentiment Analysis', 'Quality Control']
+        brandFeatures: ['Risk Alert', 'Sentiment Analysis', 'Quality Control'],
+        buttonText: 'Learn More About Management'
       }
     },
     
@@ -243,6 +257,23 @@ export const siteTranslations = {
       enterprisesValue: '5000+',
       satisfactionValue: '4.9/5'
     },
+    
+    // Other Resources Section
+    otherResources: {
+      title: 'Other Resources',
+      cards: {
+        voiceConnectivity: {
+          title: 'Voice Connectivity',
+          learnMore: 'Learn More',
+          bookDemo: 'Book a Demo'
+        },
+        liveChat: {
+          title: 'Live Chat',
+          learnMore: 'Learn More',
+          bookDemo: 'Book a Demo'
+        }
+      }
+    },
 
     
     // Product Feedback Panel
@@ -258,6 +289,84 @@ export const siteTranslations = {
       iterationCount: '12 versions',
       satisfactionIncrease: 'Satisfaction Increase',
       satisfactionGrowth: '+18%'
+    },
+
+    // AI Agents Page
+    products: {
+      aiAgents: {
+        hero: {
+          title: 'ZENAVA Independently Handles 80% of Repetitive, High-Frequency, Clear-Process Customer Interactions',
+          subtitle: 'Significantly reduces reliance on human scale in traditional customer service, achieving a leap in customer experience.',
+          button: 'Schedule Consultation'
+        },
+        advantages: {
+          title: 'ZENAVA Advantages',
+          card1: {
+            title: 'Conversational',
+            subtitle: 'Communicate Like a Human',
+            desc: 'Text/Voice AI agents understand your business logic and knowledge base, providing empathetic, professional support.'
+          },
+          card2: {
+            title: 'Action-Oriented',
+            subtitle: 'Independently Complete Business Loops',
+            desc: 'Text/Voice AI agents can intelligently call your APIs, query and update data, and provide real-time services.'
+          },
+          card3: {
+            title: 'Fast Deployment',
+            subtitle: 'Smarter with Use',
+            desc: 'Text/Voice AI agents intelligently understand your knowledge base, interpret and summarize, providing real-time intelligent responses.'
+          }
+        },
+        features: {
+          voice: {
+            title: 'Voice',
+            subtitle: 'Beyond Human Voice Conversation Experience',
+            list: [
+              'Human-like Timbre',
+              'Smooth Interaction',
+              'Interruptible',
+              'Direct Business Process Handling'
+            ],
+            button: 'Learn About Voice'
+          },
+          messaging: {
+            title: 'Messaging & Instant Chat',
+            subtitle: 'Convenient Customer Service',
+            list: [
+              'Multi-channel Unified Access',
+              'Multi-modal Interaction',
+              'Complex Business Process Handling',
+              'Seamless Human Handoff, Context Sharing',
+              'Business Process Control'
+            ],
+            button: 'Learn About Instant Chat'
+          }
+        },
+        resources: {
+          title: 'Resource Center',
+          card1: {
+            tag: 'Product',
+            title: 'Building Continuously Evolving AI Productivity'
+          },
+          card2: {
+            tag: 'Industry Report',
+            title: 'Building Continuously Evolving AI Productivity'
+          },
+          card3: {
+            tag: 'Education',
+            title: 'Building Continuously Evolving AI Productivity'
+          },
+          card4: {
+            tag: 'Article',
+            title: 'Building Continuously Evolving AI Productivity'
+          }
+        },
+        cta: {
+          title: 'Open a New Chapter in Intelligent Conversation',
+          subtitle: 'Let Zenava AI help your enterprise achieve intelligent upgrades in customer conversation scenarios',
+          button: 'Contact Us'
+        }
+      }
     },
     
     // Sentiment Panel
@@ -353,6 +462,45 @@ export const siteTranslations = {
       responseTime: '2 Hours',
       dispatchEfficiency: 'Dispatch Efficiency',
       efficiencyRate: '85%'
+    },
+
+    // Banner Carousel Translations
+    banners: {
+      slide1: {
+        siteName: 'ZENAVA',
+        mainTitle: 'Enterprise AI Conversation Solutions',
+        description: 'Transform your customer service with intelligent AI agents, enhance customer experience, reduce operational costs',
+        buttonText: 'Schedule Consultation',
+        imageAlt: 'Banner Image 1'
+      },
+      slide2: {
+        siteName: 'ZENAVA Sales',
+        mainTitle: 'Intelligent Sales Enablement System',
+        description: 'AI-driven intelligent sales platform, precise customer profile analysis, intelligent sales strategy recommendations, improve closing rates and shorten sales cycles',
+        buttonText: 'Learn About Sales Solutions',
+        imageAlt: 'Intelligent Sales System Interface'
+      },
+      slide3: {
+        siteName: 'Intelligent AI Platform',
+        mainTitle: '4345323',
+        description: '43244444444',
+        buttonText: 'Schedule Consultation',
+        imageAlt: 'Intelligent AI Platform Display'
+      },
+      slide4: {
+        siteName: 'ZENAVA',
+        mainTitle: '7x24 Intelligent Customer Service',
+        description: 'AI-powered customer service system provides 24/7 service, automatically handles common issues, emotion recognition enhances experience',
+        buttonText: 'View Details',
+        imageAlt: 'Intelligent Customer Service'
+      },
+      slide5: {
+        siteName: '',
+        mainTitle: '',
+        description: '',
+        buttonText: '',
+        imageAlt: 'Marketing Campaign Banner'
+      }
     }
   },
   
@@ -442,7 +590,16 @@ export const siteTranslations = {
           'スマートリード獲得',
           'マルチチャネル統合',
           '予測分析'
-        ]
+        ],
+        section3: {
+          mainTitle: 'AI駆動のマーケティングオートメーション',
+          subtitle: 'スマートリード獲得、正確なコンバージョン',
+          description: 'AIによるスマートな顧客獲得と認識',
+          tag1: 'スマート認識',
+          tag2: 'リアルタイム最適化',
+          buttonText: 'マーケティングオートメーションの詳細',
+          imageAlt: '実体画像'
+        }
       },
       sales: {
         title: 'セールス支援プロセス',
@@ -454,7 +611,8 @@ export const siteTranslations = {
           'インテリジェントクロージング支援',
           'パフォーマンス分析'
         ],
-        featureShort: ['トークスクリプト推奨', '競合分析', 'スマート成約']
+        featureShort: ['トークスクリプト推奨', '競合分析', 'スマート成約'],
+        buttonText: '営業の詳細'
       },
       customerService: {
         title: 'カスタマーサービス',
@@ -465,7 +623,8 @@ export const siteTranslations = {
           '感情認識',
           'スマートチケッティング',
           'ナレッジ管理'
-        ]
+        ],
+        buttonText: 'カスタマーサービスの詳細'
       },
       internalService: {
         title: '社内運営',
@@ -476,7 +635,9 @@ export const siteTranslations = {
           'インテリジェントルーティング',
           'データ分析',
           'プロセス自動化'
-        ]
+        ],
+        buttonText: '社内サービスの詳細',
+        videoError: 'お使いのブラウザは動画再生に対応していません'
       },
       management: {
         title: '経営最適化',
@@ -488,7 +649,8 @@ export const siteTranslations = {
           'イテレーションループ',
           'トレンド分析'
         ],
-        brandFeatures: ['リスクアラート', '感情分析', '品質管理']
+        brandFeatures: ['リスクアラート', '感情分析', '品質管理'],
+        buttonText: '管理の詳細'
       }
     },
     
@@ -549,6 +711,23 @@ export const siteTranslations = {
       enterprisesValue: '5000+',
       satisfactionValue: '4.9/5'
     },
+    
+    // Other Resources Section
+    otherResources: {
+      title: 'その他のリソース',
+      cards: {
+        voiceConnectivity: {
+          title: '音声接続',
+          learnMore: '詳細を見る',
+          bookDemo: 'デモを予約'
+        },
+        liveChat: {
+          title: 'ライブチャット',
+          learnMore: '詳細を見る',
+          bookDemo: 'デモを予約'
+        }
+      }
+    },
 
     
     // Product Feedback Panel
@@ -564,6 +743,84 @@ export const siteTranslations = {
       iterationCount: '12バージョン',
       satisfactionIncrease: '満足度向上',
       satisfactionGrowth: '+18%'
+    },
+
+    // AI Agents Page
+    products: {
+      aiAgents: {
+        hero: {
+          title: 'ZENAVAは、反復的で高頻度、プロセスが明確な顧客対応タスクの80%を独立して処理します',
+          subtitle: '従来のカスタマーサービスにおける人的規模への依存を大幅に削減し、顧客体験の飛躍的な向上を実現します。',
+          button: '相談を予約'
+        },
+        advantages: {
+          title: 'ZENAVAの強み',
+          card1: {
+            title: '対話力',
+            subtitle: '人間のようなコミュニケーション',
+            desc: 'テキスト/音声AIエージェントがビジネスロジックとナレッジベースを理解し、共感的で専門的なサポートを提供します。'
+          },
+          card2: {
+            title: '実行力',
+            subtitle: 'ビジネスループを独立して完結',
+            desc: 'テキスト/音声AIエージェントがAPIをインテリジェントに呼び出し、データの照会や更新を行い、リアルタイムサービスを提供します。'
+          },
+          card3: {
+            title: '迅速な導入',
+            subtitle: '使うほどに賢く',
+            desc: 'テキスト/音声AIエージェントがナレッジベースをインテリジェントに理解、解釈、要約し、リアルタイムでスマートな回答を提供します。'
+          }
+        },
+        features: {
+          voice: {
+            title: 'Voice',
+            subtitle: '人間を超える音声対話体験',
+            list: [
+              '人間のような声色',
+              'スムーズな対話',
+              '割り込み可能',
+              'ビジネスプロセスの直接処理'
+            ],
+            button: 'Voiceについて'
+          },
+          messaging: {
+            title: 'メッセージングとインスタントチャット',
+            subtitle: '便利なカスタマーサービス',
+            list: [
+              'マルチチャネル統合アクセス',
+              'マルチモーダルインタラクション',
+              '複雑なビジネスプロセス処理',
+              'シームレスな有人切り替え、コンテキスト共有',
+              'ビジネスプロセス制御'
+            ],
+            button: 'インスタントチャットについて'
+          }
+        },
+        resources: {
+          title: 'リソースセンター',
+          card1: {
+            tag: '製品',
+            title: '進化し続けるAI生産性の構築'
+          },
+          card2: {
+            tag: '業界レポート',
+            title: '進化し続けるAI生産性の構築'
+          },
+          card3: {
+            tag: '教育',
+            title: '進化し続けるAI生産性の構築'
+          },
+          card4: {
+            tag: '記事',
+            title: '進化し続けるAI生産性の構築'
+          }
+        },
+        cta: {
+          title: 'インテリジェント対話の新たな章を開く',
+          subtitle: 'Zenava AIが企業の顧客対話シナリオのインテリジェントなアップグレードを支援します',
+          button: 'お問い合わせ'
+        }
+      }
     },
     
     // Sentiment Panel
@@ -660,6 +917,45 @@ export const siteTranslations = {
       responseTime: '2時間',
       dispatchEfficiency: 'ディスパッチ効率',
       efficiencyRate: '85%'
+    },
+
+    // Banner 轮播翻译
+    banners: {
+      slide1: {
+        siteName: 'ZENAVA',
+        mainTitle: '企業向けAI会話ソリューション',
+        description: 'インテリジェントなAIアシスタントでカスタマーサービスを変革し、顧客体験を向上させ、運用コストを削減',
+        buttonText: '相談を予約',
+        imageAlt: 'バナー画像1'
+      },
+      slide2: {
+        siteName: 'ZENAVA Sales',
+        mainTitle: 'インテリジェント営業支援システム',
+        description: 'AI駆動のインテリジェント営業プラットフォーム、正確な顧客プロファイル分析、インテリジェントな営業戦略の推奨、成約率を向上させ、営業サイクルを短縮',
+        buttonText: '営業ソリューションの詳細',
+        imageAlt: 'インテリジェント営業システムインターフェース'
+      },
+      slide3: {
+        siteName: 'インテリジェントAIプラットフォーム',
+        mainTitle: '4345323',
+        description: '43244444444',
+        buttonText: '相談を予約',
+        imageAlt: 'インテリジェントAIプラットフォームディスプレイ'
+      },
+      slide4: {
+        siteName: 'ZENAVA',
+        mainTitle: '7x24スマートカスタマーサービス',
+        description: 'AIスマートカスタマーサービスシステムは24時間365日のサービスを実現し、よくある質問を自動処理し、感情認識で体験を向上',
+        buttonText: '詳細を見る',
+        imageAlt: 'スマートカスタマーサービス'
+      },
+      slide5: {
+        siteName: '',
+        mainTitle: '',
+        description: '',
+        buttonText: '',
+        imageAlt: 'マーケティングキャンペーンバナー'
+      }
     }
   },
   
@@ -749,7 +1045,16 @@ export const siteTranslations = {
           '智能留資',
           '多渠道整合',
           '預測分析'
-        ]
+        ],
+        section3: {
+          mainTitle: 'AI驅動的營銷自動化',
+          subtitle: '智能獲客，精準轉化',
+          description: '通過AI智能獲客識別',
+          tag1: '智能識別',
+          tag2: '實時優化',
+          buttonText: '了解更多營銷自動化',
+          imageAlt: '實體圖片'
+        }
       },
       sales: {
         title: '銷售賦能',
@@ -761,7 +1066,8 @@ export const siteTranslations = {
           '智能成交輔助',
           '業績分析'
         ],
-        featureShort: ['話術推薦', '競品分析', '智能成交']
+        featureShort: ['話術推薦', '競品分析', '智能成交'],
+        buttonText: '了解更多智能銷售'
       },
       customerService: {
         title: '客戶服務',
@@ -772,7 +1078,8 @@ export const siteTranslations = {
           '情緒識別',
           '智能工單',
           '知識管理'
-        ]
+        ],
+        buttonText: '了解更多客戶服務'
       },
       internalService: {
         title: '內部運營',
@@ -783,7 +1090,9 @@ export const siteTranslations = {
           '智能派單',
           '數據分析',
           '流程自動化'
-        ]
+        ],
+        buttonText: '了解更多內部服務',
+        videoError: '您的瀏覽器不支持視頻播放'
       },
       management: {
         title: '管理優化',
@@ -795,7 +1104,8 @@ export const siteTranslations = {
           '迭代閉環',
           '趨勢分析'
         ],
-        brandFeatures: ['風險預警', '情緒分析', '品質控制']
+        brandFeatures: ['風險預警', '情緒分析', '品質控制'],
+        buttonText: '了解更多管理優化'
       }
     },
     
@@ -856,6 +1166,23 @@ export const siteTranslations = {
       enterprisesValue: '5000+',
       satisfactionValue: '4.9/5'
     },
+    
+    // Other Resources Section
+    otherResources: {
+      title: '其他資源',
+      cards: {
+        voiceConnectivity: {
+          title: '語音連接',
+          learnMore: '了解更多',
+          bookDemo: '預約演示'
+        },
+        liveChat: {
+          title: '實時聊天',
+          learnMore: '了解更多',
+          bookDemo: '預約演示'
+        }
+      }
+    },
 
     
     // Product Feedback Panel
@@ -871,6 +1198,84 @@ export const siteTranslations = {
       iterationCount: '12個版本',
       satisfactionIncrease: '滿意度提升',
       satisfactionGrowth: '+18%'
+    },
+
+    // AI Agents Page
+    products: {
+      aiAgents: {
+        hero: {
+          title: 'ZENAVA能夠獨立承擔 80%的重複性、高頻次、流程清晰的客戶聯絡任務',
+          subtitle: '顯著降低了傳統客服對人力規模的依賴，實現了客戶體驗的跨越式升級',
+          button: '預約諮詢'
+        },
+        advantages: {
+          title: 'ZENAVA的優勢',
+          card1: {
+            title: '能溝通',
+            subtitle: '像真人一樣交流',
+            desc: '文字/語音AI智能體理解您的業務邏輯和知識庫，提供有溫度、專業的服務支持。'
+          },
+          card2: {
+            title: '能執行',
+            subtitle: '獨立完成業務閉環',
+            desc: '文字/語音AI智能體能夠智能調用您的API，查詢和更新數據，提供實時服務。'
+          },
+          card3: {
+            title: '快速上崗',
+            subtitle: '越用越聰明',
+            desc: '文字/語音AI智能體智能理解您的知識庫，解讀並總結，提供實時智能回答。'
+          }
+        },
+        features: {
+          voice: {
+            title: 'Voice',
+            subtitle: '超越真人的語音對話體驗',
+            list: [
+              '擬人化音色',
+              '流暢交互',
+              '支持打斷',
+              '直接處理業務流程'
+            ],
+            button: '了解Voice'
+          },
+          messaging: {
+            title: '傳訊與即時對話',
+            subtitle: '便捷客戶服務',
+            list: [
+              '多渠道統一接入',
+              '多模態交互',
+              '複雜業務流程處理',
+              '無縫轉人工、上下文共享',
+              '業務流程管控'
+            ],
+            button: '了解即時對話'
+          }
+        },
+        resources: {
+          title: '資源中心',
+          card1: {
+            tag: '產品',
+            title: '構建持續進化的AI生產力'
+          },
+          card2: {
+            tag: '行業報告',
+            title: '構建持續進化的AI生產力'
+          },
+          card3: {
+            tag: '教育',
+            title: '構建持續進化的AI生產力'
+          },
+          card4: {
+            tag: '文章',
+            title: '構建持續進化的AI生產力'
+          }
+        },
+        cta: {
+          title: '開啟智能對話新篇章',
+          subtitle: '讓Zenava AI助力您的企業實現客戶對話場景的智能化升級',
+          button: '聯絡我們'
+        }
+      }
     },
     
     // Sentiment Panel
@@ -967,6 +1372,45 @@ export const siteTranslations = {
       responseTime: '2小時',
       dispatchEfficiency: '派單效率',
       efficiencyRate: '85%'
+    },
+
+    // Banner 轮播翻译
+    banners: {
+      slide1: {
+        siteName: 'ZENAVA',
+        mainTitle: '企業級AI對話解決方案',
+        description: '通過智能AI助手轉變您的客戶服務，提升客戶體驗，降低運營成本',
+        buttonText: '預約諮詢',
+        imageAlt: '橫幅圖片1'
+      },
+      slide2: {
+        siteName: 'ZENAVA Sales',
+        mainTitle: '智能銷售賦能系統',
+        description: 'AI驅動的銷售智能化平台，精準客戶畫像分析，智能推薦銷售策略，提升成單率縮短銷售週期',
+        buttonText: '了解銷售方案',
+        imageAlt: '智能銷售系統界面'
+      },
+      slide3: {
+        siteName: '智能AI平台',
+        mainTitle: '4345323',
+        description: '43244444444',
+        buttonText: '預約諮詢',
+        imageAlt: '智能AI平台展示'
+      },
+      slide4: {
+        siteName: 'ZENAVA',
+        mainTitle: '7x24智能客服',
+        description: 'AI智能客服系統實現全天候服務，自動處理常見問題，情感識別提升體驗',
+        buttonText: '查看詳情',
+        imageAlt: '智能客服'
+      },
+      slide5: {
+        siteName: '',
+        mainTitle: '',
+        description: '',
+        buttonText: '',
+        imageAlt: '營銷活動Banner圖'
+      }
     }
   },
   
@@ -1101,7 +1545,17 @@ export const siteTranslations = {
           '智能留资',
           '多渠道整合',
           '预测分析'
-        ]
+        ],
+        // 版块3专用内容
+        section3: {
+          mainTitle: 'AI驱动的营销自动化',
+          subtitle: '智能获客，精准转化',
+          description: '通过AI智能获客识别',
+          tag1: '智能识别',
+          tag2: '实时优化',
+          buttonText: '了解更多营销自动化',
+          imageAlt: '实体图片'
+        }
       },
       sales: {
         title: '销售赋能',
@@ -1113,7 +1567,8 @@ export const siteTranslations = {
           '智能成交辅助',
           '业绩分析'
         ],
-        featureShort: ['话术推荐', '竞品分析', '智能成交']
+        featureShort: ['话术推荐', '竞品分析', '智能成交'],
+        buttonText: '了解更多智能销售'
       },
       customerService: {
         title: '客户服务',
@@ -1125,7 +1580,8 @@ export const siteTranslations = {
           '智能工单',
           '知识管理'
         ],
-        featureShort: ['24/7响应', '情绪识别', '智能工单处理流程']
+        featureShort: ['24/7响应', '情绪识别', '智能工单处理流程'],
+        buttonText: '了解更多客户服务'
       },
       internalService: {
         title: '内部运营',
@@ -1137,7 +1593,9 @@ export const siteTranslations = {
           '数据分析',
           '流程自动化'
         ],
-        featureShort: ['统一入口', '智能派单', '数据分析']
+        featureShort: ['统一入口', '智能派单', '数据分析'],
+        buttonText: '了解更多内部服务',
+        videoError: '您的浏览器不支持视频播放'
       },
       management: {
         title: '管理优化',
@@ -1150,7 +1608,8 @@ export const siteTranslations = {
           '趋势分析'
         ],
         featureShort: ['洞察挖掘', '需求提取', '迭代闭环'],
-        brandFeatures: ['风险预警', '情绪分析', '品质控制']
+        brandFeatures: ['风险预警', '情绪分析', '品质控制'],
+        buttonText: '了解更多管理优化'
       }
     },
     
@@ -1211,6 +1670,23 @@ export const siteTranslations = {
       enterprisesValue: '5000+',
       satisfactionValue: '4.9/5'
     },
+    
+    // Other Resources Section
+    otherResources: {
+      title: '其他资源',
+      cards: {
+        voiceConnectivity: {
+          title: 'Voice Connectivity',
+          learnMore: '了解详情',
+          bookDemo: '预约演示'
+        },
+        liveChat: {
+          title: 'Live Chat',
+          learnMore: '了解详情',
+          bookDemo: '预约演示'
+        }
+      }
+    },
 
     
     // 产品反馈面板
@@ -1226,6 +1702,84 @@ export const siteTranslations = {
       iterationCount: '12个版本',
       satisfactionIncrease: '满意度提升',
       satisfactionGrowth: '+18%'
+    },
+
+    // AI Agents Page
+    products: {
+      aiAgents: {
+        hero: {
+          title: 'ZENAVA能够独立承担 80%的重复性、高频次、流程清晰的客户联络任务',
+          subtitle: '显著降低了传统客服对人力规模的依赖，实现了客户体验的跨越式升级',
+          button: '预约咨询'
+        },
+        advantages: {
+          title: 'ZENAVA的优势',
+          card1: {
+            title: '能沟通',
+            subtitle: '像真人一样交流',
+            desc: '文字/语音AI智能体理解您的业务逻辑和知识库，提供有温度、专业的服务支持。'
+          },
+          card2: {
+            title: '能执行',
+            subtitle: '独立完成业务闭环',
+            desc: '文字/语音AI智能体能够智能调用您的API，查询和更新数据，提供实时服务。'
+          },
+          card3: {
+            title: '快速上岗',
+            subtitle: '越用越聪明',
+            desc: '文字/语音AI智能体智能理解您的知识库，解读并总结，提供实时智能回答。'
+          }
+        },
+        features: {
+          voice: {
+            title: 'Voice',
+            subtitle: '超越真人的语音对话体验',
+            list: [
+              '拟人化音色',
+              '低延迟交互',
+              '精准意图打断',
+              '直接对接业务流程'
+            ],
+            button: '了解Voice'
+          },
+          messaging: {
+            title: '传讯与即时对话',
+            subtitle: '便捷客户服务',
+            list: [
+              '多渠道提供统一个性化服务',
+              '多模态沟通',
+              '复杂多轮信息收集',
+              '针对情绪、敏感感知、话术策略、深度共情',
+              '业务全流程闭环'
+            ],
+            button: '了解即时对话'
+          }
+        },
+        resources: {
+          title: '资源中心',
+          card1: {
+            tag: '产品',
+            title: '构建持续进化的AI生产力'
+          },
+          card2: {
+            tag: '行业报告',
+            title: '构建持续进化的AI生产力'
+          },
+          card3: {
+            tag: '教育',
+            title: '构建持续进化的AI生产力'
+          },
+          card4: {
+            tag: '文章',
+            title: '构建持续进化的AI生产力'
+          }
+        },
+        cta: {
+          title: '开启智能对话新篇章',
+          subtitle: '让Zenava AI助力您的企业实现客户对话场景的智能化升级',
+          button: '联系我们'
+        }
+      }
     },
     
     // 舆情面板
@@ -1321,6 +1875,45 @@ export const siteTranslations = {
       responseTime: '2小时',
       dispatchEfficiency: '派单效率',
       efficiencyRate: '85%'
+    },
+
+    // Banner 轮播翻译
+    banners: {
+      slide1: {
+        siteName: 'ZENAVA',
+        mainTitle: '企业级AI对话解决方案',
+        description: '通过智能AI助手转变您的客户服务，提升客户体验，降低运营成本',
+        buttonText: '预约咨询',
+        imageAlt: '横幅图片1'
+      },
+      slide2: {
+        siteName: 'ZENAVA Sales',
+        mainTitle: '智能销售赋能系统',
+        description: 'AI驱动的销售智能化平台，精准客户画像分析，智能推荐销售策略，提升成单率缩短销售周期',
+        buttonText: '了解销售方案',
+        imageAlt: '智能销售系统界面'
+      },
+      slide3: {
+        siteName: '智能AI平台',
+        mainTitle: '4345323',
+        description: '43244444444',
+        buttonText: '预约咨询',
+        imageAlt: '智能AI平台展示'
+      },
+      slide4: {
+        siteName: 'ZENAVA',
+        mainTitle: '7x24智能客服',
+        description: 'AI智能客服系统实现全天候服务，自动处理常见问题，情感识别提升体验',
+        buttonText: '查看详情',
+        imageAlt: '智能客服'
+      },
+      slide5: {
+        siteName: '',
+        mainTitle: '',
+        description: '',
+        buttonText: '',
+        imageAlt: '营销活动Banner图'
+      }
     }
   }
 }

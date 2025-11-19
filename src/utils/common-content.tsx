@@ -51,7 +51,7 @@ export interface PrivacyLink {
 export function getNavigationConfig(language: string = 'en'): NavigationConfig {
   // 直接返回静态默认配置
   return {
-    logo_url: 'https://page.gensparksite.com/v1/base64_upload/1476812a0b97e2ad48a012ceb5c7946e',
+    logo_url: '/assets/images/logo.png',
     logo_alt: 'ZENAVA',
     status: 'published',
     text_color: null,
@@ -71,7 +71,7 @@ export function getFooterConfig(language: string = 'en'): {
 } {
   // 根据语言返回不同的静态配置
   const defaultConfig = {
-    logo_url: 'https://page.gensparksite.com/v1/base64_upload/1476812a0b97e2ad48a012ceb5c7946e',
+    logo_url: '/assets/images/logo.png',
     logo_alt: 'ZENAVA',
     logo_subtitle: language === 'jp' ? 'エンタープライズ顧客対話シナリオ向けAIエージェント' :
                     language === 'hk' ? '企業客戶對話場景的AI智能體' :
