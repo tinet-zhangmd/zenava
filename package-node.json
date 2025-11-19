@@ -1,0 +1,27 @@
+{
+  "name": "zenava-webapp-node",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:node",
+    "build:node": "vite build --mode node",
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "pm2:start": "pm2 start server.js --name zenava-webapp",
+    "pm2:stop": "pm2 stop zenava-webapp",
+    "pm2:restart": "pm2 restart zenava-webapp",
+    "pm2:logs": "pm2 logs zenava-webapp",
+    "pm2:delete": "pm2 delete zenava-webapp"
+  },
+  "dependencies": {
+    "hono": "^4.9.4",
+    "@hono/node-server": "^1.12.0",
+    "better-sqlite3": "^11.7.0"
+  },
+  "devDependencies": {
+    "@hono/vite-build": "^1.2.0",
+    "@hono/vite-dev-server": "^0.18.2",
+    "vite": "^6.3.5"
+  }
+}
+

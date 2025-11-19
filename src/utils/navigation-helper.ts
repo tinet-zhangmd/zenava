@@ -14,7 +14,7 @@ export function getNavigationData(
 
 function getDefaultNavigationConfig(): NavigationConfig {
   return {
-    logo_url: 'https://page.gensparksite.com/v1/base64_upload/1476812a0b97e2ad48a012ceb5c7946e',
+    logo_url: '/assets/images/logo.png',
     logo_alt: 'ZENAVA',
     logo_height: '2.5rem',
     logo_max_width: '200px',
@@ -27,9 +27,33 @@ function getDefaultNavigationConfig(): NavigationConfig {
     mobile_menu_enabled: true,
     show_language_switcher: true,
     available_languages: ['zh', 'en', 'jp', 'hk'] as Language[],
-    cta_enabled: true,
+    cta_enabled: false,
     cta_text: 'Contact Us',
-    cta_url: '/contact'
+    cta_url: '/contact',
+    
+    // Header Buttons (右侧按钮组)
+    header_buttons_enabled: true,
+    
+    // Button 1 - Contact Us (紫色按钮)
+    btn1_enabled: true,
+    btn1_text: 'Contact Us',
+    btn1_text_zh: '联系我们',
+    btn1_text_en: 'Contact Us',
+    btn1_text_jp: 'お問い合わせ',
+    btn1_text_hk: '聯繫我們',
+    btn1_url: '/contact',
+    btn1_bg_color: '#7c3aed',
+    btn1_text_color: '#ffffff',
+    
+    // Button 2 - Buy with AWS (渐变蓝色按钮)
+    btn2_enabled: true,
+    btn2_text: 'Buy with AWS →',
+    btn2_text_zh: 'Buy with AWS →',
+    btn2_text_en: 'Buy with AWS →',
+    btn2_text_jp: 'Buy with AWS →',
+    btn2_text_hk: 'Buy with AWS →',
+    btn2_url: 'https://aws.amazon.com/marketplace',
+    btn2_target: '_blank'
   }
 }
 
@@ -85,230 +109,6 @@ function getDefaultMenuItems(): NavMenuItem[] {
         }
       ]
     },
-    // 一级导航：测试一级菜单
-    {
-      id: 'test-main-menu',
-      type: 'dropdown',
-      label: 'Test Main Menu',
-      label_zh: '测试一级菜单',
-      label_en: 'Test Main Menu',
-      label_jp: 'テストメインメニュー',
-      label_hk: '測試一級菜單',
-      order: 2,
-      visible: true,
-      children: [
-        {
-          id: 'test-submenu-1',
-          label: 'Test Submenu 1',
-          label_zh: '测试子菜单1',
-          label_en: 'Test Submenu 1',
-          label_jp: 'テストサブメニュー1',
-          label_hk: '測試子菜單1',
-          url: 'https://www.baidu.com',
-          icon: 'fas fa-star',
-          order: 1,
-          visible: true,
-          target: '_self'
-        },
-        {
-          id: 'test-submenu-2',
-          label: 'Test Submenu 2',
-          label_zh: '测试子菜单2',
-          label_en: 'Test Submenu 2',
-          label_jp: 'テストサブメニュー2',
-          label_hk: '測試子菜單2',
-          url: 'https://www.baidu.com',
-          icon: 'fas fa-rocket',
-          order: 2,
-          visible: true,
-          target: '_self'
-        },
-        {
-          id: 'test-submenu-3',
-          label: 'Test Submenu 3',
-          label_zh: '测试子菜单3',
-          label_en: 'Test Submenu 3',
-          label_jp: 'テストサブメニュー3',
-          label_hk: '測試子菜單3',
-          url: 'https://www.baidu.com',
-          icon: 'fas fa-chart-line',
-          order: 3,
-          visible: true,
-          target: '_self'
-        },
-        {
-          id: 'test-submenu-4',
-          label: 'Test Submenu 4',
-          label_zh: '测试子菜单4',
-          label_en: 'Test Submenu 4',
-          label_jp: 'テストサブメニュー4',
-          label_hk: '測試子菜單4',
-          url: 'https://www.baidu.com',
-          icon: 'fas fa-cog',
-          order: 4,
-          visible: true,
-          target: '_self'
-        },
-        {
-          id: 'test-submenu-5',
-          label: 'Test Submenu 5',
-          label_zh: '测试子菜单5',
-          label_en: 'Test Submenu 5',
-          label_jp: 'テストサブメニュー5',
-          label_hk: '測試子菜單5',
-          url: 'https://www.baidu.com',
-          icon: 'fas fa-magic',
-          order: 5,
-          visible: true,
-          target: '_self'
-        },
-        {
-          id: 'test-submenu-6',
-          label: 'Test Submenu 6',
-          label_zh: '测试子菜单6',
-          label_en: 'Test Submenu 6',
-          label_jp: 'テストサブメニュー6',
-          label_hk: '測試子菜單6',
-          url: 'https://www.baidu.com',
-          icon: 'fas fa-users',
-          order: 6,
-          visible: true,
-          target: '_self'
-        },
-        {
-          id: 'test-submenu-7',
-          label: 'Test Submenu 7',
-          label_zh: '测试子菜单7',
-          label_en: 'Test Submenu 7',
-          label_jp: 'テストサブメニュー7',
-          label_hk: '測試子菜單7',
-          url: 'https://www.baidu.com',
-          icon: 'fas fa-shield-alt',
-          order: 7,
-          visible: true,
-          target: '_self'
-        },
-        {
-          id: 'test-submenu-8',
-          label: 'Test Submenu 8',
-          label_zh: '测试子菜单8',
-          label_en: 'Test Submenu 8',
-          label_jp: 'テストサブメニュー8',
-          label_hk: '測試子菜單8',
-          url: 'https://www.baidu.com',
-          icon: 'fas fa-bell',
-          order: 8,
-          visible: true,
-          target: '_self'
-        },
-        {
-          id: 'test-submenu-9',
-          label: 'Test Submenu 9',
-          label_zh: '测试子菜单9',
-          label_en: 'Test Submenu 9',
-          label_jp: 'テストサブメニュー9',
-          label_hk: '測試子菜單9',
-          url: 'https://www.baidu.com',
-          icon: 'fas fa-lightbulb',
-          order: 9,
-          visible: true,
-          target: '_self'
-        },
-        {
-          id: 'test-submenu-10',
-          label: 'Test Submenu 10',
-          label_zh: '测试子菜单10',
-          label_en: 'Test Submenu 10',
-          label_jp: 'テストサブメニュー10',
-          label_hk: '測試子菜單10',
-          url: 'https://www.baidu.com',
-          icon: 'fas fa-cloud',
-          order: 10,
-          visible: true,
-          target: '_self'
-        },
-        {
-          id: 'test-submenu-11',
-          label: 'Test Submenu 11',
-          label_zh: '测试子菜单11',
-          label_en: 'Test Submenu 11',
-          label_jp: 'テストサブメニュー11',
-          label_hk: '測試子菜單11',
-          url: 'https://www.baidu.com',
-          icon: 'fas fa-database',
-          order: 11,
-          visible: true,
-          target: '_self'
-        },
-        {
-          id: 'test-submenu-12',
-          label: 'Test Submenu 12',
-          label_zh: '测试子菜单12',
-          label_en: 'Test Submenu 12',
-          label_jp: 'テストサブメニュー12',
-          label_hk: '測試子菜單12',
-          url: 'https://www.baidu.com',
-          icon: 'fas fa-code',
-          order: 12,
-          visible: true,
-          target: '_self'
-        },
-        {
-          id: 'test-submenu-13',
-          label: 'Test Submenu 13',
-          label_zh: '测试子菜单13',
-          label_en: 'Test Submenu 13',
-          label_jp: 'テストサブメニュー13',
-          label_hk: '測試子菜單13',
-          url: 'https://www.baidu.com',
-          icon: 'fas fa-heart',
-          order: 13,
-          visible: true,
-          target: '_self'
-        }
-      ]
-    },
-    // 一级导航：解决方案测试
-    {
-      id: 'solutions-test',
-      type: 'dropdown',
-      label: 'Solutions Test',
-      label_zh: '解决方案测试',
-      label_en: 'Solutions Test',
-      label_jp: 'ソリューションテスト',
-      label_hk: '解決方案測試',
-      icon: 'fas fa-lightbulb',
-      order: 3,
-      visible: true,
-      children: [
-        {
-          id: 'customer-service',
-          label: 'Intelligent Customer Service',
-          label_zh: '智能客服',
-          label_en: 'Intelligent Customer Service',
-          label_jp: 'インテリジェントカスタマーサービス',
-          label_hk: '智能客服',
-          url: '/solutions/customer-service',
-          icon: 'fas fa-headset',
-          order: 1,
-          visible: true,
-          target: '_self'
-        },
-        {
-          id: 'sales-acceleration',
-          label: 'Sales Acceleration',
-          label_zh: '销售加速',
-          label_en: 'Sales Acceleration',
-          label_jp: 'セールスアクセラレーション',
-          label_hk: '銷售加速',
-          url: '/solutions/sales',
-          icon: 'fas fa-chart-line',
-          order: 2,
-          visible: true,
-          target: '_self'
-        }
-      ]
-    },
     // 一级导航：行业
     {
       id: 'industries',
@@ -318,7 +118,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
       label_en: 'Industries',
       label_jp: '業界',
       label_hk: '行業',
-      order: 4,
+      order: 2,
       visible: true,
       children: [
         {
@@ -380,7 +180,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
       label_en: 'Resources',
       label_jp: 'リソースセンター',
       label_hk: '資源中心',
-      order: 5,
+      order: 3,
       visible: true,
       children: [
         {
@@ -421,17 +221,17 @@ function getDefaultMenuItems(): NavMenuItem[] {
         }
       ]
     },
-    // 右侧：客户支持
+    // 右侧：关于我们
     {
-      id: 'support',
+      id: 'about',
       type: 'link',
-      label: 'Customer Support',
-      label_zh: '客户支持',
-      label_en: 'Customer Support',
-      label_jp: 'カスタマーサポート',
-      label_hk: '客戶支持',
-      url: '/support',
-      order: 6,
+      label: 'About Us',
+      label_zh: '关于我们',
+      label_en: 'About Us',
+      label_jp: '会社概要',
+      label_hk: '關於我們',
+      url: '/about',
+      order: 4,
       visible: true
     }
   ]

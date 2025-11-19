@@ -5,7 +5,12 @@
     "dev": "vite",
     "dev:sandbox": "wrangler pages dev dist --ip 0.0.0.0 --port 3000",
     "build": "vite build",
+    "build:package": "./build-package.sh",
     "preview": "wrangler pages dev dist",
+    "deploy:test": "./deploy-test.sh",
+    "deploy:test:public": "./deploy-test-public.sh",
+    "deploy:local": "./deploy-local.sh",
+    "start:local": "npx wrangler pages dev dist --ip 0.0.0.0 --port 3000",
     "pm2:start": "pm2 start npx --name zenava-webapp -- wrangler pages dev dist --ip 0.0.0.0 --port 3000",
     "pm2:start:d1": "pm2 start npx --name zenava-webapp-d1 -- wrangler pages dev dist --d1=zenava-production --local --ip 0.0.0.0 --port 3000",
     "pm2:stop": "pm2 stop all",
@@ -16,8 +21,15 @@
     "start": "npm run build && npm run pm2:start",
     "deploy": "npm run build && wrangler pages deploy dist",
     "deploy:prod": "npm run build && wrangler pages deploy dist --project-name zenava-official",
+    "deploy:cf": "./deploy-cloudflare.sh",
+    "deploy:cf:domain": "./deploy-with-domain.sh",
+    "start:node": "tsx server.js",
+    "db:migrate:sqlite": "./migrate-sqlite.sh",
+    "db:migrate:sqlite:reset": "./migrate-sqlite.sh --reset",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
-    "clean-port": "fuser -k 3000/tcp 2>/dev/null || true",
+    "clean-port": "./clean-port.sh 3000",
+    "clean-port:3000": "./clean-port.sh 3000",
+    "clean-port:3001": "./clean-port.sh 3001",
     "test": "curl http://localhost:3000",
     "git:init": "git init && git add . && git commit -m 'Initial commit'",
     "git:commit": "git add . && git commit -m",
@@ -31,12 +43,15 @@
     "db:console:prod": "wrangler d1 execute zenava-production"
   },
   "dependencies": {
+    "@hono/node-server": "^1.12.0",
+    "better-sqlite3": "^11.7.0",
     "hono": "^4.9.4"
   },
   "devDependencies": {
     "@hono/vite-build": "^1.2.0",
     "@hono/vite-dev-server": "^0.18.2",
     "glob": "^11.0.3",
+    "tsx": "^4.20.6",
     "vite": "^6.3.5",
     "wrangler": "^4.4.0"
   }

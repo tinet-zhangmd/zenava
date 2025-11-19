@@ -56,6 +56,12 @@ alwaysApply: true
    - 社交媒体配置
    - 版权信息
 
+9. **`9-homepage-other-resources.mdc`** - 首页"其他资源"版块规则
+   - 两个资源卡片布局
+   - 图标、标题、按钮配置
+   - 响应式设计
+   - 修改模板
+
 ---
 
 ## 项目概述
@@ -125,6 +131,9 @@ public/assets/images/
 
 ### 当我说"修改Footer"时
 - 📖 参考：`.cursor/rules/8-footer.mdc`
+
+### 当我说"修改其他资源版块"时
+- 📖 参考：`.cursor/rules/9-homepage-other-resources.mdc`
 
 ---
 

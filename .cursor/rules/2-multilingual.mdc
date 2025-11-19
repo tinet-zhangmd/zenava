@@ -72,6 +72,112 @@ AI 自动生成:
 <h1>新的标题</h1>  // 这会破坏多语言逻辑
 ```
 
+## 🏗️ 翻译数据架构原则
+
+### ⚠️ 关键原则：翻译统一管理
+- **所有翻译数据必须集中在 `src/i18n/translations.ts` 中管理**
+- **禁止在组件中硬编码多语言嵌套对象**
+- **翻译数据与配置数据必须分离**
+
+### 📦 数据分离原则
+
+#### ✅ 正确的架构
+```typescript
+// 1️⃣ 翻译文件 (src/i18n/translations.ts)
+export const siteTranslations = {
+  zh: {
+    banners: {
+      slide1: {
+        siteName: 'ZENAVA',
+        mainTitle: '企业级AI对话解决方案',
+        description: '通过智能AI助手转变...',
+        buttonText: '预约咨询'
+      }
+    }
+  },
+  en: { banners: { slide1: { ... } } },
+  jp: { banners: { slide1: { ... } } },
+  hk: { banners: { slide1: { ... } } }
+}
+
+// 2️⃣ 组件文件 (使用翻译引用)
+const bannerConfig = {
+  id: 'slide-1',
+  background: { gradient: '...', pattern: true },  // 配置数据
+  content: {
+    siteName: trans.banners.slide1.siteName,       // 翻译引用
+    mainTitle: trans.banners.slide1.mainTitle,     // 翻译引用
+    description: trans.banners.slide1.description, // 翻译引用
+    button: {
+      text: trans.banners.slide1.buttonText,       // 翻译引用
+      link: '#contact',                            // 配置数据
+      icon: 'fas fa-phone'                         // 配置数据
+    }
+  }
+}
+
+// 3️⃣ 显示时直接使用
+<h1>{bannerConfig.content.mainTitle}</h1>  // 自动显示对应语言
+```
+
+#### ❌ 错误的架构（禁止）
+```typescript
+// ❌ 在组件中硬编码多语言嵌套对象
+const bannerConfig = {
+  content: {
+    mainTitle: {
+      zh: '企业级AI对话解决方案',
+      en: 'Enterprise AI Solutions',
+      jp: '企業向けAIソリューション',
+      hk: '企業級AI對話解決方案'
+    }
+  }
+}
+
+// ❌ 显示时需要多次判断
+{language === 'zh' && bannerConfig.content.mainTitle.zh}
+{language === 'en' && bannerConfig.content.mainTitle.en}
+{language === 'jp' && bannerConfig.content.mainTitle.jp}
+{language === 'hk' && bannerConfig.content.mainTitle.hk}
+```
+
+### 🎯 实例：Banner 翻译架构
+
+**迁移前的问题**：
+- ❌ 翻译数据分散在 `HomepageDB.tsx` 组件中（约200行）
+- ❌ 每个字段都包含 `{zh: '...', en: '...', jp: '...', hk: '...'}` 嵌套结构
+- ❌ 修改翻译需要在组件内部找到对应位置
+- ❌ 翻译一致性难以保证
+
+**迁移后的优势**：
+- ✅ 所有翻译统一在 `translations.ts` 中管理
+- ✅ 组件代码减少 49%（187行 → 95行）
+- ✅ 翻译和配置清晰分离
+- ✅ 修改翻译只需在一个地方操作
+- ✅ 易于对比和统一术语
+
+### 📋 翻译数据 vs 配置数据
+
+| 数据类型 | 存放位置 | 示例 | 说明 |
+|---------|---------|------|------|
+| **翻译数据** | `translations.ts` | 标题、描述、按钮文字、图片alt | 随语言变化的文本 |
+| **配置数据** | 组件文件 | 背景色、图片路径、链接、图标 | 不随语言变化的配置 |
+
+### ✅ 如何判断是翻译还是配置
+
+**翻译数据**（需要多语言）：
+- ✅ 用户可见的文字内容
+- ✅ 图片/视频的 alt 描述
+- ✅ 按钮/链接的文字
+- ✅ 提示信息、错误信息
+
+**配置数据**（单一值）：
+- ✅ CSS 类名、颜色、尺寸
+- ✅ 图片/视频的路径
+- ✅ 链接的 URL
+- ✅ Font Awesome 图标类名
+- ✅ 布尔值配置（true/false）
+
 ## 测试验证
 
 **语言切换测试路径：**
@@ -86,3 +192,5 @@ AI 自动生成:
 3. ✅ 检查专业术语的一致性
 4. ✅ 验证自动翻译的质量和准确性
 5. ✅ 确保品牌名称 "Zenava" 不被翻译
+6. ✅ 确认所有翻译数据已迁移到 `translations.ts`
+7. ✅ 确认组件中无硬编码的多语言嵌套对象

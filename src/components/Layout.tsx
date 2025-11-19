@@ -84,7 +84,7 @@ export function Layout({ children, language, currentPath, title, description, se
               <div class="flex-shrink-0">
                 <a href={getLocalizedPath('/', language)} class="flex items-center">
                   <img 
-                    src="https://page.gensparksite.com/v1/base64_upload/1476812a0b97e2ad48a012ceb5c7946e" 
+                    src="/assets/images/logo.png" 
                     alt="ZENAVA" 
                     class="h-10 sm:h-12 w-auto object-contain transition-all duration-300 hover:opacity-80"
                     style="max-width: 200px;"
@@ -184,7 +184,7 @@ export function Layout({ children, language, currentPath, title, description, se
               <div class="col-span-1 md:col-span-2">
                 <div class="mb-4">
                   <img 
-                    src="https://page.gensparksite.com/v1/base64_upload/1476812a0b97e2ad48a012ceb5c7946e" 
+                    src="/assets/images/logo.png" 
                     alt="ZENAVA" 
                     class="h-10 w-auto object-contain"
                     style="max-width: 160px; filter: brightness(0) invert(1);"
