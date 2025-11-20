@@ -304,40 +304,45 @@ export const siteTranslations = {
           card1: {
             title: 'Conversational',
             subtitle: 'Communicate Like a Human',
-            desc: 'Text/Voice AI agents understand your business logic and knowledge base, providing empathetic, professional support.'
+            desc: 'Equipped with multimodal understanding, emotional perception, and highly humanized interaction capabilities, delivering communication experiences that surpass human interactions.'
           },
           card2: {
             title: 'Action-Oriented',
             subtitle: 'Independently Complete Business Loops',
-            desc: 'Text/Voice AI agents can intelligently call your APIs, query and update data, and provide real-time services.'
+            desc: 'Directly drives business processes, completing tasks such as sending SMS, creating tickets, querying customer information, and sending appointment notifications.'
           },
           card3: {
             title: 'Fast Deployment',
             subtitle: 'Smarter with Use',
-            desc: 'Text/Voice AI agents intelligently understand your knowledge base, interpret and summarize, providing real-time intelligent responses.'
+            desc: 'Ready to use out of the box, quickly deploy and "go live", with built-in training processes that self-correct errors when encountering problems, getting smarter with use.'
+          },
+          card4: {
+            title: 'Quantifiable Value',
+            subtitle: 'Make Every AI Investment Clearly Visible',
+            desc: 'Value is quantifiable, achieving pure and disruptive cost structure reconstruction, reducing unit service cost (CPC) by approximately 20%'
           }
         },
         features: {
           voice: {
-            title: 'Voice',
+            title: 'Voice Agents',
             subtitle: 'Beyond Human Voice Conversation Experience',
             list: [
-              'Human-like Timbre',
-              'Smooth Interaction',
-              'Interruptible',
-              'Direct Business Process Handling'
+              'Human-like Timbre: Voice rich with emotion and expressiveness, delivering communication experiences that surpass real humans',
+              'Low-latency Interaction: Fast response, real-time conversation without lag',
+              'Precise Intelligent Interruption: Can interrupt and interject at any time, as natural as face-to-face conversation with real people',
+              'Complete Business Loop, Significantly Improving Service Efficiency and Customer Experience'
             ],
-            button: 'Learn About Voice'
+            button: 'Learn More About Voice Features'
           },
           messaging: {
-            title: 'Messaging & Instant Chat',
-            subtitle: 'Convenient Customer Service',
+            title: 'Create Ultimate Customer Service Experience',
+            subtitle: '',
             list: [
-              'Multi-channel Unified Access',
-              'Multi-modal Interaction',
-              'Complex Business Process Handling',
-              'Seamless Human Handoff, Context Sharing',
-              'Business Process Control'
+              '7x24 hours omnichannel online, never miss any communication with customers',
+              'Support rich media communication including text, images, and videos, accurately identifying customer intent',
+              'Able to sense customer emotions from expressions and respond in a friendly and respectful manner',
+              'Balance brand business bottom line and customer experience, flexibly meeting customer needs',
+              'Possess empathy and judgment, driving complete business process loop'
             ],
             button: 'Learn About Instant Chat'
           }
@@ -758,40 +763,45 @@ export const siteTranslations = {
           card1: {
             title: '対話力',
             subtitle: '人間のようなコミュニケーション',
-            desc: 'テキスト/音声AIエージェントがビジネスロジックとナレッジベースを理解し、共感的で専門的なサポートを提供します。'
+            desc: 'マルチモーダル理解、感情認識、高度な人間化インタラクション能力を備え、人間を超えるコミュニケーション体験を提供します。'
           },
           card2: {
             title: '実行力',
             subtitle: 'ビジネスループを独立して完結',
-            desc: 'テキスト/音声AIエージェントがAPIをインテリジェントに呼び出し、データの照会や更新を行い、リアルタイムサービスを提供します。'
+            desc: 'ビジネスプロセスを直接駆動し、SMS送信、チケット作成、顧客情報の照会、アポイント通知などのタスクを完了します。'
           },
           card3: {
             title: '迅速な導入',
             subtitle: '使うほどに賢く',
-            desc: 'テキスト/音声AIエージェントがナレッジベースをインテリジェントに理解、解釈、要約し、リアルタイムでスマートな回答を提供します。'
+            desc: 'すぐに使用可能、迅速にデプロイして「稼働」開始、内蔵のトレーニングプロセスにより問題に遭遇した際にエラーを自己修正し、使用するほどに賢くなります。'
+          },
+          card4: {
+            title: '定量化可能な価値',
+            subtitle: 'AIへの投資のすべてを明確に可視化',
+            desc: '価値は定量化可能で、純粋で破壊的なコスト構造の再構築を実現し、単位サービスコスト（CPC）を約20%削減します'
           }
         },
         features: {
           voice: {
-            title: 'Voice',
+            title: 'Voice Agents',
             subtitle: '人間を超える音声対話体験',
             list: [
-              '人間のような声色',
-              'スムーズな対話',
-              '割り込み可能',
-              'ビジネスプロセスの直接処理'
+              '人間のような声色：感情と表現力に富んだ声で、人間を超えるコミュニケーション体験を提供',
+              '低遅延インタラクション：迅速な応答、リアルタイム対話でラグなし',
+              '精密なインテリジェント割り込み：いつでも割り込みや発言が可能で、人間との対面会話のように自然',
+              '完全なビジネスループ、サービス効率と顧客体験を大幅に向上'
             ],
-            button: 'Voiceについて'
+            button: 'Voice機能の詳細'
           },
           messaging: {
-            title: 'メッセージングとインスタントチャット',
-            subtitle: '便利なカスタマーサービス',
+            title: '究極のカスタマーサービス体験を創出',
+            subtitle: '',
             list: [
-              'マルチチャネル統合アクセス',
-              'マルチモーダルインタラクション',
-              '複雑なビジネスプロセス処理',
-              'シームレスな有人切り替え、コンテキスト共有',
-              'ビジネスプロセス制御'
+              '7x24時間オムニチャネルオンライン、お客様とのすべてのコミュニケーションを見逃さない',
+              'テキスト、画像、動画などのリッチメディアコミュニケーションをサポートし、お客様の意図を正確に識別',
+              '表現からお客様の感情を感知し、友好的で尊重ある方法で応答',
+              'ブランドのビジネス基盤と顧客体験を両立し、柔軟にお客様のニーズに対応',
+              '共感力と判断力を備え、完全なビジネスプロセスループを推進'
             ],
             button: 'インスタントチャットについて'
           }
@@ -1213,40 +1223,45 @@ export const siteTranslations = {
           card1: {
             title: '能溝通',
             subtitle: '像真人一樣交流',
-            desc: '文字/語音AI智能體理解您的業務邏輯和知識庫，提供有溫度、專業的服務支持。'
+            desc: '具備多模態理解、情緒感知與高擬人化交互能力，帶來超越真人的溝通體驗。'
           },
           card2: {
             title: '能執行',
             subtitle: '獨立完成業務閉環',
-            desc: '文字/語音AI智能體能夠智能調用您的API，查詢和更新數據，提供實時服務。'
+            desc: '直接驅動業務流程，完成如發送短信、創建工單、查詢客戶資料以及邀約通知等任務。'
           },
           card3: {
             title: '快速上崗',
             subtitle: '越用越聰明',
-            desc: '文字/語音AI智能體智能理解您的知識庫，解讀並總結，提供實時智能回答。'
+            desc: '開箱即用，快速部署「上崗」，內置帶教流程，遇到問題時自我修正錯誤，越用越聰明。'
+          },
+          card4: {
+            title: '可量化價值',
+            subtitle: '讓每一分AI投入都清晰可見',
+            desc: '價值可量化，實現純粹、顛覆性的成本結構重構，單位服務成本(CPC)降低約20%'
           }
         },
         features: {
           voice: {
-            title: 'Voice',
+            title: 'Voice Agents',
             subtitle: '超越真人的語音對話體驗',
             list: [
-              '擬人化音色',
-              '流暢交互',
-              '支持打斷',
-              '直接處理業務流程'
+              '擬人化音色：聲音富有情緒與表達力，溝通體驗超越真人',
+              '低延遲交互：快速響應，實時對話無卡頓',
+              '精準智能打斷：可隨時打斷和插話，像真人面對面聊天那樣自然',
+              '完整業務閉環，大幅提升服務效率與客戶體驗'
             ],
-            button: '了解Voice'
+            button: '了解更多Voice功能'
           },
           messaging: {
-            title: '傳訊與即時對話',
-            subtitle: '便捷客戶服務',
+            title: '打造極致客戶服務體驗',
+            subtitle: '',
             list: [
-              '多渠道統一接入',
-              '多模態交互',
-              '複雜業務流程處理',
-              '無縫轉人工、上下文共享',
-              '業務流程管控'
+              '7x24小時全渠道在線，不錯失與客戶的每一次溝通',
+              '支持文字、圖片、視頻等富媒體溝通，精準識別客戶意圖',
+              '能夠從表述中感知客戶情緒，以友好、尊重的方式回應',
+              '兼顧品牌的業務底線和客戶體驗，靈活滿足客戶訴求',
+              '具備同理心與判斷力，驅動業務全流程閉環'
             ],
             button: '了解即時對話'
           }
@@ -1717,40 +1732,45 @@ export const siteTranslations = {
           card1: {
             title: '能沟通',
             subtitle: '像真人一样交流',
-            desc: '文字/语音AI智能体理解您的业务逻辑和知识库，提供有温度、专业的服务支持。'
+            desc: '具备多模态理解、情绪感知与高拟人化交互能力，带来超越真人的沟通体验。'
           },
           card2: {
             title: '能执行',
             subtitle: '独立完成业务闭环',
-            desc: '文字/语音AI智能体能够智能调用您的API，查询和更新数据，提供实时服务。'
+            desc: '直接驱动业务流程，完成如发送短信、创建工单、查询客户资料以及邀约通知等任务。'
           },
           card3: {
             title: '快速上岗',
             subtitle: '越用越聪明',
-            desc: '文字/语音AI智能体智能理解您的知识库，解读并总结，提供实时智能回答。'
+            desc: '开箱即用，快速部署"上岗"，内置带教流程，遇到问题时自我修正错误，越用越聪明。'
+          },
+          card4: {
+            title: '可量化价值',
+            subtitle: '让每一分AI投入都清晰可见',
+            desc: '价值可量化，实现纯粹、颠覆性的成本结构重构，单位服务成本(CPC)降低约20%'
           }
         },
         features: {
           voice: {
-            title: 'Voice',
+            title: 'Voice Agents',
             subtitle: '超越真人的语音对话体验',
             list: [
-              '拟人化音色',
-              '低延迟交互',
-              '精准意图打断',
-              '直接对接业务流程'
+              '拟人化音色：声音富有情绪与表达力，沟通体验超越真人',
+              '低延迟交互：快速响应，实时对话无卡顿',
+              '精准智能打断：可随时打断和插话，像真人面对面聊天那样自然',
+              '完整业务闭环，大幅提升服务效率与客户体验'
             ],
-            button: '了解Voice'
+            button: '了解更多Voice功能'
           },
           messaging: {
-            title: '传讯与即时对话',
-            subtitle: '便捷客户服务',
+            title: '打造极致客户服务体验',
+            subtitle: '',
             list: [
-              '多渠道提供统一个性化服务',
-              '多模态沟通',
-              '复杂多轮信息收集',
-              '针对情绪、敏感感知、话术策略、深度共情',
-              '业务全流程闭环'
+              '7x24小时全渠道在线，不错失与客户的每一次沟通',
+              '支持文字、图片、视频等富媒体沟通，精准识别客户意图',
+              '能够从表述中感知客户情绪，以友好、尊重的方式回应',
+              '兼顾品牌的业务底线和客户体验，灵活满足客户诉求',
+              '具备同理心与判断力，驱动业务全流程闭环'
             ],
             button: '了解即时对话'
           }
