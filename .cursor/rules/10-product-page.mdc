@@ -1,0 +1,1191 @@
+---
+alwaysApply: true
+---
+# Zenava 项目 - 产品页面修改规则
+
+## 页面定位
+- **配置文件**: `src/pages/products/AiAgents.tsx`
+- **组件功能**: AIAgents 产品页面，包含多个版块
+- **支持语言**: 简体中文(zh)、英文(en)、日文(jp)、繁体中文(hk)
+- **主要输入语言**: 简体中文 (zh) - 其他语言自动生成
+
+## ⚠️ 重要：响应式设计要求
+
+**所有代码修改必须考虑响应式设计！**
+
+- ✅ **必须使用响应式类名**：所有布局、字体大小、间距等必须使用 Tailwind CSS 的响应式类名（`sm:`、`md:`、`lg:`、`xl:` 等）
+- ✅ **移动优先原则**：优先考虑移动端体验，然后逐步增强桌面端
+- ✅ **测试验证**：每次修改后必须在移动端、平板端、桌面端进行测试
+- ✅ **断点标准**：
+  - 移动端：< 768px（`grid-cols-1`）
+  - 平板端：768px - 1023px（`md:` 前缀）
+  - 桌面端：≥ 1024px（`lg:` 前缀）
+- ❌ **禁止使用固定尺寸**：不要使用 `width: 1200px`、`font-size: 48px` 等固定像素值
+- ❌ **禁止忽略移动端**：所有功能必须在移动端正常工作
+
+## 📋 版块列表
+
+本规则文件包含产品页面的所有版块修改规则：
+
+1. **版块1：Banner** - 产品页面顶部全图横幅
+2. **版块2：优势展示** - 产品优势卡片展示
+3. **版块3：功能特性** - 产品功能详细介绍（待添加）
+4. **版块4：资源中心** - 相关资源卡片（待添加）
+5. **版块5：CTA** - 行动号召区域（待添加）
+6. **其他版块** - 根据需求陆续添加
+
+---
+
+## ⚠️ 通用规则：响应式设计要求
+
+**所有版块的代码修改都必须考虑响应式设计！**
+
+### 📱 响应式设计原则
+
+1. **移动优先（Mobile First）**
+   - 优先考虑移动端体验
+   - 使用 `grid-cols-1` 作为默认布局
+   - 逐步增强桌面端体验
+
+2. **必须使用响应式类名**
+   - ✅ **布局**：`grid-cols-1 md:grid-cols-2 lg:grid-cols-4`
+   - ✅ **字体大小**：`text-base md:text-lg lg:text-xl`
+   - ✅ **间距**：`p-4 md:p-6 lg:p-8`
+   - ✅ **显示/隐藏**：`hidden md:block`、`block md:hidden`
+
+3. **响应式断点标准**
+   - **移动端**：< 768px（默认，无需前缀）
+   - **平板端**：768px - 1023px（`md:` 前缀）
+   - **桌面端**：≥ 1024px（`lg:` 前缀）
+   - **大屏**：≥ 1280px（`xl:` 前缀，可选）
+
+4. **禁止使用固定尺寸**
+   - ❌ `width: 1200px`、`height: 600px`
+   - ❌ `font-size: 48px`（应使用 `text-3xl md:text-4xl lg:text-5xl`）
+   - ❌ `margin: 100px`（应使用 `m-4 md:m-8 lg:m-12`）
+
+5. **必须测试的断点**
+   - iPhone SE (375px)
+   - iPhone 12/13/14 (390px)
+   - iPad (768px)
+   - 桌面端 (1024px+)
+
+### 🎯 每个版块修改后的响应式检查清单
+
+- [ ] 移动端（375px-390px）正常显示
+- [ ] 平板端（768px）正常显示
+- [ ] 桌面端（1024px+）正常显示
+- [ ] 无横向滚动条（除非特殊设计）
+- [ ] 文字清晰可读，无需缩放
+- [ ] 按钮和链接易于点击（至少 44x44px）
+- [ ] 图片不变形，正常填充容器
+- [ ] 布局在不同断点下正确切换
+
+---
+
+# 版块1：Banner
+
+## Banner定位
+- **配置文件**: `src/pages/products/AiAgents.tsx` (第 15-30 行左右，Banner Section)
+- **组件功能**: 产品页面顶部全图横幅，只包含图片和链接
+- **设计原则**: 简洁设计，不包含文字、按钮、遮罩层等元素
+
+## 🎯 数据架构（重要！）
+- **配置数据**: 图片路径、链接等配置保留在 `AiAgents.tsx` 中
+- **无需翻译**: Banner 只包含图片和链接，不需要文字内容
+
+## Banner功能特性
+
+### 🎨 布局模式
+- ✅ **全图布局**: 使用完整的背景图片
+- ✅ **静态显示**: 单个Banner，无轮播功能（与首页不同）
+- ✅ **可点击链接**: 整个 Banner 可以作为链接点击跳转（可选）
+- ✅ **响应式设计**: 自适应移动端、平板、桌面端
+- ✅ **简洁设计**: 只包含图片和链接，无文字、无按钮、无遮罩层
+
+---
+
+## Banner数据结构说明
+
+### 📁 配置文件 (`src/pages/products/AiAgents.tsx`)
+
+```typescript
+{/* Banner Section - 全图布局模式（仅图片和链接） */}
+<section class="relative w-full overflow-hidden" style="min-height: 70vh;">
+  {/* 可点击链接（可选，如果不需要链接则使用 div） */}
+  <a href="/contact" class="block w-full h-full">  {/* 链接地址（配置） */}
+    {/* 背景层：渐变背景 + 图片覆盖 */}
+    <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600">
+      {/* 全图背景 */}
+      <img 
+        src="/assets/images/ai-agents-banner.jpg"  // 图片路径（配置）
+        alt="AIAgents Banner"  // 图片描述（配置）
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+    </div>
+  </a>
+</section>
+
+{/* 如果不需要链接，使用以下结构： */}
+<section class="relative w-full overflow-hidden" style="min-height: 70vh;">
+  <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600">
+    <img 
+      src="/assets/images/ai-agents-banner.jpg"  // 图片路径（配置）
+      alt="AIAgents Banner"  // 图片描述（配置）
+      class="w-full h-full object-cover"
+      loading="eager"
+    />
+  </div>
+</section>
+```
+
+---
+
+## 📝 修改流程（重要！）
+
+### 🎯 快速修改模板
+
+**当您说"修改banner"时，请使用以下模板：**
+
+```
+修改AIAgents产品页Banner：
+- 图片路径：[图片路径，如 /assets/images/ai-agents-banner.jpg]
+- 链接地址：[链接地址，如 /contact 或 /products/ai-agents，如果不需要链接则写"无"]
+- 图片描述：[图片描述，如 AIAgents产品Banner图]
+```
+
+**示例：**
+```
+修改AIAgents产品页Banner：
+- 图片路径：/assets/images/ai-agents-new-banner.jpg
+- 链接地址：/contact
+- 图片描述：AIAgents产品Banner图
+```
+
+**AI 将自动：**
+1. 修改图片路径和 alt 属性
+2. 修改或移除链接（如果链接地址为"无"，则移除链接）
+3. 确保代码符合规则要求
+
+---
+
+### 🎯 一步修改流程
+
+**修改配置** (`src/pages/products/AiAgents.tsx`)
+- 修改图片路径、链接地址（可选）
+
+---
+
+### 示例 1：修改 Banner 图片和链接
+
+**用户输入**：
+```
+修改AIAgents产品页Banner：
+- 图片路径：/assets/images/ai-agents-new-banner.jpg
+- 链接地址：/products/ai-agents
+- 图片描述：AIAgents产品Banner图
+```
+
+**AI 操作**：
+修改 `AiAgents.tsx` 中 Banner Section 的图片路径、链接地址和 alt 属性
+
+---
+
+### 示例 2：只修改 Banner 图片
+
+**用户输入**：
+```
+修改AIAgents产品页Banner：
+- 图片路径：/assets/images/ai-agents-banner-v2.jpg
+- 链接地址：/contact（保持不变）
+- 图片描述：AIAgents产品Banner图
+```
+
+**AI 操作**：
+只修改 `AiAgents.tsx` 中 Banner Section 的图片路径和 alt 属性，链接保持不变
+
+---
+
+### 示例 3：移除 Banner 链接（只显示图片）
+
+**用户输入**：
+```
+修改AIAgents产品页Banner：
+- 图片路径：/assets/images/ai-agents-banner.jpg（保持不变）
+- 链接地址：无
+- 图片描述：AIAgents产品Banner图
+```
+
+**AI 操作**：
+将 `<a>` 标签改为 `<div>` 标签，移除链接功能，只保留图片显示
+
+---
+
+## 🎨 Banner组成部分详解
+
+### 1. 背景图片配置
+
+**图片要求**：
+- **推荐尺寸**: 1920x1080 或更高分辨率（16:9 比例）
+- **推荐格式**: JPG（全图模式）、PNG（如需透明）
+- **文件大小**: < 1MB（优化后）
+- **存放位置**: `public/assets/images/ai-agents/banner.png`
+
+**后备渐变背景**：
+- 如果图片不存在，会显示紫色到粉色的渐变背景
+- 渐变类名：`bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600`
+
+### 2. 链接配置
+
+**链接选项**：
+- **有链接**: 使用 `<a>` 标签包裹整个 Banner，整个区域可点击
+- **无链接**: 使用 `<div>` 标签，只显示图片，不可点击
+
+**链接目标**：
+- **内部链接**: 使用相对路径，如 `/products/ai-agents`、`/contact`
+- **外部链接**: 使用完整 URL，如 `https://example.com`，建议添加 `target="_blank" rel="noopener noreferrer"`
+
+**悬停效果**（可选）：
+- 可以添加 `hover:opacity-90` 等效果，提示用户可点击
+
+---
+
+## ✅ 修改注意事项
+
+### 必须遵守：
+1. **图片优化**: 
+   - 图片文件大小 < 1MB（建议 1920x1080 或更高分辨率）
+   - 使用 JPG 格式（全图模式）
+2. **链接有效**: 确保所有链接可用，内部链接使用相对路径
+3. **响应式设计（必须！）**: 
+   - ✅ 使用 `min-height: 70vh` 等相对单位，不使用固定像素高度
+   - ✅ 图片使用 `w-full h-full object-cover` 确保自适应
+   - ✅ 确保图片在不同设备上正常显示，不变形
+   - ✅ 在移动端、平板端、桌面端都要测试显示效果
+4. **图片描述**: 为图片添加有意义的 `alt` 属性，提升可访问性
+5. **简洁设计**: Banner 只包含图片和链接，不添加文字、按钮、遮罩层等元素
+
+### ❌ 禁止操作：
+1. ❌ 不要修改JSX结构和HTML标签
+2. ❌ 不要添加文字内容（标题、描述等）
+3. ❌ 不要添加按钮
+4. ❌ 不要添加遮罩层
+5. ❌ 不要使用过小的图片（宽度 < 1920px）
+6. ❌ **不要修改响应式类名**：必须保留 `sm:`、`md:`、`lg:` 等响应式前缀
+7. ❌ **不要使用固定尺寸**：禁止使用 `height: 600px`、`width: 1200px` 等固定像素值
+8. ❌ 不要在 Banner 上叠加其他元素
+
+---
+
+## 🚀 测试验证步骤
+
+修改后必须验证：
+
+### 1. 响应式测试（必须！）
+
+**⚠️ 每次代码修改后都必须进行响应式测试！**
+
+#### 测试步骤：
+- ✅ 切换到移动端视图（DevTools: Cmd/Ctrl+Shift+M）
+- ✅ 测试 iPhone SE (375px) - 图片应正常显示，无变形
+- ✅ 测试 iPhone 12/13/14 (390px) - 图片应正常显示，无横向滚动
+- ✅ 测试 iPad (768px) - 图片应正常显示
+- ✅ 测试桌面端 (1024px+) - 图片应正常显示，保持比例
+
+#### 检查项：
+- ✅ 图片在不同尺寸下正常显示，不变形
+- ✅ 使用 `object-cover` 确保图片填充容器
+- ✅ 使用相对单位（`vh`、`%`）而非固定像素
+- ✅ 在移动端无横向滚动条
+
+### 2. 图片加载测试
+- ✅ 验证图片正常加载
+- ✅ 如果图片不存在，验证渐变背景正常显示
+- ✅ 验证图片在不同设备上的显示效果
+- ✅ 验证图片 `alt` 属性正确
+
+### 3. 链接测试（如果有链接）
+- ✅ 点击 Banner 区域正确跳转
+- ✅ 验证链接地址正确
+- ✅ 如果是外部链接，验证在新窗口打开（如已配置）
+- ✅ 验证悬停效果（如已配置）
+
+---
+
+## 🎓 特殊场景处理
+
+### 场景1：修改Banner高度
+
+**操作**：
+1. 找到代码行（约第 16 行）
+2. 修改 `min-height: 70vh` 为其他值：
+   - 更矮：`min-height: 50vh`
+   - 更高：`min-height: 80vh` 或 `min-height: 90vh`
+   - 固定高度：`height: 600px`（不推荐，响应式更好）
+
+### 场景2：更换背景图片
+
+**操作**：
+1. 将新图片放在 `public/assets/images/` 目录
+2. 修改代码行（约第 20 行）的 `src` 属性
+3. 确保图片文件名和路径正确
+4. 更新 `alt` 属性为有意义的描述
+
+### 场景3：添加链接
+
+**操作**：
+1. 将 `<div>` 标签改为 `<a>` 标签
+2. 添加 `href` 属性，设置链接地址
+3. 可选：添加 `target="_blank" rel="noopener noreferrer"`（外部链接）
+4. 可选：添加 `hover:opacity-90` 等悬停效果
+
+### 场景4：移除链接
+
+**操作**：
+1. 将 `<a>` 标签改为 `<div>` 标签
+2. 移除 `href` 属性
+3. 移除其他链接相关属性
+
+---
+
+# 版块2：优势展示
+
+## 优势展示定位
+- **翻译文件**: `src/i18n/translations.ts` (第 1715+ 行，`products.aiAgents.advantages` 配置)
+- **配置文件**: `src/pages/products/AiAgents.tsx` (第 32-77 行左右，Advantages Section)
+- **组件功能**: 产品优势卡片展示，展示产品的核心优势
+- **支持语言**: 简体中文(zh)、英文(en)、日文(jp)、繁体中文(hk)
+- **主要输入语言**: 简体中文 (zh) - 其他语言自动生成
+
+## 🎯 数据架构（重要！）
+- **翻译数据**: 所有文字内容（版块标题、卡片标题、副标题、描述）统一存放在 `src/i18n/translations.ts` 的 `products.aiAgents.advantages` 配置中
+- **配置数据**: 图标、图标背景色、图标颜色等配置保留在 `AiAgents.tsx` 中
+- **使用方式**: `AiAgents.tsx` 通过 `t.advantages.title`、`t.advantages.card1.title` 等读取翻译
+
+## 优势展示功能特性
+
+### 🎨 布局模式
+- ✅ **智能网格布局**: 
+  - **≤4个卡片**: 始终平分显示（1个=1列，2个=2列，3个=3列，4个=4列）
+  - **>4个卡片**: 每行最多4列，超过4个自动换行
+  - **移动端**: 始终1列显示
+- ✅ **卡片样式**: 白色背景、圆角、阴影、悬停效果
+- ✅ **图标展示**: 每个卡片包含图标、标题、副标题、描述
+- ✅ **响应式设计**: 自适应移动端、平板、桌面端
+
+**布局实现**：
+- 根据卡片数量动态设置布局类名，实现真正的"平分"效果
+- 移动端（<768px）：始终1列
+- 平板端（768px-1024px）：1-2个卡片时对应列数，3+个卡片时2列
+- 桌面端（≥1024px）：根据卡片数量智能调整
+
+**布局规则**：
+- **1个卡片**：`grid-cols-1 md:grid-cols-1 lg:grid-cols-1`（占满整行）
+- **2个卡片**：`grid-cols-1 md:grid-cols-2 lg:grid-cols-2`（各占50%）
+- **3个卡片**：`grid-cols-1 md:grid-cols-2 lg:grid-cols-3`（各占33.3%）
+- **4个卡片**：`grid-cols-1 md:grid-cols-2 lg:grid-cols-4`（各占25%）
+- **5+个卡片**：`grid-cols-1 md:grid-cols-2 lg:grid-cols-4`（每行4列，超过4个自动换行）
+
+**代码实现**：
+```typescript
+// 计算卡片数量
+const cardCount = [t.advantages.card1, t.advantages.card2, t.advantages.card3, t.advantages.card4].filter(Boolean).length
+
+// 根据数量动态设置类名
+const gridColsClass = 
+  cardCount === 1 ? 'grid-cols-1 md:grid-cols-1 lg:grid-cols-1' :
+  cardCount === 2 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-2' :
+  cardCount === 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' :
+  'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+```
+
+---
+
+## 优势展示数据结构说明
+
+### 📁 文件 1：翻译文件 (`src/i18n/translations.ts`)
+
+```typescript
+// 在 siteTranslations 的每个语言（zh/en/jp/hk）中添加：
+products: {
+  aiAgents: {
+    advantages: {
+      title: 'ZENAVA的优势',  // 版块标题
+      card1: {
+        title: '能沟通',  // 卡片标题
+        subtitle: '像真人一样交流',  // 副标题
+        desc: '文字/语音AI智能体理解您的业务逻辑和知识库，提供有温度、专业的服务支持。'  // 描述
+      },
+      card2: { ... },
+      card3: { ... },
+      // 可以添加 card4, card5 等
+    }
+  }
+}
+```
+
+### 📁 文件 2：配置文件 (`src/pages/products/AiAgents.tsx`)
+
+```typescript
+export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
+  const trans = getTranslations(language)
+  const t = trans.products.aiAgents
+
+  // 计算卡片数量，实现智能布局（≤4个时平分，>4个时每行4列）
+  const cardCount = [t.advantages.card1, t.advantages.card2, t.advantages.card3, t.advantages.card4].filter(Boolean).length
+  const gridColsClass = 
+    cardCount === 1 ? 'grid-cols-1 md:grid-cols-1 lg:grid-cols-1' :
+    cardCount === 2 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-2' :
+    cardCount === 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' :
+    'grid-cols-1 md:grid-cols-2 lg:grid-cols-4' // 4个或更多时，最多4列
+
+  return (
+    <>
+      {/* Advantages Section */}
+      <section class="py-20 bg-gradient-to-b from-white to-blue-50">
+        <div class="site-container">
+          <div class="text-center mb-16">
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">{t.advantages.title}</h2>
+          </div>
+          
+          {/* 布局类名根据卡片数量动态设置 */}
+          <div class={`grid ${gridColsClass} gap-8`}>
+      {/* Card 1 */}
+      <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-6 mx-auto">
+          <i class="fas fa-comments text-blue-600 text-2xl"></i>  // 图标（配置）
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 text-center mb-2">{t.advantages.card1.title}</h3>  // 从翻译读取
+        <p class="text-blue-600 font-medium text-center mb-4">{t.advantages.card1.subtitle}</p>  // 从翻译读取
+        <p class="text-gray-600 text-center text-sm leading-relaxed">
+          {t.advantages.card1.desc}  // 从翻译读取
+        </p>
+      </div>
+      {/* Card 2, Card 3... */}
+    </div>
+  </div>
+</section>
+```
+
+---
+
+## 📝 修改流程（重要！）
+
+### 🎯 快速修改模板
+
+**当您说"修改优势展示"时，请使用以下模板：**
+
+#### 模板1：新增卡片
+
+```
+新增AIAgents产品页优势展示卡片：
+- 卡片编号：card4（或 card5, card6...）
+- 图标：fas fa-rocket（Font Awesome 图标类名）
+- 图标背景色：bg-orange-100（Tailwind 背景色类名）
+- 图标颜色：text-orange-600（Tailwind 文字颜色类名）
+- 标题：快速响应
+- 副标题：秒级响应客户需求
+- 描述：AI智能体能够快速理解客户意图，提供即时响应，提升客户满意度
+```
+
+**AI 操作**：
+1. 在 `translations.ts` 的 `zh/en/jp/hk` 四个语言的 `advantages` 中添加新卡片配置
+2. 在 `AiAgents.tsx` 的 Advantages Section 中添加新卡片 JSX
+
+---
+
+#### 模板2：修改卡片
+
+```
+修改AIAgents产品页优势展示卡片：
+- 卡片编号：card1（或 card2, card3...）
+- 标题：能沟通（新标题）
+- 副标题：像真人一样交流（新副标题）
+- 描述：文字/语音AI智能体理解您的业务逻辑和知识库，提供有温度、专业的服务支持。（新描述）
+- 图标：fas fa-comments（保持不变，或改为新图标）
+- 图标背景色：bg-blue-100（保持不变，或改为新颜色）
+- 图标颜色：text-blue-600（保持不变，或改为新颜色）
+```
+
+**AI 操作**：
+1. 修改 `translations.ts` 中对应卡片的翻译（四种语言同步更新）
+2. 如需修改图标或颜色，修改 `AiAgents.tsx` 中对应卡片的配置
+
+---
+
+#### 模板3：删除卡片
+
+```
+删除AIAgents产品页优势展示卡片：
+- 卡片编号：card3（或 card1, card2...）
+```
+
+**AI 操作**：
+1. 从 `translations.ts` 的 `zh/en/jp/hk` 四个语言中删除对应卡片配置
+2. 从 `AiAgents.tsx` 的 Advantages Section 中删除对应卡片 JSX
+
+---
+
+### 示例 1：新增卡片
+
+**用户输入**：
+```
+新增AIAgents产品页优势展示卡片：
+- 卡片编号：card4
+- 图标：fas fa-shield-alt
+- 图标背景色：bg-red-100
+- 图标颜色：text-red-600
+- 标题：安全可靠
+- 副标题：企业级安全保障
+- 描述：采用企业级安全标准，确保数据安全和隐私保护，让您放心使用
+```
+
+**AI 操作**：
+1. 在 `translations.ts` 的四个语言中添加 `card4` 配置
+2. 在 `AiAgents.tsx` 中添加第4个卡片
+
+---
+
+### 示例 2：修改卡片内容
+
+**用户输入**：
+```
+修改AIAgents产品页优势展示卡片：
+- 卡片编号：card1
+- 标题：智能沟通
+- 副标题：像真人一样自然交流
+- 描述：文字/语音AI智能体深度理解您的业务逻辑和知识库，提供有温度、专业、个性化的服务支持
+- 图标：fas fa-comments（保持不变）
+- 图标背景色：bg-blue-100（保持不变）
+- 图标颜色：text-blue-600（保持不变）
+```
+
+**AI 操作**：
+只修改 `translations.ts` 中 `card1` 的翻译内容（四种语言同步更新）
+
+---
+
+### 示例 3：修改卡片样式
+
+**用户输入**：
+```
+修改AIAgents产品页优势展示卡片：
+- 卡片编号：card2
+- 图标：fas fa-lightning-bolt（新图标）
+- 图标背景色：bg-yellow-100（新背景色）
+- 图标颜色：text-yellow-600（新颜色）
+- 标题：能执行（保持不变）
+- 副标题：独立完成业务闭环（保持不变）
+- 描述：文字/语音AI智能体能够智能调用您的API，查询和更新数据，提供实时服务。（保持不变）
+```
+
+**AI 操作**：
+只修改 `AiAgents.tsx` 中 `card2` 的图标和颜色配置
+
+---
+
+### 示例 4：删除卡片
+
+**用户输入**：
+```
+删除AIAgents产品页优势展示卡片：
+- 卡片编号：card3
+```
+
+**AI 操作**：
+1. 从 `translations.ts` 的四个语言中删除 `card3` 配置
+2. 从 `AiAgents.tsx` 中删除第3个卡片 JSX
+
+---
+
+## 🎨 优势展示组成部分详解
+
+### 1. 版块标题配置
+
+**翻译位置**: `t.advantages.title`
+- 显示在版块顶部居中
+- 支持四种语言
+
+### 2. 卡片配置
+
+**每个卡片包含**：
+- **图标**: Font Awesome 图标类名（如 `fas fa-comments`）
+- **图标背景色**: Tailwind 背景色类名（如 `bg-blue-100`）
+- **图标颜色**: Tailwind 文字颜色类名（如 `text-blue-600`）
+- **标题**: 从翻译读取（`t.advantages.cardX.title`）
+- **副标题**: 从翻译读取（`t.advantages.cardX.subtitle`）
+- **描述**: 从翻译读取（`t.advantages.cardX.desc`）
+
+### 3. 常用图标和颜色组合
+
+| 图标类名 | 图标 | 背景色 | 文字颜色 | 用途 |
+|---------|-----|--------|---------|-----|
+| `fas fa-comments` | 💬 | `bg-blue-100` | `text-blue-600` | 沟通、对话 |
+| `fas fa-cogs` | ⚙️ | `bg-purple-100` | `text-purple-600` | 执行、操作 |
+| `fas fa-bolt` | ⚡ | `bg-green-100` | `text-green-600` | 快速、效率 |
+| `fas fa-shield-alt` | 🛡️ | `bg-red-100` | `text-red-600` | 安全、保护 |
+| `fas fa-rocket` | 🚀 | `bg-orange-100` | `text-orange-600` | 快速、启动 |
+| `fas fa-brain` | 🧠 | `bg-indigo-100` | `text-indigo-600` | 智能、AI |
+
+---
+
+## ✅ 修改注意事项
+
+### 必须遵守：
+1. **四语同步**: 所有文字内容必须包含 zh、en、jp、hk 四个语言版本
+2. **自动翻译**: 用户只提供简体中文，AI 自动生成其他三种语言
+3. **卡片编号**: 使用 `card1`、`card2`、`card3` 等编号，保持唯一性
+4. **响应式设计（必须！）**: 
+   - ✅ 所有布局必须使用响应式类名（`grid-cols-1 md:grid-cols-2 lg:grid-cols-4`）
+   - ✅ 所有字体大小必须使用响应式类名（`text-base md:text-lg lg:text-xl`）
+   - ✅ 所有间距必须使用响应式类名（`p-4 md:p-6 lg:p-8`）
+   - ✅ 确保卡片在不同设备上正常显示（移动端1列，平板端2列，桌面端根据数量调整）
+   - ✅ 文字长度必须考虑移动端显示，避免溢出
+5. **图标一致性**: 使用 Font Awesome 图标，保持风格统一
+
+### ❌ 禁止操作：
+1. ❌ 不要修改卡片的基本结构（div、section 等）
+2. ❌ 不要删除响应式类名（`md:grid-cols-2 lg:grid-cols-4` 等）
+3. ❌ 不要修改布局逻辑（保持智能平分和换行规则）
+4. ❌ 不要修改卡片的悬停效果类名
+5. ❌ 不要使用过长的文字（标题 > 10字，描述 > 100字）
+6. ❌ 不要删除版块标题
+7. ❌ **不要使用固定像素值**：禁止使用 `width: 1200px`、`font-size: 48px` 等固定尺寸
+8. ❌ **不要忽略移动端**：所有代码必须考虑移动端显示效果
+9. ❌ **不要删除响应式断点**：必须保留 `sm:`、`md:`、`lg:` 等响应式前缀
+
+### 📏 内容长度建议：
+
+| 内容 | 简体中文 | 英文 | 说明 |
+|-----|---------|-----|-----|
+| 版块标题 | 4-10个汉字 | 2-6个单词 | 简短描述 |
+| 卡片标题 | 2-6个汉字 | 1-4个单词 | 核心优势 |
+| 副标题 | 4-12个汉字 | 2-8个单词 | 补充说明 |
+| 描述 | 20-60个汉字 | 15-40个单词 | 详细描述 |
+
+---
+
+## 🚀 测试验证步骤
+
+修改后必须验证：
+
+### 1. 多语言测试
+- ✅ 在浏览器中检查**四种语言版本**
+- ✅ 验证每种语言的文字长度不会破坏布局
+- ✅ 检查卡片在不同语言下正常显示
+
+### 2. 响应式测试（必须！）
+
+**⚠️ 每次代码修改后都必须进行响应式测试！**
+
+#### 测试步骤：
+1. ✅ 切换到移动端视图（DevTools: Cmd/Ctrl+Shift+M）
+2. ✅ 测试以下设备尺寸：
+   - **iPhone SE (375px)** - 卡片应单列显示，文字清晰可读
+   - **iPhone 12/13/14 (390px)** - 卡片应单列显示，无横向滚动
+   - **iPad (768px-1023px)** - 卡片应2列显示（如果卡片数≥2）
+   - **桌面端 (1024px+)** - 验证布局规则：
+     - 1个卡片：1列（占满）
+     - 2个卡片：2列（各占50%）
+     - 3个卡片：3列（各占33.3%）
+     - 4个卡片：4列（各占25%）
+     - 5+个卡片：每行4列，超过4个自动换行
+
+#### 检查项：
+- ✅ 所有文字在不同尺寸下清晰可读，无需缩放
+- ✅ 卡片布局在不同断点下正确显示
+- ✅ 没有横向滚动条（除非特殊设计）
+- ✅ 按钮和链接在移动端易于点击（至少 44x44px）
+- ✅ 图片在不同设备上正常显示，不变形
+- ✅ 间距和留白在移动端合理
+
+### 3. 交互测试
+- ✅ 悬停卡片显示阴影和上移效果
+- ✅ 验证所有卡片图标正常显示
+- ✅ 验证卡片内容完整显示
+
+---
+
+# 版块3：功能特性
+
+## 功能特性定位
+- **翻译文件**: `src/i18n/translations.ts` (第 1753+ 行，`products.aiAgents.features` 配置)
+- **配置文件**: `src/pages/products/AiAgents.tsx` (第 99-196 行左右，Features Section)
+- **组件功能**: 产品功能详细介绍，展示 Voice 和 Messaging 两个核心功能
+- **支持语言**: 简体中文(zh)、英文(en)、日文(jp)、繁体中文(hk)
+- **主要输入语言**: 简体中文 (zh) - 其他语言自动生成
+
+## 🎯 数据架构（重要！）
+- **翻译数据**: 所有文字内容（标签、标题、副标题、功能列表、按钮文字）统一存放在 `src/i18n/translations.ts` 的 `products.aiAgents.features` 配置中
+- **配置数据**: 图片路径、图片描述（alt）、按钮链接、布局顺序等配置保留在 `AiAgents.tsx` 中
+- **使用方式**: `AiAgents.tsx` 通过 `t.features.voice.subtitle`、`t.features.messaging.title` 等读取翻译
+
+## 功能特性功能说明
+
+### 🎨 布局模式
+- ✅ **左右交替布局**: 
+  - **Voice Section**: 左图右文（图片在左，内容在右）
+  - **Messaging Section**: 左文右图（内容在左，图片在右）
+- ✅ **响应式设计**: 移动端单列垂直堆叠，桌面端左右分栏
+- ✅ **功能列表**: 每个功能项包含图标和文字说明
+- ✅ **按钮链接**: 每个功能区域包含一个按钮，链接到对应产品页面
+
+---
+
+## 功能特性数据结构说明
+
+### 📁 文件 1：翻译文件 (`src/i18n/translations.ts`)
+
+```typescript
+// 在 siteTranslations 的每个语言（zh/en/jp/hk）中添加：
+products: {
+  aiAgents: {
+    features: {
+      voice: {
+        title: 'Voice',  // 标签（可选，显示在标题上方）
+        subtitle: '超越真人的语音对话体验',  // 主标题
+        list: [  // 功能列表
+          '拟人化音色',
+          '低延迟交互',
+          '精准意图打断',
+          '直接对接业务流程'
+        ],
+        button: '了解Voice'  // 按钮文字
+      },
+      messaging: {
+        title: '传讯与即时对话',  // 主标题
+        subtitle: '便捷客户服务',  // 副标题（可选）
+        list: [  // 功能列表
+          '多渠道提供统一个性化服务',
+          '多模态沟通',
+          '复杂多轮信息收集',
+          '针对情绪、敏感感知、话术策略、深度共情',
+          '业务全流程闭环'
+        ],
+        button: '了解即时对话'  // 按钮文字
+      }
+      // 可以添加更多功能，如 features.api, features.integration 等
+    }
+  }
+}
+```
+
+### 📁 文件 2：配置文件 (`src/pages/products/AiAgents.tsx`)
+
+```typescript
+{/* Voice Section - 左图右文布局 */}
+<section class="py-12 md:py-16 lg:py-20 bg-white">
+  <div class="site-container px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+      {/* Left Image */}
+      <div class="relative rounded-2xl overflow-hidden shadow-xl">
+        <div class="aspect-[4/3] bg-gray-200 flex items-center justify-center">
+          {/* 方式1：使用真实图片（推荐） */}
+          <img 
+            src="/assets/images/ai-agents/voice-demo.png"  // 图片路径（配置）
+            alt="Voice功能演示图"  // 图片描述（配置）
+            class="w-full h-full object-cover"
+          />
+          {/* 方式2：使用占位符（如果图片路径为"无"） */}
+          {/* <i class="fas fa-phone-volume text-4xl md:text-5xl lg:text-6xl text-gray-400"></i> */}
+        </div>
+      </div>
+      
+      {/* Right Content */}
+      <div class="space-y-4 md:space-y-6 lg:space-y-8">
+        <div>
+          <span class="text-blue-600 font-semibold tracking-wider uppercase text-xs md:text-sm">{t.features.voice.title}</span>
+          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">{t.features.voice.subtitle}</h2>
+        </div>
+        
+        <ul class="space-y-3 md:space-y-4">
+          {t.features.voice.list.map((item: string) => (
+            <li class="flex items-center space-x-2 md:space-x-3">
+              <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-100 flex items-center justify-center">
+                <i class="fas fa-check text-blue-600 text-xs"></i>
+              </div>
+              <span class="text-gray-700 font-medium text-sm md:text-base">{item}</span>
+            </li>
+          ))}
+        </ul>
+        
+        <div>
+          <a 
+            href="/products/voice"  // 按钮链接（配置）
+            class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
+          >
+            {t.features.voice.button}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* Messaging Section - 左文右图布局（交替） */}
+<section class="py-12 md:py-16 lg:py-20 bg-gray-50">
+  <div class="site-container px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+      {/* Left Content */}
+      <div class="space-y-4 md:space-y-6 lg:space-y-8 order-2 lg:order-1">
+        <div>
+          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">{t.features.messaging.title}</h2>
+          <p class="text-lg md:text-xl text-gray-600 mt-1 md:mt-2">{t.features.messaging.subtitle}</p>
+        </div>
+        
+        <ul class="space-y-3 md:space-y-4">
+          {t.features.messaging.list.map((item: string) => (
+            <li class="flex items-center space-x-2 md:space-x-3">
+              <div class="flex-shrink-0 w-2 h-2 rounded-full bg-gray-900"></div>
+              <span class="text-gray-700 font-medium text-sm md:text-base">{item}</span>
+            </li>
+          ))}
+        </ul>
+        
+        <div>
+          <a 
+            href="/products/messaging"  // 按钮链接（配置）
+            class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
+          >
+            {t.features.messaging.button}
+          </a>
+        </div>
+      </div>
+
+      {/* Right Image */}
+      <div class="relative rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
+        <div class="aspect-[4/3] bg-white border border-gray-200 flex items-center justify-center p-4 md:p-6 lg:p-8">
+          {/* 方式1：使用真实图片（推荐） */}
+          <img 
+            src="/assets/images/ai-agents/messaging-demo.png"  // 图片路径（配置）
+            alt="即时对话功能演示图"  // 图片描述（配置）
+            class="w-full h-full object-cover"
+          />
+          {/* 方式2：使用模拟UI占位符（如果图片路径为"无"） */}
+          {/* <div class="w-full max-w-md space-y-3 md:space-y-4">
+            <div class="flex items-start space-x-2 md:space-x-3">
+              <div class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gray-200"></div>
+              <div class="bg-gray-100 rounded-lg rounded-tl-none p-2 md:p-3 text-xs md:text-sm w-3/4">
+                Wholesale coffee?
+              </div>
+            </div>
+          </div> */}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+---
+
+## 📝 修改流程（重要！）
+
+### 🎯 快速修改模板
+
+**当您说"修改功能特性"时，请使用以下模板：**
+
+#### 模板1：修改现有功能
+
+```
+修改AIAgents产品页功能特性：
+- 功能名称：voice（或 messaging）
+- 标签：[标签文字，如 Voice，如果不需要则写"无"]
+- 主标题：[主标题]
+- 副标题：[副标题，如果不需要则写"无"]
+- 功能列表：[功能点1, 功能点2, 功能点3...]
+- 按钮文字：[按钮文字]
+- 按钮链接：[按钮链接，如 /products/voice]
+- 图片路径：[图片路径，如 /assets/images/voice-demo.png，如果不需要图片则写"无"]
+- 图片描述：[图片描述，如 Voice功能演示图]
+```
+
+#### 模板2：新增功能
+
+```
+新增AIAgents产品页功能特性：
+- 功能名称：api（或 integration, analytics 等）
+- 布局顺序：[数字，如 3，决定显示顺序]
+- 布局方向：左图右文（或 左文右图）
+- 标签：[标签文字，可选]
+- 主标题：[主标题]
+- 副标题：[副标题，可选]
+- 功能列表：[功能点1, 功能点2, 功能点3...]
+- 按钮文字：[按钮文字]
+- 按钮链接：[按钮链接]
+- 图片路径：[图片路径，如 /assets/images/api-demo.png]
+```
+
+#### 模板3：删除功能
+
+```
+删除AIAgents产品页功能特性：
+- 功能名称：voice（或 messaging）
+```
+
+---
+
+### 🎯 详细修改流程
+
+**步骤1：修改翻译文字** (`src/i18n/translations.ts`)
+- 修改标签、主标题、副标题、功能列表、按钮文字
+- 用户只需提供简体中文，AI 自动生成英文、日文、繁体中文
+
+**步骤2：修改配置** (`src/pages/products/AiAgents.tsx`)
+- 修改图片路径、图片描述（alt 属性）、按钮链接、布局顺序
+- 如果图片路径为"无"，则使用占位符（图标或模拟UI）
+
+---
+
+### 示例 1：修改 Voice 功能
+
+**用户输入**：
+```
+修改AIAgents产品页功能特性：
+- 功能名称：voice
+- 标签：Voice（保持不变）
+- 主标题：超越真人的语音对话体验（新标题）
+- 副标题：无
+- 功能列表：拟人化音色, 低延迟交互, 精准意图打断, 直接对接业务流程, 智能情绪识别
+- 按钮文字：了解更多Voice功能
+- 按钮链接：/products/voice（保持不变）
+- 图片路径：/assets/images/voice-demo.png
+- 图片描述：Voice功能演示图
+```
+
+**AI 操作**：
+1. 修改 `translations.ts` 中 `features.voice` 的翻译（四种语言同步更新）
+2. 修改 `AiAgents.tsx` 中对应区域的图片路径和 alt 属性
+3. 如需修改链接，修改 `AiAgents.tsx` 中对应按钮的 `href` 属性
+
+---
+
+### 示例 2：新增 API 功能
+
+**用户输入**：
+```
+新增AIAgents产品页功能特性：
+- 功能名称：api
+- 布局顺序：3
+- 布局方向：左图右文
+- 标签：API Integration
+- 主标题：强大的API集成能力
+- 副标题：无缝对接您的业务系统
+- 功能列表：RESTful API, Webhook支持, 数据同步, 实时推送
+- 按钮文字：查看API文档
+- 按钮链接：/docs/api
+- 图片路径：/assets/images/api-integration.png
+```
+
+**AI 操作**：
+1. 在 `translations.ts` 的四个语言中添加 `features.api` 配置
+2. 在 `AiAgents.tsx` 中添加新的功能区域 JSX（左图右文布局）
+
+---
+
+## 🎨 功能特性组成部分详解
+
+### 1. 布局模式
+
+**左图右文布局**（Voice Section）：
+- 图片在左侧，内容在右侧
+- 使用 `grid-cols-1 lg:grid-cols-2` 实现响应式
+- 移动端：图片在上，内容在下
+- 桌面端：图片在左，内容在右
+
+**左文右图布局**（Messaging Section）：
+- 内容在左侧，图片在右侧
+- 使用 `order-2 lg:order-1` 和 `order-1 lg:order-2` 实现交替
+- 移动端：图片在上，内容在下
+- 桌面端：内容在左，图片在右
+
+### 2. 功能列表样式
+
+**Voice 功能列表**：
+- 使用蓝色圆形图标 + 对勾（`fas fa-check`）
+- 图标背景：`bg-blue-100`
+- 图标颜色：`text-blue-600`
+
+**Messaging 功能列表**：
+- 使用黑色小圆点（`w-2 h-2 rounded-full bg-gray-900`）
+- 更简洁的样式
+
+### 3. 图片配置
+
+**图片要求**：
+- **推荐尺寸**: 800x600 或更高分辨率（4:3 比例）
+- **推荐格式**: PNG、JPG
+- **文件大小**: < 500KB（优化后）
+- **存放位置**: `public/assets/images/ai-agents/`
+- **引用方式**: `/assets/images/ai-agents/voice-demo.png`
+
+**图片配置方式**：
+
+**方式1：使用真实图片**
+```typescript
+<div class="aspect-[4/3] bg-gray-200 flex items-center justify-center">
+  <img 
+    src="/assets/images/ai-agents/voice-demo.png"  // 图片路径（配置）
+    alt="Voice功能演示图"  // 图片描述（配置）
+    class="w-full h-full object-cover"
+  />
+</div>
+```
+
+**方式2：使用占位符（无图片时）**
+```typescript
+// 图标占位符（Voice Section 使用）
+<div class="aspect-[4/3] bg-gray-200 flex items-center justify-center">
+  <i class="fas fa-phone-volume text-4xl md:text-5xl lg:text-6xl text-gray-400"></i>
+</div>
+
+// 模拟UI占位符（Messaging Section 使用）
+<div class="aspect-[4/3] bg-white border border-gray-200 flex items-center justify-center p-4 md:p-6 lg:p-8">
+  {/* 模拟消息UI */}
+</div>
+```
+
+**配置说明**：
+- **图片路径**：在 `AiAgents.tsx` 中直接配置图片路径
+- **图片描述**：在 `AiAgents.tsx` 中配置 `alt` 属性（用于可访问性）
+- **占位符**：如果图片路径为"无"或图片不存在，使用占位符显示
+
+### 4. 按钮样式
+
+**按钮 Tailwind CSS 类名**：
+```typescript
+class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
+```
+
+**按钮样式说明**：
+- **形状**: 圆角按钮 (`rounded-full`)
+- **边框**: 灰色边框 (`border border-gray-300`)
+- **文字颜色**: 深灰色 (`text-gray-700`)
+- **背景**: 白色 (`bg-white`)
+- **悬停效果**: 浅灰色背景 (`hover:bg-gray-50`)
+- **最小高度**: 44px（符合触摸标准）
+
+---
+
+## ✅ 修改注意事项
+
+### 必须遵守：
+1. **四语同步**: 所有文字内容必须包含 zh、en、jp、hk 四个语言版本
+2. **自动翻译**: 用户只提供简体中文，AI 自动生成其他三种语言
+3. **图片配置**: 
+   - ✅ 图片路径必须在 `AiAgents.tsx` 中配置
+   - ✅ 图片描述（alt 属性）必须在 `AiAgents.tsx` 中配置
+   - ✅ 如果图片路径为"无"，使用占位符（图标或模拟UI）
+   - ✅ 图片必须存放在 `public/assets/images/ai-agents/` 目录
+4. **响应式设计（必须！）**: 
+   - ✅ 所有布局必须使用响应式类名（`grid-cols-1 lg:grid-cols-2`）
+   - ✅ 所有字体大小必须使用响应式类名（`text-2xl md:text-3xl lg:text-4xl`）
+   - ✅ 所有间距必须使用响应式类名（`space-y-4 md:space-y-6 lg:space-y-8`）
+   - ✅ 容器必须添加内边距（`px-4 sm:px-6 lg:px-8`）
+   - ✅ 按钮必须符合触摸标准（`min-h-[44px]`）
+   - ✅ 图片必须使用 `object-cover` 确保自适应
+5. **布局交替**: 保持左右交替布局，避免视觉单调
+6. **功能列表**: 每个功能点建议 4-15 个汉字（英文 3-10 个单词）
+
+### ❌ 禁止操作：
+1. ❌ 不要修改功能区域的基本结构（section、div 等）
+2. ❌ 不要删除响应式类名（`md:`、`lg:` 等）
+3. ❌ 不要修改布局的交替顺序（保持视觉平衡）
+4. ❌ 不要使用过长的功能点描述（> 20 个汉字）
+5. ❌ 不要删除按钮的最小高度限制（`min-h-[44px]`）
+6. ❌ **不要使用固定像素值**：禁止使用 `width: 800px`、`font-size: 24px` 等固定尺寸
+7. ❌ **不要忽略移动端**：所有代码必须考虑移动端显示效果
+
+### 📏 内容长度建议：
+
+| 内容 | 简体中文 | 英文 | 说明 |
+|-----|---------|-----|-----|
+| 标签 | 2-10个汉字 | 1-5个单词 | 简短标识 |
+| 主标题 | 8-20个汉字 | 4-12个单词 | 功能核心描述 |
+| 副标题 | 4-12个汉字 | 2-8个单词 | 补充说明（可选） |
+| 功能点 | 4-15个汉字 | 3-10个单词 | 功能特性描述 |
+| 按钮文字 | 2-8个汉字 | 1-5个单词 | 简短行动号召 |
+
+---
+
+## 🚀 测试验证步骤
+
+修改后必须验证：
+
+### 1. 多语言测试
+- ✅ 在浏览器中检查**四种语言版本**
+- ✅ 验证每种语言的文字长度不会破坏布局
+- ✅ 检查功能列表在不同语言下正常显示
+
+### 2. 响应式测试（必须！）
+
+**⚠️ 每次代码修改后都必须进行响应式测试！**
+
+#### 测试步骤：
+1. ✅ 切换到移动端视图（DevTools: Cmd/Ctrl+Shift+M）
+2. ✅ 测试以下设备尺寸：
+   - **iPhone SE (375px)** - 图片和内容应垂直堆叠，文字清晰可读
+   - **iPhone 12/13/14 (390px)** - 布局应正常，无横向滚动
+   - **iPad (768px-1023px)** - 布局应正常，图片和内容清晰
+   - **桌面端 (1024px+)** - 验证左右布局：
+     - Voice Section：图片在左，内容在右
+     - Messaging Section：内容在左，图片在右
+
+#### 检查项：
+- ✅ 所有文字在不同尺寸下清晰可读，无需缩放
+- ✅ 图片在不同设备上正常显示，不变形
+- ✅ 功能列表在不同断点下正确显示
+- ✅ 按钮在移动端易于点击（至少 44x44px）
+- ✅ 布局在移动端和桌面端正确切换
+- ✅ 没有横向滚动条（除非特殊设计）
+
+### 3. 交互测试
+- ✅ 点击按钮正确跳转
+- ✅ 按钮悬停效果正常
+- ✅ 图片加载正常（或占位符正常显示）
+
+---
+
+## 🎓 特殊场景处理
+
+### 场景1：修改布局方向
+
+**操作**：
+1. 对于左图右文布局，将图片和内容的 `order` 类名交换
+2. 确保移动端始终是图片在上、内容在下
+
+### 场景2：添加更多功能
+
+**操作**：
+1. 在 `translations.ts` 中添加新功能的翻译
+2. 在 `AiAgents.tsx` 中添加新的功能区域
+3. 根据顺序决定布局方向（奇数项左图右文，偶数项左文右图）
+
+### 场景3：修改功能列表图标样式
+
+**操作**：
+1. Voice 功能：使用 `bg-blue-100` + `fas fa-check`
+2. Messaging 功能：使用 `bg-gray-900` 小圆点
+3. 其他功能：可根据需要选择图标样式
+
+---
+
+# 版块4：资源中心
+
+> **待添加** - 相关资源卡片版块的规则将在此处添加
+
+---
+
+# 版块5：CTA
+
+> **待添加** - 行动号召区域版块的规则将在此处添加
+
+---
+
+## 📞 技术支持
+
+如有问题，请联系：
+- 邮箱：marketing@zenava.ai
+- 文档：`.cursor/rules/10-product-page.mdc`
+- 参考：`.cursor/rules/5-homepage-banner.mdc`（首页Banner规则）

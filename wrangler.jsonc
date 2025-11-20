@@ -21,13 +21,17 @@
   //     "bucket_name": "my-bucket"
   //   }
   // ],
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "zenava-production",
-      "database_id": "local-development"
-    }
-  ],
+  // 注意：生产部署前需要创建真实的 D1 数据库并更新 database_id
+  // 创建命令：npx wrangler d1 create zenava-production
+  // 暂时禁用这个配置
+
+  // "d1_databases": [
+  //   {
+  //     "binding": "DB",
+  //     "database_name": "zenava-production",
+  //     "database_id": "local-development"  // ⚠️ 需要替换为真实的 database_id
+  //   }
+  // ],
   // "ai": {
   //   "binding": "AI"
   // }

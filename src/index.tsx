@@ -63,10 +63,11 @@ app.route('/api/upload', uploadApi)
 app.route('/api/navigation', navigation)
 
 // Serve static files
-// Note: In Wrangler Pages, static files in dist/ are served automatically by Wrangler
+// Note: In Cloudflare Pages, static files in dist/ are served automatically by Pages
 // We only need to handle /static/* if it's not in dist/
 app.use('/static/*', serveStatic({ root: './public' }))
-// /assets/* files are in dist/assets/ and should be served by Wrangler automatically
+// /assets/* files are automatically served by Cloudflare Pages from dist/assets/
+// No need to handle them in Worker
 
 // Homepage routes - Use static data (no database queries for frontend pages)
 app.get('/', (c) => {
