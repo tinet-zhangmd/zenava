@@ -90,7 +90,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
           label_en: 'Messaging & Instant Chat',
           label_jp: 'メッセージング・インスタントチャット',
           label_hk: '傳訊與即時對話',
-          url: '/products/messaging',
+          url: '/products/live-chat',
           icon: 'fas fa-comments',
           order: 2,
           visible: true

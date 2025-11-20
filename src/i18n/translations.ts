@@ -371,6 +371,40 @@ export const siteTranslations = {
           subtitle: 'Let Zenava AI help your enterprise achieve intelligent upgrades in customer conversation scenarios',
           button: 'Contact Us'
         }
+      },
+      liveChat: {
+        advantages: {
+          title: 'LiveChat Advantages',
+          card1: {
+            title: 'Real-time Response',
+            subtitle: 'Second-level Customer Reply',
+            desc: '7x24 hours online, intelligent routing allocation, ensuring customer issues are responded to and handled promptly.'
+          },
+          card2: {
+            title: 'Multi-channel Support',
+            subtitle: 'Unified Management of All Channels',
+            desc: 'Support website, mobile, social media and other channels, unified management of customer conversations, improving service efficiency.'
+          },
+          card3: {
+            title: 'Intelligent Analytics',
+            subtitle: 'Data-driven Optimization',
+            desc: 'Real-time analysis of customer conversation data, identifying common issues, optimizing service processes, improving customer satisfaction.'
+          }
+        },
+        features: {
+          feature1: {
+            title: 'Live Chat',
+            subtitle: '7x24 Hours Online Customer Service',
+            list: [
+              'Real-time Response: Second-level reply to customer inquiries',
+              'Intelligent Routing: Automatically assign the most suitable customer service',
+              'Multi-language Support: Support multiple languages worldwide',
+              'Data Analytics: Real-time monitoring of service quality and customer satisfaction'
+            ],
+            button: 'Learn More About LiveChat Features',
+            buttonLink: '/products/live-chat'
+          }
+        }
       }
     },
     
@@ -829,6 +863,40 @@ export const siteTranslations = {
           title: 'インテリジェント対話の新たな章を開く',
           subtitle: 'Zenava AIが企業の顧客対話シナリオのインテリジェントなアップグレードを支援します',
           button: 'お問い合わせ'
+        }
+      },
+      liveChat: {
+        advantages: {
+          title: 'LiveChatの強み',
+          card1: {
+            title: 'リアルタイム応答',
+            subtitle: '秒単位で顧客に返信',
+            desc: '7x24時間オンライン、インテリジェントなルーティング割り当てにより、顧客の問題が迅速に応答され処理されます。'
+          },
+          card2: {
+            title: 'マルチチャネルサポート',
+            subtitle: 'すべてのチャネルを統一管理',
+            desc: 'ウェブサイト、モバイル、ソーシャルメディアなど複数のチャネルをサポートし、顧客対話を統一管理し、サービス効率を向上させます。'
+          },
+          card3: {
+            title: 'インテリジェント分析',
+            subtitle: 'データ駆動型最適化',
+            desc: '顧客対話データをリアルタイムで分析し、一般的な問題を特定し、サービスプロセスを最適化し、顧客満足度を向上させます。'
+          }
+        },
+        features: {
+          feature1: {
+            title: 'Live Chat',
+            subtitle: '7x24時間オンラインカスタマーサービス',
+            list: [
+              'リアルタイム応答：顧客の問い合わせに秒単位で返信',
+              'インテリジェントルーティング：最適なカスタマーサービスに自動割り当て',
+              '多言語サポート：世界中の複数の言語をサポート',
+              'データ分析：サービス品質と顧客満足度をリアルタイムで監視'
+            ],
+            button: 'LiveChat機能の詳細',
+            buttonLink: '/products/live-chat'
+          }
         }
       }
     },
@@ -1289,6 +1357,40 @@ export const siteTranslations = {
           title: '開啟智能對話新篇章',
           subtitle: '讓Zenava AI助力您的企業實現客戶對話場景的智能化升級',
           button: '聯絡我們'
+        }
+      },
+      liveChat: {
+        advantages: {
+          title: 'LiveChat的優勢',
+          card1: {
+            title: '實時響應',
+            subtitle: '秒級回復客戶',
+            desc: '7x24小時在線，智能路由分配，確保客戶問題得到及時響應和處理。'
+          },
+          card2: {
+            title: '多渠道支持',
+            subtitle: '統一管理所有渠道',
+            desc: '支持網站、移動端、社交媒體等多種渠道，統一管理客戶對話，提升服務效率。'
+          },
+          card3: {
+            title: '智能分析',
+            subtitle: '數據驅動優化',
+            desc: '實時分析客戶對話數據，識別常見問題，優化服務流程，提升客戶滿意度。'
+          }
+        },
+        features: {
+          feature1: {
+            title: 'Live Chat',
+            subtitle: '7x24小時在線客服',
+            list: [
+              '實時響應：秒級回復客戶諮詢',
+              '智能路由：自動分配最合適的客服',
+              '多語言支持：支持全球多種語言',
+              '數據分析：實時監控服務質量和客戶滿意度'
+            ],
+            button: '了解更多LiveChat功能',
+            buttonLink: '/products/live-chat'
+          }
         }
       }
     },
@@ -1798,6 +1900,40 @@ export const siteTranslations = {
           title: '开启智能对话新篇章',
           subtitle: '让Zenava AI助力您的企业实现客户对话场景的智能化升级',
           button: '联系我们'
+        }
+      },
+      liveChat: {
+        advantages: {
+          title: 'LiveChat的优势',
+          card1: {
+            title: '实时响应',
+            subtitle: '秒级回复客户',
+            desc: '7x24小时在线，智能路由分配，确保客户问题得到及时响应和处理。'
+          },
+          card2: {
+            title: '多渠道支持',
+            subtitle: '统一管理所有渠道',
+            desc: '支持网站、移动端、社交媒体等多种渠道，统一管理客户对话，提升服务效率。'
+          },
+          card3: {
+            title: '智能分析',
+            subtitle: '数据驱动优化',
+            desc: '实时分析客户对话数据，识别常见问题，优化服务流程，提升客户满意度。'
+          }
+        },
+        features: {
+          feature1: {
+            title: 'Live Chat',
+            subtitle: '7x24小时在线客服',
+            list: [
+              '实时响应：秒级回复客户咨询',
+              '智能路由：自动分配最合适的客服',
+              '多语言支持：支持全球多种语言',
+              '数据分析：实时监控服务质量和客户满意度'
+            ],
+            button: '了解更多LiveChat功能',
+            buttonLink: '/products/live-chat'
+          }
         }
       }
     },

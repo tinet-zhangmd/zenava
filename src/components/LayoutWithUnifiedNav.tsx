@@ -2,6 +2,8 @@ import { html } from 'hono/html'
 import { Language } from '../utils/i18n.js'
 import { UnifiedNavigation, type NavigationConfig, type NavMenuItem } from './UnifiedNavigation.js'
 import { UnifiedFooter } from './UnifiedFooter.js'
+import { ContactSection } from './ContactSection.js'
+import { OtherResourcesSection } from './OtherResourcesSection.js'
 import { CookieConsent, CookiePreferencesModal } from './CookieConsent.js'
 import { ScrollToTop } from './ScrollToTop.js'
 import { MobileScrollToTop } from './MobileScrollToTop.js'
@@ -116,6 +118,12 @@ export function LayoutWithUnifiedNav({
         {/* Main Content */}
         <main class={navigationConfig.nav_fixed !== false ? 'pt-16' : ''}>
           {children}
+          
+          {/* Other Resources Section - 其他资源版块（所有页面统一） */}
+          <OtherResourcesSection language={language} />
+          
+          {/* Contact Section - 联系表单版块（所有页面统一） */}
+          <ContactSection language={language} />
         </main>
 
         {/* Unified Footer */}

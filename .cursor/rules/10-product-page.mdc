@@ -3,6 +3,251 @@ alwaysApply: true
 ---
 # Zenava 项目 - 产品页面修改规则
 
+## 🚀 快速创建新产品页面模板
+
+### 📋 创建步骤
+
+当您说"新增 [产品名称] 产品页面"时，AI 将自动完成以下步骤：
+
+#### 步骤1：创建页面组件文件
+- **文件路径**: `src/pages/products/[ProductName].tsx`
+- **命名规范**: 使用 PascalCase，如 `LiveChat.tsx`、`Voice.tsx`
+- **模板结构**: 参考 `AiAgents.tsx` 的结构
+
+#### 步骤2：添加翻译内容
+- **文件路径**: `src/i18n/translations.ts`
+- **位置**: `siteTranslations.[语言].products.[productKey]`
+- **必需字段**: `advantages`、`features`（至少一个功能）
+
+#### 步骤3：添加路由配置
+- **文件路径**: `src/index.tsx`
+- **路由模式**: 
+  - `/products/[product-key]`（默认语言）
+  - `/:lang/products/[product-key]`（多语言）
+
+---
+
+### 🎯 快速创建模板
+
+**当您说"新增 [产品名称] 产品页面"时，请提供以下信息：**
+
+```
+新增 [产品名称] 产品页面：
+- 产品Key：[productKey，如 liveChat、voice、messaging]
+- 产品名称：[产品名称，如 LiveChat、Voice、Messaging]
+- Banner图片路径：/assets/images/[product-key]/banner.png
+- Banner链接地址：/products/[product-key]（或"无"）
+- 优势展示标题：[版块标题，如 "LiveChat的优势"]
+- 优势卡片数量：[1-4个，如 3]
+- 功能特性数量：[1-2个，如 1]
+```
+
+**AI 将自动：**
+1. ✅ 创建页面组件文件 `src/pages/products/[ProductName].tsx`
+2. ✅ 在 `translations.ts` 中添加四种语言的翻译（zh、en、jp、hk）
+3. ✅ 在 `src/index.tsx` 中添加路由配置
+4. ✅ 确保所有版块使用响应式设计
+5. ✅ 确保布局与 AiAgents 页面一致
+
+---
+
+### 📝 详细创建模板
+
+#### 模板1：完整产品页面（包含所有版块）
+
+```
+新增 [产品名称] 产品页面：
+- 产品Key：liveChat
+- 产品名称：LiveChat
+- Banner图片路径：/assets/images/live-chat/banner.png
+- Banner链接地址：/products/live-chat
+- 优势展示标题：LiveChat的优势
+- 优势卡片：
+  - card1: 标题="实时响应", 副标题="秒级回复", 描述="...", 图标="fas fa-bolt", 背景色="bg-yellow-100", 颜色="text-yellow-600"
+  - card2: 标题="多渠道支持", 副标题="统一管理", 描述="...", 图标="fas fa-comments", 背景色="bg-blue-100", 颜色="text-blue-600"
+  - card3: 标题="智能分析", 副标题="数据驱动", 描述="...", 图标="fas fa-chart-line", 背景色="bg-green-100", 颜色="text-green-600"
+- 功能特性：
+  - feature1: 标签="Live Chat", 主标题="7x24小时在线客服", 功能列表=["实时响应", "智能路由", "多语言支持"], 按钮文字="了解更多", 按钮链接="/products/live-chat", 图片路径="/assets/images/live-chat/chat-demo.png"
+```
+
+#### 模板2：简化产品页面（仅Banner和优势展示）
+
+```
+新增 [产品名称] 产品页面：
+- 产品Key：simpleProduct
+- 产品名称：SimpleProduct
+- Banner图片路径：/assets/images/simple-product/banner.png
+- Banner链接地址：无
+- 优势展示标题：SimpleProduct的优势
+- 优势卡片：2个（提供card1和card2的详细信息）
+- 功能特性：0个（不包含功能特性版块）
+```
+
+---
+
+### 📁 文件结构说明
+
+#### 1. 页面组件文件 (`src/pages/products/[ProductName].tsx`)
+
+```typescript
+import { FC } from 'hono/jsx'
+import { Language } from '../../utils/i18n'
+import { getTranslations } from '../../i18n/translations'
+
+interface [ProductName]PageProps {
+  language?: Language
+}
+
+export const [ProductName]Page: FC<[ProductName]PageProps> = ({ language = 'zh' }) => {
+  const trans = getTranslations(language)
+  const t = trans.products.[productKey]
+
+  // 计算卡片数量，实现智能布局
+  const cardCount = [t.advantages.card1, t.advantages.card2, t.advantages.card3, t.advantages.card4].filter(Boolean).length
+  const gridColsClass = 
+    cardCount === 1 ? 'grid-cols-1 md:grid-cols-1 lg:grid-cols-1' :
+    cardCount === 2 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-2' :
+    cardCount === 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' :
+    'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+
+  return (
+    <>
+      {/* Banner Section */}
+      <section class="relative w-full overflow-hidden" style="min-height: 70vh;">
+        <a href="/products/[product-key]" class="block w-full h-full">
+          <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600">
+            <img 
+              src="/assets/images/[product-key]/banner.png" 
+              alt="[ProductName] Banner"
+              class="w-full h-full object-cover"
+              loading="eager"
+            />
+          </div>
+        </a>
+      </section>
+
+      {/* Advantages Section */}
+      <section class="py-12 md:py-16 lg:py-20 bg-gradient-to-b from-white to-blue-50">
+        {/* ... 优势卡片 ... */}
+      </section>
+
+      {/* Features Section (可选) */}
+      {/* ... 功能特性 ... */}
+    </>
+  )
+}
+```
+
+#### 2. 翻译文件结构 (`src/i18n/translations.ts`)
+
+```typescript
+// 在 siteTranslations 的每个语言（zh/en/jp/hk）中添加：
+products: {
+  [productKey]: {
+    advantages: {
+      title: '[产品名称]的优势',
+      card1: {
+        title: '优势1',
+        subtitle: '副标题1',
+        desc: '描述1'
+      },
+      card2: { ... },
+      card3: { ... },
+      card4: { ... }
+    },
+    features: {
+      feature1: {
+        title: '功能标签',
+        subtitle: '功能主标题',
+        list: ['功能点1', '功能点2', '功能点3'],
+        button: '按钮文字'
+      }
+    }
+  }
+}
+```
+
+#### 3. 路由配置 (`src/index.tsx`)
+
+```typescript
+// 默认语言路由
+app.get('/products/[product-key]', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/products/[product-key]'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <[ProductName]Page language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// 多语言路由
+app.get('/:lang/products/[product-key]', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/products/[product-key]`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <[ProductName]Page language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+```
+
+---
+
+### ✅ 创建检查清单
+
+创建完成后，AI 会自动验证：
+
+- [ ] 页面组件文件已创建
+- [ ] 翻译文件已添加（四种语言）
+- [ ] 路由配置已添加（默认语言 + 多语言）
+- [ ] 所有版块使用响应式设计
+- [ ] Banner 图片路径正确
+- [ ] 优势卡片布局正确（智能网格）
+- [ ] 功能特性版块（如有）布局正确
+- [ ] 按钮链接正确
+- [ ] 无 lint 错误
+
+---
+
+### 🎨 标准版块结构
+
+所有产品页面包含以下标准版块（按顺序）：
+
+1. **Banner Section** - 全图横幅（必需）
+2. **Advantages Section** - 优势展示（必需，1-4个卡片）
+3. **Features Section** - 功能特性（可选，0-2个功能）
+4. **Other Resources Section** - 其他资源（自动添加，在 Layout 中）
+5. **Contact Section** - 联系表单（自动添加，在 Layout 中）
+
+---
+
 ## 页面定位
 - **配置文件**: `src/pages/products/AiAgents.tsx`
 - **组件功能**: AIAgents 产品页面，包含多个版块

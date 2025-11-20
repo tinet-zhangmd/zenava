@@ -105,35 +105,6 @@ export function AboutUs({ language }: AboutUsProps) {
           </div>
         </div>
       </section>
-
-      {/* Contact Section - Same as Homepage */}
-      <section id="contact" class="relative py-20 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] overflow-hidden">
-        {/* Decorative elements */}
-        <div class="absolute -top-20 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-        
-        <div class="site-container px-6 relative z-10">
-          <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl md:text-5xl font-black text-white mb-6">
-              {trans.contact.title}
-            </h2>
-            <p class="text-xl text-white/90 mb-8">
-              {trans.contact.subtitle}
-            </p>
-            
-            {/* Email Only */}
-            <div class="flex justify-center items-center">
-              <a 
-                href="mailto:marketing@zenava.ai" 
-                class="bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-white/30 transition-all transform hover:scale-105 shadow-lg inline-flex items-center"
-              >
-                <i class="fas fa-envelope mr-3"></i>
-                marketing@zenava.ai
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   )
 }
