@@ -13,6 +13,7 @@ import { getNavigationData } from './utils/navigation-helper.js'
 import { AIHomepage } from './pages/AIHomepage.js'
 import { ZenavaHomepage } from './pages/ZenavaHomepage.js'
 import { AiAgentsPage } from './pages/products/AiAgents.js'
+import { LiveChatPage } from './pages/products/LiveChat.js'
 import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/i18n.js'
 
 // Import Admin Pages
@@ -260,6 +261,54 @@ app.get('/:lang/products/ai-agents', (c) => {
       privacyLinks={privacyLinks}
     >
       <AiAgentsPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// LiveChat Page Routes
+app.get('/products/live-chat', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/products/live-chat'
+  
+  // Use static data for navigation and footer
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <LiveChatPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/products/live-chat', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/products/live-chat`
+  
+  // Use static data for navigation and footer
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <LiveChatPage language={language} />
     </LayoutWithUnifiedNav>
   )
 })

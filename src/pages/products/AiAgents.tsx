@@ -187,59 +187,6 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
           </div>
         </div>
       </section>
-
-      {/* Resources Section */}
-      <section class="py-12 md:py-16 lg:py-20 bg-[#0B1120]">
-        <div class="site-container px-4 sm:px-6 lg:px-8">
-          <div class="text-center mb-8 md:mb-12 lg:mb-16">
-            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white">{t.resources.title}</h2>
-          </div>
-          
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {[t.resources.card1, t.resources.card2, t.resources.card3, t.resources.card4].map((card, index) => (
-              <div class="group cursor-pointer">
-                <div class="aspect-[4/3] bg-gray-800 rounded-xl mb-3 md:mb-4 overflow-hidden relative">
-                    {/* Placeholder Image */}
-                    <div class={`absolute inset-0 bg-gradient-to-br ${
-                        index === 0 ? 'from-blue-500 to-purple-600' :
-                        index === 1 ? 'from-green-500 to-teal-600' :
-                        index === 2 ? 'from-orange-500 to-red-600' :
-                        'from-pink-500 to-rose-600'
-                    } opacity-80 group-hover:scale-105 transition-transform duration-500`}></div>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <i class="fas fa-file-alt text-white text-2xl md:text-3xl lg:text-4xl opacity-50"></i>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-2 mb-1 md:mb-2">
-                    <span class="w-1 h-3 md:h-4 bg-blue-500 rounded-full"></span>
-                    <span class="text-gray-400 text-xs md:text-sm font-medium">{card.tag}</span>
-                </div>
-                <h3 class="text-white font-bold text-base md:text-lg group-hover:text-blue-400 transition-colors">
-                    {card.title}
-                </h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section class="py-12 md:py-16 lg:py-20 bg-gradient-to-r from-blue-600 to-cyan-500">
-        <div class="site-container text-center px-4 md:px-6">
-          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 md:mb-4">
-            {t.cta.title}
-          </h2>
-          <p class="text-lg md:text-xl text-blue-100 mb-4 md:mb-6 lg:mb-8 max-w-2xl mx-auto">
-            {t.cta.subtitle}
-          </p>
-          <a 
-            href="/contact" 
-            class="inline-flex items-center justify-center px-8 py-4 md:px-8 md:py-4 text-base md:text-base font-bold text-blue-600 bg-white rounded-full hover:bg-blue-50 transition-colors shadow-lg min-h-[44px]"
-          >
-            {t.cta.button}
-          </a>
-        </div>
-      </section>
     </>
   )
 }
