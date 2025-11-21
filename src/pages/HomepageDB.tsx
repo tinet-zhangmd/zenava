@@ -190,7 +190,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         return (
           <>
             {/* Hero Section - Carousel Banner */}
-            <section id="hero" class="relative text-white min-h-[100vh] flex items-center overflow-hidden">
+            <section id="hero" class="relative text-white flex items-center overflow-hidden" style="height: 740px;">
               
               {/* Banner Slides Container */}
               <div id="banner-slides" class="absolute inset-0 transition-opacity duration-700">
