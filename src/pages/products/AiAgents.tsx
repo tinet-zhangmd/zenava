@@ -26,14 +26,19 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
         <a href="/products/ai-agents" class="block w-full h-full">
           {/* 背景层：渐变背景 + 图片覆盖 */}
           <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600">
-            {/* 全图背景 */}
-            <img 
-              src="/assets/images/ai-agents/banner.webp" 
-              alt="AIAgents Banner"
-              class="w-full h-full object-cover"
-              loading="eager"
-              decoding="async"
-            />
+            {/* 全图背景 - 支持移动端专用图片 */}
+            <picture>
+              {/* 移动端图片（< 768px） */}
+              <source media="(max-width: 767px)" srcset="/assets/images/ai-agents/banner-mobile.webp" />
+              {/* 桌面端图片（>= 768px） */}
+              <img 
+                src="/assets/images/ai-agents/banner.webp" 
+                alt="AIAgents Banner"
+                class="w-full h-full object-cover"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
           </div>
         </a>
       </section>

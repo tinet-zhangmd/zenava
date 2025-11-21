@@ -72,113 +72,19 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         // 🎯 Banner 数据配置（支持最多8页）
         // 翻译数据已迁移到 src/i18n/translations.ts 中的 banners 配置
         const bannerSlides = [
-          // 第1页 - 企业级AI对话解决方案（左文右图模式）
+          // 第1页 - 新增全图Banner（全图模式）
           {
-            id: 'slide-1',
-            layout: 'split',  // 布局模式：'split' 或 'full-image'
-            background: {
-              gradient: 'from-white via-[#f0ebff] to-[#5E3AFC]',
-              pattern: true,
-            },
-            leftContent: {
-              siteName: trans.banners.slide1.siteName,
-              mainTitle: trans.banners.slide1.mainTitle,
-              description: trans.banners.slide1.description,
-              button: {
-                text: trans.banners.slide1.buttonText,
-                link: '#contact',
-                icon: 'fas fa-phone'
-              }
-            },
-            rightImage: {
-              type: 'component',
-              component: 'ai-simulation'
-            }
-          },
-          // 第2页 - 智能销售赋能系统（左文右图模式）
-          {
-            id: 'slide-2',
-            layout: 'split',
-            background: {
-              gradient: 'from-orange-50 via-amber-50 to-yellow-50',
-              pattern: false,
-            },
-            leftContent: {
-              siteName: trans.banners.slide2.siteName,
-              mainTitle: trans.banners.slide2.mainTitle,
-              description: trans.banners.slide2.description,
-              button: {
-                text: trans.banners.slide2.buttonText,
-                link: '/scenarios/sales',
-                icon: 'fas fa-rocket'
-              }
-            },
-            rightImage: {
-              type: 'image',
-              src: '/assets/images/sales-ai.webp',
-              alt: trans.banners.slide2.imageAlt
-            }
-          },
-          // 第3页 - 智能AI平台（左文右图模式）
-          {
-            id: 'slide-3',
-            layout: 'split',
-            background: {
-              gradient: 'from-blue-50 via-purple-50 to-pink-50',
-              pattern: true,
-            },
-            leftContent: {
-              siteName: trans.banners.slide3.siteName,
-              mainTitle: trans.banners.slide3.mainTitle,
-              description: trans.banners.slide3.description,
-              button: {
-                text: trans.banners.slide3.buttonText,
-                link: 'https://www.baidu.com',
-                icon: 'fas fa-phone'
-              }
-            },
-            rightImage: {
-              type: 'image',
-              src: '/assets/images/test.webp',
-              alt: trans.banners.slide3.imageAlt
-            }
-          },
-          // 第4页 - 7x24智能客服（左文右图模式）
-          {
-            id: 'slide-4',
-            layout: 'split',
-            background: {
-              gradient: 'from-green-50 via-teal-50 to-blue-50',
-              pattern: false,
-            },
-            leftContent: {
-              siteName: trans.banners.slide4.siteName,
-              mainTitle: trans.banners.slide4.mainTitle,
-              description: trans.banners.slide4.description,
-              button: {
-                text: trans.banners.slide4.buttonText,
-                link: '/scenarios/customer-service',
-                icon: 'fas fa-headset'
-              }
-            },
-            rightImage: {
-              type: 'image',
-              src: '/assets/images/right-one.webp',
-              alt: trans.banners.slide4.imageAlt
-            }
-          },
-          // 第5页 - 营销活动Banner（全图模式）
-          {
-            id: 'slide-5',
+            id: 'slide-6',
             layout: 'full-image',
             fullImage: {
               src: '/assets/images/banner-full-marketing.webp',
-              alt: trans.banners.slide5.imageAlt,
+              mobileSrc: '/assets/images/banner-full-marketing-mobile.webp',  // 移动端图片路径
+              alt: trans.banners.slide6.imageAlt,
               overlay: false,  // 不显示遮罩层
             },
             // 不提供 overlayContent，表示不显示文字内容
-            // 整个Banner可点击跳转
-            clickLink: '/scenarios/marketing'
+            // 整个Banner可点击跳转（可选）
+            clickLink: undefined
           }
         ];
 
@@ -202,14 +108,28 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                     const fullImageSlide = slide as any;  // 类型断言：全图模式
                     const slideContent = (
                       <>
-                        {/* 全图背景 */}
+                        {/* 全图背景 - 支持移动端专用图片 */}
         <div class="absolute inset-0">
-                          <img 
-                            src={fullImageSlide.fullImage.src} 
-                            alt={fullImageSlide.fullImage.alt}
-                            class="w-full h-full object-cover"
-                            loading="lazy"
-                          />
+                          {fullImageSlide.fullImage.mobileSrc ? (
+                            <picture>
+                              {/* 移动端图片（< 768px） */}
+                              <source media="(max-width: 767px)" srcset={fullImageSlide.fullImage.mobileSrc} />
+                              {/* 桌面端图片（>= 768px） */}
+                              <img 
+                                src={fullImageSlide.fullImage.src} 
+                                alt={fullImageSlide.fullImage.alt}
+                                class="w-full h-full object-cover"
+                                loading="lazy"
+                              />
+                            </picture>
+                          ) : (
+                            <img 
+                              src={fullImageSlide.fullImage.src} 
+                              alt={fullImageSlide.fullImage.alt}
+                              class="w-full h-full object-cover"
+                              loading="lazy"
+                            />
+                          )}
                         </div>
                         
                         {/* 遮罩层（可选） */}
