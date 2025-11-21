@@ -905,7 +905,7 @@ app.get('/ticloudcms', (c) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Zenava AI CMS - 智能内容管理平台</title>
         <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+        <link href="/static/fontawesome/css/all.min.css" rel="stylesheet" />
         <script dangerouslySetInnerHTML={{
           __html: `
             tailwind.config = {
@@ -1124,7 +1124,7 @@ app.get('/ticloudcms/dashboard', async (c) => {
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <title>Zenava AI CMS - 智能控制台</title>
           <script src="https://cdn.tailwindcss.com"></script>
-          <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+          <link href="/static/fontawesome/css/all.min.css" rel="stylesheet" />
           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
           <style dangerouslySetInnerHTML={{
             __html: `
