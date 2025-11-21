@@ -21,17 +21,18 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
   return (
     <>
       {/* Banner Section - 全图布局模式（仅图片和链接） */}
-      <section class="relative w-full overflow-hidden" style="min-height: 70vh;">
+      <section class="relative w-full overflow-hidden" style="height: 740px;">
         {/* 可点击链接（可选，如果不需要链接则使用 div） */}
         <a href="/products/ai-agents" class="block w-full h-full">
           {/* 背景层：渐变背景 + 图片覆盖 */}
           <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600">
             {/* 全图背景 */}
             <img 
-              src="/assets/images/ai-agents/banner.png" 
+              src="/assets/images/ai-agents/banner.webp" 
               alt="AIAgents Banner"
               class="w-full h-full object-cover"
               loading="eager"
+              decoding="async"
             />
           </div>
         </a>
@@ -104,8 +105,10 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
             <div class="relative rounded-2xl overflow-hidden shadow-xl">
                <div class="aspect-[4/3] bg-gray-200">
                   <img 
-                    src="/assets/images/ai-agents/voice.png" 
+                    src="/assets/images/ai-agents/voice.webp" 
                     alt="Voice功能演示图 - 超越真人的语音对话体验"
+                    loading="lazy"
+                    decoding="async"
                     class="w-full h-full object-cover"
                   />
                </div>
@@ -178,8 +181,10 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
             <div class="relative rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
                <div class="aspect-[4/3] bg-white">
                   <img 
-                    src="/assets/images/ai-agents/person.png" 
+                    src="/assets/images/ai-agents/person.webp" 
                     alt="即时对话功能演示图 - 打造极致客户服务体验"
+                    loading="lazy"
+                    decoding="async"
                     class="w-full h-full object-cover"
                   />
                </div>

@@ -404,6 +404,104 @@ export const siteTranslations = {
             button: 'Learn More About LiveChat Features',
             buttonLink: '/products/live-chat'
           }
+        },
+        caseStudies: {
+          title: 'Success Stories',
+          subtitle: 'Real Results from Enterprise Customers',
+          case1: {
+            mainTitle: 'B2B Enterprise Website Unmanned Customer Service',
+            highlight: 'Lead Conversion Rate Up to 46%',
+            description: 'Zenava independently receives customers on the official website, automatically performs preliminary screening of leads and information collection.',
+            points: [
+              'Zenava independently receives customers on the official website, automatically performs preliminary screening of leads and information collection',
+              'Covers pre-sales reception during all time slots, achieving unmanned customer service on the official website',
+              'Lead conversion rate as high as 46%, exceeding manual lead conversion rate of 40%',
+              'Product business knowledge updated at minute level, ensuring service accuracy and professionalism'
+            ],
+            metric: '46%',
+            metricLabel: 'Lead Conversion Rate',
+            imageSrc: '/assets/images/livechat/case1-b2b.png',
+            imageAlt: 'B2B Enterprise Website Unmanned Customer Service',
+            button: 'Learn More',
+            buttonLink: '/products/live-chat'
+          },
+          case2: {
+            mainTitle: 'Smart Lock End-to-End After-Sales Service Automation',
+            highlight: 'Annual Total Cost Savings of 6.21 Million',
+            description: 'Zenava accurately identifies images through multi-round conversations, independently completing smart lock troubleshooting.',
+            points: [
+              'Zenava accurately identifies images through multi-round conversations, independently completing smart lock troubleshooting',
+              'Independent reception rate reaches 83%',
+              'Annual total cost savings of 6.21 million'
+            ],
+            metric: '6.21M',
+            metricLabel: 'Annual Cost Savings',
+            metric2: '83%',
+            metric2Label: 'Independent Reception Rate',
+            imageSrc: '/assets/images/livechat/case2-smartlock.png',
+            imageAlt: 'Smart Lock End-to-End After-Sales Service Automation',
+            button: 'Learn More',
+            buttonLink: '/products/live-chat'
+          }
+        },
+        section3: {
+          title: 'AI Agents for Chat Core Capabilities',
+          subtitle: 'Empowering Your Customer Service Excellence',
+          item1: {
+            mainTitle: '7x24 Hour Omnichannel Online',
+            subtitle: 'Never Miss Any Communication with Customers',
+            description: 'Zenava can communicate with customers in real-time 7x24 hours on their chosen channels, whether it\'s web pages, Apps, social media, or messaging applications. Enterprises don\'t need to worry about customers waiting or missing business opportunities, significantly improving customer satisfaction and retention.',
+            tag1: '7x24 Hours',
+            tag2: 'Omnichannel',
+            tag3: 'Real-time',
+            buttonText: 'Learn More',
+            imageAlt: '7x24 Hour Omnichannel Online',
+            imageSrc: '/assets/images/livechat/omnichannel.png'
+          },
+          item2: {
+            mainTitle: 'Rich Media Communication',
+            subtitle: 'Accurately Identify Customer Intent',
+            description: 'Zenava can not only understand text but also images, videos, and other forms of information, providing a rich dialogue experience, enabling complex multi-turn dialogue information collection, accurately identifying customer intent, and efficiently handling customer problems.',
+            tag1: 'Rich Media',
+            tag2: 'Intent Recognition',
+            tag3: 'Multi-turn Dialogue',
+            buttonText: 'Learn More',
+            imageAlt: 'Rich Media Communication',
+            imageSrc: '/assets/images/livechat/rich-media.png'
+          },
+          item3: {
+            mainTitle: 'Emotion Perception',
+            subtitle: 'Respond in a Friendly and Respectful Manner',
+            description: 'Zenava, through personality modeling, possesses language understanding and emotional perception capabilities, able to identify emotions from expressions and respond in a friendly and respectful manner, allowing customers to feel attentive and professional service experience.',
+            tag1: 'Emotion Recognition',
+            tag2: 'Friendly Response',
+            tag3: 'Professional Service',
+            buttonText: 'Learn More',
+            imageAlt: 'Emotion Perception',
+            imageSrc: '/assets/images/livechat/emotion.png'
+          },
+          item4: {
+            mainTitle: 'Balance Business and Experience',
+            subtitle: 'Flexibly Meet Customer Demands',
+            description: 'Under the premise of adhering to enterprise business bottom lines and brand norms, Zenava can flexibly meet customers\' personalized needs, enabling enterprises to enhance customer experience while ensuring safety and compliance.',
+            tag1: 'Business Compliance',
+            tag2: 'Flexible Solutions',
+            tag3: 'Customer Experience',
+            buttonText: 'Learn More',
+            imageAlt: 'Balance Business and Experience',
+            imageSrc: '/assets/images/livechat/balance.png'
+          },
+          item5: {
+            mainTitle: 'Empathy and Judgment',
+            subtitle: 'Drive Full Business Process Closure',
+            description: 'Zenava possesses empathy and judgment, and in actual business scenarios, it can use tools like human employees to complete tasks such as sending SMS messages, creating work orders, querying customer data, and sending invitation notifications, achieving business closure.',
+            tag1: 'Empathy',
+            tag2: 'Business Automation',
+            tag3: 'Process Closure',
+            buttonText: 'Learn More',
+            imageAlt: 'Empathy and Judgment',
+            imageSrc: '/assets/images/livechat/empathy.png'
+          }
         }
       }
     },
@@ -896,6 +994,104 @@ export const siteTranslations = {
             ],
             button: 'LiveChat機能の詳細',
             buttonLink: '/products/live-chat'
+          }
+        },
+        caseStudies: {
+          title: '成功事例',
+          subtitle: '企業顧客からの実際の結果',
+          case1: {
+            mainTitle: 'B2B企業公式サイト無人カスタマーサービス',
+            highlight: 'リード獲得率46%',
+            description: 'Zenavaは公式サイトで顧客を独立して受け入れ、リードの予備スクリーニングと情報収集を自動的に実行します。',
+            points: [
+              'Zenavaは公式サイトで顧客を独立して受け入れ、リードの予備スクリーニングと情報収集を自動的に実行します',
+              '全時間帯で販売前受付をカバーし、公式サイトのカスタマーサービスを無人化します',
+              'リード獲得率は46%と高く、手動リード獲得率40%を上回ります',
+              '製品ビジネス知識を分単位で更新し、サービスの正確性と専門性を確保します'
+            ],
+            metric: '46%',
+            metricLabel: 'リード獲得率',
+            imageSrc: '/assets/images/livechat/case1-b2b.png',
+            imageAlt: 'B2B企業公式サイト無人カスタマーサービス',
+            button: '詳細を見る',
+            buttonLink: '/products/live-chat'
+          },
+          case2: {
+            mainTitle: 'スマートロック顧客のエンドツーエンドアフターサービス自動化',
+            highlight: '年間総コスト削減621万元',
+            description: 'Zenavaはマルチターン対話と画像を組み合わせて正確に識別し、スマートロックのトラブルシューティングを独立して完了します。',
+            points: [
+              'Zenavaはマルチターン対話と画像を組み合わせて正確に識別し、スマートロックのトラブルシューティングを独立して完了します',
+              '独立受付率は83%に達します',
+              '年間総コスト削減621万元'
+            ],
+            metric: '621万',
+            metricLabel: '年間コスト削減',
+            metric2: '83%',
+            metric2Label: '独立受付率',
+            imageSrc: '/assets/images/livechat/case2-smartlock.png',
+            imageAlt: 'スマートロック顧客のエンドツーエンドアフターサービス自動化',
+            button: '詳細を見る',
+            buttonLink: '/products/live-chat'
+          }
+        },
+        section3: {
+          title: 'AI Agents for Chat コア機能',
+          subtitle: 'カスタマーサービスの卓越性を実現',
+          item1: {
+            mainTitle: '7×24時間オムニチャネルオンライン',
+            subtitle: '顧客とのコミュニケーションを逃さない',
+            description: 'Zenavaは、顧客が選択したチャネルで7×24時間リアルタイムにコミュニケーションを取ることができます。ウェブページ、アプリ、ソーシャルメディア、メッセージアプリなど、企業は顧客の待機やビジネス機会の喪失を心配する必要がなく、顧客満足度とリテンション率を大幅に向上させます。',
+            tag1: '7×24時間',
+            tag2: 'オムニチャネル',
+            tag3: 'リアルタイム',
+            buttonText: '詳細を見る',
+            imageAlt: '7×24時間オムニチャネルオンライン',
+            imageSrc: '/assets/images/livechat/omnichannel.png'
+          },
+          item2: {
+            mainTitle: 'テキスト、画像、動画などのリッチメディアコミュニケーションをサポート',
+            subtitle: '顧客の意図を正確に識別',
+            description: 'Zenavaはテキストだけでなく、画像、動画など多様な形式の情報を理解でき、豊かな対話体験を提供し、複雑なマルチターン対話情報収集を実現し、顧客の意図を正確に識別し、顧客の問題を効率的に処理します。',
+            tag1: 'リッチメディア',
+            tag2: '意図認識',
+            tag3: 'マルチターン対話',
+            buttonText: '詳細を見る',
+            imageAlt: 'リッチメディアコミュニケーション',
+            imageSrc: '/assets/images/livechat/rich-media.png'
+          },
+          item3: {
+            mainTitle: '表現から顧客の感情を感知',
+            subtitle: '友好的で尊重ある方法で応答',
+            description: 'Zenavaは性格モデリングを通じて言語理解と感情認識能力を備えており、表現から感情を識別し、友好的で尊重ある方法で応答することで、顧客に心のこもった専門的なサービス体験を提供します。',
+            tag1: '感情認識',
+            tag2: '友好的応答',
+            tag3: '専門サービス',
+            buttonText: '詳細を見る',
+            imageAlt: '感情感知',
+            imageSrc: '/assets/images/livechat/emotion.png'
+          },
+          item4: {
+            mainTitle: 'ブランドのビジネス基盤と顧客体験を両立',
+            subtitle: '顧客のニーズに柔軟に対応',
+            description: '企業のビジネス基盤とブランド規範を遵守する前提で、Zenavaは顧客の個別ニーズに柔軟に対応でき、企業は安全性とコンプライアンスを確保しながら顧客体験を向上させることができます。',
+            tag1: 'ビジネスコンプライアンス',
+            tag2: '柔軟なソリューション',
+            tag3: '顧客体験',
+            buttonText: '詳細を見る',
+            imageAlt: 'ビジネスと体験の両立',
+            imageSrc: '/assets/images/livechat/balance.png'
+          },
+          item5: {
+            mainTitle: '共感力と判断力を備える',
+            subtitle: 'ビジネスプロセス全体の閉環を推進',
+            description: 'Zenavaは共感力と判断力を備えており、実際のビジネスシナリオでは、人間の従業員のようにツールを使用して、SMS送信、チケット作成、顧客データの照会、招待通知などのタスクを完了し、ビジネス閉環を実現します。',
+            tag1: '共感力',
+            tag2: 'ビジネス自動化',
+            tag3: 'プロセス閉環',
+            buttonText: '詳細を見る',
+            imageAlt: '共感力と判断力',
+            imageSrc: '/assets/images/livechat/empathy.png'
           }
         }
       }
@@ -1390,6 +1586,104 @@ export const siteTranslations = {
             ],
             button: '了解更多LiveChat功能',
             buttonLink: '/products/live-chat'
+          }
+        },
+        caseStudies: {
+          title: '成功案例',
+          subtitle: '來自企業客戶的真實效果',
+          case1: {
+            mainTitle: 'B2B企業官網客服無人化接待',
+            highlight: '留資率高達46%',
+            description: 'Zenava在官網獨立接待客戶，自動進行線索的初步篩選和信息收集。',
+            points: [
+              'Zenava在官網獨立接待客戶，自動進行線索的初步篩選和信息收集',
+              '全時段覆蓋售前接待，實現官網客服無人化值守',
+              '留資率高達46%，超過人工留資率40%',
+              '產品業務知識分鐘級更新，保障服務準確性和專業度'
+            ],
+            metric: '46%',
+            metricLabel: '留資率',
+            imageSrc: '/assets/images/livechat/case1-b2b.png',
+            imageAlt: 'B2B企業官網客服無人化接待',
+            button: '了解更多',
+            buttonLink: '/products/live-chat'
+          },
+          case2: {
+            mainTitle: '智能鎖客戶實現端到端售後服務自動化',
+            highlight: '年節省總成本 621萬',
+            description: 'Zenava通過多輪對話結合圖片精準識別，獨立完成智能鎖故障排查。',
+            points: [
+              'Zenava通過多輪對話結合圖片精準識別，獨立完成智能鎖故障排查',
+              '獨立接待率達到83%',
+              '年節省總成本 621萬'
+            ],
+            metric: '621萬',
+            metricLabel: '年節省成本',
+            metric2: '83%',
+            metric2Label: '獨立接待率',
+            imageSrc: '/assets/images/livechat/case2-smartlock.png',
+            imageAlt: '智能鎖客戶實現端到端售後服務自動化',
+            button: '了解更多',
+            buttonLink: '/products/live-chat'
+          }
+        },
+        section3: {
+          title: 'AI Agents for Chat 核心能力',
+          subtitle: '助力您的客戶服務卓越',
+          item1: {
+            mainTitle: '7×24小時全渠道在線',
+            subtitle: '不錯失與客戶的每一次溝通',
+            description: 'Zenava可以7×24小時在客戶選擇的渠道上與他們實時溝通，無論是網頁、App、社交媒體還是消息應用，企業無需擔心客戶等待或錯失商機，顯著提升客戶滿意度與留存率。',
+            tag1: '7×24小時',
+            tag2: '全渠道',
+            tag3: '實時溝通',
+            buttonText: '了解更多',
+            imageAlt: '7×24小時全渠道在線',
+            imageSrc: '/assets/images/livechat/omnichannel.png'
+          },
+          item2: {
+            mainTitle: '支持文字、圖片、視頻等富媒體溝通',
+            subtitle: '精準識別客戶意圖',
+            description: 'Zenava不僅能理解文字，還能理解圖片、視頻等多種形態的信息，提供豐富的對話體驗，實現複雜多輪對話信息收集，精準識別客戶意圖，高效處理客戶問題。',
+            tag1: '富媒體',
+            tag2: '意圖識別',
+            tag3: '多輪對話',
+            buttonText: '了解更多',
+            imageAlt: '富媒體溝通',
+            imageSrc: '/assets/images/livechat/rich-media.png'
+          },
+          item3: {
+            mainTitle: '能夠從表述中感知客戶情緒',
+            subtitle: '以友好、尊重的方式回應',
+            description: 'Zenava通過性格建模具備語言理解與情緒感知能力，能夠從表述中識別情緒，並以友好、尊重的方式回應，讓客戶感受到貼心和專業的服務體驗。',
+            tag1: '情緒識別',
+            tag2: '友好回應',
+            tag3: '專業服務',
+            buttonText: '了解更多',
+            imageAlt: '情緒感知',
+            imageSrc: '/assets/images/livechat/emotion.png'
+          },
+          item4: {
+            mainTitle: '兼顧品牌的業務底線和客戶體驗',
+            subtitle: '靈活滿足客戶訴求',
+            description: '在遵守企業業務底線和品牌規範的前提下，Zenava能夠靈活滿足客戶個性化需求，使企業在保證安全與合規的同時提升客戶體驗。',
+            tag1: '業務合規',
+            tag2: '靈活方案',
+            tag3: '客戶體驗',
+            buttonText: '了解更多',
+            imageAlt: '兼顧業務和體驗',
+            imageSrc: '/assets/images/livechat/balance.png'
+          },
+          item5: {
+            mainTitle: '具備同理心與判斷力',
+            subtitle: '驅動業務全流程閉環',
+            description: 'Zenava具有同理心與判斷力，在實際業務場景中，能夠像人類員工一樣調用工具，完成如發送短信、創建工單、查詢客戶資料以及邀約通知等任務，實現業務閉環。',
+            tag1: '同理心',
+            tag2: '業務自動化',
+            tag3: '流程閉環',
+            buttonText: '了解更多',
+            imageAlt: '同理心與判斷力',
+            imageSrc: '/assets/images/livechat/empathy.png'
           }
         }
       }
@@ -1933,6 +2227,104 @@ export const siteTranslations = {
             ],
             button: '了解更多LiveChat功能',
             buttonLink: '/products/live-chat'
+          }
+        },
+        caseStudies: {
+          title: '成功案例',
+          subtitle: '来自企业客户的真实效果',
+          case1: {
+            mainTitle: 'B2B企业官网客服无人化接待',
+            highlight: '留资率高达46%',
+            description: 'Zenava在官网独立接待客户，自动进行线索的初步筛选和信息收集。',
+            points: [
+              'Zenava在官网独立接待客户，自动进行线索的初步筛选和信息收集',
+              '全时段覆盖售前接待，实现官网客服无人化值守',
+              '留资率高达46%，超过人工留资率40%',
+              '产品业务知识分钟级更新，保障服务准确性和专业度'
+            ],
+            metric: '46%',
+            metricLabel: '留资率',
+            imageSrc: '/assets/images/livechat/case1-b2b.png',
+            imageAlt: 'B2B企业官网客服无人化接待',
+            button: '了解更多',
+            buttonLink: '/products/live-chat'
+          },
+          case2: {
+            mainTitle: '智能锁客户实现端到端售后服务自动化',
+            highlight: '年节省总成本 621万',
+            description: 'Zenava通过多轮对话结合图片精准识别，独立完成智能锁故障排查。',
+            points: [
+              'Zenava通过多轮对话结合图片精准识别，独立完成智能锁故障排查',
+              '独立接待率达到83%',
+              '年节省总成本 621万'
+            ],
+            metric: '621万',
+            metricLabel: '年节省成本',
+            metric2: '83%',
+            metric2Label: '独立接待率',
+            imageSrc: '/assets/images/livechat/case2-smartlock.png',
+            imageAlt: '智能锁客户实现端到端售后服务自动化',
+            button: '了解更多',
+            buttonLink: '/products/live-chat'
+          }
+        },
+        section3: {
+          title: 'AI Agents for Chat 核心能力',
+          subtitle: '助力您的客户服务卓越',
+          item1: {
+            mainTitle: '7×24小时全渠道在线',
+            subtitle: '不错失与客户的每一次沟通',
+            description: 'Zenava可以7×24小时在客户选择的渠道上与他们实时沟通，无论是网页、App、社交媒体还是消息应用，企业无需担心客户等待或错失商机，显著提升客户满意度与留存率。',
+            tag1: '7×24小时',
+            tag2: '全渠道',
+            tag3: '实时沟通',
+            buttonText: '了解更多',
+            imageAlt: '7×24小时全渠道在线',
+            imageSrc: '/assets/images/livechat/omnichannel.png'
+          },
+          item2: {
+            mainTitle: '支持文字、图片、视频等富媒体沟通',
+            subtitle: '精准识别客户意图',
+            description: 'Zenava不仅能理解文字，还能理解图片、视频等多种形态的信息，提供丰富的对话体验，实现复杂多轮对话信息收集，精准识别客户意图，高效处理客户问题。',
+            tag1: '富媒体',
+            tag2: '意图识别',
+            tag3: '多轮对话',
+            buttonText: '了解更多',
+            imageAlt: '富媒体沟通',
+            imageSrc: '/assets/images/livechat/rich-media.png'
+          },
+          item3: {
+            mainTitle: '能够从表述中感知客户情绪',
+            subtitle: '以友好、尊重的方式回应',
+            description: 'Zenava通过性格建模具备语言理解与情绪感知能力，能够从表述中识别情绪，并以友好、尊重的方式回应，让客户感受到贴心和专业的服务体验。',
+            tag1: '情绪识别',
+            tag2: '友好回应',
+            tag3: '专业服务',
+            buttonText: '了解更多',
+            imageAlt: '情绪感知',
+            imageSrc: '/assets/images/livechat/emotion.png'
+          },
+          item4: {
+            mainTitle: '兼顾品牌的业务底线和客户体验',
+            subtitle: '灵活满足客户诉求',
+            description: '在遵守企业业务底线和品牌规范的前提下，Zenava能够灵活满足客户个性化需求，使企业在保证安全与合规的同时提升客户体验。',
+            tag1: '业务合规',
+            tag2: '灵活方案',
+            tag3: '客户体验',
+            buttonText: '了解更多',
+            imageAlt: '兼顾业务和体验',
+            imageSrc: '/assets/images/livechat/balance.png'
+          },
+          item5: {
+            mainTitle: '具备同理心与判断力',
+            subtitle: '驱动业务全流程闭环',
+            description: 'Zenava具有同理心与判断力，在实际业务场景中，能够像人类员工一样调用工具，完成如发送短信、创建工单、查询客户资料以及邀约通知等任务，实现业务闭环。',
+            tag1: '同理心',
+            tag2: '业务自动化',
+            tag3: '流程闭环',
+            buttonText: '了解更多',
+            imageAlt: '同理心与判断力',
+            imageSrc: '/assets/images/livechat/empathy.png'
           }
         }
       }

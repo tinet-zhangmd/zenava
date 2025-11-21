@@ -113,7 +113,7 @@ export const [ProductName]Page: FC<[ProductName]PageProps> = ({ language = 'zh' 
   return (
     <>
       {/* Banner Section */}
-      <section class="relative w-full overflow-hidden" style="min-height: 70vh;">
+      <section class="relative w-full overflow-hidden" style="height: 740px;">
         <a href="/products/[product-key]" class="block w-full h-full">
           <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600">
             <img 
@@ -356,7 +356,7 @@ app.get('/:lang/products/[product-key]', (c) => {
 
 ```typescript
 {/* Banner Section - 全图布局模式（仅图片和链接） */}
-<section class="relative w-full overflow-hidden" style="min-height: 70vh;">
+<section class="relative w-full overflow-hidden" style="height: 740px;">
   {/* 可点击链接（可选，如果不需要链接则使用 div） */}
   <a href="/contact" class="block w-full h-full">  {/* 链接地址（配置） */}
     {/* 背景层：渐变背景 + 图片覆盖 */}
@@ -373,7 +373,7 @@ app.get('/:lang/products/[product-key]', (c) => {
 </section>
 
 {/* 如果不需要链接，使用以下结构： */}
-<section class="relative w-full overflow-hidden" style="min-height: 70vh;">
+<section class="relative w-full overflow-hidden" style="height: 740px;">
   <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600">
     <img 
       src="/assets/images/ai-agents-banner.jpg"  // 图片路径（配置）
@@ -504,7 +504,7 @@ app.get('/:lang/products/[product-key]', (c) => {
    - 使用 JPG 格式（全图模式）
 2. **链接有效**: 确保所有链接可用，内部链接使用相对路径
 3. **响应式设计（必须！）**: 
-   - ✅ 使用 `min-height: 70vh` 等相对单位，不使用固定像素高度
+   - ✅ 使用固定高度 `height: 740px`（桌面端标准高度）
    - ✅ 图片使用 `w-full h-full object-cover` 确保自适应
    - ✅ 确保图片在不同设备上正常显示，不变形
    - ✅ 在移动端、平板端、桌面端都要测试显示效果
@@ -518,7 +518,7 @@ app.get('/:lang/products/[product-key]', (c) => {
 4. ❌ 不要添加遮罩层
 5. ❌ 不要使用过小的图片（宽度 < 1920px）
 6. ❌ **不要修改响应式类名**：必须保留 `sm:`、`md:`、`lg:` 等响应式前缀
-7. ❌ **不要使用固定尺寸**：禁止使用 `height: 600px`、`width: 1200px` 等固定像素值
+7. ❌ **不要修改 Banner 高度**：Banner 高度固定为 `height: 740px`，除非明确要求修改
 8. ❌ 不要在 Banner 上叠加其他元素
 
 ---
@@ -541,7 +541,7 @@ app.get('/:lang/products/[product-key]', (c) => {
 #### 检查项：
 - ✅ 图片在不同尺寸下正常显示，不变形
 - ✅ 使用 `object-cover` 确保图片填充容器
-- ✅ 使用相对单位（`vh`、`%`）而非固定像素
+- ✅ Banner 高度固定为 740px（桌面端标准）
 - ✅ 在移动端无横向滚动条
 
 ### 2. 图片加载测试
@@ -564,10 +564,10 @@ app.get('/:lang/products/[product-key]', (c) => {
 
 **操作**：
 1. 找到代码行（约第 16 行）
-2. 修改 `min-height: 70vh` 为其他值：
-   - 更矮：`min-height: 50vh`
-   - 更高：`min-height: 80vh` 或 `min-height: 90vh`
-   - 固定高度：`height: 600px`（不推荐，响应式更好）
+2. 修改 `height: 740px` 为其他值：
+   - 更矮：`height: 600px` 或 `height: 500px`
+   - 更高：`height: 800px` 或 `height: 900px`
+   - 标准高度：`height: 740px`（推荐）
 
 ### 场景2：更换背景图片
 
