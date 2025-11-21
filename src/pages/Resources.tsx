@@ -10,8 +10,44 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
   const trans = getTranslations(language)
   const t = trans.resourcesCenter || {}
 
+  // Helper function to get resource navigation items
+  const getResourceNavItems = () => {
+    const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
+    
+    return [
+      { key: 'all', label: language === 'zh' ? '所有资源' : language === 'en' ? 'All Resources' : language === 'jp' ? 'すべてのリソース' : '所有資源', href: basePath },
+      { key: 'whitepapers', label: language === 'zh' ? '白皮书' : language === 'en' ? 'Whitepapers' : language === 'jp' ? 'ホワイトペーパー' : '白皮書', href: `${basePath}/whitepapers` },
+      { key: 'video', label: language === 'zh' ? '视频' : language === 'en' ? 'Videos' : language === 'jp' ? 'ビデオ' : '視頻', href: `${basePath}/video` },
+      { key: 'reports', label: language === 'zh' ? '行业报告' : language === 'en' ? 'Industry Reports' : language === 'jp' ? '業界レポート' : '行業報告', href: `${basePath}/reports` },
+      { key: 'demos', label: language === 'zh' ? '产品演示' : language === 'en' ? 'Product Demos' : language === 'jp' ? '製品デモ' : '產品演示', href: `${basePath}/demos` },
+      { key: 'blog', label: language === 'zh' ? '博客' : language === 'en' ? 'Blog' : language === 'jp' ? 'ブログ' : '博客', href: `${basePath}/blog` },
+      { key: 'podcast', label: language === 'zh' ? '播客' : language === 'en' ? 'Podcast' : language === 'jp' ? 'ポッドキャスト' : '播客', href: `${basePath}/podcast` }
+    ]
+  }
+
   return (
     <>
+      {/* Resource Center Sub-Navigation */}
+      <section class="bg-[#6438FF] sticky top-0 z-30">
+        <div class="site-container px-4 sm:px-6 lg:px-8">
+          <nav class="flex items-center justify-center space-x-6 md:space-x-8 overflow-x-auto py-4">
+            {getResourceNavItems().map((item) => (
+              <a
+                key={item.key}
+                href={item.href}
+                class={`whitespace-nowrap text-sm md:text-base font-medium text-white transition-all pb-2 relative ${
+                  item.key === 'all'
+                    ? 'border-b-2 border-white'
+                    : 'hover:opacity-80'
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </section>
+
       {/* Hero Carousel Section */}
       <section class="relative bg-white overflow-hidden">
         <div id="hero-carousel" class="relative" style="min-height: 500px;">
