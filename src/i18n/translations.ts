@@ -705,6 +705,13 @@ export const siteTranslations = {
         description: '',
         buttonText: '',
         imageAlt: 'Marketing Campaign Banner'
+      },
+      slide6: {
+        siteName: '',
+        mainTitle: '',
+        description: '',
+        buttonText: '',
+        imageAlt: 'Marketing Campaign Banner'
       }
     }
   },
@@ -1365,6 +1372,13 @@ export const siteTranslations = {
         description: '',
         buttonText: '',
         imageAlt: 'マーケティングキャンペーンバナー'
+      },
+      slide6: {
+        siteName: '',
+        mainTitle: '',
+        description: '',
+        buttonText: '',
+        imageAlt: 'マーケティングキャンペーンバナー'
       }
     }
   },
@@ -2020,6 +2034,13 @@ export const siteTranslations = {
         imageAlt: '智能客服'
       },
       slide5: {
+        siteName: '',
+        mainTitle: '',
+        description: '',
+        buttonText: '',
+        imageAlt: '營銷活動Banner圖'
+      },
+      slide6: {
         siteName: '',
         mainTitle: '',
         description: '',
@@ -2728,6 +2749,13 @@ export const siteTranslations = {
         imageAlt: '智能客服'
       },
       slide5: {
+        siteName: '',
+        mainTitle: '',
+        description: '',
+        buttonText: '',
+        imageAlt: '营销活动Banner图'
+      },
+      slide6: {
         siteName: '',
         mainTitle: '',
         description: '',

@@ -16,13 +16,19 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
       <section class="relative w-full overflow-hidden" style="height: 740px;">
         <a href="/products/live-chat" class="block w-full h-full">
           <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600">
-            <img 
-              src="/assets/images/livechat/banner.webp" 
-              alt="LiveChat Banner"
-              class="w-full h-full object-cover"
-              loading="eager"
-              decoding="async"
-            />
+            {/* 全图背景 - 支持移动端专用图片 */}
+            <picture>
+              {/* 移动端图片（< 768px） */}
+              <source media="(max-width: 767px)" srcset="/assets/images/livechat/banner-mobile.webp" />
+              {/* 桌面端图片（>= 768px） */}
+              <img 
+                src="/assets/images/livechat/banner.webp" 
+                alt="LiveChat Banner"
+                class="w-full h-full object-cover"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
           </div>
         </a>
       </section>
