@@ -14,7 +14,7 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
     <>
       {/* Banner Section - 全图布局模式（仅图片和链接） */}
       <section class="relative w-full overflow-hidden" style="height: 740px;">
-        <a href="/products/voice-agents" class="block w-full h-full">
+        <a href="/contact" class="block w-full h-full">
           <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600">
             {/* 全图背景 - 支持移动端专用图片 */}
             <picture>
@@ -64,7 +64,7 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
               
               <div>
                 <a 
-                  href="/products/voice-agents" 
+                  href="/contact" 
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300 min-h-[44px]"
                 >
                   {t.coreFeatures.feature1.button}
@@ -121,7 +121,7 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
               
               <div>
                 <a 
-                  href="/products/voice-agents" 
+                  href="/contact" 
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300 min-h-[44px]"
                 >
                   {t.coreFeatures.feature2.button}
@@ -152,7 +152,7 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
               
               <div>
                 <a 
-                  href="/products/voice-agents" 
+                  href="/contact" 
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300 min-h-[44px]"
                 >
                   {t.coreFeatures.feature3.button}
@@ -209,7 +209,7 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
               
               <div>
                 <a 
-                  href="/products/voice-agents" 
+                  href="/contact" 
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300 min-h-[44px]"
                 >
                   {t.coreFeatures.feature4.button}

@@ -14,7 +14,7 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
     <>
       {/* Banner Section - 全图布局模式（仅图片和链接） */}
       <section class="relative w-full overflow-hidden" style="height: 740px;">
-        <a href="/products/live-chat" class="block w-full h-full">
+        <a href="/contact" class="block w-full h-full">
           <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600">
             {/* 全图背景 - 支持移动端专用图片 */}
             <picture>
@@ -85,7 +85,7 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
                     >
                       {/* 标题行（可点击） */}
                       <a 
-                        href="/products/live-chat"
+                        href="/contact"
                         class="flex items-center mb-4 md:mb-6 group cursor-pointer"
                       >
                         <div class={`w-10 h-10 md:w-12 md:h-12 ${bgColors[index]} rounded-lg flex items-center justify-center mr-3 md:mr-4 group-hover:opacity-80 transition-colors`}>
@@ -124,7 +124,7 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
                       
                       {/* 按钮 */}
                       <a 
-                        href="/products/live-chat" 
+                        href="/contact" 
                         class="inline-flex items-center px-5 py-2.5 md:px-6 md:py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300 text-sm md:text-base"
                       >
                         <span>{item.buttonText}</span>
@@ -217,7 +217,7 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
                     {t.caseStudies.case1.button && (
                       <div>
                         <a 
-                          href={t.caseStudies.case1.buttonLink || '/products/live-chat'} 
+                          href="/contact" 
                           class="inline-flex items-center px-6 py-3 md:px-6 md:py-3 border border-gray-300 shadow-sm text-base md:text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
                         >
                           {t.caseStudies.case1.button}
@@ -262,7 +262,7 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
                     {t.caseStudies.case2.button && (
                       <div>
                         <a 
-                          href={t.caseStudies.case2.buttonLink || '/products/live-chat'} 
+                          href="/contact" 
                           class="inline-flex items-center px-6 py-3 md:px-6 md:py-3 border border-gray-300 shadow-sm text-base md:text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
                         >
                           {t.caseStudies.case2.button}

@@ -12,129 +12,122 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
 
   return (
     <>
-      <div class="min-h-screen bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
+      <div class="min-h-screen bg-[#6438FF]">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
+          <div class="flex flex-col lg:flex-row items-start lg:items-center gap-8 md:gap-12 lg:gap-16 min-h-[calc(100vh-4rem)]">
             {/* 左侧文案区 */}
-            <div class="relative">
-              {/* 背景图 */}
-              <div 
-                class="absolute inset-0 bg-cover bg-center bg-no-repeat rounded-2xl opacity-10"
-                style="background-image: url('/assets/images/contact-bg.jpg');"
-              ></div>
+            <div class="flex-1 lg:max-w-md xl:max-w-lg">
+              {/* 一级标题 - 白色大字号 */}
+              <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 md:mb-12">
+                {t.title || (language === 'zh' ? '联系我们' : language === 'en' ? 'Contact Us' : language === 'jp' ? 'お問い合わせ' : '聯繫我們')}
+              </h1>
               
-              <div class="relative z-10 p-8 md:p-12 lg:p-16">
-                {/* 一级标题 */}
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
-                  {t.title || (language === 'zh' ? '联系我们' : language === 'en' ? 'Contact Us' : language === 'jp' ? 'お問い合わせ' : '聯繫我們')}
-                </h1>
-                
-                {/* 二级副标题 */}
-                {t.subtitle && (
-                  <h2 class="text-xl md:text-2xl lg:text-3xl font-semibold text-gray-700 mb-4 md:mb-6">
-                    {t.subtitle}
-                  </h2>
-                )}
-                
-                {/* 文本段落 */}
-                {t.description && (
-                  <div class="text-base md:text-lg text-gray-600 leading-relaxed space-y-4">
-                    {t.description.split('\n').map((paragraph: string, index: number) => (
-                      <p key={index}>{paragraph}</p>
-                    ))}
-                  </div>
-                )}
+              {/* 三行白色文字 */}
+              <div class="space-y-4 md:space-y-6">
+                <p class="text-white text-lg md:text-xl leading-relaxed">
+                  {t.description?.split('\n')[0] || (language === 'zh' ? '文字内容文字内容文字' : language === 'en' ? 'Text content text content text' : language === 'jp' ? 'テキストコンテンツテキストコンテンツテキスト' : '文字內容文字內容文字')}
+                </p>
+                <p class="text-white text-lg md:text-xl leading-relaxed">
+                  {t.description?.split('\n')[1] || (language === 'zh' ? '文字内容文字内容文字' : language === 'en' ? 'Text content text content text' : language === 'jp' ? 'テキストコンテンツテキストコンテンツテキスト' : '文字內容文字內容文字')}
+                </p>
+                <p class="text-white text-lg md:text-xl leading-relaxed">
+                  {t.description?.split('\n')[2] || (language === 'zh' ? '文字内容文字内容文字' : language === 'en' ? 'Text content text content text' : language === 'jp' ? 'テキストコンテンツテキストコンテンツテキスト' : '文字內容文字內容文字')}
+                </p>
               </div>
             </div>
 
             {/* 右侧表单区 */}
-            <div class="flex items-center justify-center">
-              <div class="w-full max-w-lg bg-white rounded-2xl shadow-xl p-6 md:p-8 lg:p-10">
-                <form id="contact-form" class="space-y-6">
+            <div class="flex-1 lg:flex-none lg:w-[500px] xl:w-[550px]">
+              <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10 lg:p-12">
+              <form id="contact-form" class="space-y-6">
+                {/* First Name 和 Last Name 在同一行 */}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* First Name */}
                   <div>
                     <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">
-                      {t.firstName || 'First Name'} <span class="text-red-500">*</span>
+                      {t.firstName || 'First name'}
                     </label>
                     <input
                       type="text"
                       id="firstName"
                       name="firstName"
                       required
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6438FF] focus:border-transparent outline-none transition-all"
-                      placeholder={t.firstNamePlaceholder || ''}
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                      placeholder={t.firstName || 'First name'}
                     />
                   </div>
 
                   {/* Last Name */}
                   <div>
                     <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">
-                      {t.lastName || 'Last Name'} <span class="text-red-500">*</span>
+                      {t.lastName || 'Last name'}
                     </label>
                     <input
                       type="text"
                       id="lastName"
                       name="lastName"
                       required
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6438FF] focus:border-transparent outline-none transition-all"
-                      placeholder={t.lastNamePlaceholder || ''}
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                      placeholder={t.lastName || 'Last name'}
                     />
                   </div>
+                </div>
 
-                  {/* Job Title */}
-                  <div>
-                    <label for="jobTitle" class="block text-sm font-medium text-gray-700 mb-2">
-                      {t.jobTitle || 'Job Title'}
-                    </label>
-                    <input
-                      type="text"
-                      id="jobTitle"
-                      name="jobTitle"
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6438FF] focus:border-transparent outline-none transition-all"
-                      placeholder={t.jobTitlePlaceholder || ''}
-                    />
-                  </div>
+                {/* Job Title */}
+                <div>
+                  <label for="jobTitle" class="block text-sm font-medium text-gray-700 mb-2">
+                    {t.jobTitle || 'Job title'}
+                  </label>
+                  <input
+                    type="text"
+                    id="jobTitle"
+                    name="jobTitle"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                    placeholder={t.jobTitle || 'Job title'}
+                  />
+                </div>
 
-                  {/* Company Email */}
-                  <div>
-                    <label for="companyEmail" class="block text-sm font-medium text-gray-700 mb-2">
-                      {t.companyEmail || 'Company Email'} <span class="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      id="companyEmail"
-                      name="companyEmail"
-                      required
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6438FF] focus:border-transparent outline-none transition-all"
-                      placeholder={t.companyEmailPlaceholder || 'example@company.com'}
-                    />
-                  </div>
+                {/* Company Email */}
+                <div>
+                  <label for="companyEmail" class="block text-sm font-medium text-gray-700 mb-2">
+                    {t.companyEmail || 'Company email'}
+                  </label>
+                  <input
+                    type="email"
+                    id="companyEmail"
+                    name="companyEmail"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                    placeholder={t.companyEmailPlaceholder || 'Company email'}
+                  />
+                </div>
 
-                  {/* Company Name */}
-                  <div>
-                    <label for="companyName" class="block text-sm font-medium text-gray-700 mb-2">
-                      {t.companyName || 'Company Name'}
-                    </label>
-                    <input
-                      type="text"
-                      id="companyName"
-                      name="companyName"
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6438FF] focus:border-transparent outline-none transition-all"
-                      placeholder={t.companyNamePlaceholder || ''}
-                    />
-                  </div>
+                {/* Company Name */}
+                <div>
+                  <label for="companyName" class="block text-sm font-medium text-gray-700 mb-2">
+                    {t.companyName || 'Company name'}
+                  </label>
+                  <input
+                    type="text"
+                    id="companyName"
+                    name="companyName"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                    placeholder={t.companyName || 'Company name'}
+                  />
+                </div>
 
-                  {/* Industry */}
-                  <div>
-                    <label for="industry" class="block text-sm font-medium text-gray-700 mb-2">
-                      {t.industry || 'Industry'}
-                    </label>
+                {/* Industry */}
+                <div>
+                  <label for="industry" class="block text-sm font-medium text-gray-700 mb-2">
+                    {t.industry || 'Industry'}
+                  </label>
+                  <div class="relative">
                     <select
                       id="industry"
                       name="industry"
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6438FF] focus:border-transparent outline-none transition-all bg-white"
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white appearance-none pr-10"
                     >
-                      <option value="">{t.selectIndustry || 'Please select'}</option>
+                      <option value="">{t.selectIndustry || 'Select your industry'}</option>
                       <option value="technology">{t.industryTech || 'Technology'}</option>
                       <option value="finance">{t.industryFinance || 'Finance'}</option>
                       <option value="healthcare">{t.industryHealthcare || 'Healthcare'}</option>
@@ -143,40 +136,31 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
                       <option value="education">{t.industryEducation || 'Education'}</option>
                       <option value="other">{t.industryOther || 'Other'}</option>
                     </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </div>
                   </div>
+                </div>
 
-                  {/* Privacy Policy Checkbox */}
-                  <div class="flex items-start">
-                    <input
-                      type="checkbox"
-                      id="privacyAgree"
-                      name="privacyAgree"
-                      required
-                      checked
-                      class="mt-1 w-4 h-4 text-[#6438FF] border-gray-300 rounded focus:ring-[#6438FF]"
-                    />
-                    <label for="privacyAgree" class="ml-3 text-sm text-gray-600">
-                      {t.privacyAgree || 'I agree to the Privacy Policy'} <span class="text-red-500">*</span>
-                    </label>
-                  </div>
+                {/* Submit Button - 浅灰色，圆角 */}
+                <button
+                  type="submit"
+                  id="submit-btn"
+                  class="w-full px-6 py-3 bg-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-400 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
+                >
+                  <span id="submit-text">{t.submit || 'Submit'}</span>
+                  <span id="submit-loading" class="hidden">
+                    <i class="fas fa-spinner fa-spin mr-2"></i>
+                    {t.submitting || 'Submitting...'}
+                  </span>
+                </button>
 
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    id="submit-btn"
-                    class="w-full px-6 py-3 bg-gradient-to-r from-[#6438FF] to-[#0DE0EF] text-white font-semibold rounded-lg hover:shadow-lg transform hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
-                  >
-                    <span id="submit-text">{t.submit || 'Submit'}</span>
-                    <span id="submit-loading" class="hidden">
-                      <i class="fas fa-spinner fa-spin mr-2"></i>
-                      {t.submitting || 'Submitting...'}
-                    </span>
-                  </button>
-
-                  {/* Privacy Notice */}
-                  <p class="text-xs text-gray-500 text-center">
-                    {t.privacyNotice || 'By submitting, you agree to our Privacy Policy'}
-                  </p>
+                {/* Privacy Notice - 在Submit按钮下方，小字体 */}
+                <p class="text-xs text-gray-500 text-center">
+                  {t.privacyNotice || 'By clicking submit, you acknowledge your data will be processed according to our'} <a href="/privacy-policy" class="text-blue-600 underline">{t.privacyLink || 'Privacy Policy'}</a>
+                </p>
                 </form>
 
                 {/* Success Message */}
@@ -286,7 +270,21 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
                   
                   // 如果是白皮书下载，显示下载按钮
                   const source = getUrlParam('source');
-                  if (source === 'whitepaper_download' && result.downloadUrl) {
+                  const fileId = getUrlParam('file');
+                  
+                  if (source === 'whitepaper_download' && fileId) {
+                    // 设置cookie标记用户已提交表单（30天有效期）
+                    const expiryDate = new Date();
+                    expiryDate.setTime(expiryDate.getTime() + (30 * 24 * 60 * 60 * 1000));
+                    document.cookie = 'resource_download_' + fileId + '=true; expires=' + expiryDate.toUTCString() + '; path=/';
+                    
+                    // 自动触发下载
+                    const downloadUrl = '/resources/download/' + fileId;
+                    setTimeout(() => {
+                      window.location.href = downloadUrl;
+                    }, 500);
+                  } else if (source === 'whitepaper_download' && result.downloadUrl) {
+                    // 兼容旧版本逻辑
                     downloadSection.classList.remove('hidden');
                     
                     downloadBtn.onclick = function() {

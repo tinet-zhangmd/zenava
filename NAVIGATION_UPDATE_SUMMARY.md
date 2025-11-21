@@ -110,7 +110,7 @@
 ### 资源中心页面
 - `/resources/blog` - 博客列表页
 - `/resources/reports` - 报告下载页
-- `/resources/videos` - 视频中心页
+- `/resources/video` - 视频中心页
 
 ### 功能页面
 - `/contact` - 联系我们页面（CTA按钮）
