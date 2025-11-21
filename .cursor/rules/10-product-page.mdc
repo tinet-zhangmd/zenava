@@ -967,7 +967,9 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
 - **使用方式**: `AiAgents.tsx` 通过 `t.features.voice.title`、`t.features.messaging.subtitle` 等读取翻译
 - **样式特点**: 
   - ✅ **无标签**：不显示标签，保持简洁
-  - ✅ **标题样式**：主标题和副标题字体大小一致，颜色不同（主标题使用亮色如蓝色/绿色/紫色，副标题黑色）
+  - ✅ **无数据指标**：不包含数据指标（metric、metricLabel等），保持简洁
+  - ✅ **无亮点**：不显示亮点（highlight），保持简洁
+  - ✅ **标题样式**：主标题使用黑色（`text-gray-900`），副标题（可选）使用黑色，字体大小一致
 
 ## 功能特性功能说明
 

@@ -127,7 +127,7 @@ export const siteTranslations = {
       marketing: {
         title: 'Marketing Automation',
         subtitle: 'Increase Conversion Rate, Reduce Customer Acquisition Cost',
-        description: 'Real-time intent recognition, unified lead capture, intelligent high-potential lead routing. Conversation analytics inform marketing strategy optimization.',
+        description: 'Real-time intent recognition, unified lead capture, intelligent high-potential lead routing. Conversation analytics inform marketing strategy optimization',
         features: [
           'Intent Recognition',
           'Smart Lead Capture',
@@ -147,7 +147,7 @@ export const siteTranslations = {
       sales: {
         title: 'Sales Enablement',
         subtitle: 'Shorten sales cycle, increase conversion rate',
-        description: 'Real-Time Talk Track Recommendation, Competitor Knowledge Retrieval, Best Practice Suggestions. Al-assisted deal-closing strategies verify conversion improvement.',
+        description: 'Real-Time Talk Track Recommendation, Competitor Knowledge Retrieval, Best Practice Suggestions. Al-assisted deal-closing strategies verify conversion improvement',
         features: [
           'Talk Track Recommendations',
           'Competitive Analysis',
@@ -160,7 +160,7 @@ export const siteTranslations = {
       customerService: {
         title: 'Customer Service',
         subtitle: 'Faster, Accurate, Empathetic Support',
-        description: '24/7 intelligent response, smart routing for complex inquiries, sentiment-aware interactions. Knowledge base integration for fast resolution.',
+        description: '24/7 intelligent response, smart routing for complex inquiries, sentiment-aware interactions. Knowledge base integration for fast resolution',
         features: [
           '24/7 Availability',
           'Emotion Recognition',
@@ -173,7 +173,7 @@ export const siteTranslations = {
       internalService: {
         title: 'Internal Operations',
         subtitle: 'Efficient Management of Multi-level Organizations',
-        description: 'Unified service portal for equipment, inventory, and training. Intelligent dispatch and progress tracking optimize operational efficiency.',
+        description: 'Unified service portal for equipment, inventory, and training. Intelligent dispatch and progress tracking optimize operational efficiency',
         features: [
           'Unified Portal',
           'Intelligent Routing',
@@ -187,7 +187,7 @@ export const siteTranslations = {
       management: {
         title: 'Management Optimization',
         subtitle: 'Customer Feedback Drives Product lnnovation',
-        description: 'Extract product insights from conversations, quantify feedback trends, establish a closed loop from customer feedback to product iteration.',
+        description: 'Extract product insights from conversations, quantify feedback trends, establish a closed loop from customer feedback to product iteration',
         features: [
           'Insight Mining',
           'Requirement Extraction',
@@ -296,7 +296,7 @@ export const siteTranslations = {
       aiAgents: {
         hero: {
           title: 'ZENAVA Independently Handles 80% of Repetitive, High-Frequency, Clear-Process Customer Interactions',
-          subtitle: 'Significantly reduces reliance on human scale in traditional customer service, achieving a leap in customer experience.',
+          subtitle: 'Significantly reduces reliance on human scale in traditional customer service, achieving a leap in customer experience',
           button: 'Schedule Consultation'
         },
         advantages: {
@@ -304,17 +304,17 @@ export const siteTranslations = {
           card1: {
             title: 'Conversational',
             subtitle: 'Communicate Like a Human',
-            desc: 'Equipped with multimodal understanding, emotional perception, and highly humanized interaction capabilities, delivering communication experiences that surpass human interactions.'
+            desc: 'Equipped with multimodal understanding, emotional perception, and highly humanized interaction capabilities, delivering communication experiences that surpass human interactions'
           },
           card2: {
             title: 'Action-Oriented',
             subtitle: 'Independently Complete Business Loops',
-            desc: 'Directly drives business processes, completing tasks such as sending SMS, creating tickets, querying customer information, and sending appointment notifications.'
+            desc: 'Directly drives business processes, completing tasks such as sending SMS, creating tickets, querying customer information, and sending appointment notifications'
           },
           card3: {
             title: 'Fast Deployment',
             subtitle: 'Smarter with Use',
-            desc: 'Ready to use out of the box, quickly deploy and "go live", with built-in training processes that self-correct errors when encountering problems, getting smarter with use.'
+            desc: 'Ready to use out of the box, quickly deploy and "go live", with built-in training processes that self-correct errors when encountering problems, getting smarter with use'
           },
           card4: {
             title: 'Quantifiable Value',
@@ -323,6 +323,8 @@ export const siteTranslations = {
           }
         },
         features: {
+          title: 'Core Features',
+          subtitle: '',
           voice: {
             title: 'Voice Agents',
             subtitle: 'Beyond Human Voice Conversation Experience',
@@ -377,12 +379,12 @@ export const siteTranslations = {
           imageAlt: 'VoiceAgents Product Banner - Beyond Human Voice Conversation Experience'
         },
         coreFeatures: {
-          title: 'Core Features',
-          subtitle: 'Creating Excellence in Voice Interaction',
+          title: 'Core Capabilities',
+          subtitle: '',
           feature1: {
             title: 'Human-like Timbre',
             subtitle: 'Communicate Like a Real Person',
-            description: 'Natural and smooth voice interactions with rich emotions, featuring multiple timbres and tone styles to meet personalized preferences. Capable of expressing care, understanding, and professionalism based on scenarios, delivering communication experiences beyond real humans.',
+            description: 'Natural and smooth voice interactions with rich emotions, featuring multiple timbres and tone styles to meet personalized preferences. Capable of expressing care, understanding, and professionalism based on scenarios, delivering communication experiences beyond real humans',
             tags: ['Natural Flow', 'Emotional Rich', 'Multiple Timbres', 'Personalized'],
             button: 'Learn More',
             mediaAlt: 'Human-like Timbre Feature Demo'
@@ -390,7 +392,7 @@ export const siteTranslations = {
           feature2: {
             title: 'Low-latency Interaction',
             subtitle: 'Real-time Response, No Waiting',
-            description: 'Millisecond-level response speed, real-time conversation without lag, making interactions more natural. Whether customer inquiries, business processing, or complaint handling, Zenava responds quickly.',
+            description: 'Millisecond-level response speed, real-time conversation without lag, making interactions more natural. Whether customer inquiries, business processing, or complaint handling, Zenava responds quickly',
             tags: ['Millisecond Response', 'Real-time Dialogue', 'Seamless Transition', 'Efficient Flow'],
             button: 'Learn More',
             mediaAlt: 'Low-latency Interaction Feature Demo'
@@ -398,7 +400,7 @@ export const siteTranslations = {
           feature3: {
             title: 'Precise Intelligent Interruption',
             subtitle: 'Understanding True User Intent',
-            description: 'Supports users interrupting and interjecting at any time, with real-time responses without interruption, as natural and flexible as face-to-face conversation.',
+            description: 'Supports users interrupting and interjecting at any time, with real-time responses without interruption, as natural and flexible as face-to-face conversation',
             tags: ['Smart Interruption', 'Intent Recognition', 'Natural Dialogue', 'Real-time Response'],
             button: 'Learn More',
             mediaAlt: 'Precise Intelligent Interruption Feature Demo'
@@ -406,21 +408,21 @@ export const siteTranslations = {
           feature4: {
             title: 'Complete Business Loop',
             subtitle: 'End-to-End Business Automation',
-            description: 'Zenava can directly execute tasks such as creating tickets, sending notifications, querying information, etc., turning conversations into actionable business operations.',
+            description: 'Zenava can directly execute tasks such as creating tickets, sending notifications, querying information, etc., turning conversations into actionable business operations',
             tags: ['Task Execution', 'Business Automation', 'Ticket Creation', 'Information Query'],
             button: 'Learn More',
             mediaAlt: 'Complete Business Loop Feature Demo'
           }
         },
         customerCases: {
-          title: 'Customer Success Stories',
-          subtitle: 'Real Performance, Quantifiable Value',
+          title: 'Applications and Quantified Results',
+          subtitle: '',
           case1: {
             tag: 'Kitchen Appliances Industry',
             title: 'Kitchen Appliance Customer Achieves Large-scale Customer Service Automation, Saving 5.25 Million Annually',
             subtitle: 'Annual Cost Savings of 5.25 Million',
+            description: 'Zenava independently handles product inquiries, repairs, order queries, and other repetitive consultations, replacing the workload of 35 call center agents',
             features: [
-              'Zenava independently handles product inquiries, repairs, order queries, and other repetitive consultations, replacing the workload of 35 call center agents',
               'Annual cost savings of approximately 5.25 million yuan',
               'Project ROI as high as 425%'
             ],
@@ -431,8 +433,8 @@ export const siteTranslations = {
             tag: 'Automotive Industry',
             title: 'Automotive Customer Uses Zenava for Test Drive Invitations, Conversion Rate Rises to 85%',
             subtitle: 'Conversion Rate Up to 85%',
+            description: 'Zenava automatically qualifies customer leads, timely screens effective customers through voice interaction, invites high-intent customers for test drives',
             features: [
-              'Zenava automatically qualifies customer leads, timely screens effective customers through voice interaction, invites high-intent customers for test drives',
               'Improves potential customer follow-up efficiency, enhances lead conversion rate, drives sales growth',
               'Invitation conversion rate rises to 85%'
             ],
@@ -443,8 +445,8 @@ export const siteTranslations = {
             tag: 'Hotel Industry',
             title: 'Hotel Group Achieves Unmanned Booking Process, Significantly Boosting Booking Conversion Rate',
             subtitle: 'Booking Conversion Rate Up 15%-25%',
+            description: 'Zenava independently completes the entire process from understanding booking needs, confirming time and room type to completing the booking',
             features: [
-              'Zenava independently completes the entire process from understanding booking needs, confirming time and room type to completing the booking',
               'Supports multilingual communication, covering global customers',
               'Booking conversion rate increases by 15%-25%'
             ],
@@ -459,29 +461,28 @@ export const siteTranslations = {
           card1: {
             title: 'Real-time Response',
             subtitle: 'Second-level Customer Reply',
-            desc: '7x24 hours online, intelligent routing allocation, ensuring customer issues are responded to and handled promptly.'
+            desc: '7x24 hours online, intelligent routing allocation, ensuring customer issues are responded to and handled promptly'
           },
           card2: {
             title: 'Multi-channel Support',
             subtitle: 'Unified Management of All Channels',
-            desc: 'Support website, mobile, social media and other channels, unified management of customer conversations, improving service efficiency.'
+            desc: 'Support website, mobile, social media and other channels, unified management of customer conversations, improving service efficiency'
           },
           card3: {
             title: 'Intelligent Analytics',
             subtitle: 'Data-driven Optimization',
-            desc: 'Real-time analysis of customer conversation data, identifying common issues, optimizing service processes, improving customer satisfaction.'
+            desc: 'Real-time analysis of customer conversation data, identifying common issues, optimizing service processes, improving customer satisfaction'
           }
         },
         features: {},
         caseStudies: {
-          title: 'Success Stories',
-          subtitle: 'Real Results from Enterprise Customers',
+          title: 'Applications and Quantified Results',
+          subtitle: '',
           case1: {
-            mainTitle: 'B2B Enterprise Website Unmanned Customer Service',
+            mainTitle: 'B2B Enterprise Website Unmanned Customer Service, Lead Conversion Rate Up to 46%',
             highlight: 'Lead Conversion Rate Up to 46%',
-            description: 'Zenava independently receives customers on the official website, automatically performs preliminary screening of leads and information collection.',
+            description: 'Zenava independently receives customers on the official website, automatically performs preliminary screening of leads and information collection',
             points: [
-              'Zenava independently receives customers on the official website, automatically performs preliminary screening of leads and information collection',
               'Covers pre-sales reception during all time slots, achieving unmanned customer service on the official website',
               'Lead conversion rate as high as 46%, exceeding manual lead conversion rate of 40%',
               'Product business knowledge updated at minute level, ensuring service accuracy and professionalism'
@@ -494,11 +495,10 @@ export const siteTranslations = {
             buttonLink: '/products/live-chat'
           },
           case2: {
-            mainTitle: 'Smart Lock End-to-End After-Sales Service Automation',
+            mainTitle: 'Smart Lock End-to-End After-Sales Service Automation, Annual Total Cost Savings of 6.21 Million',
             highlight: 'Annual Total Cost Savings of 6.21 Million',
-            description: 'Zenava accurately identifies images through multi-round conversations, independently completing smart lock troubleshooting.',
+            description: 'Zenava accurately identifies images through multi-round conversations, independently completing smart lock troubleshooting',
             points: [
-              'Zenava accurately identifies images through multi-round conversations, independently completing smart lock troubleshooting',
               'Independent reception rate reaches 83%',
               'Annual total cost savings of 6.21 million'
             ],
@@ -513,12 +513,12 @@ export const siteTranslations = {
           }
         },
         section3: {
-          title: 'AI Agents for Chat Core Capabilities',
-          subtitle: 'Empowering Your Customer Service Excellence',
+          title: 'AI Agents for Chat',
+          subtitle: '',
           item1: {
             mainTitle: '7x24 Hour Omnichannel Online',
             subtitle: 'Never Miss Any Communication with Customers',
-            description: 'Zenava can communicate with customers in real-time 7x24 hours on their chosen channels, whether it\'s web pages, Apps, social media, or messaging applications. Enterprises don\'t need to worry about customers waiting or missing business opportunities, significantly improving customer satisfaction and retention.',
+            description: 'Zenava can communicate with customers in real-time 7x24 hours on their chosen channels, whether it\'s web pages, Apps, social media, or messaging applications. Enterprises don\'t need to worry about customers waiting or missing business opportunities, significantly improving customer satisfaction and retention',
             tag1: '7x24 Hours',
             tag2: 'Omnichannel',
             tag3: 'Real-time',
@@ -529,7 +529,7 @@ export const siteTranslations = {
           item2: {
             mainTitle: 'Rich Media Communication',
             subtitle: 'Accurately Identify Customer Intent',
-            description: 'Zenava can not only understand text but also images, videos, and other forms of information, providing a rich dialogue experience, enabling complex multi-turn dialogue information collection, accurately identifying customer intent, and efficiently handling customer problems.',
+            description: 'Zenava can not only understand text but also images, videos, and other forms of information, providing a rich dialogue experience, enabling complex multi-turn dialogue information collection, accurately identifying customer intent, and efficiently handling customer problems',
             tag1: 'Rich Media',
             tag2: 'Intent Recognition',
             tag3: 'Multi-turn Dialogue',
@@ -540,7 +540,7 @@ export const siteTranslations = {
           item3: {
             mainTitle: 'Emotion Perception',
             subtitle: 'Respond in a Friendly and Respectful Manner',
-            description: 'Zenava, through personality modeling, possesses language understanding and emotional perception capabilities, able to identify emotions from expressions and respond in a friendly and respectful manner, allowing customers to feel attentive and professional service experience.',
+            description: 'Zenava, through personality modeling, possesses language understanding and emotional perception capabilities, able to identify emotions from expressions and respond in a friendly and respectful manner, allowing customers to feel attentive and professional service experience',
             tag1: 'Emotion Recognition',
             tag2: 'Friendly Response',
             tag3: 'Professional Service',
@@ -551,7 +551,7 @@ export const siteTranslations = {
           item4: {
             mainTitle: 'Balance Business and Experience',
             subtitle: 'Flexibly Meet Customer Demands',
-            description: 'Under the premise of adhering to enterprise business bottom lines and brand norms, Zenava can flexibly meet customers\' personalized needs, enabling enterprises to enhance customer experience while ensuring safety and compliance.',
+            description: 'Under the premise of adhering to enterprise business bottom lines and brand norms, Zenava can flexibly meet customers\' personalized needs, enabling enterprises to enhance customer experience while ensuring safety and compliance',
             tag1: 'Business Compliance',
             tag2: 'Flexible Solutions',
             tag3: 'Customer Experience',
@@ -562,7 +562,7 @@ export const siteTranslations = {
           item5: {
             mainTitle: 'Empathy and Judgment',
             subtitle: 'Drive Full Business Process Closure',
-            description: 'Zenava possesses empathy and judgment, and in actual business scenarios, it can use tools like human employees to complete tasks such as sending SMS messages, creating work orders, querying customer data, and sending invitation notifications, achieving business closure.',
+            description: 'Zenava possesses empathy and judgment, and in actual business scenarios, it can use tools like human employees to complete tasks such as sending SMS messages, creating work orders, querying customer data, and sending invitation notifications, achieving business closure',
             tag1: 'Empathy',
             tag2: 'Business Automation',
             tag3: 'Process Closure',
@@ -789,7 +789,7 @@ export const siteTranslations = {
       marketing: {
         title: 'マーケティング自動化',
         subtitle: 'コンバージョン向上、顧客獲得コスト削減',
-        description: '顧客の意図をリアルタイムで把握し、潜在リードを効率的に分配。会話分析でマーケティング戦略を最適化。',
+        description: '顧客の意図をリアルタイムで把握し、潜在リードを効率的に分配。会話分析でマーケティング戦略を最適化',
         features: [
           '意図認識',
           'スマートリード獲得',
@@ -809,7 +809,7 @@ export const siteTranslations = {
       sales: {
         title: 'セールス支援プロセス',
         subtitle: '成約周期短縮、成約率アップ',
-        description: 'リアルタイムトークスクリプト推奨、競合情報活用、ベストプラクティス提案。AIで成約戦略を支援し、コンバージョン向上を実現。',
+        description: 'リアルタイムトークスクリプト推奨、競合情報活用、ベストプラクティス提案。AIで成約戦略を支援し、コンバージョン向上を実現',
         features: [
           'トークトラック推奨',
           '競合分析',
@@ -822,7 +822,7 @@ export const siteTranslations = {
       customerService: {
         title: 'カスタマーサービス',
         subtitle: 'より速く、正確で、共感的なサポート',
-        description: '24時間365日のインテリジェント応答、複雑な問題のルーティング、感情認識対応。ナレッジベース統合による迅速な問題解決。',
+        description: '24時間365日のインテリジェント応答、複雑な問題のルーティング、感情認識対応。ナレッジベース統合による迅速な問題解決',
         features: [
           '24時間365日対応',
           '感情認識',
@@ -834,7 +834,7 @@ export const siteTranslations = {
       internalService: {
         title: '社内運営',
         subtitle: '多層組織管理の効率化',
-        description: 'サービスの統一窓口で、設備、在庫、研修業務を処理。スマートディスパッチと進捗管理で、運営効率を最適化。',
+        description: 'サービスの統一窓口で、設備、在庫、研修業務を処理。スマートディスパッチと進捗管理で、運営効率を最適化',
         features: [
           '統一窓口',
           'インテリジェントルーティング',
@@ -955,7 +955,7 @@ export const siteTranslations = {
       aiAgents: {
         hero: {
           title: 'ZENAVAは、反復的で高頻度、プロセスが明確な顧客対応タスクの80%を独立して処理します',
-          subtitle: '従来のカスタマーサービスにおける人的規模への依存を大幅に削減し、顧客体験の飛躍的な向上を実現します。',
+          subtitle: '従来のカスタマーサービスにおける人的規模への依存を大幅に削減し、顧客体験の飛躍的な向上を実現します',
           button: '相談を予約'
         },
         advantages: {
@@ -963,17 +963,17 @@ export const siteTranslations = {
           card1: {
             title: '対話力',
             subtitle: '人間のようなコミュニケーション',
-            desc: 'マルチモーダル理解、感情認識、高度な人間化インタラクション能力を備え、人間を超えるコミュニケーション体験を提供します。'
+            desc: 'マルチモーダル理解、感情認識、高度な人間化インタラクション能力を備え、人間を超えるコミュニケーション体験を提供します'
           },
           card2: {
             title: '実行力',
             subtitle: 'ビジネスループを独立して完結',
-            desc: 'ビジネスプロセスを直接駆動し、SMS送信、チケット作成、顧客情報の照会、アポイント通知などのタスクを完了します。'
+            desc: 'ビジネスプロセスを直接駆動し、SMS送信、チケット作成、顧客情報の照会、アポイント通知などのタスクを完了します'
           },
           card3: {
             title: '迅速な導入',
             subtitle: '使うほどに賢く',
-            desc: 'すぐに使用可能、迅速にデプロイして「稼働」開始、内蔵のトレーニングプロセスにより問題に遭遇した際にエラーを自己修正し、使用するほどに賢くなります。'
+            desc: 'すぐに使用可能、迅速にデプロイして「稼働」開始、内蔵のトレーニングプロセスにより問題に遭遇した際にエラーを自己修正し、使用するほどに賢くなります'
           },
           card4: {
             title: '定量化可能な価値',
@@ -982,6 +982,8 @@ export const siteTranslations = {
           }
         },
         features: {
+          title: 'コア機能',
+          subtitle: '',
           voice: {
             title: 'Voice Agents',
             subtitle: '人間を超える音声対話体験',
@@ -1036,12 +1038,12 @@ export const siteTranslations = {
           imageAlt: 'VoiceAgents製品バナー - 人間を超える音声対話体験'
         },
         coreFeatures: {
-          title: 'コア機能',
-          subtitle: '卓越した音声インタラクション体験を創出',
+          title: 'コア能力',
+          subtitle: '',
           feature1: {
             title: '人間らしい音色',
             subtitle: '本物の人間のようなコミュニケーション',
-            description: '自然で滑らかな音声インタラクション、豊かな感情、複数の音色とトーンスタイルを備え、ユーザーの個性化されたニーズに対応。シナリオに応じて思いやり、理解、プロフェッショナリズムを表現し、本物の人間を超えるコミュニケーション体験を提供します。',
+            description: '自然で滑らかな音声インタラクション、豊かな感情、複数の音色とトーンスタイルを備え、ユーザーの個性化されたニーズに対応。シナリオに応じて思いやり、理解、プロフェッショナリズムを表現し、本物の人間を超えるコミュニケーション体験を提供します',
             tags: ['自然な流れ', '豊かな感情', '複数の音色', 'パーソナライズ'],
             button: '詳細を見る',
             mediaAlt: '人間らしい音色機能デモ'
@@ -1049,7 +1051,7 @@ export const siteTranslations = {
           feature2: {
             title: '低遅延インタラクション',
             subtitle: 'リアルタイム応答、待ち時間なし',
-            description: 'ミリ秒レベルの応答速度、リアルタイム対話でラグなし、より自然なインタラクションを実現。顧客からの問い合わせ、業務処理、クレーム処理など、Zenavaは迅速に応答します。',
+            description: 'ミリ秒レベルの応答速度、リアルタイム対話でラグなし、より自然なインタラクションを実現。顧客からの問い合わせ、業務処理、クレーム処理など、Zenavaは迅速に応答します',
             tags: ['ミリ秒応答', 'リアルタイム対話', 'シームレス移行', '効率的な流れ'],
             button: '詳細を見る',
             mediaAlt: '低遅延インタラクション機能デモ'
@@ -1057,7 +1059,7 @@ export const siteTranslations = {
           feature3: {
             title: '精密なインテリジェント割り込み',
             subtitle: 'ユーザーの真の意図を理解',
-            description: 'ユーザーがいつでも割り込みや発言ができ、中断なくリアルタイムで応答し、対面会話のように自然で柔軟です。',
+            description: 'ユーザーがいつでも割り込みや発言ができ、中断なくリアルタイムで応答し、対面会話のように自然で柔軟です',
             tags: ['スマート割り込み', '意図認識', '自然な対話', 'リアルタイム応答'],
             button: '詳細を見る',
             mediaAlt: '精密なインテリジェント割り込み機能デモ'
@@ -1065,21 +1067,21 @@ export const siteTranslations = {
           feature4: {
             title: '完全なビジネスループ',
             subtitle: 'エンドツーエンドのビジネス自動化',
-            description: 'Zenavaはチケット作成、通知送信、情報照会などのタスクを直接実行でき、会話を実行可能なビジネスアクションに変換します。',
+            description: 'Zenavaはチケット作成、通知送信、情報照会などのタスクを直接実行でき、会話を実行可能なビジネスアクションに変換します',
             tags: ['タスク実行', 'ビジネス自動化', 'チケット作成', '情報照会'],
             button: '詳細を見る',
             mediaAlt: '完全なビジネスループ機能デモ'
           }
         },
         customerCases: {
-          title: '顧客成功事例',
-          subtitle: '実績、定量化可能な価値',
+          title: '応用と定量化効果',
+          subtitle: '',
           case1: {
             tag: '厨房電気業界',
             title: '厨房電気顧客が大規模カスタマーサービス自動化を実現、年間総コスト削減525万元',
             subtitle: '年間コスト削減525万元',
+            description: 'Zenavaは製品問い合わせ、修理、注文照会などの大量の反復的な問い合わせを独立して処理し、35人のコールセンターエージェントの作業量を代替',
             features: [
-              'Zenavaは製品問い合わせ、修理、注文照会などの大量の反復的な問い合わせを独立して処理し、35人のコールセンターエージェントの作業量を代替',
               '年間コスト削減約525万元',
               'プロジェクトROIは425%に達する'
             ],
@@ -1090,8 +1092,8 @@ export const siteTranslations = {
             tag: '自動車業界',
             title: '自動車顧客がZenavaで試乗招待を管理、コンバージョン率85%に向上',
             subtitle: 'コンバージョン率85%',
+            description: 'Zenavaは顧客リードを自動的に選別し、音声インタラクションを通じて有効な顧客をタイムリーにスクリーニングし、高意向顧客を試乗に招待',
             features: [
-              'Zenavaは顧客リードを自動的に選別し、音声インタラクションを通じて有効な顧客をタイムリーにスクリーニングし、高意向顧客を試乗に招待',
               '潜在顧客のフォローアップ効率を向上させ、リードコンバージョン率を高め、売上成長を促進',
               '招待コンバージョン率85%に向上'
             ],
@@ -1102,8 +1104,8 @@ export const siteTranslations = {
             tag: 'ホテル業界',
             title: 'ホテルグループが予約プロセスを無人化、予約コンバージョン率を大幅向上',
             subtitle: '予約コンバージョン率15%-25%向上',
+            description: 'Zenavaは予約ニーズの理解、時間と部屋タイプの確認から予約完了までの全プロセスを独立して完了',
             features: [
-              'Zenavaは予約ニーズの理解、時間と部屋タイプの確認から予約完了までの全プロセスを独立して完了',
               '多言語コミュニケーションをサポートし、グローバル顧客をカバー',
               '予約コンバージョン率15%-25%向上'
             ],
@@ -1118,29 +1120,28 @@ export const siteTranslations = {
           card1: {
             title: 'リアルタイム応答',
             subtitle: '秒単位で顧客に返信',
-            desc: '7x24時間オンライン、インテリジェントなルーティング割り当てにより、顧客の問題が迅速に応答され処理されます。'
+            desc: '7x24時間オンライン、インテリジェントなルーティング割り当てにより、顧客の問題が迅速に応答され処理されます'
           },
           card2: {
             title: 'マルチチャネルサポート',
             subtitle: 'すべてのチャネルを統一管理',
-            desc: 'ウェブサイト、モバイル、ソーシャルメディアなど複数のチャネルをサポートし、顧客対話を統一管理し、サービス効率を向上させます。'
+            desc: 'ウェブサイト、モバイル、ソーシャルメディアなど複数のチャネルをサポートし、顧客対話を統一管理し、サービス効率を向上させます'
           },
           card3: {
             title: 'インテリジェント分析',
             subtitle: 'データ駆動型最適化',
-            desc: '顧客対話データをリアルタイムで分析し、一般的な問題を特定し、サービスプロセスを最適化し、顧客満足度を向上させます。'
+            desc: '顧客対話データをリアルタイムで分析し、一般的な問題を特定し、サービスプロセスを最適化し、顧客満足度を向上させます'
           }
         },
         features: {},
         caseStudies: {
-          title: '成功事例',
-          subtitle: '企業顧客からの実際の結果',
+          title: '応用と定量化効果',
+          subtitle: '',
           case1: {
-            mainTitle: 'B2B企業公式サイト無人カスタマーサービス',
+            mainTitle: 'B2B企業公式サイト無人カスタマーサービス、リード獲得率46%',
             highlight: 'リード獲得率46%',
-            description: 'Zenavaは公式サイトで顧客を独立して受け入れ、リードの予備スクリーニングと情報収集を自動的に実行します。',
+            description: 'Zenavaは公式サイトで顧客を独立して受け入れ、リードの予備スクリーニングと情報収集を自動的に実行します',
             points: [
-              'Zenavaは公式サイトで顧客を独立して受け入れ、リードの予備スクリーニングと情報収集を自動的に実行します',
               '全時間帯で販売前受付をカバーし、公式サイトのカスタマーサービスを無人化します',
               'リード獲得率は46%と高く、手動リード獲得率40%を上回ります',
               '製品ビジネス知識を分単位で更新し、サービスの正確性と専門性を確保します'
@@ -1153,11 +1154,10 @@ export const siteTranslations = {
             buttonLink: '/products/live-chat'
           },
           case2: {
-            mainTitle: 'スマートロック顧客のエンドツーエンドアフターサービス自動化',
+            mainTitle: 'スマートロック顧客のエンドツーエンドアフターサービス自動化、年間総コスト削減621万元',
             highlight: '年間総コスト削減621万元',
-            description: 'Zenavaはマルチターン対話と画像を組み合わせて正確に識別し、スマートロックのトラブルシューティングを独立して完了します。',
+            description: 'Zenavaはマルチターン対話と画像を組み合わせて正確に識別し、スマートロックのトラブルシューティングを独立して完了します',
             points: [
-              'Zenavaはマルチターン対話と画像を組み合わせて正確に識別し、スマートロックのトラブルシューティングを独立して完了します',
               '独立受付率は83%に達します',
               '年間総コスト削減621万元'
             ],
@@ -1172,12 +1172,12 @@ export const siteTranslations = {
           }
         },
         section3: {
-          title: 'AI Agents for Chat コア機能',
-          subtitle: 'カスタマーサービスの卓越性を実現',
+          title: 'AI Agents for Chat',
+          subtitle: '',
           item1: {
             mainTitle: '7×24時間オムニチャネルオンライン',
             subtitle: '顧客とのコミュニケーションを逃さない',
-            description: 'Zenavaは、顧客が選択したチャネルで7×24時間リアルタイムにコミュニケーションを取ることができます。ウェブページ、アプリ、ソーシャルメディア、メッセージアプリなど、企業は顧客の待機やビジネス機会の喪失を心配する必要がなく、顧客満足度とリテンション率を大幅に向上させます。',
+            description: 'Zenavaは、顧客が選択したチャネルで7×24時間リアルタイムにコミュニケーションを取ることができます。ウェブページ、アプリ、ソーシャルメディア、メッセージアプリなど、企業は顧客の待機やビジネス機会の喪失を心配する必要がなく、顧客満足度とリテンション率を大幅に向上させます',
             tag1: '7×24時間',
             tag2: 'オムニチャネル',
             tag3: 'リアルタイム',
@@ -1188,7 +1188,7 @@ export const siteTranslations = {
           item2: {
             mainTitle: 'テキスト、画像、動画などのリッチメディアコミュニケーションをサポート',
             subtitle: '顧客の意図を正確に識別',
-            description: 'Zenavaはテキストだけでなく、画像、動画など多様な形式の情報を理解でき、豊かな対話体験を提供し、複雑なマルチターン対話情報収集を実現し、顧客の意図を正確に識別し、顧客の問題を効率的に処理します。',
+            description: 'Zenavaはテキストだけでなく、画像、動画など多様な形式の情報を理解でき、豊かな対話体験を提供し、複雑なマルチターン対話情報収集を実現し、顧客の意図を正確に識別し、顧客の問題を効率的に処理します',
             tag1: 'リッチメディア',
             tag2: '意図認識',
             tag3: 'マルチターン対話',
@@ -1199,7 +1199,7 @@ export const siteTranslations = {
           item3: {
             mainTitle: '表現から顧客の感情を感知',
             subtitle: '友好的で尊重ある方法で応答',
-            description: 'Zenavaは性格モデリングを通じて言語理解と感情認識能力を備えており、表現から感情を識別し、友好的で尊重ある方法で応答することで、顧客に心のこもった専門的なサービス体験を提供します。',
+            description: 'Zenavaは性格モデリングを通じて言語理解と感情認識能力を備えており、表現から感情を識別し、友好的で尊重ある方法で応答することで、顧客に心のこもった専門的なサービス体験を提供します',
             tag1: '感情認識',
             tag2: '友好的応答',
             tag3: '専門サービス',
@@ -1210,7 +1210,7 @@ export const siteTranslations = {
           item4: {
             mainTitle: 'ブランドのビジネス基盤と顧客体験を両立',
             subtitle: '顧客のニーズに柔軟に対応',
-            description: '企業のビジネス基盤とブランド規範を遵守する前提で、Zenavaは顧客の個別ニーズに柔軟に対応でき、企業は安全性とコンプライアンスを確保しながら顧客体験を向上させることができます。',
+            description: '企業のビジネス基盤とブランド規範を遵守する前提で、Zenavaは顧客の個別ニーズに柔軟に対応でき、企業は安全性とコンプライアンスを確保しながら顧客体験を向上させることができます',
             tag1: 'ビジネスコンプライアンス',
             tag2: '柔軟なソリューション',
             tag3: '顧客体験',
@@ -1221,7 +1221,7 @@ export const siteTranslations = {
           item5: {
             mainTitle: '共感力と判断力を備える',
             subtitle: 'ビジネスプロセス全体の閉環を推進',
-            description: 'Zenavaは共感力と判断力を備えており、実際のビジネスシナリオでは、人間の従業員のようにツールを使用して、SMS送信、チケット作成、顧客データの照会、招待通知などのタスクを完了し、ビジネス閉環を実現します。',
+            description: 'Zenavaは共感力と判断力を備えており、実際のビジネスシナリオでは、人間の従業員のようにツールを使用して、SMS送信、チケット作成、顧客データの照会、招待通知などのタスクを完了し、ビジネス閉環を実現します',
             tag1: '共感力',
             tag2: 'ビジネス自動化',
             tag3: 'プロセス閉環',
@@ -1449,7 +1449,7 @@ export const siteTranslations = {
       marketing: {
         title: '市場營銷自動化',
         subtitle: '提升轉化率，降低獲客成本',
-        description: '實時識別客戶意圖，統一話術留資，智能分配高潛線索。基於會話分析反哺營銷策略。',
+        description: '實時識別客戶意圖，統一話術留資，智能分配高潛線索。基於會話分析反哺營銷策略',
         features: [
           '意圖識別',
           '智能留資',
@@ -1469,7 +1469,7 @@ export const siteTranslations = {
       sales: {
         title: '銷售賦能',
         subtitle: '縮短成交週期，提升成交率',
-        description: '實時話術推薦，競品知識調用，最佳實踐建議。AI輔助成交策略，驗證轉化提升。',
+        description: '實時話術推薦，競品知識調用，最佳實踐建議。AI輔助成交策略，驗證轉化提升',
         features: [
           '話術推薦',
           '競品分析',
@@ -1482,7 +1482,7 @@ export const siteTranslations = {
       customerService: {
         title: '客戶服務',
         subtitle: '更快、更準、更有溫度',
-        description: '全天候智能響應，複雜問題智能分流，情緒感知互動。知識庫聯動快速解決問題。',
+        description: '全天候智能響應，複雜問題智能分流，情緒感知互動。知識庫聯動快速解決問題',
         features: [
           '24/7響應',
           '情緒識別',
@@ -1494,7 +1494,7 @@ export const siteTranslations = {
       internalService: {
         title: '內部運營',
         subtitle: '多層級組織高效管理',
-        description: '統一服務入口處理設備、庫存、培訓事務。智能派單與進度追蹤，優化運營效率。',
+        description: '統一服務入口處理設備、庫存、培訓事務。智能派單與進度追蹤，優化運營效率',
         features: [
           '統一入口',
           '智能派單',
@@ -1507,7 +1507,7 @@ export const siteTranslations = {
       management: {
         title: '管理優化',
         subtitle: '客戶聲音驅動產品創新',
-        description: '從對話中提取產品洞察，量化反饋趨勢，建立客戶聲音到產品迭代閉環。',
+        description: '從對話中提取產品洞察，量化反饋趨勢，建立客戶聲音到產品迭代閉環',
         features: [
           '洞察挖掘',
           '需求提取',
@@ -1623,17 +1623,17 @@ export const siteTranslations = {
           card1: {
             title: '能溝通',
             subtitle: '像真人一樣交流',
-            desc: '具備多模態理解、情緒感知與高擬人化交互能力，帶來超越真人的溝通體驗。'
+            desc: '具備多模態理解、情緒感知與高擬人化交互能力，帶來超越真人的溝通體驗'
           },
           card2: {
             title: '能執行',
             subtitle: '獨立完成業務閉環',
-            desc: '直接驅動業務流程，完成如發送短信、創建工單、查詢客戶資料以及邀約通知等任務。'
+            desc: '直接驅動業務流程，完成如發送短信、創建工單、查詢客戶資料以及邀約通知等任務'
           },
           card3: {
             title: '快速上崗',
             subtitle: '越用越聰明',
-            desc: '開箱即用，快速部署「上崗」，內置帶教流程，遇到問題時自我修正錯誤，越用越聰明。'
+            desc: '開箱即用，快速部署「上崗」，內置帶教流程，遇到問題時自我修正錯誤，越用越聰明'
           },
           card4: {
             title: '可量化價值',
@@ -1642,6 +1642,8 @@ export const siteTranslations = {
           }
         },
         features: {
+          title: '核心功能',
+          subtitle: '',
           voice: {
             title: 'Voice Agents',
             subtitle: '超越真人的語音對話體驗',
@@ -1696,12 +1698,12 @@ export const siteTranslations = {
           imageAlt: 'VoiceAgents產品Banner圖 - 超越真人的語音對話體驗'
         },
         coreFeatures: {
-          title: '核心功能',
-          subtitle: '打造卓越的語音交互體驗',
+          title: '核心能力',
+          subtitle: '',
           feature1: {
             title: '擬人化音色',
             subtitle: '像真人一樣交流',
-            description: '語音交互自然流暢、情感豐富，具備多種音色與語氣風格，滿足用戶個性化偏好。能夠根據場景表達關懷、理解與專業感，讓溝通體驗超越真人。',
+            description: '語音交互自然流暢、情感豐富，具備多種音色與語氣風格，滿足用戶個性化偏好。能夠根據場景表達關懷、理解與專業感，讓溝通體驗超越真人',
             tags: ['自然流暢', '情感豐富', '多種音色', '個性化'],
             button: '了解更多',
             mediaAlt: '擬人化音色功能演示'
@@ -1709,7 +1711,7 @@ export const siteTranslations = {
           feature2: {
             title: '低延遲交互',
             subtitle: '實時響應，無需等待',
-            description: '毫秒級響應速度，實時對話無卡頓，讓交互更自然。無論是客戶諮詢、業務辦理還是投訴處理，Zenava都能快速響應。',
+            description: '毫秒級響應速度，實時對話無卡頓，讓交互更自然。無論是客戶諮詢、業務辦理還是投訴處理，Zenava都能快速響應',
             tags: ['毫秒級響應', '實時對話', '無縫跳轉', '高效流暢'],
             button: '了解更多',
             mediaAlt: '低延遲交互功能演示'
@@ -1717,7 +1719,7 @@ export const siteTranslations = {
           feature3: {
             title: '精準智能打斷',
             subtitle: '理解用戶真實意圖',
-            description: '支持用戶隨時打斷和插話，實時響應不中斷，像真人面對面聊天那樣自然靈活。',
+            description: '支持用戶隨時打斷和插話，實時響應不中斷，像真人面對面聊天那樣自然靈活',
             tags: ['智能打斷', '意圖識別', '自然對話', '實時響應'],
             button: '了解更多',
             mediaAlt: '精準智能打斷功能演示'
@@ -1725,21 +1727,21 @@ export const siteTranslations = {
           feature4: {
             title: '完整業務閉環',
             subtitle: '端到端業務自動化',
-            description: 'Zenava能直接執行任務，如創建工單、發送通知、查詢信息等，讓對話真正轉化為可落地的業務動作。',
+            description: 'Zenava能直接執行任務，如創建工單、發送通知、查詢信息等，讓對話真正轉化為可落地的業務動作',
             tags: ['任務執行', '業務自動化', '工單創建', '信息查詢'],
             button: '了解更多',
             mediaAlt: '完整業務閉環功能演示'
           }
         },
         customerCases: {
-          title: '客戶成功案例',
-          subtitle: '真實業績，可量化價值',
+          title: '應用與量化效果',
+          subtitle: '',
           case1: {
             tag: '廚電行業',
             title: '廚電客戶實現大規模客戶服務自動化，年節省總成本525萬',
             subtitle: '年節省成本525萬',
+            description: 'Zenava獨立處理產品諮詢、報修、訂單查詢等大量重複性諮詢，替代35個呼叫中心座席的工作量',
             features: [
-              'Zenava獨立處理產品諮詢、報修、訂單查詢等大量重複性諮詢，替代35個呼叫中心座席的工作量',
               '年度節省成本約525萬元',
               '項目ROI高達425%'
             ],
@@ -1750,8 +1752,8 @@ export const siteTranslations = {
             tag: '汽車行業',
             title: '汽車客戶使用Zenava接管試駕邀約，轉化率提升至85%',
             subtitle: '轉化率提升至85%',
+            description: 'Zenava能夠自動清洗客戶線索，通過語音交互及時篩選有效客戶，邀約高意向客戶到店試駕',
             features: [
-              'Zenava能夠自動清洗客戶線索，通過語音交互及時篩選有效客戶，邀約高意向客戶到店試駕',
               '提高潛在客戶的跟進效率，提升線索轉化率，帶動銷量增長',
               '邀約轉化率提升至85%'
             ],
@@ -1762,8 +1764,8 @@ export const siteTranslations = {
             tag: '酒店行業',
             title: '酒店集團預訂全流程無人化，大幅提升預訂轉化率',
             subtitle: '預訂轉化率提升15%-25%',
+            description: 'Zenava獨立完整執行從理解預訂需求、確認時間與房型到完成預訂的全流程',
             features: [
-              'Zenava獨立完整執行從理解預訂需求、確認時間與房型到完成預訂的全流程',
               '支持多語言溝通，覆蓋全球客戶',
               '預訂轉化率提升15%-25%'
             ],
@@ -1778,29 +1780,28 @@ export const siteTranslations = {
           card1: {
             title: '實時響應',
             subtitle: '秒級回復客戶',
-            desc: '7x24小時在線，智能路由分配，確保客戶問題得到及時響應和處理。'
+            desc: '7x24小時在線，智能路由分配，確保客戶問題得到及時響應和處理'
           },
           card2: {
             title: '多渠道支持',
             subtitle: '統一管理所有渠道',
-            desc: '支持網站、移動端、社交媒體等多種渠道，統一管理客戶對話，提升服務效率。'
+            desc: '支持網站、移動端、社交媒體等多種渠道，統一管理客戶對話，提升服務效率'
           },
           card3: {
             title: '智能分析',
             subtitle: '數據驅動優化',
-            desc: '實時分析客戶對話數據，識別常見問題，優化服務流程，提升客戶滿意度。'
+            desc: '實時分析客戶對話數據，識別常見問題，優化服務流程，提升客戶滿意度'
           }
         },
         features: {},
         caseStudies: {
-          title: '成功案例',
-          subtitle: '來自企業客戶的真實效果',
+          title: '應用與量化效果',
+          subtitle: '',
           case1: {
-            mainTitle: 'B2B企業官網客服無人化接待',
+            mainTitle: 'B2B企業官網客服無人化接待，留資率高達46%',
             highlight: '留資率高達46%',
-            description: 'Zenava在官網獨立接待客戶，自動進行線索的初步篩選和信息收集。',
+            description: 'Zenava在官網獨立接待客戶，自動進行線索的初步篩選和信息收集',
             points: [
-              'Zenava在官網獨立接待客戶，自動進行線索的初步篩選和信息收集',
               '全時段覆蓋售前接待，實現官網客服無人化值守',
               '留資率高達46%，超過人工留資率40%',
               '產品業務知識分鐘級更新，保障服務準確性和專業度'
@@ -1813,11 +1814,10 @@ export const siteTranslations = {
             buttonLink: '/products/live-chat'
           },
           case2: {
-            mainTitle: '智能鎖客戶實現端到端售後服務自動化',
+            mainTitle: '智能鎖客戶實現端到端售後服務自動化，年節省總成本 621 萬',
             highlight: '年節省總成本 621萬',
-            description: 'Zenava通過多輪對話結合圖片精準識別，獨立完成智能鎖故障排查。',
+            description: 'Zenava通過多輪對話結合圖片精準識別，獨立完成智能鎖故障排查',
             points: [
-              'Zenava通過多輪對話結合圖片精準識別，獨立完成智能鎖故障排查',
               '獨立接待率達到83%',
               '年節省總成本 621萬'
             ],
@@ -1832,12 +1832,12 @@ export const siteTranslations = {
           }
         },
         section3: {
-          title: 'AI Agents for Chat 核心能力',
-          subtitle: '助力您的客戶服務卓越',
+          title: 'AI Agents for Chat',
+          subtitle: '',
           item1: {
             mainTitle: '7×24小時全渠道在線',
             subtitle: '不錯失與客戶的每一次溝通',
-            description: 'Zenava可以7×24小時在客戶選擇的渠道上與他們實時溝通，無論是網頁、App、社交媒體還是消息應用，企業無需擔心客戶等待或錯失商機，顯著提升客戶滿意度與留存率。',
+            description: 'Zenava可以7×24小時在客戶選擇的渠道上與他們實時溝通，無論是網頁、App、社交媒體還是消息應用，企業無需擔心客戶等待或錯失商機，顯著提升客戶滿意度與留存率',
             tag1: '7×24小時',
             tag2: '全渠道',
             tag3: '實時溝通',
@@ -1848,7 +1848,7 @@ export const siteTranslations = {
           item2: {
             mainTitle: '支持文字、圖片、視頻等富媒體溝通',
             subtitle: '精準識別客戶意圖',
-            description: 'Zenava不僅能理解文字，還能理解圖片、視頻等多種形態的信息，提供豐富的對話體驗，實現複雜多輪對話信息收集，精準識別客戶意圖，高效處理客戶問題。',
+            description: 'Zenava不僅能理解文字，還能理解圖片、視頻等多種形態的信息，提供豐富的對話體驗，實現複雜多輪對話信息收集，精準識別客戶意圖，高效處理客戶問題',
             tag1: '富媒體',
             tag2: '意圖識別',
             tag3: '多輪對話',
@@ -1859,7 +1859,7 @@ export const siteTranslations = {
           item3: {
             mainTitle: '能夠從表述中感知客戶情緒',
             subtitle: '以友好、尊重的方式回應',
-            description: 'Zenava通過性格建模具備語言理解與情緒感知能力，能夠從表述中識別情緒，並以友好、尊重的方式回應，讓客戶感受到貼心和專業的服務體驗。',
+            description: 'Zenava通過性格建模具備語言理解與情緒感知能力，能夠從表述中識別情緒，並以友好、尊重的方式回應，讓客戶感受到貼心和專業的服務體驗',
             tag1: '情緒識別',
             tag2: '友好回應',
             tag3: '專業服務',
@@ -1870,7 +1870,7 @@ export const siteTranslations = {
           item4: {
             mainTitle: '兼顧品牌的業務底線和客戶體驗',
             subtitle: '靈活滿足客戶訴求',
-            description: '在遵守企業業務底線和品牌規範的前提下，Zenava能夠靈活滿足客戶個性化需求，使企業在保證安全與合規的同時提升客戶體驗。',
+            description: '在遵守企業業務底線和品牌規範的前提下，Zenava能夠靈活滿足客戶個性化需求，使企業在保證安全與合規的同時提升客戶體驗',
             tag1: '業務合規',
             tag2: '靈活方案',
             tag3: '客戶體驗',
@@ -1881,7 +1881,7 @@ export const siteTranslations = {
           item5: {
             mainTitle: '具備同理心與判斷力',
             subtitle: '驅動業務全流程閉環',
-            description: 'Zenava具有同理心與判斷力，在實際業務場景中，能夠像人類員工一樣調用工具，完成如發送短信、創建工單、查詢客戶資料以及邀約通知等任務，實現業務閉環。',
+            description: 'Zenava具有同理心與判斷力，在實際業務場景中，能夠像人類員工一樣調用工具，完成如發送短信、創建工單、查詢客戶資料以及邀約通知等任務，實現業務閉環',
             tag1: '同理心',
             tag2: '業務自動化',
             tag3: '流程閉環',
@@ -2154,7 +2154,7 @@ export const siteTranslations = {
       marketing: {
         title: '市场营销自动化',
         subtitle: '提升转化率，降低获客成本',
-        description: '实时识别客户意图，统一话术留资，智能分配高潜线索。基于会话分析反哺营销策略优化。',
+        description: '实时识别客户意图，统一话术留资，智能分配高潜线索。基于会话分析反哺营销策略优化',
         features: [
           '意图识别',
           '智能留资',
@@ -2175,7 +2175,7 @@ export const siteTranslations = {
       sales: {
         title: '销售赋能',
         subtitle: '缩短成交周期，提升成交率',
-        description: '实时话术推荐，竞品知识调用，最佳实践建议。AI辅助成交策略，验证转化提升。',
+        description: '实时话术推荐，竞品知识调用，最佳实践建议。AI辅助成交策略，验证转化提升',
         features: [
           '话术推荐',
           '竞品分析',
@@ -2188,7 +2188,7 @@ export const siteTranslations = {
       customerService: {
         title: '客户服务',
         subtitle: '更快、更准、更有温度',
-        description: '全天候智能响应，复杂问题智能分流，情绪感知互动。知识库联动快速解决问题。',
+        description: '全天候智能响应，复杂问题智能分流，情绪感知互动。知识库联动快速解决问题',
         features: [
           '24/7响应',
           '情绪识别',
@@ -2201,7 +2201,7 @@ export const siteTranslations = {
       internalService: {
         title: '内部运营',
         subtitle: '多层级组织高效管理',
-        description: '统一服务入口处理设备、库存、培训事务。智能派单与进度追踪，优化运营效率。',
+        description: '统一服务入口处理设备、库存、培训事务。智能派单与进度追踪，优化运营效率',
         features: [
           '统一入口',
           '智能派单',
@@ -2215,7 +2215,7 @@ export const siteTranslations = {
       management: {
         title: '管理优化',
         subtitle: '客户声音驱动产品创新',
-        description: '从对话中提取产品洞察，量化反馈趋势，建立客户声音到产品迭代闭环。',
+        description: '从对话中提取产品洞察，量化反馈趋势，建立客户声音到产品迭代闭环',
         features: [
           '洞察挖掘',
           '需求提取',
@@ -2332,17 +2332,17 @@ export const siteTranslations = {
           card1: {
             title: '能沟通',
             subtitle: '像真人一样交流',
-            desc: '具备多模态理解、情绪感知与高拟人化交互能力，带来超越真人的沟通体验。'
+            desc: '具备多模态理解、情绪感知与高拟人化交互能力，带来超越真人的沟通体验'
           },
           card2: {
             title: '能执行',
             subtitle: '独立完成业务闭环',
-            desc: '直接驱动业务流程，完成如发送短信、创建工单、查询客户资料以及邀约通知等任务。'
+            desc: '直接驱动业务流程，完成如发送短信、创建工单、查询客户资料以及邀约通知等任务'
           },
           card3: {
             title: '快速上岗',
             subtitle: '越用越聪明',
-            desc: '开箱即用，快速部署"上岗"，内置带教流程，遇到问题时自我修正错误，越用越聪明。'
+            desc: '开箱即用，快速部署"上岗"，内置带教流程，遇到问题时自我修正错误，越用越聪明'
           },
           card4: {
             title: '可量化价值',
@@ -2351,6 +2351,8 @@ export const siteTranslations = {
           }
         },
         features: {
+          title: '核心功能',
+          subtitle: '',
           voice: {
             title: 'Voice Agents',
             subtitle: '超越真人的语音对话体验',
@@ -2405,12 +2407,12 @@ export const siteTranslations = {
           imageAlt: 'VoiceAgents产品Banner图 - 超越真人的语音对话体验'
         },
         coreFeatures: {
-          title: '核心功能',
-          subtitle: '打造卓越的语音交互体验',
+          title: '核心能力',
+          subtitle: '',
           feature1: {
             title: '拟人化音色',
             subtitle: '像真人一样交流',
-            description: '语音交互自然流畅、情感丰富，具备多种音色与语气风格，满足用户个性化偏好。能够根据场景表达关怀、理解与专业感，让沟通体验超越真人。',
+            description: '语音交互自然流畅、情感丰富，具备多种音色与语气风格，满足用户个性化偏好。能够根据场景表达关怀、理解与专业感，让沟通体验超越真人',
             tags: ['自然流畅', '情感丰富', '多种音色', '个性化'],
             button: '了解更多',
             mediaAlt: '拟人化音色功能演示'
@@ -2418,7 +2420,7 @@ export const siteTranslations = {
           feature2: {
             title: '低延迟交互',
             subtitle: '实时响应，无需等待',
-            description: '毫秒级响应速度，实时对话无卡顿，让交互更自然。无论是客户咨询、业务办理还是投诉处理，Zenava都能快速响应。',
+            description: '毫秒级响应速度，实时对话无卡顿，让交互更自然。无论是客户咨询、业务办理还是投诉处理，Zenava都能快速响应',
             tags: ['毫秒级响应', '实时对话', '无缝跳转', '高效流畅'],
             button: '了解更多',
             mediaAlt: '低延迟交互功能演示'
@@ -2426,7 +2428,7 @@ export const siteTranslations = {
           feature3: {
             title: '精准智能打断',
             subtitle: '理解用户真实意图',
-            description: '支持用户随时打断和插话，实时响应不中断，像真人面对面聊天那样自然灵活。',
+            description: '支持用户随时打断和插话，实时响应不中断，像真人面对面聊天那样自然灵活',
             tags: ['智能打断', '意图识别', '自然对话', '实时响应'],
             button: '了解更多',
             mediaAlt: '精准智能打断功能演示'
@@ -2434,21 +2436,21 @@ export const siteTranslations = {
           feature4: {
             title: '完整业务闭环',
             subtitle: '端到端业务自动化',
-            description: 'Zenava能直接执行任务，如创建工单、发送通知、查询信息等，让对话真正转化为可落地的业务动作。',
+            description: 'Zenava能直接执行任务，如创建工单、发送通知、查询信息等，让对话真正转化为可落地的业务动作',
             tags: ['任务执行', '业务自动化', '工单创建', '信息查询'],
             button: '了解更多',
             mediaAlt: '完整业务闭环功能演示'
           }
         },
         customerCases: {
-          title: '客户成功案例',
-          subtitle: '真实业绩，可量化价值',
+          title: '应用与量化效果',
+          subtitle: '',
           case1: {
             tag: '厨电行业',
             title: '厨电客户实现大规模客户服务自动化，年节省总成本525万',
             subtitle: '年节省成本525万',
+            description: 'Zenava独立处理产品咨询、报修、订单查询等大量重复性咨询，替代35个呼叫中心座席的工作量',
             features: [
-              'Zenava独立处理产品咨询、报修、订单查询等大量重复性咨询，替代35个呼叫中心座席的工作量',
               '年度节省成本约525万元',
               '项目ROI高达425%'
             ],
@@ -2459,8 +2461,8 @@ export const siteTranslations = {
             tag: '汽车行业',
             title: '汽车客户使用Zenava接管试驾邀约，转化率提升至85%',
             subtitle: '转化率提升至85%',
+            description: 'Zenava能够自动清洗客户线索，通过语音交互及时筛选有效客户，邀约高意向客户到店试驾',
             features: [
-              'Zenava能够自动清洗客户线索，通过语音交互及时筛选有效客户，邀约高意向客户到店试驾',
               '提高潜在客户的跟进效率，提升线索转化率，带动销量增长',
               '邀约转化率提升至85%'
             ],
@@ -2471,8 +2473,8 @@ export const siteTranslations = {
             tag: '酒店行业',
             title: '酒店集团预订全流程无人化，大幅提升预订转化率',
             subtitle: '预订转化率提升15%-25%',
+            description: 'Zenava独立完整执行从理解预订需求、确认时间与房型到完成预订的全流程',
             features: [
-              'Zenava独立完整执行从理解预订需求、确认时间与房型到完成预订的全流程',
               '支持多语言沟通，覆盖全球客户',
               '预订转化率提升15%-25%'
             ],
@@ -2487,29 +2489,28 @@ export const siteTranslations = {
           card1: {
             title: '实时响应',
             subtitle: '秒级回复客户',
-            desc: '7x24小时在线，智能路由分配，确保客户问题得到及时响应和处理。'
+            desc: '7x24小时在线，智能路由分配，确保客户问题得到及时响应和处理'
           },
           card2: {
             title: '多渠道支持',
             subtitle: '统一管理所有渠道',
-            desc: '支持网站、移动端、社交媒体等多种渠道，统一管理客户对话，提升服务效率。'
+            desc: '支持网站、移动端、社交媒体等多种渠道，统一管理客户对话，提升服务效率'
           },
           card3: {
             title: '智能分析',
             subtitle: '数据驱动优化',
-            desc: '实时分析客户对话数据，识别常见问题，优化服务流程，提升客户满意度。'
+            desc: '实时分析客户对话数据，识别常见问题，优化服务流程，提升客户满意度'
           }
         },
         features: {},
         caseStudies: {
-          title: '成功案例',
-          subtitle: '来自企业客户的真实效果',
+          title: '应用与量化效果',
+          subtitle: '',
           case1: {
-            mainTitle: 'B2B企业官网客服无人化接待',
+            mainTitle: 'B2B企业官网客服无人化接待，留资率高达46%',
             highlight: '留资率高达46%',
-            description: 'Zenava在官网独立接待客户，自动进行线索的初步筛选和信息收集。',
+            description: 'Zenava在官网独立接待客户，自动进行线索的初步筛选和信息收集',
             points: [
-              'Zenava在官网独立接待客户，自动进行线索的初步筛选和信息收集',
               '全时段覆盖售前接待，实现官网客服无人化值守',
               '留资率高达46%，超过人工留资率40%',
               '产品业务知识分钟级更新，保障服务准确性和专业度'
@@ -2522,11 +2523,10 @@ export const siteTranslations = {
             buttonLink: '/products/live-chat'
           },
           case2: {
-            mainTitle: '智能锁客户实现端到端售后服务自动化',
+            mainTitle: '智能锁客户实现端到端售后服务自动化，年节省总成本 621 万',
             highlight: '年节省总成本 621万',
-            description: 'Zenava通过多轮对话结合图片精准识别，独立完成智能锁故障排查。',
+            description: 'Zenava通过多轮对话结合图片精准识别，独立完成智能锁故障排查',
             points: [
-              'Zenava通过多轮对话结合图片精准识别，独立完成智能锁故障排查',
               '独立接待率达到83%',
               '年节省总成本 621万'
             ],
@@ -2541,12 +2541,12 @@ export const siteTranslations = {
           }
         },
         section3: {
-          title: 'AI Agents for Chat 核心能力',
-          subtitle: '助力您的客户服务卓越',
+          title: 'AI Agents for Chat',
+          subtitle: '',
           item1: {
             mainTitle: '7×24小时全渠道在线',
             subtitle: '不错失与客户的每一次沟通',
-            description: 'Zenava可以7×24小时在客户选择的渠道上与他们实时沟通，无论是网页、App、社交媒体还是消息应用，企业无需担心客户等待或错失商机，显著提升客户满意度与留存率。',
+            description: 'Zenava可以7×24小时在客户选择的渠道上与他们实时沟通，无论是网页、App、社交媒体还是消息应用，企业无需担心客户等待或错失商机，显著提升客户满意度与留存率',
             tag1: '7×24小时',
             tag2: '全渠道',
             tag3: '实时沟通',
@@ -2557,7 +2557,7 @@ export const siteTranslations = {
           item2: {
             mainTitle: '支持文字、图片、视频等富媒体沟通',
             subtitle: '精准识别客户意图',
-            description: 'Zenava不仅能理解文字，还能理解图片、视频等多种形态的信息，提供丰富的对话体验，实现复杂多轮对话信息收集，精准识别客户意图，高效处理客户问题。',
+            description: 'Zenava不仅能理解文字，还能理解图片、视频等多种形态的信息，提供丰富的对话体验，实现复杂多轮对话信息收集，精准识别客户意图，高效处理客户问题',
             tag1: '富媒体',
             tag2: '意图识别',
             tag3: '多轮对话',
@@ -2568,7 +2568,7 @@ export const siteTranslations = {
           item3: {
             mainTitle: '能够从表述中感知客户情绪',
             subtitle: '以友好、尊重的方式回应',
-            description: 'Zenava通过性格建模具备语言理解与情绪感知能力，能够从表述中识别情绪，并以友好、尊重的方式回应，让客户感受到贴心和专业的服务体验。',
+            description: 'Zenava通过性格建模具备语言理解与情绪感知能力，能够从表述中识别情绪，并以友好、尊重的方式回应，让客户感受到贴心和专业的服务体验',
             tag1: '情绪识别',
             tag2: '友好回应',
             tag3: '专业服务',
@@ -2579,7 +2579,7 @@ export const siteTranslations = {
           item4: {
             mainTitle: '兼顾品牌的业务底线和客户体验',
             subtitle: '灵活满足客户诉求',
-            description: '在遵守企业业务底线和品牌规范的前提下，Zenava能够灵活满足客户个性化需求，使企业在保证安全与合规的同时提升客户体验。',
+            description: '在遵守企业业务底线和品牌规范的前提下，Zenava能够灵活满足客户个性化需求，使企业在保证安全与合规的同时提升客户体验',
             tag1: '业务合规',
             tag2: '灵活方案',
             tag3: '客户体验',
@@ -2590,7 +2590,7 @@ export const siteTranslations = {
           item5: {
             mainTitle: '具备同理心与判断力',
             subtitle: '驱动业务全流程闭环',
-            description: 'Zenava具有同理心与判断力，在实际业务场景中，能够像人类员工一样调用工具，完成如发送短信、创建工单、查询客户资料以及邀约通知等任务，实现业务闭环。',
+            description: 'Zenava具有同理心与判断力，在实际业务场景中，能够像人类员工一样调用工具，完成如发送短信、创建工单、查询客户资料以及邀约通知等任务，实现业务闭环',
             tag1: '同理心',
             tag2: '业务自动化',
             tag3: '流程闭环',
