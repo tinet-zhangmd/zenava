@@ -35,8 +35,8 @@ export const siteTranslations = {
     
     // Business Value
     businessValue: {
-      title: 'ZENAVA Modification',
-      subtitle: 'This is the subtitle',
+      title: 'What Zenava Can Bring to Enterprises',
+      subtitle: 'Transform organizational capabilities and reshape customer experience through AI-driven conversational intelligence',
       metrics: {
         marketing: {
           title: 'Marketing Performance Metrics',
@@ -197,6 +197,340 @@ export const siteTranslations = {
         featureShort: ['Insights Mining', 'Requirement Extraction', 'lteration Closed Loop'],
         brandFeatures: ['Risk Alert', 'Sentiment Analysis', 'Quality Control'],
         buttonText: 'Learn More About Management'
+      }
+    },
+    
+    // Industry Solutions
+    industries: {
+      retail: {
+        pageTitle: 'AI Agents for Retail',
+        banner: {
+          src: '/assets/images/retail/banner.png',
+          mobileSrc: '',
+          alt: 'Retail Product Banner',
+          link: '/contact'
+        },
+        cardGrid: {
+          card1: {
+            title: 'Connect with Consumers Anytime, Anywhere',
+            description: 'Establish 24/7 connections with consumers across brand websites, apps, social media, and other digital channels',
+            button1Text: 'Learn More',
+            button1Link: '/contact',
+            button2Text: 'Book Demo',
+            button2Link: '/contact'
+          },
+          card2: {
+            title: 'Personalized Customer Service',
+            description: 'Provide precise, personalized services to consumers, enhancing customer experience',
+            button1Text: 'Learn More',
+            button1Link: '/contact',
+            button2Text: 'Book Demo',
+            button2Link: '/contact'
+          },
+          card3: {
+            title: 'Handle Massive Customer Inquiries',
+            description: 'Process large volumes of customer inquiries simultaneously, easily handling peak sales seasons and shopping surges',
+            button1Text: 'Learn More',
+            button1Link: '/contact',
+            button2Text: 'Book Demo',
+            button2Link: '/contact'
+          }
+        },
+        alternatingTags: {
+          title: 'Core Business Scenarios',
+          subtitle: 'Providing Full Lifecycle Services for Consumers',
+          items: [
+            {
+              icon: 'fas fa-shopping-bag',
+              title: 'Intelligent Shopping Guidance',
+              subtitle: '',
+              description: 'Accurately identify customer inquiry intent, proactively provide personalized product recommendations and promotional information, boost sales, and improve purchase conversion rates.',
+              tags: ['Intent Recognition', 'Personalized Recommendations', 'Promotional Information', 'Conversion Enhancement'],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: 'Intelligent Shopping Guidance'
+            },
+            {
+              icon: 'fas fa-clipboard-list',
+              title: 'Order Management',
+              subtitle: '',
+              description: 'Automatically handle common inquiries such as order queries, returns and exchanges, and logistics tracking, reducing wait times and improving customer satisfaction and shopping experience.',
+              tags: ['Order Queries', 'Returns & Exchanges', 'Logistics Tracking', 'Efficiency Improvement'],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: 'Order Management'
+            },
+            {
+              icon: 'fas fa-tools',
+              title: 'After-Sales Troubleshooting',
+              subtitle: '',
+              description: 'When customers encounter product issues, accurately identify problems through multi-turn conversations combined with images or videos, independently guide customers to complete troubleshooting, improving problem resolution efficiency',
+              tags: ['Issue Identification', 'Multi-turn Conversations', 'Image & Video Support', 'Problem Resolution'],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: 'After-Sales Troubleshooting'
+            },
+            {
+              icon: 'fas fa-wrench',
+              title: 'Installation, Repair & Smart Follow-up',
+              subtitle: '',
+              description: 'Automatically identify customer service needs such as repairs and installations, generate work orders and dispatch to relevant personnel; automatically initiate satisfaction surveys after service completion, forming a complete customer service closed loop and enhancing customer experience.',
+              tags: ['Work Order Generation', 'Smart Dispatch', 'Satisfaction Surveys', 'Service Closed Loop'],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: 'Installation, Repair & Smart Follow-up'
+            }
+          ]
+        },
+        alternatingList: {
+          title: '',
+          subtitle: '',
+          items: [
+            {
+              title: 'Quantifiable Results',
+              subtitle: 'Every Investment is Quantifiable',
+              features: [
+                'Clear ROI Visibility',
+                'Automatically Handle 90% of Common Customer Issues',
+                'After-Sales Issue Resolution Time Reduced by 60%',
+                'Customer Satisfaction Increased to 92%+',
+                'Average Purchase Conversion Rate Increased by 30–40%'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'Quantifiable Results'
+            }
+          ]
+        }
+      },
+      automotive: {
+        banner: {
+          src: '/assets/images/automotive/banner.png',
+          mobileSrc: '',
+          alt: 'Automotive Product Banner',
+          link: '/contact'
+        },
+        alternatingList: {
+          title: 'Core Business Scenarios',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-car',
+              title: 'Test Drive Invitation',
+              description: 'Accurately identify customer intent and efficiently drive test drive conversion',
+              features: [
+                'Sensitively capture customer concerns, quickly and accurately answer questions about model configuration, pricing, and promotions',
+                'Automatically identify customer purchase intent and available time, guide customers to complete test drive appointments',
+                'From customer identification, consultation answers to task dispatch, achieve full-process automation of sales follow-up'
+              ],
+              businessValue: [
+                'Test Drive Invitation Conversion Rate Increased by 35%+',
+                'Customer Satisfaction Increased to 95%',
+                'Customer Response Time Reduced by 30%'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'Test Drive Invitation'
+            },
+            {
+              icon: 'fas fa-headset',
+              title: 'After-Sales Service & Customer Care',
+              description: 'Quickly respond to customer needs and enhance brand loyalty',
+              features: [
+                'Provide real-time maintenance/repair progress queries without waiting for human customer service',
+                'Proactively conduct maintenance reminders and recall notifications to improve customer satisfaction and loyalty',
+                'Automatically follow up and conduct satisfaction surveys after test drives/services to collect improvement feedback'
+              ],
+              businessValue: [
+                'After-Sales Inquiry Response Time Reduced by 50%',
+                'After-Sales Satisfaction Increased by 25%+',
+                'Customer Retention Rate Increased by 20%+'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'After-Sales Service & Customer Care'
+            }
+          ]
+        }
+      },
+      software: {
+        banner: {
+          src: '/assets/images/software/banner.png',
+          mobileSrc: '',
+          alt: 'Software Product Banner',
+          link: '/contact'
+        },
+        scenariosList: {
+          title: 'Core Business Scenarios',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-user-check',
+              title: 'Pre-Sales Lead Generation',
+              description: 'Automatically identify high-intent customers, efficiently collect key information, and improve lead conversion rates',
+              features: [
+                '24/7 reception, covering nights and holidays, providing second-level response',
+                'Accurately judge customer intent and lead generation willingness in open conversations',
+                'Leverage rich product knowledge and strong general knowledge to provide high-quality professional answers and enhance customer trust'
+              ],
+              effects: [
+                'Conversion rate from inquiry to lead increased from 10% to 40%',
+                'Save over 1 million in labor costs annually'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'Pre-Sales Lead Generation'
+            },
+            {
+              icon: 'fas fa-question-circle',
+              title: 'Software Usage Consultation',
+              description: 'Quickly respond to user questions, efficiently guide users on software features, and help new users get started quickly',
+              features: [
+                'Accurately understand vague or incomplete user questions, quickly locate specific functions or interface operations',
+                'Provide contextually consistent and easy-to-follow guidance under different versions, permissions, or personalized configurations'
+              ],
+              effects: [
+                'Independent reception rate reaches 62%'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'Software Usage Consultation'
+            },
+            {
+              icon: 'fas fa-tools',
+              title: 'Technical Support',
+              description: 'For customers and internal teams, automatically answer product technical questions during after-sales or product usage, provide troubleshooting guidance and ticket routing, improving service efficiency',
+              features: [
+                'Accurately identify semantic expressions and contextual dependencies of complex technical issues, ensuring accurate answers that match user scenarios',
+                'Based on intelligent agent knowledge base, quickly locate problems through large model analysis and provide comprehensive solutions',
+                'Smoothly escalate to human handling when problems cannot be solved'
+              ],
+              effects: [
+                'Accuracy exceeds 85%, average response time within 3 seconds',
+                'Independent reception rate increased from 20% to 35%'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'Technical Support'
+            }
+          ]
+        },
+        casesList: {
+          title: 'Case Studies & Quantified Effects',
+          subtitle: '',
+          items: [
+            {
+              title: 'SaaS Enterprise Website Unmanned Customer Service',
+              challenge: [
+                'Human customer service cannot provide full-time coverage, traditional form lead generation rate is low',
+                'Human customer service training cycle is long, cannot quickly and effectively cover all product professional knowledge'
+              ],
+              solution: 'Deploy Zenava to work independently on the website, combining product feature introductions, industry cases, and product highlights to provide professional interpretation for customers, automatically conducting preliminary screening and information collection of leads',
+              effects: [
+                'Full-time coverage of pre-sales reception, achieving unmanned website customer service',
+                'Lead generation rate as high as 46%, exceeding human lead generation rate by 40%'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'SaaS Enterprise Website Unmanned Customer Service'
+            },
+            {
+              title: 'Software Company Internal Technical Support',
+              challenge: [
+                'Internal support processes are complex, such as system function usage and system integration requiring coordination from multiple positions'
+              ],
+              solution: 'Deploy Zenava, integrating product operation documents, product descriptions, technical support FAQs, and pre-sales solution documents to build a knowledge base, providing full-time coverage for questions from sales, pre-sales, customers, and implementation engineers',
+              effects: [
+                'Customer-facing employee efficiency increased by 15%~30%',
+                'Technical support team saves 40% of internal support time'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'Software Company Internal Technical Support'
+            }
+          ]
+        }
+      },
+      travel: {
+        banner: {
+          src: '/assets/images/travel/banner.png',
+          mobileSrc: '',
+          alt: 'Travel Product Banner',
+          link: '/contact'
+        },
+        alternatingTags: {
+          title: 'Core Business Scenarios',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-hotel',
+              title: 'Hotel & Ticket Booking',
+              titleLink: '',
+              subtitle: '',
+              description: 'Accurately understand customer intent, independently and completely execute the entire booking process from confirming room type, time, ticket information to completing the booking, improving customer satisfaction and booking conversion rates.',
+              tags: ['Intent Recognition', 'Full Process Automation', 'Booking Conversion', 'Customer Satisfaction'],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: 'Hotel & Ticket Booking'
+            },
+            {
+              icon: 'fas fa-user-circle',
+              title: 'Account Management',
+              titleLink: '',
+              subtitle: '',
+              description: 'Instantly respond to customer inquiries about account access, loyalty programs, member benefits, etc., self-service common issues, reduce average handling time, and improve member loyalty.',
+              tags: ['Instant Response', 'Self-Service', 'Member Management', 'Efficiency Improvement'],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: 'Account Management'
+            },
+            {
+              icon: 'fas fa-life-ring',
+              title: 'Travel Support',
+              titleLink: '',
+              subtitle: '',
+              description: 'Provide instant assistance to customers regarding issues such as lost luggage, missed flights, or check-in times, reduce response time, and improve customer experience.',
+              tags: ['Instant Assistance', 'Problem Resolution', 'Response Speed', 'Customer Experience'],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: 'Travel Support'
+            }
+          ]
+        },
+        alternatingList: {
+          title: 'Quantifiable Results',
+          subtitle: '',
+          items: [
+            {
+              title: 'Quantifiable Results',
+              features: [
+                'Customer Satisfaction Increased by 30%',
+                'Operating Costs Reduced by 35%',
+                'Booking Conversion Rate Increased by 25%',
+                'Response Time Reduced by 70%'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'Quantifiable Results'
+            }
+          ]
+        }
       }
     },
     
@@ -1042,8 +1376,8 @@ export const siteTranslations = {
     
     // Business Value - Professional tone
     businessValue: {
-      title: 'ZENAVA改修',
-      subtitle: 'これはサブタイトルです',
+      title: 'Zenavaが企業にもたらすもの',
+      subtitle: 'AI駆動の対話インテリジェンスを通じて、組織能力を変革し、顧客体験を再構築',
       metrics: {
         marketing: {
           title: 'マーケティング成果指標',
@@ -1156,6 +1490,340 @@ export const siteTranslations = {
         ],
         brandFeatures: ['リスクアラート', '感情分析', '品質管理'],
         buttonText: '管理の詳細'
+      }
+    },
+    
+    // 業界ソリューション
+    industries: {
+      retail: {
+        pageTitle: 'AI Agents for Retail',
+        banner: {
+          src: '/assets/images/retail/banner.png',
+          mobileSrc: '',
+          alt: '小売業向けAIエージェント',
+          link: '/contact'
+        },
+        cardGrid: {
+          card1: {
+            title: 'いつでもどこでも消費者とつながる',
+            description: 'ブランドウェブサイト、アプリ、ソーシャルメディアなどのデジタルチャネルを通じて、消費者と24時間365日の接続を確立',
+            button1Text: '詳細を見る',
+            button1Link: '/contact',
+            button2Text: 'デモのご予約',
+            button2Link: '/contact'
+          },
+          card2: {
+            title: 'パーソナライズされた顧客サービス',
+            description: '消費者に正確でパーソナライズされたサービスを提供し、顧客体験を向上',
+            button1Text: '詳細を見る',
+            button1Link: '/contact',
+            button2Text: 'デモのご予約',
+            button2Link: '/contact'
+          },
+          card3: {
+            title: '大量の顧客問い合わせに対応',
+            description: '大量の顧客問い合わせを同時に処理し、販売シーズンやショッピングピークを簡単に対応',
+            button1Text: '詳細を見る',
+            button1Link: '/contact',
+            button2Text: 'デモのご予約',
+            button2Link: '/contact'
+          }
+        },
+        alternatingTags: {
+          title: 'コアビジネスシナリオ',
+          subtitle: '消費者にライフサイクル全体のサービスを提供',
+          items: [
+            {
+              icon: 'fas fa-shopping-bag',
+              title: 'インテリジェントショッピングガイド',
+              subtitle: '',
+              description: '顧客の問い合わせ意図を正確に識別し、パーソナライズされた商品推奨とプロモーション情報を積極的に提供し、販売を促進し、購入転換率を向上',
+              tags: ['意図認識', 'パーソナライズ推奨', 'プロモーション情報', '転換向上'],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: 'インテリジェントショッピングガイド'
+            },
+            {
+              icon: 'fas fa-clipboard-list',
+              title: '注文管理',
+              subtitle: '',
+              description: '注文照会、返品・交換、物流追跡などの一般的な問い合わせを自動処理し、待機時間を短縮し、顧客満足度とショッピング体験を向上',
+              tags: ['注文照会', '返品・交換処理', '物流追跡', '効率向上'],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '注文管理'
+            },
+            {
+              icon: 'fas fa-tools',
+              title: 'アフターサービス故障診断',
+              subtitle: '',
+              description: '顧客が製品の問題に遭遇した場合、画像や動画を組み合わせた多回対話を通じて問題を正確に識別し、顧客が独立して故障診断を完了できるよう導き、問題解決効率を向上',
+              tags: ['故障識別', '多回対話', '画像・動画サポート', '問題解決'],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: 'アフターサービス故障診断'
+            },
+            {
+              icon: 'fas fa-wrench',
+              title: '設置・修理とインテリジェントフォローアップ',
+              subtitle: '',
+              description: '顧客の修理、設置などのサービスニーズを自動識別し、作業チケットを生成して関連担当者に配信；サービス完了後、自動的に満足度調査を開始し、完全な顧客サービス閉ループを形成し、顧客体験を向上',
+              tags: ['作業チケット生成', 'インテリジェント配信', '満足度調査', 'サービス閉ループ'],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '設置・修理とインテリジェントフォローアップ'
+            }
+          ]
+        },
+        alternatingList: {
+          title: '',
+          subtitle: '',
+          items: [
+            {
+              title: '定量化された効果',
+              subtitle: 'Every Investment is Quantifiable',
+              features: [
+                '投資対効果が明確',
+                '一般的な顧客問題の90%を自動処理',
+                'アフターサービス問題解決時間を60%短縮',
+                '顧客満足度が92%+に向上',
+                '平均購入転換率が30–40%向上'
+              ],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '定量化された効果'
+            }
+          ]
+        }
+      },
+      automotive: {
+        banner: {
+          src: '/assets/images/automotive/banner.png',
+          mobileSrc: '',
+          alt: '自動車製品バナー',
+          link: '/contact'
+        },
+        alternatingList: {
+          title: 'コアビジネスシナリオ',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-car',
+              title: '試乗招待',
+              description: '顧客の意図を正確に識別し、試乗転換を効率的に推進',
+              features: [
+                '顧客の関心事を敏感に捉え、モデル構成、価格、プロモーションなどの質問に迅速かつ正確に回答',
+                '顧客の購入意図と利用可能な時間を自動識別し、顧客が試乗予約を完了できるよう導く',
+                '顧客識別、相談回答からタスク配信まで、セールスフォローアップの全プロセス自動化を実現'
+              ],
+              businessValue: [
+                '試乗招待転換率が35%+向上',
+                '顧客満足度が95%に向上',
+                '顧客応答時間が30%短縮'
+              ],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '試乗招待'
+            },
+            {
+              icon: 'fas fa-headset',
+              title: 'アフターサービスと顧客ケア',
+              description: '顧客のニーズに迅速に対応し、ブランドロイヤルティを向上',
+              features: [
+                '人間のカスタマーサービスを待つことなく、メンテナンス/修理の進捗をリアルタイムで照会',
+                'メンテナンスリマインダーやリコール通知を積極的に実施し、顧客満足度とロイヤルティを向上',
+                '試乗/サービス後に自動的にフォローアップと満足度調査を実施し、改善フィードバックを収集'
+              ],
+              businessValue: [
+                'アフターサービス問い合わせ応答時間が50%短縮',
+                'アフターサービス満足度が25%+向上',
+                '顧客維持率が20%+向上'
+              ],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'アフターサービスと顧客ケア'
+            }
+          ]
+        }
+      },
+      software: {
+        banner: {
+          src: '/assets/images/software/banner.png',
+          mobileSrc: '',
+          alt: 'ソフトウェア製品バナー',
+          link: '/contact'
+        },
+        scenariosList: {
+          title: 'コアビジネスシナリオ',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-user-check',
+              title: 'セールス前リード生成',
+              description: '高意欲顧客を自動識別し、重要な情報を効率的に収集し、リード転換率を向上',
+              features: [
+                '24時間対応、夜間や祝日もカバーし、秒級応答を提供',
+                'オープンな対話で顧客の意図とリード生成意欲を正確に判断',
+                '豊富な製品知識と強力な一般知識を活用し、高品質な専門的な回答を実現し、顧客の信頼を向上'
+              ],
+              effects: [
+                '問い合わせからリードへの転換率が10%から40%に向上',
+                '年間100万人以上の人的コストを節約'
+              ],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'セールス前リード生成'
+            },
+            {
+              icon: 'fas fa-question-circle',
+              title: 'ソフトウェア使用相談',
+              description: 'ユーザーの疑問に迅速に対応し、ソフトウェア機能の使用を効率的に指導し、新規ユーザーの迅速な習得を支援',
+              features: [
+                'ユーザーの曖昧または不完全な質問を正確に理解し、特定の機能やインターフェース操作に迅速に位置づけ',
+                '異なるバージョン、異なる権限、または個別設定の下で、文脈的に一貫した実行しやすい指導を提供'
+              ],
+              effects: [
+                '独立対応率が62%に達する'
+              ],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'ソフトウェア使用相談'
+            },
+            {
+              icon: 'fas fa-tools',
+              title: 'テクニカルサポート',
+              description: '顧客と内部チーム向けに、アフターサービスや製品使用中に製品技術問題を自動的に回答し、トラブルシューティングガイダンスとチケットルーティングを提供し、サービス効率を向上',
+              features: [
+                '複雑な技術問題の意味表現と文脈依存を正確に識別し、ユーザーシナリオに適合する正確な回答を確保',
+                'インテリジェントエージェント知識ベースに基づき、大規模モデル分析を通じて問題を迅速に位置づけ、包括的なソリューションを提供',
+                '問題が解決できない場合、人間処理にスムーズにエスカレート'
+              ],
+              effects: [
+                '精度が85%を超え、平均応答時間は3秒以内',
+                '独立対応率が20%から35%に向上'
+              ],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'テクニカルサポート'
+            }
+          ]
+        },
+        casesList: {
+          title: '応用事例と定量化された効果',
+          subtitle: '',
+          items: [
+            {
+              title: 'SaaS企業ウェブサイト無人カスタマーサービス',
+              challenge: [
+                '人間のカスタマーサービスは全時間帯をカバーできず、従来のフォームリード生成率が低い',
+                '人間のカスタマーサービスの育成サイクルが長く、全量の製品専門知識を迅速かつ効果的にカバーできない'
+              ],
+              solution: 'Zenavaを展開し、ウェブサイトで独立作業し、製品機能紹介、業界事例、製品のハイライトなどを組み合わせて顧客に専門的な解釈を提供し、リードの予備スクリーニングと情報収集を自動的に実施',
+              effects: [
+                'セールス前対応を全時間帯でカバーし、ウェブサイトカスタマーサービスの無人化を実現',
+                'リード生成率が46%に達し、人間のリード生成率を40%上回る'
+              ],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'SaaS企業ウェブサイト無人カスタマーサービス'
+            },
+            {
+              title: 'ソフトウェア会社内部テクニカルサポート',
+              challenge: [
+                '内部サポートプロセスが複雑で、システム機能の使用やシステム統合など、複数のポジションの協調サポートが必要'
+              ],
+              solution: 'Zenavaを展開し、製品操作ドキュメント、製品説明、テクニカルサポートFAQ、セールス前ソリューション文書を統合して知識ベースを構築し、セールス、セールス前、顧客、実装エンジニアからの質問に全時間帯で対応',
+              effects: [
+                '顧客側の従業員効率が15%~30%向上',
+                'テクニカルサポートチームが内部サポート時間の40%を節約'
+              ],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'ソフトウェア会社内部テクニカルサポート'
+            }
+          ]
+        }
+      },
+      travel: {
+        banner: {
+          src: '/assets/images/travel/banner.png',
+          mobileSrc: '',
+          alt: '旅行・ホテル製品バナー',
+          link: '/contact'
+        },
+        alternatingTags: {
+          title: 'コアビジネスシナリオ',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-hotel',
+              title: 'ホテル・チケット予約',
+              titleLink: '',
+              subtitle: '',
+              description: '顧客の意図を正確に理解し、部屋タイプ、時間、チケット情報の確認から予約完了までの全プロセスを独立して完全に実行し、顧客満足度と予約転換率を向上',
+              tags: ['意図認識', '全プロセス自動化', '予約転換', '顧客満足度'],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: 'ホテル・チケット予約'
+            },
+            {
+              icon: 'fas fa-user-circle',
+              title: 'アカウント管理',
+              titleLink: '',
+              subtitle: '',
+              description: 'アカウントアクセス、ポイントプログラム、会員特典などに関する顧客の問い合わせに即座に対応し、一般的な問題をセルフサービスで処理し、平均処理時間を短縮し、会員ロイヤルティを向上',
+              tags: ['即座の対応', 'セルフサービス', '会員管理', '効率向上'],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: 'アカウント管理'
+            },
+            {
+              icon: 'fas fa-life-ring',
+              title: '旅行サポート',
+              titleLink: '',
+              subtitle: '',
+              description: '荷物紛失、フライト乗り遅れ、チェックイン時間などの問題に関する顧客への即座の支援を提供し、応答時間を短縮し、顧客体験を向上',
+              tags: ['即座の支援', '問題解決', '応答速度', '顧客体験'],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '旅行サポート'
+            }
+          ]
+        },
+        alternatingList: {
+          title: '定量化された効果',
+          subtitle: '',
+          items: [
+            {
+              title: '定量化された効果',
+              features: [
+                '顧客満足度が30%向上',
+                '運営コストが35%削減',
+                '予約転換率が25%向上',
+                '応答時間が70%短縮'
+              ],
+              buttonText: '詳細を見る',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '定量化された効果'
+            }
+          ]
+        }
       }
     },
     
@@ -2002,8 +2670,8 @@ export const siteTranslations = {
     
     // Business Value
     businessValue: {
-      title: 'ZENAVA修改',
-      subtitle: '這是副標題',
+      title: 'Zenava能為企業帶來什麼',
+      subtitle: '透過AI驅動的對話智能，變革組織能力，重塑客戶體驗',
       metrics: {
         marketing: {
           title: '行銷成效指標',
@@ -2116,6 +2784,340 @@ export const siteTranslations = {
         ],
         brandFeatures: ['風險預警', '情緒分析', '品質控制'],
         buttonText: '了解更多管理優化'
+      }
+    },
+    
+    // 行業解決方案
+    industries: {
+      retail: {
+        pageTitle: 'AI Agents for Retail',
+        banner: {
+          src: '/assets/images/retail/banner.png',
+          mobileSrc: '',
+          alt: '零售行業Banner圖',
+          link: '/contact'
+        },
+        cardGrid: {
+          card1: {
+            title: '隨時隨地連接消費者',
+            description: '在品牌網站、APP、社交媒體等數字渠道與消費者建立全天候聯繫',
+            button1Text: '了解更多',
+            button1Link: '/contact',
+            button2Text: '預約演示',
+            button2Link: '/contact'
+          },
+          card2: {
+            title: '個性化客戶服務',
+            description: '為消費者提供精準、個性化服務，提升客戶體驗',
+            button1Text: '了解更多',
+            button1Link: '/contact',
+            button2Text: '預約演示',
+            button2Link: '/contact'
+          },
+          card3: {
+            title: '承接海量客戶諮詢',
+            description: '可同時處理大量客戶諮詢，輕鬆應對銷售旺季和購物高峰',
+            button1Text: '了解更多',
+            button1Link: '/contact',
+            button2Text: '預約演示',
+            button2Link: '/contact'
+          }
+        },
+        alternatingTags: {
+          title: '核心業務場景',
+          subtitle: '為消費者提供全生命週期服務',
+          items: [
+            {
+              icon: 'fas fa-shopping-bag',
+              title: '智能導購',
+              subtitle: '',
+              description: '精準識別客戶諮詢意圖，主動提供個性化商品推薦與優惠信息，促進銷售，提升購買轉化率。',
+              tags: ['意圖識別', '個性化推薦', '優惠信息', '轉化提升'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '智能導購'
+            },
+            {
+              icon: 'fas fa-clipboard-list',
+              title: '訂單管理',
+              subtitle: '',
+              description: '自動處理訂單查詢、退換貨、物流追蹤等常見問題，減少等待時間，提高客戶滿意度和購物體驗。',
+              tags: ['訂單查詢', '退換貨處理', '物流追蹤', '效率提升'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '訂單管理'
+            },
+            {
+              icon: 'fas fa-tools',
+              title: '售後故障排查',
+              subtitle: '',
+              description: '當客戶遇到產品故障問題時，通過多輪對話結合圖片或視頻，精準識別故障，獨立引導客戶完成故障排查，提高問題解決效率',
+              tags: ['故障識別', '多輪對話', '圖片視頻支持', '問題解決'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '售後故障排查'
+            },
+            {
+              icon: 'fas fa-wrench',
+              title: '報裝報修與智能回訪',
+              subtitle: '',
+              description: '自動識別客戶報修、安裝等服務需求，生成工單並派發至對應人員；服務完成後自動發起滿意度回訪，形成完整客戶服務閉環，提升客戶體驗。',
+              tags: ['工單生成', '智能派發', '滿意度回訪', '服務閉環'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '報裝報修與智能回訪'
+            }
+          ]
+        },
+        alternatingList: {
+          title: '',
+          subtitle: '',
+          items: [
+            {
+              title: '量化效果',
+              subtitle: 'Every Investment is Quantifiable',
+              features: [
+                '投資回報清晰可見',
+                '自動處理90%客戶常見問題',
+                '售後問題解決時長縮短 60%',
+                '客戶滿意度提升至 92%+',
+                '平均購買轉化率提升 30–40%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '量化效果'
+            }
+          ]
+        }
+      },
+      automotive: {
+        banner: {
+          src: '/assets/images/automotive/banner.png',
+          mobileSrc: '',
+          alt: '汽車產品Banner圖',
+          link: '/contact'
+        },
+        alternatingList: {
+          title: '核心業務場景',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-car',
+              title: '試駕邀約',
+              description: '精準識別客戶意圖，高效推動試駕轉化',
+              features: [
+                '敏銳捕捉客戶關注點，快速精準解答車型配置、價格、優惠等問題',
+                '自動識別客戶購車意圖與可用時間，引導客戶完成試駕預約',
+                '從客戶識別、諮詢解答到任務派發，實現銷售跟單全流程自動化'
+              ],
+              businessValue: [
+                '試駕邀約轉化率提升 35%+',
+                '客戶滿意度提升至95%',
+                '客戶響應時長縮短 30%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '試駕邀約'
+            },
+            {
+              icon: 'fas fa-headset',
+              title: '售後服務與客戶關懷',
+              description: '快速響應客戶需求，提升品牌忠誠度',
+              features: [
+                '提供維保/維修進度實時查詢，無需等待人工客服',
+                '主動進行保養提醒與召回通知等，提升客戶滿意度與忠誠度',
+                '試駕/服務後自動回訪與滿意度調查，收集改進意見'
+              ],
+              businessValue: [
+                '售後諮詢響應時間縮短 50%',
+                '售後滿意度提升 25%+',
+                '客戶留存率提升 20%+'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '售後服務與客戶關懷'
+            }
+          ]
+        }
+      },
+      software: {
+        banner: {
+          src: '/assets/images/software/banner.png',
+          mobileSrc: '',
+          alt: '軟件產品Banner圖',
+          link: '/contact'
+        },
+        scenariosList: {
+          title: '核心業務場景',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-user-check',
+              title: '售前留資',
+              description: '自動識別高意向客戶，高效收集關鍵信息，提升線索轉化率',
+              features: [
+                '24小時接待，覆蓋夜間及節假日，提供秒級響應',
+                '在開放式對話中精準判斷客戶意向與留資意願',
+                '利用豐富產品知識與強大通識能力，實現高質量專業解答，提升客戶信任度'
+              ],
+              effects: [
+                '諮詢到線索的轉化率從10%提升至 40%',
+                '每年節省超100萬人力成本'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '售前留資'
+            },
+            {
+              icon: 'fas fa-question-circle',
+              title: '軟件使用諮詢',
+              description: '快速響應用戶疑問，高效指導用戶使用軟件功能，幫助新用戶快速上手',
+              features: [
+                '精準理解用戶模糊或不完整提問，快速定位到具體功能或界面操作',
+                '在不同版本、不同權限或個性化配置下，提供上下文一致、易於執行的指導'
+              ],
+              effects: [
+                '獨立接待率達到62%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '軟件使用諮詢'
+            },
+            {
+              icon: 'fas fa-tools',
+              title: '技術支持',
+              description: '面向客戶與內部團隊，在售後或產品使用過程中，自動化解答產品技術問題，提供排障指導和工單分流，提升服務效率',
+              features: [
+                '準確識別複雜技術問題的語義表達與上下文依賴，確保答案精準且符合用戶場景',
+                '基於智能體知識庫，通過大模型分析快速定位問題，提供綜合性解決方案',
+                '無法解決問題時，平滑升級至人工處理'
+              ],
+              effects: [
+                '準確率超85%，平均響應時間3S內',
+                '獨立接待率從20%提升至35%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '技術支持'
+            }
+          ]
+        },
+        casesList: {
+          title: '應用案例與量化效果',
+          subtitle: '',
+          items: [
+            {
+              title: 'SaaS企業官網客服無人化接待',
+              challenge: [
+                '人工客服接待無法全時段覆蓋，傳統表單留資率低',
+                '人工客服培養週期長，無法快速有效覆蓋全量的產品專業知識'
+              ],
+              solution: '部署Zenava，在官網獨立作業，結合產品功能介紹、行業案例、產品亮點等為客戶提供專業解讀，自動進行線索的初步篩選和信息收集',
+              effects: [
+                '全時段覆蓋售前接待，實現官網客服無人化值守',
+                '留資率高達46%，超過人工留資率40%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'SaaS企業官網客服無人化接待'
+            },
+            {
+              title: '軟件公司內部技術支持',
+              challenge: [
+                '內部支持流程複雜，如系統功能使用、系統對接等需要多個崗位協同支持'
+              ],
+              solution: '部署 Zenava，融合產品操作文檔、產品說明、技術支持常見問題、售前解決方案文檔構建知識庫，全時段覆蓋銷售、售前、客戶、實施工程師的問題諮詢',
+              effects: [
+                '對客側員工效率提升 15%~30%',
+                '技術支持團隊節省40%的內部支撐時間'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '軟件公司內部技術支持'
+            }
+          ]
+        }
+      },
+      travel: {
+        banner: {
+          src: '/assets/images/travel/banner.png',
+          mobileSrc: '',
+          alt: '旅遊產品Banner圖',
+          link: '/contact'
+        },
+        alternatingTags: {
+          title: '核心業務場景',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-hotel',
+              title: '酒店與票務預訂',
+              titleLink: '',
+              subtitle: '',
+              description: '準確理解客戶意圖，獨立完整執行從確認房型、時間、票務信息等到完成預訂全流程，提升客戶滿意度與預訂轉化率。',
+              tags: ['意圖識別', '全流程自動化', '預訂轉化', '客戶滿意度'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '酒店與票務預訂'
+            },
+            {
+              icon: 'fas fa-user-circle',
+              title: '賬戶管理',
+              titleLink: '',
+              subtitle: '',
+              description: '即時響應客戶關於賬戶訪問、積分計劃、會員權益等的諮詢，自助處理常見問題，縮短平均處理時長，提高會員忠誠度。',
+              tags: ['即時響應', '自助服務', '會員管理', '效率提升'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '賬戶管理'
+            },
+            {
+              icon: 'fas fa-life-ring',
+              title: '旅行支持',
+              titleLink: '',
+              subtitle: '',
+              description: '為客戶提供關於行李丟失、錯過航班或入住時間等問題的即時幫助，縮短響應時間，提升客戶體驗。',
+              tags: ['即時幫助', '問題解決', '響應速度', '客戶體驗'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '旅行支持'
+            }
+          ]
+        },
+        alternatingList: {
+          title: '量化效果',
+          subtitle: '',
+          items: [
+            {
+              title: '量化效果',
+              features: [
+                '客戶滿意度提升 30%',
+                '運營成本降低 35%',
+                '預訂轉化率提升 25%',
+                '響應時間縮短 70%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '量化效果'
+            }
+          ]
+        }
       }
     },
     
@@ -2962,8 +3964,8 @@ export const siteTranslations = {
     
     // 业务价值
     businessValue: {
-      title: 'ZENAVA修改',
-      subtitle: '这是副标题',
+      title: 'Zenava能为企业带来什么',
+      subtitle: '通过AI驱动的对话智能，变革组织能力，重塑客户体验',
       metrics: {
         marketing: {
           title: '营销成效指标',
@@ -3125,6 +4127,340 @@ export const siteTranslations = {
         featureShort: ['洞察挖掘', '需求提取', '迭代闭环'],
         brandFeatures: ['风险预警', '情绪分析', '品质控制'],
         buttonText: '了解更多管理优化'
+      }
+    },
+    
+    // 行业解决方案
+    industries: {
+      retail: {
+        pageTitle: 'AI Agents for Retail',
+        banner: {
+          src: '/assets/images/retail/banner.png',
+          mobileSrc: '',
+          alt: '零售行业Banner图',
+          link: '/contact'
+        },
+        cardGrid: {
+          card1: {
+            title: '随时随地连接消费者',
+            description: '在品牌网站、APP、社交媒体等数字渠道与消费者建立全天候联系',
+            button1Text: '了解更多',
+            button1Link: '/contact',
+            button2Text: '预约演示',
+            button2Link: '/contact'
+          },
+          card2: {
+            title: '个性化客户服务',
+            description: '为消费者提供精准、个性化服务，提升客户体验',
+            button1Text: '了解更多',
+            button1Link: '/contact',
+            button2Text: '预约演示',
+            button2Link: '/contact'
+          },
+          card3: {
+            title: '承接海量客户咨询',
+            description: '可同时处理大量客户咨询，轻松应对销售旺季和购物高峰',
+            button1Text: '了解更多',
+            button1Link: '/contact',
+            button2Text: '预约演示',
+            button2Link: '/contact'
+          }
+        },
+        alternatingTags: {
+          title: '核心业务场景',
+          subtitle: '为消费者提供全生命周期服务',
+          items: [
+            {
+              icon: 'fas fa-shopping-bag',
+              title: '智能导购',
+              subtitle: '',
+              description: '精准识别客户咨询意图，主动提供个性化商品推荐与优惠信息，促进销售，提升购买转化率。',
+              tags: ['意图识别', '个性化推荐', '优惠信息', '转化提升'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '智能导购'
+            },
+            {
+              icon: 'fas fa-clipboard-list',
+              title: '订单管理',
+              subtitle: '',
+              description: '自动处理订单查询、退换货、物流追踪等常见问题，减少等待时间，提高客户满意度和购物体验。',
+              tags: ['订单查询', '退换货处理', '物流追踪', '效率提升'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '订单管理'
+            },
+            {
+              icon: 'fas fa-tools',
+              title: '售后故障排查',
+              subtitle: '',
+              description: '当客户遇到产品故障问题时，通过多轮对话结合图片或视频，精准识别故障，独立引导客户完成故障排查，提高问题解决效率',
+              tags: ['故障识别', '多轮对话', '图片视频支持', '问题解决'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '售后故障排查'
+            },
+            {
+              icon: 'fas fa-wrench',
+              title: '报装报修与智能回访',
+              subtitle: '',
+              description: '自动识别客户报修、安装等服务需求，生成工单并派发至对应人员；服务完成后自动发起满意度回访，形成完整客户服务闭环，提升客户体验。',
+              tags: ['工单生成', '智能派发', '满意度回访', '服务闭环'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '报装报修与智能回访'
+            }
+          ]
+        },
+        alternatingList: {
+          title: '',
+          subtitle: '',
+          items: [
+            {
+              title: '量化效果',
+              subtitle: 'Every Investment is Quantifiable',
+              features: [
+                '投资回报清晰可见',
+                '自动处理90%客户常见问题',
+                '售后问题解决时长缩短 60%',
+                '客户满意度提升至 92%+',
+                '平均购买转化率提升 30–40%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '量化效果'
+            }
+          ]
+        }
+      },
+      automotive: {
+        banner: {
+          src: '/assets/images/automotive/banner.png',
+          mobileSrc: '',
+          alt: 'Automotive产品Banner图',
+          link: '/contact'
+        },
+        alternatingList: {
+          title: '核心业务场景',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-car',
+              title: '试驾邀约',
+              description: '精准识别客户意向，高效推动试驾转化',
+              features: [
+                '敏锐捕捉客户关注点，快速精准解答车型配置、价格、优惠等问题',
+                '自动识别客户购车意向与可用时间，引导客户完成试驾预约',
+                '从客户识别、咨询解答到任务派发，实现销售跟单全流程自动化'
+              ],
+              businessValue: [
+                '试驾邀约转化率提升 35%+',
+                '客户满意度提升至95%',
+                '客户响应时长缩短 30%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '试驾邀约'
+            },
+            {
+              icon: 'fas fa-headset',
+              title: '售后服务与客户关怀',
+              description: '快速响应客户需求，提升品牌忠诚度',
+              features: [
+                '提供维保/维修进度实时查询，无需等待人工客服',
+                '主动进行保养提醒与召回通知等，提升客户满意度与忠诚度',
+                '试驾/服务后自动回访与满意度调查，收集改进意见'
+              ],
+              businessValue: [
+                '售后咨询响应时间缩短 50%',
+                '售后满意度提升 25%+',
+                '客户留存率提升 20%+'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '售后服务与客户关怀'
+            }
+          ]
+        }
+      },
+      software: {
+        banner: {
+          src: '/assets/images/software/banner.png',
+          mobileSrc: '',
+          alt: 'Software产品Banner图',
+          link: '/contact'
+        },
+        scenariosList: {
+          title: '核心业务场景',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-user-check',
+              title: '售前留资',
+              description: '自动识别高意向客户，高效收集关键信息，提升线索转化率',
+              features: [
+                '24小时接待，覆盖夜间及节假日，提供秒级响应',
+                '在开放式对话中精准判断客户意向与留资意愿',
+                '利用丰富产品知识与强大通识能力，实现高质量专业解答，提升客户信任度'
+              ],
+              effects: [
+                '咨询到线索的转化率从10%提升至 40%',
+                '每年节省超100万人力成本'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '售前留资'
+            },
+            {
+              icon: 'fas fa-question-circle',
+              title: '软件使用咨询',
+              description: '快速响应用户疑问，高效指导用户使用软件功能，帮助新用户快速上手',
+              features: [
+                '精准理解用户模糊或不完整提问，快速定位到具体功能或界面操作',
+                '在不同版本、不同权限或个性化配置下，提供上下文一致、易于执行的指导'
+              ],
+              effects: [
+                '独立接待率达到62%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '软件使用咨询'
+            },
+            {
+              icon: 'fas fa-tools',
+              title: '技术支持',
+              description: '面向客户与内部团队，在售后或产品使用过程中，自动化解答产品技术问题，提供排障指导和工单分流，提升服务效率',
+              features: [
+                '准确识别复杂技术问题的语义表达与上下文依赖，确保答案精准且符合用户场景',
+                '基于智能体知识库，通过大模型分析快速定位问题，提供综合性解决方案',
+                '无法解决问题时，平滑升级至人工处理'
+              ],
+              effects: [
+                '准确率超85%，平均响应时间3S内',
+                '独立接待率从20%提升至35%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '技术支持'
+            }
+          ]
+        },
+        casesList: {
+          title: '应用案例与量化效果',
+          subtitle: '',
+          items: [
+            {
+              title: 'SaaS企业官网客服无人化接待',
+              challenge: [
+                '人工客服接待无法全时段覆盖，传统表单留资率低',
+                '人工客服培养周期长，无法快速有效覆盖全量的产品专业知识'
+              ],
+              solution: '部署Zenava，在官网独立作业，结合产品功能介绍、行业案例、产品亮点等为客户提供专业解读，自动进行线索的初步筛选和信息收集',
+              effects: [
+                '全时段覆盖售前接待，实现官网客服无人化值守',
+                '留资率高达46%，超过人工留资率40%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: 'SaaS企业官网客服无人化接待'
+            },
+            {
+              title: '软件公司内部技术支持',
+              challenge: [
+                '内部支持流程复杂，如系统功能使用、系统对接等需要多个岗位协同支持'
+              ],
+              solution: '部署 Zenava，融合产品操作文档、产品说明、技术支持常见问题、售前解决方案文档构建知识库，全时段覆盖销售、售前、客户、实施工程师的问题咨询',
+              effects: [
+                '对客侧员工效率提升 15%~30%',
+                '技术支持团队节省40%的内部支撑时间'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '软件公司内部技术支持'
+            }
+          ]
+        }
+      },
+      travel: {
+        banner: {
+          src: '/assets/images/travel/banner.png',
+          mobileSrc: '',
+          alt: 'Travel产品Banner图',
+          link: '/contact'
+        },
+        alternatingTags: {
+          title: '核心业务场景',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-hotel',
+              title: '酒店与票务预订',
+              titleLink: '',
+              subtitle: '',
+              description: '准确理解客户意图，独立完整执行从确认房型、时间、票务信息等到完成预订全流程，提升客户满意度与预订转化率。',
+              tags: ['意图识别', '全流程自动化', '预订转化', '客户满意度'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '酒店与票务预订'
+            },
+            {
+              icon: 'fas fa-user-circle',
+              title: '账户管理',
+              titleLink: '',
+              subtitle: '',
+              description: '即时响应客户关于账户访问、积分计划、会员权益等的咨询，自助处理常见问题，缩短平均处理时长，提高会员忠诚度。',
+              tags: ['即时响应', '自助服务', '会员管理', '效率提升'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '账户管理'
+            },
+            {
+              icon: 'fas fa-life-ring',
+              title: '旅行支持',
+              titleLink: '',
+              subtitle: '',
+              description: '为客户提供关于行李丢失、错过航班或入住时间等问题的即时帮助，缩短响应时间，提升客户体验。',
+              tags: ['即时帮助', '问题解决', '响应速度', '客户体验'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '',
+              mediaAlt: '旅行支持'
+            }
+          ]
+        },
+        alternatingList: {
+          title: '量化效果',
+          subtitle: '',
+          items: [
+            {
+              title: '量化效果',
+              features: [
+                '客户满意度提升 30%',
+                '运营成本降低 35%',
+                '预订转化率提升 25%',
+                '响应时间缩短 70%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '',
+              imageAlt: '量化效果'
+            }
+          ]
+        }
       }
     },
     

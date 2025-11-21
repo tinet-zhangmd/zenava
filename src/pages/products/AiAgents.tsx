@@ -25,19 +25,19 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
         {/* 可点击链接（可选，如果不需要链接则使用 div） */}
         <a href="/contact" class="block w-full h-full">
           {/* 背景层：渐变背景 + 图片覆盖 */}
-          <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600">
+          <div class="absolute inset-0 bg-gray-100">
             {/* 全图背景 - 支持移动端专用图片 */}
             <picture>
               {/* 移动端图片（< 768px） */}
               <source media="(max-width: 767px)" srcset="/assets/images/ai-agents/banner-mobile.webp" />
               {/* 桌面端图片（>= 768px） */}
-              <img 
-                src="/assets/images/ai-agents/banner.webp" 
-                alt="AIAgents Banner"
-                class="w-full h-full object-cover"
-                loading="eager"
-                decoding="async"
-              />
+            <img 
+              src="/assets/images/ai-agents/banner.webp" 
+              alt="AIAgents Banner"
+              class="w-full h-full object-cover"
+              loading="eager"
+              decoding="async"
+            />
             </picture>
           </div>
         </a>
@@ -102,7 +102,7 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
         </div>
       </section>
 
-      {/* Voice Section */}
+      {/* Messaging Section */}
       <section class="py-12 md:py-16 lg:py-20 bg-white">
         <div class="site-container px-4 sm:px-6 lg:px-8">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
@@ -110,8 +110,8 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
             <div class="relative rounded-2xl overflow-hidden">
                <div class="aspect-[4/3]">
                   <img 
-                    src="/assets/images/ai-agents/voice.webp" 
-                    alt="Voice功能演示图 - 超越真人的语音对话体验"
+                    src="/assets/images/ai-agents/person.webp" 
+                    alt="即时对话功能演示图 - 打造极致客户服务体验"
                     loading="lazy"
                     decoding="async"
                     class="w-full h-full object-contain"
@@ -121,45 +121,6 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
             
             {/* Right Content */}
             <div class="space-y-4 md:space-y-6 lg:space-y-8">
-              <div>
-                {/* 主标题：亮色（蓝色），大字体 */}
-                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600">{t.features.voice.title}</h2>
-                {/* 副标题：如果存在，显示为黑色，相同字体大小 */}
-                {t.features.voice.subtitle && (
-                  <p class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">{t.features.voice.subtitle}</p>
-                )}
-              </div>
-              
-              <ul class="space-y-3 md:space-y-4">
-                {t.features.voice.list.map((item: string) => (
-                  <li class="flex items-center space-x-2 md:space-x-3">
-                    <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-100 flex items-center justify-center">
-                      <i class="fas fa-check text-blue-600 text-xs"></i>
-                    </div>
-                    <span class="text-gray-700 font-medium text-sm md:text-base">{item}</span>
-                  </li>
-                ))}
-              </ul>
-              
-              <div>
-                <a 
-                  href="/contact" 
-                  class="inline-flex items-center px-6 py-3 md:px-6 md:py-3 border border-gray-300 shadow-sm text-base md:text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
-                >
-                  {t.features.voice.button}
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Messaging Section */}
-      <section class="py-12 md:py-16 lg:py-20 bg-gray-50">
-        <div class="site-container px-4 sm:px-6 lg:px-8">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
-            {/* Left Content */}
-            <div class="space-y-4 md:space-y-6 lg:space-y-8 order-2 lg:order-1">
               <div>
                 {/* 主标题：亮色（绿色），大字体 */}
                 <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-green-600">{t.features.messaging.title}</h2>
@@ -189,13 +150,52 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Voice Section */}
+      <section class="py-12 md:py-16 lg:py-20 bg-gray-50">
+        <div class="site-container px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+            {/* Left Content */}
+            <div class="space-y-4 md:space-y-6 lg:space-y-8 order-2 lg:order-1">
+              <div>
+                {/* 主标题：亮色（蓝色），大字体 */}
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600">{t.features.voice.title}</h2>
+                {/* 副标题：如果存在，显示为黑色，相同字体大小 */}
+                {t.features.voice.subtitle && (
+                  <p class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">{t.features.voice.subtitle}</p>
+                )}
+              </div>
+              
+              <ul class="space-y-3 md:space-y-4">
+                {t.features.voice.list.map((item: string) => (
+                  <li class="flex items-center space-x-2 md:space-x-3">
+                    <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-100 flex items-center justify-center">
+                      <i class="fas fa-check text-blue-600 text-xs"></i>
+                    </div>
+                    <span class="text-gray-700 font-medium text-sm md:text-base">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <div>
+                <a 
+                  href="/contact" 
+                  class="inline-flex items-center px-6 py-3 md:px-6 md:py-3 border border-gray-300 shadow-sm text-base md:text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
+                >
+                  {t.features.voice.button}
+                </a>
+              </div>
+            </div>
 
             {/* Right Image */}
             <div class="relative rounded-2xl overflow-hidden order-1 lg:order-2">
                <div class="aspect-[4/3]">
                   <img 
-                    src="/assets/images/ai-agents/person.webp" 
-                    alt="即时对话功能演示图 - 打造极致客户服务体验"
+                    src="/assets/images/ai-agents/voice.webp" 
+                    alt="Voice功能演示图 - 超越真人的语音对话体验"
                     loading="lazy"
                     decoding="async"
                     class="w-full h-full object-contain"

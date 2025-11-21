@@ -15,19 +15,19 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
       {/* Banner Section - 全图布局模式（仅图片和链接） */}
       <section class="relative w-full overflow-hidden" style="height: 740px;">
         <a href="/contact" class="block w-full h-full">
-          <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600">
+          <div class="absolute inset-0 bg-gray-100">
             {/* 全图背景 - 支持移动端专用图片 */}
             <picture>
               {/* 移动端图片（< 768px） */}
               <source media="(max-width: 767px)" srcset="/assets/images/voice-agents/banner-mobile.webp" />
               {/* 桌面端图片（>= 768px） */}
-              <img 
-                src="/assets/images/voice-agents/banner.webp" 
-                alt={t.banner.imageAlt}
-                class="w-full h-full object-cover"
-                loading="eager"
-                decoding="async"
-              />
+            <img 
+              src="/assets/images/voice-agents/banner.webp" 
+              alt={t.banner.imageAlt}
+              class="w-full h-full object-cover"
+              loading="eager"
+              decoding="async"
+            />
             </picture>
           </div>
         </a>

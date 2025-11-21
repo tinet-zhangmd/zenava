@@ -115,12 +115,12 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                               {/* 移动端图片（< 768px） */}
                               <source media="(max-width: 767px)" srcset={fullImageSlide.fullImage.mobileSrc} />
                               {/* 桌面端图片（>= 768px） */}
-                              <img 
-                                src={fullImageSlide.fullImage.src} 
-                                alt={fullImageSlide.fullImage.alt}
-                                class="w-full h-full object-cover"
-                                loading="lazy"
-                              />
+                          <img 
+                            src={fullImageSlide.fullImage.src} 
+                            alt={fullImageSlide.fullImage.alt}
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                          />
                             </picture>
                           ) : (
                             <img 
@@ -488,18 +488,18 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <div class="flex flex-col sm:flex-row gap-3">
                 {/* Learn More Button - 紫色，带白色圆形图标 */}
                 <a 
-                  href="/contact"
+                  href={`${language === 'en' ? '' : `/${language}`}/products/voice-agents`}
                   class="inline-flex items-center justify-center px-6 py-3 bg-[#6438FF] text-white rounded-full font-medium hover:bg-[#5a2ee6] transition-all duration-300"
                 >
                   <span class="inline-flex items-center justify-center w-5 h-5 bg-white rounded-full mr-2">
-                    <span class="text-[#6438FF] text-xs font-bold">+</span>
+                    <i class="fas fa-arrow-right text-[#6438FF] text-xs"></i>
               </span>
                   <span>{trans.otherResources.cards.voiceConnectivity.learnMore}</span>
                 </a>
                 
                 {/* Book Demo Button - 白色背景，黑色边框 */}
                 <a 
-                  href="/contact"
+                  href={`${language === 'en' ? '' : `/${language}`}/contact`}
                   class="inline-flex items-center justify-center px-6 py-3 bg-white border-2 border-gray-900 text-gray-900 rounded-full font-medium hover:bg-gray-50 transition-all duration-300"
                 >
                   {trans.otherResources.cards.voiceConnectivity.bookDemo}
@@ -526,18 +526,18 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <div class="flex flex-col sm:flex-row gap-3">
                 {/* Learn More Button - 紫色，带白色圆形图标 */}
                 <a 
-                  href="/contact"
+                  href={`${language === 'en' ? '' : `/${language}`}/products/live-chat`}
                   class="inline-flex items-center justify-center px-6 py-3 bg-[#6438FF] text-white rounded-full font-medium hover:bg-[#5a2ee6] transition-all duration-300"
                 >
                   <span class="inline-flex items-center justify-center w-5 h-5 bg-white rounded-full mr-2">
-                    <span class="text-[#6438FF] text-xs font-bold">+</span>
+                    <i class="fas fa-arrow-right text-[#6438FF] text-xs"></i>
                   </span>
                   <span>{trans.otherResources.cards.liveChat.learnMore}</span>
                 </a>
                 
                 {/* Book Demo Button - 白色背景，黑色边框 */}
                 <a 
-                  href="/contact"
+                  href={`${language === 'en' ? '' : `/${language}`}/contact`}
                   class="inline-flex items-center justify-center px-6 py-3 bg-white border-2 border-gray-900 text-gray-900 rounded-full font-medium hover:bg-gray-50 transition-all duration-300"
                 >
                   {trans.otherResources.cards.liveChat.bookDemo}
@@ -796,22 +796,15 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
 
             {/* Internal Service - Solution 4 */}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* 左侧：视频 */}
+              {/* 左侧：图片 */}
               <div class="order-2 lg:order-1 relative" data-animate="slide-up">
                 <div class="rounded-xl overflow-hidden">
-                  <video 
-                    src="/assets/video/codegen.mov"
-                    class="w-full h-auto"
-                    autoplay
-                    loop
-                    muted
-                    controls
-                    playsinline
-                  >
-                    <p class="p-8 bg-gray-100 text-center">
-                      {trans.scenarios.internalService.videoError || 'Your browser does not support video playback'}
-                    </p>
-                  </video>
+                  <img 
+                    src="/assets/images/inner.png"
+                    alt={trans.scenarios.internalService.title || 'Internal Operations'}
+                    class="w-full h-auto object-cover"
+                    loading="lazy"
+                  />
                 </div>
               </div>
               

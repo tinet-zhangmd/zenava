@@ -246,7 +246,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </li>
               <li>
                 <a 
-                  href={`${langPrefix}/products/live-chat`}
+                  href={`${langPrefix}/products/messaging`}
                   class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
                 >
                   {t.messaging}
@@ -254,7 +254,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </li>
               <li>
                 <a 
-                  href={`${langPrefix}/products/voice-agents`}
+                  href={`${langPrefix}/products/voice`}
                   class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
                 >
                   {t.voice}
@@ -269,9 +269,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
             <ul class="space-y-3">
               <li>
                 <a 
-                  href="https://www.baidu.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`${langPrefix}/industries/retail`}
                   class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
                 >
                   {t.retail}
@@ -279,9 +277,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </li>
               <li>
                 <a 
-                  href="https://www.baidu.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`${langPrefix}/industries/automotive`}
                   class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
                 >
                   {t.automotive}
@@ -289,9 +285,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </li>
               <li>
                 <a 
-                  href="https://www.baidu.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`${langPrefix}/industries/software`}
                   class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
                 >
                   {t.software}
@@ -299,9 +293,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </li>
               <li>
                 <a 
-                  href="https://www.baidu.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`${langPrefix}/industries/travel`}
                   class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
                 >
                   {t.hospitality}
@@ -316,9 +308,15 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
             <ul class="space-y-3">
               <li>
                 <a 
-                  href="https://www.baidu.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`${langPrefix}/resources`}
+                  class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
+                >
+                  {t.resources}
+                </a>
+              </li>
+              <li>
+                <a 
+                  href={`${langPrefix}/resources/blog`}
                   class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
                 >
                   {t.blog}
@@ -326,9 +324,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </li>
               <li>
                 <a 
-                  href="https://www.baidu.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`${langPrefix}/resources/reports`}
                   class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
                 >
                   {t.reports}
@@ -336,9 +332,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </li>
               <li>
                 <a 
-                  href="https://www.baidu.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`${langPrefix}/resources/video`}
                   class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
                 >
                   {t.videos}
