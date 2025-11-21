@@ -4,7 +4,7 @@ import { getTranslations } from '../i18n/translations'
 
 interface ResourceListPageProps {
   language?: Language
-  resourceType?: string // 'all' | 'whitepapers' | 'videos' | 'reports' | 'demos' | 'blog' | 'podcast'
+  resourceType?: string // 'all' | 'whitepapers' | 'video' | 'reports' | 'demos' | 'blog' | 'podcast'
   page?: number // Current page number
 }
 
@@ -34,19 +34,24 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
       <section class="bg-[#6438FF] sticky top-0 z-30">
         <div class="site-container px-4 sm:px-6 lg:px-8">
           <nav class="flex items-center justify-center space-x-6 md:space-x-8 overflow-x-auto py-4">
-            {getResourceNavItems(language).map((item) => (
-              <a
-                key={item.key}
-                href={item.href}
-                class={`whitespace-nowrap text-sm md:text-base font-medium text-white transition-all pb-2 relative ${
-                  resourceType === item.key
-                    ? 'border-b-2 border-white'
-                    : 'hover:opacity-80'
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
+            {getResourceNavItems(language).map((item) => {
+              // For 'all' resource type, check if we're on the resources homepage
+              const isActive = resourceType === item.key || (resourceType === 'all' && item.key === 'all')
+              
+              return (
+                <a
+                  key={item.key}
+                  href={item.href}
+                  class={`whitespace-nowrap text-sm md:text-base font-medium text-white transition-all pb-2 relative ${
+                    isActive
+                      ? 'border-b-2 border-white'
+                      : 'hover:opacity-80'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              )
+            })}
           </nav>
         </div>
       </section>
@@ -324,7 +329,7 @@ function getResourceTypeConfig(resourceType: string, language: Language) {
         listTitle: '白皮書'
       }
     },
-    videos: {
+    video: {
       zh: {
         title: '视频',
         heroTitle: '视频资源',
@@ -524,9 +529,9 @@ function getResourceNavItems(language: Language) {
   const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
   
   return [
-    { key: 'all', label: language === 'zh' ? '所有资源' : language === 'en' ? 'All Resources' : language === 'jp' ? 'すべてのリソース' : '所有資源', href: `${basePath}/all` },
+    { key: 'all', label: language === 'zh' ? '所有资源' : language === 'en' ? 'All Resources' : language === 'jp' ? 'すべてのリソース' : '所有資源', href: basePath },
     { key: 'whitepapers', label: language === 'zh' ? '白皮书' : language === 'en' ? 'Whitepapers' : language === 'jp' ? 'ホワイトペーパー' : '白皮書', href: `${basePath}/whitepapers` },
-    { key: 'videos', label: language === 'zh' ? '视频' : language === 'en' ? 'Videos' : language === 'jp' ? 'ビデオ' : '視頻', href: `${basePath}/videos` },
+    { key: 'video', label: language === 'zh' ? '视频' : language === 'en' ? 'Videos' : language === 'jp' ? 'ビデオ' : '視頻', href: `${basePath}/video` },
     { key: 'reports', label: language === 'zh' ? '行业报告' : language === 'en' ? 'Industry Reports' : language === 'jp' ? '業界レポート' : '行業報告', href: `${basePath}/reports` },
     { key: 'demos', label: language === 'zh' ? '产品演示' : language === 'en' ? 'Product Demos' : language === 'jp' ? '製品デモ' : '產品演示', href: `${basePath}/demos` },
     { key: 'blog', label: language === 'zh' ? '博客' : language === 'en' ? 'Blog' : language === 'jp' ? 'ブログ' : '博客', href: `${basePath}/blog` },

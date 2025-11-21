@@ -827,7 +827,7 @@ app.get('/resources/video', (c) => {
       footerSections={footerSections}
       privacyLinks={privacyLinks}
     >
-      <ResourceListPage language={language} resourceType="videos" page={page} />
+      <ResourceListPage language={language} resourceType="video" page={page} />
     </LayoutWithUnifiedNav>
   )
 })
@@ -929,7 +929,7 @@ app.get('/resources/podcast', (c) => {
 })
 
 // Multi-language Resource List routes
-const resourceTypes = ['all', 'whitepapers', 'videos', 'reports', 'demos', 'blog', 'podcast']
+const resourceTypes = ['all', 'whitepapers', 'video', 'reports', 'demos', 'blog', 'podcast']
 for (const lang of ['zh', 'en', 'jp', 'hk'] as Language[]) {
   for (const resourceType of resourceTypes) {
     app.get(`/${lang}/resources/${resourceType}`, (c) => {
