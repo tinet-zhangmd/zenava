@@ -372,6 +372,87 @@ export const siteTranslations = {
           button: 'Contact Us'
         }
       },
+      voiceAgents: {
+        banner: {
+          imageAlt: 'VoiceAgents Product Banner - Beyond Human Voice Conversation Experience'
+        },
+        coreFeatures: {
+          title: 'Core Features',
+          subtitle: 'Creating Excellence in Voice Interaction',
+          feature1: {
+            title: 'Human-like Timbre',
+            subtitle: 'Communicate Like a Real Person',
+            description: 'Natural and smooth voice interactions with rich emotions, featuring multiple timbres and tone styles to meet personalized preferences. Capable of expressing care, understanding, and professionalism based on scenarios, delivering communication experiences beyond real humans.',
+            tags: ['Natural Flow', 'Emotional Rich', 'Multiple Timbres', 'Personalized'],
+            button: 'Learn More',
+            mediaAlt: 'Human-like Timbre Feature Demo'
+          },
+          feature2: {
+            title: 'Low-latency Interaction',
+            subtitle: 'Real-time Response, No Waiting',
+            description: 'Millisecond-level response speed, real-time conversation without lag, making interactions more natural. Whether customer inquiries, business processing, or complaint handling, Zenava responds quickly.',
+            tags: ['Millisecond Response', 'Real-time Dialogue', 'Seamless Transition', 'Efficient Flow'],
+            button: 'Learn More',
+            mediaAlt: 'Low-latency Interaction Feature Demo'
+          },
+          feature3: {
+            title: 'Precise Intelligent Interruption',
+            subtitle: 'Understanding True User Intent',
+            description: 'Supports users interrupting and interjecting at any time, with real-time responses without interruption, as natural and flexible as face-to-face conversation.',
+            tags: ['Smart Interruption', 'Intent Recognition', 'Natural Dialogue', 'Real-time Response'],
+            button: 'Learn More',
+            mediaAlt: 'Precise Intelligent Interruption Feature Demo'
+          },
+          feature4: {
+            title: 'Complete Business Loop',
+            subtitle: 'End-to-End Business Automation',
+            description: 'Zenava can directly execute tasks such as creating tickets, sending notifications, querying information, etc., turning conversations into actionable business operations.',
+            tags: ['Task Execution', 'Business Automation', 'Ticket Creation', 'Information Query'],
+            button: 'Learn More',
+            mediaAlt: 'Complete Business Loop Feature Demo'
+          }
+        },
+        customerCases: {
+          title: 'Customer Success Stories',
+          subtitle: 'Real Performance, Quantifiable Value',
+          case1: {
+            tag: 'Kitchen Appliances Industry',
+            title: 'Kitchen Appliance Customer Achieves Large-scale Customer Service Automation, Saving 5.25 Million Annually',
+            subtitle: 'Annual Cost Savings of 5.25 Million',
+            features: [
+              'Zenava independently handles product inquiries, repairs, order queries, and other repetitive consultations, replacing the workload of 35 call center agents',
+              'Annual cost savings of approximately 5.25 million yuan',
+              'Project ROI as high as 425%'
+            ],
+            button: 'View Case Details',
+            imageAlt: 'Kitchen Appliance Customer Service Automation Case'
+          },
+          case2: {
+            tag: 'Automotive Industry',
+            title: 'Automotive Customer Uses Zenava for Test Drive Invitations, Conversion Rate Rises to 85%',
+            subtitle: 'Conversion Rate Up to 85%',
+            features: [
+              'Zenava automatically qualifies customer leads, timely screens effective customers through voice interaction, invites high-intent customers for test drives',
+              'Improves potential customer follow-up efficiency, enhances lead conversion rate, drives sales growth',
+              'Invitation conversion rate rises to 85%'
+            ],
+            button: 'View Case Details',
+            imageAlt: 'Automotive Customer Test Drive Invitation Case'
+          },
+          case3: {
+            tag: 'Hotel Industry',
+            title: 'Hotel Group Achieves Unmanned Booking Process, Significantly Boosting Booking Conversion Rate',
+            subtitle: 'Booking Conversion Rate Up 15%-25%',
+            features: [
+              'Zenava independently completes the entire process from understanding booking needs, confirming time and room type to completing the booking',
+              'Supports multilingual communication, covering global customers',
+              'Booking conversion rate increases by 15%-25%'
+            ],
+            button: 'View Case Details',
+            imageAlt: 'Hotel Group Booking Automation Case'
+          }
+        }
+      },
       liveChat: {
         advantages: {
           title: 'LiveChat Advantages',
@@ -407,7 +488,7 @@ export const siteTranslations = {
             ],
             metric: '46%',
             metricLabel: 'Lead Conversion Rate',
-            imageSrc: '/assets/images/livechat/case1-b2b.png',
+            imageSrc: '/assets/images/livechat/case1-b2b.webp',
             imageAlt: 'B2B Enterprise Website Unmanned Customer Service',
             button: 'Learn More',
             buttonLink: '/products/live-chat'
@@ -425,7 +506,7 @@ export const siteTranslations = {
             metricLabel: 'Annual Cost Savings',
             metric2: '83%',
             metric2Label: 'Independent Reception Rate',
-            imageSrc: '/assets/images/livechat/case2-smartlock.png',
+            imageSrc: '/assets/images/livechat/case2-smartlock.webp',
             imageAlt: 'Smart Lock End-to-End After-Sales Service Automation',
             button: 'Learn More',
             buttonLink: '/products/live-chat'
@@ -443,7 +524,7 @@ export const siteTranslations = {
             tag3: 'Real-time',
             buttonText: 'Learn More',
             imageAlt: '7x24 Hour Omnichannel Online',
-            imageSrc: '/assets/images/livechat/omnichannel.png'
+            imageSrc: '/assets/images/livechat/omnichannel.webp'
           },
           item2: {
             mainTitle: 'Rich Media Communication',
@@ -454,7 +535,7 @@ export const siteTranslations = {
             tag3: 'Multi-turn Dialogue',
             buttonText: 'Learn More',
             imageAlt: 'Rich Media Communication',
-            imageSrc: '/assets/images/livechat/rich-media.png'
+            imageSrc: '/assets/images/livechat/rich-media.webp'
           },
           item3: {
             mainTitle: 'Emotion Perception',
@@ -465,7 +546,7 @@ export const siteTranslations = {
             tag3: 'Professional Service',
             buttonText: 'Learn More',
             imageAlt: 'Emotion Perception',
-            imageSrc: '/assets/images/livechat/emotion.png'
+            imageSrc: '/assets/images/livechat/emotion.webp'
           },
           item4: {
             mainTitle: 'Balance Business and Experience',
@@ -476,7 +557,7 @@ export const siteTranslations = {
             tag3: 'Customer Experience',
             buttonText: 'Learn More',
             imageAlt: 'Balance Business and Experience',
-            imageSrc: '/assets/images/livechat/balance.png'
+            imageSrc: '/assets/images/livechat/balance.webp'
           },
           item5: {
             mainTitle: 'Empathy and Judgment',
@@ -487,7 +568,7 @@ export const siteTranslations = {
             tag3: 'Process Closure',
             buttonText: 'Learn More',
             imageAlt: 'Empathy and Judgment',
-            imageSrc: '/assets/images/livechat/empathy.png'
+            imageSrc: '/assets/images/livechat/empathy.webp'
           }
         }
       }
@@ -950,6 +1031,87 @@ export const siteTranslations = {
           button: 'お問い合わせ'
         }
       },
+      voiceAgents: {
+        banner: {
+          imageAlt: 'VoiceAgents製品バナー - 人間を超える音声対話体験'
+        },
+        coreFeatures: {
+          title: 'コア機能',
+          subtitle: '卓越した音声インタラクション体験を創出',
+          feature1: {
+            title: '人間らしい音色',
+            subtitle: '本物の人間のようなコミュニケーション',
+            description: '自然で滑らかな音声インタラクション、豊かな感情、複数の音色とトーンスタイルを備え、ユーザーの個性化されたニーズに対応。シナリオに応じて思いやり、理解、プロフェッショナリズムを表現し、本物の人間を超えるコミュニケーション体験を提供します。',
+            tags: ['自然な流れ', '豊かな感情', '複数の音色', 'パーソナライズ'],
+            button: '詳細を見る',
+            mediaAlt: '人間らしい音色機能デモ'
+          },
+          feature2: {
+            title: '低遅延インタラクション',
+            subtitle: 'リアルタイム応答、待ち時間なし',
+            description: 'ミリ秒レベルの応答速度、リアルタイム対話でラグなし、より自然なインタラクションを実現。顧客からの問い合わせ、業務処理、クレーム処理など、Zenavaは迅速に応答します。',
+            tags: ['ミリ秒応答', 'リアルタイム対話', 'シームレス移行', '効率的な流れ'],
+            button: '詳細を見る',
+            mediaAlt: '低遅延インタラクション機能デモ'
+          },
+          feature3: {
+            title: '精密なインテリジェント割り込み',
+            subtitle: 'ユーザーの真の意図を理解',
+            description: 'ユーザーがいつでも割り込みや発言ができ、中断なくリアルタイムで応答し、対面会話のように自然で柔軟です。',
+            tags: ['スマート割り込み', '意図認識', '自然な対話', 'リアルタイム応答'],
+            button: '詳細を見る',
+            mediaAlt: '精密なインテリジェント割り込み機能デモ'
+          },
+          feature4: {
+            title: '完全なビジネスループ',
+            subtitle: 'エンドツーエンドのビジネス自動化',
+            description: 'Zenavaはチケット作成、通知送信、情報照会などのタスクを直接実行でき、会話を実行可能なビジネスアクションに変換します。',
+            tags: ['タスク実行', 'ビジネス自動化', 'チケット作成', '情報照会'],
+            button: '詳細を見る',
+            mediaAlt: '完全なビジネスループ機能デモ'
+          }
+        },
+        customerCases: {
+          title: '顧客成功事例',
+          subtitle: '実績、定量化可能な価値',
+          case1: {
+            tag: '厨房電気業界',
+            title: '厨房電気顧客が大規模カスタマーサービス自動化を実現、年間総コスト削減525万元',
+            subtitle: '年間コスト削減525万元',
+            features: [
+              'Zenavaは製品問い合わせ、修理、注文照会などの大量の反復的な問い合わせを独立して処理し、35人のコールセンターエージェントの作業量を代替',
+              '年間コスト削減約525万元',
+              'プロジェクトROIは425%に達する'
+            ],
+            button: 'ケース詳細を見る',
+            imageAlt: '厨房電気顧客サービス自動化ケース'
+          },
+          case2: {
+            tag: '自動車業界',
+            title: '自動車顧客がZenavaで試乗招待を管理、コンバージョン率85%に向上',
+            subtitle: 'コンバージョン率85%',
+            features: [
+              'Zenavaは顧客リードを自動的に選別し、音声インタラクションを通じて有効な顧客をタイムリーにスクリーニングし、高意向顧客を試乗に招待',
+              '潜在顧客のフォローアップ効率を向上させ、リードコンバージョン率を高め、売上成長を促進',
+              '招待コンバージョン率85%に向上'
+            ],
+            button: 'ケース詳細を見る',
+            imageAlt: '自動車顧客試乗招待ケース'
+          },
+          case3: {
+            tag: 'ホテル業界',
+            title: 'ホテルグループが予約プロセスを無人化、予約コンバージョン率を大幅向上',
+            subtitle: '予約コンバージョン率15%-25%向上',
+            features: [
+              'Zenavaは予約ニーズの理解、時間と部屋タイプの確認から予約完了までの全プロセスを独立して完了',
+              '多言語コミュニケーションをサポートし、グローバル顧客をカバー',
+              '予約コンバージョン率15%-25%向上'
+            ],
+            button: 'ケース詳細を見る',
+            imageAlt: 'ホテルグループ予約自動化ケース'
+          }
+        }
+      },
       liveChat: {
         advantages: {
           title: 'LiveChatの強み',
@@ -985,7 +1147,7 @@ export const siteTranslations = {
             ],
             metric: '46%',
             metricLabel: 'リード獲得率',
-            imageSrc: '/assets/images/livechat/case1-b2b.png',
+            imageSrc: '/assets/images/livechat/case1-b2b.webp',
             imageAlt: 'B2B企業公式サイト無人カスタマーサービス',
             button: '詳細を見る',
             buttonLink: '/products/live-chat'
@@ -1003,7 +1165,7 @@ export const siteTranslations = {
             metricLabel: '年間コスト削減',
             metric2: '83%',
             metric2Label: '独立受付率',
-            imageSrc: '/assets/images/livechat/case2-smartlock.png',
+            imageSrc: '/assets/images/livechat/case2-smartlock.webp',
             imageAlt: 'スマートロック顧客のエンドツーエンドアフターサービス自動化',
             button: '詳細を見る',
             buttonLink: '/products/live-chat'
@@ -1021,7 +1183,7 @@ export const siteTranslations = {
             tag3: 'リアルタイム',
             buttonText: '詳細を見る',
             imageAlt: '7×24時間オムニチャネルオンライン',
-            imageSrc: '/assets/images/livechat/omnichannel.png'
+            imageSrc: '/assets/images/livechat/omnichannel.webp'
           },
           item2: {
             mainTitle: 'テキスト、画像、動画などのリッチメディアコミュニケーションをサポート',
@@ -1032,7 +1194,7 @@ export const siteTranslations = {
             tag3: 'マルチターン対話',
             buttonText: '詳細を見る',
             imageAlt: 'リッチメディアコミュニケーション',
-            imageSrc: '/assets/images/livechat/rich-media.png'
+            imageSrc: '/assets/images/livechat/rich-media.webp'
           },
           item3: {
             mainTitle: '表現から顧客の感情を感知',
@@ -1043,7 +1205,7 @@ export const siteTranslations = {
             tag3: '専門サービス',
             buttonText: '詳細を見る',
             imageAlt: '感情感知',
-            imageSrc: '/assets/images/livechat/emotion.png'
+            imageSrc: '/assets/images/livechat/emotion.webp'
           },
           item4: {
             mainTitle: 'ブランドのビジネス基盤と顧客体験を両立',
@@ -1054,7 +1216,7 @@ export const siteTranslations = {
             tag3: '顧客体験',
             buttonText: '詳細を見る',
             imageAlt: 'ビジネスと体験の両立',
-            imageSrc: '/assets/images/livechat/balance.png'
+            imageSrc: '/assets/images/livechat/balance.webp'
           },
           item5: {
             mainTitle: '共感力と判断力を備える',
@@ -1065,7 +1227,7 @@ export const siteTranslations = {
             tag3: 'プロセス閉環',
             buttonText: '詳細を見る',
             imageAlt: '共感力と判断力',
-            imageSrc: '/assets/images/livechat/empathy.png'
+            imageSrc: '/assets/images/livechat/empathy.webp'
           }
         }
       }
@@ -1529,6 +1691,87 @@ export const siteTranslations = {
           button: '聯絡我們'
         }
       },
+      voiceAgents: {
+        banner: {
+          imageAlt: 'VoiceAgents產品Banner圖 - 超越真人的語音對話體驗'
+        },
+        coreFeatures: {
+          title: '核心功能',
+          subtitle: '打造卓越的語音交互體驗',
+          feature1: {
+            title: '擬人化音色',
+            subtitle: '像真人一樣交流',
+            description: '語音交互自然流暢、情感豐富，具備多種音色與語氣風格，滿足用戶個性化偏好。能夠根據場景表達關懷、理解與專業感，讓溝通體驗超越真人。',
+            tags: ['自然流暢', '情感豐富', '多種音色', '個性化'],
+            button: '了解更多',
+            mediaAlt: '擬人化音色功能演示'
+          },
+          feature2: {
+            title: '低延遲交互',
+            subtitle: '實時響應，無需等待',
+            description: '毫秒級響應速度，實時對話無卡頓，讓交互更自然。無論是客戶諮詢、業務辦理還是投訴處理，Zenava都能快速響應。',
+            tags: ['毫秒級響應', '實時對話', '無縫跳轉', '高效流暢'],
+            button: '了解更多',
+            mediaAlt: '低延遲交互功能演示'
+          },
+          feature3: {
+            title: '精準智能打斷',
+            subtitle: '理解用戶真實意圖',
+            description: '支持用戶隨時打斷和插話，實時響應不中斷，像真人面對面聊天那樣自然靈活。',
+            tags: ['智能打斷', '意圖識別', '自然對話', '實時響應'],
+            button: '了解更多',
+            mediaAlt: '精準智能打斷功能演示'
+          },
+          feature4: {
+            title: '完整業務閉環',
+            subtitle: '端到端業務自動化',
+            description: 'Zenava能直接執行任務，如創建工單、發送通知、查詢信息等，讓對話真正轉化為可落地的業務動作。',
+            tags: ['任務執行', '業務自動化', '工單創建', '信息查詢'],
+            button: '了解更多',
+            mediaAlt: '完整業務閉環功能演示'
+          }
+        },
+        customerCases: {
+          title: '客戶成功案例',
+          subtitle: '真實業績，可量化價值',
+          case1: {
+            tag: '廚電行業',
+            title: '廚電客戶實現大規模客戶服務自動化，年節省總成本525萬',
+            subtitle: '年節省成本525萬',
+            features: [
+              'Zenava獨立處理產品諮詢、報修、訂單查詢等大量重複性諮詢，替代35個呼叫中心座席的工作量',
+              '年度節省成本約525萬元',
+              '項目ROI高達425%'
+            ],
+            button: '查看案例詳情',
+            imageAlt: '廚電客戶服務自動化案例'
+          },
+          case2: {
+            tag: '汽車行業',
+            title: '汽車客戶使用Zenava接管試駕邀約，轉化率提升至85%',
+            subtitle: '轉化率提升至85%',
+            features: [
+              'Zenava能夠自動清洗客戶線索，通過語音交互及時篩選有效客戶，邀約高意向客戶到店試駕',
+              '提高潛在客戶的跟進效率，提升線索轉化率，帶動銷量增長',
+              '邀約轉化率提升至85%'
+            ],
+            button: '查看案例詳情',
+            imageAlt: '汽車客戶試駕邀約案例'
+          },
+          case3: {
+            tag: '酒店行業',
+            title: '酒店集團預訂全流程無人化，大幅提升預訂轉化率',
+            subtitle: '預訂轉化率提升15%-25%',
+            features: [
+              'Zenava獨立完整執行從理解預訂需求、確認時間與房型到完成預訂的全流程',
+              '支持多語言溝通，覆蓋全球客戶',
+              '預訂轉化率提升15%-25%'
+            ],
+            button: '查看案例詳情',
+            imageAlt: '酒店集團預訂自動化案例'
+          }
+        }
+      },
       liveChat: {
         advantages: {
           title: 'LiveChat的優勢',
@@ -1564,7 +1807,7 @@ export const siteTranslations = {
             ],
             metric: '46%',
             metricLabel: '留資率',
-            imageSrc: '/assets/images/livechat/case1-b2b.png',
+            imageSrc: '/assets/images/livechat/case1-b2b.webp',
             imageAlt: 'B2B企業官網客服無人化接待',
             button: '了解更多',
             buttonLink: '/products/live-chat'
@@ -1582,7 +1825,7 @@ export const siteTranslations = {
             metricLabel: '年節省成本',
             metric2: '83%',
             metric2Label: '獨立接待率',
-            imageSrc: '/assets/images/livechat/case2-smartlock.png',
+            imageSrc: '/assets/images/livechat/case2-smartlock.webp',
             imageAlt: '智能鎖客戶實現端到端售後服務自動化',
             button: '了解更多',
             buttonLink: '/products/live-chat'
@@ -1600,7 +1843,7 @@ export const siteTranslations = {
             tag3: '實時溝通',
             buttonText: '了解更多',
             imageAlt: '7×24小時全渠道在線',
-            imageSrc: '/assets/images/livechat/omnichannel.png'
+            imageSrc: '/assets/images/livechat/omnichannel.webp'
           },
           item2: {
             mainTitle: '支持文字、圖片、視頻等富媒體溝通',
@@ -1611,7 +1854,7 @@ export const siteTranslations = {
             tag3: '多輪對話',
             buttonText: '了解更多',
             imageAlt: '富媒體溝通',
-            imageSrc: '/assets/images/livechat/rich-media.png'
+            imageSrc: '/assets/images/livechat/rich-media.webp'
           },
           item3: {
             mainTitle: '能夠從表述中感知客戶情緒',
@@ -1622,7 +1865,7 @@ export const siteTranslations = {
             tag3: '專業服務',
             buttonText: '了解更多',
             imageAlt: '情緒感知',
-            imageSrc: '/assets/images/livechat/emotion.png'
+            imageSrc: '/assets/images/livechat/emotion.webp'
           },
           item4: {
             mainTitle: '兼顧品牌的業務底線和客戶體驗',
@@ -1633,7 +1876,7 @@ export const siteTranslations = {
             tag3: '客戶體驗',
             buttonText: '了解更多',
             imageAlt: '兼顧業務和體驗',
-            imageSrc: '/assets/images/livechat/balance.png'
+            imageSrc: '/assets/images/livechat/balance.webp'
           },
           item5: {
             mainTitle: '具備同理心與判斷力',
@@ -1644,7 +1887,7 @@ export const siteTranslations = {
             tag3: '流程閉環',
             buttonText: '了解更多',
             imageAlt: '同理心與判斷力',
-            imageSrc: '/assets/images/livechat/empathy.png'
+            imageSrc: '/assets/images/livechat/empathy.webp'
           }
         }
       }
@@ -2157,6 +2400,87 @@ export const siteTranslations = {
           button: '联系我们'
         }
       },
+      voiceAgents: {
+        banner: {
+          imageAlt: 'VoiceAgents产品Banner图 - 超越真人的语音对话体验'
+        },
+        coreFeatures: {
+          title: '核心功能',
+          subtitle: '打造卓越的语音交互体验',
+          feature1: {
+            title: '拟人化音色',
+            subtitle: '像真人一样交流',
+            description: '语音交互自然流畅、情感丰富，具备多种音色与语气风格，满足用户个性化偏好。能够根据场景表达关怀、理解与专业感，让沟通体验超越真人。',
+            tags: ['自然流畅', '情感丰富', '多种音色', '个性化'],
+            button: '了解更多',
+            mediaAlt: '拟人化音色功能演示'
+          },
+          feature2: {
+            title: '低延迟交互',
+            subtitle: '实时响应，无需等待',
+            description: '毫秒级响应速度，实时对话无卡顿，让交互更自然。无论是客户咨询、业务办理还是投诉处理，Zenava都能快速响应。',
+            tags: ['毫秒级响应', '实时对话', '无缝跳转', '高效流畅'],
+            button: '了解更多',
+            mediaAlt: '低延迟交互功能演示'
+          },
+          feature3: {
+            title: '精准智能打断',
+            subtitle: '理解用户真实意图',
+            description: '支持用户随时打断和插话，实时响应不中断，像真人面对面聊天那样自然灵活。',
+            tags: ['智能打断', '意图识别', '自然对话', '实时响应'],
+            button: '了解更多',
+            mediaAlt: '精准智能打断功能演示'
+          },
+          feature4: {
+            title: '完整业务闭环',
+            subtitle: '端到端业务自动化',
+            description: 'Zenava能直接执行任务，如创建工单、发送通知、查询信息等，让对话真正转化为可落地的业务动作。',
+            tags: ['任务执行', '业务自动化', '工单创建', '信息查询'],
+            button: '了解更多',
+            mediaAlt: '完整业务闭环功能演示'
+          }
+        },
+        customerCases: {
+          title: '客户成功案例',
+          subtitle: '真实业绩，可量化价值',
+          case1: {
+            tag: '厨电行业',
+            title: '厨电客户实现大规模客户服务自动化，年节省总成本525万',
+            subtitle: '年节省成本525万',
+            features: [
+              'Zenava独立处理产品咨询、报修、订单查询等大量重复性咨询，替代35个呼叫中心座席的工作量',
+              '年度节省成本约525万元',
+              '项目ROI高达425%'
+            ],
+            button: '查看案例详情',
+            imageAlt: '厨电客户服务自动化案例'
+          },
+          case2: {
+            tag: '汽车行业',
+            title: '汽车客户使用Zenava接管试驾邀约，转化率提升至85%',
+            subtitle: '转化率提升至85%',
+            features: [
+              'Zenava能够自动清洗客户线索，通过语音交互及时筛选有效客户，邀约高意向客户到店试驾',
+              '提高潜在客户的跟进效率，提升线索转化率，带动销量增长',
+              '邀约转化率提升至85%'
+            ],
+            button: '查看案例详情',
+            imageAlt: '汽车客户试驾邀约案例'
+          },
+          case3: {
+            tag: '酒店行业',
+            title: '酒店集团预订全流程无人化，大幅提升预订转化率',
+            subtitle: '预订转化率提升15%-25%',
+            features: [
+              'Zenava独立完整执行从理解预订需求、确认时间与房型到完成预订的全流程',
+              '支持多语言沟通，覆盖全球客户',
+              '预订转化率提升15%-25%'
+            ],
+            button: '查看案例详情',
+            imageAlt: '酒店集团预订自动化案例'
+          }
+        }
+      },
       liveChat: {
         advantages: {
           title: 'LiveChat的优势',
@@ -2192,7 +2516,7 @@ export const siteTranslations = {
             ],
             metric: '46%',
             metricLabel: '留资率',
-            imageSrc: '/assets/images/livechat/case1-b2b.png',
+            imageSrc: '/assets/images/livechat/case1-b2b.webp',
             imageAlt: 'B2B企业官网客服无人化接待',
             button: '了解更多',
             buttonLink: '/products/live-chat'
@@ -2210,7 +2534,7 @@ export const siteTranslations = {
             metricLabel: '年节省成本',
             metric2: '83%',
             metric2Label: '独立接待率',
-            imageSrc: '/assets/images/livechat/case2-smartlock.png',
+            imageSrc: '/assets/images/livechat/case2-smartlock.webp',
             imageAlt: '智能锁客户实现端到端售后服务自动化',
             button: '了解更多',
             buttonLink: '/products/live-chat'
@@ -2228,7 +2552,7 @@ export const siteTranslations = {
             tag3: '实时沟通',
             buttonText: '了解更多',
             imageAlt: '7×24小时全渠道在线',
-            imageSrc: '/assets/images/livechat/omnichannel.png'
+            imageSrc: '/assets/images/livechat/omnichannel.webp'
           },
           item2: {
             mainTitle: '支持文字、图片、视频等富媒体沟通',
@@ -2239,7 +2563,7 @@ export const siteTranslations = {
             tag3: '多轮对话',
             buttonText: '了解更多',
             imageAlt: '富媒体沟通',
-            imageSrc: '/assets/images/livechat/rich-media.png'
+            imageSrc: '/assets/images/livechat/rich-media.webp'
           },
           item3: {
             mainTitle: '能够从表述中感知客户情绪',
@@ -2250,7 +2574,7 @@ export const siteTranslations = {
             tag3: '专业服务',
             buttonText: '了解更多',
             imageAlt: '情绪感知',
-            imageSrc: '/assets/images/livechat/emotion.png'
+            imageSrc: '/assets/images/livechat/emotion.webp'
           },
           item4: {
             mainTitle: '兼顾品牌的业务底线和客户体验',
@@ -2261,7 +2585,7 @@ export const siteTranslations = {
             tag3: '客户体验',
             buttonText: '了解更多',
             imageAlt: '兼顾业务和体验',
-            imageSrc: '/assets/images/livechat/balance.png'
+            imageSrc: '/assets/images/livechat/balance.webp'
           },
           item5: {
             mainTitle: '具备同理心与判断力',
@@ -2272,7 +2596,7 @@ export const siteTranslations = {
             tag3: '流程闭环',
             buttonText: '了解更多',
             imageAlt: '同理心与判断力',
-            imageSrc: '/assets/images/livechat/empathy.png'
+            imageSrc: '/assets/images/livechat/empathy.webp'
           }
         }
       }

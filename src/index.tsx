@@ -14,6 +14,7 @@ import { AIHomepage } from './pages/AIHomepage.js'
 import { ZenavaHomepage } from './pages/ZenavaHomepage.js'
 import { AiAgentsPage } from './pages/products/AiAgents.js'
 import { LiveChatPage } from './pages/products/LiveChat.js'
+import { VoiceAgentsPage } from './pages/products/VoiceAgents.js'
 import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/i18n.js'
 
 // Import Admin Pages
@@ -309,6 +310,54 @@ app.get('/:lang/products/live-chat', (c) => {
       privacyLinks={privacyLinks}
     >
       <LiveChatPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// VoiceAgents Page Routes
+app.get('/products/voice-agents', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/products/voice-agents'
+  
+  // Use static data for navigation and footer
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <VoiceAgentsPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/products/voice-agents', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/products/voice-agents`
+  
+  // Use static data for navigation and footer
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <VoiceAgentsPage language={language} />
     </LayoutWithUnifiedNav>
   )
 })

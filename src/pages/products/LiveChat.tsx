@@ -133,7 +133,7 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
                     >
                       <div class="rounded-xl overflow-hidden shadow-xl">
                         <img 
-                          src={item.imageSrc || '/assets/images/livechat/default.png'} 
+                          src={item.imageSrc || '/assets/images/livechat/default.webp'} 
                           alt={item.imageAlt}
                           class="w-full h-auto object-cover"
                           loading="lazy"
@@ -161,7 +161,7 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
                   <div class="relative rounded-2xl overflow-hidden shadow-xl">
                     <div class="aspect-[4/3] bg-gray-200 flex items-center justify-center">
                       <img 
-                        src={t.caseStudies.case1.imageSrc || '/assets/images/livechat/case1-b2b.png'} 
+                        src={t.caseStudies.case1.imageSrc || '/assets/images/livechat/case1-b2b.webp'} 
                         alt={t.caseStudies.case1.imageAlt || t.caseStudies.case1.mainTitle}
                         class="w-full h-full object-cover"
                         loading="lazy"
@@ -285,7 +285,7 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
                   <div class="relative rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
                     <div class="aspect-[4/3] bg-white border border-gray-200 flex items-center justify-center">
                       <img 
-                        src={t.caseStudies.case2.imageSrc || '/assets/images/livechat/case2-smartlock.png'} 
+                        src={t.caseStudies.case2.imageSrc || '/assets/images/livechat/case2-smartlock.webp'} 
                         alt={t.caseStudies.case2.imageAlt || t.caseStudies.case2.mainTitle}
                         class="w-full h-full object-cover"
                         loading="lazy"
