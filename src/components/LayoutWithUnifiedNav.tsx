@@ -120,11 +120,15 @@ export function LayoutWithUnifiedNav({
         <main class={navigationConfig.nav_fixed !== false ? 'pt-16' : ''}>
           {children}
           
-          {/* Other Resources Section - 资源中心版块（所有页面统一） */}
-          <OtherResourcesSection language={language} />
+          {/* Other Resources Section - 资源中心版块（所有页面统一，联系表单页面除外） */}
+          {!currentPath.includes('/contact') && (
+            <OtherResourcesSection language={language} />
+          )}
           
-          {/* Contact Section - 联系表单版块（所有页面统一） */}
-          <ContactSection language={language} />
+          {/* Contact Section - 联系表单版块（所有页面统一，联系表单页面除外） */}
+          {!currentPath.includes('/contact') && (
+            <ContactSection language={language} />
+          )}
         </main>
 
         {/* Unified Footer */}

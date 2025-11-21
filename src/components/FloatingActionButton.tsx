@@ -20,6 +20,9 @@ export const FloatingActionButton: FC<FloatingActionButtonProps> = ({ language =
                   language === 'jp' ? 'トップ' :
                   '頂部'
 
+  // 根据语言生成联系表单链接
+  const contactLink = language === 'zh' ? '/contact' : `/${language}/contact`
+
   return (
     <>
       {/* Floating Action Button - 悬浮按钮 */}
@@ -30,9 +33,8 @@ export const FloatingActionButton: FC<FloatingActionButtonProps> = ({ language =
       >
         {/* Contact Us Section - 联系我们 */}
         <a 
-          href="#contact"
+          href={contactLink}
           class="flex flex-col items-center justify-center px-5 py-4 hover:bg-gray-50 transition-colors cursor-pointer group"
-          onclick="document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); return false;"
         >
           {/* Icon with gradient - 笔/折叠纸样式 */}
           <div class="mb-2">
