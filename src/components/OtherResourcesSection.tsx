@@ -18,10 +18,10 @@ export const OtherResourcesSection: FC<OtherResourcesSectionProps> = ({ language
         {/* Section Title */}
         <div class="text-center mb-8 md:mb-12">
           <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
-            {language === 'zh' && '其他资源'}
-            {language === 'en' && 'Other Resources'}
-            {language === 'jp' && 'その他のリソース'}
-            {language === 'hk' && '其他資源'}
+            {language === 'zh' && '资源中心'}
+            {language === 'en' && 'Resource Center'}
+            {language === 'jp' && 'リソースセンター'}
+            {language === 'hk' && '資源中心'}
           </h2>
         </div>
 

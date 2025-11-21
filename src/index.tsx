@@ -15,6 +15,7 @@ import { ZenavaHomepage } from './pages/ZenavaHomepage.js'
 import { AiAgentsPage } from './pages/products/AiAgents.js'
 import { LiveChatPage } from './pages/products/LiveChat.js'
 import { VoiceAgentsPage } from './pages/products/VoiceAgents.js'
+import { ContactPage } from './pages/Contact.js'
 import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/i18n.js'
 
 // Import Admin Pages
@@ -358,6 +359,52 @@ app.get('/:lang/products/voice-agents', (c) => {
       privacyLinks={privacyLinks}
     >
       <VoiceAgentsPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Contact Form Page Routes
+app.get('/contact', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/contact'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ContactPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/contact', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/contact`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ContactPage language={language} />
     </LayoutWithUnifiedNav>
   )
 })
@@ -1731,9 +1778,66 @@ app.get('/api/hello', (c) => {
 })
 
 app.post('/api/contact', async (c) => {
-  const body = await c.req.json()
-  // Handle contact form submission
-  return c.json({ success: true, message: 'Message received' })
+  try {
+    const body = await c.req.json()
+    const { firstName, lastName, jobTitle, companyEmail, companyName, industry, privacyAgree, source, file } = body
+
+    // 验证必填字段
+    if (!firstName || !lastName || !companyEmail || !privacyAgree) {
+      return c.json({ 
+        success: false, 
+        message: 'Missing required fields' 
+      }, 400)
+    }
+
+    // 验证邮箱格式
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(companyEmail)) {
+      return c.json({ 
+        success: false, 
+        message: 'Invalid email format' 
+      }, 400)
+    }
+
+    // TODO: 对接 Clink2 API
+    // const clink2Response = await fetch('CLINK2_API_ENDPOINT', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     firstName,
+    //     lastName,
+    //     jobTitle,
+    //     companyEmail,
+    //     companyName,
+    //     industry,
+    //     source,
+    //     file
+    //   })
+    // })
+
+    // 如果是白皮书下载，返回下载信息
+    if (source === 'whitepaper_download' && file) {
+      // TODO: 从数据库或配置中获取文件下载信息
+      // 这里先返回示例数据，实际应该从后台配置中获取
+      return c.json({ 
+        success: true, 
+        message: 'Form submitted successfully',
+        downloadUrl: `/api/download/${file}`,  // 下载接口路径
+        fileName: `${file}.pdf`  // 文件名
+      })
+    }
+
+    return c.json({ 
+      success: true, 
+      message: 'Form submitted successfully' 
+    })
+  } catch (error) {
+    console.error('Contact form submission error:', error)
+    return c.json({ 
+      success: false, 
+      message: 'Internal server error' 
+    }, 500)
+  }
 })
 
 export default app

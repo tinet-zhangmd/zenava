@@ -235,6 +235,40 @@ export const siteTranslations = {
       copyright: '© 2024 Zenava. All rights reserved.',
       followUs: 'Follow Us'
     },
+
+    // Contact Form Page
+    contactForm: {
+      title: 'Contact Us',
+      subtitle: 'Get Your Custom Solution',
+      description: 'Fill out the form and our professional advisor will contact you soon to provide a customized AI conversation solution.',
+      firstName: 'First Name',
+      firstNamePlaceholder: 'Enter your first name',
+      lastName: 'Last Name',
+      lastNamePlaceholder: 'Enter your last name',
+      jobTitle: 'Job Title',
+      jobTitlePlaceholder: 'Enter your job title',
+      companyEmail: 'Company Email',
+      companyEmailPlaceholder: 'example@company.com',
+      companyName: 'Company Name',
+      companyNamePlaceholder: 'Enter your company name',
+      industry: 'Industry',
+      selectIndustry: 'Please select',
+      industryTech: 'Technology',
+      industryFinance: 'Finance',
+      industryHealthcare: 'Healthcare',
+      industryRetail: 'Retail',
+      industryManufacturing: 'Manufacturing',
+      industryEducation: 'Education',
+      industryOther: 'Other',
+      privacyAgree: 'I agree to the Privacy Policy',
+      submit: 'Submit',
+      submitting: 'Submitting...',
+      privacyNotice: 'By submitting, you agree to our Privacy Policy',
+      successMessage: 'Thank you for your submission. Our advisor will contact you soon.',
+      errorMessage: 'Submission failed. Please try again.',
+      downloadReady: 'Your download is ready',
+      download: 'Download'
+    },
     
     // Common Actions
     actions: {
@@ -260,7 +294,7 @@ export const siteTranslations = {
     
     // Other Resources Section
     otherResources: {
-      title: 'Other Resources',
+      title: 'Resource Center',
       cards: {
         voiceConnectivity: {
           title: 'Voice Connectivity',
@@ -901,6 +935,40 @@ export const siteTranslations = {
       copyright: '© 2024 Zenava. All rights reserved.',
       followUs: 'フォローする'
     },
+
+    // Contact Form Page - お問い合わせフォームページ
+    contactForm: {
+      title: 'お問い合わせ',
+      subtitle: 'カスタムソリューションを取得',
+      description: 'フォームにご記入いただくと、専門のアドバイザーがすぐにご連絡し、カスタマイズされたAI対話ソリューションを提供いたします。',
+      firstName: '名',
+      firstNamePlaceholder: '名を入力してください',
+      lastName: '姓',
+      lastNamePlaceholder: '姓を入力してください',
+      jobTitle: '役職',
+      jobTitlePlaceholder: '役職を入力してください',
+      companyEmail: '会社メール',
+      companyEmailPlaceholder: 'example@company.com',
+      companyName: '会社名',
+      companyNamePlaceholder: '会社名を入力してください',
+      industry: '業界',
+      selectIndustry: '選択してください',
+      industryTech: 'テクノロジー',
+      industryFinance: '金融',
+      industryHealthcare: 'ヘルスケア',
+      industryRetail: '小売',
+      industryManufacturing: '製造業',
+      industryEducation: '教育',
+      industryOther: 'その他',
+      privacyAgree: 'プライバシーポリシーに同意します',
+      submit: '送信',
+      submitting: '送信中...',
+      privacyNotice: '送信することで、プライバシーポリシーに同意したことになります',
+      successMessage: 'ご提出ありがとうございます。アドバイザーがすぐにご連絡いたします。',
+      errorMessage: '送信に失敗しました。もう一度お試しください。',
+      downloadReady: 'ダウンロードの準備ができました',
+      download: 'ダウンロード'
+    },
     
     // Common Actions - Polite forms
     actions: {
@@ -926,7 +994,7 @@ export const siteTranslations = {
     
     // Other Resources Section
     otherResources: {
-      title: 'その他のリソース',
+      title: 'リソースセンター',
       cards: {
         voiceConnectivity: {
           title: '音声接続',
@@ -1568,6 +1636,40 @@ export const siteTranslations = {
       copyright: '© 2024 Zenava. 版權所有。',
       followUs: '關注我們'
     },
+
+    // Contact Form Page - 聯繫表單頁面
+    contactForm: {
+      title: '聯繫我們',
+      subtitle: '獲取專屬解決方案',
+      description: '填寫表單，我們的專業顧問將盡快與您聯繫，為您提供定制化的AI對話解決方案。',
+      firstName: '名',
+      firstNamePlaceholder: '請輸入您的名',
+      lastName: '姓',
+      lastNamePlaceholder: '請輸入您的姓',
+      jobTitle: '職位',
+      jobTitlePlaceholder: '請輸入您的職位',
+      companyEmail: '企業郵箱',
+      companyEmailPlaceholder: 'example@company.com',
+      companyName: '公司名稱',
+      companyNamePlaceholder: '請輸入公司名稱',
+      industry: '行業',
+      selectIndustry: '請選擇行業',
+      industryTech: '科技',
+      industryFinance: '金融',
+      industryHealthcare: '醫療',
+      industryRetail: '零售',
+      industryManufacturing: '製造業',
+      industryEducation: '教育',
+      industryOther: '其他',
+      privacyAgree: '我同意隱私政策',
+      submit: '提交',
+      submitting: '提交中...',
+      privacyNotice: '提交即代表您同意我們的隱私政策',
+      successMessage: '感謝您的提交，我們的顧問將盡快與您聯繫。',
+      errorMessage: '提交失敗，請重試。',
+      downloadReady: '您的下載已準備就緒',
+      download: '下載'
+    },
     
     // Common Actions
     actions: {
@@ -1593,7 +1695,7 @@ export const siteTranslations = {
     
     // Other Resources Section
     otherResources: {
-      title: '其他資源',
+      title: '資源中心',
       cards: {
         voiceConnectivity: {
           title: '語音連接',
@@ -2284,6 +2386,40 @@ export const siteTranslations = {
       copyright: '© 2024 Zenava. 版权所有。',
       followUs: '关注我们'
     },
+
+    // Contact Form Page - 联系表单页面
+    contactForm: {
+      title: '联系我们',
+      subtitle: '获取专属解决方案',
+      description: '填写表单，我们的专业顾问将尽快与您联系，为您提供定制化的AI对话解决方案。',
+      firstName: '名',
+      firstNamePlaceholder: '请输入您的名',
+      lastName: '姓',
+      lastNamePlaceholder: '请输入您的姓',
+      jobTitle: '职位',
+      jobTitlePlaceholder: '请输入您的职位',
+      companyEmail: '企业邮箱',
+      companyEmailPlaceholder: 'example@company.com',
+      companyName: '公司名称',
+      companyNamePlaceholder: '请输入公司名称',
+      industry: '行业',
+      selectIndustry: '请选择行业',
+      industryTech: '科技',
+      industryFinance: '金融',
+      industryHealthcare: '医疗',
+      industryRetail: '零售',
+      industryManufacturing: '制造业',
+      industryEducation: '教育',
+      industryOther: '其他',
+      privacyAgree: '我同意隐私政策',
+      submit: '提交',
+      submitting: '提交中...',
+      privacyNotice: '提交即代表您同意我们的隐私政策',
+      successMessage: '感谢您的提交，我们的顾问将尽快与您联系。',
+      errorMessage: '提交失败，请重试。',
+      downloadReady: '您的下载已准备就绪',
+      download: '下载'
+    },
     
     // 常用操作
     actions: {
@@ -2309,7 +2445,7 @@ export const siteTranslations = {
     
     // Other Resources Section
     otherResources: {
-      title: '其他资源',
+      title: '资源中心',
       cards: {
         voiceConnectivity: {
           title: 'Voice Connectivity',
