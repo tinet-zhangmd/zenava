@@ -37,7 +37,7 @@ export function Layout({ children, language, currentPath, title, description, se
         <script src="https://cdn.tailwindcss.com"></script>
         
         {/* FontAwesome Icons */}
-        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+        <link href="/static/fontawesome/css/all.min.css" rel="stylesheet" />
         
         {/* Custom Styles */}
         <link href="/static/styles.css" rel="stylesheet" />
