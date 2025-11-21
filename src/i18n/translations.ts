@@ -391,20 +391,7 @@ export const siteTranslations = {
             desc: 'Real-time analysis of customer conversation data, identifying common issues, optimizing service processes, improving customer satisfaction.'
           }
         },
-        features: {
-          feature1: {
-            title: 'Live Chat',
-            subtitle: '7x24 Hours Online Customer Service',
-            list: [
-              'Real-time Response: Second-level reply to customer inquiries',
-              'Intelligent Routing: Automatically assign the most suitable customer service',
-              'Multi-language Support: Support multiple languages worldwide',
-              'Data Analytics: Real-time monitoring of service quality and customer satisfaction'
-            ],
-            button: 'Learn More About LiveChat Features',
-            buttonLink: '/products/live-chat'
-          }
-        },
+        features: {},
         caseStudies: {
           title: 'Success Stories',
           subtitle: 'Real Results from Enterprise Customers',
@@ -982,20 +969,7 @@ export const siteTranslations = {
             desc: '顧客対話データをリアルタイムで分析し、一般的な問題を特定し、サービスプロセスを最適化し、顧客満足度を向上させます。'
           }
         },
-        features: {
-          feature1: {
-            title: 'Live Chat',
-            subtitle: '7x24時間オンラインカスタマーサービス',
-            list: [
-              'リアルタイム応答：顧客の問い合わせに秒単位で返信',
-              'インテリジェントルーティング：最適なカスタマーサービスに自動割り当て',
-              '多言語サポート：世界中の複数の言語をサポート',
-              'データ分析：サービス品質と顧客満足度をリアルタイムで監視'
-            ],
-            button: 'LiveChat機能の詳細',
-            buttonLink: '/products/live-chat'
-          }
-        },
+        features: {},
         caseStudies: {
           title: '成功事例',
           subtitle: '企業顧客からの実際の結果',
@@ -1574,20 +1548,7 @@ export const siteTranslations = {
             desc: '實時分析客戶對話數據，識別常見問題，優化服務流程，提升客戶滿意度。'
           }
         },
-        features: {
-          feature1: {
-            title: 'Live Chat',
-            subtitle: '7x24小時在線客服',
-            list: [
-              '實時響應：秒級回復客戶諮詢',
-              '智能路由：自動分配最合適的客服',
-              '多語言支持：支持全球多種語言',
-              '數據分析：實時監控服務質量和客戶滿意度'
-            ],
-            button: '了解更多LiveChat功能',
-            buttonLink: '/products/live-chat'
-          }
-        },
+        features: {},
         caseStudies: {
           title: '成功案例',
           subtitle: '來自企業客戶的真實效果',
@@ -2215,20 +2176,7 @@ export const siteTranslations = {
             desc: '实时分析客户对话数据，识别常见问题，优化服务流程，提升客户满意度。'
           }
         },
-        features: {
-          feature1: {
-            title: 'Live Chat',
-            subtitle: '7x24小时在线客服',
-            list: [
-              '实时响应：秒级回复客户咨询',
-              '智能路由：自动分配最合适的客服',
-              '多语言支持：支持全球多种语言',
-              '数据分析：实时监控服务质量和客户满意度'
-            ],
-            button: '了解更多LiveChat功能',
-            buttonLink: '/products/live-chat'
-          }
-        },
+        features: {},
         caseStudies: {
           title: '成功案例',
           subtitle: '来自企业客户的真实效果',
