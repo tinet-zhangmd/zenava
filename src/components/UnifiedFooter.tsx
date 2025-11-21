@@ -19,19 +19,19 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
   // Footer translations
   const footerText = {
     zh: {
-      subtitle: '面向营销和服务场景的对话式AI智能体',
+      subtitle: '面向客服和营销场景的AI生产力平台',
       description: '助力企业完成生产力与组织形态变革',
       // Column 1: Products
       products: '产品',
-      aiAgents: 'AI agents',
-      messaging: '传讯与即时对话',
-      voice: 'Voice',
+      aiAgents: 'AI Agents',
+      messaging: 'Live Chat',
+      voice: 'Voice Agents',
       // Column 2: Industries
       industries: '行业',
       retail: '零售',
-      automotive: '汽车产业',
-      software: '软件',
-      hospitality: '饭店·旅游',
+      automotive: '汽车',
+      software: '软件信息服务',
+      hospitality: '酒店旅游',
       // Column 3: Resources
       resources: '资源中心',
       blog: '博客',
@@ -47,19 +47,19 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       email: 'marketing@zenava.ai'
     },
     en: {
-      subtitle: 'Conversational AI Agent for Marketing and Service Scenarios',
+      subtitle: 'AI Productivity Platform for Customer Service and Marketing Scenarios',
       description: 'Empowering enterprises to transform productivity and organizational structure',
       // Column 1: Products
       products: 'Products',
-      aiAgents: 'AI agents',
-      messaging: 'Messaging & Chat',
-      voice: 'Voice',
+      aiAgents: 'AI Agents',
+      messaging: 'Live Chat',
+      voice: 'Voice Agents',
       // Column 2: Industries
       industries: 'Industries',
       retail: 'Retail',
       automotive: 'Automotive',
-      software: 'Software',
-      hospitality: 'Hospitality & Tourism',
+      software: 'Software & Information Services',
+      hospitality: 'Hotel & Tourism',
       // Column 3: Resources
       resources: 'Resources',
       blog: 'Blog',
@@ -79,15 +79,15 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       description: '企業の生産性と組織形態の変革を支援',
       // Column 1: Products
       products: '製品',
-      aiAgents: 'AI agents',
-      messaging: 'メッセージング＆チャット',
-      voice: 'Voice',
+      aiAgents: 'AIチャットカスタマーサービス',
+      messaging: 'Live Chat',
+      voice: 'Voice Agents',
       // Column 2: Industries
       industries: '業界',
       retail: '小売',
-      automotive: '自動車産業',
-      software: 'ソフトウェア',
-      hospitality: 'ホスピタリティ＆ツーリズム',
+      automotive: '自動車',
+      software: 'ソフトウェア情報サービス',
+      hospitality: 'ホテル・観光',
       // Column 3: Resources
       resources: 'リソース',
       blog: 'ブログ',
@@ -107,15 +107,15 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       description: '助力企業完成生產力與組織形態變革',
       // Column 1: Products
       products: '產品',
-      aiAgents: 'AI agents',
-      messaging: '傳訊與即時對話',
-      voice: 'Voice',
+      aiAgents: 'AI Agents',
+      messaging: 'Live Chat',
+      voice: 'Voice Agents',
       // Column 2: Industries
       industries: '行業',
       retail: '零售',
-      automotive: '汽車產業',
-      software: '軟件',
-      hospitality: '飯店·旅遊',
+      automotive: '汽車',
+      software: '軟件信息服務',
+      hospitality: '酒店旅遊',
       // Column 3: Resources
       resources: '資源中心',
       blog: '博客',
@@ -238,9 +238,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
             <ul class="space-y-3">
               <li>
                 <a 
-                  href="https://www.baidu.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`${langPrefix}/products/ai-agents`}
                   class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
                 >
                   {t.aiAgents}
@@ -248,9 +246,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </li>
               <li>
                 <a 
-                  href="https://www.baidu.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`${langPrefix}/products/live-chat`}
                   class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
                 >
                   {t.messaging}
@@ -258,9 +254,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </li>
               <li>
                 <a 
-                  href="https://www.baidu.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`${langPrefix}/products/voice-agents`}
                   class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
                 >
                   {t.voice}
