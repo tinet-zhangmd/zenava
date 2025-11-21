@@ -206,7 +206,7 @@ export const siteTranslations = {
         pageTitle: 'AI Agents for Retail',
         banner: {
           src: '/assets/images/retail/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/retail/banner-mobile.png',
           alt: 'Retail Product Banner',
           link: '/contact'
         },
@@ -311,7 +311,7 @@ export const siteTranslations = {
       automotive: {
         banner: {
           src: '/assets/images/automotive/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/automotive/banner-mobile.png',
           alt: 'Automotive Product Banner',
           link: '/contact'
         },
@@ -363,7 +363,7 @@ export const siteTranslations = {
       software: {
         banner: {
           src: '/assets/images/software/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/software/banner-mobile.png',
           alt: 'Software Product Banner',
           link: '/contact'
         },
@@ -466,7 +466,7 @@ export const siteTranslations = {
       travel: {
         banner: {
           src: '/assets/images/travel/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/travel/banner-mobile.png',
           alt: 'Travel Product Banner',
           link: '/contact'
         },
@@ -1499,7 +1499,7 @@ export const siteTranslations = {
         pageTitle: 'AI Agents for Retail',
         banner: {
           src: '/assets/images/retail/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/retail/banner-mobile.png',
           alt: '小売業向けAIエージェント',
           link: '/contact'
         },
@@ -1604,7 +1604,7 @@ export const siteTranslations = {
       automotive: {
         banner: {
           src: '/assets/images/automotive/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/automotive/banner-mobile.png',
           alt: '自動車製品バナー',
           link: '/contact'
         },
@@ -1656,7 +1656,7 @@ export const siteTranslations = {
       software: {
         banner: {
           src: '/assets/images/software/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/software/banner-mobile.png',
           alt: 'ソフトウェア製品バナー',
           link: '/contact'
         },
@@ -1759,7 +1759,7 @@ export const siteTranslations = {
       travel: {
         banner: {
           src: '/assets/images/travel/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/travel/banner-mobile.png',
           alt: '旅行・ホテル製品バナー',
           link: '/contact'
         },
@@ -2793,7 +2793,7 @@ export const siteTranslations = {
         pageTitle: 'AI Agents for Retail',
         banner: {
           src: '/assets/images/retail/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/retail/banner-mobile.png',
           alt: '零售行業Banner圖',
           link: '/contact'
         },
@@ -2898,7 +2898,7 @@ export const siteTranslations = {
       automotive: {
         banner: {
           src: '/assets/images/automotive/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/automotive/banner-mobile.png',
           alt: '汽車產品Banner圖',
           link: '/contact'
         },
@@ -2950,7 +2950,7 @@ export const siteTranslations = {
       software: {
         banner: {
           src: '/assets/images/software/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/software/banner-mobile.png',
           alt: '軟件產品Banner圖',
           link: '/contact'
         },
@@ -3053,7 +3053,7 @@ export const siteTranslations = {
       travel: {
         banner: {
           src: '/assets/images/travel/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/travel/banner-mobile.png',
           alt: '旅遊產品Banner圖',
           link: '/contact'
         },
@@ -4136,7 +4136,7 @@ export const siteTranslations = {
         pageTitle: 'AI Agents for Retail',
         banner: {
           src: '/assets/images/retail/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/retail/banner-mobile.png',
           alt: '零售行业Banner图',
           link: '/contact'
         },
@@ -4241,7 +4241,7 @@ export const siteTranslations = {
       automotive: {
         banner: {
           src: '/assets/images/automotive/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/automotive/banner-mobile.png',
           alt: 'Automotive产品Banner图',
           link: '/contact'
         },
@@ -4293,7 +4293,7 @@ export const siteTranslations = {
       software: {
         banner: {
           src: '/assets/images/software/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/software/banner-mobile.png',
           alt: 'Software产品Banner图',
           link: '/contact'
         },
@@ -4396,7 +4396,7 @@ export const siteTranslations = {
       travel: {
         banner: {
           src: '/assets/images/travel/banner.png',
-          mobileSrc: '',
+          mobileSrc: '/assets/images/travel/banner-mobile.png',
           alt: 'Travel产品Banner图',
           link: '/contact'
         },
