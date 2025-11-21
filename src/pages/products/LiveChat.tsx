@@ -300,61 +300,6 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
         </>
             )}
 
-      {/* Features Section - 如果有功能特性 */}
-      {t.features && Object.keys(t.features).length > 0 && (
-        <>
-          {t.features.feature1 && (
-            <section class="py-12 md:py-16 lg:py-20 bg-white">
-              <div class="site-container px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
-                  {/* Left Image */}
-                  <div class="relative rounded-2xl overflow-hidden shadow-xl">
-                    <div class="aspect-[4/3] bg-gray-200">
-                      <img 
-                        src="/assets/images/live-chat/feature1.png" 
-                        alt={t.features.feature1.subtitle}
-                        class="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                  
-                  {/* Right Content */}
-                  <div class="space-y-4 md:space-y-6 lg:space-y-8">
-                    <div>
-                      {t.features.feature1.title && (
-                        <span class="text-blue-600 font-semibold tracking-wider uppercase text-xs md:text-sm">{t.features.feature1.title}</span>
-                      )}
-                      <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">{t.features.feature1.subtitle}</h2>
-                    </div>
-                    
-                    <ul class="space-y-3 md:space-y-4">
-                      {t.features.feature1.list.map((item: string) => (
-                        <li class="flex items-center space-x-2 md:space-x-3">
-                          <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-100 flex items-center justify-center">
-                            <i class="fas fa-check text-blue-600 text-xs"></i>
-                          </div>
-                          <span class="text-gray-700 font-medium text-sm md:text-base">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    
-                    {t.features.feature1.button && (
-                      <div>
-                        <a 
-                          href={t.features.feature1.buttonLink || "/products/live-chat"} 
-                          class="inline-flex items-center px-6 py-3 md:px-6 md:py-3 border border-gray-300 shadow-sm text-base md:text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
-                        >
-                          {t.features.feature1.button}
-                        </a>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </section>
-          )}
-        </>
-      )}
     </>
   )
 }
