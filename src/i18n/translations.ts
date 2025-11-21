@@ -6,7 +6,7 @@ export const siteTranslations = {
     // Company & Brand
     company: {
       name: 'Zenava',
-      tagline: 'Conversational AI Agent for Marketing and Service Scenarios',
+      tagline: 'AI Productivity Platform for Customer Service and Marketing Scenarios',
       vision: 'Empowering enterprise productivity and organizational transformation, achieving the leap from "Human-Driven" to "AI-Driven"',
       description: 'Enterprise-grade AI dialogue solutions that transform customer engagement'
     },
@@ -25,7 +25,7 @@ export const siteTranslations = {
     
     // Hero Section
     hero: {
-      title: 'Conversational AI Agent for Marketing and Service Scenarios',
+      title: 'AI Productivity Platform for Customer Service and Marketing Scenarios',
       subtitle: 'Empowering enterprise productivity and organizational transformation, achieving the leap from "Human-Driven" to "AI-Driven"',
       cta: {
         primary: 'Schedule Demo',
@@ -713,7 +713,7 @@ export const siteTranslations = {
     // Company & Brand - Japanese with proper honorifics
     company: {
       name: 'Zenava',
-      tagline: 'マーケティングとサービスシナリオ向けの対話型AIエージェント',
+      tagline: 'カスタマーサービスとマーケティングシナリオ向けのAI生産性プラットフォーム',
       vision: '企業の生産性および組織形態の変革を支援し、「人力主導」から「AI主導」への飛躍を実現',
       description: 'エンタープライズグレードのAI対話ソリューションで顧客エンゲージメントを変革'
     },
@@ -732,7 +732,7 @@ export const siteTranslations = {
     
     // Hero Section - Formal business Japanese
     hero: {
-      title: 'マーケティングとサービスシナリオ向けの対話型AIエージェント',
+      title: 'カスタマーサービスとマーケティングシナリオ向けのAI生産性プラットフォーム',
       subtitle: '企業の生産性および組織形態の変革を支援し、「人力主導」から「AI主導」への飛躍を実現',
       cta: {
         primary: 'デモのご予約',
@@ -2033,7 +2033,7 @@ export const siteTranslations = {
     // 公司与品牌 - 简体中文
     company: {
       name: 'Zenava',
-      tagline: '面向营销和服务场景的对话式AI智能体',
+      tagline: '面向客服和营销场景的AI生产力平台',
       vision: '助力企业完成生产力与组织形态变革，实现从"人力驱动"到"AI驱动"的跨越',
       description: '企业级AI对话解决方案，革新客户互动体验'
     },
@@ -2052,7 +2052,7 @@ export const siteTranslations = {
     
     // 主横幅区
     hero: {
-      title: '面向营销和服务场景的对话式AI智能体',
+      title: '面向客服和营销场景的AI生产力平台',
       subtitle: '助力企业完成生产力与组织形态变革，实现从"人力驱动"到"AI驱动"的跨越',
       cta: {
         primary: '预约演示',
