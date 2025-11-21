@@ -332,7 +332,7 @@ export const siteTranslations = {
               'Precise Intelligent Interruption: Can interrupt and interject at any time, as natural as face-to-face conversation with real people',
               'Complete Business Loop, Significantly Improving Service Efficiency and Customer Experience'
             ],
-            button: 'Learn More About Voice Features'
+            button: 'Learn More About Voice Agents'
           },
           messaging: {
             title: 'Create Ultimate Customer Service Experience',
@@ -344,7 +344,7 @@ export const siteTranslations = {
               'Balance brand business bottom line and customer experience, flexibly meeting customer needs',
               'Possess empathy and judgment, driving complete business process loop'
             ],
-            button: 'Learn About Instant Chat'
+            button: 'Learn More About Live Chat'
           }
         },
         resources: {
@@ -991,7 +991,7 @@ export const siteTranslations = {
               '精密なインテリジェント割り込み：いつでも割り込みや発言が可能で、人間との対面会話のように自然',
               '完全なビジネスループ、サービス効率と顧客体験を大幅に向上'
             ],
-            button: 'Voice機能の詳細'
+            button: 'Voice Agents機能の詳細'
           },
           messaging: {
             title: '究極のカスタマーサービス体験を創出',
@@ -1003,7 +1003,7 @@ export const siteTranslations = {
               'ブランドのビジネス基盤と顧客体験を両立し、柔軟にお客様のニーズに対応',
               '共感力と判断力を備え、完全なビジネスプロセスループを推進'
             ],
-            button: 'インスタントチャットについて'
+            button: 'Live Chat機能の詳細'
           }
         },
         resources: {
@@ -1651,7 +1651,7 @@ export const siteTranslations = {
               '精準智能打斷：可隨時打斷和插話，像真人面對面聊天那樣自然',
               '完整業務閉環，大幅提升服務效率與客戶體驗'
             ],
-            button: '了解更多Voice功能'
+            button: '了解更多Voice Agents功能'
           },
           messaging: {
             title: '打造極致客戶服務體驗',
@@ -1663,7 +1663,7 @@ export const siteTranslations = {
               '兼顧品牌的業務底線和客戶體驗，靈活滿足客戶訴求',
               '具備同理心與判斷力，驅動業務全流程閉環'
             ],
-            button: '了解即時對話'
+            button: '了解更多Live Chat功能'
           }
         },
         resources: {
@@ -2360,7 +2360,7 @@ export const siteTranslations = {
               '精准智能打断：可随时打断和插话，像真人面对面聊天那样自然',
               '完整业务闭环，大幅提升服务效率与客户体验'
             ],
-            button: '了解更多Voice功能'
+            button: '了解更多Voice Agents功能'
           },
           messaging: {
             title: '打造极致客户服务体验',
@@ -2372,7 +2372,7 @@ export const siteTranslations = {
               '兼顾品牌的业务底线和客户体验，灵活满足客户诉求',
               '具备同理心与判断力，驱动业务全流程闭环'
             ],
-            button: '了解即时对话'
+            button: '了解更多Live Chat功能'
           }
         },
         resources: {

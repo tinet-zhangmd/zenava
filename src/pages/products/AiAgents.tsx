@@ -102,14 +102,14 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
         <div class="site-container px-4 sm:px-6 lg:px-8">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
             {/* Left Image */}
-            <div class="relative rounded-2xl overflow-hidden shadow-xl">
-               <div class="aspect-[4/3] bg-gray-200">
+            <div class="relative rounded-2xl overflow-hidden">
+               <div class="aspect-[4/3]">
                   <img 
                     src="/assets/images/ai-agents/voice.webp" 
                     alt="Voice功能演示图 - 超越真人的语音对话体验"
                     loading="lazy"
                     decoding="async"
-                    class="w-full h-full object-cover"
+                    class="w-full h-full object-contain"
                   />
                </div>
             </div>
@@ -117,8 +117,12 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
             {/* Right Content */}
             <div class="space-y-4 md:space-y-6 lg:space-y-8">
               <div>
-                <span class="text-blue-600 font-semibold tracking-wider uppercase text-xs md:text-sm">Voice</span>
-                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">{t.features.voice.subtitle}</h2>
+                {/* 主标题：亮色（蓝色），大字体 */}
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600">{t.features.voice.title}</h2>
+                {/* 副标题：如果存在，显示为黑色，相同字体大小 */}
+                {t.features.voice.subtitle && (
+                  <p class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">{t.features.voice.subtitle}</p>
+                )}
               </div>
               
               <ul class="space-y-3 md:space-y-4">
@@ -152,16 +156,20 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
             {/* Left Content */}
             <div class="space-y-4 md:space-y-6 lg:space-y-8 order-2 lg:order-1">
               <div>
-                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">{t.features.messaging.title}</h2>
+                {/* 主标题：亮色（绿色），大字体 */}
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-green-600">{t.features.messaging.title}</h2>
+                {/* 副标题：如果存在，显示为黑色，相同字体大小 */}
                 {t.features.messaging.subtitle && (
-                  <p class="text-lg md:text-xl text-gray-600 mt-1 md:mt-2">{t.features.messaging.subtitle}</p>
+                  <p class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">{t.features.messaging.subtitle}</p>
                 )}
               </div>
               
               <ul class="space-y-3 md:space-y-4">
                 {t.features.messaging.list.map((item: string) => (
                   <li class="flex items-center space-x-2 md:space-x-3">
-                    <div class="flex-shrink-0 w-2 h-2 rounded-full bg-gray-900"></div>
+                    <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-green-100 flex items-center justify-center">
+                      <i class="fas fa-check text-green-600 text-xs"></i>
+                    </div>
                     <span class="text-gray-700 font-medium text-sm md:text-base">{item}</span>
                   </li>
                 ))}
@@ -169,7 +177,7 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
               
               <div>
                 <a 
-                  href="/products/messaging" 
+                  href="/products/live-chat" 
                   class="inline-flex items-center px-6 py-3 md:px-6 md:py-3 border border-gray-300 shadow-sm text-base md:text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
                 >
                   {t.features.messaging.button}
@@ -178,14 +186,14 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
             </div>
 
             {/* Right Image */}
-            <div class="relative rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
-               <div class="aspect-[4/3] bg-white">
+            <div class="relative rounded-2xl overflow-hidden order-1 lg:order-2">
+               <div class="aspect-[4/3]">
                   <img 
                     src="/assets/images/ai-agents/person.webp" 
                     alt="即时对话功能演示图 - 打造极致客户服务体验"
                     loading="lazy"
                     decoding="async"
-                    class="w-full h-full object-cover"
+                    class="w-full h-full object-contain"
                   />
                </div>
             </div>

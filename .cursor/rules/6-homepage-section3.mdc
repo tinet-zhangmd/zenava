@@ -145,6 +145,33 @@ class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange
 
 ---
 
+## 🖼️ 图片样式规范
+
+**图片容器 Tailwind CSS 类名**：
+```typescript
+class="rounded-xl overflow-hidden"
+```
+
+**图片标签样式**：
+```typescript
+class="w-full h-auto object-contain"
+```
+
+**图片样式说明**：
+- **容器**: 圆角 (`rounded-xl`) + 溢出隐藏 (`overflow-hidden`)
+- **无阴影**: 不使用 `shadow-xl` 等阴影类
+- **无边框**: 不使用 `border` 相关类
+- **透明背景**: 不使用 `bg-gray-200` 或 `bg-white` 等背景色
+- **图片显示**: 使用 `object-contain` 确保图片完整显示，不被裁剪
+- **图片尺寸**: `w-full h-auto` 自适应容器宽度，高度自动
+
+**⚠️ 重要提醒**：
+- ✅ 使用 `object-contain` - 图片完整显示，保持原始比例
+- ❌ 不要使用 `object-cover` - 会裁剪图片，可能裁掉重要内容
+- ✅ 图片容器保持简洁，无装饰效果
+
+---
+
 ## ✅ 修改注意事项
 
 ### 必须遵守：
@@ -152,10 +179,11 @@ class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange
 2. **自动翻译**: 用户只提供简体中文，AI 自动生成其他三种语言
 3. **按钮必需**: 每个子项的文字区域下方必须包含按钮（橙色圆角样式）
 4. **按钮四语**: 按钮文字必须包含四种语言版本
-5. **保持格式**: 不要修改 JSX 结构、CSS 类名
-6. **品牌名称**: "Zenava" 不翻译，保持统一
-7. **响应式**: 确保移动端正常显示
-8. **布局交替**: 自动判断奇偶数，设置正确的布局方向
+5. **图片样式**: 图片必须使用 `object-contain`，容器无阴影、无边框、透明背景
+6. **保持格式**: 不要修改 JSX 结构、CSS 类名
+7. **品牌名称**: "Zenava" 不翻译，保持统一
+8. **响应式**: 确保移动端正常显示
+9. **布局交替**: 自动判断奇偶数，设置正确的布局方向
 
 ### ❌ 禁止操作：
 1. ❌ 不要修改组件结构（div、section 等）
@@ -163,6 +191,8 @@ class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange
 3. ❌ 不要手动设置布局方向（由奇偶数自动判断）
 4. ❌ 不要修改图片容器的响应式样式
 5. ❌ 不要破坏左右交替的规则
+6. ❌ 不要给图片容器添加阴影、边框或背景色
+7. ❌ 不要使用 `object-cover`（会裁剪图片）
 
 ### 📏 内容长度建议：
 - **主标题**: 4-8个汉字（英文 2-5 个单词）

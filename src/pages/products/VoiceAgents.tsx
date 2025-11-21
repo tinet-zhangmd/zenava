@@ -82,12 +82,12 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
             </div>
 
             {/* Right Media */}
-            <div class="relative rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
-              <div class="aspect-[4/3] bg-gray-200 flex items-center justify-center">
+            <div class="relative rounded-2xl overflow-hidden order-1 lg:order-2">
+              <div class="aspect-[4/3] flex items-center justify-center">
                 <img 
                   src="/assets/images/voice-agents/humanized-voice.webp" 
                   alt={t.coreFeatures.feature1.mediaAlt}
-                  class="w-full h-full object-cover"
+                  class="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
                 />
@@ -98,12 +98,12 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
           {/* Feature 2: 低延迟交互 - 右文左图 */}
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center mb-16 md:mb-20 lg:mb-24">
             {/* Left Media */}
-            <div class="relative rounded-2xl overflow-hidden shadow-xl">
-              <div class="aspect-[4/3] bg-gray-200 flex items-center justify-center">
+            <div class="relative rounded-2xl overflow-hidden">
+              <div class="aspect-[4/3] flex items-center justify-center">
                 <img 
                   src="/assets/images/voice-agents/low-latency.webp" 
                   alt={t.coreFeatures.feature2.mediaAlt}
-                  class="w-full h-full object-cover"
+                  class="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
                 />
@@ -192,12 +192,12 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
             </div>
 
             {/* Right Media */}
-            <div class="relative rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
-              <div class="aspect-[4/3] bg-gray-200 flex items-center justify-center">
+            <div class="relative rounded-2xl overflow-hidden order-1 lg:order-2">
+              <div class="aspect-[4/3] flex items-center justify-center">
                 <img 
                   src="/assets/images/voice-agents/intelligent-interruption.webp" 
                   alt={t.coreFeatures.feature3.mediaAlt}
-                  class="w-full h-full object-cover"
+                  class="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
                 />
@@ -208,12 +208,12 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
           {/* Feature 4: 完整业务闭环 - 右文左图 */}
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
             {/* Left Media */}
-            <div class="relative rounded-2xl overflow-hidden shadow-xl">
-              <div class="aspect-[4/3] bg-gray-200 flex items-center justify-center">
+            <div class="relative rounded-2xl overflow-hidden">
+              <div class="aspect-[4/3] flex items-center justify-center">
                 <img 
                   src="/assets/images/voice-agents/business-loop.webp" 
                   alt={t.coreFeatures.feature4.mediaAlt}
-                  class="w-full h-full object-cover"
+                  class="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
                 />
@@ -278,12 +278,12 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
           {/* Case 1: 厨电客户 - 左图右文 */}
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center mb-16 md:mb-20 lg:mb-24">
             {/* Left Image */}
-            <div class="relative rounded-2xl overflow-hidden shadow-xl">
-              <div class="aspect-[4/3] bg-white border border-gray-200 flex items-center justify-center p-4 md:p-6 lg:p-8">
+            <div class="relative rounded-2xl overflow-hidden">
+              <div class="aspect-[4/3] flex items-center justify-center p-4 md:p-6 lg:p-8">
                 <img 
                   src="/assets/images/voice-agents/case-kitchen-appliances.webp" 
                   alt={t.customerCases.case1.imageAlt}
-                  class="w-full h-full object-cover"
+                  class="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
                 />
@@ -292,18 +292,16 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
 
             {/* Right Content */}
             <div class="space-y-4 md:space-y-6 lg:space-y-8">
-              {t.customerCases.case1.tag && (
-                <span class="inline-block px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">
-                  {t.customerCases.case1.tag}
-                </span>
-              )}
-              
               <div>
-                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                {/* 主标题：亮色（蓝色），大字体 */}
+                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600">
                   {t.customerCases.case1.title}
                 </h3>
+                {/* 副标题：如果存在，显示为黑色，相同字体大小 */}
                 {t.customerCases.case1.subtitle && (
-                  <p class="text-lg md:text-xl text-blue-600 font-semibold">{t.customerCases.case1.subtitle}</p>
+                  <p class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">
+                    {t.customerCases.case1.subtitle}
+                  </p>
                 )}
               </div>
               
@@ -333,18 +331,16 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center mb-16 md:mb-20 lg:mb-24">
             {/* Left Content */}
             <div class="space-y-4 md:space-y-6 lg:space-y-8 order-2 lg:order-1">
-              {t.customerCases.case2.tag && (
-                <span class="inline-block px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-semibold">
-                  {t.customerCases.case2.tag}
-                </span>
-              )}
-              
               <div>
-                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                {/* 主标题：亮色（绿色），大字体 */}
+                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-green-600">
                   {t.customerCases.case2.title}
                 </h3>
+                {/* 副标题：如果存在，显示为黑色，相同字体大小 */}
                 {t.customerCases.case2.subtitle && (
-                  <p class="text-lg md:text-xl text-green-600 font-semibold">{t.customerCases.case2.subtitle}</p>
+                  <p class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">
+                    {t.customerCases.case2.subtitle}
+                  </p>
                 )}
               </div>
               
@@ -370,12 +366,12 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
             </div>
 
             {/* Right Image */}
-            <div class="relative rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
-              <div class="aspect-[4/3] bg-white border border-gray-200 flex items-center justify-center p-4 md:p-6 lg:p-8">
+            <div class="relative rounded-2xl overflow-hidden order-1 lg:order-2">
+              <div class="aspect-[4/3] flex items-center justify-center p-4 md:p-6 lg:p-8">
                 <img 
                   src="/assets/images/voice-agents/case-automotive.webp" 
                   alt={t.customerCases.case2.imageAlt}
-                  class="w-full h-full object-cover"
+                  class="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
                 />
@@ -386,12 +382,12 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
           {/* Case 3: 酒店集团 - 左图右文 */}
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
             {/* Left Image */}
-            <div class="relative rounded-2xl overflow-hidden shadow-xl">
-              <div class="aspect-[4/3] bg-white border border-gray-200 flex items-center justify-center p-4 md:p-6 lg:p-8">
+            <div class="relative rounded-2xl overflow-hidden">
+              <div class="aspect-[4/3] flex items-center justify-center p-4 md:p-6 lg:p-8">
                 <img 
                   src="/assets/images/voice-agents/case-hotel.webp" 
                   alt={t.customerCases.case3.imageAlt}
-                  class="w-full h-full object-cover"
+                  class="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
                 />
@@ -400,18 +396,16 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
 
             {/* Right Content */}
             <div class="space-y-4 md:space-y-6 lg:space-y-8">
-              {t.customerCases.case3.tag && (
-                <span class="inline-block px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold">
-                  {t.customerCases.case3.tag}
-                </span>
-              )}
-              
               <div>
-                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                {/* 主标题：亮色（紫色），大字体 */}
+                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-600">
                   {t.customerCases.case3.title}
                 </h3>
+                {/* 副标题：如果存在，显示为黑色，相同字体大小 */}
                 {t.customerCases.case3.subtitle && (
-                  <p class="text-lg md:text-xl text-purple-600 font-semibold">{t.customerCases.case3.subtitle}</p>
+                  <p class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">
+                    {t.customerCases.case3.subtitle}
+                  </p>
                 )}
               </div>
               

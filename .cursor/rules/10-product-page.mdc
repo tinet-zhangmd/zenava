@@ -962,9 +962,12 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
 - **主要输入语言**: 简体中文 (zh) - 其他语言自动生成
 
 ## 🎯 数据架构（重要！）
-- **翻译数据**: 所有文字内容（标签、标题、副标题、功能列表、按钮文字）统一存放在 `src/i18n/translations.ts` 的 `products.aiAgents.features` 配置中
+- **翻译数据**: 所有文字内容（主标题、副标题、功能列表、按钮文字）统一存放在 `src/i18n/translations.ts` 的 `products.aiAgents.features` 配置中
 - **配置数据**: 图片路径、图片描述（alt）、按钮链接、布局顺序等配置保留在 `AiAgents.tsx` 中
-- **使用方式**: `AiAgents.tsx` 通过 `t.features.voice.subtitle`、`t.features.messaging.title` 等读取翻译
+- **使用方式**: `AiAgents.tsx` 通过 `t.features.voice.title`、`t.features.messaging.subtitle` 等读取翻译
+- **样式特点**: 
+  - ✅ **无标签**：不显示标签，保持简洁
+  - ✅ **标题样式**：主标题和副标题字体大小一致，颜色不同（主标题使用亮色如蓝色/绿色/紫色，副标题黑色）
 
 ## 功能特性功能说明
 
@@ -988,15 +991,15 @@ products: {
   aiAgents: {
     features: {
       voice: {
-        title: 'Voice',  // 标签（可选，显示在标题上方）
-        subtitle: '超越真人的语音对话体验',  // 主标题
+        title: '超越真人的语音对话体验',  // 主标题
+        subtitle: '',  // 副标题（可选，如果不需要留空）
         list: [  // 功能列表
           '拟人化音色',
           '低延迟交互',
           '精准意图打断',
           '直接对接业务流程'
         ],
-        button: '了解Voice'  // 按钮文字
+        button: '了解更多'  // 按钮文字
       },
       messaging: {
         title: '传讯与即时对话',  // 主标题
@@ -1008,7 +1011,7 @@ products: {
           '针对情绪、敏感感知、话术策略、深度共情',
           '业务全流程闭环'
         ],
-        button: '了解即时对话'  // 按钮文字
+        button: '了解更多'  // 按钮文字
       }
       // 可以添加更多功能，如 features.api, features.integration 等
     }
@@ -1024,13 +1027,13 @@ products: {
   <div class="site-container px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
       {/* Left Image */}
-      <div class="relative rounded-2xl overflow-hidden shadow-xl">
-        <div class="aspect-[4/3] bg-gray-200 flex items-center justify-center">
+      <div class="rounded-2xl overflow-hidden">
+        <div class="aspect-[4/3] flex items-center justify-center">
           {/* 方式1：使用真实图片（推荐） */}
           <img 
             src="/assets/images/ai-agents/voice-demo.png"  // 图片路径（配置）
             alt="Voice功能演示图"  // 图片描述（配置）
-            class="w-full h-full object-cover"
+            class="w-full h-full object-contain"
           />
           {/* 方式2：使用占位符（如果图片路径为"无"） */}
           {/* <i class="fas fa-phone-volume text-4xl md:text-5xl lg:text-6xl text-gray-400"></i> */}
@@ -1040,8 +1043,12 @@ products: {
       {/* Right Content */}
       <div class="space-y-4 md:space-y-6 lg:space-y-8">
         <div>
-          <span class="text-blue-600 font-semibold tracking-wider uppercase text-xs md:text-sm">{t.features.voice.title}</span>
-          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">{t.features.voice.subtitle}</h2>
+          {/* 主标题：亮色（蓝色），大字体 */}
+          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600">{t.features.voice.title}</h2>
+          {/* 副标题：如果存在，显示为黑色，相同字体大小 */}
+          {t.features.voice.subtitle && (
+            <p class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">{t.features.voice.subtitle}</p>
+          )}
         </div>
         
         <ul class="space-y-3 md:space-y-4">
@@ -1075,18 +1082,24 @@ products: {
       {/* Left Content */}
       <div class="space-y-4 md:space-y-6 lg:space-y-8 order-2 lg:order-1">
         <div>
-          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">{t.features.messaging.title}</h2>
-          <p class="text-lg md:text-xl text-gray-600 mt-1 md:mt-2">{t.features.messaging.subtitle}</p>
+          {/* 主标题：亮色（绿色），大字体 */}
+          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-green-600">{t.features.messaging.title}</h2>
+          {/* 副标题：如果存在，显示为黑色，相同字体大小 */}
+          {t.features.messaging.subtitle && (
+            <p class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">{t.features.messaging.subtitle}</p>
+          )}
         </div>
         
-        <ul class="space-y-3 md:space-y-4">
-          {t.features.messaging.list.map((item: string) => (
-            <li class="flex items-center space-x-2 md:space-x-3">
-              <div class="flex-shrink-0 w-2 h-2 rounded-full bg-gray-900"></div>
-              <span class="text-gray-700 font-medium text-sm md:text-base">{item}</span>
-            </li>
-          ))}
-        </ul>
+              <ul class="space-y-3 md:space-y-4">
+                {t.features.messaging.list.map((item: string) => (
+                  <li class="flex items-center space-x-2 md:space-x-3">
+                    <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-green-100 flex items-center justify-center">
+                      <i class="fas fa-check text-green-600 text-xs"></i>
+                    </div>
+                    <span class="text-gray-700 font-medium text-sm md:text-base">{item}</span>
+                  </li>
+                ))}
+              </ul>
         
         <div>
           <a 
@@ -1099,13 +1112,13 @@ products: {
       </div>
 
       {/* Right Image */}
-      <div class="relative rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
-        <div class="aspect-[4/3] bg-white border border-gray-200 flex items-center justify-center p-4 md:p-6 lg:p-8">
+      <div class="rounded-2xl overflow-hidden order-1 lg:order-2">
+        <div class="aspect-[4/3] flex items-center justify-center p-4 md:p-6 lg:p-8">
           {/* 方式1：使用真实图片（推荐） */}
           <img 
             src="/assets/images/ai-agents/messaging-demo.png"  // 图片路径（配置）
             alt="即时对话功能演示图"  // 图片描述（配置）
-            class="w-full h-full object-cover"
+            class="w-full h-full object-contain"
           />
           {/* 方式2：使用模拟UI占位符（如果图片路径为"无"） */}
           {/* <div class="w-full max-w-md space-y-3 md:space-y-4">
@@ -1136,9 +1149,8 @@ products: {
 ```
 修改AIAgents产品页功能特性：
 - 功能名称：voice（或 messaging）
-- 标签：[标签文字，如 Voice，如果不需要则写"无"]
-- 主标题：[主标题]
-- 副标题：[副标题，如果不需要则写"无"]
+- 主标题：[主标题，8-20个汉字]
+- 副标题：[副标题，如果不需要则写"无"，8-20个汉字]
 - 功能列表：[功能点1, 功能点2, 功能点3...]
 - 按钮文字：[按钮文字]
 - 按钮链接：[按钮链接，如 /products/voice]
@@ -1153,9 +1165,8 @@ products: {
 - 功能名称：api（或 integration, analytics 等）
 - 布局顺序：[数字，如 3，决定显示顺序]
 - 布局方向：左图右文（或 左文右图）
-- 标签：[标签文字，可选]
-- 主标题：[主标题]
-- 副标题：[副标题，可选]
+- 主标题：[主标题，8-20个汉字]
+- 副标题：[副标题，可选，8-20个汉字]
 - 功能列表：[功能点1, 功能点2, 功能点3...]
 - 按钮文字：[按钮文字]
 - 按钮链接：[按钮链接]
@@ -1174,7 +1185,7 @@ products: {
 ### 🎯 详细修改流程
 
 **步骤1：修改翻译文字** (`src/i18n/translations.ts`)
-- 修改标签、主标题、副标题、功能列表、按钮文字
+- 修改主标题、副标题、功能列表、按钮文字
 - 用户只需提供简体中文，AI 自动生成英文、日文、繁体中文
 
 **步骤2：修改配置** (`src/pages/products/AiAgents.tsx`)
@@ -1189,11 +1200,10 @@ products: {
 ```
 修改AIAgents产品页功能特性：
 - 功能名称：voice
-- 标签：Voice（保持不变）
 - 主标题：超越真人的语音对话体验（新标题）
 - 副标题：无
 - 功能列表：拟人化音色, 低延迟交互, 精准意图打断, 直接对接业务流程, 智能情绪识别
-- 按钮文字：了解更多Voice功能
+- 按钮文字：了解更多
 - 按钮链接：/products/voice（保持不变）
 - 图片路径：/assets/images/voice-demo.png
 - 图片描述：Voice功能演示图
@@ -1214,7 +1224,6 @@ products: {
 - 功能名称：api
 - 布局顺序：3
 - 布局方向：左图右文
-- 标签：API Integration
 - 主标题：强大的API集成能力
 - 副标题：无缝对接您的业务系统
 - 功能列表：RESTful API, Webhook支持, 数据同步, 实时推送
@@ -1247,14 +1256,14 @@ products: {
 
 ### 2. 功能列表样式
 
-**Voice 功能列表**：
-- 使用蓝色圆形图标 + 对勾（`fas fa-check`）
-- 图标背景：`bg-blue-100`
-- 图标颜色：`text-blue-600`
+**统一使用对勾样式**：
+- 使用圆形图标 + 对勾（`fas fa-check`）
+- 图标背景：根据主标题颜色匹配（如 `bg-blue-100`、`bg-green-100`）
+- 图标颜色：根据主标题颜色匹配（如 `text-blue-600`、`text-green-600`）
 
-**Messaging 功能列表**：
-- 使用黑色小圆点（`w-2 h-2 rounded-full bg-gray-900`）
-- 更简洁的样式
+**示例**：
+- Voice（蓝色主标题）：`bg-blue-100` + `text-blue-600`
+- Messaging（绿色主标题）：`bg-green-100` + `text-green-600`
 
 ### 3. 图片配置
 
@@ -1269,11 +1278,11 @@ products: {
 
 **方式1：使用真实图片**
 ```typescript
-<div class="aspect-[4/3] bg-gray-200 flex items-center justify-center">
+<div class="aspect-[4/3] flex items-center justify-center">
   <img 
     src="/assets/images/ai-agents/voice-demo.png"  // 图片路径（配置）
     alt="Voice功能演示图"  // 图片描述（配置）
-    class="w-full h-full object-cover"
+    class="w-full h-full object-contain"
   />
 </div>
 ```
@@ -1329,7 +1338,8 @@ class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-
    - ✅ 所有间距必须使用响应式类名（`space-y-4 md:space-y-6 lg:space-y-8`）
    - ✅ 容器必须添加内边距（`px-4 sm:px-6 lg:px-8`）
    - ✅ 按钮必须符合触摸标准（`min-h-[44px]`）
-   - ✅ 图片必须使用 `object-cover` 确保自适应
+   - ✅ 图片必须使用 `object-contain` 确保完整显示（不裁剪）
+   - ✅ 图片容器无阴影、无边框、透明背景
 5. **布局交替**: 保持左右交替布局，避免视觉单调
 6. **功能列表**: 每个功能点建议 4-15 个汉字（英文 3-10 个单词）
 
@@ -1346,9 +1356,8 @@ class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-
 
 | 内容 | 简体中文 | 英文 | 说明 |
 |-----|---------|-----|-----|
-| 标签 | 2-10个汉字 | 1-5个单词 | 简短标识 |
-| 主标题 | 8-20个汉字 | 4-12个单词 | 功能核心描述 |
-| 副标题 | 4-12个汉字 | 2-8个单词 | 补充说明（可选） |
+| 主标题 | 8-20个汉字 | 4-12个单词 | 功能核心描述（亮色：蓝色/绿色/紫色等） |
+| 副标题 | 8-20个汉字 | 4-12个单词 | 补充说明（可选，与主标题字体大小一致，颜色为黑色） |
 | 功能点 | 4-15个汉字 | 3-10个单词 | 功能特性描述 |
 | 按钮文字 | 2-8个汉字 | 1-5个单词 | 简短行动号召 |
 
