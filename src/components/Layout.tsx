@@ -84,7 +84,7 @@ export function Layout({ children, language, currentPath, title, description, se
               <div class="flex-shrink-0">
                 <a href={getLocalizedPath('/', language)} class="flex items-center">
                   <img 
-                    src="/assets/images/logo.png" 
+                    src="/assets/images/logo.webp" 
                     alt="ZENAVA" 
                     class="h-10 sm:h-12 w-auto object-contain transition-all duration-300 hover:opacity-80"
                     style="max-width: 200px;"
@@ -184,7 +184,7 @@ export function Layout({ children, language, currentPath, title, description, se
               <div class="col-span-1 md:col-span-2">
                 <div class="mb-4">
                   <img 
-                    src="/assets/images/logo.png" 
+                    src="/assets/images/logo.webp" 
                     alt="ZENAVA" 
                     class="h-10 w-auto object-contain"
                     style="max-width: 160px; filter: brightness(0) invert(1);"

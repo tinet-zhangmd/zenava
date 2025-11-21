@@ -134,7 +134,7 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
               
               <div>
                 <a 
-                  href="/products/voice" 
+                  href="/products/voice-agents" 
                   class="inline-flex items-center px-6 py-3 md:px-6 md:py-3 border border-gray-300 shadow-sm text-base md:text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
                 >
                   {t.features.voice.button}

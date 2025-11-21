@@ -14,7 +14,7 @@ export function getNavigationData(
 
 function getDefaultNavigationConfig(): NavigationConfig {
   return {
-    logo_url: '/assets/images/logo.png',
+    logo_url: '/assets/images/logo.webp',
     logo_alt: 'ZENAVA',
     logo_height: '2.5rem',
     logo_max_width: '200px',
@@ -102,7 +102,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
           label_en: 'Voice',
           label_jp: 'Voice',
           label_hk: 'Voice',
-          url: '/products/voice',
+          url: '/products/voice-agents',
           icon: 'fas fa-microphone',
           order: 3,
           visible: true

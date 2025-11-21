@@ -115,7 +115,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             },
             rightImage: {
               type: 'image',
-              src: '/assets/images/sales-ai.png',
+              src: '/assets/images/sales-ai.webp',
               alt: trans.banners.slide2.imageAlt
             }
           },
@@ -139,7 +139,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             },
             rightImage: {
               type: 'image',
-              src: '/assets/images/test.png',
+              src: '/assets/images/test.webp',
               alt: trans.banners.slide3.imageAlt
             }
           },
@@ -163,7 +163,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             },
             rightImage: {
               type: 'image',
-              src: '/assets/images/right-one.png',
+              src: '/assets/images/right-one.webp',
               alt: trans.banners.slide4.imageAlt
             }
           },
@@ -172,7 +172,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             id: 'slide-5',
             layout: 'full-image',
             fullImage: {
-              src: '/assets/images/banner-full-marketing.jpg',
+              src: '/assets/images/banner-full-marketing.webp',
               alt: trans.banners.slide5.imageAlt,
               overlay: false,  // 不显示遮罩层
             },
@@ -692,7 +692,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <div class="relative" data-animate="slide-up">
                 <div class="rounded-xl overflow-hidden shadow-xl">
                   <img 
-                    src="/assets/images/right-one.png" 
+                    src="/assets/images/right-one.webp" 
                     alt={trans.scenarios.marketing.section3?.imageAlt || 'Marketing Automation'}
                     class="w-full h-auto object-cover"
                     loading="lazy"
