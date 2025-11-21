@@ -7,6 +7,7 @@ import { OtherResourcesSection } from './OtherResourcesSection.js'
 import { CookieConsent, CookiePreferencesModal } from './CookieConsent.js'
 import { ScrollToTop } from './ScrollToTop.js'
 import { MobileScrollToTop } from './MobileScrollToTop.js'
+import { FloatingActionButton } from './FloatingActionButton.js'
 import { FooterConfig, FooterSection, PrivacyLink } from '../utils/common-content.js'
 import { BaiduAnalyticsScript } from './BaiduAnalytics.js'
 
@@ -119,7 +120,7 @@ export function LayoutWithUnifiedNav({
         <main class={navigationConfig.nav_fixed !== false ? 'pt-16' : ''}>
           {children}
           
-          {/* Other Resources Section - 其他资源版块（所有页面统一） */}
+          {/* Other Resources Section - 资源中心版块（所有页面统一） */}
           <OtherResourcesSection language={language} />
           
           {/* Contact Section - 联系表单版块（所有页面统一） */}
@@ -134,9 +135,12 @@ export function LayoutWithUnifiedNav({
           privacyLinks={privacyLinks}
         />
 
-        {/* Scroll to Top Buttons */}
-        <ScrollToTop />  {/* Desktop version */}
-        <MobileScrollToTop />  {/* Mobile version */}
+        {/* Floating Action Button - 悬浮按钮（联系我们 + 返回顶部） */}
+        <FloatingActionButton language={language} />
+
+        {/* Scroll to Top Buttons - 保留作为备用 */}
+        {/* <ScrollToTop /> */}
+        {/* <MobileScrollToTop /> */}
 
         {/* Cookie Consent Components */}
         <CookieConsent language={language} />

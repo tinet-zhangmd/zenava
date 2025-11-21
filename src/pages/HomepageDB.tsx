@@ -464,7 +464,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
       })()}
       
 
-      {/* Other Resources Section - 其他资源 */}
+      {/* Other Resources Section - 资源中心 */}
       <section class="py-16 md:py-20 bg-gradient-to-tr from-blue-200 via-purple-200 to-pink-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Resource Cards - 两个卡片水平排列 */}
