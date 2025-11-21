@@ -84,7 +84,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             },
             // 不提供 overlayContent，表示不显示文字内容
             // 整个Banner可点击跳转（可选）
-            clickLink: undefined
+            clickLink: '/contact'
           }
         ];
 
@@ -488,7 +488,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <div class="flex flex-col sm:flex-row gap-3">
                 {/* Learn More Button - 紫色，带白色圆形图标 */}
                 <a 
-                  href="#"
+                  href="/contact"
                   class="inline-flex items-center justify-center px-6 py-3 bg-[#6438FF] text-white rounded-full font-medium hover:bg-[#5a2ee6] transition-all duration-300"
                 >
                   <span class="inline-flex items-center justify-center w-5 h-5 bg-white rounded-full mr-2">
@@ -499,7 +499,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 
                 {/* Book Demo Button - 白色背景，黑色边框 */}
                 <a 
-                  href="#"
+                  href="/contact"
                   class="inline-flex items-center justify-center px-6 py-3 bg-white border-2 border-gray-900 text-gray-900 rounded-full font-medium hover:bg-gray-50 transition-all duration-300"
                 >
                   {trans.otherResources.cards.voiceConnectivity.bookDemo}
@@ -526,7 +526,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <div class="flex flex-col sm:flex-row gap-3">
                 {/* Learn More Button - 紫色，带白色圆形图标 */}
                 <a 
-                  href="#"
+                  href="/contact"
                   class="inline-flex items-center justify-center px-6 py-3 bg-[#6438FF] text-white rounded-full font-medium hover:bg-[#5a2ee6] transition-all duration-300"
                 >
                   <span class="inline-flex items-center justify-center w-5 h-5 bg-white rounded-full mr-2">
@@ -537,7 +537,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 
                 {/* Book Demo Button - 白色背景，黑色边框 */}
                 <a 
-                  href="#"
+                  href="/contact"
                   class="inline-flex items-center justify-center px-6 py-3 bg-white border-2 border-gray-900 text-gray-900 rounded-full font-medium hover:bg-gray-50 transition-all duration-300"
                 >
                   {trans.otherResources.cards.liveChat.bookDemo}
@@ -567,9 +567,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <div data-animate="slide-up">
                 {/* 标题行（可点击） */}
                 <a 
-                  href="https://www.baidu.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/contact"
                   class="flex items-center mb-6 group cursor-pointer"
                 >
                   <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-purple-200 transition-colors">
@@ -598,9 +596,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 
                 {/* 按钮 */}
                 <a 
-                  href="https://www.baidu.com" 
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/contact" 
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
                 >
                   <span>{trans.scenarios.marketing.section3?.buttonText || trans.scenarios.marketing.title}</span>
@@ -667,7 +663,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <div class="order-1 lg:order-2" data-animate="slide-up">
                 {/* 标题行（可点击） */}
                 <a 
-                  href="https://www.baidu.com"
+                  href="/contact"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex items-center mb-6 group cursor-pointer"
@@ -700,7 +696,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 
                 {/* 按钮 */}
                 <a 
-                  href="https://www.baidu.com" 
+                  href="/contact" 
                   target="_blank"
                   rel="noopener noreferrer"
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
@@ -716,7 +712,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <div data-animate="slide-up">
                 {/* 标题行（可点击） */}
                 <a 
-                  href="https://www.baidu.com"
+                  href="/contact"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex items-center mb-6 group cursor-pointer"
@@ -749,7 +745,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 
                 {/* 按钮 */}
                 <a 
-                  href="https://www.baidu.com" 
+                  href="/contact" 
                   target="_blank"
                   rel="noopener noreferrer"
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
@@ -822,7 +818,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <div class="order-1 lg:order-2" data-animate="slide-up">
                 {/* 标题行（可点击） */}
                 <a 
-                  href="https://www.baidu.com"
+                  href="/contact"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex items-center mb-6 group cursor-pointer"
@@ -855,7 +851,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 
                 {/* 按钮 */}
                 <a 
-                  href="https://www.baidu.com" 
+                  href="/contact" 
                   target="_blank"
                   rel="noopener noreferrer"
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
@@ -871,7 +867,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <div data-animate="slide-up">
                 {/* 标题行（可点击） */}
                 <a 
-                  href="https://www.baidu.com"
+                  href="/contact"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex items-center mb-6 group cursor-pointer"
@@ -904,7 +900,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 
                 {/* 按钮 */}
                 <a 
-                  href="https://www.baidu.com" 
+                  href="/contact" 
                   target="_blank"
                   rel="noopener noreferrer"
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
@@ -1014,7 +1010,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <div class="order-1 lg:order-2" data-animate="slide-up">
                 {/* 标题行（可点击） */}
                 <a 
-                  href="https://www.baidu.com"
+                  href="/contact"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex items-center mb-6 group cursor-pointer"
@@ -1051,7 +1047,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 
                 {/* 按钮 */}
                 <a 
-                  href="https://www.baidu.com" 
+                  href="/contact" 
                   target="_blank"
                   rel="noopener noreferrer"
                   class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"

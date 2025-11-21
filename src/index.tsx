@@ -16,6 +16,10 @@ import { AiAgentsPage } from './pages/products/AiAgents.js'
 import { LiveChatPage } from './pages/products/LiveChat.js'
 import { VoiceAgentsPage } from './pages/products/VoiceAgents.js'
 import { ContactPage } from './pages/Contact.js'
+import { ResourcesPage } from './pages/Resources.js'
+import { ResourceListPage } from './pages/ResourceList.js'
+import { ResourceDetailPage } from './pages/ResourceDetail.js'
+import { VideoPodcastDetailPage } from './pages/VideoPodcastDetail.js'
 import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/i18n.js'
 
 // Import Admin Pages
@@ -649,7 +653,25 @@ app.get('/hk/scenarios/:scenario', (c) => {
 
 // About Us routes
 app.get('/about', (c) => {
-  return renderScenarioPage(c, AboutUs, 'en', '/about', 'About Us')
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/about'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <AboutUs language={language} />
+    </LayoutWithUnifiedNav>
+  )
 })
 
 app.get('/en/about', (c) => {
@@ -666,6 +688,466 @@ app.get('/jp/about', (c) => {
 
 app.get('/hk/about', (c) => {
   return renderScenarioPage(c, AboutUs, 'hk', '/hk/about', '關於我們')
+})
+
+// Resource Center routes (Homepage)
+app.get('/resources', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourcesPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - Default (All resources) - redirect to /resources/all
+app.get('/resources/all', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/all'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="all" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/resources', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/resources`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourcesPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - All resources
+app.get('/resources/all', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/all'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="all" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - Whitepapers
+app.get('/resources/whitepapers', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/whitepapers'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="whitepapers" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - Videos
+app.get('/resources/video', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/video'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="videos" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - Reports
+app.get('/resources/reports', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/reports'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="reports" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - Demos
+app.get('/resources/demos', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/demos'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="demos" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - Blog
+app.get('/resources/blog', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/blog'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="blog" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - Podcast
+app.get('/resources/podcast', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/podcast'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="podcast" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Multi-language Resource List routes
+const resourceTypes = ['all', 'whitepapers', 'videos', 'reports', 'demos', 'blog', 'podcast']
+for (const lang of ['zh', 'en', 'jp', 'hk'] as Language[]) {
+  for (const resourceType of resourceTypes) {
+    app.get(`/${lang}/resources/${resourceType}`, (c) => {
+      const language: Language = lang
+      const currentPath = `/${lang}/resources/${resourceType}`
+      const page = parseInt(c.req.query('page') || '1')
+      
+      const { config: navConfig, menuItems } = getNavigationData(language);
+      const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+      
+      return c.html(
+        <LayoutWithUnifiedNav
+          language={language}
+          currentPath={currentPath}
+          navigationConfig={navConfig}
+          menuItems={menuItems}
+          footerConfig={footerConfig}
+          footerSections={footerSections}
+          privacyLinks={privacyLinks}
+        >
+          <ResourceListPage language={language} resourceType={resourceType} page={page} />
+        </LayoutWithUnifiedNav>
+      )
+    })
+  }
+}
+
+// Video/Podcast Detail routes - Default language (must be before generic :type/:id route)
+app.get('/resources/video/:id', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const contentId = c.req.param('id')
+  const currentPath = `/resources/video/${contentId}`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <VideoPodcastDetailPage language={language} contentType="video" contentId={contentId} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/resources/podcast/:id', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const contentId = c.req.param('id')
+  const currentPath = `/resources/podcast/${contentId}`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <VideoPodcastDetailPage language={language} contentType="podcast" contentId={contentId} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Video/Podcast Detail routes - Multi-language
+for (const lang of ['zh', 'en', 'jp', 'hk'] as Language[]) {
+  app.get(`/${lang}/resources/video/:id`, (c) => {
+    const language: Language = lang
+    const contentId = c.req.param('id')
+    const currentPath = `/${lang}/resources/video/${contentId}`
+    
+    const { config: navConfig, menuItems } = getNavigationData(language);
+    const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+    
+    return c.html(
+      <LayoutWithUnifiedNav
+        language={language}
+        currentPath={currentPath}
+        navigationConfig={navConfig}
+        menuItems={menuItems}
+        footerConfig={footerConfig}
+        footerSections={footerSections}
+        privacyLinks={privacyLinks}
+      >
+        <VideoPodcastDetailPage language={language} contentType="video" contentId={contentId} />
+      </LayoutWithUnifiedNav>
+    )
+  })
+  
+  app.get(`/${lang}/resources/podcast/:id`, (c) => {
+    const language: Language = lang
+    const contentId = c.req.param('id')
+    const currentPath = `/${lang}/resources/podcast/${contentId}`
+    
+    const { config: navConfig, menuItems } = getNavigationData(language);
+    const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+    
+    return c.html(
+      <LayoutWithUnifiedNav
+        language={language}
+        currentPath={currentPath}
+        navigationConfig={navConfig}
+        menuItems={menuItems}
+        footerConfig={footerConfig}
+        footerSections={footerSections}
+        privacyLinks={privacyLinks}
+      >
+        <VideoPodcastDetailPage language={language} contentType="podcast" contentId={contentId} />
+      </LayoutWithUnifiedNav>
+    )
+  })
+}
+
+// Resource Detail routes - Default language (for whitepaper, report, case-study, etc.)
+app.get('/resources/:type/:id', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const resourceType = c.req.param('type')
+  const resourceId = c.req.param('id')
+  const currentPath = `/resources/${resourceType}/${resourceId}`
+  
+  // Skip if it's video or podcast (handled by specific routes above)
+  if (resourceType === 'video' || resourceType === 'podcast') {
+    return c.notFound()
+  }
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceDetailPage language={language} resourceType={resourceType} resourceId={resourceId} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource Detail routes - Multi-language (for whitepaper, report, case-study, etc.)
+for (const lang of ['zh', 'en', 'jp', 'hk'] as Language[]) {
+  app.get(`/${lang}/resources/:type/:id`, (c) => {
+    const language: Language = lang
+    const resourceType = c.req.param('type')
+    const resourceId = c.req.param('id')
+    const currentPath = `/${lang}/resources/${resourceType}/${resourceId}`
+    
+    // Skip if it's video or podcast (handled by specific routes above)
+    if (resourceType === 'video' || resourceType === 'podcast') {
+      return c.notFound()
+    }
+    
+    const { config: navConfig, menuItems } = getNavigationData(language);
+    const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+    
+    return c.html(
+      <LayoutWithUnifiedNav
+        language={language}
+        currentPath={currentPath}
+        navigationConfig={navConfig}
+        menuItems={menuItems}
+        footerConfig={footerConfig}
+        footerSections={footerSections}
+        privacyLinks={privacyLinks}
+      >
+        <ResourceDetailPage language={language} resourceType={resourceType} resourceId={resourceId} />
+      </LayoutWithUnifiedNav>
+    )
+  })
+}
+
+// Resource Download API endpoint
+app.get('/resources/download/:id', async (c) => {
+  const resourceId = c.req.param('id')
+  
+  // Check if user has submitted form (check cookie)
+  const downloadCookie = getCookie(c, `resource_download_${resourceId}`)
+  
+  if (!downloadCookie) {
+    // User hasn't submitted form, redirect to contact page
+    return c.redirect(`/contact?source=whitepaper_download&file=${resourceId}`)
+  }
+  
+  // TODO: Fetch file path from database based on resourceId
+  // Example query: SELECT file_path, file_name, file_type FROM resources WHERE id = ?
+  // For now, return a mock response
+  const filePath = `/assets/files/whitepaper-${resourceId}.pdf`
+  const fileName = `whitepaper-${resourceId}.pdf`
+  
+  // In production, this would:
+  // 1. Query database for file information
+  // 2. Check if file exists
+  // 3. Determine MIME type based on file extension
+  // 4. Stream the file to the client
+  
+  // For now, we'll redirect to the static file
+  // In production, use: return c.body(fileStream, { headers: { 'Content-Type': mimeType, 'Content-Disposition': `attachment; filename="${fileName}"` } })
+  
+  // Set headers for file download
+  c.header('Content-Type', 'application/pdf')
+  c.header('Content-Disposition', `attachment; filename="${fileName}"`)
+  
+  // Redirect to static file (in production, serve the file directly)
+  return c.redirect(filePath)
 })
 
 // Privacy Policy routes

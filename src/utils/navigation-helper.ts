@@ -214,7 +214,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
           label_en: 'Videos',
           label_jp: '動画',
           label_hk: '視頻',
-          url: '/resources/videos',
+          url: '/resources/video',
           icon: 'fas fa-video',
           order: 3,
           visible: true

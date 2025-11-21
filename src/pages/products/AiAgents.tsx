@@ -23,7 +23,7 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
       {/* Banner Section - 全图布局模式（仅图片和链接） */}
       <section class="relative w-full overflow-hidden" style="height: 740px;">
         {/* 可点击链接（可选，如果不需要链接则使用 div） */}
-        <a href="/products/ai-agents" class="block w-full h-full">
+        <a href="/contact" class="block w-full h-full">
           {/* 背景层：渐变背景 + 图片覆盖 */}
           <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600">
             {/* 全图背景 - 支持移动端专用图片 */}
@@ -143,7 +143,7 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
               
               <div>
                 <a 
-                  href="/products/voice-agents" 
+                  href="/contact" 
                   class="inline-flex items-center px-6 py-3 md:px-6 md:py-3 border border-gray-300 shadow-sm text-base md:text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
                 >
                   {t.features.voice.button}
@@ -182,7 +182,7 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
               
               <div>
                 <a 
-                  href="/products/live-chat" 
+                  href="/contact" 
                   class="inline-flex items-center px-6 py-3 md:px-6 md:py-3 border border-gray-300 shadow-sm text-base md:text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
                 >
                   {t.features.messaging.button}

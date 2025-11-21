@@ -263,11 +263,270 @@ export const siteTranslations = {
       privacyAgree: 'I agree to the Privacy Policy',
       submit: 'Submit',
       submitting: 'Submitting...',
-      privacyNotice: 'By submitting, you agree to our Privacy Policy',
+      privacyNotice: 'By clicking submit, you acknowledge your data will be processed according to our',
+      privacyLink: 'Privacy Policy',
       successMessage: 'Thank you for your submission. Our advisor will contact you soon.',
       errorMessage: 'Submission failed. Please try again.',
       downloadReady: 'Your download is ready',
       download: 'Download'
+    },
+    
+    // Resource Center Page
+    resourcesCenter: {
+      hero: {
+        slides: [
+          {
+            image: '/assets/images/resources/hero-1.jpg',
+            imageAlt: 'Resource Center Hero Image',
+            date: 'September 6, 2023',
+            title: 'There\'s an agent for that, and it runs on Sierra',
+            description: 'Today, we\'re announcing that we\'ve raised $350M additional capital at a valuation of $10B, led by Greenoaks, which is doubling down on Sierra.',
+            buttonText: 'Learn More',
+            link: '/contact'
+          },
+          {
+            image: '/assets/images/resources/hero-2.jpg',
+            imageAlt: 'Resource Center Hero Image 2',
+            date: 'September 5, 2023',
+            title: 'AI-Powered Customer Service Revolution',
+            description: 'Discover how Zenava AI is transforming customer service with intelligent agents that understand, learn, and adapt in real-time.',
+            buttonText: 'Learn More',
+            link: '/contact'
+          },
+          {
+            image: '/assets/images/resources/hero-3.jpg',
+            imageAlt: 'Resource Center Hero Image 3',
+            date: 'September 4, 2023',
+            title: 'Enterprise AI Solutions for Modern Businesses',
+            description: 'Explore our comprehensive AI platform designed for enterprise scale, helping businesses achieve digital transformation.',
+            buttonText: 'Learn More',
+            link: '/contact'
+          }
+        ]
+      },
+      featured: {
+        title: 'Featured',
+        cards: [
+          {
+            image: '/assets/images/resources/featured-1.jpg',
+            imageAlt: 'Featured 1',
+            category: 'Article',
+            date: 'September 6, 2023',
+            title: 'One unified global brand',
+            description: 'Niagahoster becomes Hostinger: Local expertise meets global innovation under one brand',
+            badge: 'Featured',
+            link: '/resources/blog/1'
+          },
+          {
+            image: '/assets/images/resources/featured-2.jpg',
+            imageAlt: 'Featured 2',
+            category: 'Video',
+            date: 'September 5, 2023',
+            title: 'Prompt, send, grow: Email marketing just got a Hostinger makeover',
+            description: 'Discover how our new email marketing platform transforms your campaigns',
+            badge: 'Hot',
+            link: '/resources/video/1'
+          },
+          {
+            image: '/assets/images/resources/featured-3.jpg',
+            imageAlt: 'Featured 3',
+            category: 'Whitepaper',
+            date: 'September 4, 2023',
+            title: 'Hundreds of thousands have already tried Hostinger Horizons: what did they build?',
+            description: 'Explore the innovative projects created by our community',
+            badge: 'Featured',
+            link: '/resources/whitepapers/1'
+          }
+        ]
+      },
+      categories: [
+        {
+          title: 'Whitepapers',
+          moreText: 'View More',
+          moreLink: '/resources/whitepapers',
+          items: [
+            {
+              image: '/assets/images/resources/whitepaper-1.jpg',
+              imageAlt: 'Whitepaper 1',
+              date: 'September 6, 2023',
+              title: 'How Jake\'s Migration to Agency Hosting Made Multi-Site Management Easy',
+              description: 'Learn how Jake streamlined his multi-site operations with our agency hosting solution',
+              link: '/resources/whitepapers/1'
+            },
+            {
+              image: '/assets/images/resources/whitepaper-2.jpg',
+              imageAlt: 'Whitepaper 2',
+              date: 'September 5, 2023',
+              title: 'Wakame Girl: The taste of seaweed-selling success',
+              description: 'Discover how Wakame Girl built a successful seaweed business online',
+              link: '/resources/whitepapers/2'
+            },
+            {
+              image: '/assets/images/resources/whitepaper-3.jpg',
+              imageAlt: 'Whitepaper 3',
+              date: 'September 4, 2023',
+              title: 'Bookwise: A love of books, technology, and simplicity',
+              description: 'Explore how Bookwise combines traditional book selling with modern technology',
+              link: '/resources/whitepapers/3'
+            }
+          ]
+        },
+        {
+          title: 'Videos',
+          moreText: 'View More',
+          moreLink: '/resources/video',
+          items: [
+            {
+              image: '/assets/images/resources/video-1.jpg',
+              imageAlt: 'Video 1',
+              date: 'September 6, 2023',
+              title: 'Meet Hostinger at WordCamp US',
+              description: 'Join us at WordCamp US Portland 2025 and discover the latest in WordPress',
+              link: '/resources/video/1'
+            },
+            {
+              image: '/assets/images/resources/video-2.jpg',
+              imageAlt: 'Video 2',
+              date: 'September 5, 2023',
+              title: 'Advanced trunk-based',
+              description: 'Learn advanced trunk-based development strategies from WordPress experts',
+              link: '/resources/video/2'
+            },
+            {
+              image: '/assets/images/resources/video-3.jpg',
+              imageAlt: 'Video 3',
+              date: 'September 4, 2023',
+              title: '6 key changes In WordPress 6.8',
+              description: 'Discover the major updates and improvements in WordPress 6.8',
+              link: '/resources/video/3'
+            }
+          ]
+        },
+        {
+          title: 'Industry Reports',
+          moreText: 'View More',
+          moreLink: '/resources/reports',
+          items: [
+            {
+              image: '/assets/images/resources/report-1.jpg',
+              imageAlt: 'Industry Report 1',
+              date: 'September 6, 2023',
+              title: 'Industry Report: Digital Transformation Trends',
+              description: 'Comprehensive analysis of digital transformation trends in 2024',
+              link: '/resources/reports/1'
+            },
+            {
+              image: '/assets/images/resources/report-2.jpg',
+              imageAlt: 'Industry Report 2',
+              date: 'September 5, 2023',
+              title: 'AI Adoption in Enterprise: A Comprehensive Study',
+              description: 'Deep dive into how enterprises are adopting AI technologies',
+              link: '/resources/reports/2'
+            },
+            {
+              image: '/assets/images/resources/report-3.jpg',
+              imageAlt: 'Industry Report 3',
+              date: 'September 4, 2023',
+              title: 'Customer Experience Trends 2024',
+              description: 'Explore the latest trends shaping customer experience strategies',
+              link: '/resources/reports/3'
+            }
+          ]
+        },
+        {
+          title: 'Product Demos',
+          moreText: 'View More',
+          moreLink: '/resources/demos',
+          items: [
+            {
+              image: '/assets/images/resources/demo-1.jpg',
+              imageAlt: 'Product Demo 1',
+              date: 'September 6, 2023',
+              title: 'Zenava AI Platform Demo',
+              description: 'Watch a comprehensive demo of our AI platform capabilities',
+              link: '/resources/demos/1'
+            },
+            {
+              image: '/assets/images/resources/demo-2.jpg',
+              imageAlt: 'Product Demo 2',
+              date: 'September 5, 2023',
+              title: 'Voice Agents Feature Walkthrough',
+              description: 'Learn how to set up and use voice agents in your business',
+              link: '/resources/demos/2'
+            },
+            {
+              image: '/assets/images/resources/demo-3.jpg',
+              imageAlt: 'Product Demo 3',
+              date: 'September 4, 2023',
+              title: 'Live Chat Integration Guide',
+              description: 'Step-by-step guide to integrating live chat functionality',
+              link: '/resources/demos/3'
+            }
+          ]
+        },
+        {
+          title: 'Blog',
+          moreText: 'View More',
+          moreLink: '/resources/blog',
+          items: [
+            {
+              image: '/assets/images/resources/blog-1.jpg',
+              imageAlt: 'Blog 1',
+              date: 'September 6, 2023',
+              title: 'Building AI-Powered Customer Service',
+              description: 'Best practices for implementing AI in customer service workflows',
+              link: '/resources/blog/1'
+            },
+            {
+              image: '/assets/images/resources/blog-2.jpg',
+              imageAlt: 'Blog 2',
+              date: 'September 5, 2023',
+              title: 'The Future of Conversational AI',
+              description: 'Exploring the next generation of conversational AI technologies',
+              link: '/resources/blog/2'
+            },
+            {
+              image: '/assets/images/resources/blog-3.jpg',
+              imageAlt: 'Blog 3',
+              date: 'September 4, 2023',
+              title: 'Optimizing Customer Engagement',
+              description: 'Strategies for improving customer engagement through AI',
+              link: '/resources/blog/3'
+            }
+          ]
+        },
+        {
+          title: 'Podcasts',
+          moreText: 'View More',
+          moreLink: '/resources/podcast',
+          items: [
+            {
+              image: '/assets/images/resources/podcast-1.jpg',
+              imageAlt: 'Podcast 1',
+              date: 'September 6, 2023',
+              title: 'AI in Business: A CEO\'s Perspective',
+              description: 'Hear from industry leaders about AI adoption strategies',
+              link: '/resources/podcast/1'
+            },
+            {
+              image: '/assets/images/resources/podcast-2.jpg',
+              imageAlt: 'Podcast 2',
+              date: 'September 5, 2023',
+              title: 'Customer Experience Innovation',
+              description: 'Exploring innovative approaches to customer experience',
+              link: '/resources/podcast/2'
+            },
+            {
+              image: '/assets/images/resources/podcast-3.jpg',
+              imageAlt: 'Podcast 3',
+              date: 'September 4, 2023',
+              title: 'The Future of Work with AI',
+              description: 'How AI is transforming the workplace and employee experience',
+              link: '/resources/podcast/3'
+            }
+          ]
+        }
+      ]
     },
     
     // Common Actions
@@ -460,7 +719,7 @@ export const siteTranslations = {
               'Annual cost savings of approximately 5.25 million yuan',
               'Project ROI as high as 425%'
             ],
-            button: 'View Case Details',
+            button: 'Learn More',
             imageAlt: 'Kitchen Appliance Customer Service Automation Case'
           },
           case2: {
@@ -472,7 +731,7 @@ export const siteTranslations = {
               'Improves potential customer follow-up efficiency, enhances lead conversion rate, drives sales growth',
               'Invitation conversion rate rises to 85%'
             ],
-            button: 'View Case Details',
+            button: 'Learn More',
             imageAlt: 'Automotive Customer Test Drive Invitation Case'
           },
           case3: {
@@ -484,7 +743,7 @@ export const siteTranslations = {
               'Supports multilingual communication, covering global customers',
               'Booking conversion rate increases by 15%-25%'
             ],
-            button: 'View Case Details',
+            button: 'Learn More',
             imageAlt: 'Hotel Group Booking Automation Case'
           }
         }
@@ -963,11 +1222,270 @@ export const siteTranslations = {
       privacyAgree: 'プライバシーポリシーに同意します',
       submit: '送信',
       submitting: '送信中...',
-      privacyNotice: '送信することで、プライバシーポリシーに同意したことになります',
+      privacyNotice: '送信をクリックすることで、お客様のデータが当社の',
+      privacyLink: 'プライバシーポリシー',
       successMessage: 'ご提出ありがとうございます。アドバイザーがすぐにご連絡いたします。',
       errorMessage: '送信に失敗しました。もう一度お試しください。',
       downloadReady: 'ダウンロードの準備ができました',
       download: 'ダウンロード'
+    },
+    
+    // リソースセンター
+    resourcesCenter: {
+      hero: {
+        slides: [
+          {
+            image: '/assets/images/resources/hero-1.jpg',
+            imageAlt: 'リソースセンターヒーロー画像',
+            date: '2023年9月6日',
+            title: 'エージェントがあり、Sierraで実行されます',
+            description: '本日、Greenoaksが主導する追加資本3億5000万ドルを100億ドルの評価で調達したことを発表します。GreenoaksはSierraへの投資を倍増しています。',
+            buttonText: '詳細を見る',
+            link: '/contact'
+          },
+          {
+            image: '/assets/images/resources/hero-2.jpg',
+            imageAlt: 'リソースセンターヒーロー画像2',
+            date: '2023年9月5日',
+            title: 'AI駆動のカスタマーサービス革命',
+            description: 'Zenava AIがインテリジェントエージェントでカスタマーサービスをどのように変革しているかを発見。リアルタイムで理解、学習、適応します。',
+            buttonText: '詳細を見る',
+            link: '/contact'
+          },
+          {
+            image: '/assets/images/resources/hero-3.jpg',
+            imageAlt: 'リソースセンターヒーロー画像3',
+            date: '2023年9月4日',
+            title: '現代企業向けエンタープライズAIソリューション',
+            description: 'エンタープライズ規模向けに設計された包括的なAIプラットフォームを探索し、企業のデジタル変革を支援します。',
+            buttonText: '詳細を見る',
+            link: '/contact'
+          }
+        ]
+      },
+      featured: {
+        title: 'おすすめ',
+        cards: [
+          {
+            image: '/assets/images/resources/featured-1.jpg',
+            imageAlt: 'おすすめ1',
+            category: '記事',
+            date: '2023年9月6日',
+            title: '統一されたグローバルブランド',
+            description: 'NiagahosterがHostingerに：ローカルの専門知識がグローバルなイノベーションと一つのブランドの下で出会う',
+            badge: 'おすすめ',
+            link: '/resources/blog/1'
+          },
+          {
+            image: '/assets/images/resources/featured-2.jpg',
+            imageAlt: 'おすすめ2',
+            category: '動画',
+            date: '2023年9月5日',
+            title: 'プロンプト、送信、成長：メールマーケティングがHostingerの刷新を受けました',
+            description: '新しいメールマーケティングプラットフォームがキャンペーンをどのように変革するかを発見',
+            badge: '人気',
+            link: '/resources/video/1'
+          },
+          {
+            image: '/assets/images/resources/featured-3.jpg',
+            imageAlt: 'おすすめ3',
+            category: '白書',
+            date: '2023年9月4日',
+            title: '何十万人がすでにHostinger Horizonsを試しました：彼らは何を構築しましたか？',
+            description: 'コミュニティによって作成された革新的なプロジェクトを探索',
+            badge: 'おすすめ',
+            link: '/resources/whitepapers/1'
+          }
+        ]
+      },
+      categories: [
+        {
+          title: '白書',
+          moreText: 'もっと見る',
+          moreLink: '/resources/whitepapers',
+          items: [
+            {
+              image: '/assets/images/resources/whitepaper-1.jpg',
+              imageAlt: '白書1',
+              date: '2023年9月6日',
+              title: 'Jakeのエージェンシーホスティングへの移行がマルチサイト管理を簡単にした方法',
+              description: 'Jakeがエージェンシーホスティングソリューションでマルチサイト運用をどのように効率化したかを学ぶ',
+              link: '/resources/whitepapers/1'
+            },
+            {
+              image: '/assets/images/resources/whitepaper-2.jpg',
+              imageAlt: '白書2',
+              date: '2023年9月5日',
+              title: 'わかめガール：海藻販売の成功の味',
+              description: 'わかめガールがオンラインで成功した海藻ビジネスをどのように構築したかを発見',
+              link: '/resources/whitepapers/2'
+            },
+            {
+              image: '/assets/images/resources/whitepaper-3.jpg',
+              imageAlt: '白書3',
+              date: '2023年9月4日',
+              title: 'ブックワイズ：本、技術、シンプルさへの愛',
+              description: 'ブックワイズが伝統的な本の販売と現代技術をどのように組み合わせているかを探索',
+              link: '/resources/whitepapers/3'
+            }
+          ]
+        },
+        {
+          title: '動画',
+          moreText: 'もっと見る',
+          moreLink: '/resources/video',
+          items: [
+            {
+              image: '/assets/images/resources/video-1.jpg',
+              imageAlt: '動画1',
+              date: '2023年9月6日',
+              title: 'WordCamp USでHostingerに会う',
+              description: 'WordCamp US Portland 2025に参加し、WordPressの最新情報を発見',
+              link: '/resources/video/1'
+            },
+            {
+              image: '/assets/images/resources/video-2.jpg',
+              imageAlt: '動画2',
+              date: '2023年9月5日',
+              title: '高度なトランクベース',
+              description: 'WordPressエキスパートから高度なトランクベース開発戦略を学ぶ',
+              link: '/resources/video/2'
+            },
+            {
+              image: '/assets/images/resources/video-3.jpg',
+              imageAlt: '動画3',
+              date: '2023年9月4日',
+              title: 'WordPress 6.8の6つの主要な変更',
+              description: 'WordPress 6.8の主要な更新と改善を発見',
+              link: '/resources/video/3'
+            }
+          ]
+        },
+        {
+          title: '業界レポート',
+          moreText: 'もっと見る',
+          moreLink: '/resources/reports',
+          items: [
+            {
+              image: '/assets/images/resources/report-1.jpg',
+              imageAlt: '業界レポート1',
+              date: '2023年9月6日',
+              title: '業界レポート：デジタル変革のトレンド',
+              description: '2024年のデジタル変革トレンドの包括的な分析',
+              link: '/resources/reports/1'
+            },
+            {
+              image: '/assets/images/resources/report-2.jpg',
+              imageAlt: '業界レポート2',
+              date: '2023年9月5日',
+              title: '企業におけるAI採用：包括的な研究',
+              description: '企業がAI技術をどのように採用しているかについての詳細な調査',
+              link: '/resources/reports/2'
+            },
+            {
+              image: '/assets/images/resources/report-3.jpg',
+              imageAlt: '業界レポート3',
+              date: '2023年9月4日',
+              title: '顧客体験トレンド2024',
+              description: '顧客体験戦略を形成する最新のトレンドを探索',
+              link: '/resources/reports/3'
+            }
+          ]
+        },
+        {
+          title: '製品デモ',
+          moreText: 'もっと見る',
+          moreLink: '/resources/demos',
+          items: [
+            {
+              image: '/assets/images/resources/demo-1.jpg',
+              imageAlt: '製品デモ1',
+              date: '2023年9月6日',
+              title: 'Zenava AIプラットフォームデモ',
+              description: 'AIプラットフォームの機能の包括的なデモを見る',
+              link: '/resources/demos/1'
+            },
+            {
+              image: '/assets/images/resources/demo-2.jpg',
+              imageAlt: '製品デモ2',
+              date: '2023年9月5日',
+              title: '音声エージェント機能のウォークスルー',
+              description: 'ビジネスで音声エージェントを設定して使用する方法を学ぶ',
+              link: '/resources/demos/2'
+            },
+            {
+              image: '/assets/images/resources/demo-3.jpg',
+              imageAlt: '製品デモ3',
+              date: '2023年9月4日',
+              title: 'ライブチャット統合ガイド',
+              description: 'ライブチャット機能を統合するためのステップバイステップガイド',
+              link: '/resources/demos/3'
+            }
+          ]
+        },
+        {
+          title: 'ブログ',
+          moreText: 'もっと見る',
+          moreLink: '/resources/blog',
+          items: [
+            {
+              image: '/assets/images/resources/blog-1.jpg',
+              imageAlt: 'ブログ1',
+              date: '2023年9月6日',
+              title: 'AI駆動のカスタマーサービスを構築',
+              description: 'カスタマーサービスワークフローにAIを実装するためのベストプラクティス',
+              link: '/resources/blog/1'
+            },
+            {
+              image: '/assets/images/resources/blog-2.jpg',
+              imageAlt: 'ブログ2',
+              date: '2023年9月5日',
+              title: '会話型AIの未来',
+              description: '次世代の会話型AI技術を探索',
+              link: '/resources/blog/2'
+            },
+            {
+              image: '/assets/images/resources/blog-3.jpg',
+              imageAlt: 'ブログ3',
+              date: '2023年9月4日',
+              title: '顧客エンゲージメントの最適化',
+              description: 'AIを通じて顧客エンゲージメントを改善する戦略',
+              link: '/resources/blog/3'
+            }
+          ]
+        },
+        {
+          title: 'ポッドキャスト',
+          moreText: 'もっと見る',
+          moreLink: '/resources/podcast',
+          items: [
+            {
+              image: '/assets/images/resources/podcast-1.jpg',
+              imageAlt: 'ポッドキャスト1',
+              date: '2023年9月6日',
+              title: 'ビジネスにおけるAI：CEOの視点',
+              description: '業界リーダーからAI採用戦略について聞く',
+              link: '/resources/podcast/1'
+            },
+            {
+              image: '/assets/images/resources/podcast-2.jpg',
+              imageAlt: 'ポッドキャスト2',
+              date: '2023年9月5日',
+              title: '顧客体験のイノベーション',
+              description: '顧客体験への革新的なアプローチを探索',
+              link: '/resources/podcast/2'
+            },
+            {
+              image: '/assets/images/resources/podcast-3.jpg',
+              imageAlt: 'ポッドキャスト3',
+              date: '2023年9月4日',
+              title: 'AIとの仕事の未来',
+              description: 'AIが職場と従業員体験をどのように変革しているか',
+              link: '/resources/podcast/3'
+            }
+          ]
+        }
+      ]
     },
     
     // Common Actions - Polite forms
@@ -1160,7 +1678,7 @@ export const siteTranslations = {
               '年間コスト削減約525万元',
               'プロジェクトROIは425%に達する'
             ],
-            button: 'ケース詳細を見る',
+            button: '詳細を見る',
             imageAlt: '厨房電気顧客サービス自動化ケース'
           },
           case2: {
@@ -1172,7 +1690,7 @@ export const siteTranslations = {
               '潜在顧客のフォローアップ効率を向上させ、リードコンバージョン率を高め、売上成長を促進',
               '招待コンバージョン率85%に向上'
             ],
-            button: 'ケース詳細を見る',
+            button: '詳細を見る',
             imageAlt: '自動車顧客試乗招待ケース'
           },
           case3: {
@@ -1184,7 +1702,7 @@ export const siteTranslations = {
               '多言語コミュニケーションをサポートし、グローバル顧客をカバー',
               '予約コンバージョン率15%-25%向上'
             ],
-            button: 'ケース詳細を見る',
+            button: '詳細を見る',
             imageAlt: 'ホテルグループ予約自動化ケース'
           }
         }
@@ -1664,11 +2182,270 @@ export const siteTranslations = {
       privacyAgree: '我同意隱私政策',
       submit: '提交',
       submitting: '提交中...',
-      privacyNotice: '提交即代表您同意我們的隱私政策',
+      privacyNotice: '點擊提交即表示您同意我們按照',
+      privacyLink: '隱私政策',
       successMessage: '感謝您的提交，我們的顧問將盡快與您聯繫。',
       errorMessage: '提交失敗，請重試。',
       downloadReady: '您的下載已準備就緒',
       download: '下載'
+    },
+    
+    // 資源中心頁面
+    resourcesCenter: {
+      hero: {
+        slides: [
+          {
+            image: '/assets/images/resources/hero-1.jpg',
+            imageAlt: '資源中心Hero圖片',
+            date: '2023年9月6日',
+            title: '有一個代理，它在Sierra上運行',
+            description: '今天，我們宣布在Greenoaks的領導下，我們以100億美元的估值籌集了3.5億美元的額外資本，Greenoaks正在加倍投資Sierra。',
+            buttonText: '了解更多',
+            link: '/contact'
+          },
+          {
+            image: '/assets/images/resources/hero-2.jpg',
+            imageAlt: '資源中心Hero圖片2',
+            date: '2023年9月5日',
+            title: 'AI驅動的客戶服務革命',
+            description: '發現Zenava AI如何通過能夠實時理解、學習和適應的智能代理來轉變客戶服務。',
+            buttonText: '了解更多',
+            link: '/contact'
+          },
+          {
+            image: '/assets/images/resources/hero-3.jpg',
+            imageAlt: '資源中心Hero圖片3',
+            date: '2023年9月4日',
+            title: '面向現代企業的企業AI解決方案',
+            description: '探索我們專為企業規模設計的綜合AI平台，幫助企業實現數字化轉型。',
+            buttonText: '了解更多',
+            link: '/contact'
+          }
+        ]
+      },
+      featured: {
+        title: '熱門推薦',
+        cards: [
+          {
+            image: '/assets/images/resources/featured-1.jpg',
+            imageAlt: '熱門推薦1',
+            category: '文章',
+            date: '2023年9月6日',
+            title: '統一的全球品牌',
+            description: 'Niagahoster成為Hostinger：本地專業知識在一個品牌下與全球創新相遇',
+            badge: '推薦',
+            link: '/resources/blog/1'
+          },
+          {
+            image: '/assets/images/resources/featured-2.jpg',
+            imageAlt: '熱門推薦2',
+            category: '視頻',
+            date: '2023年9月5日',
+            title: '提示、發送、成長：電子郵件營銷剛剛進行了Hostinger改造',
+            description: '發現我們的新電子郵件營銷平台如何轉變您的活動',
+            badge: '熱門',
+            link: '/resources/video/1'
+          },
+          {
+            image: '/assets/images/resources/featured-3.jpg',
+            imageAlt: '熱門推薦3',
+            category: '白皮書',
+            date: '2023年9月4日',
+            title: '數十萬人已經嘗試了Hostinger Horizons：他們構建了什麼？',
+            description: '探索我們社區創建的創新項目',
+            badge: '推薦',
+            link: '/resources/whitepapers/1'
+          }
+        ]
+      },
+      categories: [
+        {
+          title: '白皮書',
+          moreText: '查看更多',
+          moreLink: '/resources/whitepapers',
+          items: [
+            {
+              image: '/assets/images/resources/whitepaper-1.jpg',
+              imageAlt: '白皮書1',
+              date: '2023年9月6日',
+              title: 'Jake遷移到代理託管如何使多站點管理變得容易',
+              description: '了解Jake如何使用我們的代理託管解決方案簡化其多站點運營',
+              link: '/resources/whitepapers/1'
+            },
+            {
+              image: '/assets/images/resources/whitepaper-2.jpg',
+              imageAlt: '白皮書2',
+              date: '2023年9月5日',
+              title: '海帶女孩：海藻銷售成功的味道',
+              description: '發現海帶女孩如何在線建立成功的海藻業務',
+              link: '/resources/whitepapers/2'
+            },
+            {
+              image: '/assets/images/resources/whitepaper-3.jpg',
+              imageAlt: '白皮書3',
+              date: '2023年9月4日',
+              title: 'Bookwise：對書籍、技術和簡單性的熱愛',
+              description: '探索Bookwise如何將傳統圖書銷售與現代技術相結合',
+              link: '/resources/whitepapers/3'
+            }
+          ]
+        },
+        {
+          title: '視頻',
+          moreText: '查看更多',
+          moreLink: '/resources/video',
+          items: [
+            {
+              image: '/assets/images/resources/video-1.jpg',
+              imageAlt: '視頻1',
+              date: '2023年9月6日',
+              title: '在WordCamp US與Hostinger見面',
+              description: '加入我們在WordCamp US Portland 2025，發現WordPress的最新動態',
+              link: '/resources/video/1'
+            },
+            {
+              image: '/assets/images/resources/video-2.jpg',
+              imageAlt: '視頻2',
+              date: '2023年9月5日',
+              title: '高級主幹基礎',
+              description: '從WordPress專家那裡學習高級主幹基礎開發策略',
+              link: '/resources/video/2'
+            },
+            {
+              image: '/assets/images/resources/video-3.jpg',
+              imageAlt: '視頻3',
+              date: '2023年9月4日',
+              title: 'WordPress 6.8中的6個關鍵變化',
+              description: '發現WordPress 6.8中的主要更新和改進',
+              link: '/resources/video/3'
+            }
+          ]
+        },
+        {
+          title: '行業報告',
+          moreText: '查看更多',
+          moreLink: '/resources/reports',
+          items: [
+            {
+              image: '/assets/images/resources/report-1.jpg',
+              imageAlt: '行業報告1',
+              date: '2023年9月6日',
+              title: '行業報告：數字化轉型趨勢',
+              description: '2024年數字化轉型趨勢的全面分析',
+              link: '/resources/reports/1'
+            },
+            {
+              image: '/assets/images/resources/report-2.jpg',
+              imageAlt: '行業報告2',
+              date: '2023年9月5日',
+              title: '企業中的AI採用：一項綜合研究',
+              description: '深入了解企業如何採用AI技術',
+              link: '/resources/reports/2'
+            },
+            {
+              image: '/assets/images/resources/report-3.jpg',
+              imageAlt: '行業報告3',
+              date: '2023年9月4日',
+              title: '客戶體驗趨勢2024',
+              description: '探索塑造客戶體驗策略的最新趨勢',
+              link: '/resources/reports/3'
+            }
+          ]
+        },
+        {
+          title: '產品演示',
+          moreText: '查看更多',
+          moreLink: '/resources/demos',
+          items: [
+            {
+              image: '/assets/images/resources/demo-1.jpg',
+              imageAlt: '產品演示1',
+              date: '2023年9月6日',
+              title: 'Zenava AI平台演示',
+              description: '觀看我們AI平台功能的全面演示',
+              link: '/resources/demos/1'
+            },
+            {
+              image: '/assets/images/resources/demo-2.jpg',
+              imageAlt: '產品演示2',
+              date: '2023年9月5日',
+              title: '語音代理功能演練',
+              description: '了解如何在您的業務中設置和使用語音代理',
+              link: '/resources/demos/2'
+            },
+            {
+              image: '/assets/images/resources/demo-3.jpg',
+              imageAlt: '產品演示3',
+              date: '2023年9月4日',
+              title: '實時聊天集成指南',
+              description: '集成實時聊天功能的分步指南',
+              link: '/resources/demos/3'
+            }
+          ]
+        },
+        {
+          title: '博客',
+          moreText: '查看更多',
+          moreLink: '/resources/blog',
+          items: [
+            {
+              image: '/assets/images/resources/blog-1.jpg',
+              imageAlt: '博客1',
+              date: '2023年9月6日',
+              title: '構建AI驅動的客戶服務',
+              description: '在客戶服務工作流程中實施AI的最佳實踐',
+              link: '/resources/blog/1'
+            },
+            {
+              image: '/assets/images/resources/blog-2.jpg',
+              imageAlt: '博客2',
+              date: '2023年9月5日',
+              title: '對話式AI的未來',
+              description: '探索下一代對話式AI技術',
+              link: '/resources/blog/2'
+            },
+            {
+              image: '/assets/images/resources/blog-3.jpg',
+              imageAlt: '博客3',
+              date: '2023年9月4日',
+              title: '優化客戶參與',
+              description: '通過AI改善客戶參與的策略',
+              link: '/resources/blog/3'
+            }
+          ]
+        },
+        {
+          title: '播客',
+          moreText: '查看更多',
+          moreLink: '/resources/podcast',
+          items: [
+            {
+              image: '/assets/images/resources/podcast-1.jpg',
+              imageAlt: '播客1',
+              date: '2023年9月6日',
+              title: '商業中的AI：CEO的視角',
+              description: '聽取行業領袖關於AI採用策略的見解',
+              link: '/resources/podcast/1'
+            },
+            {
+              image: '/assets/images/resources/podcast-2.jpg',
+              imageAlt: '播客2',
+              date: '2023年9月5日',
+              title: '客戶體驗創新',
+              description: '探索客戶體驗的創新方法',
+              link: '/resources/podcast/2'
+            },
+            {
+              image: '/assets/images/resources/podcast-3.jpg',
+              imageAlt: '播客3',
+              date: '2023年9月4日',
+              title: 'AI工作的未來',
+              description: 'AI如何改變工作場所和員工體驗',
+              link: '/resources/podcast/3'
+            }
+          ]
+        }
+      ]
     },
     
     // Common Actions
@@ -1861,7 +2638,7 @@ export const siteTranslations = {
               '年度節省成本約525萬元',
               '項目ROI高達425%'
             ],
-            button: '查看案例詳情',
+            button: '了解更多',
             imageAlt: '廚電客戶服務自動化案例'
           },
           case2: {
@@ -1873,7 +2650,7 @@ export const siteTranslations = {
               '提高潛在客戶的跟進效率，提升線索轉化率，帶動銷量增長',
               '邀約轉化率提升至85%'
             ],
-            button: '查看案例詳情',
+            button: '了解更多',
             imageAlt: '汽車客戶試駕邀約案例'
           },
           case3: {
@@ -1885,7 +2662,7 @@ export const siteTranslations = {
               '支持多語言溝通，覆蓋全球客戶',
               '預訂轉化率提升15%-25%'
             ],
-            button: '查看案例詳情',
+            button: '了解更多',
             imageAlt: '酒店集團預訂自動化案例'
           }
         }
@@ -2414,11 +3191,270 @@ export const siteTranslations = {
       privacyAgree: '我同意隐私政策',
       submit: '提交',
       submitting: '提交中...',
-      privacyNotice: '提交即代表您同意我们的隐私政策',
+      privacyNotice: '点击提交即表示您同意我们按照',
+      privacyLink: '隐私政策',
       successMessage: '感谢您的提交，我们的顾问将尽快与您联系。',
       errorMessage: '提交失败，请重试。',
       downloadReady: '您的下载已准备就绪',
       download: '下载'
+    },
+    
+    // 资源中心页面
+    resourcesCenter: {
+      hero: {
+        slides: [
+          {
+            image: '/assets/images/resources/hero-1.jpg',
+            imageAlt: '资源中心Hero图片',
+            date: 'September 6, 2023',
+            title: 'There\'s an agent for that, and it runs on Sierra',
+            description: 'Today, we\'re announcing that we\'ve raised $350M additional capital at a valuation of $10B, led by Greenoaks, which is doubling down on Sierra.',
+            buttonText: '了解更多',
+            link: '/contact'
+          },
+          {
+            image: '/assets/images/resources/hero-2.jpg',
+            imageAlt: '资源中心Hero图片2',
+            date: 'September 5, 2023',
+            title: 'AI驱动的客户服务革命',
+            description: '发现Zenava AI如何通过能够实时理解、学习和适应的智能代理来转变客户服务。',
+            buttonText: '了解更多',
+            link: '/contact'
+          },
+          {
+            image: '/assets/images/resources/hero-3.jpg',
+            imageAlt: '资源中心Hero图片3',
+            date: 'September 4, 2023',
+            title: '面向现代企业的企业AI解决方案',
+            description: '探索我们专为企业规模设计的综合AI平台，帮助企业实现数字化转型。',
+            buttonText: '了解更多',
+            link: '/contact'
+          }
+        ]
+      },
+      featured: {
+        title: '热门推荐',
+        cards: [
+          {
+            image: '/assets/images/resources/featured-1.jpg',
+            imageAlt: '热门推荐1',
+            category: '文章',
+            date: 'September 6, 2023',
+            title: 'One unified global brand',
+            description: 'Niagahoster becomes Hostinger: Local expertise meets global innovation under one brand',
+            badge: '推荐',
+            link: '/resources/blog/1'
+          },
+          {
+            image: '/assets/images/resources/featured-2.jpg',
+            imageAlt: '热门推荐2',
+            category: '视频',
+            date: 'September 5, 2023',
+            title: 'Prompt, send, grow: Email marketing just got a Hostinger makeover',
+            description: 'Discover how our new email marketing platform transforms your campaigns',
+            badge: '热门',
+            link: '/resources/video/1'
+          },
+          {
+            image: '/assets/images/resources/featured-3.jpg',
+            imageAlt: '热门推荐3',
+            category: '白皮书',
+            date: 'September 4, 2023',
+            title: 'Hundreds of thousands have already tried Hostinger Horizons: what did they build?',
+            description: 'Explore the innovative projects created by our community',
+            badge: '推荐',
+            link: '/resources/whitepapers/1'
+          }
+        ]
+      },
+      categories: [
+        {
+          title: '白皮书',
+          moreText: '查看更多',
+          moreLink: '/resources/whitepapers',
+          items: [
+            {
+              image: '/assets/images/resources/whitepaper-1.jpg',
+              imageAlt: '白皮书1',
+              date: 'September 6, 2023',
+              title: 'How Jake\'s Migration to Agency Hosting Made Multi-Site Management Easy',
+              description: 'Learn how Jake streamlined his multi-site operations with our agency hosting solution',
+              link: '/resources/whitepapers/1'
+            },
+            {
+              image: '/assets/images/resources/whitepaper-2.jpg',
+              imageAlt: '白皮书2',
+              date: 'September 5, 2023',
+              title: 'Wakame Girl: The taste of seaweed-selling success',
+              description: 'Discover how Wakame Girl built a successful seaweed business online',
+              link: '/resources/whitepapers/2'
+            },
+            {
+              image: '/assets/images/resources/whitepaper-3.jpg',
+              imageAlt: '白皮书3',
+              date: 'September 4, 2023',
+              title: 'Bookwise: A love of books, technology, and simplicity',
+              description: 'Explore how Bookwise combines traditional book selling with modern technology',
+              link: '/resources/whitepapers/3'
+            }
+          ]
+        },
+        {
+          title: '视频',
+          moreText: '查看更多',
+          moreLink: '/resources/video',
+          items: [
+            {
+              image: '/assets/images/resources/video-1.jpg',
+              imageAlt: '视频1',
+              date: 'September 6, 2023',
+              title: 'Meet Hostinger at WordCamp US',
+              description: 'Join us at WordCamp US Portland 2025 and discover the latest in WordPress',
+              link: '/resources/video/1'
+            },
+            {
+              image: '/assets/images/resources/video-2.jpg',
+              imageAlt: '视频2',
+              date: 'September 5, 2023',
+              title: 'Advanced trunk-based',
+              description: 'Learn advanced trunk-based development strategies from WordPress experts',
+              link: '/resources/video/2'
+            },
+            {
+              image: '/assets/images/resources/video-3.jpg',
+              imageAlt: '视频3',
+              date: 'September 4, 2023',
+              title: '6 key changes In WordPress 6.8',
+              description: 'Discover the major updates and improvements in WordPress 6.8',
+              link: '/resources/video/3'
+            }
+          ]
+        },
+        {
+          title: '行业报告',
+          moreText: '查看更多',
+          moreLink: '/resources/reports',
+          items: [
+            {
+              image: '/assets/images/resources/report-1.jpg',
+              imageAlt: '行业报告1',
+              date: 'September 6, 2023',
+              title: 'Industry Report: Digital Transformation Trends',
+              description: 'Comprehensive analysis of digital transformation trends in 2024',
+              link: '/resources/reports/1'
+            },
+            {
+              image: '/assets/images/resources/report-2.jpg',
+              imageAlt: '行业报告2',
+              date: 'September 5, 2023',
+              title: 'AI Adoption in Enterprise: A Comprehensive Study',
+              description: 'Deep dive into how enterprises are adopting AI technologies',
+              link: '/resources/reports/2'
+            },
+            {
+              image: '/assets/images/resources/report-3.jpg',
+              imageAlt: '行业报告3',
+              date: 'September 4, 2023',
+              title: 'Customer Experience Trends 2024',
+              description: 'Explore the latest trends shaping customer experience strategies',
+              link: '/resources/reports/3'
+            }
+          ]
+        },
+        {
+          title: '产品演示',
+          moreText: '查看更多',
+          moreLink: '/resources/demos',
+          items: [
+            {
+              image: '/assets/images/resources/demo-1.jpg',
+              imageAlt: '产品演示1',
+              date: 'September 6, 2023',
+              title: 'Zenava AI Platform Demo',
+              description: 'Watch a comprehensive demo of our AI platform capabilities',
+              link: '/resources/demos/1'
+            },
+            {
+              image: '/assets/images/resources/demo-2.jpg',
+              imageAlt: '产品演示2',
+              date: 'September 5, 2023',
+              title: 'Voice Agents Feature Walkthrough',
+              description: 'Learn how to set up and use voice agents in your business',
+              link: '/resources/demos/2'
+            },
+            {
+              image: '/assets/images/resources/demo-3.jpg',
+              imageAlt: '产品演示3',
+              date: 'September 4, 2023',
+              title: 'Live Chat Integration Guide',
+              description: 'Step-by-step guide to integrating live chat functionality',
+              link: '/resources/demos/3'
+            }
+          ]
+        },
+        {
+          title: '博客',
+          moreText: '查看更多',
+          moreLink: '/resources/blog',
+          items: [
+            {
+              image: '/assets/images/resources/blog-1.jpg',
+              imageAlt: '博客1',
+              date: 'September 6, 2023',
+              title: 'Building AI-Powered Customer Service',
+              description: 'Best practices for implementing AI in customer service workflows',
+              link: '/resources/blog/1'
+            },
+            {
+              image: '/assets/images/resources/blog-2.jpg',
+              imageAlt: '博客2',
+              date: 'September 5, 2023',
+              title: 'The Future of Conversational AI',
+              description: 'Exploring the next generation of conversational AI technologies',
+              link: '/resources/blog/2'
+            },
+            {
+              image: '/assets/images/resources/blog-3.jpg',
+              imageAlt: '博客3',
+              date: 'September 4, 2023',
+              title: 'Optimizing Customer Engagement',
+              description: 'Strategies for improving customer engagement through AI',
+              link: '/resources/blog/3'
+            }
+          ]
+        },
+        {
+          title: '播客',
+          moreText: '查看更多',
+          moreLink: '/resources/podcast',
+          items: [
+            {
+              image: '/assets/images/resources/podcast-1.jpg',
+              imageAlt: '播客1',
+              date: 'September 6, 2023',
+              title: 'AI in Business: A CEO\'s Perspective',
+              description: 'Hear from industry leaders about AI adoption strategies',
+              link: '/resources/podcast/1'
+            },
+            {
+              image: '/assets/images/resources/podcast-2.jpg',
+              imageAlt: '播客2',
+              date: 'September 5, 2023',
+              title: 'Customer Experience Innovation',
+              description: 'Exploring innovative approaches to customer experience',
+              link: '/resources/podcast/2'
+            },
+            {
+              image: '/assets/images/resources/podcast-3.jpg',
+              imageAlt: '播客3',
+              date: 'September 4, 2023',
+              title: 'The Future of Work with AI',
+              description: 'How AI is transforming the workplace and employee experience',
+              link: '/resources/podcast/3'
+            }
+          ]
+        }
+      ]
     },
     
     // 常用操作
@@ -2611,7 +3647,7 @@ export const siteTranslations = {
               '年度节省成本约525万元',
               '项目ROI高达425%'
             ],
-            button: '查看案例详情',
+            button: '了解更多',
             imageAlt: '厨电客户服务自动化案例'
           },
           case2: {
@@ -2623,7 +3659,7 @@ export const siteTranslations = {
               '提高潜在客户的跟进效率，提升线索转化率，带动销量增长',
               '邀约转化率提升至85%'
             ],
-            button: '查看案例详情',
+            button: '了解更多',
             imageAlt: '汽车客户试驾邀约案例'
           },
           case3: {
@@ -2635,7 +3671,7 @@ export const siteTranslations = {
               '支持多语言沟通，覆盖全球客户',
               '预订转化率提升15%-25%'
             ],
-            button: '查看案例详情',
+            button: '了解更多',
             imageAlt: '酒店集团预订自动化案例'
           }
         }
