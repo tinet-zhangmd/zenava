@@ -10,80 +10,295 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
   const trans = getTranslations(language)
   const t = trans.products.liveChat
 
-  // 计算卡片数量，实现智能布局（≤4个时平分，>4个时每行4列）
-  const cardCount = [t.advantages.card1, t.advantages.card2, t.advantages.card3].filter(Boolean).length
-  const gridColsClass = 
-    cardCount === 1 ? 'grid-cols-1 md:grid-cols-1 lg:grid-cols-1' :
-    cardCount === 2 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-2' :
-    cardCount === 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' :
-    'grid-cols-1 md:grid-cols-2 lg:grid-cols-4' // 4个或更多时，最多4列
-
   return (
     <>
       {/* Banner Section - 全图布局模式（仅图片和链接） */}
-      <section class="relative w-full overflow-hidden" style="min-height: 70vh;">
+      <section class="relative w-full overflow-hidden" style="height: 740px;">
         <a href="/products/live-chat" class="block w-full h-full">
           <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-600 to-pink-600">
             <img 
-              src="/assets/images/livechat/banner.png" 
+              src="/assets/images/livechat/banner.webp" 
               alt="LiveChat Banner"
               class="w-full h-full object-cover"
               loading="eager"
+              decoding="async"
             />
           </div>
         </a>
       </section>
 
-      {/* Advantages Section */}
-      <section class="py-12 md:py-16 lg:py-20 bg-gradient-to-b from-white to-blue-50">
-        <div class="site-container px-4 sm:px-6 lg:px-8">
+      {/* Section 3: Core Capabilities - 版块3：核心能力 */}
+      {t.section3 && (
+        <section class="py-12 md:py-16 lg:py-20 bg-gray-50">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="text-center mb-8 md:mb-12 lg:mb-16">
-            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">{t.advantages.title}</h2>
+              <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                {t.section3.title}
+              </h2>
+              <p class="text-lg md:text-xl text-gray-600">
+                {t.section3.subtitle}
+              </p>
           </div>
           
-          <div class={`grid ${gridColsClass} gap-6 md:gap-6 lg:gap-8`}>
-            {t.advantages.card1 && (
-              <div class="bg-white rounded-2xl p-6 md:p-6 lg:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div class="w-14 h-14 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-5 md:mb-5 lg:mb-6 mx-auto">
-                  <i class="fas fa-comments text-blue-600 text-2xl md:text-2xl"></i>
+            <div class="space-y-12 md:space-y-16">
+              {/* 渲染所有子项，根据索引决定布局方向 */}
+              {[t.section3.item1, t.section3.item2, t.section3.item3, t.section3.item4, t.section3.item5].map((item, index) => {
+                if (!item) return null
+                const isEven = (index + 1) % 2 === 0 // 偶数项右文左图
+                const iconClasses = [
+                  'fas fa-clock',      // item1: 7x24小时
+                  'fas fa-images',     // item2: 富媒体
+                  'fas fa-heart',      // item3: 情绪感知
+                  'fas fa-balance-scale', // item4: 平衡
+                  'fas fa-brain'       // item5: 同理心
+                ]
+                const bgColors = [
+                  'bg-blue-100',      // item1
+                  'bg-purple-100',    // item2
+                  'bg-pink-100',      // item3
+                  'bg-green-100',     // item4
+                  'bg-indigo-100'     // item5
+                ]
+                const textColors = [
+                  'text-blue-600',    // item1
+                  'text-purple-600',  // item2
+                  'text-pink-600',    // item3
+                  'text-green-600',   // item4
+                  'text-indigo-600'   // item5
+                ]
+
+                return (
+                  <div 
+                    key={`item-${index + 1}`}
+                    class={`grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center ${isEven ? 'lg:grid-flow-dense' : ''}`}
+                  >
+                    {/* 文字内容区域 */}
+                    <div 
+                      data-animate="slide-up"
+                      class={`${isEven ? 'lg:col-start-2 lg:order-2' : 'lg:order-1'}`}
+                    >
+                      {/* 标题行（可点击） */}
+                      <a 
+                        href="/products/live-chat"
+                        class="flex items-center mb-4 md:mb-6 group cursor-pointer"
+                      >
+                        <div class={`w-10 h-10 md:w-12 md:h-12 ${bgColors[index]} rounded-lg flex items-center justify-center mr-3 md:mr-4 group-hover:opacity-80 transition-colors`}>
+                          <i class={`${iconClasses[index]} ${textColors[index]} text-lg md:text-xl`}></i>
                 </div>
-                <h3 class="text-xl md:text-xl font-bold text-gray-900 text-center mb-2">{t.advantages.card1.title}</h3>
-                <p class="text-blue-600 font-medium text-center mb-4 text-base">{t.advantages.card1.subtitle}</p>
-                <p class="text-gray-600 text-center text-base md:text-sm leading-relaxed">
-                  {t.advantages.card1.desc}
-                </p>
+                        <h3 class={`text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 transition-colors ${index === 0 ? 'group-hover:text-blue-600' : index === 1 ? 'group-hover:text-purple-600' : index === 2 ? 'group-hover:text-pink-600' : index === 3 ? 'group-hover:text-green-600' : 'group-hover:text-indigo-600'}`}>
+                          {item.mainTitle}
+                        </h3>
+                      </a>
+                      <h4 class={`text-base md:text-lg lg:text-xl font-semibold ${textColors[index]} mb-3 md:mb-4`}>
+                        {item.subtitle}
+                      </h4>
+                      <p class="text-sm md:text-base lg:text-lg text-gray-700 mb-4 md:mb-6 leading-relaxed">
+                        {item.description}
+                      </p>
+                      <div class="flex flex-wrap gap-3 md:gap-4 mb-4 md:mb-6">
+                        {item.tag1 && (
+                          <div class="flex items-center text-xs md:text-sm text-gray-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>{item.tag1}</span>
+                          </div>
+                        )}
+                        {item.tag2 && (
+                          <div class="flex items-center text-xs md:text-sm text-gray-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>{item.tag2}</span>
+                          </div>
+                        )}
+                        {item.tag3 && (
+                          <div class="flex items-center text-xs md:text-sm text-gray-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>{item.tag3}</span>
               </div>
             )}
-
-            {t.advantages.card2 && (
-              <div class="bg-white rounded-2xl p-6 md:p-6 lg:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div class="w-14 h-14 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-5 md:mb-5 lg:mb-6 mx-auto">
-                  <i class="fas fa-bolt text-purple-600 text-2xl md:text-2xl"></i>
-                </div>
-                <h3 class="text-xl md:text-xl font-bold text-gray-900 text-center mb-2">{t.advantages.card2.title}</h3>
-                <p class="text-purple-600 font-medium text-center mb-4 text-base">{t.advantages.card2.subtitle}</p>
-                <p class="text-gray-600 text-center text-base md:text-sm leading-relaxed">
-                  {t.advantages.card2.desc}
-                </p>
-              </div>
-            )}
-
-            {t.advantages.card3 && (
-              <div class="bg-white rounded-2xl p-6 md:p-6 lg:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div class="w-14 h-14 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-green-100 rounded-xl flex items-center justify-center mb-5 md:mb-5 lg:mb-6 mx-auto">
-                  <i class="fas fa-chart-line text-green-600 text-2xl md:text-2xl"></i>
-                </div>
-                <h3 class="text-xl md:text-xl font-bold text-gray-900 text-center mb-2">{t.advantages.card3.title}</h3>
-                <p class="text-green-600 font-medium text-center mb-4 text-base">{t.advantages.card3.subtitle}</p>
-                <p class="text-gray-600 text-center text-base md:text-sm leading-relaxed">
-                  {t.advantages.card3.desc}
-                </p>
-              </div>
-            )}
-
+                      </div>
+                      
+                      {/* 按钮 */}
+                      <a 
+                        href="/products/live-chat" 
+                        class="inline-flex items-center px-5 py-2.5 md:px-6 md:py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300 text-sm md:text-base"
+                      >
+                        <span>{item.buttonText}</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                      </a>
+                    </div>
+                    
+                    {/* 图片区域 */}
+                    <div 
+                      data-animate="slide-up"
+                      class={`relative ${isEven ? 'lg:col-start-1 lg:order-1' : 'lg:order-2'}`}
+                    >
+                      <div class="rounded-xl overflow-hidden shadow-xl">
+                        <img 
+                          src={item.imageSrc || '/assets/images/livechat/default.png'} 
+                          alt={item.imageAlt}
+                          class="w-full h-auto object-cover"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Case Studies Section - 成功案例版块（功能特性格式） */}
+      {t.caseStudies && (
+        <>
+          {/* Case 1: B2B Enterprise Website - 左图右文 */}
+          {t.caseStudies.case1 && (
+            <section class="py-12 md:py-16 lg:py-20 bg-white">
+              <div class="site-container px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+                  {/* Left Image */}
+                  <div class="relative rounded-2xl overflow-hidden shadow-xl">
+                    <div class="aspect-[4/3] bg-gray-200 flex items-center justify-center">
+                      <img 
+                        src={t.caseStudies.case1.imageSrc || '/assets/images/livechat/case1-b2b.png'} 
+                        alt={t.caseStudies.case1.imageAlt || t.caseStudies.case1.mainTitle}
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Right Content */}
+                  <div class="space-y-4 md:space-y-6 lg:space-y-8">
+                    <div>
+                      <div class="inline-flex items-center px-4 py-2 bg-orange-100 rounded-full mb-3">
+                        <span class="text-2xl md:text-3xl font-bold text-orange-600 mr-2">
+                          {t.caseStudies.case1.metric}
+                        </span>
+                        <span class="text-sm md:text-base text-orange-700 font-medium">
+                          {t.caseStudies.case1.metricLabel}
+                        </span>
+                      </div>
+                      <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-2">
+                        {t.caseStudies.case1.mainTitle}
+                      </h2>
+                      <p class="text-base md:text-lg text-gray-600 mt-2">
+                        {t.caseStudies.case1.highlight}
+                      </p>
+                    </div>
+                    
+                    <p class="text-sm md:text-base text-gray-700 leading-relaxed">
+                      {t.caseStudies.case1.description}
+                    </p>
+                    
+                    <ul class="space-y-3 md:space-y-4">
+                      {t.caseStudies.case1.points.map((point: string, idx: number) => (
+                        <li key={idx} class="flex items-center space-x-2 md:space-x-3">
+                          <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-100 flex items-center justify-center">
+                            <i class="fas fa-check text-blue-600 text-xs"></i>
+                          </div>
+                          <span class="text-gray-700 font-medium text-sm md:text-base">{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    {t.caseStudies.case1.button && (
+                      <div>
+                        <a 
+                          href={t.caseStudies.case1.buttonLink || '/products/live-chat'} 
+                          class="inline-flex items-center px-6 py-3 md:px-6 md:py-3 border border-gray-300 shadow-sm text-base md:text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
+                        >
+                          {t.caseStudies.case1.button}
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Case 2: Smart Lock - 左文右图 */}
+          {t.caseStudies.case2 && (
+            <section class="py-12 md:py-16 lg:py-20 bg-gray-50">
+              <div class="site-container px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+                  {/* Left Content */}
+                  <div class="space-y-4 md:space-y-6 lg:space-y-8 order-2 lg:order-1">
+                    <div>
+                      <div class="flex flex-wrap gap-3 mb-3">
+                        <div class="inline-flex items-center px-4 py-2 bg-green-100 rounded-full">
+                          <span class="text-xl md:text-2xl font-bold text-green-600 mr-2">
+                            {t.caseStudies.case2.metric}
+                          </span>
+                          <span class="text-xs md:text-sm text-green-700 font-medium">
+                            {t.caseStudies.case2.metricLabel}
+                          </span>
+                        </div>
+                        {t.caseStudies.case2.metric2 && (
+                          <div class="inline-flex items-center px-4 py-2 bg-purple-100 rounded-full">
+                            <span class="text-xl md:text-2xl font-bold text-purple-600 mr-2">
+                              {t.caseStudies.case2.metric2}
+                            </span>
+                            <span class="text-xs md:text-sm text-purple-700 font-medium">
+                              {t.caseStudies.case2.metric2Label}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
+                        {t.caseStudies.case2.mainTitle}
+                      </h2>
+                      <p class="text-base md:text-lg text-gray-600 mt-2">
+                        {t.caseStudies.case2.highlight}
+                      </p>
+                    </div>
+                    
+                    <p class="text-sm md:text-base text-gray-700 leading-relaxed">
+                      {t.caseStudies.case2.description}
+                    </p>
+                    
+                    <ul class="space-y-3 md:space-y-4">
+                      {t.caseStudies.case2.points.map((point: string, idx: number) => (
+                        <li key={idx} class="flex items-center space-x-2 md:space-x-3">
+                          <div class="flex-shrink-0 w-2 h-2 rounded-full bg-gray-900"></div>
+                          <span class="text-gray-700 font-medium text-sm md:text-base">{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    {t.caseStudies.case2.button && (
+                      <div>
+                        <a 
+                          href={t.caseStudies.case2.buttonLink || '/products/live-chat'} 
+                          class="inline-flex items-center px-6 py-3 md:px-6 md:py-3 border border-gray-300 shadow-sm text-base md:text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
+                        >
+                          {t.caseStudies.case2.button}
+                        </a>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Right Image */}
+                  <div class="relative rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
+                    <div class="aspect-[4/3] bg-white border border-gray-200 flex items-center justify-center">
+                      <img 
+                        src={t.caseStudies.case2.imageSrc || '/assets/images/livechat/case2-smartlock.png'} 
+                        alt={t.caseStudies.case2.imageAlt || t.caseStudies.case2.mainTitle}
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+        </>
+            )}
 
       {/* Features Section - 如果有功能特性 */}
       {t.features && Object.keys(t.features).length > 0 && (
