@@ -131,11 +131,11 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
                       data-animate="slide-up"
                       class={`relative ${isEven ? 'lg:col-start-1 lg:order-1' : 'lg:order-2'}`}
                     >
-                      <div class="rounded-xl overflow-hidden shadow-xl">
+                      <div class="rounded-xl overflow-hidden">
                         <img 
                           src={item.imageSrc || '/assets/images/livechat/default.webp'} 
                           alt={item.imageAlt}
-                          class="w-full h-auto object-cover"
+                          class="w-full h-auto object-contain"
                           loading="lazy"
                           decoding="async"
                         />
@@ -158,12 +158,12 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
               <div class="site-container px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
                   {/* Left Image */}
-                  <div class="relative rounded-2xl overflow-hidden shadow-xl">
-                    <div class="aspect-[4/3] bg-gray-200 flex items-center justify-center">
+                  <div class="relative rounded-2xl overflow-hidden">
+                    <div class="aspect-[4/3] flex items-center justify-center">
                       <img 
                         src={t.caseStudies.case1.imageSrc || '/assets/images/livechat/case1-b2b.webp'} 
                         alt={t.caseStudies.case1.imageAlt || t.caseStudies.case1.mainTitle}
-                        class="w-full h-full object-cover"
+                        class="w-full h-full object-contain"
                         loading="lazy"
                         decoding="async"
                       />
@@ -263,7 +263,9 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
                     <ul class="space-y-3 md:space-y-4">
                       {t.caseStudies.case2.points.map((point: string, idx: number) => (
                         <li key={idx} class="flex items-center space-x-2 md:space-x-3">
-                          <div class="flex-shrink-0 w-2 h-2 rounded-full bg-gray-900"></div>
+                          <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-100 flex items-center justify-center">
+                            <i class="fas fa-check text-blue-600 text-xs"></i>
+                          </div>
                           <span class="text-gray-700 font-medium text-sm md:text-base">{point}</span>
                         </li>
                       ))}
@@ -282,12 +284,12 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
                   </div>
 
                   {/* Right Image */}
-                  <div class="relative rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
-                    <div class="aspect-[4/3] bg-white border border-gray-200 flex items-center justify-center">
+                  <div class="relative rounded-2xl overflow-hidden order-1 lg:order-2">
+                    <div class="aspect-[4/3] flex items-center justify-center">
                       <img 
                         src={t.caseStudies.case2.imageSrc || '/assets/images/livechat/case2-smartlock.webp'} 
                         alt={t.caseStudies.case2.imageAlt || t.caseStudies.case2.mainTitle}
-                        class="w-full h-full object-cover"
+                        class="w-full h-full object-contain"
                         loading="lazy"
                         decoding="async"
                       />

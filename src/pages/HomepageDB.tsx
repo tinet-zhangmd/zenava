@@ -690,7 +690,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               
               {/* 右侧：图片 */}
               <div class="relative" data-animate="slide-up">
-                <div class="rounded-xl overflow-hidden shadow-xl">
+                <div class="rounded-xl overflow-hidden">
                   <img 
                     src="/assets/images/right-one.webp" 
                     alt={trans.scenarios.marketing.section3?.imageAlt || 'Marketing Automation'}
@@ -882,7 +882,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* 左侧：视频 */}
               <div class="order-2 lg:order-1 relative" data-animate="slide-up">
-                <div class="rounded-xl overflow-hidden shadow-xl">
+                <div class="rounded-xl overflow-hidden">
                   <video 
                     src="/assets/video/codegen.mov"
                     class="w-full h-auto"
