@@ -35,9 +35,6 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               {t.coreFeatures.title}
             </h2>
-            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              {t.coreFeatures.subtitle}
-            </p>
           </div>
 
           {/* Feature 1: 拟人化音色 - 左文右图 */}
@@ -52,23 +49,12 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
                   <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
                     {t.coreFeatures.feature1.title}
                   </h3>
-                  <p class="text-lg md:text-xl text-gray-600">{t.coreFeatures.feature1.subtitle}</p>
                 </div>
               </div>
               
               <p class="text-base md:text-lg text-gray-700 leading-relaxed">
                 {t.coreFeatures.feature1.description}
               </p>
-              
-              {/* Tags */}
-              <div class="flex flex-wrap gap-3">
-                {t.coreFeatures.feature1.tags.map((tag: string) => (
-                  <span class="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium">
-                    <i class="fas fa-check-circle mr-2 text-blue-600"></i>
-                    {tag}
-                  </span>
-                ))}
-              </div>
               
               <div>
                 <a 
@@ -120,23 +106,12 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
                   <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
                     {t.coreFeatures.feature2.title}
                   </h3>
-                  <p class="text-lg md:text-xl text-gray-600">{t.coreFeatures.feature2.subtitle}</p>
                 </div>
               </div>
               
               <p class="text-base md:text-lg text-gray-700 leading-relaxed">
                 {t.coreFeatures.feature2.description}
               </p>
-              
-              {/* Tags */}
-              <div class="flex flex-wrap gap-3">
-                {t.coreFeatures.feature2.tags.map((tag: string) => (
-                  <span class="inline-flex items-center px-4 py-2 bg-green-50 text-green-700 rounded-full text-sm font-medium">
-                    <i class="fas fa-check-circle mr-2 text-green-600"></i>
-                    {tag}
-                  </span>
-                ))}
-              </div>
               
               <div>
                 <a 
@@ -162,23 +137,12 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
                   <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
                     {t.coreFeatures.feature3.title}
                   </h3>
-                  <p class="text-lg md:text-xl text-gray-600">{t.coreFeatures.feature3.subtitle}</p>
                 </div>
               </div>
               
               <p class="text-base md:text-lg text-gray-700 leading-relaxed">
                 {t.coreFeatures.feature3.description}
               </p>
-              
-              {/* Tags */}
-              <div class="flex flex-wrap gap-3">
-                {t.coreFeatures.feature3.tags.map((tag: string) => (
-                  <span class="inline-flex items-center px-4 py-2 bg-purple-50 text-purple-700 rounded-full text-sm font-medium">
-                    <i class="fas fa-check-circle mr-2 text-purple-600"></i>
-                    {tag}
-                  </span>
-                ))}
-              </div>
               
               <div>
                 <a 
@@ -230,23 +194,12 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
                   <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
                     {t.coreFeatures.feature4.title}
                   </h3>
-                  <p class="text-lg md:text-xl text-gray-600">{t.coreFeatures.feature4.subtitle}</p>
                 </div>
               </div>
               
               <p class="text-base md:text-lg text-gray-700 leading-relaxed">
                 {t.coreFeatures.feature4.description}
               </p>
-              
-              {/* Tags */}
-              <div class="flex flex-wrap gap-3">
-                {t.coreFeatures.feature4.tags.map((tag: string) => (
-                  <span class="inline-flex items-center px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium">
-                    <i class="fas fa-check-circle mr-2 text-indigo-600"></i>
-                    {tag}
-                  </span>
-                ))}
-              </div>
               
               <div>
                 <a 
@@ -293,17 +246,17 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
             {/* Right Content */}
             <div class="space-y-4 md:space-y-6 lg:space-y-8">
               <div>
-                {/* 主标题：亮色（蓝色），大字体 */}
-                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600">
+                {/* 主标题：黑色，大字体 */}
+                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
                   {t.customerCases.case1.title}
                 </h3>
-                {/* 副标题：如果存在，显示为黑色，相同字体大小 */}
-                {t.customerCases.case1.subtitle && (
-                  <p class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">
-                    {t.customerCases.case1.subtitle}
-                  </p>
-                )}
               </div>
+              
+              {t.customerCases.case1.description && (
+                <p class="text-sm md:text-base text-gray-700 leading-relaxed">
+                  {t.customerCases.case1.description}
+                </p>
+              )}
               
               <ul class="space-y-3 md:space-y-4">
                 {t.customerCases.case1.features.map((feature: string) => (
@@ -332,17 +285,17 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
             {/* Left Content */}
             <div class="space-y-4 md:space-y-6 lg:space-y-8 order-2 lg:order-1">
               <div>
-                {/* 主标题：亮色（绿色），大字体 */}
-                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-green-600">
+                {/* 主标题：黑色，大字体 */}
+                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
                   {t.customerCases.case2.title}
                 </h3>
-                {/* 副标题：如果存在，显示为黑色，相同字体大小 */}
-                {t.customerCases.case2.subtitle && (
-                  <p class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">
-                    {t.customerCases.case2.subtitle}
-                  </p>
-                )}
               </div>
+              
+              {t.customerCases.case2.description && (
+                <p class="text-sm md:text-base text-gray-700 leading-relaxed">
+                  {t.customerCases.case2.description}
+                </p>
+              )}
               
               <ul class="space-y-3 md:space-y-4">
                 {t.customerCases.case2.features.map((feature: string) => (
@@ -397,17 +350,17 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
             {/* Right Content */}
             <div class="space-y-4 md:space-y-6 lg:space-y-8">
               <div>
-                {/* 主标题：亮色（紫色），大字体 */}
-                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-600">
+                {/* 主标题：黑色，大字体 */}
+                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
                   {t.customerCases.case3.title}
                 </h3>
-                {/* 副标题：如果存在，显示为黑色，相同字体大小 */}
-                {t.customerCases.case3.subtitle && (
-                  <p class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-1 md:mt-2">
-                    {t.customerCases.case3.subtitle}
-                  </p>
-                )}
               </div>
+              
+              {t.customerCases.case3.description && (
+                <p class="text-sm md:text-base text-gray-700 leading-relaxed">
+                  {t.customerCases.case3.description}
+                </p>
+              )}
               
               <ul class="space-y-3 md:space-y-4">
                 {t.customerCases.case3.features.map((feature: string) => (
