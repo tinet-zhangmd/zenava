@@ -55,12 +55,22 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
           <div id="hero-slides" class="relative w-full" style="min-height: 500px;">
             {/* Slides will be rendered here by JavaScript */}
             {/* Fallback: Show first slide if JavaScript hasn't loaded */}
-            {t.hero?.slides?.[0] && (
+            {t.hero?.slides?.[0] && (() => {
+              // 构建多语言链接
+              const langPrefix = language === 'en' ? '' : `/${language}`
+              const resourceLink = t.hero.slides[0].link || '#'
+              const fullLink = resourceLink.startsWith('/') 
+                ? (resourceLink.startsWith('/resources') 
+                    ? `${langPrefix}${resourceLink}` 
+                    : resourceLink)
+                : resourceLink
+              
+              return (
               <div class="hero-slide opacity-100 z-10">
                 <div class="grid grid-cols-1 lg:grid-cols-2 min-h-[500px] md:min-h-[600px]">
                   {/* Left: Image */}
                   <div class="relative overflow-hidden bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
-                    <a href={t.hero.slides[0].link || '#'} class="block h-full">
+                    <a href={fullLink} class="block h-full">
                       <img 
                         src={t.hero.slides[0].image || '/assets/images/resources/hero-1.jpg'} 
                         alt={t.hero.slides[0].imageAlt || ''}
@@ -86,7 +96,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
                       <p class="text-sm md:text-base text-gray-500 mb-4">
                         {t.hero.slides[0].date || ''}
                       </p>
-                      <a href={t.hero.slides[0].link || '#'} class="block mb-4">
+                      <a href={fullLink} class="block mb-4">
                         <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 hover:text-[#6438FF] transition-colors">
                           {t.hero.slides[0].title || ''}
                         </h2>
@@ -96,7 +106,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
                       </p>
                       {t.hero.slides[0].buttonText && (
                         <a 
-                          href={t.hero.slides[0].link || '#'} 
+                          href={fullLink} 
                           class="inline-flex items-center px-6 py-3 bg-[#6438FF] text-white rounded-lg font-semibold hover:bg-[#5a2ee6] transition-all transform hover:scale-105"
                         >
                           {t.hero.slides[0].buttonText}
@@ -107,7 +117,8 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
                   </div>
                 </div>
               </div>
-            )}
+              )
+            })()}
           </div>
           
           {/* Carousel Controls - Only show if more than 1 slide */}
@@ -149,10 +160,21 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
           
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {/* Featured Cards */}
-            {(t.featured?.cards || []).slice(0, 3).map((card: any, index: number) => (
+            {(t.featured?.cards || []).slice(0, 3).map((card: any, index: number) => {
+              // 构建多语言链接
+              const langPrefix = language === 'en' ? '' : `/${language}`
+              const resourceLink = card.link || '#'
+              // 如果链接不是以 / 开头，直接使用；如果是相对路径，添加语言前缀
+              const fullLink = resourceLink.startsWith('/') 
+                ? (resourceLink.startsWith('/resources') 
+                    ? `${langPrefix}${resourceLink}` 
+                    : resourceLink)
+                : resourceLink
+              
+              return (
               <a 
                 key={index}
-                href={card.link || '#'}
+                href={fullLink}
                 class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block"
               >
                 <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">
@@ -197,7 +219,8 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
                   </p>
                 </div>
               </a>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
@@ -236,12 +259,23 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
             };
             const placeholderText = placeholderTexts[currentLanguage] || placeholderTexts['zh'];
             
+            // 构建语言前缀
+            const langPrefix = currentLanguage === 'en' ? '' : '/' + currentLanguage;
+            
             function renderSlide(index) {
               const slide = heroSlides[index];
               if (!slide) return '';
               
+              // 构建多语言链接
+              const resourceLink = slide.link || '#';
+              const fullLink = resourceLink.startsWith('/') 
+                ? (resourceLink.startsWith('/resources') 
+                    ? langPrefix + resourceLink 
+                    : resourceLink)
+                : resourceLink;
+              
               const buttonHtml = slide.buttonText ? 
-                '<a href="' + (slide.link || '#') + '" class="inline-flex items-center px-6 py-3 bg-[#6438FF] text-white rounded-lg font-semibold hover:bg-[#5a2ee6] transition-all transform hover:scale-105">' +
+                '<a href="' + fullLink + '" class="inline-flex items-center px-6 py-3 bg-[#6438FF] text-white rounded-lg font-semibold hover:bg-[#5a2ee6] transition-all transform hover:scale-105">' +
                   slide.buttonText + 
                   '<i class="fas fa-arrow-right ml-2"></i>' +
                 '</a>' : '';
@@ -250,7 +284,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
                 (index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0') + '">' +
                 '<div class="grid grid-cols-1 lg:grid-cols-2 min-h-[500px] md:min-h-[600px]">' +
                   '<div class="relative overflow-hidden bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">' +
-                    '<a href="' + (slide.link || '#') + '" class="block h-full">' +
+                    '<a href="' + fullLink + '" class="block h-full">' +
                       '<img src="' + slide.image + '" alt="' + (slide.imageAlt || '') + '" ' +
                       'class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" ' +
                       'loading="' + (index === 0 ? 'eager' : 'lazy') + '" ' +
@@ -266,7 +300,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
                   '<div class="flex items-center bg-white p-8 md:p-12 lg:p-16">' +
                     '<div class="max-w-2xl">' +
                       '<p class="text-sm md:text-base text-gray-500 mb-4">' + (slide.date || '') + '</p>' +
-                      '<a href="' + (slide.link || '#') + '" class="block mb-4">' +
+                      '<a href="' + fullLink + '" class="block mb-4">' +
                         '<h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 hover:text-[#6438FF] transition-colors">' +
                           (slide.title || '') +
                         '</h2>' +
@@ -379,8 +413,19 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
               };
               const placeholderText = placeholderTexts[currentLanguage] || placeholderTexts['zh'];
               
+              // 构建语言前缀
+              const langPrefix = currentLanguage === 'en' ? '' : '/' + currentLanguage;
+              
               const itemsHtml = (category.items || []).slice(0, 3).map(function(item) {
-                return '<a href="' + (item.link || '#') + '" ' +
+                // 构建多语言链接
+                const resourceLink = item.link || '#';
+                const fullLink = resourceLink.startsWith('/') 
+                  ? (resourceLink.startsWith('/resources') 
+                      ? langPrefix + resourceLink 
+                      : resourceLink)
+                  : resourceLink;
+                
+                return '<a href="' + fullLink + '" ' +
                   'class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block">' +
                   '<div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">' +
                     '<img src="' + (item.image || '/assets/images/placeholder.jpg') + '" ' +
@@ -406,12 +451,20 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
                 '</a>';
               }).join('');
               
+              // 构建"查看更多"链接的语言前缀
+              const moreLink = category.moreLink || '#';
+              const fullMoreLink = moreLink.startsWith('/') 
+                ? (moreLink.startsWith('/resources') 
+                    ? langPrefix + moreLink 
+                    : moreLink)
+                : moreLink;
+              
               return '<div class="mb-16 md:mb-20">' +
                 '<div class="flex items-center justify-between mb-6 md:mb-8">' +
                   '<h3 class="text-2xl md:text-3xl font-bold text-gray-900">' +
                     (category.title || 'Category') +
                   '</h3>' +
-                  '<a href="' + (category.moreLink || '#') + '" ' +
+                  '<a href="' + fullMoreLink + '" ' +
                   'class="text-[#6438FF] hover:text-[#5a2ee6] font-medium flex items-center">' +
                     (category.moreText || '查看更多') +
                     '<i class="fas fa-arrow-right ml-2"></i>' +

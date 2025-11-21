@@ -20,6 +20,10 @@ import { ResourcesPage } from './pages/Resources.js'
 import { ResourceListPage } from './pages/ResourceList.js'
 import { ResourceDetailPage } from './pages/ResourceDetail.js'
 import { VideoPodcastDetailPage } from './pages/VideoPodcastDetail.js'
+import { RetailPage } from './pages/industries/Retail.js'
+import { AutomotivePage } from './pages/industries/Automotive.js'
+import { SoftwarePage } from './pages/industries/Software.js'
+import { TravelPage } from './pages/industries/Travel.js'
 import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/i18n.js'
 
 // Import Admin Pages
@@ -363,6 +367,198 @@ app.get('/:lang/products/voice-agents', (c) => {
       privacyLinks={privacyLinks}
     >
       <VoiceAgentsPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Industry Pages Routes - Retail
+app.get('/industries/retail', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/industries/retail'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      seoTitle="AI Agents for Retail"
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <RetailPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/industries/retail', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/industries/retail`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      seoTitle="AI Agents for Retail"
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <RetailPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Industry Pages Routes - Automotive
+app.get('/industries/automotive', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/industries/automotive'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      seoTitle="AI Agents for Automotive"
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <AutomotivePage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/industries/automotive', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/industries/automotive`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      seoTitle="AI Agents for Automotive"
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <AutomotivePage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Industry Pages Routes - Software
+app.get('/industries/software', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/industries/software'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      seoTitle="AI Agents for Software"
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <SoftwarePage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/industries/software', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/industries/software`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      seoTitle="AI Agents for Software"
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <SoftwarePage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Industry Pages Routes - Travel
+app.get('/industries/travel', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/industries/travel'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      seoTitle="AI Agents for Travel and Hotel"
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <TravelPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/industries/travel', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/industries/travel`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      seoTitle="AI Agents for Travel and Hotel"
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <TravelPage language={language} />
     </LayoutWithUnifiedNav>
   )
 })
@@ -2261,7 +2457,7 @@ app.get('/api/hello', (c) => {
 
 app.post('/api/contact', async (c) => {
   try {
-    const body = await c.req.json()
+  const body = await c.req.json()
     const { firstName, lastName, jobTitle, companyEmail, companyName, industry, privacyAgree, source, file } = body
 
     // 验证必填字段

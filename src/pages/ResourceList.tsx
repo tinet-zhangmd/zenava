@@ -26,7 +26,7 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
   const currentPage = Math.min(Math.max(1, page || 1), totalPages)
   
   // Get items for current page (mock data - replace with API call)
-  const currentItems = getMockResourceItems(resourceType, currentPage, itemsPerPage)
+  const currentItems = getMockResourceItems(resourceType, currentPage, itemsPerPage, language)
 
   return (
     <>
@@ -586,21 +586,51 @@ function getPaginationPages(currentPage: number, totalPages: number): (number | 
 }
 
 // Mock function to get resource items (replace with API call)
-function getMockResourceItems(resourceType: string, page: number, itemsPerPage: number) {
+function getMockResourceItems(resourceType: string, page: number, itemsPerPage: number, language: Language = 'zh') {
   const mockItems = []
   const startIndex = (page - 1) * itemsPerPage
   
+  // 构建语言前缀
+  const langPrefix = language === 'en' ? '' : `/${language}`
+  
   for (let i = 0; i < itemsPerPage; i++) {
+    const itemId = startIndex + i + 1
+    
+    // 根据资源类型生成正确的链接
+    let link = '#'
+    if (resourceType === 'video') {
+      // 视频使用特殊路由：/resources/video/:id
+      link = `${langPrefix}/resources/video/${itemId}`
+    } else if (resourceType === 'podcast') {
+      // 播客使用特殊路由：/resources/podcast/:id
+      link = `${langPrefix}/resources/podcast/${itemId}`
+    } else if (resourceType === 'all') {
+      // 所有资源：根据索引决定类型（示例逻辑）
+      const typeIndex = itemId % 6
+      const types = ['whitepapers', 'video', 'reports', 'demos', 'blog', 'podcast']
+      const type = types[typeIndex]
+      if (type === 'video') {
+        link = `${langPrefix}/resources/video/${itemId}`
+      } else if (type === 'podcast') {
+        link = `${langPrefix}/resources/podcast/${itemId}`
+      } else {
+        link = `${langPrefix}/resources/${type}/${itemId}`
+      }
+    } else {
+      // 其他资源类型：/resources/:type/:id
+      link = `${langPrefix}/resources/${resourceType}/${itemId}`
+    }
+    
     mockItems.push({
-      image: `/assets/images/resources/item-${startIndex + i + 1}.jpg`,
-      imageAlt: `Resource ${startIndex + i + 1}`,
+      image: `/assets/images/resources/item-${itemId}.jpg`,
+      imageAlt: `Resource ${itemId}`,
       date: '12 Sep',
       category: 'Migration Cases',
       readTime: '4min',
-      title: `Resource Title ${startIndex + i + 1}: Be-Mag: Reinventing the wheel, one spin at a time`,
+      title: `Resource Title ${itemId}: Be-Mag: Reinventing the wheel, one spin at a time`,
       description: 'Resource description text here. This is a sample description that provides more details about the resource content and what users can expect to learn.',
       author: 'By Nadia Maya Ardiani',
-      link: '/contact'
+      link: link
     })
   }
   

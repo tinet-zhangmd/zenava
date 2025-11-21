@@ -28,7 +28,11 @@ export const OtherResourcesSection: FC<OtherResourcesSectionProps> = ({ language
         {/* Resource Cards Grid */}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {/* Card 1 - 直播 */}
-          <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group">
+          {(() => {
+            const langPrefix = language === 'en' ? '' : `/${language}`
+            const videoLink = `${langPrefix}/resources/video/1`
+            return (
+            <a href={videoLink} class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group block">
             {/* Card Image */}
             <div class="relative h-40 md:h-48 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center overflow-hidden">
               <div class="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20"></div>
@@ -57,10 +61,16 @@ export const OtherResourcesSection: FC<OtherResourcesSectionProps> = ({ language
                 {language === 'hk' && '《提升跨渠道溝通的AI生產力》'}
               </h3>
             </div>
-          </div>
+            </a>
+            )
+          })()}
 
           {/* Card 2 - 行业报告 */}
-          <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group">
+          {(() => {
+            const langPrefix = language === 'en' ? '' : `/${language}`
+            const reportLink = `${langPrefix}/resources/reports/1`
+            return (
+            <a href={reportLink} class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group block">
             <div class="relative h-40 md:h-48 bg-gradient-to-br from-green-100 to-teal-200 flex items-center justify-center overflow-hidden">
               <div class="absolute inset-0 bg-gradient-to-br from-green-400/20 to-teal-400/20"></div>
               <div class="relative z-10 transform group-hover:scale-110 transition-transform duration-300">
@@ -83,10 +93,16 @@ export const OtherResourcesSection: FC<OtherResourcesSectionProps> = ({ language
                 {language === 'hk' && '《提升跨渠道溝通的AI生產力》'}
               </h3>
             </div>
-          </div>
+            </a>
+            )
+          })()}
 
           {/* Card 3 - 博客 */}
-          <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group">
+          {(() => {
+            const langPrefix = language === 'en' ? '' : `/${language}`
+            const blogLink = `${langPrefix}/resources/blog/1`
+            return (
+            <a href={blogLink} class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group block">
             <div class="relative h-40 md:h-48 bg-gradient-to-br from-orange-100 to-amber-200 flex items-center justify-center overflow-hidden">
               <div class="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-amber-400/20"></div>
               <div class="relative z-10 transform group-hover:scale-110 transition-transform duration-300">
@@ -109,10 +125,16 @@ export const OtherResourcesSection: FC<OtherResourcesSectionProps> = ({ language
                 {language === 'hk' && '《提升跨渠道溝通的AI生產力》'}
               </h3>
             </div>
-          </div>
+            </a>
+            )
+          })()}
 
           {/* Card 4 - 文章 */}
-          <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group">
+          {(() => {
+            const langPrefix = language === 'en' ? '' : `/${language}`
+            const articleLink = `${langPrefix}/resources/blog/2`
+            return (
+            <a href={articleLink} class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group block">
             <div class="relative h-40 md:h-48 bg-gradient-to-br from-cyan-100 to-blue-200 flex items-center justify-center overflow-hidden">
               <div class="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-blue-400/20"></div>
               <div class="relative z-10 transform group-hover:scale-110 transition-transform duration-300">
@@ -135,7 +157,9 @@ export const OtherResourcesSection: FC<OtherResourcesSectionProps> = ({ language
                 {language === 'hk' && '《提升跨渠道溝通的AI生產力》'}
               </h3>
             </div>
-          </div>
+            </a>
+            )
+          })()}
         </div>
       </div>
     </section>
