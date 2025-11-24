@@ -231,12 +231,12 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
                                 >
                                   <div class="flex items-center space-x-3">
                                     {child.icon && (
-                                      <div class="flex-shrink-0">
-                                        <i class={`${child.icon} text-primary-600`}></i>
+                                      <div class="flex-shrink-0 w-5 flex items-center justify-center">
+                                        <i class={`${child.icon} text-primary-600 text-base`}></i>
                                       </div>
                                     )}
                                   <div class="flex-1 min-w-0">
-                                    <div class="font-medium text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap" style="max-width: 150px;" title={getLabel(child)}>
+                                    <div class="font-medium text-gray-900">
                                       {getLabel(child)}
                                     </div>
                                   </div>
@@ -386,7 +386,11 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
                             class="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg"
                             key={child.id}
                           >
-                            {child.icon && <i class={`${child.icon} mr-2 text-primary-600`}></i>}
+                            {child.icon && (
+                              <span class="inline-flex items-center justify-center w-5 mr-2">
+                                <i class={`${child.icon} text-primary-600 text-base`}></i>
+                              </span>
+                            )}
                             {getLabel(child)}
                           </a>
                         ))}
