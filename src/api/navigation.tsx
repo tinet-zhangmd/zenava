@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import type { D1Database } from '@cloudflare/workers-types'
+import { getNavigationData } from '../utils/navigation-helper.js'
 
 const navigation = new Hono<{ Bindings: { DB: D1Database } }>()
 
@@ -9,6 +10,17 @@ navigation.use('/*', cors())
 // Get navigation configuration and menu items
 navigation.get('/config', async (c) => {
   try {
+    // 降级检查：如果没有DB（Vite开发模式），使用静态数据
+    if (!c.env || !c.env.DB) {
+      const language = (c.req.query('lang') as any) || 'zh'
+      const { config, menuItems } = getNavigationData(language)
+      return c.json({
+        success: true,
+        config,
+        menuItems
+      })
+    }
+
     // Get navigation configuration - Always get id=1, check status later if needed
     const configResult = await c.env.DB.prepare(`
       SELECT * FROM navigation_config WHERE id = 1
@@ -41,7 +53,7 @@ navigation.get('/config', async (c) => {
     )
     
     // Parse available languages
-    let availableLanguages = ['en', 'jp', 'hk']
+    let availableLanguages = ['zh', 'en', 'jp', 'hk']
     if (configResult?.available_languages) {
       try {
         availableLanguages = JSON.parse(configResult.available_languages as string)
@@ -70,6 +82,17 @@ navigation.get('/config', async (c) => {
 // Get draft navigation configuration for admin
 navigation.get('/config/draft', async (c) => {
   try {
+    // 降级检查：如果没有DB（Vite开发模式），使用静态数据
+    if (!c.env || !c.env.DB) {
+      const language = (c.req.query('lang') as any) || 'zh'
+      const { config, menuItems } = getNavigationData(language)
+      return c.json({
+        success: true,
+        config,
+        menuItems
+      })
+    }
+
     const configResult = await c.env.DB.prepare(`
       SELECT * FROM navigation_config WHERE id = 1
     `).first()
@@ -96,7 +119,7 @@ navigation.get('/config/draft', async (c) => {
       })
     )
     
-    let availableLanguages = ['en', 'jp', 'hk']
+    let availableLanguages = ['zh', 'en', 'jp', 'hk']
     if (configResult?.available_languages) {
       try {
         availableLanguages = JSON.parse(configResult.available_languages as string)
@@ -129,7 +152,7 @@ navigation.post('/config', async (c) => {
     
     // Update navigation configuration
     if (config) {
-      const availableLanguages = JSON.stringify(config.available_languages || ['en', 'jp', 'hk'])
+      const availableLanguages = JSON.stringify(config.available_languages || ['zh', 'en', 'jp', 'hk'])
       
       await c.env.DB.prepare(`
         INSERT OR REPLACE INTO navigation_config (

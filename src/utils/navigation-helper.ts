@@ -3,7 +3,7 @@ import type { NavigationConfig, NavMenuItem } from '../components/UnifiedNavigat
 
 // 前端页面使用静态数据，不再从数据库读取
 export function getNavigationData(
-  language: Language = 'en'
+  language: Language = 'zh'
 ): { config: NavigationConfig; menuItems: NavMenuItem[] } {
   // 直接返回静态默认配置
   return {

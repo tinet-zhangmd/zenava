@@ -22,6 +22,10 @@ import { getNavigationData } from './utils/navigation-helper.js'
 import { AIHomepage } from './pages/AIHomepage.js'
 import { ZenavaHomepage } from './pages/ZenavaHomepage.js'
 import { AiAgentsPage } from './pages/products/AiAgents.js'
+import { LiveChatPage } from './pages/products/LiveChat.js'
+import { VoiceAgentsPage } from './pages/products/VoiceAgents.js'
+import { ResourcesPage } from './pages/Resources.js'
+import { ResourceListPage } from './pages/ResourceList.js'
 import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/i18n.js'
 
 // 导入 Admin Pages
@@ -54,8 +58,12 @@ import { CustomerServiceScenario } from './pages/CustomerServiceScenario.js'
 import { InternalServiceScenario } from './pages/InternalServiceScenario.js'
 import { ManagementScenario } from './pages/ManagementScenario.js'
 import { AboutUs } from './pages/AboutUs.js'
-import { PrivacyPolicy } from './pages/PrivacyPolicy.js'
+import { ContactPage } from './pages/Contact.js'
 import { TermsAndConditions } from './pages/TermsAndConditions.js'
+import { RetailPage } from './pages/industries/Retail.js'
+import { AutomotivePage } from './pages/industries/Automotive.js'
+import { SoftwarePage } from './pages/industries/Software.js'
+import { TravelPage } from './pages/industries/Travel.js'
 
 // 初始化数据库
 const db = createD1CompatibleDatabase(process.env.DB_PATH)
@@ -108,13 +116,11 @@ app.use('/assets/*', serveStatic({
 // 为了简化，我先创建主要路由，其他路由可以逐步添加
 
 // Homepage routes
+// 默认语言为 zh，首页路由 / 直接显示中文内容
 app.get('/', (c) => {
-  const language: Language = detectLanguageFromIP(c.req.raw)
+  // 默认使用简体中文
+  const language: Language = 'zh'
   const currentPath = '/'
-  
-  if (language !== 'en') {
-    return c.redirect(`/${language}`)
-  }
   
   const { config: navConfig, menuItems } = getNavigationData(language);
   const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
@@ -211,6 +217,756 @@ app.get('/:lang/products/ai-agents', (c) => {
       privacyLinks={privacyLinks}
     >
       <AiAgentsPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Live Chat Page Routes
+app.get('/products/live-chat', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/products/live-chat'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <LiveChatPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/products/live-chat', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/products/live-chat`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <LiveChatPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Voice Agents Page Routes
+app.get('/products/voice-agents', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/products/voice-agents'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <VoiceAgentsPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/products/voice-agents', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/products/voice-agents`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <VoiceAgentsPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Industry Pages Routes - Retail
+app.get('/industries/retail', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/industries/retail'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <RetailPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/industries/retail', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/industries/retail`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <RetailPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Industry Pages Routes - Automotive
+app.get('/industries/automotive', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/industries/automotive'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <AutomotivePage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/industries/automotive', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/industries/automotive`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <AutomotivePage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Industry Pages Routes - Software
+app.get('/industries/software', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/industries/software'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <SoftwarePage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/industries/software', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/industries/software`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <SoftwarePage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Industry Pages Routes - Travel
+app.get('/industries/travel', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/industries/travel'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <TravelPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/industries/travel', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/industries/travel`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <TravelPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resources Page Routes
+app.get('/resources', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourcesPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/resources', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/resources`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourcesPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - Blog
+app.get('/resources/blog', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/blog'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="blog" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/resources/blog', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/resources/blog`
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="blog" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - Video
+app.get('/resources/video', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/video'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="video" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/resources/video', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/resources/video`
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="video" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - Reports
+app.get('/resources/reports', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/reports'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="reports" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/resources/reports', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/resources/reports`
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="reports" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - All
+app.get('/resources/all', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/all'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="all" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/resources/all', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/resources/all`
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="all" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - Whitepapers
+app.get('/resources/whitepapers', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/whitepapers'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="whitepapers" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/resources/whitepapers', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/resources/whitepapers`
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="whitepapers" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - Demos
+app.get('/resources/demos', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/demos'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="demos" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/resources/demos', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/resources/demos`
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="demos" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Resource List routes - Podcast
+app.get('/resources/podcast', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/resources/podcast'
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="podcast" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/resources/podcast', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/resources/podcast`
+  const page = parseInt(c.req.query('page') || '1')
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage language={language} resourceType="podcast" page={page} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// Contact Page Routes
+app.get('/contact', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/contact'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ContactPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/contact', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/contact`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ContactPage language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// About Us Page Routes
+app.get('/about', (c) => {
+  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = '/about'
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <AboutUs language={language} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/about', (c) => {
+  const lang = c.req.param('lang') as Language
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
+  const currentPath = `/${language}/about`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <AboutUs language={language} />
     </LayoutWithUnifiedNav>
   )
 })

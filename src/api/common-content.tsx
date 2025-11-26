@@ -15,7 +15,7 @@ commonContentApi.use('/*', cors());
 // Get navigation config
 commonContentApi.get('/navigation', async (c) => {
   const { env } = c;
-  const language = c.req.query('lang') || 'en';
+  const language = c.req.query('lang') || 'zh';
   
   try {
     // Always get id=1 config (primary configuration)
@@ -96,7 +96,7 @@ commonContentApi.post('/navigation', async (c) => {
 // Get footer config with sections and links
 commonContentApi.get('/footer', async (c) => {
   const { env } = c;
-  const language = c.req.query('lang') || 'en';
+  const language = c.req.query('lang') || 'zh';
   
   try {
     // Get footer config (get the latest regardless of language for consistency)
@@ -174,7 +174,7 @@ commonContentApi.get('/footer', async (c) => {
 // Update footer config
 commonContentApi.post('/footer/config', async (c) => {
   const { env } = c;
-  const language = c.req.query('lang') || 'en';
+  const language = c.req.query('lang') || 'zh';
   const body = await c.req.json();
   
   try {
@@ -266,7 +266,7 @@ commonContentApi.post('/footer/config', async (c) => {
 commonContentApi.post('/footer/section/:id', async (c) => {
   const { env } = c;
   const sectionId = c.req.param('id');
-  const language = c.req.query('lang') || 'en';
+  const language = c.req.query('lang') || 'zh';
   const body = await c.req.json();
   
   try {
@@ -297,7 +297,7 @@ commonContentApi.post('/footer/section/:id', async (c) => {
 commonContentApi.post('/footer/section/:id/link', async (c) => {
   const { env } = c;
   const sectionId = c.req.param('id');
-  const language = c.req.query('lang') || 'en';
+  const language = c.req.query('lang') || 'zh';
   const body = await c.req.json();
   
   try {
@@ -382,7 +382,7 @@ commonContentApi.delete('/footer/link/:id', async (c) => {
 // Update privacy links
 commonContentApi.post('/footer/privacy-links', async (c) => {
   const { env } = c;
-  const language = c.req.query('lang') || 'en';
+  const language = c.req.query('lang') || 'zh';
   const body = await c.req.json();
   
   try {

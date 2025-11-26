@@ -81,15 +81,11 @@ app.use('/static/*', serveStatic({ root: './public' }))
 // No need to handle them in Worker
 
 // Homepage routes - Use static data (no database queries for frontend pages)
+// 默认语言为 zh，首页路由 / 直接显示中文内容
 app.get('/', (c) => {
-  // Detect language from IP geolocation
-  const language: Language = detectLanguageFromIP(c.req.raw)
+  // 默认使用简体中文
+  const language: Language = 'zh'
   const currentPath = '/'
-  
-  // If not English, redirect to appropriate language path
-  if (language !== 'en') {
-    return c.redirect(`/${language}`)
-  }
   
   // Use static data for navigation and footer
   const { config: navConfig, menuItems } = getNavigationData(language);
@@ -635,7 +631,6 @@ import { ManagementScenario } from './pages/ManagementScenario.js'
 import { PrivacyPolicy } from './pages/PrivacyPolicy.js'
 import { TermsConditions } from './pages/TermsConditions.js'
 import { AboutUs } from './pages/AboutUs.js'
-import { PrivacyPolicy } from './pages/PrivacyPolicy.js'
 import { TermsAndConditions } from './pages/TermsAndConditions.js'
 import { renderScenarioPage } from './utils/scenario-route-helper.js'
 
