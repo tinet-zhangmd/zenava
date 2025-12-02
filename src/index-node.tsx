@@ -49,6 +49,7 @@ import cmsApi from './api/cms.js'
 import publishApi from './api/publish.js'
 import commonContentApi from './api/common-content.js'
 import uploadApi from './api/upload.js'
+import ticketApi from './api/ticket.js'
 import { navigation } from './api/navigation.js'
 
 // 导入其他页面
@@ -99,6 +100,7 @@ app.route('/api/ticloudcms', cmsApi)
 app.route('/api/publish', publishApi)
 app.route('/api/common-content', commonContentApi)
 app.route('/api/upload', uploadApi)
+app.route('/api/ticket', ticketApi)
 app.route('/api/navigation', navigation)
 
 // Serve static files
@@ -978,6 +980,98 @@ app.get('/:lang/about', (c) => {
 // 临时：添加一个简单的路由来测试
 app.get('/api/hello', (c) => {
   return c.json({ message: 'Hello from Zenava Node.js API!' })
+})
+
+// Contact Form API
+app.post('/api/contact', async (c) => {
+  try {
+    const body = await c.req.json()
+    const { firstName, lastName, jobTitle, companyEmail, companyName, industry, privacyAgree, source, file } = body
+
+    // 验证必填字段
+    if (!firstName || !lastName || !companyEmail) {
+      return c.json({ 
+        success: false, 
+        message: 'Missing required fields: firstName, lastName, companyEmail' 
+      }, 400)
+    }
+
+    // 验证隐私协议（如果存在）
+    if (privacyAgree === false) {
+      return c.json({ 
+        success: false, 
+        message: 'Please agree to the privacy policy' 
+      }, 400)
+    }
+
+    // 验证邮箱格式
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(companyEmail)) {
+      return c.json({ 
+        success: false, 
+        message: 'Invalid email format' 
+      }, 400)
+    }
+
+    // 调用 Clink 工单创建接口
+    try {
+      // 构建完整的 URL（用于内部调用）
+      const baseUrl = c.req.url.split('/api/contact')[0] || 'http://localhost:3000'
+      const ticketResponse = await fetch(`${baseUrl}/api/ticket/create`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          jobTitle,
+          companyEmail,
+          companyName,
+          industry,
+          source: source || 'contact_page',
+          file,
+          subject: `${firstName} ${lastName} - ${companyName || '咨询'}`,
+          description: `联系表单提交\n来源: ${source || 'contact_page'}\n行业: ${industry || '未选择'}`
+        })
+      })
+
+      const ticketResult = await ticketResponse.json()
+
+      if (!ticketResult.success) {
+        console.error('Ticket creation failed:', ticketResult)
+        // 即使工单创建失败，也返回成功（避免用户看到错误）
+        // 但记录错误日志以便后续处理
+      }
+    } catch (ticketError: any) {
+      console.error('Ticket API error:', ticketError)
+      // 工单创建失败不影响表单提交成功
+    }
+
+    // 如果是白皮书下载，返回下载信息
+    if (source === 'whitepaper_download' && file) {
+      // TODO: 从数据库或配置中获取文件下载信息
+      // 这里先返回示例数据，实际应该从后台配置中获取
+      return c.json({ 
+        success: true, 
+        message: 'Form submitted successfully',
+        downloadUrl: `/resources/download/${file}`,  // 下载接口路径
+        fileName: `${file}.pdf`  // 文件名
+      })
+    }
+
+    return c.json({ 
+      success: true, 
+      message: 'Form submitted successfully' 
+    })
+  } catch (error: any) {
+    console.error('Contact form submission error:', error)
+    return c.json({ 
+      success: false, 
+      message: 'Internal server error',
+      error: error.message 
+    }, 500)
+  }
 })
 
 // Database health check

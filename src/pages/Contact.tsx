@@ -219,7 +219,23 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
             const downloadSection = document.getElementById('download-section');
             const downloadBtn = document.getElementById('download-btn');
 
-            if (!form) return;
+            if (!form) {
+              console.error('Contact form not found');
+              return;
+            }
+
+            // 添加错误处理，确保所有必需的元素都存在
+            const requiredElements = {
+              firstName: document.getElementById('firstName'),
+              lastName: document.getElementById('lastName'),
+              companyEmail: document.getElementById('companyEmail')
+            };
+
+            for (const [name, element] of Object.entries(requiredElements)) {
+              if (!element) {
+                console.error('Required form element not found:', name);
+              }
+            }
 
             // 获取 URL 参数
             function getUrlParam(name) {
@@ -241,6 +257,7 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
               submitLoading.classList.remove('hidden');
 
               // 收集表单数据
+              const privacyAgreeElement = document.getElementById('privacyAgree');
               const formData = {
                 firstName: document.getElementById('firstName').value,
                 lastName: document.getElementById('lastName').value,
@@ -248,12 +265,14 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
                 companyEmail: document.getElementById('companyEmail').value,
                 companyName: document.getElementById('companyName').value,
                 industry: document.getElementById('industry').value,
-                privacyAgree: document.getElementById('privacyAgree').checked,
+                privacyAgree: privacyAgreeElement ? privacyAgreeElement.checked : true, // 如果没有 checkbox，默认为 true
                 source: getUrlParam('source') || 'contact_page',
                 file: getUrlParam('file') || null
               };
 
               try {
+                console.log('Submitting form data:', formData);
+                
                 const response = await fetch('/api/contact', {
                   method: 'POST',
                   headers: {
@@ -262,7 +281,9 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
                   body: JSON.stringify(formData)
                 });
 
+                console.log('Response status:', response.status);
                 const result = await response.json();
+                console.log('Response data:', result);
 
                 if (response.ok && result.success) {
                   // 显示成功消息
@@ -300,7 +321,9 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
 
                   // 重置表单
                   form.reset();
-                  document.getElementById('privacyAgree').checked = true;
+                  if (privacyAgreeElement) {
+                    privacyAgreeElement.checked = true;
+                  }
                   
                   // 滚动到成功消息
                   successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
