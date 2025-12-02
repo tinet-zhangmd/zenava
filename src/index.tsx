@@ -47,6 +47,7 @@ import cmsApi from './api/cms.js'
 import publishApi from './api/publish.js'
 import commonContentApi from './api/common-content.js'
 import uploadApi from './api/upload.js'
+import ticketApi from './api/ticket.js'
 import { navigation } from './api/navigation.js'
 
 // Define Cloudflare Bindings
@@ -71,6 +72,7 @@ app.route('/api/ticloudcms', cmsApi)
 app.route('/api/publish', publishApi)
 app.route('/api/common-content', commonContentApi)
 app.route('/api/upload', uploadApi)
+app.route('/api/ticket', ticketApi)
 app.route('/api/navigation', navigation)
 
 // Serve static files
@@ -2452,14 +2454,22 @@ app.get('/api/hello', (c) => {
 
 app.post('/api/contact', async (c) => {
   try {
-  const body = await c.req.json()
+    const body = await c.req.json()
     const { firstName, lastName, jobTitle, companyEmail, companyName, industry, privacyAgree, source, file } = body
 
     // 验证必填字段
-    if (!firstName || !lastName || !companyEmail || !privacyAgree) {
+    if (!firstName || !lastName || !companyEmail) {
       return c.json({ 
         success: false, 
-        message: 'Missing required fields' 
+        message: 'Missing required fields: firstName, lastName, companyEmail' 
+      }, 400)
+    }
+
+    // 验证隐私协议（如果存在）
+    if (privacyAgree === false) {
+      return c.json({ 
+        success: false, 
+        message: 'Please agree to the privacy policy' 
       }, 400)
     }
 
@@ -2472,21 +2482,38 @@ app.post('/api/contact', async (c) => {
       }, 400)
     }
 
-    // TODO: 对接 Clink2 API
-    // const clink2Response = await fetch('CLINK2_API_ENDPOINT', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     firstName,
-    //     lastName,
-    //     jobTitle,
-    //     companyEmail,
-    //     companyName,
-    //     industry,
-    //     source,
-    //     file
-    //   })
-    // })
+    // 调用 Clink 工单创建接口
+    try {
+      const ticketResponse = await fetch(`${c.req.url.split('/api/contact')[0]}/api/ticket/create`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          jobTitle,
+          companyEmail,
+          companyName,
+          industry,
+          source: source || 'contact_page',
+          file,
+          subject: `${firstName} ${lastName} - ${companyName || '咨询'}`,
+          description: `联系表单提交\n来源: ${source || 'contact_page'}\n行业: ${industry || '未选择'}`
+        })
+      })
+
+      const ticketResult = await ticketResponse.json()
+
+      if (!ticketResult.success) {
+        console.error('Ticket creation failed:', ticketResult)
+        // 即使工单创建失败，也返回成功（避免用户看到错误）
+        // 但记录错误日志以便后续处理
+      }
+    } catch (ticketError: any) {
+      console.error('Ticket API error:', ticketError)
+      // 工单创建失败不影响表单提交成功
+    }
 
     // 如果是白皮书下载，返回下载信息
     if (source === 'whitepaper_download' && file) {
@@ -2495,7 +2522,7 @@ app.post('/api/contact', async (c) => {
       return c.json({ 
         success: true, 
         message: 'Form submitted successfully',
-        downloadUrl: `/api/download/${file}`,  // 下载接口路径
+        downloadUrl: `/resources/download/${file}`,  // 下载接口路径
         fileName: `${file}.pdf`  // 文件名
       })
     }
@@ -2504,11 +2531,12 @@ app.post('/api/contact', async (c) => {
       success: true, 
       message: 'Form submitted successfully' 
     })
-  } catch (error) {
+  } catch (error: any) {
     console.error('Contact form submission error:', error)
     return c.json({ 
       success: false, 
-      message: 'Internal server error' 
+      message: 'Internal server error',
+      error: error.message 
     }, 500)
   }
 })
