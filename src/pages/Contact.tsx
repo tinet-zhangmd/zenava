@@ -40,37 +40,21 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
             <div class="flex-1 lg:flex-none lg:w-[500px] xl:w-[550px]">
               <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10 lg:p-12">
               <form id="contact-form" class="space-y-6">
-                {/* First Name 和 Last Name 在同一行 */}
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* First Name */}
-                  <div>
-                    <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">
-                      {t.firstName || 'First name'}
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      required
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                      placeholder={t.firstName || 'First name'}
-                    />
-                  </div>
-
-                  {/* Last Name */}
-                  <div>
-                    <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">
-                      {t.lastName || 'Last name'}
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      required
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                      placeholder={t.lastName || 'Last name'}
-                    />
-                  </div>
+                {/* 姓名 - 必填项 */}
+                <div>
+                  <label for="fullName" class="block text-sm font-medium text-gray-700 mb-2">
+                    {language === 'zh' ? '姓名' : language === 'en' ? 'Full Name' : language === 'jp' ? '氏名' : '姓名'}
+                    <span class="text-red-500 ml-1">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="fullName"
+                    name="fullName"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                    placeholder={language === 'zh' ? '请输入您的姓名' : language === 'en' ? 'Enter your full name' : language === 'jp' ? '氏名を入力してください' : '請輸入您的姓名'}
+                  />
+                  <p id="fullName-error" class="hidden mt-1 text-sm text-red-600"></p>
                 </div>
 
                 {/* Job Title */}
@@ -87,10 +71,11 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
                   />
                 </div>
 
-                {/* Company Email */}
+                {/* Company Email - 必填项 */}
                 <div>
                   <label for="companyEmail" class="block text-sm font-medium text-gray-700 mb-2">
                     {t.companyEmail || 'Company email'}
+                    <span class="text-red-500 ml-1">*</span>
                   </label>
                   <input
                     type="email"
@@ -100,20 +85,24 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                     placeholder={t.companyEmailPlaceholder || 'Company email'}
                   />
+                  <p id="companyEmail-error" class="hidden mt-1 text-sm text-red-600"></p>
                 </div>
 
-                {/* Company Name */}
+                {/* Company Name - 必填项 */}
                 <div>
                   <label for="companyName" class="block text-sm font-medium text-gray-700 mb-2">
                     {t.companyName || 'Company name'}
+                    <span class="text-red-500 ml-1">*</span>
                   </label>
                   <input
                     type="text"
                     id="companyName"
                     name="companyName"
+                    required
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                     placeholder={t.companyName || 'Company name'}
                   />
+                  <p id="companyName-error" class="hidden mt-1 text-sm text-red-600"></p>
                 </div>
 
                 {/* Industry */}
@@ -135,6 +124,32 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
                       <option value="manufacturing">{t.industryManufacturing || 'Manufacturing'}</option>
                       <option value="education">{t.industryEducation || 'Education'}</option>
                       <option value="other">{t.industryOther || 'Other'}</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Company Size - 公司规模 */}
+                <div>
+                  <label for="companySize" class="block text-sm font-medium text-gray-700 mb-2">
+                    {language === 'zh' ? '公司规模' : language === 'en' ? 'Company Size' : language === 'jp' ? '会社規模' : '公司規模'}
+                  </label>
+                  <div class="relative">
+                    <select
+                      id="companySize"
+                      name="companySize"
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white appearance-none pr-10"
+                    >
+                      <option value="">{language === 'zh' ? '请选择公司规模' : language === 'en' ? 'Select company size' : language === 'jp' ? '会社規模を選択' : '請選擇公司規模'}</option>
+                      <option value="0-49">{language === 'zh' ? '0-49' : language === 'en' ? '0-49' : language === 'jp' ? '0-49' : '0-49'}</option>
+                      <option value="50-99">{language === 'zh' ? '50-99' : language === 'en' ? '50-99' : language === 'jp' ? '50-99' : '50-99'}</option>
+                      <option value="100-149">{language === 'zh' ? '100-149' : language === 'en' ? '100-149' : language === 'jp' ? '100-149' : '100-149'}</option>
+                      <option value="150-199">{language === 'zh' ? '150-199' : language === 'en' ? '150-199' : language === 'jp' ? '150-199' : '150-199'}</option>
+                      <option value="200+">{language === 'zh' ? '200以上' : language === 'en' ? '200+' : language === 'jp' ? '200以上' : '200以上'}</option>
                     </select>
                     <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                       <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -226,9 +241,9 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
 
             // 添加错误处理，确保所有必需的元素都存在
             const requiredElements = {
-              firstName: document.getElementById('firstName'),
-              lastName: document.getElementById('lastName'),
-              companyEmail: document.getElementById('companyEmail')
+              fullName: document.getElementById('fullName'),
+              companyEmail: document.getElementById('companyEmail'),
+              companyName: document.getElementById('companyName')
             };
 
             for (const [name, element] of Object.entries(requiredElements)) {
@@ -243,6 +258,114 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
               return urlParams.get(name);
             }
 
+            // 清除字段错误状态的函数
+            function clearFieldError(fieldId) {
+              const inputEl = document.getElementById(fieldId);
+              const errorEl = document.getElementById(fieldId + '-error');
+              if (inputEl) {
+                inputEl.classList.remove('border-red-500');
+                inputEl.classList.add('border-gray-300');
+              }
+              if (errorEl) {
+                errorEl.classList.add('hidden');
+                errorEl.textContent = '';
+              }
+            }
+
+            // 获取当前语言（从 URL 或默认值）
+            function getCurrentLanguage() {
+              const path = window.location.pathname;
+              const langPattern = new RegExp('^/(zh|en|jp|hk)/');
+              const langMatch = path.match(langPattern);
+              if (langMatch) {
+                return langMatch[1];
+              }
+              // 默认返回中文
+              return 'zh';
+            }
+
+            // 为必填项添加输入事件监听器，清除错误状态
+            const requiredFields = ['fullName', 'companyEmail', 'companyName'];
+            const currentLang = getCurrentLanguage();
+            const errorMessages = {
+              zh: {
+                fullName: '请输入您的姓名',
+                companyEmail: '请输入企业邮箱',
+                companyEmailInvalid: '请输入有效的邮箱地址',
+                companyName: '请输入公司名称'
+              },
+              en: {
+                fullName: 'Please enter your full name',
+                companyEmail: 'Please enter company email',
+                companyEmailInvalid: 'Please enter a valid email address',
+                companyName: 'Please enter company name'
+              },
+              jp: {
+                fullName: '氏名を入力してください',
+                companyEmail: '会社メールを入力してください',
+                companyEmailInvalid: '有効なメールアドレスを入力してください',
+                companyName: '会社名を入力してください'
+              },
+              hk: {
+                fullName: '請輸入您的姓名',
+                companyEmail: '請輸入企業郵箱',
+                companyEmailInvalid: '請輸入有效的郵箱地址',
+                companyName: '請輸入公司名稱'
+              }
+            };
+            
+            requiredFields.forEach(fieldId => {
+              const field = document.getElementById(fieldId);
+              if (field) {
+                field.addEventListener('input', () => {
+                  clearFieldError(fieldId);
+                });
+                field.addEventListener('blur', () => {
+                  // 失去焦点时进行验证
+                  const value = field.value.trim();
+                  const messages = errorMessages[currentLang] || errorMessages.zh;
+                  
+                  if (!value && fieldId === 'fullName') {
+                    const errorEl = document.getElementById(fieldId + '-error');
+                    if (errorEl) {
+                      errorEl.textContent = messages.fullName;
+                      errorEl.classList.remove('hidden');
+                    }
+                    field.classList.remove('border-gray-300');
+                    field.classList.add('border-red-500');
+                  } else if (!value && fieldId === 'companyEmail') {
+                    const errorEl = document.getElementById(fieldId + '-error');
+                    if (errorEl) {
+                      errorEl.textContent = messages.companyEmail;
+                      errorEl.classList.remove('hidden');
+                    }
+                    field.classList.remove('border-gray-300');
+                    field.classList.add('border-red-500');
+                  } else if (!value && fieldId === 'companyName') {
+                    const errorEl = document.getElementById(fieldId + '-error');
+                    if (errorEl) {
+                      errorEl.textContent = messages.companyName;
+                      errorEl.classList.remove('hidden');
+                    }
+                    field.classList.remove('border-gray-300');
+                    field.classList.add('border-red-500');
+                  } else if (fieldId === 'companyEmail' && value) {
+                    // 验证邮箱格式
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(value)) {
+                      const errorEl = document.getElementById(fieldId + '-error');
+                      if (errorEl) {
+                        errorEl.textContent = messages.companyEmailInvalid;
+                        errorEl.classList.remove('hidden');
+                      }
+                      field.classList.remove('border-gray-300');
+                      field.classList.add('border-red-500');
+                    }
+                  }
+                });
+              }
+            });
+
             form.addEventListener('submit', async (e) => {
               e.preventDefault();
               
@@ -251,29 +374,133 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
               errorMessage.classList.add('hidden');
               downloadSection.classList.add('hidden');
 
+              // 清除之前的验证错误
+              const errorElements = ['fullName-error', 'companyEmail-error', 'companyName-error'];
+              errorElements.forEach(id => {
+                const errorEl = document.getElementById(id);
+                if (errorEl) {
+                  errorEl.classList.add('hidden');
+                  errorEl.textContent = '';
+                }
+              });
+
+              // 清除输入框的错误样式
+              const inputElements = ['fullName', 'companyEmail', 'companyName'];
+              inputElements.forEach(id => {
+                const inputEl = document.getElementById(id);
+                if (inputEl) {
+                  inputEl.classList.remove('border-red-500');
+                  inputEl.classList.add('border-gray-300');
+                }
+              });
+
+              // 前端必填项验证
+              const fullName = document.getElementById('fullName').value.trim();
+              const companyEmail = document.getElementById('companyEmail').value.trim();
+              const companyName = document.getElementById('companyName').value.trim();
+              
+              // 获取当前语言和错误消息
+              const currentLang = getCurrentLanguage();
+              const messages = errorMessages[currentLang] || errorMessages.zh;
+              
+              let hasError = false;
+              
+              // 验证姓名
+              if (!fullName) {
+                const errorEl = document.getElementById('fullName-error');
+                const inputEl = document.getElementById('fullName');
+                if (errorEl) {
+                  errorEl.textContent = messages.fullName;
+                  errorEl.classList.remove('hidden');
+                }
+                if (inputEl) {
+                  inputEl.classList.remove('border-gray-300');
+                  inputEl.classList.add('border-red-500');
+                }
+                hasError = true;
+              }
+              
+              // 验证企业邮箱
+              if (!companyEmail) {
+                const errorEl = document.getElementById('companyEmail-error');
+                const inputEl = document.getElementById('companyEmail');
+                if (errorEl) {
+                  errorEl.textContent = messages.companyEmail;
+                  errorEl.classList.remove('hidden');
+                }
+                if (inputEl) {
+                  inputEl.classList.remove('border-gray-300');
+                  inputEl.classList.add('border-red-500');
+                }
+                hasError = true;
+              } else {
+                // 验证邮箱格式
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(companyEmail)) {
+                  const errorEl = document.getElementById('companyEmail-error');
+                  const inputEl = document.getElementById('companyEmail');
+                  if (errorEl) {
+                    errorEl.textContent = messages.companyEmailInvalid;
+                    errorEl.classList.remove('hidden');
+                  }
+                  if (inputEl) {
+                    inputEl.classList.remove('border-gray-300');
+                    inputEl.classList.add('border-red-500');
+                  }
+                  hasError = true;
+                }
+              }
+              
+              // 验证公司名称
+              if (!companyName) {
+                const errorEl = document.getElementById('companyName-error');
+                const inputEl = document.getElementById('companyName');
+                if (errorEl) {
+                  errorEl.textContent = messages.companyName;
+                  errorEl.classList.remove('hidden');
+                }
+                if (inputEl) {
+                  inputEl.classList.remove('border-gray-300');
+                  inputEl.classList.add('border-red-500');
+                }
+                hasError = true;
+              }
+              
+              // 如果有验证错误，停止提交
+              if (hasError) {
+                // 滚动到第一个错误字段
+                const firstErrorInput = document.querySelector('.border-red-500');
+                if (firstErrorInput) {
+                  firstErrorInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  firstErrorInput.focus();
+                }
+                return;
+              }
+
               // 显示加载状态
               submitBtn.disabled = true;
               submitText.classList.add('hidden');
               submitLoading.classList.remove('hidden');
 
-              // 收集表单数据
-              const privacyAgreeElement = document.getElementById('privacyAgree');
+              // 收集表单数据（以 ticket.tsx 接口数据格式为准）
               const formData = {
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                jobTitle: document.getElementById('jobTitle').value,
+                name: fullName,
+                jobTitle: document.getElementById('jobTitle').value || '',
                 companyEmail: document.getElementById('companyEmail').value,
                 companyName: document.getElementById('companyName').value,
-                industry: document.getElementById('industry').value,
-                privacyAgree: privacyAgreeElement ? privacyAgreeElement.checked : true, // 如果没有 checkbox，默认为 true
+                industry: document.getElementById('industry').value || '',
+                companySize: document.getElementById('companySize').value || '0-49',
                 source: getUrlParam('source') || 'contact_page',
-                file: getUrlParam('file') || null
+                file: getUrlParam('file') || null,
+                description: '', // 表单中没有此字段，设为空字符串
+                subject: '' // 表单中没有此字段，设为空字符串
               };
 
               try {
                 console.log('Submitting form data:', formData);
                 
-                const response = await fetch('/api/contact', {
+                // 直接调用创建工单接口
+                const response = await fetch('/api/ticket/create', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
@@ -285,7 +512,8 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
                 const result = await response.json();
                 console.log('Response data:', result);
 
-                if (response.ok && result.success) {
+                // 检查响应是否成功（以 ticket.tsx 接口返回的 success 字段为准）
+                if (result.success) {
                   // 显示成功消息
                   successMessage.classList.remove('hidden');
                   
@@ -328,7 +556,12 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
                   // 滚动到成功消息
                   successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 } else {
-                  // 显示错误消息
+                  // 显示错误消息（使用 ticket.tsx 返回的 message）
+                  const errorText = result.message || (getCurrentLanguage() === 'zh' ? '提交失败，请重试' : 'Submission failed, please try again');
+                  const errorTextEl = errorMessage.querySelector('p');
+                  if (errorTextEl) {
+                    errorTextEl.textContent = errorText;
+                  }
                   errorMessage.classList.remove('hidden');
                   errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }

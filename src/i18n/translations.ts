@@ -36,7 +36,7 @@ export const siteTranslations = {
     // Business Value
     businessValue: {
       title: 'What Zenava Can Bring to Enterprises',
-      subtitle: 'Transform organizational capabilities and reshape customer experience through AI-driven conversational intelligence',
+      subtitle: 'Enable enterprises to efficiently serve customers anytime, anywhere, creating exceptional customer experiences while reducing service costs',
       metrics: {
         marketing: {
           title: 'Marketing Performance Metrics',
@@ -118,6 +118,56 @@ export const siteTranslations = {
           responseValue: '<5 min',
           crisisSuccess: 'Crisis Resolution Success Rate',
           successRate: '98%'
+        }
+      },
+      // Capabilities Section - Alternating-Text-Media-List format
+      capabilities: {
+        item1: {
+          title: 'Instant Response, Quick Problem Resolution',
+          list: [
+            'Provide 7×24 hour instant response service for enterprises',
+            'Support interaction with customers via voice and text messages on digital channels such as website, APP, WhatsApp, LINE, Facebook, quickly respond to customers and solve problems',
+            'Reduce waiting time, lower labor costs, and improve customer satisfaction'
+          ],
+          button: 'Learn More',
+          imageAlt: 'Instant Response Service'
+        },
+        item2: {
+          title: 'Natural Communication Experience Comparable to Humans, More Trustworthy',
+          list: [
+            'Can understand voice, text, images, videos and other forms of information to accurately solve customer problems',
+            'Support complex multi-turn dialogue information collection, can break down complex needs and handle complex problems',
+            'Have emotional perception ability, patient and warm, through natural communication experience comparable to humans, improve customer loyalty'
+          ],
+          button: 'Learn More',
+          imageAlt: 'Natural Communication Experience'
+        },
+        item3: {
+          title: 'Customer Service Automation, Achieve True End-to-End Closed Loop',
+          list: [
+            'Can independently handle 80% of repetitive, high-frequency, process-clear customer contact tasks',
+            'Achieve end-to-end automated closed loop from intent recognition → task execution → feedback results, can completely replace human resources in specific tasks'
+          ],
+          button: 'Learn More',
+          imageAlt: 'Customer Service Automation'
+        },
+        item4: {
+          title: 'Intelligent Lead Generation, Improve Customer Conversion Rate',
+          list: [
+            'Accurately identify customer intent, deeply explore customer needs, provide professional responses, and promote transactions',
+            'Actively ask and clarify key information, guide customers to leave information, automatically collect leads, and improve customer conversion rate'
+          ],
+          button: 'Learn More',
+          imageAlt: 'Intelligent Lead Generation'
+        },
+        item5: {
+          title: 'Quantifiable Results, Make AI Value Visible',
+          list: [
+            'Restructure enterprise cost structure, service costs reduced by approximately 20%',
+            'The preferred choice for enterprises to reduce costs and increase efficiency'
+          ],
+          button: 'Learn More',
+          imageAlt: 'Quantifiable Results'
         }
       }
     },
@@ -248,7 +298,7 @@ export const siteTranslations = {
               tags: ['Intent Recognition', 'Personalized Recommendations', 'Promotional Information', 'Conversion Enhancement'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/01.webp',
               mediaAlt: 'Intelligent Shopping Guidance'
             },
             {
@@ -259,7 +309,7 @@ export const siteTranslations = {
               tags: ['Order Queries', 'Returns & Exchanges', 'Logistics Tracking', 'Efficiency Improvement'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/02.webp',
               mediaAlt: 'Order Management'
             },
             {
@@ -270,7 +320,7 @@ export const siteTranslations = {
               tags: ['Issue Identification', 'Multi-turn Conversations', 'Image & Video Support', 'Problem Resolution'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/03.webp',
               mediaAlt: 'After-Sales Troubleshooting'
             },
             {
@@ -281,7 +331,7 @@ export const siteTranslations = {
               tags: ['Work Order Generation', 'Smart Dispatch', 'Satisfaction Surveys', 'Service Closed Loop'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/04.webp',
               mediaAlt: 'Installation, Repair & Smart Follow-up'
             }
           ]
@@ -302,7 +352,7 @@ export const siteTranslations = {
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/retail/05.webp',
               imageAlt: 'Quantifiable Results'
             }
           ]
@@ -483,7 +533,7 @@ export const siteTranslations = {
               tags: ['Intent Recognition', 'Full Process Automation', 'Booking Conversion', 'Customer Satisfaction'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/travel/01.webp',
               mediaAlt: 'Hotel & Ticket Booking'
             },
             {
@@ -495,7 +545,7 @@ export const siteTranslations = {
               tags: ['Instant Response', 'Self-Service', 'Member Management', 'Efficiency Improvement'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/travel/02.webp',
               mediaAlt: 'Account Management'
             },
             {
@@ -507,7 +557,7 @@ export const siteTranslations = {
               tags: ['Instant Assistance', 'Problem Resolution', 'Response Speed', 'Customer Experience'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/travel/03.webp',
               mediaAlt: 'Travel Support'
             }
           ]
@@ -526,7 +576,7 @@ export const siteTranslations = {
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/travel/04.webp',
               imageAlt: 'Quantifiable Results'
             }
           ]
@@ -1377,7 +1427,7 @@ export const siteTranslations = {
     // Business Value - Professional tone
     businessValue: {
       title: 'Zenavaが企業にもたらすもの',
-      subtitle: 'AI駆動の対話インテリジェンスを通じて、組織能力を変革し、顧客体験を再構築',
+      subtitle: '企業がいつでもどこでも効率的に顧客にサービスを提供し、卓越した顧客体験を創出し、サービスコストを削減',
       metrics: {
         marketing: {
           title: 'マーケティング成果指標',
@@ -1414,6 +1464,56 @@ export const siteTranslations = {
           title: 'ブランド保護指標',
           monitoring: 'リアルタイム監視',
           response: '危機対応時間'
+        }
+      },
+      // コア能力セクション - Alternating-Text-Media-List フォーマット
+      capabilities: {
+        item1: {
+          title: '即時応答、迅速な問題解決',
+          list: [
+            '企業に7×24時間の即時応答サービスを提供',
+            'ウェブサイト、APP、WHATSAPP、LINE、Facebookなどのデジタルチャネルで、音声やテキストメッセージを通じて顧客と対話し、迅速に応答して問題を解決',
+            '待機時間の短縮、人件費の削減、顧客満足度の向上'
+          ],
+          button: '詳細を見る',
+          imageAlt: '即時応答サービス'
+        },
+        item2: {
+          title: '人間に匹敵する自然なコミュニケーション体験、より信頼できる',
+          list: [
+            '音声を理解し、テキスト、画像、動画など多様な形式の情報を理解し、顧客の問題を正確に解決',
+            '複雑な多回対話情報収集をサポートし、複雑なニーズを分解し、複雑な問題を処理',
+            '感情認識能力を備え、忍耐強く、温かみがあり、人間に匹敵する自然なコミュニケーション体験を通じて、顧客ロイヤルティを向上'
+          ],
+          button: '詳細を見る',
+          imageAlt: '自然なコミュニケーション体験'
+        },
+        item3: {
+          title: '顧客サービス自動化、真のエンドツーエンド閉ループを実現',
+          list: [
+            '反復的、高頻度、プロセスが明確な顧客連絡タスクの80%を独立して処理可能',
+            '意図認識 → タスク実行 → フィードバック結果のエンドツーエンド自動化閉ループを実現し、特定のタスクでは完全に人的リソースを置き換え可能'
+          ],
+          button: '詳細を見る',
+          imageAlt: '顧客サービス自動化'
+        },
+        item4: {
+          title: 'インテリジェントなリード獲得、顧客転換率の向上',
+          list: [
+            '顧客の意図を正確に識別し、顧客のニーズを深く掘り下げ、専門的な対応を提供し、取引を促進',
+            '積極的に質問し、重要な情報を明確化し、顧客に情報を残すよう導き、リードを自動収集し、顧客転換率を向上'
+          ],
+          button: '詳細を見る',
+          imageAlt: 'インテリジェントなリード獲得'
+        },
+        item5: {
+          title: '効果を定量化、AIの価値を可視化',
+          list: [
+            '企業のコスト構造を再構築し、サービスコストを約20%削減',
+            '企業のコスト削減と効率向上の最適な選択'
+          ],
+          button: '詳細を見る',
+          imageAlt: '効果の定量化'
         }
       }
     },
@@ -1541,7 +1641,7 @@ export const siteTranslations = {
               tags: ['意図認識', 'パーソナライズ推奨', 'プロモーション情報', '転換向上'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/01.webp',
               mediaAlt: 'インテリジェントショッピングガイド'
             },
             {
@@ -1552,7 +1652,7 @@ export const siteTranslations = {
               tags: ['注文照会', '返品・交換処理', '物流追跡', '効率向上'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/02.webp',
               mediaAlt: '注文管理'
             },
             {
@@ -1563,7 +1663,7 @@ export const siteTranslations = {
               tags: ['故障識別', '多回対話', '画像・動画サポート', '問題解決'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/03.webp',
               mediaAlt: 'アフターサービス故障診断'
             },
             {
@@ -1574,7 +1674,7 @@ export const siteTranslations = {
               tags: ['作業チケット生成', 'インテリジェント配信', '満足度調査', 'サービス閉ループ'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/04.webp',
               mediaAlt: '設置・修理とインテリジェントフォローアップ'
             }
           ]
@@ -1595,7 +1695,7 @@ export const siteTranslations = {
               ],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/retail/05.webp',
               imageAlt: '定量化された効果'
             }
           ]
@@ -1776,7 +1876,7 @@ export const siteTranslations = {
               tags: ['意図認識', '全プロセス自動化', '予約転換', '顧客満足度'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/travel/01.webp',
               mediaAlt: 'ホテル・チケット予約'
             },
             {
@@ -1788,7 +1888,7 @@ export const siteTranslations = {
               tags: ['即座の対応', 'セルフサービス', '会員管理', '効率向上'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/travel/02.webp',
               mediaAlt: 'アカウント管理'
             },
             {
@@ -1800,7 +1900,7 @@ export const siteTranslations = {
               tags: ['即座の支援', '問題解決', '応答速度', '顧客体験'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/travel/03.webp',
               mediaAlt: '旅行サポート'
             }
           ]
@@ -1819,7 +1919,7 @@ export const siteTranslations = {
               ],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/travel/04.webp',
               imageAlt: '定量化された効果'
             }
           ]
@@ -2671,7 +2771,7 @@ export const siteTranslations = {
     // Business Value
     businessValue: {
       title: 'Zenava能為企業帶來什麼',
-      subtitle: '透過AI驅動的對話智能，變革組織能力，重塑客戶體驗',
+      subtitle: '讓企業隨時隨地高效服務客戶，打造卓越客戶體驗，降低服務成本',
       metrics: {
         marketing: {
           title: '行銷成效指標',
@@ -2708,6 +2808,56 @@ export const siteTranslations = {
           title: '品牌保護指標',
           monitoring: '實時監控',
           response: '危機響應時間'
+        }
+      },
+      // 核心能力版塊 - Alternating-Text-Media-List 格式
+      capabilities: {
+        item1: {
+          title: '即時響應，快速解決客戶問題',
+          list: [
+            '為企業提供 7×24 小時即時響應服務',
+            '支持在網站、APP、WHATSAPP、LINE、Facebook等數字渠道與客戶以語音、文本消息的方式互動，快速響應客戶，解決客戶問題',
+            '降低等待時間、減少人工成本，提升客戶滿意度'
+          ],
+          button: '了解更多',
+          imageAlt: '即時響應服務'
+        },
+        item2: {
+          title: '媲美真人的自然溝通體驗，更值得信賴',
+          list: [
+            '能聽懂語音，理解文字、圖片、視頻等多種形態信息，精準解決客戶問題',
+            '支持複雜多輪對話信息收集，能拆解複雜需求，處理複雜問題',
+            '具備情緒感知能力，耐心、有溫度，通過媲美真人的自然溝通體驗，提升客戶忠誠度'
+          ],
+          button: '了解更多',
+          imageAlt: '自然溝通體驗'
+        },
+        item3: {
+          title: '客戶服務自動化，實現真正的端到端閉環',
+          list: [
+            '能夠獨立處理80%重複性、高頻次、流程清晰的客戶聯絡任務',
+            '實現從意圖識別 → 任務執行 → 反饋結果的端到端自動化閉環，在特定任務中可完全取代人力'
+          ],
+          button: '了解更多',
+          imageAlt: '客戶服務自動化'
+        },
+        item4: {
+          title: '智能引導訪客留資，提升客戶轉化率',
+          list: [
+            '精準識別客戶意圖，深入挖掘客戶需求，提供專業回應，促進成交',
+            '主動追問、澄清關鍵信息，引導客戶留資，自動化收集線索，提升客戶轉化率'
+          ],
+          button: '了解更多',
+          imageAlt: '智能引導訪客留資'
+        },
+        item5: {
+          title: '效果可量化，讓AI價值看得見',
+          list: [
+            '重構企業成本結構，服務成本降低約20%',
+            '企業降本增效的首選'
+          ],
+          button: '了解更多',
+          imageAlt: '效果可量化'
         }
       }
     },
@@ -2835,7 +2985,7 @@ export const siteTranslations = {
               tags: ['意圖識別', '個性化推薦', '優惠信息', '轉化提升'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/01.webp',
               mediaAlt: '智能導購'
             },
             {
@@ -2846,7 +2996,7 @@ export const siteTranslations = {
               tags: ['訂單查詢', '退換貨處理', '物流追蹤', '效率提升'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/02.webp',
               mediaAlt: '訂單管理'
             },
             {
@@ -2857,7 +3007,7 @@ export const siteTranslations = {
               tags: ['故障識別', '多輪對話', '圖片視頻支持', '問題解決'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/03.webp',
               mediaAlt: '售後故障排查'
             },
             {
@@ -2868,7 +3018,7 @@ export const siteTranslations = {
               tags: ['工單生成', '智能派發', '滿意度回訪', '服務閉環'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/04.webp',
               mediaAlt: '報裝報修與智能回訪'
             }
           ]
@@ -2889,7 +3039,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/retail/05.webp',
               imageAlt: '量化效果'
             }
           ]
@@ -3070,7 +3220,7 @@ export const siteTranslations = {
               tags: ['意圖識別', '全流程自動化', '預訂轉化', '客戶滿意度'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/travel/01.webp',
               mediaAlt: '酒店與票務預訂'
             },
             {
@@ -3082,7 +3232,7 @@ export const siteTranslations = {
               tags: ['即時響應', '自助服務', '會員管理', '效率提升'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/travel/02.webp',
               mediaAlt: '賬戶管理'
             },
             {
@@ -3094,7 +3244,7 @@ export const siteTranslations = {
               tags: ['即時幫助', '問題解決', '響應速度', '客戶體驗'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/travel/03.webp',
               mediaAlt: '旅行支持'
             }
           ]
@@ -3113,7 +3263,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/travel/04.webp',
               imageAlt: '量化效果'
             }
           ]
@@ -3965,7 +4115,7 @@ export const siteTranslations = {
     // 业务价值
     businessValue: {
       title: 'Zenava能为企业带来什么',
-      subtitle: '通过AI驱动的对话智能，变革组织能力，重塑客户体验',
+      subtitle: '让企业随时随地高效服务客户，打造卓越客户体验，降低服务成本',
       metrics: {
         marketing: {
           title: '营销成效指标',
@@ -4047,6 +4197,56 @@ export const siteTranslations = {
           responseValue: '<5分钟',
           crisisSuccess: '危机处理成功率',
           successRate: '98%'
+        }
+      },
+      // 核心能力版块 - Alternating-Text-Media-List 格式
+      capabilities: {
+        item1: {
+          title: '即时响应，快速解决客户问题',
+          list: [
+            '为企业提供 7×24 小时即时响应服务',
+            '支持在网站、APP、WHATSAPP、LINE、Facebook等数字渠道与客户以语音、文本消息的方式互动，快速响应客户，解决客户问题',
+            '降低等待时间、减少人工成本，提升客户满意度'
+          ],
+          button: '了解更多',
+          imageAlt: '即时响应服务'
+        },
+        item2: {
+          title: '媲美真人的自然沟通体验，更值得信赖',
+          list: [
+            '能听懂语音，理解文字、图片、视频等多种形态信息，精准解决客户问题',
+            '支持复杂多轮对话信息收集，能拆解复杂需求，处理复杂问题',
+            '具备情绪感知能力，耐心、有温度，通过媲美真人的自然沟通体验，提升客户忠诚度'
+          ],
+          button: '了解更多',
+          imageAlt: '自然沟通体验'
+        },
+        item3: {
+          title: '客户服务自动化，实现真正的端到端闭环',
+          list: [
+            '能够独立处理80%重复性、高频次、流程清晰的客户联络任务',
+            '实现从意图识别 → 任务执行 → 反馈结果的端到端自动化闭环，在特定任务中可完全取代人力'
+          ],
+          button: '了解更多',
+          imageAlt: '客户服务自动化'
+        },
+        item4: {
+          title: '智能引导访客留资，提升客户转化率',
+          list: [
+            '精准识别客户意图，深入挖掘客户需求，提供专业回应，促进成交',
+            '主动追问、澄清关键信息，引导客户留资，自动化收集线索，提升客户转化率'
+          ],
+          button: '了解更多',
+          imageAlt: '智能引导访客留资'
+        },
+        item5: {
+          title: '效果可量化，让AI价值看得见',
+          list: [
+            '重构企业成本结构，服务成本降低约20%',
+            '企业降本增效的首选'
+          ],
+          button: '了解更多',
+          imageAlt: '效果可量化'
         }
       }
     },
@@ -4178,7 +4378,7 @@ export const siteTranslations = {
               tags: ['意图识别', '个性化推荐', '优惠信息', '转化提升'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/01.webp',
               mediaAlt: '智能导购'
             },
             {
@@ -4189,7 +4389,7 @@ export const siteTranslations = {
               tags: ['订单查询', '退换货处理', '物流追踪', '效率提升'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/02.webp',
               mediaAlt: '订单管理'
             },
             {
@@ -4200,7 +4400,7 @@ export const siteTranslations = {
               tags: ['故障识别', '多轮对话', '图片视频支持', '问题解决'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/03.webp',
               mediaAlt: '售后故障排查'
             },
             {
@@ -4211,7 +4411,7 @@ export const siteTranslations = {
               tags: ['工单生成', '智能派发', '满意度回访', '服务闭环'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/retail/04.webp',
               mediaAlt: '报装报修与智能回访'
             }
           ]
@@ -4232,7 +4432,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/retail/05.webp',
               imageAlt: '量化效果'
             }
           ]
@@ -4413,7 +4613,7 @@ export const siteTranslations = {
               tags: ['意图识别', '全流程自动化', '预订转化', '客户满意度'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/travel/01.webp',
               mediaAlt: '酒店与票务预订'
             },
             {
@@ -4425,7 +4625,7 @@ export const siteTranslations = {
               tags: ['即时响应', '自助服务', '会员管理', '效率提升'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/travel/02.webp',
               mediaAlt: '账户管理'
             },
             {
@@ -4437,7 +4637,7 @@ export const siteTranslations = {
               tags: ['即时帮助', '问题解决', '响应速度', '客户体验'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '',
+              mediaPath: '/assets/images/travel/03.webp',
               mediaAlt: '旅行支持'
             }
           ]
@@ -4456,7 +4656,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/travel/04.webp',
               imageAlt: '量化效果'
             }
           ]

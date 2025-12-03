@@ -194,12 +194,12 @@ ticketApi.post('/create', async (c) => {
   try {
     const body = await c.req.json()
     const {
-      firstName,
-      lastName,
+      name: customerName,
       jobTitle,
       companyEmail,
       companyName,
       industry,
+      companySize,
       source,
       file,
       description,
@@ -207,10 +207,11 @@ ticketApi.post('/create', async (c) => {
     } = body
 
     // 验证必填字段
-    if (!firstName || !lastName || !companyEmail) {
+    // 必填项：姓名（customerName）、企业邮箱（companyEmail）、公司名称（companyName）
+    if (!customerName || !companyEmail || !companyName) {
       return c.json({
         success: false,
-        message: 'Missing required fields: firstName, lastName, companyEmail'
+        message: 'Missing required fields: name, companyEmail, companyName'
       }, 400)
     }
 
@@ -229,122 +230,72 @@ ticketApi.post('/create', async (c) => {
     
     // 构建表单数据（根据 ApiFox 测试成功的格式）
     // 注意：model 参数的值是 JSON 字符串
+    
+    // 行业映射：将英文值转换为中文
+    const industryMap: Record<string, string> = {
+      'technology': '科技',
+      'finance': '金融',
+      'healthcare': '医疗',
+      'retail': '零售',
+      'manufacturing': '制造',
+      'education': '教育',
+      'other': '其他'
+    }
+    const industryValue = industry ? (industryMap[industry] || industry) : ''
+    
     const formData = {
         "form": {
-            "id": 25803,
-            "name": "官网自动注册表单新",
+            "id": 37675,
+            "name": "ZENAVA官网自动注册表单",
             "fields": [
-                {
-                    "id": 234529,
-                    "type": 1,
-                    "name": "统一社会信息代码",
-                    "value": "" // 可以根据需要填充
-                },
-                {
-                    "id": 233433,
-                    "type": 1,
-                    "name": "销售姓名",
-                    "value": `${firstName} ${lastName}` // 填充客户姓名
-                },
-                {
-                    "id": 233444,
-                    "type": 6,
-                    "name": "产品线",
-                    "value": ""
-                },
-                {
-                    "id": 233449,
-                    "type": 1,
-                    "name": "平台",
-                    "value": source || "contact_page" // 填充来源
-                },
-                {
-                    "id": 233445,
-                    "type": 6,
-                    "name": "用户类别",
-                    "value": "天润直销"
-                },
-                {
-                    "id": 233453,
-                    "type": 6,
-                    "name": "业务场景",
-                    "value": industry || "" // 填充行业
-                },
-                {
-                    "id": 233447,
-                    "type": 6,
-                    "name": "商机来源",
-                    "value": source || "contact_page"
-                },
-                {
-                    "id": 233450,
-                    "type": 1,
-                    "name": "账户级登录名",
-                    "value": ""
-                },
-                {
-                    "id": 233446,
-                    "type": 1,
-                    "name": "开户用途",
-                    "value": description || ""
-                },
-                {
-                    "id": 191886,
-                    "type": 1,
-                    "name": "公司名称",
-                    "value": companyName || "" // 填充公司名称
-                },
-                {
-                    "id": 6976,
-                    "type": 1,
-                    "name": "客户名称",
-                    "value": `${firstName} ${lastName}` // 填充客户名称
-                },
-                {
-                    "id": 191885,
-                    "type": 1,
-                    "name": "手机号码",
-                    "value": "" // 如果有手机号字段，可以填充
-                },
-                {
-                    "id": 234530,
-                    "type": 3,
-                    "name": "客户邮箱",
-                    "value": companyEmail || null // 填充邮箱
-                },
-                {
-                    "id": 191887,
-                    "type": 10,
-                    "name": "需求类型",
-                    "value": description || null
-                },
-                {
-                    "id": 235078,
-                    "type": 2,
-                    "name": "手机号码是否存在",
-                    "value": ""
-                },
-                {
-                    "id": 235079,
-                    "type": 2,
-                    "name": "邮箱是否存在",
-                    "value": ""
-                },
-                {
-                    "id": 238708,
-                    "type": 1,
-                    "name": "Ip地址",
-                    "value": c.req.header('x-forwarded-for') || c.req.header('x-real-ip') || ""
-                },
-                {
-                    "id": 238709,
-                    "type": 1,
-                    "name": "访问URL",
-                    "value": c.req.url || ""
-                }
+              {
+                "id": 226845,
+                "type": 1,
+                "name": "姓名",
+                "required":1,
+                "value": customerName,
+              },
+              {
+                "id":127286,
+                "required":1,
+                "type": 5,
+                "name": "客户所属行业",
+                "value": jobTitle || "",
+              },
+              {
+                "id": 234530,
+                "required":1,
+                "type": 3,
+                "name": "客户邮箱",
+                "value": companyEmail,
+              },
+              {
+                "id": 191886,
+                "required":1,
+                "type": 1,
+                "name": "公司名称",
+                "value": companyName || "",
+               
+              },
+              {
+                "id": 331263,
+                "required":0,
+                "type": 6,
+                "name": "公司规模",
+                "value": companySize || "0-49",
+              
+              },
+              {
+                "id": 331260,
+                "required":0,
+                "type": 6,
+                "name": "行业分类",
+                "value": industryValue,
+              }
             ]
         },
-        "workflowId": 15710
+        "workflowId": 15710,
+        "tags":[{name:'免费注册',color: 3}]
     }
     
     // 将表单数据转换为 JSON 字符串（作为 model 参数的值）
@@ -394,7 +345,6 @@ ticketApi.post('/create', async (c) => {
     })
     
     const responseData = await response.json()
-    console.log('Clink API Response:', responseData)
     
     if (!response.ok) {
       console.error('Clink API Error:', responseData)

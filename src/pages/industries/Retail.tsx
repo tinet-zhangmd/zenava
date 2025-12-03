@@ -164,7 +164,7 @@ export const RetailPage: FC<RetailPageProps> = ({ language = 'zh' }) => {
                     {/* Media Area */}
                     <div class={`${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
                       <div class="rounded-xl overflow-hidden">
-                        <div class="aspect-[4/3] bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 flex items-center justify-center">
+                        <div class="aspect-[4/3] flex items-center justify-center">
                           {item.mediaPath ? (
                             <img 
                               src={item.mediaPath}
@@ -256,7 +256,7 @@ export const RetailPage: FC<RetailPageProps> = ({ language = 'zh' }) => {
                     {/* Media Area */}
                     <div class={`${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
                       <div class="rounded-xl overflow-hidden">
-                        <div class="aspect-[4/3] bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 flex items-center justify-center">
+                        <div class="aspect-[4/3] flex items-center justify-center">
                           {item.imagePath ? (
                             <img 
                               src={item.imagePath}

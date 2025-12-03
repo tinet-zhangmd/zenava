@@ -548,10 +548,10 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         </div>
       </section>
 
-      {/* Zenava Business Value Section - Matching Marketing Solutions Style */}
-      <section class="py-20 bg-gray-50">
+      {/* Zenava Business Value Section - Alternating-Text-Media-List Format */}
+      <section class="py-12 md:py-16 lg:py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center mb-16">
+          <div class="text-center mb-12 md:mb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {trans.businessValue.title}
             </h2>
@@ -560,502 +560,234 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
             </p>
           </div>
 
-          <div class="space-y-16">
-            {/* 版块3 - 第1项：左文右图 */}
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* 左侧：文字内容 */}
-              <div data-animate="slide-up">
-                {/* 标题行（可点击） */}
-                <a 
-                  href="/contact"
-                  class="flex items-center mb-6 group cursor-pointer"
-                >
-                  <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-purple-200 transition-colors">
-                    <i class="fas fa-robot text-purple-600 text-xl"></i>
-                  </div>
-                  <h3 class="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
-                    {trans.scenarios.marketing.section3?.mainTitle || trans.scenarios.marketing.title}
-                  </h3>
-                </a>
-                <h4 class="text-lg md:text-xl font-semibold text-purple-600 mb-4">
-                  {trans.scenarios.marketing.section3?.subtitle || trans.scenarios.marketing.subtitle}
-                </h4>
-                <p class="text-base md:text-lg text-gray-700 mb-6 leading-relaxed">
-                  {trans.scenarios.marketing.section3?.description || trans.scenarios.marketing.description}
-                </p>
-                <div class="flex flex-wrap gap-4 mb-6">
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.marketing.section3?.tag1 || trans.scenarios.marketing.features?.[0] || '智能识别'}</span>
-                  </div>
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.marketing.section3?.tag2 || trans.scenarios.marketing.features?.[1] || '实时优化'}</span>
-                  </div>
-                </div>
-                
-                {/* 按钮 */}
-                <a 
-                  href="/contact" 
-                  class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
-                >
-                  <span>{trans.scenarios.marketing.section3?.buttonText || trans.scenarios.marketing.title}</span>
-                  <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-              </div>
-              
-              {/* 右侧：图片 */}
-              <div class="relative" data-animate="slide-up">
-                <div class="rounded-xl overflow-hidden">
-                  <img 
-                    src="/assets/images/right-one.webp" 
-                    alt={trans.scenarios.marketing.section3?.imageAlt || 'Marketing Automation'}
-                    class="w-full h-auto object-cover"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Sales Business - Solution 2 */}
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div class="order-2 lg:order-1 bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
-                  <div class="space-y-4">
-                  <h4 class="font-bold text-gray-900 mb-4">{trans.salesProcess.title}</h4>
-                  
-                  <div class="space-y-3">
-                    <div class="flex items-center p-3 bg-blue-50 rounded-lg">
-                      <div class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">1</div>
-                      <div class="flex-1">
-                        <p class="font-medium">{trans.salesProcess.step1.title}</p>
-                        <p class="text-sm text-gray-600">{trans.salesProcess.step1.description}</p>
-                      </div>
-                      <div class="text-right">
-                        <span class="text-lg font-bold text-blue-600">{trans.salesProcess.step1.value}</span>
-                      </div>
+          <div class="space-y-12 md:space-y-16 lg:space-y-20">
+            {/* 版块3 - 第1项：左图右文（奇数项） */}
+            {trans.businessValue.capabilities && (
+              <>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+                  {/* 左侧：图片 */}
+                  <div class="order-1" data-animate="slide-up">
+                    <div class="rounded-xl overflow-hidden">
+                      <img 
+                        src="/assets/images/01.webp" 
+                        alt={trans.businessValue.capabilities.item1.imageAlt || '即时响应服务'}
+                        class="w-full h-auto object-contain"
+                        loading="lazy"
+                      />
                     </div>
+                  </div>
+                  
+                  {/* 右侧：文字内容 */}
+                  <div class="order-2 space-y-4 md:space-y-6" data-animate="slide-up">
+                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
+                      {trans.businessValue.capabilities.item1.title}
+                    </h3>
                     
-                    <div class="flex items-center p-3 bg-green-50 rounded-lg">
-                      <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">2</div>
-                      <div class="flex-1">
-                        <p class="font-medium">{trans.salesProcess.step2.title}</p>
-                        <p class="text-sm text-gray-600">{trans.salesProcess.step2.description}</p>
-                      </div>
-                      <div class="text-right">
-                        <span class="text-lg font-bold text-green-600">{trans.salesProcess.step2.value}</span>
-                      </div>
-                    </div>
+                    <ul class="space-y-3 md:space-y-4">
+                      {trans.businessValue.capabilities.item1.list.map((item: string) => (
+                        <li class="flex items-start space-x-2 md:space-x-3">
+                          <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-100 flex items-center justify-center mt-0.5">
+                            <i class="fas fa-check text-blue-600 text-xs"></i>
+                          </div>
+                          <span class="text-gray-700 font-medium text-sm md:text-base leading-relaxed">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                     
-                    <div class="flex items-center p-3 bg-purple-50 rounded-lg">
-                      <div class="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">3</div>
-                      <div class="flex-1">
-                        <p class="font-medium">{trans.salesProcess.step3.title}</p>
-                        <p class="text-sm text-gray-600">{trans.salesProcess.step3.description}</p>
-                      </div>
-                      <div class="text-right">
-                        <span class="text-lg font-bold text-purple-600">{trans.salesProcess.step3.value}</span>
-                      </div>
+                    <div class="pt-2">
+                      <a 
+                        href="/contact" 
+                        class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
+                      >
+                        {trans.businessValue.capabilities.item1.button}
+                      </a>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="order-1 lg:order-2" data-animate="slide-up">
-                {/* 标题行（可点击） */}
-                <a 
-                  href="/contact"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center mb-6 group cursor-pointer"
-                >
-                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-200 transition-colors">
-                    <i class="fas fa-chart-line text-blue-600 text-xl"></i>
+                {/* 版块3 - 第2项：左文右图（偶数项） */}
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+                  {/* 左侧：文字内容 */}
+                  <div class="order-2 lg:order-1 space-y-4 md:space-y-6" data-animate="slide-up">
+                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
+                      {trans.businessValue.capabilities.item2.title}
+                    </h3>
+                    
+                    <ul class="space-y-3 md:space-y-4">
+                      {trans.businessValue.capabilities.item2.list.map((item: string) => (
+                        <li class="flex items-start space-x-2 md:space-x-3">
+                          <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-green-100 flex items-center justify-center mt-0.5">
+                            <i class="fas fa-check text-green-600 text-xs"></i>
+                          </div>
+                          <span class="text-gray-700 font-medium text-sm md:text-base leading-relaxed">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <div class="pt-2">
+                      <a 
+                        href="/contact" 
+                        class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
+                      >
+                        {trans.businessValue.capabilities.item2.button}
+                      </a>
+                    </div>
                   </div>
-                  <h3 class="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">{trans.scenarios.sales.title}</h3>
-                </a>
-                <h4 class="text-lg font-semibold text-blue-600 mb-4">
-                  {trans.scenarios.sales.subtitle}
-                </h4>
-                <p class="text-gray-700 mb-6 leading-relaxed">
-                  {trans.scenarios.sales.description}
-                </p>
-                <div class="flex space-x-4 mb-6">
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.sales.featureShort?.[0] || trans.scenarios.sales.features?.[0] || 'Talk Track'}</span>
-                  </div>
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.sales.featureShort?.[1] || trans.scenarios.sales.features?.[1] || 'Competitive Analysis'}</span>
-                  </div>
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.sales.featureShort?.[2] || trans.scenarios.sales.features?.[2] || 'Smart Closing'}</span>
+                  
+                  {/* 右侧：图片 */}
+                  <div class="order-1 lg:order-2" data-animate="slide-up">
+                    <div class="rounded-xl overflow-hidden">
+                      <img 
+                        src="/assets/images/02.webp" 
+                        alt={trans.businessValue.capabilities.item2.imageAlt || '自然沟通体验'}
+                        class="w-full h-auto object-contain"
+                        loading="lazy"
+                      />
+                    </div>
                   </div>
                 </div>
-                
-                {/* 按钮 */}
-                <a 
-                  href="/contact" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
-                >
-                  <span>{trans.scenarios.sales.buttonText || trans.scenarios.sales.title}</span>
-                  <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-              </div>
-            </div>
 
-            {/* Customer Service Business - Solution 3 */}
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div data-animate="slide-up">
-                {/* 标题行（可点击） */}
-                <a 
-                  href="/contact"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center mb-6 group cursor-pointer"
-                >
-                  <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-orange-200 transition-colors">
-                    <i class="fas fa-headset text-orange-600 text-xl"></i>
-                  </div>
-                  <h3 class="text-2xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors">{trans.scenarios.customerService.title}</h3>
-                </a>
-                <h4 class="text-lg font-semibold text-orange-600 mb-4">
-                  {trans.scenarios.customerService.subtitle}
-                </h4>
-                <p class="text-gray-700 mb-6 leading-relaxed">
-                  {trans.scenarios.customerService.description}
-                </p>
-                <div class="flex space-x-4 mb-6">
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.customerService.featureShort?.[0] || trans.scenarios.customerService.features?.[0] || '24/7 Response'}</span>
-                  </div>
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.customerService.featureShort?.[1] || trans.scenarios.customerService.features?.[1] || 'Emotion Recognition'}</span>
-                  </div>
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.customerService.featureShort?.[2] || trans.scenarios.customerService.features?.[2] || 'Smart Ticketing'}</span>
-                  </div>
-                </div>
-                
-                {/* 按钮 */}
-                <a 
-                  href="/contact" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
-                >
-                  <span>{trans.scenarios.customerService.buttonText || trans.scenarios.customerService.title}</span>
-                  <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-              </div>
-              
-              <div class="bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
-                <h4 class="font-bold text-gray-900 mb-6">{trans.ticketProcess.title}</h4>
-                
-                <div class="space-y-4">
-                  <div class="flex items-start space-x-4">
-                    <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-sm font-bold mt-1">1</div>
-                    <div>
-                      <p class="font-medium text-gray-900">{trans.ticketProcess.step1.title}</p>
-                      <p class="text-sm text-gray-600">{trans.ticketProcess.step1.description}</p>
+                {/* 版块3 - 第3项：左图右文（奇数项） */}
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+                  {/* 左侧：图片 */}
+                  <div class="order-1" data-animate="slide-up">
+                    <div class="rounded-xl overflow-hidden">
+                      <img 
+                        src="/assets/images/03.webp" 
+                        alt={trans.businessValue.capabilities.item3.imageAlt || '客户服务自动化'}
+                        class="w-full h-auto object-contain"
+                        loading="lazy"
+                      />
                     </div>
                   </div>
                   
-                  <div class="flex items-start space-x-4">
-                    <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center text-sm font-bold mt-1">2</div>
-                    <div>
-                      <p class="font-medium text-gray-900">{trans.ticketProcess.step2.title}</p>
-                      <p class="text-sm text-gray-600">{trans.ticketProcess.step2.description}</p>
-                    </div>
-                  </div>
-                  
-                  <div class="flex items-start space-x-4">
-                    <div class="w-8 h-8 bg-orange-200 rounded-full flex items-center justify-center text-sm font-bold mt-1">3</div>
-                    <div>
-                      <p class="font-medium text-gray-900">{trans.ticketProcess.step3.title}</p>
-                      <p class="text-sm text-gray-600">{trans.ticketProcess.step3.description}</p>
-                    </div>
-                  </div>
-                  
-                  <div class="flex items-start space-x-4">
-                    <div class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold mt-1">4</div>
-                    <div>
-                      <p class="font-medium text-gray-900">{trans.ticketProcess.step4.title}</p>
-                      <p class="text-sm text-gray-600">{trans.ticketProcess.step4.description}</p>
+                  {/* 右侧：文字内容 */}
+                  <div class="order-2 space-y-4 md:space-y-6" data-animate="slide-up">
+                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
+                      {trans.businessValue.capabilities.item3.title}
+                    </h3>
+                    
+                    <ul class="space-y-3 md:space-y-4">
+                      {trans.businessValue.capabilities.item3.list.map((item: string) => (
+                        <li class="flex items-start space-x-2 md:space-x-3">
+                          <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
+                            <i class="fas fa-check text-purple-600 text-xs"></i>
+                          </div>
+                          <span class="text-gray-700 font-medium text-sm md:text-base leading-relaxed">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <div class="pt-2">
+                      <a 
+                        href="/contact" 
+                        class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
+                      >
+                        {trans.businessValue.capabilities.item3.button}
+                      </a>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Internal Service - Solution 4 */}
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* 左侧：图片 */}
-              <div class="order-2 lg:order-1 relative" data-animate="slide-up">
-                <div class="rounded-xl overflow-hidden">
-                  <img 
-                    src="/assets/images/inner.png"
-                    alt={trans.scenarios.internalService.title || 'Internal Operations'}
-                    class="w-full h-auto object-cover"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-              
-              <div class="order-1 lg:order-2" data-animate="slide-up">
-                {/* 标题行（可点击） */}
-                <a 
-                  href="/contact"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center mb-6 group cursor-pointer"
-                >
-                  <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-indigo-200 transition-colors">
-                    <i class="fas fa-network-wired text-indigo-600 text-xl"></i>
+                {/* 版块3 - 第4项：左文右图（偶数项） */}
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+                  {/* 左侧：文字内容 */}
+                  <div class="order-2 lg:order-1 space-y-4 md:space-y-6" data-animate="slide-up">
+                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
+                      {trans.businessValue.capabilities.item4.title}
+                    </h3>
+                    
+                    <ul class="space-y-3 md:space-y-4">
+                      {trans.businessValue.capabilities.item4.list.map((item: string) => (
+                        <li class="flex items-start space-x-2 md:space-x-3">
+                          <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-orange-100 flex items-center justify-center mt-0.5">
+                            <i class="fas fa-check text-orange-600 text-xs"></i>
+                          </div>
+                          <span class="text-gray-700 font-medium text-sm md:text-base leading-relaxed">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <div class="pt-2">
+                      <a 
+                        href="/contact" 
+                        class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
+                      >
+                        {trans.businessValue.capabilities.item4.button}
+                      </a>
+                    </div>
                   </div>
-                  <h3 class="text-2xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">{trans.scenarios.internalService.title}</h3>
-                </a>
-                <h4 class="text-lg font-semibold text-indigo-600 mb-4">
-                  {trans.scenarios.internalService.subtitle}
-                </h4>
-                <p class="text-gray-700 mb-6 leading-relaxed">
-                  {trans.scenarios.internalService.description}
-                </p>
-                <div class="flex space-x-4 mb-6">
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.internalService.featureShort?.[0] || trans.scenarios.internalService.features?.[0] || '统一入口'}</span>
-                  </div>
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.internalService.featureShort?.[1] || trans.scenarios.internalService.features?.[1] || '智能派单'}</span>
-                  </div>
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.internalService.featureShort?.[2] || trans.scenarios.internalService.features?.[2] || '数据分析'}</span>
+                  
+                  {/* 右侧：图片 */}
+                  <div class="order-1 lg:order-2" data-animate="slide-up">
+                    <div class="rounded-xl overflow-hidden">
+                      <img 
+                        src="/assets/images/04.webp" 
+                        alt={trans.businessValue.capabilities.item4.imageAlt || '智能引导访客留资'}
+                        class="w-full h-auto object-contain"
+                        loading="lazy"
+                      />
+                    </div>
                   </div>
                 </div>
-                
-                {/* 按钮 */}
-                <a 
-                  href="/contact" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
-                >
-                  <span>{trans.scenarios.internalService.buttonText || trans.scenarios.internalService.title}</span>
-                  <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-              </div>
-            </div>
 
-            {/* Product Design & Optimization - Solution 5 */}
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div data-animate="slide-up">
-                {/* 标题行（可点击） */}
-                <a 
-                  href="/contact"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center mb-6 group cursor-pointer"
-                >
-                  <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-purple-200 transition-colors">
-                    <i class="fas fa-pencil-ruler text-purple-600 text-xl"></i>
-                  </div>
-                  <h3 class="text-2xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">{trans.scenarios.management.title}</h3>
-                </a>
-                <h4 class="text-lg font-semibold text-purple-600 mb-4">
-                  {trans.scenarios.management.subtitle}
-                </h4>
-                <p class="text-gray-700 mb-6 leading-relaxed">
-                  {trans.scenarios.management.description}
-                </p>
-                <div class="flex space-x-4 mb-6">
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.management.featureShort?.[0] || trans.scenarios.management.features?.[0] || '痛点识别'}</span>
-                  </div>
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.management.featureShort?.[1] || trans.scenarios.management.features?.[1] || '需求提取'}</span>
-                  </div>
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.management.featureShort?.[2] || trans.scenarios.management.features?.[2] || '迭代闭环'}</span>
-                  </div>
-                </div>
-                
-                {/* 按钮 */}
-                <a 
-                  href="/contact" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
-                >
-                  <span>{trans.scenarios.management.buttonText || trans.scenarios.management.title}</span>
-                  <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-              </div>
-              
-              <div class="bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
-                <h4 class="font-bold text-gray-900 mb-6">{trans.productFeedbackPanel?.title || 'Customer Feedback Analysis Panel'}</h4>
-                
-                <div class="space-y-4">
-                  <div class="flex items-center justify-between p-4 bg-purple-50 rounded-lg">
-                    <div>
-                      <p class="text-sm text-gray-600">{trans.productFeedbackPanel?.painPoints || 'Product Pain Points'}</p>
-                      <p class="text-2xl font-bold text-purple-600">{trans.productFeedbackPanel?.painPointCount || '1,842'}</p>
-                    </div>
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                      <i class="fas fa-comments text-purple-600"></i>
+                {/* 版块3 - 第5项：左图右文（奇数项） */}
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+                  {/* 左侧：图片 */}
+                  <div class="order-1" data-animate="slide-up">
+                    <div class="rounded-xl overflow-hidden">
+                      <img 
+                        src="/assets/images/05.webp" 
+                        alt={trans.businessValue.capabilities.item5.imageAlt || '效果可量化'}
+                        class="w-full h-auto object-contain"
+                        loading="lazy"
+                      />
                     </div>
                   </div>
                   
-                  <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
-                    <div>
-                      <p class="text-sm text-gray-600">{trans.productFeedbackPanel?.featureAdoption || 'Feature Adoption'}</p>
-                      <p class="text-2xl font-bold text-green-600">{trans.productFeedbackPanel?.adoptionRate || '78%'}</p>
-                    </div>
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                      <i class="fas fa-lightbulb text-green-600"></i>
-                    </div>
-                  </div>
-                  
-                  <div class="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
-                    <div>
-                      <p class="text-sm text-gray-600">{trans.productFeedbackPanel?.fixCycle || 'Issue Fix Cycle'}</p>
-                      <p class="text-2xl font-bold text-blue-600">{trans.productFeedbackPanel?.fixTime || '3.2 days'}</p>
-                    </div>
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <i class="fas fa-tools text-blue-600"></i>
-                    </div>
-                  </div>
-                  
-                  <div class="border-t pt-4">
-                    <div class="flex items-center justify-between">
-                      <span class="text-sm text-gray-600">{trans.productFeedbackPanel?.monthlyIterations || 'Monthly Iterations'}</span>
-                      <span class="text-sm font-bold text-gray-900">{trans.productFeedbackPanel?.iterationCount || '12 versions'}</span>
-                    </div>
-                    <div class="flex items-center justify-between mt-2">
-                      <span class="text-sm text-gray-600">{trans.productFeedbackPanel?.satisfactionIncrease || 'Satisfaction Increase'}</span>
-                      <span class="text-sm font-bold text-gray-900">{trans.productFeedbackPanel?.satisfactionGrowth || '+18%'}</span>
+                  {/* 右侧：文字内容 */}
+                  <div class="order-2 space-y-4 md:space-y-6" data-animate="slide-up">
+                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
+                      {trans.businessValue.capabilities.item5.title}
+                    </h3>
+                    
+                    <ul class="space-y-3 md:space-y-4">
+                      {trans.businessValue.capabilities.item5.list.map((item: string) => (
+                        <li class="flex items-start space-x-2 md:space-x-3">
+                          <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-indigo-100 flex items-center justify-center mt-0.5">
+                            <i class="fas fa-check text-indigo-600 text-xs"></i>
+                          </div>
+                          <span class="text-gray-700 font-medium text-sm md:text-base leading-relaxed">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <div class="pt-2">
+                      <a 
+                        href="/contact" 
+                        class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
+                      >
+                        {trans.businessValue.capabilities.item5.button}
+                      </a>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </>
+            )}
 
-            {/* Brand & Sentiment Management - Solution 6 */}
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div class="order-2 lg:order-1 bg-white p-8 rounded-xl shadow-lg" data-animate="slide-up">
-                <h4 class="font-bold text-gray-900 mb-6">{trans.sentimentPanel?.title || 'Real-time Sentiment Monitoring'}</h4>
-                
-                <div class="space-y-4">
-                  <div class="flex items-center justify-between p-4 bg-red-50 rounded-lg">
-                    <div>
-                      <p class="text-sm text-gray-600">{trans.sentimentPanel?.negativeAlert || 'Negative Sentiment Alert'}</p>
-                      <p class="text-2xl font-bold text-red-600">{trans.sentimentPanel?.alertCount || '3 items'}</p>
-                    </div>
-                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                      <i class="fas fa-exclamation-triangle text-red-600"></i>
-                    </div>
-                  </div>
-                  
-                  <div class="flex items-center justify-between p-4 bg-yellow-50 rounded-lg">
-                    <div>
-                      <p class="text-sm text-gray-600">{trans.sentimentPanel?.sensitiveWords || 'Sensitive Word Detection'}</p>
-                      <p class="text-2xl font-bold text-yellow-600">{trans.sentimentPanel?.detectionRate || '99.8%'}</p>
-                    </div>
-                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                      <i class="fas fa-shield-alt text-yellow-600"></i>
-                    </div>
-                  </div>
-                  
-                  <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
-                    <div>
-                      <p class="text-sm text-gray-600">{trans.sentimentPanel?.brandSentiment || 'Brand Favorability'}</p>
-                      <p class="text-2xl font-bold text-green-600">{trans.sentimentPanel?.sentimentGrowth || '+12%'}</p>
-                    </div>
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                      <i class="fas fa-chart-line text-green-600"></i>
-                    </div>
-                  </div>
-                  
-                  <div class="border-t pt-4">
-                    <div class="flex items-center justify-between">
-                      <span class="text-sm text-gray-600">{trans.sentimentPanel?.responseTime || 'Response Time'}</span>
-                      <span class="text-sm font-bold text-gray-900">{trans.sentimentPanel?.responseSpeed || '<5 minutes'}</span>
-                    </div>
-                    <div class="flex items-center justify-between mt-2">
-                      <span class="text-sm text-gray-600">{trans.sentimentPanel?.crisisSuccess || 'Crisis Success Rate'}</span>
-                      <span class="text-sm font-bold text-gray-900">{trans.sentimentPanel?.successRate || '98%'}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="order-1 lg:order-2" data-animate="slide-up">
-                {/* 标题行（可点击） */}
-                <a 
-                  href="/contact"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="flex items-center mb-6 group cursor-pointer"
-                >
-                  <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-teal-200 transition-colors">
-                    <i class="fas fa-shield-alt text-teal-600 text-xl"></i>
-                  </div>
-                  <h3 class="text-2xl font-bold text-gray-900 group-hover:text-teal-600 transition-colors">{language === 'en' ? 'Brand & Reputation Management' : language === 'jp' ? 'ブランド・評判管理' : '品牌與輿情管理'}</h3>
-                </a>
-                <h4 class="text-lg font-semibold text-teal-600 mb-4">
-                  {language === 'en' ? 'Real-time Brand Protection' : language === 'jp' ? 'リアルタイムブランド保護' : '實時守護企業品牌安全'}
-                </h4>
-                <p class="text-gray-700 mb-6 leading-relaxed">
-                  {language === 'en' 
-                    ? 'Integrate social and service data for intelligent risk detection. Real-time alerts for high-risk conversations with automated response workflows.Quantify customer sentiment to optimize communication strategies. Automatically perform quality checks on service language to ensure brand consistency.'
-                    : language === 'jp'
-                    ? 'ソーシャルとサービスデータを統合し、インテリジェントなリスク検出を実現。高リスク会話のリアルタイムアラートと自動対応ワークフロー。顧客感情を定量化し、コミュニケーション戦略を最適化。'
-                    : '融合社交與客服數據，智能識別輿情風險；實時預警高風險對話，自動觸發應對流程；量化客戶情緒，優化溝通策略；自動質檢服務用語，保障品牌一致性。'}
-                </p>
-                <div class="flex space-x-4 mb-6">
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.management?.brandFeatures?.[0] || 'Risk Alert'}</span>
-                  </div>
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.management?.brandFeatures?.[1] || 'Sentiment Analysis'}</span>
-                  </div>
-                  <div class="flex items-center text-sm text-gray-600">
-                    <i class="fas fa-check text-green-500 mr-2"></i>
-                    <span>{trans.scenarios.management?.brandFeatures?.[2] || 'Quality Control'}</span>
-                  </div>
-                </div>
-                
-                {/* 按钮 */}
-                <a 
-                  href="/contact" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center px-6 py-3 border-2 border-orange-500 text-orange-500 font-semibold rounded-full hover:bg-orange-500 hover:text-white transition-all duration-300"
-                >
-                  <span>
-                    {language === 'zh' && '了解更多品牌管理'}
-                    {language === 'en' && 'Learn More About Brand Management'}
-                    {language === 'jp' && 'ブランド管理の詳細'}
-                    {language === 'hk' && '了解更多品牌管理'}
-                  </span>
-                  <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-              </div>
-            </div>
           </div>
+        </div>
+      </section>
+
+      {/* Job Image Section - 招聘图片 */}
+      <section class="py-0">
+        <div class="w-full">
+          <img 
+            src="/assets/images/job.jpg" 
+            alt="招聘信息"
+            class="w-full h-auto object-cover"
+            loading="lazy"
+          />
         </div>
       </section>
 
