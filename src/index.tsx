@@ -51,6 +51,7 @@ import commonContentApi from './api/common-content.js'
 import uploadApi from './api/upload.js'
 import ticketApi from './api/ticket.js'
 import { navigation } from './api/navigation.js'
+import resourceCenterApi from './api/resource-center.js'
 
 // Define Cloudflare Bindings
 type Bindings = {
@@ -76,6 +77,7 @@ app.route('/api/common-content', commonContentApi)
 app.route('/api/upload', uploadApi)
 app.route('/api/ticket', ticketApi)
 app.route('/api/navigation', navigation)
+app.route('/api/resource-center', resourceCenterApi)
 
 // Serve static files
 // Note: In Cloudflare Pages, static files in dist/ are served automatically by Pages
