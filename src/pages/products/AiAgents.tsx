@@ -109,19 +109,16 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
         <div class="site-container px-4 sm:px-6 lg:px-8">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
             {/* Left Image */}
-            <div class="relative rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100/50 bg-gray-50/50 p-4">
-               <div class="aspect-[4/3] relative z-10">
-                  <img 
-                    src="/assets/images/ai-agents/person.webp" 
-                    alt="即时对话功能演示图 - 打造极致客户服务体验"
-                    loading="lazy"
-                    decoding="async"
-                    class="w-full h-full object-contain hover:scale-105 transition-transform duration-700"
-                  />
-               </div>
-               {/* Decorative blob */}
-               <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-green-100/50 rounded-full blur-3xl"></div>
-               <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-100/50 rounded-full blur-3xl"></div>
+            <div class="rounded-xl overflow-hidden">
+              <div class="aspect-[4/3] flex items-center justify-center">
+                <img 
+                  src="/assets/images/ai-agents/person.webp" 
+                  alt="即时对话功能演示图 - 打造极致客户服务体验"
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-contain"
+                />
+              </div>
             </div>
             
             {/* Right Content */}
@@ -198,19 +195,16 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
             </div>
 
             {/* Right Image */}
-            <div class="relative rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100/50 bg-white p-4 order-1 lg:order-2">
-               <div class="aspect-[4/3] relative z-10">
-                  <img 
-                    src="/assets/images/ai-agents/voice.webp" 
-                    alt="Voice功能演示图 - 超越真人的语音对话体验"
-                    loading="lazy"
-                    decoding="async"
-                    class="w-full h-full object-contain hover:scale-105 transition-transform duration-700"
-                  />
-               </div>
-               {/* Decorative blob */}
-               <div class="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-100/50 rounded-full blur-3xl"></div>
-               <div class="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-100/50 rounded-full blur-3xl"></div>
+            <div class="rounded-xl overflow-hidden order-1 lg:order-2">
+              <div class="aspect-[4/3] flex items-center justify-center">
+                <img 
+                  src="/assets/images/ai-agents/voice.webp" 
+                  alt="Voice功能演示图 - 超越真人的语音对话体验"
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-contain"
+                />
+              </div>
             </div>
           </div>
         </div>
