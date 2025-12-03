@@ -41,6 +41,8 @@ import { Logs } from './pages/admin/Logs.js'
 import { PublishManager } from './pages/admin/PublishManager.js'
 import { CommonContentManagement } from './pages/admin/CommonContentManagement.js'
 import { CommonContentManagementV2 } from './pages/admin/CommonContentManagementV2.js'
+import { ResourceCategoryManagement } from './pages/admin/ResourceCategoryManagement.js'
+import { ResourceContentManagement } from './pages/admin/ResourceContentManagement.js'
 
 // Import CMS API
 import cmsApi from './api/cms.js'
@@ -1507,6 +1509,129 @@ app.get('/ticloudadmin/publish', requireAuth(), (c) => {
   return c.html(
     <AdminLayout title="发布管理" currentPath="/admin/publish">
       <PublishManager />
+    </AdminLayout>
+  )
+})
+
+// Resource Center Routes
+app.get('/ticloudadmin/resource-categories', requireAuth(), async (c) => {
+  // Mock data - replace with actual database query
+  const mockCategories = [
+    {
+      id: 186,
+      sort_order: 0,
+      name: '公司动态',
+      slug: '/a/186',
+      list_template: 'list_article.html',
+      detail_template: 'info_article.html',
+      is_visible: true
+    },
+    {
+      id: 187,
+      sort_order: 0,
+      name: '博客',
+      slug: '/a/187',
+      list_template: 'list_article.html',
+      detail_template: 'info_article.html',
+      is_visible: true
+    },
+    {
+      id: 188,
+      sort_order: 0,
+      name: '白皮书',
+      slug: '/a/188',
+      list_template: 'list_article.html',
+      detail_template: 'info_article.html',
+      is_visible: true
+    },
+    {
+      id: 189,
+      sort_order: 0,
+      name: '拉感',
+      slug: '/a/189',
+      list_template: 'list_article.html',
+      detail_template: 'info_article.html',
+      is_visible: true
+    },
+    {
+      id: 190,
+      sort_order: 0,
+      name: '博客',
+      slug: '/a/190',
+      list_template: 'list_article.html',
+      detail_template: 'info_article.html',
+      is_visible: true
+    },
+    {
+      id: 191,
+      sort_order: 0,
+      name: '行业报告',
+      slug: '/a/191',
+      list_template: 'list_article.html',
+      detail_template: 'info_article.html',
+      is_visible: true
+    },
+    {
+      id: 195,
+      sort_order: 0,
+      name: '技术答疑',
+      slug: '/a/195',
+      list_template: 'list_article.html',
+      detail_template: 'info_article.html',
+      is_visible: true
+    },
+  ]
+
+  return c.html(
+    <AdminLayout title="栏目分类管理" currentPath="/ticloudadmin/resource-categories">
+      <ResourceCategoryManagement categories={mockCategories} />
+    </AdminLayout>
+  )
+})
+
+app.get('/ticloudadmin/resource-contents', requireAuth(), async (c) => {
+  // Mock data - replace with actual database query
+  const mockContents = [
+    {
+      id: 1,
+      category_id: 186,
+      category_name: '公司动态',
+      title: '示例文章标题',
+      slug: 'example-article',
+      thumbnail: '/assets/images/example.jpg',
+      author: '张三',
+      publish_date: '2024-01-15',
+      views: 1250,
+      status: 'published' as const,
+      is_featured: true
+    },
+    {
+      id: 2,
+      category_id: 187,
+      category_name: '博客',
+      title: '另一篇文章',
+      slug: 'another-article',
+      author: '李四',
+      publish_date: '2024-01-10',
+      views: 856,
+      status: 'draft' as const,
+      is_featured: false
+    }
+  ]
+
+  const mockCategories = [
+    { id: 186, name: '公司动态' },
+    { id: 187, name: '博客' },
+    { id: 188, name: '白皮书' },
+    { id: 189, name: '拉感' },
+    { id: 190, name: '博客' },
+    { id: 191, name: '行业报告' },
+    { id: 195, name: '技术答疑' }
+  ]
+
+  return c.html(
+    <AdminLayout title="内容列表管理" currentPath="/ticloudadmin/resource-contents">
+      <ResourceContentManagement contents={mockContents} categories={mockCategories} />
     </AdminLayout>
   )
 })

@@ -102,6 +102,23 @@ var _hmt = _hmt || [];
                   公共内容
                 </a>
                 
+                {/* Resource Center Menu */}
+                <div class="mt-2">
+                  <div class="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                    资源中心
+                  </div>
+                  <a href="/ticloudadmin/resource-categories"
+                     class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/resource-categories') ? 'active' : ''}`}>
+                    <i class="fas fa-folder mr-3"></i>
+                    栏目分类
+                  </a>
+                  <a href="/ticloudadmin/resource-contents"
+                     class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/resource-contents') ? 'active' : ''}`}>
+                    <i class="fas fa-file-alt mr-3"></i>
+                    内容列表
+                  </a>
+                </div>
+                
                 <a href="/ticloudadmin/publish"
                    class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/publish') ? 'active' : ''}`}>
                   <i class="fas fa-rocket mr-3"></i>
