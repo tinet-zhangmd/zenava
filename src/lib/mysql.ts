@@ -1,11 +1,15 @@
 import mysql from 'mysql2/promise'
+import * as dotenv from 'dotenv'
+
+// 加载环境变量
+dotenv.config()
 
 // MySQL连接配置
 const dbConfig = {
   host: process.env.MYSQL_HOST || 'localhost',
   port: parseInt(process.env.MYSQL_PORT || '3306'),
   user: process.env.MYSQL_USER || 'root',
-  password: process.env.MYSQL_PASSWORD || '',
+  password: process.env.MYSQL_PASSWORD || '12345',  // 默认密码
   database: process.env.MYSQL_DATABASE || 'ZENAVA_LOCAL',
   waitForConnections: true,
   connectionLimit: 10,
@@ -13,6 +17,15 @@ const dbConfig = {
   enableKeepAlive: true,
   keepAliveInitialDelay: 0
 }
+
+// 调试：打印连接配置（不显示完整密码）
+console.log('📊 MySQL 配置:', {
+  host: dbConfig.host,
+  port: dbConfig.port,
+  user: dbConfig.user,
+  password: dbConfig.password ? '***已设置***' : '❌未设置',
+  database: dbConfig.database
+})
 
 // 创建连接池
 let pool: mysql.Pool | null = null

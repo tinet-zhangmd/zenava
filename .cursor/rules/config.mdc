@@ -1,5 +1,5 @@
 ---
-alwaysApply: true
+alwaysApply: false
 ---
 # Zenava 项目 - 主配置文件
 
@@ -80,6 +80,14 @@ alwaysApply: true
    - 完整的内容收集模板
    - 自动生成页面代码
 
+13. **`13-admin-system.mdc`** - 后端管理系统规则 🔐
+   - 登录认证流程
+   - 管理页面结构
+   - 数据库管理
+   - API接口规范
+   - 安全规范
+   - 开发指南
+
 ---
 
 ## 项目概述
@@ -152,6 +160,9 @@ public/assets/images/
 
 ### 当我说"修改其他资源版块"时
 - 📖 参考：`.cursor/rules/9-homepage-other-resources.mdc`
+
+### 当我说"整理后端管理系统"或"添加管理功能"时
+- 📖 参考：`.cursor/rules/13-admin-system.mdc`
 
 ---
 

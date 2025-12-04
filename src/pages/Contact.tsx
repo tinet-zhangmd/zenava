@@ -41,17 +41,17 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
               <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10 lg:p-12">
               <form id="contact-form" class="space-y-6">
                 {/* 姓名 - 必填项 */}
-                <div>
+                  <div>
                   <label for="fullName" class="block text-sm font-medium text-gray-700 mb-2">
                     {language === 'zh' ? '姓名' : language === 'en' ? 'Full Name' : language === 'jp' ? '氏名' : '姓名'}
                     <span class="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="text"
+                    </label>
+                    <input
+                      type="text"
                     id="fullName"
                     name="fullName"
-                    required
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                      required
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                     placeholder={language === 'zh' ? '请输入您的姓名' : language === 'en' ? 'Enter your full name' : language === 'jp' ? '氏名を入力してください' : '請輸入您的姓名'}
                   />
                   <p id="fullName-error" class="hidden mt-1 text-sm text-red-600"></p>
