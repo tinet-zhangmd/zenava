@@ -512,12 +512,25 @@ app.get('/:lang/industries/travel', (c) => {
 })
 
 // Resources Page Routes
-app.get('/resources', (c) => {
+app.get('/resources', async (c) => {
   const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
   const currentPath = '/resources'
   
   const { config: navConfig, menuItems } = getNavigationData(language);
   const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  // 从数据库获取栏目分类（只获取显示的栏目）
+  let categories = []
+  try {
+    categories = await mysqlQuery<any[]>(
+      `SELECT id, name, link as slug, category_template 
+       FROM resource_categories 
+       WHERE is_displayed = 1 
+       ORDER BY sort_order ASC, id ASC`
+    )
+  } catch (error) {
+    console.error('获取栏目分类失败:', error)
+  }
   
   return c.html(
     <LayoutWithUnifiedNav
@@ -529,12 +542,90 @@ app.get('/resources', (c) => {
       footerSections={footerSections}
       privacyLinks={privacyLinks}
     >
-      <ResourcesPage language={language} />
+      <ResourcesPage language={language} categories={categories} />
     </LayoutWithUnifiedNav>
   )
 })
 
-app.get('/:lang/resources', (c) => {
+// 动态栏目列表页路由（中文）
+app.get('/resources/:slug', async (c) => {
+  const slug = c.req.param('slug')
+  const language: Language = 'zh'
+  const currentPath = `/resources/${slug}`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  // 查询栏目信息
+  let category = null
+  try {
+    const result = await mysqlQuery<any[]>(
+      `SELECT id, name, link as slug, description, cover_image, category_template 
+       FROM resource_categories 
+       WHERE link = ? AND is_displayed = 1 
+       LIMIT 1`,
+      [slug]
+    )
+    category = result[0] || null
+  } catch (error) {
+    console.error('获取栏目信息失败:', error)
+  }
+  
+  // 如果栏目不存在，返回 404
+  if (!category) {
+    return c.notFound()
+  }
+  
+  // 获取该栏目下的内容列表
+  let contents = []
+  try {
+    contents = await mysqlQuery<any[]>(
+      `SELECT id, title, content, author, cover_image, tags, 
+              download_url, video_url, published_at, views, downloads 
+       FROM resource_contents 
+       WHERE category_id = ? AND status = 'published' 
+       ORDER BY sort_order ASC, published_at DESC`,
+      [category.id]
+    )
+  } catch (error) {
+    console.error('获取栏目内容失败:', error)
+  }
+  
+  // 获取所有栏目用于导航
+  let categories = []
+  try {
+    categories = await mysqlQuery<any[]>(
+      `SELECT id, name, link as slug, category_template 
+       FROM resource_categories 
+       WHERE is_displayed = 1 
+       ORDER BY sort_order ASC, id ASC`
+    )
+  } catch (error) {
+    console.error('获取栏目分类失败:', error)
+  }
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage 
+        language={language} 
+        resourceType={slug}
+        category={category}
+        contents={contents}
+        categories={categories}
+      />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+app.get('/:lang/resources', async (c) => {
   const lang = c.req.param('lang') as Language
   const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
   const currentPath = `/${language}/resources`
@@ -542,6 +633,19 @@ app.get('/:lang/resources', (c) => {
   const { config: navConfig, menuItems } = getNavigationData(language);
   const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
   
+  // 从数据库获取栏目分类（只获取显示的栏目）
+  let categories = []
+  try {
+    categories = await mysqlQuery<any[]>(
+      `SELECT id, name, link as slug, category_template 
+       FROM resource_categories 
+       WHERE is_displayed = 1 
+       ORDER BY sort_order ASC, id ASC`
+    )
+  } catch (error) {
+    console.error('获取栏目分类失败:', error)
+  }
+  
   return c.html(
     <LayoutWithUnifiedNav
       language={language}
@@ -552,7 +656,86 @@ app.get('/:lang/resources', (c) => {
       footerSections={footerSections}
       privacyLinks={privacyLinks}
     >
-      <ResourcesPage language={language} />
+      <ResourcesPage language={language} categories={categories} />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// 动态栏目列表页路由（多语言）
+app.get('/:lang/resources/:slug', async (c) => {
+  const lang = c.req.param('lang') as Language
+  const slug = c.req.param('slug')
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : 'zh'
+  const currentPath = `/${language}/resources/${slug}`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  // 查询栏目信息
+  let category = null
+  try {
+    const result = await mysqlQuery<any[]>(
+      `SELECT id, name, link as slug, description, cover_image, category_template 
+       FROM resource_categories 
+       WHERE link = ? AND is_displayed = 1 
+       LIMIT 1`,
+      [slug]
+    )
+    category = result[0] || null
+  } catch (error) {
+    console.error('获取栏目信息失败:', error)
+  }
+  
+  // 如果栏目不存在，返回 404
+  if (!category) {
+    return c.notFound()
+  }
+  
+  // 获取该栏目下的内容列表
+  let contents = []
+  try {
+    contents = await mysqlQuery<any[]>(
+      `SELECT id, title, content, author, cover_image, tags, 
+              download_url, video_url, published_at, views, downloads 
+       FROM resource_contents 
+       WHERE category_id = ? AND status = 'published' 
+       ORDER BY sort_order ASC, published_at DESC`,
+      [category.id]
+    )
+  } catch (error) {
+    console.error('获取栏目内容失败:', error)
+  }
+  
+  // 获取所有栏目用于导航
+  let categories = []
+  try {
+    categories = await mysqlQuery<any[]>(
+      `SELECT id, name, link as slug, category_template 
+       FROM resource_categories 
+       WHERE is_displayed = 1 
+       ORDER BY sort_order ASC, id ASC`
+    )
+  } catch (error) {
+    console.error('获取栏目分类失败:', error)
+  }
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <ResourceListPage 
+        language={language} 
+        resourceType={slug}
+        category={category}
+        contents={contents}
+        categories={categories}
+      />
     </LayoutWithUnifiedNav>
   )
 })

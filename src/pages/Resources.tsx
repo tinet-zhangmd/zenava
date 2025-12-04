@@ -2,27 +2,72 @@ import { FC } from 'hono/jsx'
 import { Language } from '../utils/i18n'
 import { getTranslations } from '../i18n/translations'
 
-interface ResourcesPageProps {
-  language?: Language
+interface Category {
+  id: number
+  name: string
+  slug: string
+  category_template: string
+  description?: string
+  cover_image?: string
 }
 
-export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
+interface ResourceContent {
+  id: number
+  title: string
+  content: string
+  author?: string
+  cover_image?: string
+  tags?: string
+  download_url?: string
+  video_url?: string
+  published_at: string
+  views: number
+  downloads: number
+}
+
+interface ResourcesPageProps {
+  language?: Language
+  categories?: Category[]
+  currentCategory?: Category | null  // 当前选中的栏目
+  categoryContents?: ResourceContent[]  // 当前栏目的内容列表
+}
+
+export const ResourcesPage: FC<ResourcesPageProps> = ({ 
+  language = 'zh', 
+  categories = [], 
+  currentCategory = null,
+  categoryContents = []
+}) => {
   const trans = getTranslations(language)
   const t = trans.resourcesCenter || {}
 
-  // Helper function to get resource navigation items
+  // Helper function to get resource navigation items from database
   const getResourceNavItems = () => {
     const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
     
-    return [
-      { key: 'all', label: language === 'zh' ? '所有资源' : language === 'en' ? 'All Resources' : language === 'jp' ? 'すべてのリソース' : '所有資源', href: basePath },
-      { key: 'whitepapers', label: language === 'zh' ? '白皮书' : language === 'en' ? 'Whitepapers' : language === 'jp' ? 'ホワイトペーパー' : '白皮書', href: `${basePath}/whitepapers` },
-      { key: 'video', label: language === 'zh' ? '视频' : language === 'en' ? 'Videos' : language === 'jp' ? 'ビデオ' : '視頻', href: `${basePath}/video` },
-      { key: 'reports', label: language === 'zh' ? '行业报告' : language === 'en' ? 'Industry Reports' : language === 'jp' ? '業界レポート' : '行業報告', href: `${basePath}/reports` },
-      { key: 'demos', label: language === 'zh' ? '产品演示' : language === 'en' ? 'Product Demos' : language === 'jp' ? '製品デモ' : '產品演示', href: `${basePath}/demos` },
-      { key: 'blog', label: language === 'zh' ? '博客' : language === 'en' ? 'Blog' : language === 'jp' ? 'ブログ' : '博客', href: `${basePath}/blog` },
-      { key: 'podcast', label: language === 'zh' ? '播客' : language === 'en' ? 'Podcast' : language === 'jp' ? 'ポッドキャスト' : '播客', href: `${basePath}/podcast` }
-    ]
+    // 添加"所有资源"作为第一项
+    const allItem = {
+      key: 'all',
+      label: language === 'zh' ? '所有资源' : language === 'en' ? 'All Resources' : language === 'jp' ? 'すべてのリソース' : '所有資源',
+      href: basePath
+    }
+    
+    // 从数据库获取的栏目转换为导航项
+    const dbItems = categories.map(cat => {
+      // 如果 link 已经是完整路径（以 / 开头），直接使用
+      // 否则拼接 basePath
+      const href = cat.slug.startsWith('/') 
+        ? cat.slug 
+        : `${basePath}/${cat.slug}`
+      
+      return {
+        key: cat.slug,
+        label: cat.name,
+        href: href
+      }
+    })
+    
+    return [allItem, ...dbItems]
   }
 
   return (
@@ -31,25 +76,120 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
       <section class="bg-[#6438FF] sticky top-0 z-30">
         <div class="site-container px-4 sm:px-6 lg:px-8">
           <nav class="flex items-center justify-center space-x-6 md:space-x-8 overflow-x-auto py-4">
-            {getResourceNavItems().map((item) => (
-              <a
-                key={item.key}
-                href={item.href}
-                class={`whitespace-nowrap text-sm md:text-base font-medium text-white transition-all pb-2 relative ${
-                  item.key === 'all'
-                    ? 'border-b-2 border-white'
-                    : 'hover:opacity-80'
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
+            {getResourceNavItems().map((item) => {
+              // 判断是否是当前激活的导航项
+              const isActive = currentCategory 
+                ? item.key === currentCategory.slug 
+                : item.key === 'all'
+              
+              return (
+                <a
+                  key={item.key}
+                  href={item.href}
+                  class={`whitespace-nowrap text-sm md:text-base font-medium text-white transition-all pb-2 relative ${
+                    isActive
+                      ? 'border-b-2 border-white'
+                      : 'hover:opacity-80'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              )
+            })}
           </nav>
         </div>
       </section>
 
-      {/* Hero Carousel Section */}
-      <section class="relative bg-white overflow-hidden">
+      {/* 如果是栏目列表页，显示栏目内容 */}
+      {currentCategory ? (
+        <>
+          {/* 栏目标题和描述 */}
+          <section class="bg-gradient-to-br from-purple-50 to-blue-50 py-12 md:py-16">
+            <div class="site-container px-4 sm:px-6 lg:px-8">
+              <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                  {currentCategory.name}
+                </h1>
+                {currentCategory.description && (
+                  <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                    {currentCategory.description}
+                  </p>
+                )}
+              </div>
+            </div>
+          </section>
+
+          {/* 栏目内容列表 */}
+          <section class="py-12 md:py-16 lg:py-20 bg-white">
+            <div class="site-container px-4 sm:px-6 lg:px-8">
+              {categoryContents.length > 0 ? (
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                  {categoryContents.map((content) => {
+                    const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
+                    const contentLink = `${basePath}/${currentCategory.slug}/${content.id}`
+                    
+                    return (
+                      <a 
+                        key={content.id}
+                        href={contentLink}
+                        class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block"
+                      >
+                        <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">
+                          {content.cover_image ? (
+                            <img 
+                              src={content.cover_image}
+                              alt={content.title}
+                              class="w-full h-full object-cover"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div class="w-full h-full flex items-center justify-center">
+                              <div class="text-center">
+                                <i class="fas fa-image text-3xl md:text-4xl text-gray-400 mb-2"></i>
+                                <p class="text-xs md:text-sm text-gray-500">
+                                  {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
+                                </p>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                        <div class="p-6">
+                          <p class="text-sm text-gray-500 mb-2">
+                            {new Date(content.published_at).toLocaleDateString(language === 'en' ? 'en-US' : 'zh-CN')}
+                          </p>
+                          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                            {content.title}
+                          </h3>
+                          <p class="text-gray-600 text-sm md:text-base line-clamp-3">
+                            {content.content.replace(/<[^>]*>/g, '').substring(0, 150)}...
+                          </p>
+                          <div class="mt-4 flex items-center justify-between text-sm text-gray-500">
+                            <span><i class="fas fa-eye mr-1"></i> {content.views}</span>
+                            {content.downloads > 0 && (
+                              <span><i class="fas fa-download mr-1"></i> {content.downloads}</span>
+                            )}
+                          </div>
+                        </div>
+                      </a>
+                    )
+                  })}
+                </div>
+              ) : (
+                <div class="text-center py-16">
+                  <i class="fas fa-inbox text-5xl text-gray-300 mb-4"></i>
+                  <p class="text-xl text-gray-500">
+                    {language === 'zh' ? '暂无内容' : language === 'en' ? 'No content yet' : language === 'jp' ? 'コンテンツがありません' : '暫無內容'}
+                  </p>
+                </div>
+              )}
+            </div>
+          </section>
+        </>
+      ) : (
+        <>
+          {/* 首页：显示 Hero 轮播 */}
+          {/* Hero Carousel Section */}
+          <section class="relative bg-white overflow-hidden">
         <div id="hero-carousel" class="relative" style="min-height: 500px;">
           {/* Carousel Slides Container */}
           <div id="hero-slides" class="relative w-full" style="min-height: 500px;">
@@ -234,8 +374,11 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
           </div>
         </div>
       </section>
+        </>
+      )}
 
-      {/* Hero Carousel Script */}
+      {/* Hero Carousel Script - 只在首页加载 */}
+      {!currentCategory && (
       <script dangerouslySetInnerHTML={{
         __html: `
           (function() {
@@ -385,8 +528,10 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
           })();
         `
       }} />
+      )}
 
-      {/* Resource Categories Script */}
+      {/* Resource Categories Script - 只在首页加载 */}
+      {!currentCategory && (
       <script dangerouslySetInnerHTML={{
         __html: `
           (function() {
@@ -482,6 +627,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({ language = 'zh' }) => {
           })();
         `
       }} />
+      )}
     </>
   )
 }
