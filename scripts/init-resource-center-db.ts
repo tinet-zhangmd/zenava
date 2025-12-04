@@ -7,7 +7,16 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
 import mysql from 'mysql2/promise';
+import * as dotenv from 'dotenv';
+
+// 获取当前文件的目录路径（ES模块中的 __dirname 替代方案）
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// 加载 .env 文件
+dotenv.config({ path: path.join(__dirname, '../.env') });
 
 // 数据库配置（从环境变量读取，或使用默认值）
 const DB_CONFIG = {
@@ -91,11 +100,24 @@ async function initDatabase() {
   } catch (error) {
     console.error('\n❌ 初始化失败:');
     if (error instanceof Error) {
+      console.error(`   错误类型: ${error.name}`);
       console.error(`   错误信息: ${error.message}`);
-      console.error(`   错误堆栈: ${error.stack}`);
+      console.error(`   错误代码: ${(error as any).code || 'N/A'}`);
+      console.error(`   错误编号: ${(error as any).errno || 'N/A'}`);
+      if ((error as any).sqlMessage) {
+        console.error(`   SQL错误: ${(error as any).sqlMessage}`);
+      }
+      console.error(`\n   详细堆栈:\n${error.stack}`);
     } else {
-      console.error(`   未知错误: ${error}`);
+      console.error(`   未知错误: ${JSON.stringify(error, null, 2)}`);
     }
+    
+    console.error('\n💡 故障排查建议:');
+    console.error('   1. 检查 MySQL 服务是否运行');
+    console.error('   2. 验证 .env 文件中的数据库配置');
+    console.error('   3. 确认数据库 ZENAVA_LOCAL 是否已创建');
+    console.error('   4. 测试连接: mysql -h localhost -u root -p12345 -e "SELECT 1"');
+    
     process.exit(1);
   } finally {
     // 6. 关闭连接
