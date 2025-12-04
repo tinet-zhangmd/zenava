@@ -1,0 +1,902 @@
+# 13. 后端管理系统规则
+
+## 📋 目录
+- [系统概述](#系统概述)
+- [技术架构](#技术架构)
+- [登录认证](#登录认证)
+- [管理页面结构](#管理页面结构)
+- [数据库管理](#数据库管理)
+- [API接口规范](#api接口规范)
+- [安全规范](#安全规范)
+- [开发指南](#开发指南)
+
+---
+
+## 系统概述
+
+### 管理后台入口
+- **访问路径**: `/ticloudadmin`
+- **登录页面**: `/ticloudadmin/login`
+- **登出路径**: `/ticloudadmin/logout`
+
+### 默认管理员账号
+```
+用户名: ticloudhoutai@zenava.ai
+密码: tinet.Az2167Hk
+```
+
+⚠️ **生产环境必须修改密码！**
+
+### 功能模块
+1. **控制台** (`/ticloudadmin`) - 仪表盘和快速操作
+2. **内容管理** (`/ticloudadmin/content`) - 页面内容编辑
+3. **SEO 管理** (`/ticloudadmin/seo`) - SEO 优化配置
+4. **多语言管理** (`/ticloudadmin/i18n`) - 翻译管理
+5. **媒体库** (`/ticloudadmin/media`) - 图片、视频管理
+6. **公共内容** (`/ticloudadmin/common-content`) - 导航栏和页脚
+7. **资源中心** - 资源分类和内容管理
+   - 栏目分类 (`/ticloudadmin/resource-categories`)
+   - 内容列表 (`/ticloudadmin/resource-contents`)
+8. **发布管理** (`/ticloudadmin/publish`) - 部署到生产环境
+9. **系统设置** (`/ticloudadmin/settings`) - 全局配置
+10. **操作日志** (`/ticloudadmin/logs`) - 操作记录
+
+---
+
+## 技术架构
+
+### 核心技术
+- **框架**: Hono (服务端渲染)
+- **模板引擎**: Hono JSX (非 React)
+- **认证**: Cookie-based Session
+- **CSRF 保护**: Token 验证
+- **速率限制**: 20次/分钟 (登录)
+- **富文本编辑器**: Quill.js
+- **UI框架**: Tailwind CSS + FontAwesome
+
+### 文件结构
+```
+src/
+├── pages/admin/
+│   ├── AdminLayout.tsx          # 管理后台布局
+│   ├── AdminLogin.tsx           # 登录页面
+│   ├── Dashboard.tsx            # 控制台
+│   ├── ContentManagement.tsx    # 内容管理
+│   ├── ContentManagementDB.tsx  # 内容管理(数据库版)
+│   ├── ContentManagementDBv2.tsx # 内容管理(V2)
+│   ├── CommonContentManagement.tsx   # 公共内容
+│   ├── CommonContentManagementV2.tsx # 公共内容(V2)
+│   ├── ContentEditor.tsx        # 内容编辑器
+│   ├── SEOManagement.tsx        # SEO 管理
+│   ├── I18nManagement.tsx       # 多语言管理
+│   ├── MediaLibrary.tsx         # 媒体库
+│   ├── ResourceCategoryManagement.tsx  # 资源分类
+│   ├── ResourceContentManagement.tsx   # 资源内容
+│   ├── PublishManager.tsx       # 发布管理
+│   ├── Settings.tsx             # 系统设置
+│   └── Logs.tsx                 # 操作日志
+├── api/
+│   ├── cms.tsx                  # CMS API
+│   ├── common-content.tsx       # 公共内容 API
+│   ├── navigation.tsx           # 导航 API
+│   ├── resource-center.ts       # 资源中心 API
+│   ├── upload.tsx               # 文件上传 API
+│   ├── publish.tsx              # 发布 API
+│   └── ticket.tsx               # 工单 API
+└── utils/
+    └── security.ts              # 安全工具函数
+```
+
+---
+
+## 登录认证
+
+### 认证流程
+
+#### 1. 登录页面
+```tsx
+// src/pages/admin/AdminLogin.tsx
+export function AdminLogin({ error }: AdminLoginProps) {
+  return (
+    <form method="post" action="/ticloudadmin/login">
+      <input type="email" name="email" required />
+      <input type="password" name="password" required />
+      <button type="submit">登录</button>
+    </form>
+  )
+}
+```
+
+#### 2. 登录处理
+```typescript
+// src/index.tsx
+app.post('/ticloudadmin/login', async (c) => {
+  const body = await c.req.formData()
+  const email = body.get('email') as string
+  const password = body.get('password') as string
+  
+  const adminEmail = c.env?.ADMIN_EMAIL || 'ticloudhoutai@zenava.ai'
+  const adminPassword = c.env?.ADMIN_PASSWORD || 'tinet.Az2167Hk'
+  
+  if (email === adminEmail && password === adminPassword) {
+    // 生成会话令牌
+    const sessionToken = crypto.randomUUID()
+    setSecureCookie(c, 'admin_session', sessionToken)
+    
+    // 生成 CSRF 令牌
+    const csrfToken = generateCSRFToken()
+    setSecureCookie(c, 'csrf_token', csrfToken)
+    
+    return c.redirect('/ticloudadmin')
+  } else {
+    return c.redirect('/ticloudadmin/login?error=Invalid credentials')
+  }
+})
+```
+
+#### 3. 认证中间件
+```typescript
+// src/utils/security.ts
+export const requireAuth = () => {
+  return async (c: Context, next: Next) => {
+    const sessionId = getCookie(c, 'admin_session')
+    
+    if (!sessionId) {
+      if (c.req.path.startsWith('/api/')) {
+        return c.json({ error: 'Unauthorized' }, 401)
+      }
+      return c.redirect('/ticloudadmin/login')
+    }
+    
+    return next()
+  }
+}
+```
+
+#### 4. 登出
+```typescript
+app.get('/ticloudadmin/logout', (c) => {
+  deleteCookie(c, 'admin_session', { path: '/ticloudadmin' })
+  return c.redirect('/ticloudadmin/login')
+})
+```
+
+### 环境变量配置
+```bash
+# .env 或 wrangler.toml
+ADMIN_EMAIL=your-admin@zenava.ai
+ADMIN_PASSWORD=your-secure-password
+```
+
+---
+
+## 管理页面结构
+
+### AdminLayout 布局组件
+
+#### 侧边栏导航
+```tsx
+// src/pages/admin/AdminLayout.tsx
+<nav class="space-y-2">
+  <a href="/ticloudadmin" 
+     class={`flex items-center px-4 py-3 rounded-lg ${currentPath === '/ticloudadmin' ? 'active' : ''}`}>
+    <i class="fas fa-tachometer-alt mr-3"></i>
+    控制台
+  </a>
+  
+  <a href="/ticloudadmin/content"
+     class={`flex items-center px-4 py-3 rounded-lg ${currentPath.startsWith('/ticloudadmin/content') ? 'active' : ''}`}>
+    <i class="fas fa-file-alt mr-3"></i>
+    内容管理
+  </a>
+  
+  {/* 更多菜单项 */}
+</nav>
+```
+
+#### 顶部栏
+```tsx
+<header class="bg-white border-b border-gray-200 px-6 py-4">
+  <div class="flex justify-between items-center">
+    <div>
+      <h2 class="text-2xl font-semibold text-gray-800">{title}</h2>
+      <p class="text-gray-600 text-sm">管理您的网站内容和设置</p>
+    </div>
+    
+    <div class="flex items-center space-x-4">
+      <a href="/" target="_blank" class="text-blue-600 hover:text-blue-800">
+        <i class="fas fa-external-link-alt mr-1"></i>
+        查看网站
+      </a>
+      
+      <div class="flex items-center space-x-2 text-gray-700">
+        <i class="fas fa-user-circle text-xl"></i>
+        <span class="text-sm font-medium">{user?.name || '管理员'}</span>
+      </div>
+      
+      <a href="/ticloudadmin/logout" class="text-red-600 hover:text-red-800">
+        <i class="fas fa-sign-out-alt mr-1"></i>
+        退出
+      </a>
+    </div>
+  </div>
+</header>
+```
+
+### Dashboard 控制台
+
+#### 统计卡片
+```tsx
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+  <div class="bg-white rounded-lg shadow-sm p-6 border">
+    <div class="flex items-center">
+      <div class="p-2 bg-blue-100 rounded-lg">
+        <i class="fas fa-file-alt text-blue-600 text-xl"></i>
+      </div>
+      <div class="ml-4">
+        <p class="text-sm font-medium text-gray-600">总页面数</p>
+        <p class="text-2xl font-semibold text-gray-900">12</p>
+      </div>
+    </div>
+  </div>
+  
+  {/* 更多统计卡片 */}
+</div>
+```
+
+#### 快速操作
+```tsx
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <a href="/ticloudadmin/content/new" 
+     class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100">
+    <i class="fas fa-plus text-blue-600 text-xl mr-3"></i>
+    <div>
+      <p class="font-medium text-gray-900">创建新页面</p>
+      <p class="text-sm text-gray-600">添加新的内容页面</p>
+    </div>
+  </a>
+  
+  {/* 更多快速操作 */}
+</div>
+```
+
+---
+
+## 数据库管理
+
+### 数据库配置
+
+#### MySQL 配置 (生产环境)
+```typescript
+// src/lib/mysql.ts
+import mysql from 'mysql2/promise'
+
+export async function createMySQLPool() {
+  return mysql.createPool({
+    host: process.env.MYSQL_HOST || 'localhost',
+    port: parseInt(process.env.MYSQL_PORT || '3306'),
+    user: process.env.MYSQL_USER || 'root',
+    password: process.env.MYSQL_PASSWORD || '',
+    database: process.env.MYSQL_DATABASE || 'ZENAVA_LOCAL',
+    charset: 'utf8mb4',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+  })
+}
+```
+
+#### SQLite 配置 (开发环境)
+```typescript
+// src/adapters/database.ts
+export function createD1CompatibleDatabase(dbPath?: string) {
+  const path = dbPath || process.env.DB_PATH || 'data/zenava.db'
+  const db = new Database(path)
+  db.pragma('foreign_keys = ON')
+  return new SQLiteD1Adapter(db)
+}
+```
+
+### 数据库创建命令
+
+#### MySQL
+```bash
+# 创建数据库
+mysql -u root -p12345 -e "CREATE DATABASE IF NOT EXISTS ZENAVA_LOCAL CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+
+# 导入表结构
+mysql -u root -p12345 ZENAVA_LOCAL < migrations/0001_initial_schema.sql
+mysql -u root -p12345 ZENAVA_LOCAL < migrations/0002_cms_schema.sql
+mysql -u root -p12345 ZENAVA_LOCAL < migrations/0004_common_content.sql
+mysql -u root -p12345 ZENAVA_LOCAL < migrations/0008_unified_navigation.sql
+mysql -u root -p12345 ZENAVA_LOCAL < migrations/001_create_resource_center_tables.sql
+
+# 导入种子数据
+mysql -u root -p12345 ZENAVA_LOCAL < seed-cms.sql
+```
+
+#### SQLite
+```bash
+# 自动创建数据库文件
+# 确保 data 目录存在
+mkdir -p data
+
+# 运行迁移脚本
+node scripts/migrate.js
+```
+
+### 核心数据表
+
+#### 1. pages - 页面表
+```sql
+CREATE TABLE pages (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  slug VARCHAR(255) NOT NULL,
+  language VARCHAR(10) NOT NULL DEFAULT 'en',
+  title VARCHAR(255) NOT NULL,
+  status VARCHAR(20) DEFAULT 'draft',
+  version INTEGER DEFAULT 1,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(slug, language)
+);
+```
+
+#### 2. content_modules - 内容模块表
+```sql
+CREATE TABLE content_modules (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  page_id INTEGER NOT NULL,
+  module_type VARCHAR(50) NOT NULL,
+  module_name VARCHAR(100) NOT NULL,
+  position INTEGER DEFAULT 0,
+  content TEXT,
+  is_visible BOOLEAN DEFAULT TRUE,
+  status VARCHAR(20) DEFAULT 'draft',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (page_id) REFERENCES pages(id) ON DELETE CASCADE
+);
+```
+
+#### 3. page_seo - SEO 配置表
+```sql
+CREATE TABLE page_seo (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  page_id INTEGER NOT NULL,
+  meta_title VARCHAR(255),
+  meta_description TEXT,
+  meta_keywords TEXT,
+  og_title VARCHAR(255),
+  og_description TEXT,
+  og_image VARCHAR(500),
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (page_id) REFERENCES pages(id) ON DELETE CASCADE,
+  UNIQUE(page_id)
+);
+```
+
+#### 4. common_content - 公共内容表
+```sql
+CREATE TABLE common_content (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  section_name VARCHAR(100) NOT NULL,
+  language VARCHAR(10) NOT NULL DEFAULT 'en',
+  content_type VARCHAR(50) NOT NULL,
+  content TEXT NOT NULL,
+  is_active BOOLEAN DEFAULT TRUE,
+  display_order INTEGER DEFAULT 0,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(section_name, language)
+);
+```
+
+#### 5. unified_navigation - 统一导航表
+```sql
+CREATE TABLE unified_navigation (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  language VARCHAR(10) NOT NULL DEFAULT 'en',
+  menu_type VARCHAR(50) NOT NULL,
+  parent_id INTEGER,
+  label VARCHAR(100) NOT NULL,
+  url VARCHAR(255),
+  description TEXT,
+  icon VARCHAR(100),
+  display_order INTEGER DEFAULT 0,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (parent_id) REFERENCES unified_navigation(id) ON DELETE CASCADE
+);
+```
+
+#### 6. resource_categories - 资源分类表
+```sql
+CREATE TABLE resource_categories (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  slug VARCHAR(100) NOT NULL UNIQUE,
+  description TEXT,
+  icon VARCHAR(100),
+  display_order INT DEFAULT 0,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+```
+
+#### 7. resource_contents - 资源内容表
+```sql
+CREATE TABLE resource_contents (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  category_id INT NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  slug VARCHAR(255) NOT NULL UNIQUE,
+  thumbnail VARCHAR(500),
+  author VARCHAR(100),
+  publish_date DATE,
+  summary TEXT,
+  body TEXT,
+  tags VARCHAR(500),
+  status VARCHAR(20) DEFAULT 'draft',
+  is_featured BOOLEAN DEFAULT FALSE,
+  view_count INT DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (category_id) REFERENCES resource_categories(id) ON DELETE CASCADE
+);
+```
+
+#### 8. media - 媒体库表
+```sql
+CREATE TABLE media (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  filename VARCHAR(255) NOT NULL,
+  original_name VARCHAR(255) NOT NULL,
+  mime_type VARCHAR(100) NOT NULL,
+  size INTEGER NOT NULL,
+  url VARCHAR(500) NOT NULL,
+  alt_text VARCHAR(255),
+  folder VARCHAR(255) DEFAULT '/',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+---
+
+## API接口规范
+
+### CMS API (`/api/cms`)
+
+#### 获取页面列表
+```typescript
+GET /api/cms/pages?language=en&status=published
+
+Response:
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "slug": "home",
+      "language": "en",
+      "title": "Home",
+      "status": "published"
+    }
+  ]
+}
+```
+
+#### 创建/更新页面
+```typescript
+POST /api/cms/pages
+
+Request:
+{
+  "id": 1,  // 可选，更新时提供
+  "slug": "about",
+  "language": "en",
+  "title": "About Us",
+  "status": "draft",
+  "seo": {
+    "meta_title": "About Zenava",
+    "meta_description": "Learn more about us",
+    "meta_keywords": "about, company"
+  },
+  "modules": [
+    {
+      "module_type": "hero",
+      "module_name": "main_hero",
+      "position": 0,
+      "content": "{...}",
+      "is_visible": true,
+      "status": "published"
+    }
+  ]
+}
+
+Response:
+{
+  "success": true,
+  "data": { "pageId": 1 }
+}
+```
+
+### 公共内容 API (`/api/common-content`)
+
+#### 获取导航栏
+```typescript
+GET /api/common-content/navbar?language=en
+
+Response:
+{
+  "success": true,
+  "data": {
+    "logo": {
+      "imageUrl": "/assets/images/logo.png",
+      "altText": "Zenava",
+      "width": 150,
+      "height": 40
+    },
+    "menuItems": [...]
+  }
+}
+```
+
+#### 更新导航栏
+```typescript
+PUT /api/common-content/navbar
+
+Request:
+{
+  "language": "en",
+  "logo": {...},
+  "menuItems": [...]
+}
+
+Response:
+{
+  "success": true,
+  "message": "导航栏已更新"
+}
+```
+
+### 资源中心 API (`/api/resource-center`)
+
+#### 获取资源分类
+```typescript
+GET /api/resource-center/categories?is_active=true
+
+Response:
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "name": "白皮书",
+      "slug": "whitepapers",
+      "description": "行业白皮书和研究报告",
+      "icon": "fa-file-alt",
+      "display_order": 0,
+      "is_active": true
+    }
+  ]
+}
+```
+
+#### 创建资源内容
+```typescript
+POST /api/resource-center/contents
+
+Request:
+{
+  "category_id": 1,
+  "title": "AI 行业趋势报告 2024",
+  "slug": "ai-trends-2024",
+  "thumbnail": "/assets/images/resources/ai-trends.jpg",
+  "author": "Zenava Research",
+  "publish_date": "2024-01-15",
+  "summary": "深入分析 2024 年 AI 行业发展趋势...",
+  "body": "<p>完整内容...</p>",
+  "tags": "AI, 趋势, 2024",
+  "status": "published",
+  "is_featured": true
+}
+
+Response:
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "title": "AI 行业趋势报告 2024",
+    "status": "published"
+  }
+}
+```
+
+### 媒体库 API (`/api/cms/media`)
+
+#### 上传文件
+```typescript
+POST /api/upload
+
+Request: multipart/form-data
+- file: [File]
+- folder: "/resources" (可选)
+- alt_text: "描述文字" (可选)
+
+Response:
+{
+  "success": true,
+  "data": {
+    "url": "/assets/images/uploaded-file.jpg",
+    "filename": "uploaded-file.jpg",
+    "size": 102400,
+    "mime_type": "image/jpeg"
+  }
+}
+```
+
+---
+
+## 安全规范
+
+### 1. 认证保护
+```typescript
+// 所有管理路由必须添加认证中间件
+app.get('/ticloudadmin/*', requireAuth(), (c) => {
+  // 受保护的路由
+})
+```
+
+### 2. CSRF 保护
+```typescript
+// 表单中添加 CSRF 令牌
+<form method="post">
+  <input type="hidden" name="csrf_token" value={csrfToken} />
+  {/* 表单字段 */}
+</form>
+
+// 服务端验证
+const submittedToken = body.get('csrf_token')
+const cookieToken = getCookie(c, 'csrf_token')
+if (submittedToken !== cookieToken) {
+  return c.json({ error: 'Invalid CSRF token' }, 403)
+}
+```
+
+### 3. 输入验证
+```typescript
+// 使用参数化查询防止 SQL 注入
+await c.env.DB.prepare(
+  'SELECT * FROM pages WHERE id = ?'
+).bind(pageId).first()
+
+// 验证必填字段
+if (!title || !slug) {
+  return c.json({ error: '缺少必填字段' }, 400)
+}
+
+// XSS 防护 - 使用 Hono 的自动转义
+<div>{userInput}</div>  // 自动转义
+```
+
+### 4. 速率限制
+```typescript
+// 登录接口限制
+app.use('/ticloudadmin/login', rateLimiter(20, 60000))
+
+// API 接口限制
+app.use('/api/*', rateLimiter(100, 60000))
+```
+
+### 5. 安全响应头
+```typescript
+export const securityHeaders = () => {
+  return async (c: Context, next: Next) => {
+    await next()
+    c.header('X-Content-Type-Options', 'nosniff')
+    c.header('X-Frame-Options', 'DENY')
+    c.header('X-XSS-Protection', '1; mode=block')
+    c.header('Referrer-Policy', 'strict-origin-when-cross-origin')
+  }
+}
+```
+
+---
+
+## 开发指南
+
+### 添加新的管理页面
+
+#### 1. 创建页面组件
+```tsx
+// src/pages/admin/NewFeature.tsx
+export function NewFeature() {
+  return (
+    <div class="space-y-6">
+      <h2 class="text-2xl font-bold">新功能</h2>
+      
+      {/* 页面内容 */}
+    </div>
+  )
+}
+```
+
+#### 2. 添加路由
+```typescript
+// src/index.tsx
+import { NewFeature } from './pages/admin/NewFeature'
+
+app.get('/ticloudadmin/new-feature', requireAuth(), (c) => {
+  return c.html(
+    <AdminLayout title="新功能" currentPath="/ticloudadmin/new-feature">
+      <NewFeature />
+    </AdminLayout>
+  )
+})
+```
+
+#### 3. 更新侧边栏菜单
+```tsx
+// src/pages/admin/AdminLayout.tsx
+<a href="/ticloudadmin/new-feature"
+   class={`flex items-center px-4 py-3 rounded-lg ${currentPath.startsWith('/ticloudadmin/new-feature') ? 'active' : ''}`}>
+  <i class="fas fa-star mr-3"></i>
+  新功能
+</a>
+```
+
+### 添加新的 API 端点
+
+#### 1. 创建 API 文件
+```typescript
+// src/api/new-feature.tsx
+import { Hono } from 'hono'
+
+const newFeatureApi = new Hono()
+
+// 获取数据
+newFeatureApi.get('/', async (c) => {
+  try {
+    const results = await c.env.DB.prepare(
+      'SELECT * FROM new_feature_table'
+    ).all()
+    
+    return c.json({ success: true, data: results })
+  } catch (error: any) {
+    return c.json({ success: false, error: error.message }, 500)
+  }
+})
+
+// 创建数据
+newFeatureApi.post('/', async (c) => {
+  try {
+    const data = await c.req.json()
+    
+    const result = await c.env.DB.prepare(
+      'INSERT INTO new_feature_table (name, value) VALUES (?, ?)'
+    ).bind(data.name, data.value).run()
+    
+    return c.json({ success: true, data: { id: result.meta.last_row_id } })
+  } catch (error: any) {
+    return c.json({ success: false, error: error.message }, 500)
+  }
+})
+
+export default newFeatureApi
+```
+
+#### 2. 注册 API 路由
+```typescript
+// src/index.tsx
+import newFeatureApi from './api/new-feature'
+
+app.route('/api/new-feature', newFeatureApi)
+```
+
+### 数据库迁移
+
+#### 1. 创建迁移文件
+```sql
+-- migrations/0009_add_new_feature.sql
+CREATE TABLE new_feature_table (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name VARCHAR(100) NOT NULL,
+  value TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 创建索引
+CREATE INDEX idx_new_feature_name ON new_feature_table(name);
+```
+
+#### 2. 运行迁移
+```bash
+# MySQL
+mysql -u root -p12345 ZENAVA_LOCAL < migrations/0009_add_new_feature.sql
+
+# SQLite
+sqlite3 data/zenava.db < migrations/0009_add_new_feature.sql
+```
+
+### 前端交互
+
+#### 使用 Fetch API
+```html
+<script>
+  async function saveData() {
+    try {
+      const response = await fetch('/api/new-feature', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: 'test',
+          value: 'test value'
+        })
+      })
+      
+      const result = await response.json()
+      
+      if (result.success) {
+        alert('保存成功！')
+        window.location.reload()
+      } else {
+        alert('保存失败：' + result.error)
+      }
+    } catch (error) {
+      alert('请求失败：' + error.message)
+    }
+  }
+</script>
+```
+
+---
+
+## 常见问题
+
+### Q: 如何修改管理员密码？
+A: 在环境变量中设置 `ADMIN_PASSWORD`，或者在代码中修改默认值。
+
+### Q: 如何添加多个管理员？
+A: 需要创建 `admin_users` 表并修改登录逻辑以支持多用户。
+
+### Q: 如何实现角色权限管理？
+A: 需要添加 `roles` 和 `permissions` 表，并在认证中间件中检查权限。
+
+### Q: 富文本编辑器如何上传图片？
+A: 配置 Quill 的图片处理器，调用 `/api/upload` 端点。
+
+### Q: 如何实现操作日志？
+A: 创建 `activity_logs` 表，在关键操作后插入日志记录。
+
+---
+
+## 部署清单
+
+### 生产环境准备
+- [ ] 修改默认管理员密码
+- [ ] 配置环境变量 (ADMIN_EMAIL, ADMIN_PASSWORD)
+- [ ] 配置 MySQL 数据库
+- [ ] 运行所有数据库迁移
+- [ ] 配置 HTTPS
+- [ ] 启用安全响应头
+- [ ] 配置速率限制
+- [ ] 设置定期备份
+- [ ] 配置日志收集
+- [ ] 测试所有功能模块
+
+---
+
+## 相关资源
+
+- [数据库与部署规则](./4-database-deployment.mdc)
+- [编码规范](./1-coding-standards.mdc)
+- [API 安全最佳实践](https://owasp.org/www-project-api-security/)
+

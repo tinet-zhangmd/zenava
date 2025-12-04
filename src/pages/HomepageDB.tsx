@@ -567,44 +567,44 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
                   {/* 左侧：图片 */}
                   <div class="order-1" data-animate="slide-up">
-                    <div class="rounded-xl overflow-hidden">
-                      <img 
+                <div class="rounded-xl overflow-hidden">
+                  <img 
                         src="/assets/images/01.webp" 
                         alt={trans.businessValue.capabilities.item1.imageAlt || '即时响应服务'}
                         class="w-full h-auto object-contain"
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
-                  
+                    loading="lazy"
+                  />
+              </div>
+            </div>
+
                   {/* 右侧：文字内容 */}
                   <div class="order-2 space-y-4 md:space-y-6" data-animate="slide-up">
                     <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
                       {trans.businessValue.capabilities.item1.title}
                     </h3>
-                    
+                  
                     <ul class="space-y-3 md:space-y-4">
                       {trans.businessValue.capabilities.item1.list.map((item: string) => (
                         <li class="flex items-start space-x-2 md:space-x-3">
                           <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-blue-100 flex items-center justify-center mt-0.5">
                             <i class="fas fa-check text-blue-600 text-xs"></i>
-                          </div>
+                      </div>
                           <span class="text-gray-700 font-medium text-sm md:text-base leading-relaxed">{item}</span>
                         </li>
                       ))}
                     </ul>
                     
                     <div class="pt-2">
-                      <a 
-                        href="/contact" 
+                <a 
+                  href="/contact"
                         class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
                       >
                         {trans.businessValue.capabilities.item1.button}
                       </a>
-                    </div>
+                  </div>
                   </div>
                 </div>
-
+                
                 {/* 版块3 - 第2项：左文右图（偶数项） */}
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
                   {/* 左侧：文字内容 */}
@@ -618,15 +618,15 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                         <li class="flex items-start space-x-2 md:space-x-3">
                           <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-green-100 flex items-center justify-center mt-0.5">
                             <i class="fas fa-check text-green-600 text-xs"></i>
-                          </div>
+                  </div>
                           <span class="text-gray-700 font-medium text-sm md:text-base leading-relaxed">{item}</span>
                         </li>
                       ))}
                     </ul>
                     
                     <div class="pt-2">
-                      <a 
-                        href="/contact" 
+                <a 
+                  href="/contact" 
                         class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
                       >
                         {trans.businessValue.capabilities.item2.button}
@@ -644,23 +644,23 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                         loading="lazy"
                       />
                     </div>
-                  </div>
-                </div>
-
-                {/* 版块3 - 第3项：左图右文（奇数项） */}
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-                  {/* 左侧：图片 */}
-                  <div class="order-1" data-animate="slide-up">
-                    <div class="rounded-xl overflow-hidden">
-                      <img 
-                        src="/assets/images/03.webp" 
-                        alt={trans.businessValue.capabilities.item3.imageAlt || '客户服务自动化'}
-                        class="w-full h-auto object-contain"
-                        loading="lazy"
-                      />
                     </div>
                   </div>
                   
+                {/* 版块3 - 第3项：左图右文（奇数项） */}
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+              {/* 左侧：图片 */}
+                  <div class="order-1" data-animate="slide-up">
+                <div class="rounded-xl overflow-hidden">
+                  <img 
+                        src="/assets/images/03.webp" 
+                        alt={trans.businessValue.capabilities.item3.imageAlt || '客户服务自动化'}
+                        class="w-full h-auto object-contain"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              
                   {/* 右侧：文字内容 */}
                   <div class="order-2 space-y-4 md:space-y-6" data-animate="slide-up">
                     <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
@@ -672,22 +672,22 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                         <li class="flex items-start space-x-2 md:space-x-3">
                           <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-purple-100 flex items-center justify-center mt-0.5">
                             <i class="fas fa-check text-purple-600 text-xs"></i>
-                          </div>
+              </div>
                           <span class="text-gray-700 font-medium text-sm md:text-base leading-relaxed">{item}</span>
                         </li>
                       ))}
                     </ul>
-                    
+
                     <div class="pt-2">
-                      <a 
-                        href="/contact" 
+                <a 
+                  href="/contact"
                         class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
                       >
                         {trans.businessValue.capabilities.item3.button}
                       </a>
-                    </div>
                   </div>
-                </div>
+                  </div>
+                  </div>
 
                 {/* 版块3 - 第4项：左文右图（偶数项） */}
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -702,15 +702,15 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                         <li class="flex items-start space-x-2 md:space-x-3">
                           <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-orange-100 flex items-center justify-center mt-0.5">
                             <i class="fas fa-check text-orange-600 text-xs"></i>
-                          </div>
+                </div>
                           <span class="text-gray-700 font-medium text-sm md:text-base leading-relaxed">{item}</span>
                         </li>
                       ))}
                     </ul>
-                    
+                
                     <div class="pt-2">
-                      <a 
-                        href="/contact" 
+                <a 
+                  href="/contact" 
                         class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
                       >
                         {trans.businessValue.capabilities.item4.button}
@@ -728,9 +728,9 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                         loading="lazy"
                       />
                     </div>
+                    </div>
                   </div>
-                </div>
-
+                  
                 {/* 版块3 - 第5项：左图右文（奇数项） */}
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
                   {/* 左侧：图片 */}
@@ -756,27 +756,27 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                         <li class="flex items-start space-x-2 md:space-x-3">
                           <div class="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-indigo-100 flex items-center justify-center mt-0.5">
                             <i class="fas fa-check text-indigo-600 text-xs"></i>
-                          </div>
+                    </div>
                           <span class="text-gray-700 font-medium text-sm md:text-base leading-relaxed">{item}</span>
                         </li>
                       ))}
                     </ul>
                     
                     <div class="pt-2">
-                      <a 
-                        href="/contact" 
+                <a 
+                  href="/contact"
                         class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
                       >
                         {trans.businessValue.capabilities.item5.button}
                       </a>
-                    </div>
                   </div>
-                </div>
+                  </div>
+                  </div>
               </>
             )}
 
-          </div>
-        </div>
+              </div>
+            </div>
       </section>
 
       {/* Job Image Section - 招聘图片 */}

@@ -111,14 +111,14 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
             {/* Left Image */}
             <div class="rounded-xl overflow-hidden">
               <div class="aspect-[4/3] flex items-center justify-center">
-                <img 
-                  src="/assets/images/ai-agents/person.webp" 
-                  alt="即时对话功能演示图 - 打造极致客户服务体验"
-                  loading="lazy"
-                  decoding="async"
+                  <img 
+                    src="/assets/images/ai-agents/person.webp" 
+                    alt="即时对话功能演示图 - 打造极致客户服务体验"
+                    loading="lazy"
+                    decoding="async"
                   class="w-full h-full object-contain"
-                />
-              </div>
+                  />
+               </div>
             </div>
             
             {/* Right Content */}
@@ -197,14 +197,14 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
             {/* Right Image */}
             <div class="rounded-xl overflow-hidden order-1 lg:order-2">
               <div class="aspect-[4/3] flex items-center justify-center">
-                <img 
-                  src="/assets/images/ai-agents/voice.webp" 
-                  alt="Voice功能演示图 - 超越真人的语音对话体验"
-                  loading="lazy"
-                  decoding="async"
+                  <img 
+                    src="/assets/images/ai-agents/voice.webp" 
+                    alt="Voice功能演示图 - 超越真人的语音对话体验"
+                    loading="lazy"
+                    decoding="async"
                   class="w-full h-full object-contain"
-                />
-              </div>
+                  />
+               </div>
             </div>
           </div>
         </div>
