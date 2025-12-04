@@ -2,31 +2,66 @@ import { FC } from 'hono/jsx'
 import { Language } from '../utils/i18n'
 import { getTranslations } from '../i18n/translations'
 
+interface Category {
+  id: number
+  name: string
+  slug: string
+  description?: string
+  cover_image?: string
+  category_template: string
+}
+
+interface ResourceContent {
+  id: number
+  title: string
+  content: string
+  author?: string
+  cover_image?: string
+  tags?: string
+  download_url?: string
+  video_url?: string
+  published_at: string
+  views: number
+  downloads: number
+}
+
 interface ResourceListPageProps {
   language?: Language
-  resourceType?: string // 'all' | 'whitepapers' | 'video' | 'reports' | 'demos' | 'blog' | 'podcast'
-  page?: number // Current page number
+  resourceType?: string
+  page?: number
+  category?: Category | null  // 当前栏目信息
+  contents?: ResourceContent[]  // 当前栏目的内容列表
+  categories?: Category[]  // 所有栏目（用于导航）
 }
 
 export const ResourceListPage: FC<ResourceListPageProps> = ({ 
   language = 'zh', 
   resourceType = 'all',
-  page = 1 
+  page = 1,
+  category = null,
+  contents = [],
+  categories = []
 }) => {
   const trans = getTranslations(language)
   const t = trans.resourcesCenter || {}
   
-  // Get resource type configuration
-  const resourceTypeConfig = getResourceTypeConfig(resourceType, language)
+  // 如果有 category，使用栏目数据；否则使用默认配置
+  const resourceTypeConfig = category 
+    ? {
+        heroTitle: category.name,
+        heroDescription: category.description || '',
+        heroImage: category.cover_image || '/assets/images/resources/hero-default.jpg',
+        heroImageAlt: category.name,
+        heroLink: '#'
+      }
+    : getResourceTypeConfig(resourceType, language)
   
-  // Sample data - in production, this would come from CMS/API
+  // 使用实际的内容数据
+  const currentItems = contents
   const itemsPerPage = 9
-  const totalItems = 27 // Example: 27 items total
+  const totalItems = contents.length
   const totalPages = Math.ceil(totalItems / itemsPerPage)
   const currentPage = Math.min(Math.max(1, page || 1), totalPages)
-  
-  // Get items for current page (mock data - replace with API call)
-  const currentItems = getMockResourceItems(resourceType, currentPage, itemsPerPage, language)
 
   return (
     <>
@@ -34,21 +69,31 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
       <section class="bg-[#6438FF] sticky top-0 z-30">
         <div class="site-container px-4 sm:px-6 lg:px-8">
           <nav class="flex items-center justify-center space-x-6 md:space-x-8 overflow-x-auto py-4">
-            {getResourceNavItems(language).map((item) => {
-              // For 'all' resource type, check if we're on the resources homepage
-              const isActive = resourceType === item.key || (resourceType === 'all' && item.key === 'all')
+            {/* 所有资源 */}
+            <a
+              href={language === 'zh' ? '/resources' : `/${language}/resources`}
+              class={`whitespace-nowrap text-sm md:text-base font-medium text-white transition-all pb-2 relative ${
+                !category ? 'border-b-2 border-white' : 'hover:opacity-80'
+              }`}
+            >
+              {language === 'zh' ? '所有资源' : language === 'en' ? 'All Resources' : language === 'jp' ? 'すべてのリソース' : '所有資源'}
+            </a>
+            
+            {/* 动态栏目 */}
+            {categories.map((cat) => {
+              const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
+              const href = cat.slug.startsWith('/') ? cat.slug : `${basePath}/${cat.slug}`
+              const isActive = category && cat.id === category.id
               
               return (
                 <a
-                  key={item.key}
-                  href={item.href}
+                  key={cat.id}
+                  href={href}
                   class={`whitespace-nowrap text-sm md:text-base font-medium text-white transition-all pb-2 relative ${
-                    isActive
-                      ? 'border-b-2 border-white'
-                      : 'hover:opacity-80'
+                    isActive ? 'border-b-2 border-white' : 'hover:opacity-80'
                   }`}
                 >
-                  {item.label}
+                  {cat.name}
                 </a>
               )
             })}
@@ -103,73 +148,82 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
           </h2>
           
           {/* Resource Cards Grid */}
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
-            {currentItems.map((item, index) => (
-              <a
-                key={index}
-                href={item.link || '#'}
-                class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block group"
-              >
-                {/* Cover Image */}
-                <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">
-                  <img 
-                    src={item.image || `/assets/images/resources/item-${index + 1}.jpg`}
-                    alt={item.imageAlt || item.title || 'Resource'}
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading={index < 3 ? 'eager' : 'lazy'}
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                  />
-                  {/* Placeholder when image fails to load */}
-                  <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
-                    <div class="text-center">
-                      <i class="fas fa-image text-2xl md:text-3xl text-gray-400 mb-2"></i>
-                      <p class="text-xs md:text-sm text-gray-500">
-                        {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+          {currentItems.length > 0 ? (
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
+              {currentItems.map((item, index) => {
+                const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
+                const itemLink = category ? `${basePath}/${category.slug}/${item.id}` : '#'
                 
-                {/* Card Content */}
-                <div class="p-6">
-                  {/* Category Info */}
-                  <div class="flex items-center flex-wrap gap-2 text-xs md:text-sm text-gray-500 mb-3">
-                    <span>{item.date}</span>
-                    {item.category && (
-                      <>
-                        <span>·</span>
-                        <span>{item.category}</span>
-                      </>
-                    )}
-                    {item.readTime && (
-                      <>
-                        <span>·</span>
-                        <span>{item.readTime}</span>
-                      </>
-                    )}
-                  </div>
-                  
-                  {/* Title */}
-                  <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-[#6438FF] transition-colors">
-                    {item.title || 'Resource Title'}
-                  </h3>
-                  
-                  {/* Description */}
-                  <p class="text-gray-600 text-sm md:text-base line-clamp-2 mb-4">
-                    {item.description || 'Resource description text here...'}
-                  </p>
-                  
-                  {/* Author */}
-                  {item.author && (
-                    <div class="flex items-center text-sm text-gray-500">
-                      <span>{language === 'zh' ? '作者：' : language === 'en' ? 'By ' : language === 'jp' ? '著者：' : '作者：'}</span>
-                      <span class="ml-1">{item.author}</span>
+                return (
+                  <a
+                    key={item.id}
+                    href={itemLink}
+                    class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block group"
+                  >
+                    {/* Cover Image */}
+                    <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">
+                      {item.cover_image ? (
+                        <img 
+                          src={item.cover_image}
+                          alt={item.title}
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading={index < 3 ? 'eager' : 'lazy'}
+                        />
+                      ) : (
+                        <div class="w-full h-full flex items-center justify-center">
+                          <div class="text-center">
+                            <i class="fas fa-image text-2xl md:text-3xl text-gray-400 mb-2"></i>
+                            <p class="text-xs md:text-sm text-gray-500">
+                              {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
+                            </p>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-              </a>
-            ))}
-          </div>
+                    
+                    {/* Card Content */}
+                    <div class="p-6">
+                      {/* Category Info */}
+                      <div class="flex items-center flex-wrap gap-2 text-xs md:text-sm text-gray-500 mb-3">
+                        <span>{new Date(item.published_at).toLocaleDateString(language === 'en' ? 'en-US' : 'zh-CN')}</span>
+                        {item.author && (
+                          <>
+                            <span>·</span>
+                            <span>{item.author}</span>
+                          </>
+                        )}
+                      </div>
+                      
+                      {/* Title */}
+                      <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-[#6438FF] transition-colors">
+                        {item.title}
+                      </h3>
+                      
+                      {/* Description */}
+                      <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-4">
+                        {item.content.replace(/<[^>]*>/g, '').substring(0, 150)}...
+                      </p>
+                      
+                      {/* Stats */}
+                      <div class="flex items-center justify-between text-sm text-gray-500">
+                        <span><i class="fas fa-eye mr-1"></i> {item.views}</span>
+                        {item.downloads > 0 && (
+                          <span><i class="fas fa-download mr-1"></i> {item.downloads}</span>
+                        )}
+                      </div>
+                    </div>
+                  </a>
+                )
+              })}
+            </div>
+          ) : (
+            <div class="text-center py-16">
+              <i class="fas fa-inbox text-5xl text-gray-300 mb-4"></i>
+              <p class="text-xl text-gray-500">
+                {language === 'zh' ? '暂无内容' : language === 'en' ? 'No content yet' : language === 'jp' ? 'コンテンツがありません' : '暫無內容'}
+              </p>
+            </div>
+          )}
 
           {/* Pagination */}
           {totalPages > 1 && (
