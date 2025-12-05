@@ -17,35 +17,43 @@ const ALLOWED_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.webp']
 const MAX_SIZE = 30 * 1024 * 1024 // 30MB
 
 /**
- * 保存上传的图片
+ * 保存上传的图片或文件
  * @param file 文件对象
- * @param category 分类 (categories/contents/temp)
+ * @param category 分类 (categories/contents/temp/videos/attachments)
  * @returns 上传结果
  */
 export async function saveUploadedImage(
   file: File,
-  category: 'categories' | 'contents' | 'temp' = 'categories'
+  category: 'categories' | 'contents' | 'temp' | 'videos' | 'attachments' = 'categories'
 ): Promise<UploadResult> {
   try {
-    // 1. 验证文件类型
-    if (!ALLOWED_TYPES.includes(file.type)) {
-      return {
-        success: false,
-        error: '不支持的图片格式，请上传 PNG、JPG 或 WebP 格式'
-      }
-    }
-
-    // 2. 验证文件扩展名
+    // 1. 根据category类型验证文件
     const ext = extname(file.name).toLowerCase()
-    if (!ALLOWED_EXTENSIONS.includes(ext)) {
-      return {
-        success: false,
-        error: '不支持的文件扩展名'
+    
+    // 对于视频和附件，跳过图片格式验证
+    if (category !== 'videos' && category !== 'attachments') {
+      // 验证图片类型
+      if (!ALLOWED_TYPES.includes(file.type)) {
+        return {
+          success: false,
+          error: '不支持的图片格式，请上传 PNG、JPG 或 WebP 格式'
+        }
+      }
+
+      // 验证图片扩展名
+      if (!ALLOWED_EXTENSIONS.includes(ext)) {
+        return {
+          success: false,
+          error: '不支持的文件扩展名'
+        }
       }
     }
 
-    // 3. 验证文件大小
-    if (file.size > MAX_SIZE) {
+    // 2. 验证文件大小
+    const maxSize = category === 'videos' ? 100 * 1024 * 1024 : 
+                    category === 'attachments' ? 50 * 1024 * 1024 : 
+                    MAX_SIZE
+    if (file.size > maxSize) {
       return {
         success: false,
         error: '文件大小超过限制（最大 30MB）'
