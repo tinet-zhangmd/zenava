@@ -17,9 +17,10 @@ interface ResourceContent {
   content: string
   author?: string
   cover_image?: string
-  tags?: string
-  download_url?: string
-  video_url?: string
+  reading_time?: number
+  video_file?: string
+  attachment_file?: string
+  attachment_name?: string
   published_at: string
   views: number
   downloads: number
@@ -183,14 +184,22 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
                     
                     {/* Card Content */}
                     <div class="p-6">
-                      {/* Category Info */}
-                      <div class="flex items-center flex-wrap gap-2 text-xs md:text-sm text-gray-500 mb-3">
-                        <span>{new Date(item.published_at).toLocaleDateString(language === 'en' ? 'en-US' : 'zh-CN')}</span>
+                      {/* Meta Info: 发布时间和阅读时间 */}
+                      <div class="flex items-center justify-between text-xs md:text-sm text-gray-500 mb-3">
+                        <div class="flex items-center flex-wrap gap-2">
+                          <span>{new Date(item.published_at).toLocaleDateString(language === 'en' ? 'en-US' : 'zh-CN')}</span>
+                          {item.reading_time && (
+                            <>
+                              <span>·</span>
+                              <span>{item.reading_time} min</span>
+                            </>
+                          )}
+                        </div>
                         {item.author && (
-                          <>
-                            <span>·</span>
-                            <span>{item.author}</span>
-                          </>
+                          <span class="text-gray-600">
+                            {language === 'zh' ? '作者：' : language === 'en' ? 'Author: ' : language === 'jp' ? '著者：' : '作者：'}
+                            {item.author}
+                          </span>
                         )}
                       </div>
                       

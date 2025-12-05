@@ -2,27 +2,62 @@ import { FC } from 'hono/jsx'
 import { Language } from '../utils/i18n'
 import { getTranslations } from '../i18n/translations'
 
+interface Category {
+  id: number
+  name: string
+  slug: string
+  category_template: string
+  description?: string
+}
+
+interface Content {
+  id: number
+  category_id: number
+  category_name: string
+  category_slug: string
+  title: string
+  content: string
+  author?: string
+  cover_image?: string
+  published_at: string
+  views: number
+  downloads: number
+  reading_time?: number
+  video_file?: string
+  video_description?: string
+  attachment_file?: string
+  attachment_name?: string
+  status: string
+}
+
 interface VideoPodcastDetailPageProps {
   language?: Language
-  contentType?: 'video' | 'podcast' // Content type
-  contentId?: string // Content ID
+  content: Content | null
+  category: Category | null
+  categories?: Category[]
 }
 
 export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({ 
   language = 'zh', 
-  contentType = 'video',
-  contentId = '1'
+  content,
+  category,
+  categories = []
 }) => {
   const trans = getTranslations(language)
   
-  // Get content type configuration
-  const typeConfig = getContentTypeConfig(contentType, language)
+  if (!content || !category) {
+    return <div class="py-20 text-center">
+      <p class="text-xl text-gray-500">
+        {language === 'zh' ? '内容不存在' : language === 'en' ? 'Content not found' : language === 'jp' ? 'コンテンツが見つかりません' : '內容不存在'}
+      </p>
+    </div>
+  }
   
-  // Mock content data - in production, this would come from CMS/API
-  const contentData = getMockContentData(contentType, contentId, language)
+  // 根据 category_template 确定内容类型
+  const contentType: 'video' | 'podcast' = category.category_template === 'list_video' ? 'video' : 'podcast'
   
-  // Related recommendations (mock data)
-  const relatedItems = getMockRelatedItems(contentType, contentId, language)
+  // TODO: 相关推荐从数据库获取
+  const relatedItems: any[] = []
 
   return (
     <>
@@ -30,21 +65,30 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
       <section class="bg-[#6438FF] sticky top-0 z-30">
         <div class="site-container px-4 sm:px-6 lg:px-8">
           <nav class="flex items-center justify-center space-x-6 md:space-x-8 overflow-x-auto py-4">
-            {getResourceNavItems(language).map((item) => {
-              const isActive = (contentType === 'video' && item.key === 'video') || 
-                              (contentType === 'podcast' && item.key === 'podcast')
+            {/* All Resources */}
+            <a
+              href={language === 'zh' ? '/resources' : `/${language}/resources`}
+              class="whitespace-nowrap text-sm md:text-base font-medium text-white transition-all pb-2 relative hover:opacity-80"
+            >
+              {language === 'zh' ? '所有资源' : language === 'en' ? 'All Resources' : language === 'jp' ? 'すべてのリソース' : '所有資源'}
+            </a>
+            {/* Category Navigation */}
+            {categories.map((cat) => {
+              const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
+              const catHref = `${basePath}/${cat.slug}`
+              const isActive = cat.slug === category.slug
               
               return (
                 <a
-                  key={item.key}
-                  href={item.href}
+                  key={cat.id}
+                  href={catHref}
                   class={`whitespace-nowrap text-sm md:text-base font-medium text-white transition-all pb-2 relative ${
                     isActive
                       ? 'border-b-2 border-white'
                       : 'hover:opacity-80'
                   }`}
                 >
-                  {item.label}
+                  {cat.name}
                 </a>
               )
             })}
@@ -64,12 +108,12 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
               {language === 'zh' ? '资源中心' : language === 'en' ? 'Resource Center' : language === 'jp' ? 'リソースセンター' : '資源中心'}
             </a>
             <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
-            <a href={getContentTypeListUrl(contentType, language)} class="text-gray-500 hover:text-[#6438FF] transition-colors">
-              {typeConfig.title}
+            <a href={`${language === 'zh' ? '/resources' : `/${language}/resources`}/${category.slug}`} class="text-gray-500 hover:text-[#6438FF] transition-colors">
+              {category.name}
             </a>
             <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
             <span class="text-gray-900 font-medium line-clamp-1">
-              {contentData.title}
+              {content.title}
             </span>
           </nav>
         </div>
@@ -84,67 +128,58 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
               {/* Title and Author Section */}
               <div class="mb-6 md:mb-8">
                 <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight text-center lg:text-left">
-                  {contentData.title}
+                  {content.title}
                 </h1>
                 
                 {/* Author Info */}
                 <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 md:gap-6 text-sm md:text-base">
-                  {/* Platform Logo (if exists) */}
-                  {contentData.platformLogo && (
-                    <div class="flex items-center space-x-2">
-                      <img 
-                        src={contentData.platformLogo} 
-                        alt={contentData.platformName || ''}
-                        class="w-6 h-6 md:w-8 md:h-8 rounded"
-                      />
-                      <span class="font-medium text-gray-700">{contentData.platformName}</span>
-                    </div>
-                  )}
-                  
                   {/* Author Info */}
-                  {contentData.author && (
+                  {content.author && (
                     <div class="flex items-center space-x-2 md:space-x-3">
-                      {contentData.author.avatar && (
-                        <img 
-                          src={contentData.author.avatar} 
-                          alt={contentData.author.name || ''}
-                          class="w-8 h-8 md:w-10 md:h-10 rounded-full"
-                        />
-                      )}
-                      <span class="font-medium text-gray-700">{contentData.author.name}</span>
+                      <span class="font-medium text-gray-700">
+                        {language === 'zh' ? '作者：' : language === 'en' ? 'Author: ' : language === 'jp' ? '著者：' : '作者：'}
+                        {content.author}
+                      </span>
                     </div>
                   )}
                   
-                  {/* Date Info */}
+                  {/* Date and Stats Info */}
                   <div class="flex flex-wrap items-center gap-2 md:gap-4 text-gray-500">
-                    {contentData.updatedDate && (
+                    <span>
+                      {language === 'zh' ? '发布：' : language === 'en' ? 'Published: ' : language === 'jp' ? '公開：' : '發布：'}
+                      {new Date(content.published_at).toLocaleDateString(language === 'en' ? 'en-US' : 'zh-CN')}
+                    </span>
+                    {content.reading_time && (
                       <span>
-                        {language === 'zh' ? '更新：' : language === 'en' ? 'Updated: ' : language === 'jp' ? '更新：' : '更新：'}
-                        {contentData.updatedDate}
+                        <i class="fas fa-clock mr-1"></i>
+                        {content.reading_time} min
                       </span>
                     )}
-                    {contentData.publishedDate && (
-                      <span>
-                        {language === 'zh' ? '发布：' : language === 'en' ? 'Published: ' : language === 'jp' ? '公開：' : '發布：'}
-                        {contentData.publishedDate}
-                      </span>
-                    )}
+                    <span>
+                      <i class="fas fa-eye mr-1"></i>
+                      {content.views}
+                    </span>
                   </div>
                 </div>
               </div>
 
               {/* Video/Podcast Player Section */}
               <div class="mb-8 md:mb-12">
-                {contentType === 'video' ? (
+                {contentType === 'video' && content.video_file ? (
                   <VideoPlayer 
-                    videoData={contentData.video}
+                    videoFile={content.video_file}
+                    coverImage={content.cover_image}
                     language={language}
                   />
                 ) : (
-                  <PodcastPlayer 
-                    podcastData={contentData.podcast}
-                    language={language}
-                  />
+                  <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 rounded-xl flex items-center justify-center">
+                    <div class="text-center">
+                      <i class="fas fa-video text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                      <p class="text-sm md:text-base text-gray-500">
+                        {language === 'zh' ? '暂无视频' : language === 'en' ? 'No Video' : language === 'jp' ? 'ビデオなし' : '暫無視頻'}
+                      </p>
+                    </div>
+                  </div>
                 )}
               </div>
 
@@ -210,39 +245,44 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
                   `
                 }} />
                 <div 
-                  dangerouslySetInnerHTML={{ __html: contentData.description || '' }}
+                  dangerouslySetInnerHTML={{ __html: content.content || '' }}
                 />
               </div>
             </div>
 
             {/* Right Column: Sidebar */}
             <div class="lg:col-span-1 space-y-6 md:space-y-8">
-              {/* Ad Section */}
+              {/* Video Description Section (Black Card) */}
               <div class="bg-black rounded-xl p-6 md:p-8 text-white">
-                <h3 class="text-xl md:text-2xl font-bold mb-4">
-                  {contentData.ad?.title || (language === 'zh' ? '上传、编辑和分享您的视频 - 不允许广告' : language === 'en' ? 'Upload, edit, and share your videos - no ads allowed' : language === 'jp' ? '動画をアップロード、編集、共有 - 広告なし' : '上傳、編輯和分享您的視頻 - 不允許廣告')}
+                <h3 class="text-xl md:text-2xl font-bold mb-4 whitespace-pre-line">
+                  {content.video_description || (
+                    language === 'zh' ? '上传、编辑和分享您的视频 - 不允许广告' : language === 'en' ? 'Upload, edit, and share your videos - no ads allowed' : language === 'jp' ? '動画をアップロード、編集、共有 - 広告なし' : '上傳、編輯和分享您的視頻 - 不允許廣告'
+                  )}
                 </h3>
                 <p class="text-gray-300 mb-6 text-sm md:text-base leading-relaxed">
-                  {contentData.ad?.description || (language === 'zh' ? '无论您的经验如何，都可以轻松上传、创建或录制视频。然后快速编辑并按您想要的方式分享它们。' : language === 'en' ? 'Easily upload, create, or record videos, regardless of your experience. Then quickly edit and share them exactly how you want.' : language === 'jp' ? '経験に関係なく、簡単に動画をアップロード、作成、または録画できます。次に、迅速に編集して、希望どおりに共有します。' : '無論您的經驗如何，都可以輕鬆上傳、創建或錄製視頻。然後快速編輯並按您想要的方式分享它們。')}
+                  {!content.video_description && (
+                    language === 'zh' ? '无论您的经验如何，都可以轻松上传、创建或录制视频。然后快速编辑并按您想要的方式分享它们。' : language === 'en' ? 'Easily upload, create, or record videos, regardless of your experience. Then quickly edit and share them exactly how you want.' : language === 'jp' ? '経験に関係なく、簡単に動画をアップロード、作成、または録画できます。次に、迅速に編集して、希望どおりに共有します。' : '無論您的經驗如何，都可以輕鬆上傳、創建或錄製視頻。然後快速編輯並按您想要的方式分享它們。'
+                  )}
                 </p>
                 
-                {/* Social Icons */}
-                {contentData.ad?.socialLinks && contentData.ad.socialLinks.length > 0 && (
-                  <div class="flex items-center space-x-4 mb-6">
-                    {contentData.ad.socialLinks.map((social: any, index: number) => (
-                      <a
-                        key={index}
-                        href={social.url || '#'}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-white hover:text-[#6438FF] transition-colors"
-                        aria-label={social.name || ''}
-                      >
-                        <i class={`${social.icon || 'fab fa-twitter'} text-xl md:text-2xl`}></i>
-                      </a>
-                    ))}
-                  </div>
-                )}
+                {/* Social Icons - Optional, can be removed if not needed */}
+                <div class="flex items-center space-x-4 mb-6">
+                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="Twitter">
+                    <i class="fab fa-twitter text-xl md:text-2xl"></i>
+                  </a>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin text-xl md:text-2xl"></i>
+                  </a>
+                  <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="YouTube">
+                    <i class="fab fa-youtube text-xl md:text-2xl"></i>
+                  </a>
+                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="Instagram">
+                    <i class="fab fa-instagram text-xl md:text-2xl"></i>
+                  </a>
+                  <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="TikTok">
+                    <i class="fab fa-tiktok text-xl md:text-2xl"></i>
+                  </a>
+                </div>
                 
                 {/* Contact Button */}
                 <a
@@ -254,19 +294,22 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
                 </a>
               </div>
 
-              {/* Form Button Section */}
+              {/* Help Section */}
               <div class="bg-white border-2 border-gray-200 rounded-xl p-6 text-center">
+                <div class="w-16 h-16 mx-auto mb-4 bg-[#6438FF]/10 rounded-full flex items-center justify-center">
+                  <i class="fas fa-question-circle text-3xl text-[#6438FF]"></i>
+                </div>
                 <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4">
                   {language === 'zh' ? '需要帮助？' : language === 'en' ? 'Need Help?' : language === 'jp' ? 'ヘルプが必要ですか？' : '需要幫助？'}
                 </h3>
                 <p class="text-gray-600 mb-6 text-sm md:text-base">
-                  {language === 'zh' ? '联系我们的团队获取更多信息' : language === 'en' ? 'Contact our team for more information' : language === 'jp' ? '詳細情報については、チームにお問い合わせください' : '聯繫我們的團隊獲取更多信息'}
+                  {language === 'zh' ? '我们的支持团队随时为您提供帮助' : language === 'en' ? 'Our support team is ready to help you' : language === 'jp' ? '私たちのサポートチームがお手伝いします' : '我們的支持團隊隨時為您提供幫助'}
                 </p>
                 <a
                   href={language === 'zh' ? '/contact' : `/${language}/contact`}
                   class="inline-flex items-center justify-center w-full px-6 py-3 bg-[#6438FF] text-white rounded-lg font-semibold hover:bg-[#5a2ee6] transition-all transform hover:scale-105"
                 >
-                  {language === 'zh' ? '联系我们' : language === 'en' ? 'Contact Us' : language === 'jp' ? 'お問い合わせ' : '聯繫我們'}
+                  {language === 'zh' ? '获取支持' : language === 'en' ? 'Get Support' : language === 'jp' ? 'サポートを受ける' : '獲取支持'}
                 </a>
               </div>
             </div>
@@ -419,75 +462,41 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
 }
 
 // Video Player Component
-const VideoPlayer: FC<{ videoData: any; language: Language }> = ({ videoData, language }) => {
+const VideoPlayer: FC<{ videoFile?: string; coverImage?: string; language: Language }> = ({ videoFile, coverImage, language }) => {
   return (
     <div class="relative w-full aspect-video bg-black rounded-xl overflow-hidden">
-      {videoData?.embedUrl ? (
-        // Iframe embed (Vimeo, YouTube, etc.)
-        <iframe
-          src={videoData.embedUrl}
-          class="w-full h-full"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          loading="lazy"
-        ></iframe>
-      ) : videoData?.videoUrl ? (
+      {videoFile ? (
         // HTML5 Video Player
         <video
           id="video-player"
           class="w-full h-full"
           controls
           preload="metadata"
-          poster={videoData.coverImage || ''}
+          poster={coverImage || ''}
         >
-          <source src={videoData.videoUrl} type="video/mp4" />
-          <source src={videoData.videoUrl} type="video/webm" />
+          <source src={videoFile} type="video/mp4" />
           {language === 'zh' ? '您的浏览器不支持视频播放。' : language === 'en' ? 'Your browser does not support video playback.' : language === 'jp' ? 'お使いのブラウザは動画再生をサポートしていません。' : '您的瀏覽器不支持視頻播放。'}
         </video>
       ) : (
-        // Placeholder with Play Button and HTML5 Video
+        // Placeholder
         <div class="relative w-full h-full bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
-          <img 
-            src={videoData?.coverImage || '/assets/images/resources/video-cover.jpg'}
-            alt="Video Cover"
-            class="w-full h-full object-cover absolute inset-0"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-          />
-          {/* Placeholder when cover image fails */}
-          <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
-            <div class="text-center">
-              <i class="fas fa-video text-4xl md:text-5xl text-gray-400 mb-3"></i>
-              <p class="text-sm md:text-base text-gray-500">
-                {language === 'zh' ? '暂无封面' : language === 'en' ? 'No Cover' : language === 'jp' ? 'カバーなし' : '暫無封面'}
-              </p>
+          {coverImage ? (
+            <img 
+              src={coverImage}
+              alt="Video Cover"
+              class="w-full h-full object-cover absolute inset-0"
+              onerror="this.style.display='none';"
+            />
+          ) : (
+            <div class="w-full h-full flex items-center justify-center">
+              <div class="text-center">
+                <i class="fas fa-video text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                <p class="text-sm md:text-base text-gray-500">
+                  {language === 'zh' ? '暂无视频' : language === 'en' ? 'No Video' : language === 'jp' ? 'ビデオなし' : '暫無視頻'}
+                </p>
+              </div>
             </div>
-          </div>
-          {/* Play Button Overlay */}
-          <div class="absolute inset-0 flex items-center justify-center bg-black/20">
-            <button
-              id="play-button"
-              class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/90 flex items-center justify-center hover:bg-white transition-all transform hover:scale-110 shadow-lg z-10"
-              onclick="handlePlayVideo()"
-            >
-              <i class="fas fa-play text-[#6438FF] text-2xl md:text-3xl ml-1"></i>
-            </button>
-          </div>
-          {/* Hidden HTML5 Video Player */}
-          <video
-            id="video-player"
-            class="w-full h-full hidden"
-            controls
-            preload="metadata"
-          >
-            <source src={videoData?.videoUrl || ''} type="video/mp4" />
-            <source src={videoData?.videoUrl || ''} type="video/webm" />
-            {language === 'zh' ? '您的浏览器不支持视频播放。' : language === 'en' ? 'Your browser does not support video playback.' : language === 'jp' ? 'お使いのブラウザは動画再生をサポートしていません。' : '您的瀏覽器不支持視頻播放。'}
-          </video>
-          {/* Error Message */}
-          <p class="hidden absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm md:text-base text-white bg-red-500/80 px-4 py-2 rounded" id="error-message">
-            {language === 'zh' ? '播放出错，请刷新重试' : language === 'en' ? 'Playback error, please refresh and try again' : language === 'jp' ? '再生エラー、ページを更新して再試行してください' : '播放出錯，請刷新重試'}
-          </p>
+          )}
         </div>
       )}
     </div>
@@ -535,176 +544,4 @@ const PodcastPlayer: FC<{ podcastData: any; language: Language }> = ({ podcastDa
   )
 }
 
-// Helper functions
-function getContentTypeConfig(contentType: 'video' | 'podcast', language: Language) {
-  const configs = {
-    video: {
-      zh: { title: '视频' },
-      en: { title: 'Videos' },
-      jp: { title: 'ビデオ' },
-      hk: { title: '視頻' }
-    },
-    podcast: {
-      zh: { title: '播客' },
-      en: { title: 'Podcast' },
-      jp: { title: 'ポッドキャスト' },
-      hk: { title: '播客' }
-    }
-  }
-  return configs[contentType]?.[language] || configs.video[language]
-}
-
-function getResourceNavItems(language: Language) {
-  const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
-  
-  return [
-    { key: 'all', label: language === 'zh' ? '所有资源' : language === 'en' ? 'All Resources' : language === 'jp' ? 'すべてのリソース' : '所有資源', href: basePath },
-    { key: 'whitepapers', label: language === 'zh' ? '白皮书' : language === 'en' ? 'Whitepapers' : language === 'jp' ? 'ホワイトペーパー' : '白皮書', href: `${basePath}/whitepapers` },
-    { key: 'videos', label: language === 'zh' ? '视频' : language === 'en' ? 'Videos' : language === 'jp' ? 'ビデオ' : '視頻', href: `${basePath}/video` },
-    { key: 'reports', label: language === 'zh' ? '行业报告' : language === 'en' ? 'Industry Reports' : language === 'jp' ? '業界レポート' : '行業報告', href: `${basePath}/reports` },
-    { key: 'demos', label: language === 'zh' ? '产品演示' : language === 'en' ? 'Product Demos' : language === 'jp' ? '製品デモ' : '產品演示', href: `${basePath}/demos` },
-    { key: 'blog', label: language === 'zh' ? '博客' : language === 'en' ? 'Blog' : language === 'jp' ? 'ブログ' : '博客', href: `${basePath}/blog` },
-    { key: 'podcast', label: language === 'zh' ? '播客' : language === 'en' ? 'Podcast' : language === 'jp' ? 'ポッドキャスト' : '播客', href: `${basePath}/podcast` }
-  ]
-}
-
-function getContentTypeListUrl(contentType: 'video' | 'podcast', language: Language) {
-  const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
-  return contentType === 'video' ? `${basePath}/video` : `${basePath}/podcast`
-}
-
-// Mock data functions
-function getMockContentData(contentType: 'video' | 'podcast', contentId: string, language: Language) {
-  if (contentType === 'video') {
-    return {
-      title: language === 'zh' 
-        ? 'How to add effective video sections for a better experience'
-        : language === 'en'
-        ? 'How to add effective video sections for a better experience'
-        : language === 'jp'
-        ? 'より良い体験のために効果的な動画セクションを追加する方法'
-        : 'How to add effective video sections for a better experience',
-      platformLogo: '/assets/images/platforms/vimeo-logo.png',
-      platformName: 'Vimeo Staff',
-      author: {
-        name: 'Vimeo Staff',
-        avatar: '/assets/images/authors/vimeo-avatar.jpg'
-      },
-      updatedDate: '2025.10.22',
-      publishedDate: '2025.10.11',
-      video: {
-        embedUrl: '', // If empty, will use HTML5 player
-        videoUrl: '/assets/video/sample-video.mp4',
-        coverImage: '/assets/images/resources/video-cover.jpg'
-      },
-      description: language === 'zh'
-        ? `
-          <p>视频内容已经爆炸式增长，但让观众在整个视频中保持参与并不容易。视频章节，也称为视频章节，帮助人们找到他们最感兴趣的部分。通过将视频内容组织成清晰的、有标签的片段，您可以提高观看时间并改善观众的整体满意度。</p>
-          <p>在本指南中，我们将解释什么是视频章节，它们如何工作，以及为什么它们对创作者和营销人员等专业人士有用。您还将学习如何在 Vimeo 和 YouTube 上添加章节，以及提高可发现性和参与度的最佳实践。</p>
-        `
-        : language === 'en'
-        ? `
-          <p>Video content has exploded in popularity, but keeping viewers engaged through an entire video isn't easy. Video sections, also known as video chapters, help people find the parts that interest them most. By structuring your video content into clear, labeled segments, you can boost watch time and improve the overall satisfaction of your audience.</p>
-          <p>In this guide, we'll explain what video chapters are, how they work, and why they're useful for professionals like creators and marketers. You'll also learn how to add chapters on Vimeo and YouTube, plus best practices for boosting discoverability and engagement.</p>
-        `
-        : language === 'jp'
-        ? `
-          <p>動画コンテンツの人気が爆発的に高まっていますが、視聴者を動画全体を通じて関与させ続けるのは簡単ではありません。動画セクション（動画チャプターとも呼ばれます）は、人々が最も興味のある部分を見つけるのに役立ちます。動画コンテンツを明確でラベル付けされたセグメントに構造化することで、視聴時間を増やし、視聴者の全体的な満足度を向上させることができます。</p>
-          <p>このガイドでは、動画チャプターとは何か、どのように機能するか、そしてクリエイターやマーケターなどの専門家にとってなぜ有用なのかを説明します。また、Vimeo と YouTube でチャプターを追加する方法、および発見可能性とエンゲージメントを向上させるためのベストプラクティスも学習します。</p>
-        `
-        : `
-          <p>視頻內容已經爆炸式增長，但讓觀眾在整個視頻中保持參與並不容易。視頻章節，也稱為視頻章節，幫助人們找到他們最感興趣的部分。通過將視頻內容組織成清晰的、有標籤的片段，您可以提高觀看時間並改善觀眾的整體滿意度。</p>
-          <p>在本指南中，我們將解釋什麼是視頻章節，它們如何工作，以及為什麼它們對創作者和營銷人員等專業人士有用。您還將學習如何在 Vimeo 和 YouTube 上添加章節，以及提高可發現性和參與度的最佳實踐。</p>
-        `,
-      ad: {
-        title: language === 'zh' ? '上传、编辑和分享您的视频 - 不允许广告' : language === 'en' ? 'Upload, edit, and share your videos - no ads allowed' : language === 'jp' ? '動画をアップロード、編集、共有 - 広告なし' : '上傳、編輯和分享您的視頻 - 不允許廣告',
-        description: language === 'zh' ? '无论您的经验如何，都可以轻松上传、创建或录制视频。然后快速编辑并按您想要的方式分享它们。' : language === 'en' ? 'Easily upload, create, or record videos, regardless of your experience. Then quickly edit and share them exactly how you want.' : language === 'jp' ? '経験に関係なく、簡単に動画をアップロード、作成、または録画できます。次に、迅速に編集して、希望どおりに共有します。' : '無論您的經驗如何，都可以輕鬆上傳、創建或錄製視頻。然後快速編輯並按您想要的方式分享它們。',
-        socialLinks: [
-          { name: 'Twitter', icon: 'fab fa-twitter', url: 'https://twitter.com' },
-          { name: 'LinkedIn', icon: 'fab fa-linkedin', url: 'https://linkedin.com' },
-          { name: 'YouTube', icon: 'fab fa-youtube', url: 'https://youtube.com' },
-          { name: 'Instagram', icon: 'fab fa-instagram', url: 'https://instagram.com' },
-          { name: 'TikTok', icon: 'fab fa-tiktok', url: 'https://tiktok.com' }
-        ]
-      }
-    }
-  } else {
-    return {
-      title: language === 'zh' 
-        ? 'AI驱动的客户服务革命'
-        : language === 'en'
-        ? 'AI-Driven Customer Service Revolution'
-        : language === 'jp'
-        ? 'AI駆動のカスタマーサービス革命'
-        : 'AI驅動的客戶服務革命',
-      author: {
-        name: 'Zenava Team',
-        avatar: '/assets/images/authors/zenava-avatar.jpg'
-      },
-      updatedDate: '2025.10.20',
-      publishedDate: '2025.10.15',
-      podcast: {
-        audioUrl: '/assets/audio/sample-podcast.mp3',
-        coverImage: '/assets/images/resources/podcast-cover.jpg'
-      },
-      description: language === 'zh'
-        ? `
-          <p>在本期播客中，我们深入探讨了AI技术如何改变客户服务行业。从智能聊天机器人到语音助手，AI正在重新定义企业与客户互动的方式。</p>
-        `
-        : language === 'en'
-        ? `
-          <p>In this podcast episode, we dive deep into how AI technology is transforming the customer service industry. From intelligent chatbots to voice assistants, AI is redefining how businesses interact with customers.</p>
-        `
-        : language === 'jp'
-        ? `
-          <p>このポッドキャストエピソードでは、AI技術がカスタマーサービス業界をどのように変革しているかを深く掘り下げます。インテリジェントなチャットボットから音声アシスタントまで、AIは企業が顧客と対話する方法を再定義しています。</p>
-        `
-        : `
-          <p>在本期播客中，我們深入探討了AI技術如何改變客戶服務行業。從智能聊天機器人到語音助手，AI正在重新定義企業與客戶互動的方式。</p>
-        `,
-      ad: {
-        title: language === 'zh' ? '上传、编辑和分享您的视频 - 不允许广告' : language === 'en' ? 'Upload, edit, and share your videos - no ads allowed' : language === 'jp' ? '動画をアップロード、編集、共有 - 広告なし' : '上傳、編輯和分享您的視頻 - 不允許廣告',
-        description: language === 'zh' ? '无论您的经验如何，都可以轻松上传、创建或录制视频。然后快速编辑并按您想要的方式分享它们。' : language === 'en' ? 'Easily upload, create, or record videos, regardless of your experience. Then quickly edit and share them exactly how you want.' : language === 'jp' ? '経験に関係なく、簡単に動画をアップロード、作成、または録画できます。次に、迅速に編集して、希望どおりに共有します。' : '無論您的經驗如何，都可以輕鬆上傳、創建或錄製視頻。然後快速編輯並按您想要的方式分享它們。',
-        socialLinks: [
-          { name: 'Twitter', icon: 'fab fa-twitter', url: 'https://twitter.com' },
-          { name: 'LinkedIn', icon: 'fab fa-linkedin', url: 'https://linkedin.com' },
-          { name: 'YouTube', icon: 'fab fa-youtube', url: 'https://youtube.com' }
-        ]
-      }
-    }
-  }
-}
-
-function getMockRelatedItems(contentType: 'video' | 'podcast', contentId: string, language: Language) {
-  return [
-    {
-      image: '/assets/images/resources/related-1.jpg',
-      category: language === 'zh' ? 'Hosting and player' : language === 'en' ? 'Hosting and player' : language === 'jp' ? 'ホスティングとプレーヤー' : 'Hosting and player',
-      title: language === 'zh' ? '8 best practices for seamless video optimization' : language === 'en' ? '8 best practices for seamless video optimization' : language === 'jp' ? 'シームレスな動画最適化のための8つのベストプラクティス' : '8 best practices for seamless video optimization',
-      date: language === 'zh' ? '2025年8月14日' : language === 'en' ? 'August 14th, 2025' : language === 'jp' ? '2025年8月14日' : '2025年8月14日',
-      link: contentType === 'video' ? '/resources/video/2' : '/resources/podcast/2'
-    },
-    {
-      image: '/assets/images/resources/related-2.jpg',
-      category: language === 'zh' ? 'Online video tools' : language === 'en' ? 'Online video tools' : language === 'jp' ? 'オンライン動画ツール' : 'Online video tools',
-      title: language === 'zh' ? 'How to embed a video in Google Slides in 3 easy ways' : language === 'en' ? 'How to embed a video in Google Slides in 3 easy ways' : language === 'jp' ? 'Googleスライドに動画を埋め込む3つの簡単な方法' : 'How to embed a video in Google Slides in 3 easy ways',
-      date: language === 'zh' ? '2025年2月4日' : language === 'en' ? 'February 4th, 2025' : language === 'jp' ? '2025年2月4日' : '2025年2月4日',
-      link: contentType === 'video' ? '/resources/video/3' : '/resources/podcast/3'
-    },
-    {
-      image: '/assets/images/resources/related-3.jpg',
-      category: language === 'zh' ? 'Marketing' : language === 'en' ? 'Marketing' : language === 'jp' ? 'マーケティング' : 'Marketing',
-      title: language === 'zh' ? '6 ways Vimeo maximizes your video SEO impact' : language === 'en' ? '6 ways Vimeo maximizes your video SEO impact' : language === 'jp' ? 'Vimeoが動画SEOへの影響を最大化する6つの方法' : '6 ways Vimeo maximizes your video SEO impact',
-      date: language === 'zh' ? '2024年9月6日' : language === 'en' ? 'September 6th, 2024' : language === 'jp' ? '2024年9月6日' : '2024年9月6日',
-      link: contentType === 'video' ? '/resources/video/4' : '/resources/podcast/4'
-    },
-    {
-      image: '/assets/images/resources/related-4.jpg',
-      category: language === 'zh' ? 'Marketing' : language === 'en' ? 'Marketing' : language === 'jp' ? 'マーケティング' : 'Marketing',
-      title: language === 'zh' ? 'The truth about Vimeo and YouTube video SEO' : language === 'en' ? 'The truth about Vimeo and YouTube video SEO' : language === 'jp' ? 'VimeoとYouTube動画SEOの真実' : 'The truth about Vimeo and YouTube video SEO',
-      date: language === 'zh' ? '2024年8月31日' : language === 'en' ? 'August 31st, 2024' : language === 'jp' ? '2024年8月31日' : '2024年8月31日',
-      link: contentType === 'video' ? '/resources/video/5' : '/resources/podcast/5'
-    }
-  ]
-}
 

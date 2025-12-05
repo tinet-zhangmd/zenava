@@ -277,21 +277,44 @@ export const ResourceCategoryManagement: FC<ResourceCategoryManagementProps> = (
             return;
           }
           
-          const selected = Array.from(document.querySelectorAll('.category-checkbox:checked')).map(cb => cb.value);
+          const selected = Array.from(document.querySelectorAll('.category-checkbox:checked')).map(cb => parseInt(cb.value));
           if (selected.length === 0) {
             alert('请至少选择一个栏目');
             return;
           }
           
-          if (action === 'delete' && !confirm('确定要删除选中的 ' + selected.length + ' 个栏目吗？')) {
+          // 确认操作
+          let confirmMsg = '';
+          if (action === 'delete') {
+            confirmMsg = '确定要删除选中的 ' + selected.length + ' 个栏目吗？此操作不可恢复！';
+          } else if (action === 'show') {
+            confirmMsg = '确定要显示选中的 ' + selected.length + ' 个栏目吗？';
+          } else if (action === 'hide') {
+            confirmMsg = '确定要隐藏选中的 ' + selected.length + ' 个栏目吗？';
+          }
+          
+          if (!confirm(confirmMsg)) {
             return;
           }
           
           try {
-            for (const id of selected) {
-              await fetch('/api/admin/resource-categories/' + id, { method: 'DELETE' });
+            const res = await fetch('/api/admin/resource-categories/batch', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: action,
+                ids: selected
+              })
+            });
+            
+            const result = await res.json();
+            
+            if (res.ok && result.success) {
+              alert(result.message || '操作成功');
+              window.location.reload();
+            } else {
+              alert('操作失败: ' + (result.error || '未知错误'));
             }
-            window.location.reload();
           } catch (error) {
             alert('操作失败: ' + error.message);
           }

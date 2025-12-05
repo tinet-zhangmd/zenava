@@ -171,55 +171,18 @@ function getDefaultMenuItems(): NavMenuItem[] {
         }
       ]
     },
-    // 一级导航：资源中心
+    // 一级导航：资源中心（改为直接链接）
     {
       id: 'resources',
-      type: 'dropdown',
+      type: 'link',
       label: 'Resources',
       label_zh: '资源中心',
       label_en: 'Resources',
       label_jp: 'リソースセンター',
       label_hk: '資源中心',
+      url: '/resources',
       order: 3,
-      visible: true,
-      children: [
-        {
-          id: 'blog',
-          label: 'Blog',
-          label_zh: '博客',
-          label_en: 'Blog',
-          label_jp: 'ブログ',
-          label_hk: '博客',
-          url: '/resources/blog',
-          icon: 'fas fa-blog',
-          order: 1,
-          visible: true
-        },
-        {
-          id: 'reports',
-          label: 'Reports',
-          label_zh: '报告',
-          label_en: 'Reports',
-          label_jp: 'レポート',
-          label_hk: '報告',
-          url: '/resources/reports',
-          icon: 'fas fa-file-alt',
-          order: 2,
-          visible: true
-        },
-        {
-          id: 'videos',
-          label: 'Videos',
-          label_zh: '视频',
-          label_en: 'Videos',
-          label_jp: '動画',
-          label_hk: '視頻',
-          url: '/resources/video',
-          icon: 'fas fa-video',
-          order: 3,
-          visible: true
-        }
-      ]
+      visible: true
     },
     // 右侧：关于我们
     {
