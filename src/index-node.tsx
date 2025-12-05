@@ -28,6 +28,8 @@ import { LiveChatPage } from './pages/products/LiveChat.js'
 import { VoiceAgentsPage } from './pages/products/VoiceAgents.js'
 import { ResourcesPage } from './pages/Resources.js'
 import { ResourceListPage } from './pages/ResourceList.js'
+import { ResourceDetailPage } from './pages/ResourceDetail.js'
+import { VideoPodcastDetailPage } from './pages/VideoPodcastDetail.js'
 import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/i18n.js'
 
 // 导入 Admin Pages
@@ -580,8 +582,9 @@ app.get('/resources/:slug', async (c) => {
   let contents = []
   try {
     contents = await mysqlQuery<any[]>(
-      `SELECT id, title, content, author, cover_image, tags, 
-              download_url, video_url, published_at, views, downloads 
+      `SELECT id, title, content, author, cover_image, reading_time,
+              video_file, attachment_file, attachment_name, 
+              published_at, views, downloads 
        FROM resource_contents 
        WHERE category_id = ? AND status = 'published' 
        ORDER BY sort_order ASC, published_at DESC`,
@@ -695,8 +698,9 @@ app.get('/:lang/resources/:slug', async (c) => {
   let contents = []
   try {
     contents = await mysqlQuery<any[]>(
-      `SELECT id, title, content, author, cover_image, tags, 
-              download_url, video_url, published_at, views, downloads 
+      `SELECT id, title, content, author, cover_image, reading_time,
+              video_file, attachment_file, attachment_name, 
+              published_at, views, downloads 
        FROM resource_contents 
        WHERE category_id = ? AND status = 'published' 
        ORDER BY sort_order ASC, published_at DESC`,
@@ -736,6 +740,211 @@ app.get('/:lang/resources/:slug', async (c) => {
         contents={contents}
         categories={categories}
       />
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// 内容详情页路由（中文）
+app.get('/resources/:slug/:id', async (c) => {
+  const slug = c.req.param('slug')
+  const id = parseInt(c.req.param('id'))
+  const language: Language = 'zh'
+  const currentPath = `/resources/${slug}/${id}`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  // 查询内容详情
+  let content = null
+  let category = null
+  
+  try {
+    // 获取内容详情
+    const contentResult = await mysqlQuery<any[]>(
+      `SELECT rc.*, rcat.name as category_name, rcat.link as category_slug 
+       FROM resource_contents rc
+       LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+       WHERE rc.id = ? AND rc.status = 'published'
+       LIMIT 1`,
+      [id]
+    )
+    
+    if (contentResult.length === 0) {
+      return c.notFound()
+    }
+    
+    content = contentResult[0]
+    
+    // 验证 slug 是否匹配
+    if (content.category_slug !== slug) {
+      return c.notFound()
+    }
+    
+    // 增加访问量
+    await mysqlQuery(
+      `UPDATE resource_contents SET views = views + 1 WHERE id = ?`,
+      [id]
+    )
+    
+    // 获取栏目信息
+    const categoryResult = await mysqlQuery<any[]>(
+      `SELECT id, name, link as slug, description, category_template 
+       FROM resource_categories 
+       WHERE link = ? AND is_displayed = 1 
+       LIMIT 1`,
+      [slug]
+    )
+    category = categoryResult[0] || null
+    
+  } catch (error) {
+    console.error('获取内容详情失败:', error)
+    return c.notFound()
+  }
+  
+  // 获取所有栏目用于导航
+  let categories = []
+  try {
+    categories = await mysqlQuery<any[]>(
+      `SELECT id, name, link as slug, category_template 
+       FROM resource_categories 
+       WHERE is_displayed = 1 
+       ORDER BY sort_order ASC, id ASC`
+    )
+  } catch (error) {
+    console.error('获取栏目分类失败:', error)
+  }
+  
+  // 根据 category_template 决定使用哪个页面组件
+  const isVideoTemplate = category?.category_template === 'list_video'
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      {isVideoTemplate ? (
+        <VideoPodcastDetailPage 
+          language={language}
+          content={content}
+          category={category}
+          categories={categories}
+        />
+      ) : (
+        <ResourceDetailPage 
+          language={language}
+          content={content}
+          category={category}
+          categories={categories}
+        />
+      )}
+    </LayoutWithUnifiedNav>
+  )
+})
+
+// 内容详情页路由（多语言）
+app.get('/:lang/resources/:slug/:id', async (c) => {
+  const lang = c.req.param('lang') as Language
+  const slug = c.req.param('slug')
+  const id = parseInt(c.req.param('id'))
+  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : 'zh'
+  const currentPath = `/${language}/resources/${slug}/${id}`
+  
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  // 查询内容详情
+  let content = null
+  let category = null
+  
+  try {
+    // 获取内容详情
+    const contentResult = await mysqlQuery<any[]>(
+      `SELECT rc.*, rcat.name as category_name, rcat.link as category_slug 
+       FROM resource_contents rc
+       LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+       WHERE rc.id = ? AND rc.status = 'published'
+       LIMIT 1`,
+      [id]
+    )
+    
+    if (contentResult.length === 0) {
+      return c.notFound()
+    }
+    
+    content = contentResult[0]
+    
+    // 验证 slug 是否匹配
+    if (content.category_slug !== slug) {
+      return c.notFound()
+    }
+    
+    // 增加访问量
+    await mysqlQuery(
+      `UPDATE resource_contents SET views = views + 1 WHERE id = ?`,
+      [id]
+    )
+    
+    // 获取栏目信息
+    const categoryResult = await mysqlQuery<any[]>(
+      `SELECT id, name, link as slug, description, category_template 
+       FROM resource_categories 
+       WHERE link = ? AND is_displayed = 1 
+       LIMIT 1`,
+      [slug]
+    )
+    category = categoryResult[0] || null
+    
+  } catch (error) {
+    console.error('获取内容详情失败:', error)
+    return c.notFound()
+  }
+  
+  // 获取所有栏目用于导航
+  let categories = []
+  try {
+    categories = await mysqlQuery<any[]>(
+      `SELECT id, name, link as slug, category_template 
+       FROM resource_categories 
+       WHERE is_displayed = 1 
+       ORDER BY sort_order ASC, id ASC`
+    )
+  } catch (error) {
+    console.error('获取栏目分类失败:', error)
+  }
+  
+  // 根据 category_template 决定使用哪个页面组件
+  const isVideoTemplate = category?.category_template === 'list_video'
+  
+  return c.html(
+    <LayoutWithUnifiedNav
+      language={language}
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      {isVideoTemplate ? (
+        <VideoPodcastDetailPage 
+          language={language}
+          content={content}
+          category={category}
+          categories={categories}
+        />
+      ) : (
+        <ResourceDetailPage 
+          language={language}
+          content={content}
+          category={category}
+          categories={categories}
+        />
+      )}
     </LayoutWithUnifiedNav>
   )
 })
@@ -2062,7 +2271,7 @@ app.post('/api/admin/resource-categories/batch', async (c) => {
   try {
     const { action, ids } = await c.req.json()
     
-    if (!action || !ids || ids.length === 0) {
+    if (!action || !ids || !Array.isArray(ids) || ids.length === 0) {
       return c.json({ 
         success: false, 
         error: '缺少必要参数' 
@@ -2070,45 +2279,84 @@ app.post('/api/admin/resource-categories/batch', async (c) => {
     }
     
     const placeholders = ids.map(() => '?').join(',')
+    let affectedCount = 0
     
     switch (action) {
       case 'delete':
-        // 先删除内容再删除分类
-        await c.env.DB.prepare(
-          `DELETE FROM resource_contents WHERE category_id IN (${placeholders})`
-        ).bind(...ids).run()
+        // 检查每个栏目是否有关联内容
+        const [contentCountResult] = await mysqlQuery<any[]>(
+          `SELECT COUNT(*) as count FROM resource_contents WHERE category_id IN (${placeholders})`,
+          ids
+        )
         
-        await c.env.DB.prepare(
-          `DELETE FROM resource_categories WHERE id IN (${placeholders})`
-        ).bind(...ids).run()
-        break
+        if (contentCountResult && contentCountResult.count > 0) {
+          return c.json({ 
+            success: false, 
+            error: `选中的栏目中有 ${contentCountResult.count} 个关联内容，请先删除这些内容后再删除栏目` 
+          }, 400)
+        }
+        
+        // 获取所有要删除栏目的封面图片
+        const categories = await mysqlQuery<any[]>(
+          `SELECT cover_image FROM resource_categories WHERE id IN (${placeholders})`,
+          ids
+        )
+        
+        // 删除栏目
+        const deleteResult = await mysqlQuery(
+          `DELETE FROM resource_categories WHERE id IN (${placeholders})`,
+          ids
+        )
+        
+        affectedCount = (deleteResult as any).affectedRows || 0
+        
+        // 删除关联的封面图片
+        for (const category of categories) {
+          if (category?.cover_image) {
+            await deleteUploadedImage(category.cover_image)
+          }
+        }
+        
+        return c.json({ 
+          success: true,
+          message: `成功删除 ${affectedCount} 个栏目`
+        })
         
       case 'show':
-        await c.env.DB.prepare(
-          `UPDATE resource_categories SET is_visible = 1 WHERE id IN (${placeholders})`
-        ).bind(...ids).run()
-        break
+        const showResult = await mysqlQuery(
+          `UPDATE resource_categories SET is_visible = 1 WHERE id IN (${placeholders})`,
+          ids
+        )
+        affectedCount = (showResult as any).affectedRows || 0
+        
+        return c.json({ 
+          success: true,
+          message: `成功显示 ${affectedCount} 个栏目`
+        })
         
       case 'hide':
-        await c.env.DB.prepare(
-          `UPDATE resource_categories SET is_visible = 0 WHERE id IN (${placeholders})`
-        ).bind(...ids).run()
-        break
+        const hideResult = await mysqlQuery(
+          `UPDATE resource_categories SET is_visible = 0 WHERE id IN (${placeholders})`,
+          ids
+        )
+        affectedCount = (hideResult as any).affectedRows || 0
+        
+        return c.json({ 
+          success: true,
+          message: `成功隐藏 ${affectedCount} 个栏目`
+        })
         
       default:
         return c.json({ 
           success: false, 
-          error: '未知操作' 
+          error: '未知操作类型' 
         }, 400)
     }
-    
-    return c.json({ 
-      success: true 
-    })
   } catch (error: any) {
+    console.error('批量操作失败:', error)
     return c.json({ 
       success: false, 
-      error: error.message 
+      error: error.message || '批量操作失败'
     }, 500)
   }
 })
@@ -2171,7 +2419,7 @@ app.post('/api/admin/resource-contents', async (c) => {
     const {
       category_id, title, content, author,
       cover_image, cover_image_size, cover_image_type,
-      video_file, video_size, video_type,
+      video_file, video_size, video_type, video_description,
       attachment_file, attachment_size, attachment_type, attachment_name,
       reading_time, status, published_at, sort_order,
       meta_title, meta_description, meta_keywords
@@ -2191,15 +2439,15 @@ app.post('/api/admin/resource-contents', async (c) => {
     const result = await mysqlQuery(
       `INSERT INTO resource_contents 
        (category_id, title, content, author, cover_image, cover_image_size, cover_image_type,
-        video_file, video_size, video_type,
+        video_file, video_size, video_type, video_description,
         attachment_file, attachment_size, attachment_type, attachment_name,
         reading_time, status, published_at, sort_order,
         meta_title, meta_description, meta_keywords)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         category_id, title, content || '', author || null,
         cover_image || null, cover_image_size || null, cover_image_type || null,
-        video_file || null, video_size || null, video_type || null,
+        video_file || null, video_size || null, video_type || null, video_description || null,
         attachment_file || null, attachment_size || null, attachment_type || null, attachment_name || null,
         reading_time || null, status || 'draft', publishTime, sort_order || 0,
         meta_title || null, meta_description || null, meta_keywords || null
@@ -2257,7 +2505,7 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
     const {
       category_id, title, content, author,
       cover_image, cover_image_size, cover_image_type,
-      video_file, video_size, video_type,
+      video_file, video_size, video_type, video_description,
       attachment_file, attachment_size, attachment_type, attachment_name,
       reading_time, status, published_at, sort_order,
       meta_title, meta_description, meta_keywords
@@ -2281,7 +2529,7 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
       `UPDATE resource_contents 
        SET category_id = ?, title = ?, content = ?, author = ?,
            cover_image = ?, cover_image_size = ?, cover_image_type = ?,
-           video_file = ?, video_size = ?, video_type = ?,
+           video_file = ?, video_size = ?, video_type = ?, video_description = ?,
            attachment_file = ?, attachment_size = ?, attachment_type = ?, attachment_name = ?,
            reading_time = ?, status = ?, published_at = ?, sort_order = ?,
            meta_title = ?, meta_description = ?, meta_keywords = ?
@@ -2289,7 +2537,7 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
       [
         category_id, title, content || '', author || null,
         cover_image || null, cover_image_size || null, cover_image_type || null,
-        video_file || null, video_size || null, video_type || null,
+        video_file || null, video_size || null, video_type || null, video_description || null,
         attachment_file || null, attachment_size || null, attachment_type || null, attachment_name || null,
         reading_time || null, status || 'draft', published_at || currentContent.published_at, sort_order || 0,
         meta_title || null, meta_description || null, meta_keywords || null,

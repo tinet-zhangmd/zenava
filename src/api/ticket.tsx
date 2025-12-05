@@ -295,7 +295,7 @@ ticketApi.post('/create', async (c) => {
             ]
         },
         "workflowId": 15710,
-        "tags":[{name:'免费注册',color: 3}]
+        "tags":[{name:'zenava注册',color: 3}]
     }
     
     // 将表单数据转换为 JSON 字符串（作为 model 参数的值）

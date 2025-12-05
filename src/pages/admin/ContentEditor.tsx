@@ -18,6 +18,7 @@ interface Content {
   video_file?: string
   video_size?: number
   video_type?: string
+  video_description?: string
   attachment_file?: string
   attachment_size?: number
   attachment_type?: string
@@ -298,7 +299,25 @@ export const ContentEditor: FC<ContentEditorProps> = ({
             </div>
           </div>
 
-          {/* 10. 上传附件（条件显示） */}
+          {/* 10. 视频简介（条件显示，仅视频模板） */}
+          <div id="video-description-field" class="flex items-start hidden">
+            <label for="content-video-description" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
+              视频简介
+            </label>
+            <div class="flex-1">
+              <textarea 
+                id="content-video-description" 
+                rows="4"
+                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 resize-vertical"
+                placeholder="输入视频简介，向观众介绍视频的主要内容..."
+              >{content?.video_description || ''}</textarea>
+              <p class="mt-1 text-xs text-gray-500">
+                简要描述视频内容，帮助观众了解视频主题（可选）
+              </p>
+            </div>
+          </div>
+
+          {/* 11. 上传附件（条件显示） */}
           <div id="attachment-upload-field" class="flex items-start hidden">
             <label for="content-attachment" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
               <span class="text-red-500 attachment-required">*</span> 上传附件
@@ -509,12 +528,14 @@ export const ContentEditor: FC<ContentEditorProps> = ({
             const template = selectedOption?.getAttribute('data-template') || '';
             
             const videoField = document.getElementById('video-upload-field');
+            const videoDescField = document.getElementById('video-description-field');
             const attachmentField = document.getElementById('attachment-upload-field');
             const videoInput = document.getElementById('content-video');
             const attachmentInput = document.getElementById('content-attachment');
             
             // 隐藏所有条件字段
             videoField.classList.add('hidden');
+            videoDescField.classList.add('hidden');
             attachmentField.classList.add('hidden');
             videoInput.removeAttribute('required');
             attachmentInput.removeAttribute('required');
@@ -522,6 +543,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
             // 根据模板显示对应字段
             if (template === 'list_video') {
               videoField.classList.remove('hidden');
+              videoDescField.classList.remove('hidden'); // 显示视频简介字段
               // 只有在新建且没有已有视频时才设为必填
               const hasExistingVideo = document.getElementById('video-file-url').value;
               if (!hasExistingVideo) {
@@ -952,6 +974,12 @@ export const ContentEditor: FC<ContentEditorProps> = ({
               formData.video_file = document.getElementById('video-file-url').value;
               formData.video_size = parseInt(document.getElementById('video-file-size').value) || undefined;
               formData.video_type = document.getElementById('video-file-type').value;
+            }
+            
+            // 处理视频简介
+            const videoDescription = document.getElementById('content-video-description')?.value;
+            if (videoDescription) {
+              formData.video_description = videoDescription;
             }
             
             // 处理附件上传
