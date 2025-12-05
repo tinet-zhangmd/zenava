@@ -26,6 +26,7 @@ export const securityHeaders = () => {
       "style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://cdn.quilljs.com; " +
       "font-src 'self' https://cdn.jsdelivr.net data:; " +
       "img-src 'self' data: https: blob:; " +
+      "media-src 'self' blob: data: https:; " +
       "connect-src 'self' https://hm.baidu.com;"
     )
     

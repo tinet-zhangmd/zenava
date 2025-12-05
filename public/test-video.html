@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频播放测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .upload-area {
+            border: 2px dashed #ccc;
+            padding: 40px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .upload-area:hover {
+            border-color: #6438FF;
+            background: #f9f9ff;
+        }
+        #video-container {
+            display: none;
+            margin-top: 20px;
+        }
+        video {
+            width: 100%;
+            max-height: 480px;
+            background: #000;
+            border-radius: 5px;
+        }
+        #info {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 视频播放测试工具</h1>
+        <p>使用这个工具测试您的视频文件是否可以在浏览器中播放</p>
+        
+        <div class="upload-area" onclick="document.getElementById('file-input').click()">
+            <p>📁 点击或拖拽视频文件到这里</p>
+            <p style="font-size: 12px; color: #666;">支持 MP4, WebM, MOV, AVI 等格式</p>
+        </div>
+        
+        <input type="file" id="file-input" accept="video/*" style="display: none;">
+        
+        <div id="video-container">
+            <video id="video-player" controls></video>
+            <div id="info"></div>
+        </div>
+        
+        <div id="logs"></div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const videoContainer = document.getElementById('video-container');
+        const videoPlayer = document.getElementById('video-player');
+        const info = document.getElementById('info');
+        const logs = document.getElementById('logs');
+
+        function addLog(message, type = 'info') {
+            const logDiv = document.createElement('div');
+            logDiv.className = 'status ' + type;
+            logDiv.textContent = new Date().toLocaleTimeString() + ' - ' + message;
+            logs.appendChild(logDiv);
+            console.log(message);
+        }
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            logs.innerHTML = '';
+            addLog('文件已选择: ' + file.name);
+            addLog('文件大小: ' + (file.size / 1024 / 1024).toFixed(2) + ' MB');
+            addLog('MIME 类型: ' + (file.type || '未知'));
+
+            // 清除旧的视频
+            if (videoPlayer.src && videoPlayer.src.startsWith('blob:')) {
+                URL.revokeObjectURL(videoPlayer.src);
+            }
+
+            // 创建 Blob URL
+            const videoURL = URL.createObjectURL(file);
+            addLog('Blob URL 创建成功: ' + videoURL);
+
+            // 设置视频源
+            videoPlayer.src = videoURL;
+            videoContainer.style.display = 'block';
+
+            // 监听所有事件
+            videoPlayer.onloadstart = () => addLog('✅ 开始加载', 'info');
+            videoPlayer.onloadedmetadata = () => {
+                addLog('✅ 元数据加载完成', 'success');
+                const duration = Math.floor(videoPlayer.duration);
+                const minutes = Math.floor(duration / 60);
+                const seconds = duration % 60;
+                
+                info.innerHTML = `
+                    <strong>视频信息:</strong><br>
+                    文件名: ${file.name}<br>
+                    MIME: ${file.type || '未知'}<br>
+                    大小: ${(file.size / 1024 / 1024).toFixed(2)} MB<br>
+                    尺寸: ${videoPlayer.videoWidth} x ${videoPlayer.videoHeight}<br>
+                    时长: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}<br>
+                    编码: ${videoPlayer.canPlayType(file.type || 'video/mp4')}
+                `;
+            };
+            videoPlayer.onloadeddata = () => addLog('✅ 数据加载完成', 'success');
+            videoPlayer.oncanplay = () => addLog('✅ 视频可以播放', 'success');
+            videoPlayer.oncanplaythrough = () => addLog('✅ 视频可以流畅播放', 'success');
+            videoPlayer.onerror = (e) => {
+                addLog('❌ 视频加载失败', 'error');
+                if (videoPlayer.error) {
+                    const errorCodes = ['', 'ABORTED', 'NETWORK', 'DECODE', 'SRC_NOT_SUPPORTED'];
+                    const errorMsg = errorCodes[videoPlayer.error.code] || 'UNKNOWN';
+                    addLog('错误代码: ' + videoPlayer.error.code + ' (' + errorMsg + ')', 'error');
+                    addLog('错误信息: ' + (videoPlayer.error.message || '无'), 'error');
+                }
+            };
+            videoPlayer.onstalled = () => addLog('⚠️ 加载停滞', 'info');
+            videoPlayer.onsuspend = () => addLog('⏸️ 加载暂停', 'info');
+
+            // 尝试加载
+            videoPlayer.load();
+            
+            // 检查浏览器支持
+            addLog('浏览器支持情况:');
+            addLog('  video/mp4: ' + videoPlayer.canPlayType('video/mp4'));
+            addLog('  video/webm: ' + videoPlayer.canPlayType('video/webm'));
+            addLog('  video/ogg: ' + videoPlayer.canPlayType('video/ogg'));
+        });
+
+        // 拖拽支持
+        const uploadArea = document.querySelector('.upload-area');
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#6438FF';
+            uploadArea.style.background = '#f9f9ff';
+        });
+        uploadArea.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.background = 'white';
+        });
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.background = 'white';
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                fileInput.dispatchEvent(new Event('change'));
+            }
+        });
+    </script>
+</body>
+</html>
+

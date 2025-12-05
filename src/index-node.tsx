@@ -1309,6 +1309,9 @@ app.post('/ticloudadmin/login', async (c) => {
     const sessionToken = crypto.randomUUID()
     setSecureCookie(c, 'admin_session', sessionToken)
     
+    // 存储管理员邮箱用于自动填充作者
+    setSecureCookie(c, 'admin_email', email)
+    
     const csrfToken = generateCSRFToken()
     setSecureCookie(c, 'csrf_token', csrfToken)
     
@@ -1529,49 +1532,132 @@ app.get('/ticloudadmin/resource-categories/edit/:id', requireAuth(), async (c) =
 
 // Resource Center - Contents
 app.get('/ticloudadmin/resource-contents', requireAuth(), async (c) => {
-  // Mock data - replace with actual database query
-  const mockContents = [
-    {
-      id: 1,
-      category_id: 186,
-      category_name: '公司动态',
-      title: '示例文章标题',
-      slug: 'example-article',
-      thumbnail: '/assets/images/example.jpg',
-      author: '张三',
-      publish_date: '2024-01-15',
-      views: 1250,
-      status: 'published' as const,
-      is_featured: true
-    },
-    {
-      id: 2,
-      category_id: 187,
-      category_name: '博客',
-      title: '另一篇文章',
-      slug: 'another-article',
-      author: '李四',
-      publish_date: '2024-01-10',
-      views: 856,
-      status: 'draft' as const,
-      is_featured: false
+  try {
+    const page = parseInt(c.req.query('page') || '1')
+    const pageSize = 10
+    const offset = (page - 1) * pageSize
+    
+    const category = c.req.query('category')
+    const status = c.req.query('status')
+    const search = c.req.query('search')
+    
+    // 构建WHERE条件
+    let whereConditions = []
+    let queryParams: any[] = []
+    
+    if (category) {
+      whereConditions.push('rc.category_id = ?')
+      queryParams.push(parseInt(category))
     }
-  ]
+    if (status) {
+      whereConditions.push('rc.status = ?')
+      queryParams.push(status)
+    }
+    if (search) {
+      whereConditions.push('(rc.title LIKE ? OR rc.author LIKE ?)')
+      const searchPattern = `%${search}%`
+      queryParams.push(searchPattern, searchPattern)
+    }
+    
+    const whereClause = whereConditions.length > 0 
+      ? 'WHERE ' + whereConditions.join(' AND ')
+      : ''
+    
+    // 查询总数
+    const [countResult] = await mysqlQuery<any[]>(
+      `SELECT COUNT(*) as total FROM resource_contents rc ${whereClause}`,
+      queryParams
+    )
+    const total = countResult.total || 0
+    const totalPages = Math.ceil(total / pageSize)
+    
+    // 查询内容列表
+    const contents = await mysqlQuery<any[]>(
+      `SELECT rc.id, rc.category_id, rcat.name as category_name, 
+              rc.title, rc.cover_image, rc.author, 
+              rc.published_at, rc.views, rc.status
+       FROM resource_contents rc
+       LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+       ${whereClause}
+       ORDER BY rc.sort_order ASC, rc.published_at DESC
+       LIMIT ${offset}, ${pageSize}`,
+      queryParams
+    )
+    
+    // 查询所有栏目用于筛选
+    const categories = await mysqlQuery<any[]>(
+      'SELECT id, name FROM resource_categories WHERE is_displayed = 1 ORDER BY sort_order ASC'
+    )
+    
+    return c.html(
+      <AdminLayout title="内容列表管理" currentPath="/ticloudadmin/resource-contents">
+        <ResourceContentManagement 
+          contents={contents}
+          categories={categories}
+          currentPage={page}
+          totalPages={totalPages}
+          total={total}
+        />
+      </AdminLayout>
+    )
+  } catch (error: any) {
+    console.error('获取内容列表失败:', error)
+    return c.html(
+      <AdminLayout title="内容列表管理" currentPath="/ticloudadmin/resource-contents">
+        <div class="p-4 text-red-600">加载失败：{error.message}</div>
+      </AdminLayout>
+    )
+  }
+})
 
-  const mockCategories = [
-    { id: 186, name: '公司动态' },
-    { id: 187, name: '博客' },
-    { id: 188, name: '白皮书' },
-    { id: 189, name: '案例研究' },
-    { id: 191, name: '行业报告' },
-    { id: 195, name: '技术答疑' }
-  ]
+// 新增内容页面
+app.get('/ticloudadmin/resource-contents/new', requireAuth(), async (c) => {
+  try {
+    const categories = await mysqlQuery<any[]>(
+      'SELECT id, name, category_template FROM resource_categories WHERE is_displayed = 1 ORDER BY sort_order ASC'
+    )
+    
+    // 获取当前登录的管理员邮箱作为默认作者
+    const defaultAuthor = getCookie(c, 'admin_email') || ''
+    
+    return c.html(
+      <AdminLayout title="发布新内容" currentPath="/ticloudadmin/resource-contents">
+        <ContentEditor mode="create" categories={categories} defaultAuthor={defaultAuthor} />
+      </AdminLayout>
+    )
+  } catch (error: any) {
+    console.error('加载新增页失败:', error)
+    return c.text('加载失败', 500)
+  }
+})
 
-  return c.html(
-    <AdminLayout title="内容列表管理" currentPath="/ticloudadmin/resource-contents">
-      <ResourceContentManagement contents={mockContents} categories={mockCategories} />
-    </AdminLayout>
-  )
+// 编辑内容页面
+app.get('/ticloudadmin/resource-contents/edit/:id', requireAuth(), async (c) => {
+  try {
+    const id = c.req.param('id')
+    
+    const [content] = await mysqlQuery<any[]>(
+      `SELECT * FROM resource_contents WHERE id = ?`,
+      [id]
+    )
+    
+    if (!content) {
+      return c.text('内容不存在', 404)
+    }
+    
+    const categories = await mysqlQuery<any[]>(
+      'SELECT id, name, category_template FROM resource_categories WHERE is_displayed = 1 ORDER BY sort_order ASC'
+    )
+    
+    return c.html(
+      <AdminLayout title="编辑内容" currentPath="/ticloudadmin/resource-contents">
+        <ContentEditor mode="edit" content={content} categories={categories} defaultAuthor="" />
+      </AdminLayout>
+    )
+  } catch (error: any) {
+    console.error('加载编辑页失败:', error)
+    return c.text('加载失败', 500)
+  }
 })
 
 // ==================== Admin API Routes ====================
@@ -1619,6 +1705,87 @@ app.post('/api/admin/upload/image', requireAuth(), async (c) => {
     }
   } catch (error: any) {
     console.error('❌ 上传失败:', error)
+    return c.json({
+      success: false,
+      error: '服务器错误'
+    }, 500)
+  }
+})
+
+// 文件上传接口（视频和附件）
+app.post('/api/admin/upload/file', requireAuth(), async (c) => {
+  try {
+    const formData = await c.req.formData()
+    const file = formData.get('file') as File
+    const category = (formData.get('category') as string) || 'attachments'
+
+    if (!file) {
+      return c.json({
+        success: false,
+        error: '没有接收到文件'
+      }, 400)
+    }
+
+    // 验证 category 参数
+    const validCategories = ['videos', 'attachments']
+    if (!validCategories.includes(category)) {
+      return c.json({
+        success: false,
+        error: '无效的分类参数'
+      }, 400)
+    }
+
+    // 验证文件大小
+    const maxSize = category === 'videos' ? 100 * 1024 * 1024 : 50 * 1024 * 1024 // 视频100MB，附件50MB
+    if (file.size > maxSize) {
+      return c.json({
+        success: false,
+        error: `文件大小不能超过 ${maxSize / 1024 / 1024}MB`
+      }, 400)
+    }
+
+    // 验证文件类型
+    if (category === 'videos') {
+      const allowedTypes = ['video/mp4', 'video/avi', 'video/quicktime', 'video/x-ms-wmv']
+      if (!allowedTypes.includes(file.type)) {
+        return c.json({
+          success: false,
+          error: '只支持 MP4、AVI、MOV、WMV 格式的视频'
+        }, 400)
+      }
+    } else if (category === 'attachments') {
+      const allowedExts = ['.xls', '.xlsx', '.doc', '.docx', '.pdf', '.zip', '.rar', '.ppt', '.pptx']
+      const fileName = file.name.toLowerCase()
+      const hasAllowedExt = allowedExts.some(ext => fileName.endsWith(ext))
+      if (!hasAllowedExt) {
+        return c.json({
+          success: false,
+          error: '只支持 XLS/XLSX/DOC/DOCX/PDF/ZIP/RAR/PPT/PPTX 格式的文件'
+        }, 400)
+      }
+    }
+
+    // 使用与图片上传相同的逻辑保存文件
+    const result = await saveUploadedImage(file, category as any)
+    
+    if (result.success) {
+      return c.json({
+        success: true,
+        data: {
+          url: result.url,
+          path: result.path,
+          size: result.size,
+          type: result.type
+        }
+      })
+    } else {
+      return c.json({
+        success: false,
+        error: result.error
+      }, 400)
+    }
+  } catch (error: any) {
+    console.error('❌ 文件上传失败:', error)
     return c.json({
       success: false,
       error: '服务器错误'
@@ -1946,47 +2113,50 @@ app.post('/api/admin/resource-categories/batch', async (c) => {
   }
 })
 
-// 获取所有资源内容
+// 获取所有资源内容 (MySQL版本)
 app.get('/api/admin/resource-contents', async (c) => {
   try {
     const category_id = c.req.query('category_id')
     const status = c.req.query('status')
     const search = c.req.query('search')
     
-    let sql = `
-      SELECT 
-        c.*,
-        cat.name as category_name
-      FROM resource_contents c
-      LEFT JOIN resource_categories cat ON c.category_id = cat.id
-      WHERE 1=1
-    `
-    const params: any[] = []
+    let whereConditions = []
+    let queryParams: any[] = []
     
     if (category_id) {
-      sql += ` AND c.category_id = ?`
-      params.push(category_id)
+      whereConditions.push('c.category_id = ?')
+      queryParams.push(category_id)
     }
     
     if (status) {
-      sql += ` AND c.status = ?`
-      params.push(status)
+      whereConditions.push('c.status = ?')
+      queryParams.push(status)
     }
     
     if (search) {
-      sql += ` AND (c.title LIKE ? OR c.author LIKE ?)`
-      params.push(`%${search}%`, `%${search}%`)
+      whereConditions.push('(c.title LIKE ? OR c.author LIKE ?)')
+      queryParams.push(`%${search}%`, `%${search}%`)
     }
     
-    sql += ` ORDER BY c.created_at DESC`
+    const whereClause = whereConditions.length > 0 
+      ? 'WHERE ' + whereConditions.join(' AND ')
+      : ''
     
-    const result = await c.env.DB.prepare(sql).bind(...params).all()
+    const contents = await mysqlQuery<any[]>(
+      `SELECT c.*, cat.name as category_name
+       FROM resource_contents c
+       LEFT JOIN resource_categories cat ON c.category_id = cat.id
+       ${whereClause}
+       ORDER BY c.sort_order ASC, c.published_at DESC`,
+      queryParams
+    )
     
     return c.json({ 
       success: true, 
-      data: result.results || []
+      data: contents
     })
   } catch (error: any) {
+    console.error('获取内容列表失败:', error)
     return c.json({ 
       success: false, 
       error: error.message 
@@ -1994,59 +2164,55 @@ app.get('/api/admin/resource-contents', async (c) => {
   }
 })
 
-// 创建资源内容
+// 创建资源内容 (MySQL版本)
 app.post('/api/admin/resource-contents', async (c) => {
   try {
-    const { 
-      category_id, 
-      title, 
-      slug, 
-      thumbnail, 
-      author, 
-      publish_date, 
-      summary, 
-      body, 
-      tags, 
-      status, 
-      is_featured 
-    } = await c.req.json()
+    const data = await c.req.json()
+    const {
+      category_id, title, content, author,
+      cover_image, cover_image_size, cover_image_type,
+      video_file, video_size, video_type,
+      attachment_file, attachment_size, attachment_type, attachment_name,
+      reading_time, status, published_at, sort_order,
+      meta_title, meta_description, meta_keywords
+    } = data
     
-    if (!category_id || !title || !slug) {
+    // 验证必填字段
+    if (!title || !category_id) {
       return c.json({ 
         success: false, 
-        error: '缺少必填字段' 
+        error: '标题和栏目为必填项' 
       }, 400)
     }
     
-    const result = await c.env.DB.prepare(
+    // 处理发布时间
+    const publishTime = published_at || new Date().toISOString().slice(0, 19).replace('T', ' ')
+    
+    const result = await mysqlQuery(
       `INSERT INTO resource_contents 
-       (category_id, title, slug, thumbnail, author, publish_date, summary, body, tags, status, is_featured) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-    ).bind(
-      category_id, 
-      title, 
-      slug, 
-      thumbnail || null, 
-      author || null, 
-      publish_date || null, 
-      summary || null, 
-      body || null, 
-      tags || null, 
-      status || 'draft', 
-      is_featured || false
-    ).run()
+       (category_id, title, content, author, cover_image, cover_image_size, cover_image_type,
+        video_file, video_size, video_type,
+        attachment_file, attachment_size, attachment_type, attachment_name,
+        reading_time, status, published_at, sort_order,
+        meta_title, meta_description, meta_keywords)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        category_id, title, content || '', author || null,
+        cover_image || null, cover_image_size || null, cover_image_type || null,
+        video_file || null, video_size || null, video_type || null,
+        attachment_file || null, attachment_size || null, attachment_type || null, attachment_name || null,
+        reading_time || null, status || 'draft', publishTime, sort_order || 0,
+        meta_title || null, meta_description || null, meta_keywords || null
+      ]
+    )
     
     return c.json({ 
       success: true, 
-      data: { 
-        id: result.meta.last_row_id,
-        category_id,
-        title,
-        slug,
-        status
-      }
+      message: '内容创建成功',
+      data: { id: (result as any).insertId }
     })
   } catch (error: any) {
+    console.error('创建内容失败:', error)
     return c.json({ 
       success: false, 
       error: error.message 
@@ -2054,13 +2220,14 @@ app.post('/api/admin/resource-contents', async (c) => {
   }
 })
 
-// 获取单个资源内容
+// 获取单个资源内容 (MySQL版本)
 app.get('/api/admin/resource-contents/:id', async (c) => {
   try {
     const id = c.req.param('id')
-    const content = await c.env.DB.prepare(
-      `SELECT * FROM resource_contents WHERE id = ?`
-    ).bind(id).first()
+    const [content] = await mysqlQuery<any[]>(
+      'SELECT * FROM resource_contents WHERE id = ?',
+      [id]
+    )
     
     if (!content) {
       return c.json({ 
@@ -2074,6 +2241,7 @@ app.get('/api/admin/resource-contents/:id', async (c) => {
       data: content 
     })
   } catch (error: any) {
+    console.error('获取内容详情失败:', error)
     return c.json({ 
       success: false, 
       error: error.message 
@@ -2081,38 +2249,75 @@ app.get('/api/admin/resource-contents/:id', async (c) => {
   }
 })
 
-// 更新资源内容
+// 更新资源内容 (MySQL版本)
 app.put('/api/admin/resource-contents/:id', async (c) => {
   try {
     const id = c.req.param('id')
     const data = await c.req.json()
+    const {
+      category_id, title, content, author,
+      cover_image, cover_image_size, cover_image_type,
+      video_file, video_size, video_type,
+      attachment_file, attachment_size, attachment_type, attachment_name,
+      reading_time, status, published_at, sort_order,
+      meta_title, meta_description, meta_keywords
+    } = data
     
-    await c.env.DB.prepare(
+    // 获取当前内容
+    const [currentContent] = await mysqlQuery<any[]>(
+      'SELECT * FROM resource_contents WHERE id = ?',
+      [id]
+    )
+    
+    if (!currentContent) {
+      return c.json({ 
+        success: false, 
+        error: '内容不存在' 
+      }, 404)
+    }
+    
+    // 更新内容
+    await mysqlQuery(
       `UPDATE resource_contents 
-       SET category_id = ?, title = ?, slug = ?, thumbnail = ?, author = ?, 
-           publish_date = ?, summary = ?, body = ?, tags = ?, status = ?, 
-           is_featured = ?, updated_at = CURRENT_TIMESTAMP
-       WHERE id = ?`
-    ).bind(
-      data.category_id,
-      data.title,
-      data.slug,
-      data.thumbnail,
-      data.author,
-      data.publish_date,
-      data.summary,
-      data.body,
-      data.tags,
-      data.status,
-      data.is_featured,
-      id
-    ).run()
+       SET category_id = ?, title = ?, content = ?, author = ?,
+           cover_image = ?, cover_image_size = ?, cover_image_type = ?,
+           video_file = ?, video_size = ?, video_type = ?,
+           attachment_file = ?, attachment_size = ?, attachment_type = ?, attachment_name = ?,
+           reading_time = ?, status = ?, published_at = ?, sort_order = ?,
+           meta_title = ?, meta_description = ?, meta_keywords = ?
+       WHERE id = ?`,
+      [
+        category_id, title, content || '', author || null,
+        cover_image || null, cover_image_size || null, cover_image_type || null,
+        video_file || null, video_size || null, video_type || null,
+        attachment_file || null, attachment_size || null, attachment_type || null, attachment_name || null,
+        reading_time || null, status || 'draft', published_at || currentContent.published_at, sort_order || 0,
+        meta_title || null, meta_description || null, meta_keywords || null,
+        id
+      ]
+    )
+    
+    // 如果更换了图片，删除旧图片
+    if (currentContent.cover_image && cover_image && currentContent.cover_image !== cover_image) {
+      await deleteUploadedImage(currentContent.cover_image)
+    }
+    
+    // 如果更换了视频，删除旧视频
+    if (currentContent.video_file && video_file && currentContent.video_file !== video_file) {
+      await deleteUploadedImage(currentContent.video_file)
+    }
+    
+    // 如果更换了附件，删除旧附件
+    if (currentContent.attachment_file && attachment_file && currentContent.attachment_file !== attachment_file) {
+      await deleteUploadedImage(currentContent.attachment_file)
+    }
     
     return c.json({ 
       success: true, 
       message: '内容更新成功' 
     })
   } catch (error: any) {
+    console.error('更新内容失败:', error)
     return c.json({ 
       success: false, 
       error: error.message 
@@ -2120,20 +2325,135 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
   }
 })
 
-// 删除资源内容
+// 删除资源内容 (MySQL版本)
 app.delete('/api/admin/resource-contents/:id', async (c) => {
   try {
     const id = c.req.param('id')
     
-    await c.env.DB.prepare(
-      `DELETE FROM resource_contents WHERE id = ?`
-    ).bind(id).run()
+    // 获取内容信息（用于删除文件）
+    const [content] = await mysqlQuery<any[]>(
+      'SELECT cover_image, video_file, attachment_file FROM resource_contents WHERE id = ?',
+      [id]
+    )
+    
+    if (!content) {
+      return c.json({ 
+        success: false, 
+        error: '内容不存在' 
+      }, 404)
+    }
+    
+    // 删除关联文件
+    if (content.cover_image) {
+      await deleteUploadedImage(content.cover_image)
+    }
+    if (content.video_file) {
+      await deleteUploadedImage(content.video_file)
+    }
+    if (content.attachment_file) {
+      await deleteUploadedImage(content.attachment_file)
+    }
+    
+    // 删除内容
+    await mysqlQuery(
+      'DELETE FROM resource_contents WHERE id = ?',
+      [id]
+    )
     
     return c.json({ 
       success: true, 
       message: '内容删除成功' 
     })
   } catch (error: any) {
+    console.error('删除内容失败:', error)
+    return c.json({ 
+      success: false, 
+      error: error.message 
+    }, 500)
+  }
+})
+
+// 批量删除资源内容
+app.post('/api/admin/resource-contents/batch-delete', async (c) => {
+  try {
+    const { ids } = await c.req.json()
+    
+    if (!ids || !Array.isArray(ids) || ids.length === 0) {
+      return c.json({ 
+        success: false, 
+        error: '请提供要删除的内容ID列表' 
+      }, 400)
+    }
+    
+    let deletedCount = 0
+    const errors: string[] = []
+    
+    // 逐个删除内容
+    for (const id of ids) {
+      try {
+        // 获取内容信息（用于删除文件）
+        const [content] = await mysqlQuery<any[]>(
+          'SELECT cover_image, video_file, attachment_file FROM resource_contents WHERE id = ?',
+          [id]
+        )
+        
+        if (content) {
+          // 删除关联文件
+          if (content.cover_image) {
+            await deleteUploadedImage(content.cover_image).catch(err => {
+              console.warn(`删除封面图片失败 (ID: ${id}):`, err)
+            })
+          }
+          if (content.video_file) {
+            await deleteUploadedImage(content.video_file).catch(err => {
+              console.warn(`删除视频文件失败 (ID: ${id}):`, err)
+            })
+          }
+          if (content.attachment_file) {
+            await deleteUploadedImage(content.attachment_file).catch(err => {
+              console.warn(`删除附件文件失败 (ID: ${id}):`, err)
+            })
+          }
+          
+          // 删除内容记录
+          await mysqlQuery(
+            'DELETE FROM resource_contents WHERE id = ?',
+            [id]
+          )
+          
+          deletedCount++
+        } else {
+          errors.push(`内容不存在 (ID: ${id})`)
+        }
+      } catch (error: any) {
+        console.error(`删除内容失败 (ID: ${id}):`, error)
+        errors.push(`删除失败 (ID: ${id}): ${error.message}`)
+      }
+    }
+    
+    // 返回结果
+    if (deletedCount === ids.length) {
+      return c.json({ 
+        success: true, 
+        message: `成功删除 ${deletedCount} 项内容`,
+        deleted: deletedCount
+      })
+    } else if (deletedCount > 0) {
+      return c.json({ 
+        success: true, 
+        message: `成功删除 ${deletedCount}/${ids.length} 项内容`,
+        deleted: deletedCount,
+        errors: errors
+      })
+    } else {
+      return c.json({ 
+        success: false, 
+        error: '批量删除失败',
+        errors: errors
+      }, 500)
+    }
+  } catch (error: any) {
+    console.error('批量删除失败:', error)
     return c.json({ 
       success: false, 
       error: error.message 
