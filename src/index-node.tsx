@@ -119,13 +119,16 @@ app.route('/api/navigation', navigation)
 // Serve static files
 // 使用绝对路径确保文件能正确访问
 app.use('/uploads/*', serveStatic({ 
-  root: join(process.cwd(), 'public')
+  root: join(process.cwd(), 'public'),
+  rewriteRequestPath: (path) => path.replace(/^\/uploads/, '/uploads')
 }))
 app.use('/static/*', serveStatic({ 
-  root: join(process.cwd(), 'public')
+  root: join(process.cwd(), 'public'),
+  rewriteRequestPath: (path) => path.replace(/^\/static/, '/static')
 }))
 app.use('/assets/*', serveStatic({ 
-  root: join(process.cwd(), 'dist')
+  root: join(process.cwd(), 'public'),
+  rewriteRequestPath: (path) => path.replace(/^\/assets/, '/assets')
 }))
 
 // 注意：这里需要复制 src/index.tsx 中的所有路由

@@ -27,7 +27,7 @@ import app from './src/index-node.tsx'
 
 // 启动服务器
 const port = process.env.PORT || 3000
-const host = process.env.HOST || '127.0.0.1'
+const host = process.env.HOST || '0.0.0.0'
 
 console.log(`🚀 Zenava Node.js server starting...`)
 console.log(`📦 Database: ${process.env.DB_PATH || join(dataDir, 'zenava.db')}`)
