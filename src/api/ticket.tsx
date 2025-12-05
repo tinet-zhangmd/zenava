@@ -249,9 +249,9 @@ ticketApi.post('/create', async (c) => {
             "name": "ZENAVA官网自动注册表单",
             "fields": [
               {
-                "id": 226845,
+                "id": 6976,
                 "type": 1,
-                "name": "姓名",
+                "name": "客户名称",
                 "required":1,
                 "value": customerName,
               },
