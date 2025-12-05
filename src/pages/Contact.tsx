@@ -178,13 +178,37 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
                 </p>
                 </form>
 
-                {/* Success Message */}
-                <div id="success-message" class="hidden mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <div class="flex items-center">
-                    <i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>
-                    <p class="text-green-800 font-medium">
-                      {t.successMessage || 'Thank you for your submission. Our advisor will contact you soon.'}
+                {/* Success Message - 全屏覆盖样式 */}
+                <div id="success-message" class="hidden fixed inset-0 bg-purple-600 z-50 flex items-center justify-center">
+                  <div class="text-center px-4">
+                    {/* 绿色对勾图标 */}
+                    <div class="mb-8">
+                      <div class="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full">
+                        <svg class="w-12 h-12 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                      </div>
+                    </div>
+                    
+                    {/* 个性化标题 - 谢谢,姓名XXX */}
+                    <h2 id="success-greeting" class="text-3xl md:text-4xl font-bold text-white mb-4">
+                      {language === 'zh' ? '谢谢,姓名XXX' : language === 'en' ? 'Thank you, XXX' : language === 'jp' ? 'ありがとうございます、XXX' : '謝謝,姓名XXX'}
+                    </h2>
+                    
+                    {/* 副标题 */}
+                    <p class="text-xl md:text-2xl text-white mb-3">
+                      {language === 'zh' ? '我们已收到您的请求' : language === 'en' ? 'We have received your request' : language === 'jp' ? 'お問い合わせを受け付けました' : '我們已收到您的請求'}
                     </p>
+                    
+                    {/* 说明文字 */}
+                    <p class="text-lg md:text-xl text-white mb-8">
+                      {language === 'zh' ? 'ZENAVA客户服务团队将会尽快联系您。' : language === 'en' ? 'The ZENAVA customer service team will contact you soon.' : language === 'jp' ? 'ZENAVAカスタマーサービスチームがまもなくご連絡いたします。' : 'ZENAVA客戶服務團隊將會盡快聯繫您。'}
+                    </p>
+                    
+                    {/* 返回首页按钮 */}
+                    <a href="/" class="inline-block px-8 py-3 bg-white text-purple-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors">
+                      {language === 'zh' ? '返回首页' : language === 'en' ? 'Back to Home' : language === 'jp' ? 'ホームに戻る' : '返回首頁'}
+                    </a>
                   </div>
                 </div>
 
@@ -514,6 +538,21 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
 
                 // 检查响应是否成功（以 ticket.tsx 接口返回的 success 字段为准）
                 if (result.success) {
+                  // 更新成功消息中的用户姓名
+                  const greetingEl = document.getElementById('success-greeting');
+                  if (greetingEl) {
+                    const userName = fullName || 'XXX';
+                    if (currentLang === 'zh') {
+                      greetingEl.textContent = '谢谢,' + userName;
+                    } else if (currentLang === 'en') {
+                      greetingEl.textContent = 'Thank you, ' + userName;
+                    } else if (currentLang === 'jp') {
+                      greetingEl.textContent = 'ありがとうございます、' + userName;
+                    } else {
+                      greetingEl.textContent = '謝謝,' + userName;
+                    }
+                  }
+                  
                   // 显示成功消息
                   successMessage.classList.remove('hidden');
                   
