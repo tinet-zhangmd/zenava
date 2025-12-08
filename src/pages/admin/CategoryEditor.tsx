@@ -9,6 +9,7 @@ interface Category {
   cover_image?: string
   cover_image_size?: number
   cover_image_type?: string
+  cover_image_link?: string
   list_template: string
   detail_template: string
   is_visible: boolean
@@ -105,8 +106,8 @@ export const CategoryEditor: FC<CategoryEditorProps> = ({ category, mode }) => {
                   <div class="flex items-center justify-center h-32">
                     <button
                       type="button"
-                      onclick="document.getElementById('category-cover-file').click()"
-                      class="text-gray-400 hover:text-gray-600 text-4xl">
+                      id="upload-cover-btn"
+                      class="text-gray-400 hover:text-gray-600 text-4xl cursor-pointer">
                       +
                     </button>
                   </div>
@@ -130,18 +131,23 @@ export const CategoryEditor: FC<CategoryEditorProps> = ({ category, mode }) => {
                     删除图片
                   </button>
                 </div>
+              </div>
+            </div>
 
-                {/* 或填写URL */}
-                <div class="mt-3">
-                  <p class="text-sm text-gray-600 mb-2">或填写图片链接</p>
-                  <input 
-                    type="url" 
-                    id="category-cover-url" 
-                    value={category?.cover_image || ''}
-                    class="w-full px-3 py-2 text-sm border border-gray-300 rounded"
-                    placeholder="请输入图片URL"
-                  />
-                </div>
+            {/* 栏目封面图跳转链接 */}
+            <div class="flex items-start">
+              <label class="w-32 pt-2 text-sm text-gray-600 text-right pr-4">
+                封面图跳转链接
+              </label>
+              <div class="flex-1">
+                <input 
+                  type="url" 
+                  id="category-cover-link" 
+                  value={category?.cover_image_link || ''}
+                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded"
+                  placeholder="请输入封面图跳转链接（可选）"
+                />
+                <p class="text-xs text-gray-500 mt-1">点击封面图时跳转的链接地址</p>
               </div>
             </div>
 
@@ -226,41 +232,123 @@ export const CategoryEditor: FC<CategoryEditorProps> = ({ category, mode }) => {
 
       {/* JavaScript */}
       <script dangerouslySetInnerHTML={{__html: `
-        const coverFileInput = document.getElementById('category-cover-file');
-        const coverPreview = document.getElementById('cover-preview');
-        const previewImage = document.getElementById('preview-image');
-        const removeCoverBtn = document.getElementById('remove-cover');
+        console.log('脚本开始执行');
+        
+        // 将变量定义在外部作用域，以便表单提交时也能访问
+        let coverFileInput = null;
+        let coverPreview = null;
+        let previewImage = null;
+        
+        function initCoverUpload() {
+          console.log('初始化封面图上传功能');
+          coverFileInput = document.getElementById('category-cover-file');
+          coverPreview = document.getElementById('cover-preview');
+          previewImage = document.getElementById('preview-image');
+          const removeCoverBtn = document.getElementById('remove-cover');
+          const uploadCoverBtn = document.getElementById('upload-cover-btn');
 
-        coverFileInput?.addEventListener('change', (e) => {
-          const file = e.target.files[0];
-          if (!file) return;
-          
-          const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
-          if (!validTypes.includes(file.type)) {
-            alert('请上传 PNG、JPG 或 WebP 格式图片');
-            coverFileInput.value = '';
+          console.log('查找元素:', {
+            coverFileInput: !!coverFileInput,
+            uploadCoverBtn: !!uploadCoverBtn,
+            coverPreview: !!coverPreview,
+            previewImage: !!previewImage
+          });
+
+          if (!coverFileInput || !uploadCoverBtn) {
+            console.error('找不到必要的元素');
             return;
           }
-          
-          if (file.size > 30 * 1024 * 1024) {
-            alert('文件不能超过 30MB');
-            coverFileInput.value = '';
-            return;
+
+          // 点击上传按钮触发文件选择
+          uploadCoverBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('点击上传按钮，触发文件选择');
+            coverFileInput.click();
+          });
+
+          // 文件选择事件
+          coverFileInput.addEventListener('change', function(e) {
+            console.log('文件选择事件触发');
+            const file = e.target.files[0];
+            if (!file) {
+              console.log('未选择文件');
+              return;
+            }
+            
+            console.log('选择的文件:', file.name, file.type, file.size);
+            
+            const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+              alert('请上传 PNG、JPG 或 WebP 格式图片');
+              if (coverFileInput) coverFileInput.value = '';
+              return;
+            }
+            
+            if (file.size > 30 * 1024 * 1024) {
+              alert('文件不能超过 30MB');
+              if (coverFileInput) coverFileInput.value = '';
+              return;
+            }
+            
+            console.log('开始读取文件');
+            const reader = new FileReader();
+            reader.onload = function(event) {
+              console.log('文件读取成功');
+              const result = event.target ? event.target.result : reader.result;
+              if (previewImage && result) {
+                previewImage.src = result;
+                console.log('预览图片已设置');
+              }
+              if (coverPreview) {
+                coverPreview.classList.remove('hidden');
+                console.log('预览容器已显示');
+              }
+            };
+            reader.onerror = function(error) {
+              console.error('文件读取失败:', error);
+              alert('图片读取失败，请重试');
+            };
+            reader.readAsDataURL(file);
+          }, { once: false });
+
+          // 删除图片按钮
+          if (removeCoverBtn) {
+            removeCoverBtn.addEventListener('click', function() {
+              coverFileInput.value = '';
+              coverPreview.classList.add('hidden');
+              previewImage.src = '';
+            });
           }
           
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            previewImage.src = e.target.result;
-            coverPreview.classList.remove('hidden');
-          };
-          reader.readAsDataURL(file);
-        });
+          console.log('事件监听器已绑定');
+        }
 
-        removeCoverBtn?.addEventListener('click', () => {
-          coverFileInput.value = '';
-          coverPreview.classList.add('hidden');
-          document.getElementById('category-cover-url').value = '';
-        });
+        // 初始化（只初始化一次）
+        let initialized = false;
+        function tryInit() {
+          if (initialized) return;
+          const btn = document.getElementById('upload-cover-btn');
+          const input = document.getElementById('category-cover-file');
+          if (btn && input) {
+            initCoverUpload();
+            initialized = true;
+            console.log('初始化完成');
+          }
+        }
+        
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', tryInit);
+        } else {
+          tryInit();
+        }
+        
+        // 备用方案：延迟初始化（如果第一次失败）
+        setTimeout(function() {
+          if (!initialized) {
+            tryInit();
+          }
+        }, 100);
 
         document.getElementById('category-form')?.addEventListener('submit', async (e) => {
           e.preventDefault();
@@ -270,12 +358,14 @@ export const CategoryEditor: FC<CategoryEditorProps> = ({ category, mode }) => {
           
           try {
             const categoryId = document.getElementById('category-id').value;
-            let coverImagePath = document.getElementById('category-cover-url').value || '';
+            let coverImagePath = '';
             let coverImageSize = 0;
             let coverImageType = '';
             
-            const coverFile = coverFileInput.files[0];
-            if (coverFile && !coverImagePath) {
+            // 重新获取 coverFileInput，确保能访问到
+            const coverFileInput = document.getElementById('category-cover-file');
+            const coverFile = coverFileInput ? coverFileInput.files[0] : null;
+            if (coverFile) {
               submitBtn.disabled = true;
               submitBtn.textContent = '上传中...';
               
@@ -297,6 +387,9 @@ export const CategoryEditor: FC<CategoryEditorProps> = ({ category, mode }) => {
               } else {
                 throw new Error(uploadResult.error || '上传失败');
               }
+            } else if (categoryId) {
+              // 编辑模式下，如果没有上传新图片，保留原有图片（不传 cover_image 字段）
+              coverImagePath = undefined;
             }
             
             submitBtn.textContent = '保存中...';
@@ -306,13 +399,18 @@ export const CategoryEditor: FC<CategoryEditorProps> = ({ category, mode }) => {
               name: document.getElementById('category-name').value,
               slug: document.getElementById('category-slug').value,
               description: document.getElementById('category-description').value || '',
-              cover_image: coverImagePath,
               cover_image_size: coverImageSize || null,
               cover_image_type: coverImageType || null,
+              cover_image_link: document.getElementById('category-cover-link').value || null,
               list_template: document.getElementById('category-list-template').value,
               detail_template: document.getElementById('category-list-template').value,
               is_visible: document.getElementById('category-is-visible').checked,
             };
+            
+            // 只有在有上传新图片或创建新栏目时才设置 cover_image
+            if (coverImagePath !== undefined) {
+              formData.cover_image = coverImagePath || null;
+            }
             
             const url = categoryId 
               ? '/api/admin/resource-categories/' + categoryId

@@ -40,7 +40,8 @@
     "db:seed": "wrangler d1 execute zenava-production --local --file=./seed.sql",
     "db:reset": "rm -rf .wrangler/state/v3/d1 && npm run db:migrate:local && npm run db:seed",
     "db:console:local": "wrangler d1 execute zenava-production --local",
-    "db:console:prod": "wrangler d1 execute zenava-production"
+    "db:console:prod": "wrangler d1 execute zenava-production",
+    "db:create-banners-table": "tsx scripts/create-resource-banners-table.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.12.0",

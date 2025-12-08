@@ -25,21 +25,138 @@ interface ResourceContent {
   downloads: number
 }
 
+interface Banner {
+  id: number
+  banner_type: 'text_image' | 'full_image'
+  title: string
+  sort_order: number
+  status: 'draft' | 'published'
+  text_title?: string
+  text_subtitle?: string
+  text_button?: string
+  button_link?: string
+  button_target?: string
+  text_position?: string
+  text_color?: string
+  subtitle_color?: string
+  background_type?: string
+  background_url?: string
+  full_image_url?: string
+  link_url?: string
+  link_target?: string
+}
+
 interface ResourcesPageProps {
   language?: Language
   categories?: Category[]
   currentCategory?: Category | null  // 当前选中的栏目
   categoryContents?: ResourceContent[]  // 当前栏目的内容列表
+  banners?: Banner[]  // Banner数据
+  featuredContents?: any[]  // 热门推荐内容
+  categoryContentsMap?: Record<number, any[]>  // 各个栏目的内容映射
 }
 
 export const ResourcesPage: FC<ResourcesPageProps> = ({ 
   language = 'zh', 
   categories = [], 
   currentCategory = null,
-  categoryContents = []
+  categoryContents = [],
+  banners = [],
+  featuredContents = [],
+  categoryContentsMap = {}
 }) => {
   const trans = getTranslations(language)
   const t = trans.resourcesCenter || {}
+
+  // 将数据库Banner数据转换为轮播格式
+  const convertBannersToSlides = (banners: Banner[]) => {
+    return banners.map(banner => {
+      if (banner.banner_type === 'full_image') {
+        // 整张大图模式
+        return {
+          id: `banner-${banner.id}`,
+          layout: 'full-image',
+          image: banner.full_image_url || '',
+          link: banner.link_url || '#',
+          target: banner.link_target || '_self'
+        }
+      } else {
+        // 文字+图片模式
+        const langPrefix = language === 'en' ? '' : `/${language}`
+        const buttonLink = banner.button_link || '#'
+        const fullLink = buttonLink.startsWith('/') 
+          ? (buttonLink.startsWith('/resources') 
+              ? `${langPrefix}${buttonLink}` 
+              : buttonLink)
+          : buttonLink
+        
+        // 判断背景是图片还是视频
+        const isVideo = banner.background_type === 'video' || 
+          (banner.background_url && /\.(mp4|webm|ogg|mov|avi|wmv)$/i.test(banner.background_url))
+        
+        // 处理文字颜色：如果数据库中是白色或未设置，使用深色默认值（因为右侧背景是白色）
+        let textColor = banner.text_color || 'rgba(31, 41, 55, 1)'
+        let subtitleColor = banner.subtitle_color || 'rgba(75, 85, 99, 1)'
+        
+        // 如果颜色是白色或接近白色，自动改为深色
+        if (textColor && (
+          textColor.includes('255,255,255') || 
+          textColor.toLowerCase() === '#ffffff' || 
+          textColor.toLowerCase() === '#fff' ||
+          textColor.toLowerCase() === 'white'
+        )) {
+          textColor = 'rgba(31, 41, 55, 1)' // 深灰色
+        }
+        
+        if (subtitleColor && (
+          subtitleColor.includes('255,255,255') || 
+          subtitleColor.toLowerCase() === '#ffffff' || 
+          subtitleColor.toLowerCase() === '#fff' ||
+          subtitleColor.toLowerCase() === 'white'
+        )) {
+          subtitleColor = 'rgba(75, 85, 99, 1)' // 中灰色
+        }
+        
+        return {
+          id: `banner-${banner.id}`,
+          layout: 'text-image',
+          title: banner.text_title || '',
+          description: banner.text_subtitle || '',
+          buttonText: banner.text_button || '',
+          image: banner.background_url || '',
+          isVideo: isVideo,
+          link: fullLink,
+          target: banner.button_target || '_self',
+          textPosition: banner.text_position || 'left',
+          // 右侧内容区域是白色背景，所以使用深色文字
+          textColor: textColor,
+          subtitleColor: subtitleColor
+        }
+      }
+    })
+  }
+
+  // 使用数据库banner数据，如果没有则使用翻译文件数据
+  const heroSlides = banners.length > 0 
+    ? convertBannersToSlides(banners) 
+    : (t.hero?.slides || [])
+  
+  // 调试信息（开发环境）
+  if (typeof window === 'undefined') {
+    console.log(`📊 Banner数据统计: 数据库=${banners.length}个, 最终使用=${heroSlides.length}个`)
+    if (banners.length > 0) {
+      console.log('数据库Banner:', banners.map(b => ({ id: b.id, title: b.title || b.text_title, type: b.banner_type, status: b.status })))
+    }
+    console.log(`📊 栏目数据统计: categories=${categories.length}个, categoryContentsMap keys=${Object.keys(categoryContentsMap).length}个`)
+    if (categories.length > 0) {
+      console.log('栏目列表:', categories.map(c => ({ id: c.id, name: c.name, slug: c.slug })))
+      categories.forEach(cat => {
+        const contents = categoryContentsMap[cat.id] || []
+        console.log(`  栏目 "${cat.name}" (ID: ${cat.id}): ${contents.length} 篇文章`)
+      })
+    }
+    console.log(`📊 当前栏目: ${currentCategory ? currentCategory.name : '无'}, 栏目内容: ${categoryContents.length} 篇`)
+  }
 
   // Helper function to get resource navigation items from database
   const getResourceNavItems = () => {
@@ -195,31 +312,27 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
           <div id="hero-slides" class="relative w-full" style="min-height: 500px;">
             {/* Slides will be rendered here by JavaScript */}
             {/* Fallback: Show first slide if JavaScript hasn't loaded */}
-            {t.hero?.slides?.[0] && (() => {
-              // 构建多语言链接
-              const langPrefix = language === 'en' ? '' : `/${language}`
-              const resourceLink = t.hero.slides[0].link || '#'
-              const fullLink = resourceLink.startsWith('/') 
-                ? (resourceLink.startsWith('/resources') 
-                    ? `${langPrefix}${resourceLink}` 
-                    : resourceLink)
-                : resourceLink
+            {heroSlides?.[0] && (() => {
+              const firstSlide = heroSlides[0]
+              if (!firstSlide) return null
               
-              return (
-              <div class="hero-slide opacity-100 z-10">
-                <div class="grid grid-cols-1 lg:grid-cols-2 min-h-[500px] md:min-h-[600px]">
-                  {/* Left: Image */}
-                  <div class="relative overflow-hidden bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
-                    <a href={fullLink} class="block h-full">
+              // 整张大图模式
+              if (firstSlide.layout === 'full-image') {
+                const fullLink = firstSlide.link || '#'
+                const target = firstSlide.target || '_self'
+                
+                return (
+                  <div class="hero-slide opacity-100 z-10">
+                    <a href={fullLink} target={target} class="block w-full h-full">
                       <img 
-                        src={t.hero.slides[0].image || '/assets/images/resources/hero-1.jpg'} 
-                        alt={t.hero.slides[0].imageAlt || ''}
-                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        src={firstSlide.image || '/assets/images/resources/hero-1.jpg'} 
+                        alt="Banner"
+                        class="w-full h-full object-cover"
+                        style="min-height: 500px;"
                         loading="eager"
                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                       />
-                      {/* Placeholder when image fails to load */}
-                      <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
+                      <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0" style="min-height: 500px;">
                         <div class="text-center">
                           <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
                           <p class="text-sm md:text-base text-gray-500">
@@ -229,40 +342,88 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                       </div>
                     </a>
                   </div>
-                  
-                  {/* Right: Content */}
-                  <div class="flex items-center bg-white p-8 md:p-12 lg:p-16">
-                    <div class="max-w-2xl">
-                      <p class="text-sm md:text-base text-gray-500 mb-4">
-                        {t.hero.slides[0].date || ''}
-                      </p>
-                      <a href={fullLink} class="block mb-4">
-                        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 hover:text-[#6438FF] transition-colors">
-                          {t.hero.slides[0].title || ''}
-                        </h2>
+                )
+              }
+              
+              // 文字+图片模式
+              const langPrefix = language === 'en' ? '' : `/${language}`
+              const resourceLink = firstSlide.link || '#'
+              const fullLink = resourceLink.startsWith('/') 
+                ? (resourceLink.startsWith('/resources') 
+                    ? `${langPrefix}${resourceLink}` 
+                    : resourceLink)
+                : resourceLink
+              
+              // 判断是视频还是图片
+              const isVideo = firstSlide.isVideo || false
+              
+              return (
+                <div class="hero-slide opacity-100 z-10">
+                  <div class="grid grid-cols-1 lg:grid-cols-2 min-h-[500px] md:min-h-[600px]">
+                    {/* Left: Image/Video */}
+                    <div class="relative overflow-hidden bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
+                      <a href={fullLink} class="block h-full">
+                        {isVideo ? (
+                          <video 
+                            src={firstSlide.image || ''} 
+                            class="w-full h-full object-cover"
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            style="pointer-events: none;"
+                          />
+                        ) : (
+                          <img 
+                            src={firstSlide.image || '/assets/images/resources/hero-1.jpg'} 
+                            alt={firstSlide.title || ''}
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                            loading="eager"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                          />
+                        )}
+                        {/* Placeholder when image fails to load */}
+                        <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
+                          <div class="text-center">
+                            <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                            <p class="text-sm md:text-base text-gray-500">
+                              {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
+                            </p>
+                          </div>
+                        </div>
                       </a>
-                      <p class="text-base md:text-lg text-gray-600 mb-6 leading-relaxed">
-                        {t.hero.slides[0].description || ''}
-                      </p>
-                      {t.hero.slides[0].buttonText && (
-                        <a 
-                          href={fullLink} 
-                          class="inline-flex items-center px-6 py-3 bg-[#6438FF] text-white rounded-lg font-semibold hover:bg-[#5a2ee6] transition-all transform hover:scale-105"
-                        >
-                          {t.hero.slides[0].buttonText}
-                          <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                    
+                    {/* Right: Content */}
+                    <div class="flex items-center bg-white p-8 md:p-12 lg:p-16">
+                      <div class="max-w-2xl">
+                        <a href={fullLink} class="block mb-4">
+                          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold hover:text-[#6438FF] transition-colors" style={`color: ${firstSlide.textColor || '#1f2937'} !important;`}>
+                            {firstSlide.title || ''}
+                          </h2>
                         </a>
-                      )}
+                        <p class="text-base md:text-lg mb-6 leading-relaxed" style={`color: ${firstSlide.subtitleColor || '#4b5563'} !important;`}>
+                          {firstSlide.description || ''}
+                        </p>
+                        {firstSlide.buttonText && (
+                          <a 
+                            href={fullLink} 
+                            class="inline-flex items-center px-6 py-3 bg-[#6438FF] text-white rounded-lg font-semibold hover:bg-[#5a2ee6] transition-all transform hover:scale-105"
+                          >
+                            {firstSlide.buttonText}
+                            <i class="fas fa-arrow-right ml-2"></i>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
               )
             })()}
           </div>
           
           {/* Carousel Controls - Only show if more than 1 slide */}
-          {t.hero?.slides && t.hero.slides.length > 1 && (
+          {heroSlides && heroSlides.length > 1 && (
             <>
               {/* Pagination Progress Bar */}
               <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
@@ -295,72 +456,163 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
       <section class="py-12 md:py-16 lg:py-20 bg-white">
         <div class="site-container px-4 sm:px-6 lg:px-8">
           <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-8 md:mb-12">
-            {t.featured?.title || (language === 'zh' ? '热门推荐' : language === 'en' ? 'Featured' : language === 'jp' ? 'おすすめ' : '熱門推薦')}
+            {language === 'zh' ? '热门推荐' : language === 'en' ? 'Featured' : language === 'jp' ? 'おすすめ' : '熱門推薦'}
           </h2>
           
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {/* Featured Cards */}
-            {(t.featured?.cards || []).slice(0, 3).map((card: any, index: number) => {
-              // 构建多语言链接
-              const langPrefix = language === 'en' ? '' : `/${language}`
-              const resourceLink = card.link || '#'
-              // 如果链接不是以 / 开头，直接使用；如果是相对路径，添加语言前缀
-              const fullLink = resourceLink.startsWith('/') 
-                ? (resourceLink.startsWith('/resources') 
-                    ? `${langPrefix}${resourceLink}` 
-                    : resourceLink)
-                : resourceLink
-              
-              return (
-              <a 
-                key={index}
-                href={fullLink}
-                class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block"
-              >
-                <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">
-                  <img 
-                    src={card.image || `/assets/images/resources/featured-${index + 1}.jpg`}
-                    alt={card.imageAlt || card.title || 'Featured resource'}
-                    class="w-full h-full object-cover"
-                    loading={index === 0 ? 'eager' : 'lazy'}
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                  />
-                  {/* Placeholder when image fails to load */}
-                  <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
-                    <div class="text-center">
-                      <i class="fas fa-image text-3xl md:text-4xl text-gray-400 mb-2"></i>
-                      <p class="text-xs md:text-sm text-gray-500">
-                        {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
+            {/* Featured Cards - 使用数据库数据 */}
+            {featuredContents.length > 0 ? (
+              featuredContents.slice(0, 3).map((content: any, index: number) => {
+                // 构建多语言链接
+                const langPrefix = language === 'en' ? '' : `/${language}`
+                const categorySlug = content.category_slug || ''
+                // 构建内容详情页链接：/语言/resources/栏目slug/内容id
+                let contentLink
+                if (categorySlug) {
+                  // 移除 category_slug 开头的 /resources（如果有）
+                  let slug = categorySlug.replace(/^\/resources\//, '').replace(/^\/resources$/, '')
+                  // 移除开头的斜杠（如果有）
+                  slug = slug.replace(/^\//, '')
+                  // 构建完整路径
+                  contentLink = `${langPrefix}/resources/${slug}/${content.id}`
+                } else {
+                  contentLink = `${langPrefix}/resources/${content.id}`
+                }
+                
+                // 格式化日期
+                const formatDate = (dateStr: string) => {
+                  if (!dateStr) return ''
+                  const date = new Date(dateStr)
+                  if (language === 'zh') {
+                    return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })
+                  } else if (language === 'en') {
+                    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                  } else if (language === 'jp') {
+                    return date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })
+                  } else {
+                    return date.toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })
+                  }
+                }
+                
+                // 提取纯文本描述（去除HTML标签）
+                const getDescription = (htmlContent: string) => {
+                  if (!htmlContent) return ''
+                  return htmlContent.replace(/<[^>]*>/g, '').substring(0, 150) + '...'
+                }
+                
+                return (
+                  <a 
+                    key={content.id}
+                    href={contentLink}
+                    class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block"
+                  >
+                    <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">
+                      {content.cover_image ? (
+                        <img 
+                          src={content.cover_image}
+                          alt={content.title || 'Featured resource'}
+                          class="w-full h-full object-cover"
+                          loading={index === 0 ? 'eager' : 'lazy'}
+                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        />
+                      ) : null}
+                      {/* Placeholder when image fails to load */}
+                      <div class={`${content.cover_image ? 'hidden' : 'flex'} w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0`}>
+                        <div class="text-center">
+                          <i class="fas fa-image text-3xl md:text-4xl text-gray-400 mb-2"></i>
+                          <p class="text-xs md:text-sm text-gray-500">
+                            {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
+                          </p>
+                        </div>
+                      </div>
+                      <div class="absolute top-4 left-4 z-10">
+                        <span class="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-gray-700">
+                          {content.category_name || 'Article'}
+                        </span>
+                      </div>
+                      {content.views > 100 && (
+                        <div class="absolute top-4 right-4 z-10">
+                          <span class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-medium">
+                            {language === 'zh' ? '热门' : language === 'en' ? 'Hot' : language === 'jp' ? '人気' : '熱門'}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div class="p-6">
+                      <p class="text-sm text-gray-500 mb-2">
+                        {formatDate(content.published_at)}
+                      </p>
+                      <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                        {content.title || 'Resource Title'}
+                      </h3>
+                      <p class="text-gray-600 text-sm md:text-base line-clamp-3">
+                        {getDescription(content.content)}
                       </p>
                     </div>
-                  </div>
-                  <div class="absolute top-4 left-4 z-10">
-                    <span class="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-gray-700">
-                      {card.category || 'Article'}
-                    </span>
-                  </div>
-                  {card.badge && (
-                    <div class="absolute top-4 right-4 z-10">
-                      <span class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-medium">
-                        {card.badge}
-                      </span>
+                  </a>
+                )
+              })
+            ) : (
+              // 如果没有数据库数据，回退到翻译文件数据
+              (t.featured?.cards || []).slice(0, 3).map((card: any, index: number) => {
+                const langPrefix = language === 'en' ? '' : `/${language}`
+                const resourceLink = card.link || '#'
+                const fullLink = resourceLink.startsWith('/') 
+                  ? (resourceLink.startsWith('/resources') 
+                      ? `${langPrefix}${resourceLink}` 
+                      : resourceLink)
+                  : resourceLink
+                
+                return (
+                  <a 
+                    key={index}
+                    href={fullLink}
+                    class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block"
+                  >
+                    <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">
+                      <img 
+                        src={card.image || `/assets/images/resources/featured-${index + 1}.jpg`}
+                        alt={card.imageAlt || card.title || 'Featured resource'}
+                        class="w-full h-full object-cover"
+                        loading={index === 0 ? 'eager' : 'lazy'}
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                      />
+                      <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                        <div class="text-center">
+                          <i class="fas fa-image text-3xl md:text-4xl text-gray-400 mb-2"></i>
+                          <p class="text-xs md:text-sm text-gray-500">
+                            {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
+                          </p>
+                        </div>
+                      </div>
+                      <div class="absolute top-4 left-4 z-10">
+                        <span class="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-gray-700">
+                          {card.category || 'Article'}
+                        </span>
+                      </div>
+                      {card.badge && (
+                        <div class="absolute top-4 right-4 z-10">
+                          <span class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-medium">
+                            {card.badge}
+                          </span>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-                <div class="p-6">
-                  <p class="text-sm text-gray-500 mb-2">
-                    {card.date || 'September 6, 2023'}
-                  </p>
-                  <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                    {card.title || 'Resource Title'}
-                  </h3>
-                  <p class="text-gray-600 text-sm md:text-base line-clamp-3">
-                    {card.description || 'Resource description text here...'}
-                  </p>
-                </div>
-              </a>
-              )
-            })}
+                    <div class="p-6">
+                      <p class="text-sm text-gray-500 mb-2">
+                        {card.date || 'September 6, 2023'}
+                      </p>
+                      <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                        {card.title || 'Resource Title'}
+                      </h3>
+                      <p class="text-gray-600 text-sm md:text-base line-clamp-3">
+                        {card.description || 'Resource description text here...'}
+                      </p>
+                    </div>
+                  </a>
+                )
+              })
+            )}
           </div>
         </div>
       </section>
@@ -368,10 +620,110 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
       {/* Resource Categories Sections */}
       <section class="py-12 md:py-16 lg:py-20 bg-gray-50">
         <div class="site-container px-4 sm:px-6 lg:px-8">
-          {/* Resource categories will be dynamically rendered here */}
-          <div id="resource-categories">
-            {/* Categories will be rendered by JavaScript based on CMS data */}
-          </div>
+          {/* 使用数据库数据渲染栏目分类 */}
+          {categories.length > 0 ? (
+            categories.map((category) => {
+              const categoryContents = categoryContentsMap[category.id] || []
+              // 如果栏目下没有文章，则不显示该栏目
+              if (categoryContents.length === 0) return null
+              
+              const langPrefix = language === 'en' ? '' : `/${language}`
+              const categoryLink = category.slug?.startsWith('/') 
+                ? (category.slug.startsWith('/resources') 
+                    ? `${langPrefix}${category.slug}` 
+                    : category.slug)
+                : `${langPrefix}/resources/${category.slug}`
+              
+              return (
+                <div key={category.id} class="mb-16 md:mb-20">
+                  <div class="flex items-center justify-between mb-6 md:mb-8">
+                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900">
+                      {category.name}
+                    </h3>
+                    <a 
+                      href={categoryLink}
+                      class="text-[#6438FF] hover:text-[#5a2ee6] font-medium flex items-center"
+                    >
+                      {language === 'zh' ? '查看更多' : language === 'en' ? 'View More' : language === 'jp' ? 'もっと見る' : '查看更多'}
+                      <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                    {categoryContents.slice(0, 3).map((content: any) => {
+                      const contentLink = categoryLink 
+                        ? `${categoryLink}/${content.id}`
+                        : `${langPrefix}/resources/${content.id}`
+                      
+                      // 格式化日期
+                      const formatDate = (dateStr: string) => {
+                        if (!dateStr) return ''
+                        const date = new Date(dateStr)
+                        if (language === 'zh') {
+                          return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })
+                        } else if (language === 'en') {
+                          return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                        } else if (language === 'jp') {
+                          return date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })
+                        } else {
+                          return date.toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })
+                        }
+                      }
+                      
+                      // 提取纯文本描述
+                      const getDescription = (htmlContent: string) => {
+                        if (!htmlContent) return ''
+                        return htmlContent.replace(/<[^>]*>/g, '').substring(0, 150) + '...'
+                      }
+                      
+                      return (
+                        <a 
+                          key={content.id}
+                          href={contentLink}
+                          class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block"
+                        >
+                          <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">
+                            {content.cover_image ? (
+                              <img 
+                                src={content.cover_image}
+                                alt={content.title || ''}
+                                class="w-full h-full object-cover"
+                                loading="lazy"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                              />
+                            ) : null}
+                            <div class={`${content.cover_image ? 'hidden' : 'flex'} w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0`}>
+                              <div class="text-center">
+                                <i class="fas fa-image text-2xl md:text-3xl text-gray-400 mb-2"></i>
+                                <p class="text-xs md:text-sm text-gray-500">
+                                  {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="p-6">
+                            <p class="text-sm text-gray-500 mb-2">
+                              {formatDate(content.published_at)}
+                            </p>
+                            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                              {content.title || 'Resource Title'}
+                            </h4>
+                            <p class="text-gray-600 text-sm md:text-base line-clamp-3">
+                              {getDescription(content.content)}
+                            </p>
+                          </div>
+                        </a>
+                      )
+                    })}
+                  </div>
+                </div>
+              )
+            })
+          ) : (
+            // 如果没有数据库数据，使用JavaScript渲染翻译文件数据
+            <div id="resource-categories">
+              {/* Categories will be rendered by JavaScript based on CMS data */}
+            </div>
+          )}
         </div>
       </section>
         </>
@@ -382,7 +734,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
       <script dangerouslySetInnerHTML={{
         __html: `
           (function() {
-            const heroSlides = ${JSON.stringify(t.hero?.slides || [])};
+            const heroSlides = ${JSON.stringify(heroSlides)};
             const currentLanguage = ${JSON.stringify(language)};
             const slidesContainer = document.getElementById('hero-slides');
             const paginationContainer = document.getElementById('hero-pagination');
@@ -417,21 +769,55 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                     : resourceLink)
                 : resourceLink;
               
+              // 整张大图模式
+              if (slide.layout === 'full-image') {
+                const target = slide.target || '_self';
+                return '<div class="hero-slide absolute inset-0 transition-opacity duration-700 ' + 
+                  (index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0') + '">' +
+                  '<a href="' + fullLink + '" target="' + target + '" class="block w-full h-full">' +
+                    '<img src="' + slide.image + '" alt="Banner" ' +
+                    'class="w-full h-full object-cover" ' +
+                    'style="min-height: 500px;" ' +
+                    'loading="' + (index === 0 ? 'eager' : 'lazy') + '" ' +
+                    'onerror="this.style.display=\\'none\\'; this.nextElementSibling.style.display=\\'flex\\';" />' +
+                    '<div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0" style="min-height: 500px;">' +
+                      '<div class="text-center">' +
+                        '<i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>' +
+                        '<p class="text-sm md:text-base text-gray-500">' + placeholderText + '</p>' +
+                      '</div>' +
+                    '</div>' +
+                  '</a>' +
+                '</div>';
+              }
+              
+              // 文字+图片模式
               const buttonHtml = slide.buttonText ? 
                 '<a href="' + fullLink + '" class="inline-flex items-center px-6 py-3 bg-[#6438FF] text-white rounded-lg font-semibold hover:bg-[#5a2ee6] transition-all transform hover:scale-105">' +
                   slide.buttonText + 
                   '<i class="fas fa-arrow-right ml-2"></i>' +
                 '</a>' : '';
               
+              const textColor = slide.textColor || 'rgba(31, 41, 55, 1)';
+              const subtitleColor = slide.subtitleColor || 'rgba(75, 85, 99, 1)';
+              
+              // 判断是视频还是图片
+              const isVideo = slide.isVideo || false;
+              const mediaHtml = isVideo ? 
+                '<video src="' + slide.image + '" ' +
+                'class="w-full h-full object-cover" ' +
+                'autoplay muted loop playsinline ' +
+                'style="pointer-events: none;"></video>' :
+                '<img src="' + slide.image + '" alt="' + (slide.title || '') + '" ' +
+                'class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" ' +
+                'loading="' + (index === 0 ? 'eager' : 'lazy') + '" ' +
+                'onerror="this.style.display=\\'none\\'; this.nextElementSibling.style.display=\\'flex\\';" />';
+              
               return '<div class="hero-slide absolute inset-0 transition-opacity duration-700 ' + 
                 (index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0') + '">' +
                 '<div class="grid grid-cols-1 lg:grid-cols-2 min-h-[500px] md:min-h-[600px]">' +
                   '<div class="relative overflow-hidden bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">' +
                     '<a href="' + fullLink + '" class="block h-full">' +
-                      '<img src="' + slide.image + '" alt="' + (slide.imageAlt || '') + '" ' +
-                      'class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" ' +
-                      'loading="' + (index === 0 ? 'eager' : 'lazy') + '" ' +
-                      'onerror="this.style.display=\\'none\\'; this.nextElementSibling.style.display=\\'flex\\';" />' +
+                      mediaHtml +
                       '<div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">' +
                         '<div class="text-center">' +
                           '<i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>' +
@@ -442,13 +828,12 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                   '</div>' +
                   '<div class="flex items-center bg-white p-8 md:p-12 lg:p-16">' +
                     '<div class="max-w-2xl">' +
-                      '<p class="text-sm md:text-base text-gray-500 mb-4">' + (slide.date || '') + '</p>' +
                       '<a href="' + fullLink + '" class="block mb-4">' +
-                        '<h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 hover:text-[#6438FF] transition-colors">' +
+                        '<h2 class="text-2xl md:text-3xl lg:text-4xl font-bold hover:text-[#6438FF] transition-colors" style="color: ' + textColor + ' !important;">' +
                           (slide.title || '') +
                         '</h2>' +
                       '</a>' +
-                      '<p class="text-base md:text-lg text-gray-600 mb-6 leading-relaxed">' +
+                      '<p class="text-base md:text-lg mb-6 leading-relaxed" style="color: ' + subtitleColor + ' !important;">' +
                         (slide.description || '') +
                       '</p>' +
                       buttonHtml +
@@ -530,8 +915,8 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
       }} />
       )}
 
-      {/* Resource Categories Script - 只在首页加载 */}
-      {!currentCategory && (
+      {/* Resource Categories Script - 只在首页加载且没有数据库数据时使用 */}
+      {!currentCategory && categories.length === 0 && (
       <script dangerouslySetInnerHTML={{
         __html: `
           (function() {

@@ -61,24 +61,24 @@ export function AboutUs({ language }: AboutUsProps) {
             
             <div class="prose prose-lg max-w-none text-gray-700" data-animate="slide-up">
               <p class="mb-6 leading-relaxed">
-                {language === 'zh' && 'ZENAVA 是领先的智能联络中心平台供应商 TI Cloud 旗下的核心产品。它将 AI Agent 技术、AI 运营能力、云原生联络中心能力深度融合，帮助企业完成从「人力驱动」向「AI驱动」的生产力与组织形态跨越。'}
-                {language === 'en' && 'ZENAVA is the flagship product of TI Cloud, a leading intelligent contact center platform provider. It deeply integrates AI Agent technology, AI operational capabilities, and cloud-native contact center capabilities, helping enterprises achieve the leap from "Human-Driven" to "AI-Driven" in productivity and organizational transformation.'}
-                {language === 'jp' && 'ZENAVAは、インテリジェントコンタクトセンタープラットフォームの大手プロバイダーであるTI Cloudの主力製品です。AIエージェント技術、AI運用能力、クラウドネイティブコンタクトセンター機能を深く統合し、企業が「人力駆動」から「AI駆動」への生産性と組織形態の飛躍を実現することを支援します。'}
-                {language === 'hk' && 'ZENAVA 是領先的智能聯絡中心平台供應商 TI Cloud 旗下的核心產品。它將 AI Agent 技術、AI 運營能力、雲原生聯絡中心能力深度融合，幫助企業完成從「人力驅動」向「AI驅動」的生產力與組織形態跨越。'}
+                {language === 'zh' && 'ZENAVA是面向客服和营销场景的AI生产力平台，旨在帮助企业消除"高投入、低产出"的AI焦虑，通过AI自动化完成度、服务人力节省率等清晰可量化的指标，确保企业在极短周期内看到清晰的业务成效，破解AI焦虑。'}
+                {language === 'en' && 'ZENAVA is an AI productivity platform for customer service and marketing scenarios, designed to help enterprises eliminate the "high investment, low output" AI anxiety. Through clear and quantifiable metrics such as AI automation completion rate and service manpower savings rate, it ensures enterprises see clear business results in a very short cycle, solving AI anxiety.'}
+                {language === 'jp' && 'ZENAVAは、カスタマーサービスとマーケティングシーン向けのAI生産性プラットフォームで、「高投資、低出力」のAI不安を企業が解消できるよう設計されています。AI自動化完了率、サービス人件費削減率などの明確で定量化可能な指標を通じて、企業が極めて短いサイクルで明確なビジネス成果を見られるようにし、AI不安を解決します。'}
+                {language === 'hk' && 'ZENAVA是面向客服和營銷場景的AI生產力平台，旨在幫助企業消除"高投入、低產出"的AI焦慮，通過AI自動化完成度、服務人力節省率等清晰可量化的指標，確保企業在極短週期內看到清晰的業務成效，破解AI焦慮。'}
               </p>
               
               <p class="mb-6 leading-relaxed">
-                {language === 'zh' && '不同于传统仅「辅助人」的 AI 工具，ZENAVA 能够独立承担端到端的业务任务，并与人类专家形成持续优化的高效协同。'}
-                {language === 'en' && 'Unlike traditional AI tools that merely "assist humans," ZENAVA can independently handle end-to-end business tasks while forming a continuously optimized and efficient collaboration with human experts.'}
-                {language === 'jp' && '従来の「人を補助する」だけのAIツールとは異なり、ZENAVAはエンドツーエンドのビジネスタスクを独立して処理でき、人間の専門家と継続的に最適化される効率的な協働を形成します。'}
-                {language === 'hk' && '不同於傳統僅「輔助人」的 AI 工具，ZENAVA 能夠獨立承擔端到端的業務任務，並與人類專家形成持續優化的高效協同。'}
+                {language === 'zh' && 'ZENAVA致力于成为全球领先的客服与营销生产力平台。与传统AI只能按固定规则被动执行不同，ZENAVA是真正的AI员工，能沟通、能执行，更能主动学习和自我优化。无论客服场景还是营销场景，ZENAVA都能独立完成任务，让企业从依赖人力的模式中脱身，实现业务快速复制、持续落地和高效增长。'}
+                {language === 'en' && 'ZENAVA is committed to becoming the world\'s leading customer service and marketing productivity platform. Unlike traditional AI that can only passively execute according to fixed rules, ZENAVA is a true AI employee that can communicate, execute, and more importantly, actively learn and self-optimize. Whether in customer service or marketing scenarios, ZENAVA can independently complete tasks, enabling enterprises to break free from human-dependent models and achieve rapid business replication, continuous implementation, and efficient growth.'}
+                {language === 'jp' && 'ZENAVAは、世界をリードするカスタマーサービスとマーケティング生産性プラットフォームになることを目指しています。固定されたルールに従って受動的に実行するだけの従来のAIとは異なり、ZENAVAは真のAI従業員であり、コミュニケーション、実行ができ、さらに積極的に学習し自己最適化することができます。カスタマーサービスのシーンでもマーケティングのシーンでも、ZENAVAは独立してタスクを完了でき、企業が人的依存モデルから脱却し、ビジネスの迅速な複製、継続的な実装、効率的な成長を実現できるようにします。'}
+                {language === 'hk' && 'ZENAVA致力於成為全球領先的客服與營銷生產力平台。與傳統AI只能按固定規則被動執行不同，ZENAVA是真正的AI員工，能溝通、能執行，更能主動學習和自我優化。無論客服場景還是營銷場景，ZENAVA都能獨立完成任務，讓企業從依賴人力的模式中脫身，實現業務快速複製、持續落地和高效增長。'}
               </p>
               
               <p class="mb-8 leading-relaxed">
-                {language === 'zh' && '目前，ZENAVA 已在零售、连锁、制造、汽车、金融等多个行业落地应用，持续创造可衡量的业务价值，在组织效能升级与客户体验提升两个维度推动企业全面变革。'}
-                {language === 'en' && 'Currently, ZENAVA has been successfully deployed across multiple industries including retail, chain stores, manufacturing, automotive, and finance, continuously creating measurable business value and driving comprehensive enterprise transformation in both organizational efficiency upgrades and customer experience enhancement.'}
-                {language === 'jp' && '現在、ZENAVAは小売、チェーン店、製造業、自動車、金融など複数の業界で導入され、測定可能なビジネス価値を継続的に創出し、組織効率の向上と顧客体験の向上の両面で企業の包括的な変革を推進しています。'}
-                {language === 'hk' && '目前，ZENAVA 已在零售、連鎖、製造、汽車、金融等多個行業落地應用，持續創造可衡量的業務價值，在組織效能升級與客戶體驗提升兩個維度推動企業全面變革。'}
+                {language === 'zh' && '目前，ZENAVA已经在消费品零售、汽车、软件信息服务、酒店&旅游等多个行业落地应用，成为企业可触碰、可衡量的新型生产力，助力企业实现增量营收、成本结构重构与服务体验提升，在未来竞争中取得先发优势。'}
+                {language === 'en' && 'Currently, ZENAVA has been successfully deployed across multiple industries including consumer retail, automotive, software information services, hotels & tourism, becoming a tangible and measurable new productivity for enterprises, helping them achieve incremental revenue, cost structure restructuring, and service experience improvement, gaining first-mover advantages in future competition.'}
+                {language === 'jp' && '現在、ZENAVAは消費財小売、自動車、ソフトウェア情報サービス、ホテル・観光など複数の業界で導入され、企業にとって触れることができ、測定可能な新しい生産性となり、企業が増収、コスト構造の再構築、サービス体験の向上を実現し、将来の競争で先発優位性を獲得することを支援しています。'}
+                {language === 'hk' && '目前，ZENAVA已經在消費品零售、汽車、軟件信息服務、酒店&旅遊等多個行業落地應用，成為企業可觸碰、可衡量的新型生產力，助力企業實現增量營收、成本結構重構與服務體驗提升，在未來競爭中取得先發優勢。'}
               </p>
             </div>
             

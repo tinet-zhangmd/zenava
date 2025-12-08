@@ -220,7 +220,28 @@ export const ContentEditor: FC<ContentEditorProps> = ({
             </div>
           </div>
 
-          {/* 8. 内容 - 富文本编辑器 */}
+          {/* 8. 推荐开关 */}
+          <div class="flex items-center">
+            <label for="content-featured" class="w-32 text-sm text-gray-600 text-right mr-4">
+              推荐
+            </label>
+            <div class="flex-1 flex items-center">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input 
+                  type="checkbox" 
+                  id="content-featured" 
+                  class="sr-only peer"
+                  {...(content?.is_featured ? { checked: true } : {})}
+                />
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                <span id="featured-label" class="ml-3 text-sm text-gray-700">
+                  {content?.is_featured ? '是' : '否'}
+                </span>
+              </label>
+            </div>
+          </div>
+
+          {/* 9. 内容 - 富文本编辑器 */}
           <div class="flex items-start">
             <label for="content-body" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
               <span class="text-red-500">*</span> 内容
@@ -871,6 +892,18 @@ export const ContentEditor: FC<ContentEditorProps> = ({
             }
           });
           
+          // 推荐开关文本更新
+          const featuredCheckbox = document.getElementById('content-featured');
+          const featuredLabel = document.getElementById('featured-label');
+          if (featuredCheckbox && featuredLabel) {
+            // 初始化显示
+            featuredLabel.textContent = featuredCheckbox.checked ? '是' : '否';
+            // 监听变化
+            featuredCheckbox.addEventListener('change', function() {
+              featuredLabel.textContent = this.checked ? '是' : '否';
+            });
+          }
+
           // SEO 折叠
           document.getElementById('toggle-seo-btn')?.addEventListener('click', function() {
             const fields = document.getElementById('seo-fields');
@@ -903,6 +936,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
               content: contentBody,
               status: document.getElementById('content-status').value,
               sort_order: parseInt(document.getElementById('content-sort').value) || 0,
+              is_featured: document.getElementById('content-featured').checked,
               meta_title: document.getElementById('content-meta-title').value,
               meta_description: document.getElementById('content-meta-description').value,
               meta_keywords: document.getElementById('content-meta-keywords').value

@@ -20,6 +20,8 @@ interface LayoutProps {
   seoTitle?: string
   seoDescription?: string
   seoKeywords?: string
+  ogImage?: string
+  ogUrl?: string
   navigationConfig: NavigationConfig
   menuItems: NavMenuItem[]
   footerConfig: FooterConfig
@@ -36,6 +38,8 @@ export function LayoutWithUnifiedNav({
   seoTitle, 
   seoDescription, 
   seoKeywords,
+  ogImage,
+  ogUrl,
   navigationConfig,
   menuItems,
   footerConfig,
@@ -63,7 +67,15 @@ export function LayoutWithUnifiedNav({
         {/* Open Graph Tags */}
         <meta property="og:title" content={siteTitle} />
         <meta property="og:description" content={siteDescription} />
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
+        {ogUrl && <meta property="og:url" content={ogUrl} />}
+        {ogImage && <meta property="og:image" content={ogImage} />}
+        
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={siteTitle} />
+        <meta name="twitter:description" content={siteDescription} />
+        {ogImage && <meta name="twitter:image" content={ogImage} />}
         
         {/* Tailwind CSS */}
         <script src="https://cdn.tailwindcss.com"></script>
