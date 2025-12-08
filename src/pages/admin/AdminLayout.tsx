@@ -117,6 +117,11 @@ var _hmt = _hmt || [];
                     <i class="fas fa-file-alt mr-3"></i>
                     内容列表
                   </a>
+                  <a href="/ticloudadmin/resource-banners"
+                     class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/resource-banners') ? 'active' : ''}`}>
+                    <i class="fas fa-image mr-3"></i>
+                    Banner管理
+                  </a>
                 </div>
                 
                 <a href="/ticloudadmin/publish"

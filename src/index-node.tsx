@@ -50,6 +50,8 @@ import { CommonContentManagementV2 } from './pages/admin/CommonContentManagement
 import { ResourceCategoryManagement } from './pages/admin/ResourceCategoryManagement.js'
 import { ResourceContentManagement } from './pages/admin/ResourceContentManagement.js'
 import { CategoryEditor } from './pages/admin/CategoryEditor.js'
+import { ResourceBannerManagement } from './pages/admin/ResourceBannerManagement.js'
+import { BannerEditor } from './pages/admin/BannerEditor.js'
 
 // 导入 CMS API
 import cmsApi from './api/cms.js'
@@ -59,6 +61,7 @@ import uploadApi from './api/upload.js'
 import ticketApi from './api/ticket.js'
 import { navigation } from './api/navigation.js'
 import resourceCenterApi from './api/resource-center.js'
+import resourceBannerApi from './api/resource-banners.js'
 
 // 导入其他页面
 import { MarketingScenario } from './pages/MarketingScenario.js'
@@ -110,6 +113,7 @@ app.route('/api/common-content', commonContentApi)
 app.route('/api/upload', uploadApi)
 app.route('/api/ticket', ticketApi)
 app.route('/api/navigation', navigation)
+app.route('/api/resource-center/banners', resourceBannerApi)
 
 // Resource Center API - 映射到正确的路径
 // 注意：API 文件中的路由是 /categories 和 /contents
@@ -533,8 +537,102 @@ app.get('/resources', async (c) => {
        WHERE is_displayed = 1 
        ORDER BY sort_order ASC, id ASC`
     )
+    console.log(`✅ 获取到 ${categories.length} 个栏目`)
+    if (categories.length > 0) {
+      console.log('栏目列表:', categories.map(c => ({ id: c.id, name: c.name, slug: c.slug })))
+    } else {
+      console.log('⚠️  没有找到任何栏目，检查 is_displayed = 1 条件')
+      // 检查是否有未显示的栏目
+      const allCategories = await mysqlQuery<any[]>(
+        `SELECT COUNT(*) as count, GROUP_CONCAT(DISTINCT is_displayed) as display_statuses
+         FROM resource_categories`
+      )
+      if (allCategories.length > 0 && allCategories[0].count > 0) {
+        console.log(`   数据库中共有 ${allCategories[0].count} 个栏目，is_displayed 状态: ${allCategories[0].display_statuses}`)
+      }
+    }
   } catch (error) {
     console.error('获取栏目分类失败:', error)
+  }
+  
+  // 从数据库获取已发布的Banner（最多8个）
+  let banners = []
+  try {
+    banners = await mysqlQuery<any[]>(
+      `SELECT * FROM resource_banners 
+       WHERE status = 'published' 
+       ORDER BY sort_order ASC, id DESC 
+       LIMIT 8`
+    )
+    console.log(`✅ 获取到 ${banners.length} 个已发布的Banner`)
+    if (banners.length > 0) {
+      console.log('Banner数据:', banners.map(b => ({ id: b.id, title: b.title, type: b.banner_type })))
+    }
+  } catch (error) {
+    console.error('❌ 获取Banner失败:', error)
+  }
+  
+  // 获取热门推荐内容（已发布且推荐的内容，按浏览次数和发布时间排序，取前3条）
+  let featuredContents = []
+  try {
+    featuredContents = await mysqlQuery<any[]>(
+      `SELECT rc.id, rc.category_id, rc.title, rc.content, rc.author, 
+              rc.cover_image, rc.published_at, rc.views, rc.downloads,
+              rcat.name as category_name, rcat.link as category_slug
+       FROM resource_contents rc
+       LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+       WHERE rc.status = 'published' AND rc.is_featured = 1
+       ORDER BY rc.views DESC, rc.published_at DESC
+       LIMIT 3`
+    )
+    console.log(`✅ 获取到 ${featuredContents.length} 条热门推荐内容（is_featured=1）`)
+  } catch (error) {
+    console.error('❌ 获取热门推荐失败:', error)
+  }
+  
+  // 获取各个栏目的内容（每个栏目取前3条已发布的内容）
+  let categoryContentsMap: Record<number, any[]> = {}
+  try {
+    console.log(`📋 开始获取栏目内容，共有 ${categories.length} 个栏目`)
+    for (const category of categories) {
+      // 先查询所有状态的内容用于调试
+      const allContentsCheck = await mysqlQuery<any[]>(
+        `SELECT COUNT(*) as count, GROUP_CONCAT(DISTINCT status) as statuses, GROUP_CONCAT(id) as ids
+         FROM resource_contents 
+         WHERE category_id = ?`,
+        [category.id]
+      )
+      if (allContentsCheck.length > 0 && allContentsCheck[0].count > 0) {
+        console.log(`  栏目 "${category.name}" (ID: ${category.id}): 共有 ${allContentsCheck[0].count} 条内容，状态: ${allContentsCheck[0].statuses}, IDs: ${allContentsCheck[0].ids}`)
+      }
+      
+      const contents = await mysqlQuery<any[]>(
+        `SELECT rc.id, rc.category_id, rc.title, rc.content, rc.author,
+                rc.cover_image, rc.published_at, rc.views, rc.downloads,
+                rcat.name as category_name, rcat.link as category_slug, rc.status
+         FROM resource_contents rc
+         LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+         WHERE rc.category_id = ? AND rc.status = 'published'
+         ORDER BY rc.sort_order ASC, rc.published_at DESC
+         LIMIT 3`,
+        [category.id]
+      )
+      console.log(`  栏目 "${category.name}" (ID: ${category.id}): 查询到 ${contents.length} 条已发布内容`)
+      if (contents.length > 0) {
+        categoryContentsMap[category.id] = contents
+        console.log(`    ✅ 已添加到 categoryContentsMap`)
+      } else {
+        console.log(`    ⚠️  该栏目没有已发布的内容，无法显示`)
+      }
+    }
+    console.log(`✅ 获取到 ${Object.keys(categoryContentsMap).length} 个栏目的内容数据`)
+    console.log(`📊 categoryContentsMap 详情:`, Object.keys(categoryContentsMap).map(id => ({
+      categoryId: id,
+      categoryName: categories.find(c => c.id === parseInt(id))?.name,
+      contentCount: categoryContentsMap[parseInt(id)].length
+    })))
+  } catch (error) {
+    console.error('❌ 获取栏目内容失败:', error)
   }
   
   return c.html(
@@ -547,7 +645,13 @@ app.get('/resources', async (c) => {
       footerSections={footerSections}
       privacyLinks={privacyLinks}
     >
-      <ResourcesPage language={language} categories={categories} />
+      <ResourcesPage 
+        language={language} 
+        categories={categories} 
+        banners={banners}
+        featuredContents={featuredContents}
+        categoryContentsMap={categoryContentsMap}
+      />
     </LayoutWithUnifiedNav>
   )
 })
@@ -648,8 +752,102 @@ app.get('/:lang/resources', async (c) => {
        WHERE is_displayed = 1 
        ORDER BY sort_order ASC, id ASC`
     )
+    console.log(`✅ 获取到 ${categories.length} 个栏目 (${language})`)
+    if (categories.length > 0) {
+      console.log('栏目列表:', categories.map(c => ({ id: c.id, name: c.name, slug: c.slug })))
+    } else {
+      console.log('⚠️  没有找到任何栏目，检查 is_displayed = 1 条件')
+      // 检查是否有未显示的栏目
+      const allCategories = await mysqlQuery<any[]>(
+        `SELECT COUNT(*) as count, GROUP_CONCAT(DISTINCT is_displayed) as display_statuses
+         FROM resource_categories`
+      )
+      if (allCategories.length > 0 && allCategories[0].count > 0) {
+        console.log(`   数据库中共有 ${allCategories[0].count} 个栏目，is_displayed 状态: ${allCategories[0].display_statuses}`)
+      }
+    }
   } catch (error) {
     console.error('获取栏目分类失败:', error)
+  }
+  
+  // 从数据库获取已发布的Banner（最多8个）
+  let banners = []
+  try {
+    banners = await mysqlQuery<any[]>(
+      `SELECT * FROM resource_banners 
+       WHERE status = 'published' 
+       ORDER BY sort_order ASC, id DESC 
+       LIMIT 8`
+    )
+    console.log(`✅ 获取到 ${banners.length} 个已发布的Banner (${language})`)
+    if (banners.length > 0) {
+      console.log('Banner数据:', banners.map(b => ({ id: b.id, title: b.title, type: b.banner_type })))
+    }
+  } catch (error) {
+    console.error('❌ 获取Banner失败:', error)
+  }
+  
+  // 获取热门推荐内容（已发布且推荐的内容，按浏览次数和发布时间排序，取前3条）
+  let featuredContents = []
+  try {
+    featuredContents = await mysqlQuery<any[]>(
+      `SELECT rc.id, rc.category_id, rc.title, rc.content, rc.author, 
+              rc.cover_image, rc.published_at, rc.views, rc.downloads,
+              rcat.name as category_name, rcat.link as category_slug
+       FROM resource_contents rc
+       LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+       WHERE rc.status = 'published' AND rc.is_featured = 1
+       ORDER BY rc.views DESC, rc.published_at DESC
+       LIMIT 3`
+    )
+    console.log(`✅ 获取到 ${featuredContents.length} 条热门推荐内容 (${language}, is_featured=1)`)
+  } catch (error) {
+    console.error('❌ 获取热门推荐失败:', error)
+  }
+  
+  // 获取各个栏目的内容（每个栏目取前3条已发布的内容）
+  let categoryContentsMap: Record<number, any[]> = {}
+  try {
+    console.log(`📋 开始获取栏目内容 (${language})，共有 ${categories.length} 个栏目`)
+    for (const category of categories) {
+      // 先查询所有状态的内容用于调试
+      const allContentsCheck = await mysqlQuery<any[]>(
+        `SELECT COUNT(*) as count, GROUP_CONCAT(DISTINCT status) as statuses, GROUP_CONCAT(id) as ids
+         FROM resource_contents 
+         WHERE category_id = ?`,
+        [category.id]
+      )
+      if (allContentsCheck.length > 0 && allContentsCheck[0].count > 0) {
+        console.log(`  栏目 "${category.name}" (ID: ${category.id}): 共有 ${allContentsCheck[0].count} 条内容，状态: ${allContentsCheck[0].statuses}, IDs: ${allContentsCheck[0].ids}`)
+      }
+      
+      const contents = await mysqlQuery<any[]>(
+        `SELECT rc.id, rc.category_id, rc.title, rc.content, rc.author,
+                rc.cover_image, rc.published_at, rc.views, rc.downloads,
+                rcat.name as category_name, rcat.link as category_slug, rc.status
+         FROM resource_contents rc
+         LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+         WHERE rc.category_id = ? AND rc.status = 'published'
+         ORDER BY rc.sort_order ASC, rc.published_at DESC
+         LIMIT 3`,
+        [category.id]
+      )
+      console.log(`  栏目 "${category.name}" (ID: ${category.id}): 查询到 ${contents.length} 条已发布内容`)
+      if (contents.length > 0) {
+        categoryContentsMap[category.id] = contents
+        console.log(`    ✅ 已添加到 categoryContentsMap`)
+      } else {
+        console.log(`    ⚠️  该栏目没有已发布的内容，无法显示`)
+      }
+    }
+    console.log(`✅ 获取到 ${Object.keys(categoryContentsMap).length} 个栏目的内容数据 (${language})`)
+    console.log(`📊 categoryContentsMap 详情:`, Object.keys(categoryContentsMap).map(id => ({
+      categoryId: id,
+      categoryName: categories.find(c => c.id === parseInt(id))?.name,
+      contentCount: categoryContentsMap[parseInt(id)].length
+    })))
+  } catch (error) {
+    console.error('❌ 获取栏目内容失败:', error)
   }
   
   return c.html(
@@ -662,7 +860,13 @@ app.get('/:lang/resources', async (c) => {
       footerSections={footerSections}
       privacyLinks={privacyLinks}
     >
-      <ResourcesPage language={language} categories={categories} />
+      <ResourcesPage 
+        language={language} 
+        categories={categories} 
+        banners={banners}
+        featuredContents={featuredContents}
+        categoryContentsMap={categoryContentsMap}
+      />
     </LayoutWithUnifiedNav>
   )
 })
@@ -820,10 +1024,27 @@ app.get('/resources/:slug/:id', async (c) => {
   // 根据 category_template 决定使用哪个页面组件
   const isVideoTemplate = category?.category_template === 'list_video'
   
+  // 构建 SEO 数据
+  const protocol = c.req.header('x-forwarded-proto') || 'http'
+  const host = c.req.header('host') || 'localhost'
+  const baseUrl = `${protocol}://${host}`
+  const fullUrl = `${baseUrl}${currentPath}`
+  const seoTitle = content.meta_title || content.title
+  const seoDescription = content.meta_description || content.content?.replace(/<[^>]*>/g, '').substring(0, 160).trim() || ''
+  const seoKeywords = content.meta_keywords || ''
+  const ogImage = content.cover_image ? (content.cover_image.startsWith('http') ? content.cover_image : `${baseUrl}${content.cover_image}`) : undefined
+  
   return c.html(
     <LayoutWithUnifiedNav
       language={language}
       currentPath={currentPath}
+      title={content.title}
+      description={content.content?.replace(/<[^>]*>/g, '').substring(0, 200).trim() || ''}
+      seoTitle={seoTitle}
+      seoDescription={seoDescription}
+      seoKeywords={seoKeywords}
+      ogImage={ogImage}
+      ogUrl={fullUrl}
       navigationConfig={navConfig}
       menuItems={menuItems}
       footerConfig={footerConfig}
@@ -923,10 +1144,27 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
   // 根据 category_template 决定使用哪个页面组件
   const isVideoTemplate = category?.category_template === 'list_video'
   
+  // 构建 SEO 数据
+  const protocol = c.req.header('x-forwarded-proto') || 'http'
+  const host = c.req.header('host') || 'localhost'
+  const baseUrl = `${protocol}://${host}`
+  const fullUrl = `${baseUrl}${currentPath}`
+  const seoTitle = content.meta_title || content.title
+  const seoDescription = content.meta_description || content.content?.replace(/<[^>]*>/g, '').substring(0, 160).trim() || ''
+  const seoKeywords = content.meta_keywords || ''
+  const ogImage = content.cover_image ? (content.cover_image.startsWith('http') ? content.cover_image : `${baseUrl}${content.cover_image}`) : undefined
+  
   return c.html(
     <LayoutWithUnifiedNav
       language={language}
       currentPath={currentPath}
+      title={content.title}
+      description={content.content?.replace(/<[^>]*>/g, '').substring(0, 200).trim() || ''}
+      seoTitle={seoTitle}
+      seoDescription={seoDescription}
+      seoKeywords={seoKeywords}
+      ogImage={ogImage}
+      ogUrl={fullUrl}
       navigationConfig={navConfig}
       menuItems={menuItems}
       footerConfig={footerConfig}
@@ -1708,7 +1946,7 @@ app.get('/ticloudadmin/resource-categories/edit/:id', requireAuth(), async (c) =
     const id = c.req.param('id')
     const [category] = await mysqlQuery<any[]>(
       `SELECT id, sort_order, name, link as slug, 
-              description, cover_image, cover_image_size, cover_image_type,
+              description, cover_image, cover_image_size, cover_image_type, cover_image_link,
               category_template as list_template, 
               page_template as detail_template, 
               is_displayed as is_visible 
@@ -1787,7 +2025,7 @@ app.get('/ticloudadmin/resource-contents', requireAuth(), async (c) => {
     const contents = await mysqlQuery<any[]>(
       `SELECT rc.id, rc.category_id, rcat.name as category_name, 
               rc.title, rc.cover_image, rc.author, 
-              rc.published_at, rc.views, rc.status
+              rc.published_at, rc.views, rc.status, rc.is_featured
        FROM resource_contents rc
        LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
        ${whereClause}
@@ -1864,6 +2102,102 @@ app.get('/ticloudadmin/resource-contents/edit/:id', requireAuth(), async (c) => 
     return c.html(
       <AdminLayout title="编辑内容" currentPath="/ticloudadmin/resource-contents">
         <ContentEditor mode="edit" content={content} categories={categories} defaultAuthor="" />
+      </AdminLayout>
+    )
+  } catch (error: any) {
+    console.error('加载编辑页失败:', error)
+    return c.text('加载失败', 500)
+  }
+})
+
+// ==================== Resource Banner Routes ====================
+
+// Banner列表页面
+app.get('/ticloudadmin/resource-banners', requireAuth(), async (c) => {
+  try {
+    const page = parseInt(c.req.query('page') || '1')
+    const pageSize = 20
+    const search = c.req.query('search') || ''
+    const offset = (page - 1) * pageSize
+    
+    let whereClauses = []
+    let queryParams: any[] = []
+    
+    if (search) {
+      whereClauses.push('(title LIKE ? OR text_title LIKE ?)')
+      queryParams.push(`%${search}%`, `%${search}%`)
+    }
+    
+    const whereSQL = whereClauses.length > 0 ? `WHERE ${whereClauses.join(' AND ')}` : ''
+    
+    // 查询总数
+    const [countResult] = await mysqlQuery<any[]>(
+      `SELECT COUNT(*) as total FROM resource_banners ${whereSQL}`,
+      queryParams
+    )
+    const total = countResult.total || 0
+    const totalPages = Math.ceil(total / pageSize)
+    
+    // 查询列表
+    const banners = await mysqlQuery<any[]>(
+      `SELECT * FROM resource_banners 
+       ${whereSQL}
+       ORDER BY sort_order ASC, id DESC
+       LIMIT ${offset}, ${pageSize}`,
+      queryParams
+    )
+    
+    return c.html(
+      <AdminLayout title="Banner管理" currentPath="/ticloudadmin/resource-banners">
+        <ResourceBannerManagement 
+          banners={banners}
+          currentPage={page}
+          totalPages={totalPages}
+          total={total}
+        />
+      </AdminLayout>
+    )
+  } catch (error) {
+    console.error('获取Banner列表失败:', error)
+    return c.html(
+      <AdminLayout title="Banner管理" currentPath="/ticloudadmin/resource-banners">
+        <ResourceBannerManagement 
+          banners={[]}
+          currentPage={1}
+          totalPages={1}
+          total={0}
+        />
+      </AdminLayout>
+    )
+  }
+})
+
+// 创建Banner页面
+app.get('/ticloudadmin/resource-banners/new', requireAuth(), (c) => {
+  return c.html(
+    <AdminLayout title="添加新Banner" currentPath="/ticloudadmin/resource-banners">
+      <BannerEditor mode="create" />
+    </AdminLayout>
+  )
+})
+
+// 编辑Banner页面
+app.get('/ticloudadmin/resource-banners/edit/:id', requireAuth(), async (c) => {
+  try {
+    const id = c.req.param('id')
+    
+    const [banner] = await mysqlQuery<any[]>(
+      `SELECT * FROM resource_banners WHERE id = ?`,
+      [id]
+    )
+    
+    if (!banner) {
+      return c.text('Banner不存在', 404)
+    }
+    
+    return c.html(
+      <AdminLayout title="编辑Banner" currentPath="/ticloudadmin/resource-banners">
+        <BannerEditor mode="edit" banner={banner} />
       </AdminLayout>
     )
   } catch (error: any) {
@@ -2045,6 +2379,7 @@ app.post('/api/admin/resource-categories', async (c) => {
       cover_image,
       cover_image_size,
       cover_image_type,
+      cover_image_link,
       list_template, 
       detail_template, 
       is_visible 
@@ -2068,9 +2403,9 @@ app.post('/api/admin/resource-categories', async (c) => {
     
     const result: any = await mysqlQuery(
       `INSERT INTO resource_categories 
-       (sort_order, name, link, description, cover_image, cover_image_size, cover_image_type, 
+       (sort_order, name, link, description, cover_image, cover_image_size, cover_image_type, cover_image_link,
         category_template, page_template, is_displayed) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         sort_order || 0, 
         name, 
@@ -2079,6 +2414,7 @@ app.post('/api/admin/resource-categories', async (c) => {
         cover_image || null,
         cover_image_size || null,
         cover_image_type || null,
+        cover_image_link || null,
         list_template, 
         detail_template, 
         is_visible !== false
@@ -2114,7 +2450,7 @@ app.get('/api/admin/resource-categories/:id', async (c) => {
     const id = c.req.param('id')
     const [category] = await mysqlQuery<any[]>(
       `SELECT id, sort_order, name, link as slug, 
-              description, cover_image, cover_image_size, cover_image_type,
+              description, cover_image, cover_image_size, cover_image_type, cover_image_link,
               category_template as list_template, 
               page_template as detail_template, 
               is_displayed as is_visible, created_at, updated_at 
@@ -2168,6 +2504,7 @@ app.put('/api/admin/resource-categories/:id', async (c) => {
     const cover_image = body.cover_image !== undefined ? body.cover_image : currentCategory.cover_image
     const cover_image_size = body.cover_image_size !== undefined ? body.cover_image_size : currentCategory.cover_image_size
     const cover_image_type = body.cover_image_type !== undefined ? body.cover_image_type : currentCategory.cover_image_type
+    const cover_image_link = body.cover_image_link !== undefined ? body.cover_image_link : currentCategory.cover_image_link
     const list_template = body.list_template !== undefined ? body.list_template : currentCategory.category_template
     const detail_template = body.detail_template !== undefined ? body.detail_template : currentCategory.page_template
     const is_visible = body.is_visible !== undefined ? body.is_visible : currentCategory.is_displayed
@@ -2187,7 +2524,7 @@ app.put('/api/admin/resource-categories/:id', async (c) => {
     await mysqlQuery(
       `UPDATE resource_categories 
        SET sort_order = ?, name = ?, link = ?, description = ?, 
-           cover_image = ?, cover_image_size = ?, cover_image_type = ?,
+           cover_image = ?, cover_image_size = ?, cover_image_type = ?, cover_image_link = ?,
            category_template = ?, page_template = ?, is_displayed = ?
        WHERE id = ?`,
       [
@@ -2198,6 +2535,7 @@ app.put('/api/admin/resource-categories/:id', async (c) => {
         cover_image || null,
         cover_image_size || null,
         cover_image_type || null,
+        cover_image_link || null,
         list_template, 
         detail_template, 
         is_visible, 
@@ -2424,9 +2762,11 @@ app.post('/api/admin/resource-contents', async (c) => {
       cover_image, cover_image_size, cover_image_type,
       video_file, video_size, video_type, video_description,
       attachment_file, attachment_size, attachment_type, attachment_name,
-      reading_time, status, published_at, sort_order,
+      reading_time, status, published_at, sort_order, is_featured,
       meta_title, meta_description, meta_keywords
     } = data
+    
+    console.log('创建内容 - is_featured 值:', is_featured, '类型:', typeof is_featured)
     
     // 验证必填字段
     if (!title || !category_id) {
@@ -2444,15 +2784,16 @@ app.post('/api/admin/resource-contents', async (c) => {
        (category_id, title, content, author, cover_image, cover_image_size, cover_image_type,
         video_file, video_size, video_type, video_description,
         attachment_file, attachment_size, attachment_type, attachment_name,
-        reading_time, status, published_at, sort_order,
+        reading_time, status, published_at, sort_order, is_featured,
         meta_title, meta_description, meta_keywords)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         category_id, title, content || '', author || null,
         cover_image || null, cover_image_size || null, cover_image_type || null,
         video_file || null, video_size || null, video_type || null, video_description || null,
         attachment_file || null, attachment_size || null, attachment_type || null, attachment_name || null,
-        reading_time || null, status || 'draft', publishTime, sort_order || 0,
+        reading_time || null, status || 'draft', publishTime, sort_order || 0, 
+        (is_featured === true || is_featured === 1 || is_featured === 'true' || is_featured === '1') ? 1 : 0,
         meta_title || null, meta_description || null, meta_keywords || null
       ]
     )
@@ -2510,7 +2851,7 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
       cover_image, cover_image_size, cover_image_type,
       video_file, video_size, video_type, video_description,
       attachment_file, attachment_size, attachment_type, attachment_name,
-      reading_time, status, published_at, sort_order,
+      reading_time, status, published_at, sort_order, is_featured,
       meta_title, meta_description, meta_keywords
     } = data
     
@@ -2534,7 +2875,7 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
            cover_image = ?, cover_image_size = ?, cover_image_type = ?,
            video_file = ?, video_size = ?, video_type = ?, video_description = ?,
            attachment_file = ?, attachment_size = ?, attachment_type = ?, attachment_name = ?,
-           reading_time = ?, status = ?, published_at = ?, sort_order = ?,
+           reading_time = ?, status = ?, published_at = ?, sort_order = ?, is_featured = ?,
            meta_title = ?, meta_description = ?, meta_keywords = ?
        WHERE id = ?`,
       [
@@ -2542,7 +2883,8 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
         cover_image || null, cover_image_size || null, cover_image_type || null,
         video_file || null, video_size || null, video_type || null, video_description || null,
         attachment_file || null, attachment_size || null, attachment_type || null, attachment_name || null,
-        reading_time || null, status || 'draft', published_at || currentContent.published_at, sort_order || 0,
+        reading_time || null, status || 'draft', published_at || currentContent.published_at, sort_order || 0, 
+        (is_featured === true || is_featured === 1 || is_featured === 'true' || is_featured === '1') ? 1 : 0,
         meta_title || null, meta_description || null, meta_keywords || null,
         id
       ]

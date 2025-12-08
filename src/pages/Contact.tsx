@@ -12,11 +12,11 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
 
   return (
     <>
-      <div class="min-h-screen bg-[#6438FF]">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 lg:py-16">
-          <div class="flex flex-col lg:flex-row items-start lg:items-center gap-8 md:gap-12 lg:gap-16 min-h-[calc(100vh-4rem)]">
+      <div class="min-h-screen bg-[#6438FF] flex items-center justify-center">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 lg:py-16 w-full">
+          <div class="flex flex-col lg:flex-row items-center justify-center gap-8 md:gap-12 lg:gap-16">
             {/* 左侧文案区 */}
-            <div class="flex-1 lg:max-w-md xl:max-w-lg">
+            <div class="flex-1 lg:max-w-md xl:max-w-lg text-center lg:text-left">
               {/* 一级标题 - 白色大字号 */}
               <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 md:mb-12">
                 {t.title || (language === 'zh' ? '联系我们' : language === 'en' ? 'Contact Us' : language === 'jp' ? 'お問い合わせ' : '聯繫我們')}
@@ -37,7 +37,7 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
             </div>
 
             {/* 右侧表单区 */}
-            <div class="flex-1 lg:flex-none lg:w-[500px] xl:w-[550px]">
+            <div class="flex-1 lg:flex-none lg:w-[500px] xl:w-[550px] w-full">
               <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10 lg:p-12">
               <form id="contact-form" class="space-y-6">
                 {/* 姓名 - 必填项 */}

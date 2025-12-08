@@ -138,6 +138,7 @@ export const ResourceContentManagement: FC<ResourceContentManagementProps> = ({
               <th class="px-3 py-2 text-left text-gray-600 font-medium w-32">分类栏目</th>
               <th class="px-3 py-2 text-left text-gray-600 font-medium w-32">发布时间</th>
               <th class="px-3 py-2 text-left text-gray-600 font-medium w-24">访问量</th>
+              <th class="px-3 py-2 text-center text-gray-600 font-medium w-20">推荐</th>
               <th class="px-3 py-2 text-center text-gray-600 font-medium w-32">操作</th>
               </tr>
             </thead>
@@ -201,6 +202,11 @@ export const ResourceContentManagement: FC<ResourceContentManagementProps> = ({
                     {content.views}
                   </td>
                   
+                  {/* 推荐 */}
+                  <td class="px-3 py-3 text-center text-gray-600">
+                    {(content.is_featured === true || content.is_featured === 1) ? '是' : '否'}
+                  </td>
+                  
                   {/* 操作 */}
                   <td class="px-3 py-3 text-center">
                     <div class="flex items-center justify-center space-x-2">
@@ -229,7 +235,7 @@ export const ResourceContentManagement: FC<ResourceContentManagementProps> = ({
                 ))
             ) : (
               <tr>
-                <td colSpan={8} class="px-3 py-12 text-center text-gray-500">
+                <td colSpan={9} class="px-3 py-12 text-center text-gray-500">
                   <i class="fas fa-inbox text-4xl mb-2 text-gray-300"></i>
                   <p>暂无内容</p>
                 </td>

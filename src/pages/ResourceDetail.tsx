@@ -27,6 +27,9 @@ interface Content {
   attachment_file?: string
   attachment_name?: string
   status: string
+  meta_title?: string
+  meta_description?: string
+  meta_keywords?: string
 }
 
 interface ResourceDetailPageProps {
@@ -56,8 +59,40 @@ export const ResourceDetailPage: FC<ResourceDetailPageProps> = ({
   const downloadUrl = content.attachment_file || `/resources/download/${content.id}`
   const contactUrl = `/contact?source=resource_download&file=${content.id}`
 
+  // 构建结构化数据（JSON-LD）用于 SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": category.category_template === 'list_download' ? "Article" : "Article",
+    "headline": content.title,
+    "description": content.meta_description || content.content?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
+    "image": content.cover_image || '',
+    "datePublished": content.published_at,
+    "dateModified": content.published_at,
+    "author": {
+      "@type": "Person",
+      "name": content.author || "ZENAVA"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ZENAVA",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://zenava.com/logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": typeof window !== 'undefined' ? window.location.href : ''
+    }
+  }
+
   return (
     <>
+      {/* SEO 结构化数据 */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify(structuredData)
+      }} />
+      
       {/* Resource Center Sub-Navigation */}
       <section class="bg-[#6438FF] sticky top-0 z-30">
         <div class="site-container px-4 sm:px-6 lg:px-8">

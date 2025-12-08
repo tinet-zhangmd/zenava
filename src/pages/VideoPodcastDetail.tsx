@@ -28,6 +28,9 @@ interface Content {
   attachment_file?: string
   attachment_name?: string
   status: string
+  meta_title?: string
+  meta_description?: string
+  meta_keywords?: string
 }
 
 interface VideoPodcastDetailPageProps {
@@ -59,8 +62,39 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
   // TODO: 相关推荐从数据库获取
   const relatedItems: any[] = []
 
+  // 构建结构化数据（JSON-LD）用于 SEO
+  const structuredData = contentType === 'video' ? {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": content.title,
+    "description": content.meta_description || content.video_description || content.content?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
+    "thumbnailUrl": content.cover_image || '',
+    "uploadDate": content.published_at,
+    "contentUrl": content.video_file || '',
+    "author": {
+      "@type": "Person",
+      "name": content.author || "ZENAVA"
+    }
+  } : {
+    "@context": "https://schema.org",
+    "@type": "PodcastEpisode",
+    "name": content.title,
+    "description": content.meta_description || content.video_description || content.content?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
+    "image": content.cover_image || '',
+    "datePublished": content.published_at,
+    "author": {
+      "@type": "Person",
+      "name": content.author || "ZENAVA"
+    }
+  }
+
   return (
     <>
+      {/* SEO 结构化数据 */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify(structuredData)
+      }} />
+      
       {/* Resource Center Sub-Navigation */}
       <section class="bg-[#6438FF] sticky top-0 z-30">
         <div class="site-container px-4 sm:px-6 lg:px-8">
