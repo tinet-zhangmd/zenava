@@ -70,7 +70,16 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
 
   // 将数据库Banner数据转换为轮播格式
   const convertBannersToSlides = (banners: Banner[]) => {
-    return banners.map(banner => {
+    return banners.map((banner, index) => {
+      // 调试信息
+      if (typeof window === 'undefined') {
+        console.log(`🔄 转换 Banner ${index + 1} (ID: ${banner.id}):`, {
+          type: banner.banner_type,
+          title: banner.text_title || banner.title,
+          image: banner.background_url || banner.full_image_url,
+          status: banner.status
+        })
+      }
       if (banner.banner_type === 'full_image') {
         // 整张大图模式
         return {
@@ -145,7 +154,25 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
   if (typeof window === 'undefined') {
     console.log(`📊 Banner数据统计: 数据库=${banners.length}个, 最终使用=${heroSlides.length}个`)
     if (banners.length > 0) {
-      console.log('数据库Banner:', banners.map(b => ({ id: b.id, title: b.title || b.text_title, type: b.banner_type, status: b.status })))
+      console.log('数据库Banner:', banners.map(b => ({ 
+        id: b.id, 
+        title: b.title || b.text_title, 
+        type: b.banner_type, 
+        status: b.status,
+        image: b.background_url || b.full_image_url || '无图片',
+        text_title: b.text_title || '无标题',
+        text_subtitle: b.text_subtitle || '无副标题'
+      })))
+    }
+    if (heroSlides.length > 0) {
+      console.log('转换后的Slides:', heroSlides.map((s, i) => ({
+        index: i,
+        id: s.id,
+        layout: s.layout,
+        title: s.title || '无标题',
+        description: s.description || '无描述',
+        image: s.image || '无图片'
+      })))
     }
     console.log(`📊 栏目数据统计: categories=${categories.length}个, categoryContentsMap keys=${Object.keys(categoryContentsMap).length}个`)
     if (categories.length > 0) {
@@ -356,64 +383,72 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
               
               // 判断是视频还是图片
               const isVideo = firstSlide.isVideo || false
+              const hasImage = firstSlide.image && firstSlide.image.trim() !== ''
               
               return (
                 <div class="hero-slide opacity-100 z-10">
-                  <div class="grid grid-cols-1 lg:grid-cols-2 min-h-[500px] md:min-h-[600px]">
-                    {/* Left: Image/Video */}
-                    <div class="relative overflow-hidden bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
-                      <a href={fullLink} class="block h-full">
-                        {isVideo ? (
-                          <video 
-                            src={firstSlide.image || ''} 
-                            class="w-full h-full object-cover"
-                            autoplay
-                            muted
-                            loop
-                            playsinline
-                            style="pointer-events: none;"
-                          />
-                        ) : (
-                          <img 
-                            src={firstSlide.image || '/assets/images/resources/hero-1.jpg'} 
-                            alt={firstSlide.title || ''}
-                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                            loading="eager"
-                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                          />
-                        )}
-                        {/* Placeholder when image fails to load */}
-                        <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
-                          <div class="text-center">
-                            <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
-                            <p class="text-sm md:text-base text-gray-500">
-                              {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
+                  <div class="bg-gradient-to-br from-orange-200 via-yellow-200 to-teal-300 min-h-[500px] md:min-h-[500px] flex items-center justify-center">
+                    <div class="container mx-auto px-8 md:px-12 lg:px-16 w-full">
+                      <div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 md:gap-12">
+                        {/* Left: Square Image */}
+                        <div class="flex items-center justify-center lg:justify-start w-full">
+                          <a href={fullLink} class="block w-full max-w-md mx-auto lg:mx-0">
+                            {hasImage ? (
+                              isVideo ? (
+                                <video 
+                                  src={firstSlide.image} 
+                                  class="w-full aspect-square object-cover rounded-2xl shadow-2xl"
+                                  autoplay
+                                  muted
+                                  loop
+                                  playsinline
+                                  style="pointer-events: none;"
+                                  onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');"
+                                />
+                              ) : (
+                                <img 
+                                  src={firstSlide.image} 
+                                  alt={firstSlide.title || 'Banner'}
+                                  class="w-full aspect-square object-cover rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-500"
+                                  loading="eager"
+                                  onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');"
+                                />
+                              )
+                            ) : null}
+                            {/* Placeholder when image fails to load or no image */}
+                            <div class={`${hasImage ? 'hidden' : 'flex'} w-full aspect-square items-center justify-center bg-white/50 rounded-2xl shadow-2xl`}>
+                              <div class="text-center">
+                                <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                                <p class="text-sm md:text-base text-gray-500">
+                                  {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
+                                </p>
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                        
+                        {/* Right: Content */}
+                        <div class="flex items-center justify-center lg:justify-start w-full">
+                          <div class="max-w-2xl">
+                            <a href={fullLink} class="block mb-4">
+                              <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold hover:opacity-80 transition-opacity" style={{ color: firstSlide.textColor || '#1f2937' }}>
+                                {firstSlide.title || 'Banner Title'}
+                              </h2>
+                            </a>
+                            <p class="text-base md:text-lg mb-6 leading-relaxed" style={{ color: firstSlide.subtitleColor || '#4b5563' }}>
+                              {firstSlide.description || 'Banner description'}
                             </p>
+                            {firstSlide.buttonText && (
+                              <a 
+                                href={fullLink} 
+                                class="inline-flex items-center px-6 py-3 bg-[#6438FF] text-white rounded-lg font-semibold hover:bg-[#5a2ee6] transition-all transform hover:scale-105"
+                              >
+                                {firstSlide.buttonText}
+                                <i class="fas fa-arrow-right ml-2"></i>
+                              </a>
+                            )}
                           </div>
                         </div>
-                      </a>
-                    </div>
-                    
-                    {/* Right: Content */}
-                    <div class="flex items-center bg-white p-8 md:p-12 lg:p-16">
-                      <div class="max-w-2xl">
-                        <a href={fullLink} class="block mb-4">
-                          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold hover:text-[#6438FF] transition-colors" style={`color: ${firstSlide.textColor || '#1f2937'} !important;`}>
-                            {firstSlide.title || ''}
-                          </h2>
-                        </a>
-                        <p class="text-base md:text-lg mb-6 leading-relaxed" style={`color: ${firstSlide.subtitleColor || '#4b5563'} !important;`}>
-                          {firstSlide.description || ''}
-                        </p>
-                        {firstSlide.buttonText && (
-                          <a 
-                            href={fullLink} 
-                            class="inline-flex items-center px-6 py-3 bg-[#6438FF] text-white rounded-lg font-semibold hover:bg-[#5a2ee6] transition-all transform hover:scale-105"
-                          >
-                            {firstSlide.buttonText}
-                            <i class="fas fa-arrow-right ml-2"></i>
-                          </a>
-                        )}
                       </div>
                     </div>
                   </div>
@@ -759,7 +794,20 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
             
             function renderSlide(index) {
               const slide = heroSlides[index];
-              if (!slide) return '';
+              if (!slide) {
+                console.warn('⚠️ Slide ' + index + ' 不存在');
+                return '';
+              }
+              
+              // 调试信息
+              console.log('🎨 渲染 Slide ' + index + ':', {
+                id: slide.id,
+                layout: slide.layout,
+                title: slide.title || '无标题',
+                description: slide.description || '无描述',
+                image: slide.image || '无图片',
+                hasImage: !!(slide.image && slide.image.trim())
+              });
               
               // 构建多语言链接
               const resourceLink = slide.link || '#';
@@ -802,41 +850,58 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
               
               // 判断是视频还是图片
               const isVideo = slide.isVideo || false;
-              const mediaHtml = isVideo ? 
-                '<video src="' + slide.image + '" ' +
-                'class="w-full h-full object-cover" ' +
-                'autoplay muted loop playsinline ' +
-                'style="pointer-events: none;"></video>' :
-                '<img src="' + slide.image + '" alt="' + (slide.title || '') + '" ' +
-                'class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" ' +
-                'loading="' + (index === 0 ? 'eager' : 'lazy') + '" ' +
-                'onerror="this.style.display=\\'none\\'; this.nextElementSibling.style.display=\\'flex\\';" />';
+              const hasImage = slide.image && slide.image.trim() !== '';
+              
+              // 构建图片/视频 HTML
+              let mediaHtml = '';
+              if (hasImage) {
+                if (isVideo) {
+                  mediaHtml = '<video src="' + slide.image + '" ' +
+                    'class="w-full aspect-square object-cover rounded-2xl shadow-2xl" ' +
+                    'autoplay muted loop playsinline ' +
+                    'style="pointer-events: none;" ' +
+                    'onerror="this.style.display=\\'none\\'; this.nextElementSibling.classList.remove(\\'hidden\\');"></video>';
+                } else {
+                  mediaHtml = '<img src="' + slide.image + '" alt="' + (slide.title || 'Banner') + '" ' +
+                    'class="w-full aspect-square object-cover rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-500" ' +
+                    'loading="' + (index === 0 ? 'eager' : 'lazy') + '" ' +
+                    'onerror="this.style.display=\\'none\\'; this.nextElementSibling.classList.remove(\\'hidden\\');" />';
+                }
+              }
+              
+              // 占位符（如果图片为空或加载失败时显示）
+              const placeholderClass = hasImage ? 'hidden' : 'flex';
+              const placeholderHtml = '<div class="' + placeholderClass + ' w-full aspect-square items-center justify-center bg-white/50 rounded-2xl shadow-2xl">' +
+                '<div class="text-center">' +
+                  '<i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>' +
+                  '<p class="text-sm md:text-base text-gray-500">' + placeholderText + '</p>' +
+                '</div>' +
+              '</div>';
               
               return '<div class="hero-slide absolute inset-0 transition-opacity duration-700 ' + 
                 (index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0') + '">' +
-                '<div class="grid grid-cols-1 lg:grid-cols-2 min-h-[500px] md:min-h-[600px]">' +
-                  '<div class="relative overflow-hidden bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">' +
-                    '<a href="' + fullLink + '" class="block h-full">' +
-                      mediaHtml +
-                      '<div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">' +
-                        '<div class="text-center">' +
-                          '<i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>' +
-                          '<p class="text-sm md:text-base text-gray-500">' + placeholderText + '</p>' +
+                '<div class="bg-gradient-to-br from-orange-200 via-yellow-200 to-teal-300 min-h-[500px] md:min-h-[500px] flex items-center justify-center">' +
+                  '<div class="container mx-auto px-8 md:px-12 lg:px-16 w-full">' +
+                    '<div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 md:gap-12">' +
+                      '<div class="flex items-center justify-center lg:justify-start w-full">' +
+                        '<a href="' + fullLink + '" class="block w-full max-w-md mx-auto lg:mx-0">' +
+                          mediaHtml +
+                          placeholderHtml +
+                        '</a>' +
+                      '</div>' +
+                      '<div class="flex items-center justify-center lg:justify-start w-full">' +
+                        '<div class="max-w-2xl">' +
+                          '<a href="' + fullLink + '" class="block mb-4">' +
+                            '<h2 class="text-2xl md:text-3xl lg:text-4xl font-bold hover:opacity-80 transition-opacity" style="color: ' + textColor + ' !important;">' +
+                              (slide.title || 'Banner Title') +
+                            '</h2>' +
+                          '</a>' +
+                          '<p class="text-base md:text-lg mb-6 leading-relaxed" style="color: ' + subtitleColor + ' !important;">' +
+                            (slide.description || 'Banner description') +
+                          '</p>' +
+                          buttonHtml +
                         '</div>' +
                       '</div>' +
-                    '</a>' +
-                  '</div>' +
-                  '<div class="flex items-center bg-white p-8 md:p-12 lg:p-16">' +
-                    '<div class="max-w-2xl">' +
-                      '<a href="' + fullLink + '" class="block mb-4">' +
-                        '<h2 class="text-2xl md:text-3xl lg:text-4xl font-bold hover:text-[#6438FF] transition-colors" style="color: ' + textColor + ' !important;">' +
-                          (slide.title || '') +
-                        '</h2>' +
-                      '</a>' +
-                      '<p class="text-base md:text-lg mb-6 leading-relaxed" style="color: ' + subtitleColor + ' !important;">' +
-                        (slide.description || '') +
-                      '</p>' +
-                      buttonHtml +
                     '</div>' +
                   '</div>' +
                 '</div>' +
