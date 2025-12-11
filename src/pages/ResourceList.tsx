@@ -103,39 +103,98 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
       </section>
 
       {/* Hero Section */}
-      <section class="relative bg-white overflow-hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-2 min-h-[400px] md:min-h-[500px]">
-          {/* Left: Image */}
-          <div class="relative overflow-hidden bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 order-2 lg:order-1">
-            <a href={resourceTypeConfig.heroLink || '#'} class="block h-full">
-              <img 
-                src={resourceTypeConfig.heroImage || '/assets/images/resources/hero-1.jpg'} 
-                alt={resourceTypeConfig.heroImageAlt || ''}
-                class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                loading="eager"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-              />
-              {/* Placeholder when image fails to load */}
-              <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
-                <div class="text-center">
-                  <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
-                  <p class="text-sm md:text-base text-gray-500">
-                    {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
-                  </p>
-                </div>
-              </div>
-            </a>
-          </div>
-          
-          {/* Right: Content */}
-          <div class="flex items-center bg-white p-8 md:p-12 lg:p-16 order-1 lg:order-2">
-            <div class="max-w-2xl">
-              <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
+      <section class="relative bg-white overflow-hidden py-12 md:py-16 lg:py-20">
+        <div class="site-container px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start">
+            {/* Left: Title and Description */}
+            <div class="order-2 lg:order-1">
+              <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6">
                 {resourceTypeConfig.heroTitle}
               </h1>
-              <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+              <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
                 {resourceTypeConfig.heroDescription}
               </p>
+            </div>
+            
+            {/* Right: Featured Story */}
+            <div class="order-1 lg:order-2">
+              {/* Featured Story Label */}
+              <p class="text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider mb-4">
+                {language === 'zh' ? '精选内容' : language === 'en' ? 'Featured Story' : language === 'jp' ? '特集' : '精選內容'}
+              </p>
+              
+              {/* Featured Card */}
+              {contents.length > 0 ? (
+                <>
+                  <div class="bg-gradient-to-br from-purple-700 via-purple-800 to-indigo-900 rounded-2xl overflow-hidden shadow-2xl mb-6 relative">
+                    <a href={(() => {
+                      const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
+                      return category ? `${basePath}/${category.slug}/${contents[0].id}` : '#'
+                    })()} class="block">
+                      {/* Card Image Background */}
+                      {contents[0].cover_image ? (
+                        <div class="absolute inset-0 opacity-30">
+                          <img 
+                            src={contents[0].cover_image}
+                            alt={contents[0].title}
+                            class="w-full h-full object-cover"
+                            loading="eager"
+                          />
+                        </div>
+                      ) : null}
+                      
+                      {/* Card Content Overlay */}
+                      <div class="relative p-6 md:p-8 min-h-[300px] md:min-h-[350px] flex flex-col justify-between">
+                        {/* Top Section: Logos and Badge */}
+                        <div class="flex items-start justify-between mb-4">
+                          <div class="flex flex-col space-y-3">
+                            {/* Logo placeholder - can be replaced with actual logo */}
+                            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                              <span class="text-white font-bold text-sm">Z</span>
+                            </div>
+                          </div>
+                          <div class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                            <span class="text-white font-bold text-sm md:text-base">#1</span>
+                          </div>
+                        </div>
+                        
+                        {/* Bottom Section: Title */}
+                        <div>
+                          <h2 class="text-xl md:text-2xl lg:text-3xl font-bold text-white uppercase leading-tight">
+                            {contents[0].title.length > 60 
+                              ? contents[0].title.substring(0, 60) + '...'
+                              : contents[0].title}
+                          </h2>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  
+                  {/* Featured Story Text Content */}
+                  <div>
+                    <a href={(() => {
+                      const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
+                      return category ? `${basePath}/${category.slug}/${contents[0].id}` : '#'
+                    })()} class="block group">
+                      <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#6438FF] transition-colors">
+                        {contents[0].title}
+                      </h3>
+                      <p class="text-base md:text-lg text-gray-600 leading-relaxed line-clamp-3">
+                        {contents[0].content.replace(/<[^>]*>/g, '').substring(0, 200)}...
+                      </p>
+                    </a>
+                  </div>
+                </>
+              ) : (
+                <div class="bg-gradient-to-br from-purple-700 via-purple-800 to-indigo-900 rounded-2xl overflow-hidden shadow-2xl mb-6 relative min-h-[300px] md:min-h-[350px] flex items-center justify-center">
+                  <div class="text-center text-white p-6">
+                    <i class="fas fa-inbox text-4xl md:text-5xl mb-4 opacity-50"></i>
+                    <p class="text-lg md:text-xl opacity-75">
+                      {language === 'zh' ? '暂无内容' : language === 'en' ? 'No content yet' : language === 'jp' ? 'コンテンツがありません' : '暫無內容'}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
