@@ -1894,6 +1894,7 @@ app.get('/ticloudadmin/resource-categories', requireAuth(), async (c) => {
     const totalPages = Math.ceil(total / pageSize)
     
     // 查询当前页数据（LIMIT 直接拼接，因为 MySQL 预处理语句不支持 LIMIT 占位符）
+    // 排序：sort_order 升序（数字越小越靠前），相同时按 created_at 降序（最新的在前）
     const categories = await mysqlQuery<any[]>(
       `SELECT id, sort_order, name, link as slug, 
               description, cover_image, cover_image_size, cover_image_type,
@@ -1901,7 +1902,7 @@ app.get('/ticloudadmin/resource-categories', requireAuth(), async (c) => {
               page_template as detail_template, 
               is_displayed as is_visible, created_at, updated_at 
        FROM resource_categories 
-       ORDER BY sort_order ASC, id ASC
+       ORDER BY sort_order ASC, created_at DESC
        LIMIT ${offset}, ${pageSize}`
     )
     
@@ -2345,6 +2346,7 @@ app.post('/api/admin/upload/file', requireAuth(), async (c) => {
 // 获取所有栏目分类
 app.get('/api/admin/resource-categories', async (c) => {
   try {
+    // 排序：sort_order 升序（数字越小越靠前），相同时按 created_at 降序（最新的在前）
     const categories = await mysqlQuery<any[]>(
       `SELECT id, sort_order, name, link as slug, 
               description, cover_image, cover_image_size, cover_image_type,
@@ -2352,7 +2354,7 @@ app.get('/api/admin/resource-categories', async (c) => {
               page_template as detail_template, 
               is_displayed as is_visible, created_at, updated_at 
        FROM resource_categories 
-       ORDER BY sort_order ASC, id ASC`
+       ORDER BY sort_order ASC, created_at DESC`
     )
     
     return c.json({ 
@@ -2665,7 +2667,7 @@ app.post('/api/admin/resource-categories/batch', async (c) => {
         
       case 'show':
         const showResult = await mysqlQuery(
-          `UPDATE resource_categories SET is_visible = 1 WHERE id IN (${placeholders})`,
+          `UPDATE resource_categories SET is_displayed = 1 WHERE id IN (${placeholders})`,
           ids
         )
         affectedCount = (showResult as any).affectedRows || 0
@@ -2677,7 +2679,7 @@ app.post('/api/admin/resource-categories/batch', async (c) => {
         
       case 'hide':
         const hideResult = await mysqlQuery(
-          `UPDATE resource_categories SET is_visible = 0 WHERE id IN (${placeholders})`,
+          `UPDATE resource_categories SET is_displayed = 0 WHERE id IN (${placeholders})`,
           ids
         )
         affectedCount = (hideResult as any).affectedRows || 0

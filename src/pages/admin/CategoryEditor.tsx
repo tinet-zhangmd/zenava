@@ -199,11 +199,12 @@ export const CategoryEditor: FC<CategoryEditorProps> = ({ category, mode }) => {
               </label>
               <div class="flex-1 pt-2">
                 <label class="inline-flex items-center">
+                is_visible: {category?.is_visible}
                   <input 
                     type="checkbox" 
                     id="category-is-visible" 
                     class="mr-2"
-                    checked={category?.is_visible !== false}
+                    checked={category?.is_visible == 1 || category?.is_visible === true}
                   />
                   <span class="text-sm text-gray-700">在前台显示此栏目</span>
                 </label>
