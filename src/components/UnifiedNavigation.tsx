@@ -112,6 +112,37 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
   currentLanguage, 
   currentPath 
 }) => {
+  // Check if icon is an image path (starts with / or contains image extensions)
+  const isImageIcon = (icon: string | undefined): boolean => {
+    if (!icon) return false
+    return icon.startsWith('/') || 
+           icon.startsWith('http://') || 
+           icon.startsWith('https://') ||
+           /\.(png|jpg|jpeg|gif|svg|webp)$/i.test(icon)
+  }
+  
+  // Render icon (either image or Font Awesome)
+  const renderIcon = (icon: string | undefined, className: string = '') => {
+    if (!icon) return null
+    
+    if (isImageIcon(icon)) {
+      return (
+        <img 
+          src={icon} 
+          alt="" 
+          class={className}
+          style={{
+            width: '2rem',
+            height: '2rem',
+            objectFit: 'contain'
+          }}
+        />
+      )
+    } else {
+      return <i class={`${icon} ${className}`}></i>
+    }
+  }
+  
   // Get label based on current language
   const getLabel = (item: any) => {
     const langKey = `label_${currentLanguage}` as keyof typeof item
@@ -231,8 +262,8 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
                                 >
                                   <div class="flex items-center space-x-3">
                                     {child.icon && (
-                                      <div class="flex-shrink-0 w-5 flex items-center justify-center">
-                                        <i class={`${child.icon} text-primary-600 text-base`}></i>
+                                      <div class="flex-shrink-0 w-8 flex items-center justify-center">
+                                        {renderIcon(child.icon, 'text-primary-600 text-base')}
                                       </div>
                                     )}
                                   <div class="flex-1 min-w-0">
@@ -387,8 +418,8 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
                             key={child.id}
                           >
                             {child.icon && (
-                              <span class="inline-flex items-center justify-center w-5 mr-2">
-                                <i class={`${child.icon} text-primary-600 text-base`}></i>
+                              <span class="inline-flex items-center justify-center w-8 mr-2">
+                                {renderIcon(child.icon, 'text-primary-600 text-base')}
                               </span>
                             )}
                             {getLabel(child)}
