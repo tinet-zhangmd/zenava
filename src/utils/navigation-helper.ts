@@ -79,7 +79,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
           label_jp: 'AIチャットカスタマーサービス',
           label_hk: 'AI Agents',
           url: '/products/ai-agents',
-          icon: 'fas fa-robot',
+          icon: '/assets/images/nav/1-01.png',
           order: 1,
           visible: true
         },
@@ -91,19 +91,19 @@ function getDefaultMenuItems(): NavMenuItem[] {
           label_jp: 'Live Chat',
           label_hk: 'Live Chat',
           url: '/products/live-chat',
-          icon: 'fas fa-comments',
+          icon: '/assets/images/nav/1-02.png',
           order: 2,
           visible: true
         },
         {
           id: 'voice',
-          label: 'Voice Agents',
-          label_zh: 'Voice Agents',
-          label_en: 'Voice Agents',
-          label_jp: 'Voice Agents',
-          label_hk: 'Voice Agents',
+          label: 'Voice Connectivity',
+          label_zh: 'Voice Connectivity',
+          label_en: 'Voice Connectivity',
+          label_jp: 'Voice Connectivity',
+          label_hk: 'Voice Connectivity',
           url: '/products/voice-agents',
-          icon: 'fas fa-microphone',
+          icon: '/assets/images/nav/1-03.png',
           order: 3,
           visible: true
         }

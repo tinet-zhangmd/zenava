@@ -151,8 +151,9 @@ INSERT OR REPLACE INTO navigation_config (
 
 -- Insert default menu items
 INSERT OR REPLACE INTO navigation_menu_items (id, type, label, label_en, label_jp, label_hk, url, order_index, visible) VALUES
-('scenarios', 'dropdown', 'Scenarios', 'Scenarios', 'シナリオ', '場景', NULL, 1, 1),
-('about', 'link', 'About Us', 'About Us', '私たちについて', '關於我們', '/about', 2, 1);
+('products', 'dropdown', 'Products', 'Products', '製品', '產品', NULL, 1, 1),
+('scenarios', 'dropdown', 'Scenarios', 'Scenarios', 'シナリオ', '場景', NULL, 2, 1),
+('about', 'link', 'About Us', 'About Us', '私たちについて', '關於我們', '/about', 3, 1);
 
 -- Insert scenario submenu items
 INSERT OR REPLACE INTO navigation_submenu_items (
@@ -199,3 +200,24 @@ INSERT OR REPLACE INTO navigation_submenu_items (
   '競争優位のための顧客インサイト',
   '客戶洞察驅動競爭優勢',
   '/scenarios/management', 'fas fa-tasks', 5, 1);
+
+-- Insert products submenu items
+INSERT OR REPLACE INTO navigation_submenu_items (
+  id, parent_id, label, label_en, label_jp, label_hk,
+  description, description_en, description_jp, description_hk,
+  url, icon, order_index, visible
+) VALUES
+('ai-agents', 'products',
+  'AI Agents', 'AI Agents', 'AIチャットカスタマーサービス', 'AI Agents',
+  NULL, NULL, NULL, NULL,
+  '/products/ai-agents', '/assets/images/nav/1-01.png', 1, 1),
+
+('messaging', 'products',
+  'Live Chat', 'Live Chat', 'Live Chat', 'Live Chat',
+  NULL, NULL, NULL, NULL,
+  '/products/live-chat', '/assets/images/nav/1-02.png', 2, 1),
+
+('voice', 'products',
+  'Voice Connectivity', 'Voice Connectivity', 'Voice Connectivity', 'Voice Connectivity',
+  NULL, NULL, NULL, NULL,
+  '/products/voice-agents', '/assets/images/nav/1-03.png', 3, 1);
