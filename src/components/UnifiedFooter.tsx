@@ -246,7 +246,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </li>
               <li>
                 <a 
-                  href={`${langPrefix}/products/messaging`}
+                  href={`${langPrefix}/products/live-chat`}
                   class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
                 >
                   {t.messaging}
@@ -254,7 +254,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               </li>
               <li>
                 <a 
-                  href={`${langPrefix}/products/voice`}
+                  href={`${langPrefix}/products/voice-agents`}
                   class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
                 >
                   {t.voice}
