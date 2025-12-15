@@ -29,10 +29,10 @@ export function AboutUs({ language }: AboutUsProps) {
             </h1>
             
             <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-4xl mx-auto leading-relaxed" data-animate="fade-in">
-              {language === 'zh' && '面向营销和服务场景的对话式 AI 智能体'}
-              {language === 'en' && 'AI Agent for Marketing and Service Dialogue Scenarios'}
-              {language === 'jp' && 'マーケティングとサービスの対話シナリオ向けAIエージェント'}
-              {language === 'hk' && '面向營銷和服務場景的對話式 AI 智能體'}
+              {language === 'zh' && '面向客服和营销场景的AI生产力平台'}
+              {language === 'en' && 'AI Productivity Platform for Customer Service and Marketing Scenarios'}
+              {language === 'jp' && 'カスタマーサービスとマーケティングシーン向けのAI生産性プラットフォーム'}
+              {language === 'hk' && '面向客服和營銷場景的AI生產力平台'}
             </p>
             
             <div class="flex justify-center" data-animate="slide-up">

@@ -14,7 +14,7 @@ export const SoftwarePage: FC<SoftwarePageProps> = ({ language = 'zh' }) => {
     <>
       {/* Banner-FullImage Section - 全图横幅 */}
       {t.banner && (
-        <section class="relative w-full overflow-hidden" style="height: 740px;">
+        <section class="relative w-full overflow-hidden" style="height: 680px;">
           {t.banner.link && t.banner.link !== '无' ? (
             <a href={t.banner.link} class="block w-full h-full">
               <div class="absolute inset-0 bg-gray-100">
@@ -153,21 +153,23 @@ export const SoftwarePage: FC<SoftwarePageProps> = ({ language = 'zh' }) => {
                           {/* Value Cards Grid - 2列布局 */}
                           <div class="grid grid-cols-2 gap-2 md:gap-3">
                             {item.effects.map((effect: string, effectIndex: number) => {
-                              // 提取数字和百分比
-                              const match = effect.match(/(\d+(?:\.\d+)?)\s*%?\+?/)
-                              const number = match ? match[1] : null
-                              const hasPercent = effect.includes('%')
-                              const text = effect.replace(/\d+(?:\.\d+)?\s*%?\+?\s*/, '').trim()
+                              // 将文本按数字分割，匹配: 数字、百分比、范围(10%~30%)、带单位(100万、3S)
+                              const parts = effect.split(/(\d+(?:\.\d+)?(?:%|万|S)?(?:~\d+%)?)/g).filter(Boolean)
                               
                               return (
                                 <div key={effectIndex} class="bg-white rounded p-2 md:p-3">
-                                  {number && (
-                                    <div class="text-2xl md:text-3xl font-bold text-blue-600 mb-0.5">
-                                      {number}{hasPercent ? '%' : ''}
-                                    </div>
-                                  )}
-                                  <p class="text-gray-700 text-xs leading-snug">
-                                    {text}
+                                  <p class="text-xs leading-snug">
+                                    {parts.map((part: string, partIndex: number) => {
+                                      // 检查是否是数字（包含%、万、S、或范围~）
+                                      if (/^\d+(?:\.\d+)?(?:%|万|S)?(?:~\d+%)?$/.test(part)) {
+                                        return (
+                                          <span key={partIndex} class="text-2xl md:text-3xl font-bold text-blue-600">
+                                            {part}
+                                          </span>
+                                        )
+                                      }
+                                      return <span key={partIndex} class="text-gray-700">{part}</span>
+                                    })}
                                   </p>
                                 </div>
                               )
@@ -274,19 +276,22 @@ export const SoftwarePage: FC<SoftwarePageProps> = ({ language = 'zh' }) => {
                           </h4>
                           <ul class="space-y-1">
                             {item.effects.map((effect: string, effectIndex: number) => {
-                              // 提取数字和百分比
-                              const match = effect.match(/(\d+(?:\.\d+)?)\s*%?\+?/)
-                              const number = match ? match[1] : null
-                              const hasPercent = effect.includes('%')
+                              // 将文本按数字分割，匹配: 数字、百分比、范围(10%~30%)、带单位(100万、3S)
+                              const parts = effect.split(/(\d+(?:\.\d+)?(?:%|万|S)?(?:~\d+%)?)/g).filter(Boolean)
                               
                               return (
-                                <li key={effectIndex} class="flex items-start space-x-2">
-                                  {number && (
-                                    <span class="text-xl md:text-2xl font-bold text-green-600 flex-shrink-0">{number}{hasPercent ? '%' : ''}</span>
-                                  )}
-                                  <span class="text-gray-700 text-xs md:text-sm leading-snug flex-1">
-                                    {effect.replace(/\d+(?:\.\d+)?\s*%?\+?\s*/, '').trim()}
-                                  </span>
+                                <li key={effectIndex} class="text-xs md:text-sm leading-snug">
+                                  {parts.map((part: string, partIndex: number) => {
+                                    // 检查是否是数字（包含%、万、S、或范围~）
+                                    if (/^\d+(?:\.\d+)?(?:%|万|S)?(?:~\d+%)?$/.test(part)) {
+                                      return (
+                                        <span key={partIndex} class="text-xl md:text-2xl font-bold text-green-600">
+                                          {part}
+                                        </span>
+                                      )
+                                    }
+                                    return <span key={partIndex} class="text-gray-700">{part}</span>
+                                  })}
                                 </li>
                               )
                             })}

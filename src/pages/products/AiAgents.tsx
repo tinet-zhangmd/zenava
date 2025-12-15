@@ -21,7 +21,7 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
   return (
     <>
       {/* Banner Section - 全图布局模式（仅图片和链接） */}
-      <section class="relative w-full overflow-hidden group" style="height: 740px;">
+      <section class="relative w-full overflow-hidden group" style="height: 680px;">
         {/* 可点击链接（可选，如果不需要链接则使用 div） */}
         <a href="/contact" class="block w-full h-full overflow-hidden">
           {/* 背景层：渐变背景 + 图片覆盖 */}
@@ -124,6 +124,12 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
             {/* Right Content */}
             <div class="space-y-6 md:space-y-8">
               <div>
+                {/* 标签 */}
+                {t.features.messaging.label && (
+                  <div class="inline-block px-4 py-2 bg-green-100 text-green-600 rounded-full text-sm font-semibold mb-4">
+                    {t.features.messaging.label}
+                  </div>
+                )}
                 {/* 主标题：亮色（绿色），大字体 */}
                 <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-green-600">{t.features.messaging.title}</h2>
                 {/* 副标题：如果存在，显示为黑色，相同字体大小 */}
@@ -164,6 +170,12 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
             {/* Left Content */}
             <div class="space-y-6 md:space-y-8 order-2 lg:order-1">
               <div>
+                {/* 标签 */}
+                {t.features.voice.label && (
+                  <div class="inline-block px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-4">
+                    {t.features.voice.label}
+                  </div>
+                )}
                 {/* 主标题：亮色（蓝色），大字体 */}
                 <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600">{t.features.voice.title}</h2>
                 {/* 副标题：如果存在，显示为黑色，相同字体大小 */}

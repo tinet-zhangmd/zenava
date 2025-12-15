@@ -40,11 +40,21 @@ export function detectLanguageFromPath(pathname: string): Language {
 
 export function getLocalizedPath(path: string, language: Language): string {
   // Remove existing language prefix
-  const cleanPath = path.replace(/^\/(zh|en|jp|hk)/, '') || '/'
+  let cleanPath = path.replace(/^\/(zh|en|jp|hk)/, '') || '/'
+  
+  // Remove trailing slash for non-root paths
+  if (cleanPath !== '/' && cleanPath.endsWith('/')) {
+    cleanPath = cleanPath.slice(0, -1)
+  }
   
   if (language === 'zh') {
     // 简体中文作为默认语言，不需要前缀
-    return cleanPath
+    return cleanPath === '/' ? '/' : cleanPath
+  }
+  
+  // For other languages, add prefix but avoid double slash
+  if (cleanPath === '/') {
+    return `/${language}`
   }
   
   return `/${language}${cleanPath}`

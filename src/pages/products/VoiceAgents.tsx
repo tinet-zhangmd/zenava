@@ -13,7 +13,7 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
   return (
     <>
       {/* Banner Section - 全图布局模式（仅图片和链接） */}
-      <section class="relative w-full overflow-hidden" style="height: 740px;">
+      <section class="relative w-full overflow-hidden" style="height: 680px;">
         <a href="/contact" class="block w-full h-full">
           <div class="absolute inset-0 bg-gray-100">
             {/* 全图背景 - 支持移动端专用图片 */}
