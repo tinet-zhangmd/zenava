@@ -356,6 +356,21 @@ export const siteTranslations = {
               imageAlt: 'Quantifiable Results'
             }
           ]
+        },
+        quantifiedEffects: {
+          title: 'Quantified Effects',
+          subtitle: '',
+          description: '',
+          effects: [
+            'Clear Return on Investment',
+            'Automatically handle 90% of common customer issues',
+            'After-sales problem resolution time reduced 60%',
+            'Customer satisfaction increased to 92%+',
+            'Average purchase conversion rate increased 30–40%'
+          ],
+          buttonText: 'Learn More',
+          buttonLink: '/contact',
+          imageAlt: 'Quantified Effects'
         }
       },
       automotive: {
@@ -465,7 +480,7 @@ export const siteTranslations = {
                 'Smoothly escalate to human handling when problems cannot be solved'
               ],
               effects: [
-                'Accuracy exceeds 85%, average response time within 3 seconds',
+                'Accuracy exceeds 85%, average response time within 3S',
                 'Independent reception rate increased from 20% to 35%'
               ],
               buttonText: 'Learn More',
@@ -580,6 +595,20 @@ export const siteTranslations = {
               imageAlt: 'Quantifiable Results'
             }
           ]
+        },
+        quantifiedEffects: {
+          title: 'Quantified Effects',
+          subtitle: '',
+          description: '',
+          effects: [
+            'Customer Satisfaction Increased 30%',
+            'Operating Costs Reduced 35%',
+            'Booking Conversion Rate Increased 25%',
+            'Response Time Shortened 70%'
+          ],
+          buttonText: 'Learn More',
+          buttonLink: '/contact',
+          imageAlt: 'Quantified Effects'
         }
       }
     },
@@ -624,7 +653,7 @@ export const siteTranslations = {
     contactForm: {
       title: 'Contact Us',
       subtitle: 'Get Your Custom Solution',
-      description: 'Fill out the form and our professional advisor will contact you soon to provide a customized AI conversation solution.',
+      description: 'Our professional consultant will contact you soon.',
       firstName: 'First Name',
       firstNamePlaceholder: 'Enter your first name',
       lastName: 'Last Name',
@@ -1003,8 +1032,9 @@ export const siteTranslations = {
           title: 'Core Features',
           subtitle: '',
           voice: {
-            title: 'Voice Agents',
-            subtitle: 'Beyond Human Voice Conversation Experience',
+            label: 'Voice Agents',
+            title: 'Beyond Human Voice Conversation Experience',
+            subtitle: '',
             list: [
               'Human-like Timbre: Voice rich with emotion and expressiveness, delivering communication experiences that surpass real humans',
               'Low-latency Interaction: Fast response, real-time conversation without lag',
@@ -1014,13 +1044,14 @@ export const siteTranslations = {
             button: 'Learn More About Voice Agents'
           },
           messaging: {
+            label: 'Live Chat',
             title: 'Create Ultimate Customer Service Experience',
             subtitle: '',
             list: [
               '7x24 hours omnichannel online, never miss any communication with customers',
               'Support rich media communication including text, images, and videos, accurately identifying customer intent',
               'Able to sense customer emotions from expressions and respond in a friendly and respectful manner',
-              'Balance brand business bottom line and customer experience, flexibly meeting customer needs',
+              'Create ultimate customer service experience, flexibly meeting customer needs',
               'Possess empathy and judgment, driving complete business process loop'
             ],
             button: 'Learn More About Live Chat'
@@ -1196,9 +1227,6 @@ export const siteTranslations = {
             mainTitle: '7x24 Hour Omnichannel Online',
             subtitle: 'Never Miss Any Communication with Customers',
             description: 'Zenava can communicate with customers in real-time 7x24 hours on their chosen channels, whether it\'s web pages, Apps, social media, or messaging applications. Enterprises don\'t need to worry about customers waiting or missing business opportunities, significantly improving customer satisfaction and retention',
-            tag1: '7x24 Hours',
-            tag2: 'Omnichannel',
-            tag3: 'Real-time',
             buttonText: 'Learn More',
             imageAlt: '7x24 Hour Omnichannel Online',
             imageSrc: '/assets/images/livechat/omnichannel.webp'
@@ -1207,9 +1235,6 @@ export const siteTranslations = {
             mainTitle: 'Rich Media Communication',
             subtitle: 'Accurately Identify Customer Intent',
             description: 'Zenava can not only understand text but also images, videos, and other forms of information, providing a rich dialogue experience, enabling complex multi-turn dialogue information collection, accurately identifying customer intent, and efficiently handling customer problems',
-            tag1: 'Rich Media',
-            tag2: 'Intent Recognition',
-            tag3: 'Multi-turn Dialogue',
             buttonText: 'Learn More',
             imageAlt: 'Rich Media Communication',
             imageSrc: '/assets/images/livechat/rich-media.webp'
@@ -1218,20 +1243,14 @@ export const siteTranslations = {
             mainTitle: 'Emotion Perception',
             subtitle: 'Respond in a Friendly and Respectful Manner',
             description: 'Zenava, through personality modeling, possesses language understanding and emotional perception capabilities, able to identify emotions from expressions and respond in a friendly and respectful manner, allowing customers to feel attentive and professional service experience',
-            tag1: 'Emotion Recognition',
-            tag2: 'Friendly Response',
-            tag3: 'Professional Service',
             buttonText: 'Learn More',
             imageAlt: 'Emotion Perception',
             imageSrc: '/assets/images/livechat/emotion.webp'
           },
           item4: {
-            mainTitle: 'Balance Business and Experience',
+            mainTitle: 'Create Ultimate Customer Service Experience',
             subtitle: 'Flexibly Meet Customer Demands',
             description: 'Under the premise of adhering to enterprise business bottom lines and brand norms, Zenava can flexibly meet customers\' personalized needs, enabling enterprises to enhance customer experience while ensuring safety and compliance',
-            tag1: 'Business Compliance',
-            tag2: 'Flexible Solutions',
-            tag3: 'Customer Experience',
             buttonText: 'Learn More',
             imageAlt: 'Balance Business and Experience',
             imageSrc: '/assets/images/livechat/balance.webp'
@@ -1240,9 +1259,6 @@ export const siteTranslations = {
             mainTitle: 'Empathy and Judgment',
             subtitle: 'Drive Full Business Process Closure',
             description: 'Zenava possesses empathy and judgment, and in actual business scenarios, it can use tools like human employees to complete tasks such as sending SMS messages, creating work orders, querying customer data, and sending invitation notifications, achieving business closure',
-            tag1: 'Empathy',
-            tag2: 'Business Automation',
-            tag3: 'Process Closure',
             buttonText: 'Learn More',
             imageAlt: 'Empathy and Judgment',
             imageSrc: '/assets/images/livechat/empathy.webp'
@@ -1699,6 +1715,21 @@ export const siteTranslations = {
               imageAlt: '定量化された効果'
             }
           ]
+        },
+        quantifiedEffects: {
+          title: '定量化された効果',
+          subtitle: '',
+          description: '',
+          effects: [
+            '投資収益率が明確に可視化',
+            '顧客の一般的な問題を自動処理 90%',
+            'アフターサービス問題解決時間短縮 60%',
+            '顧客満足度向上 92%+',
+            '平均購入転換率向上 30–40%'
+          ],
+          buttonText: '詳細を見る',
+          buttonLink: '/contact',
+          imageAlt: '定量化された効果'
         }
       },
       automotive: {
@@ -1774,8 +1805,8 @@ export const siteTranslations = {
                 '豊富な製品知識と強力な一般知識を活用し、高品質な専門的な回答を実現し、顧客の信頼を向上'
               ],
               effects: [
-                '問い合わせからリードへの転換率が10%から40%に向上',
-                '年間100万人以上の人的コストを節約'
+                '10% 問い合わせからリードへの転換率が40%に向上',
+                '100 年間万人以上の人的コストを節約'
               ],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
@@ -1808,7 +1839,7 @@ export const siteTranslations = {
                 '問題が解決できない場合、人間処理にスムーズにエスカレート'
               ],
               effects: [
-                '精度が85%を超え、平均応答時間は3秒以内',
+                '精度が85%を超え、平均応答時間は3S以内',
                 '独立対応率が20%から35%に向上'
               ],
               buttonText: '詳細を見る',
@@ -1923,6 +1954,20 @@ export const siteTranslations = {
               imageAlt: '定量化された効果'
             }
           ]
+        },
+        quantifiedEffects: {
+          title: '定量化された効果',
+          subtitle: '',
+          description: '',
+          effects: [
+            '顧客満足度向上 30%',
+            '運営コスト削減 35%',
+            '予約転換率向上 25%',
+            '応答時間短縮 70%'
+          ],
+          buttonText: '詳細を見る',
+          buttonLink: '/contact',
+          imageAlt: '定量化された効果'
         }
       }
     },
@@ -1967,7 +2012,7 @@ export const siteTranslations = {
     contactForm: {
       title: 'お問い合わせ',
       subtitle: 'カスタムソリューションを取得',
-      description: 'フォームにご記入いただくと、専門のアドバイザーがすぐにご連絡し、カスタマイズされたAI対話ソリューションを提供いたします。',
+      description: '私たちの専門コンサルタントがまもなくご連絡いたします。',
       firstName: '名',
       firstNamePlaceholder: '名を入力してください',
       lastName: '姓',
@@ -2346,8 +2391,9 @@ export const siteTranslations = {
           title: 'コア機能',
           subtitle: '',
           voice: {
-            title: 'Voice Agents',
-            subtitle: '人間を超える音声対話体験',
+            label: 'Voice Agents',
+            title: '人間を超える音声対話体験',
+            subtitle: '',
             list: [
               '人間のような声色：感情と表現力に富んだ声で、人間を超えるコミュニケーション体験を提供',
               '低遅延インタラクション：迅速な応答、リアルタイム対話でラグなし',
@@ -2357,13 +2403,14 @@ export const siteTranslations = {
             button: 'Voice Agents機能の詳細'
           },
           messaging: {
+            label: 'Live Chat',
             title: '究極のカスタマーサービス体験を創出',
             subtitle: '',
             list: [
               '7x24時間オムニチャネルオンライン、お客様とのすべてのコミュニケーションを見逃さない',
               'テキスト、画像、動画などのリッチメディアコミュニケーションをサポートし、お客様の意図を正確に識別',
               '表現からお客様の感情を感知し、友好的で尊重ある方法で応答',
-              'ブランドのビジネス基盤と顧客体験を両立し、柔軟にお客様のニーズに対応',
+              '究極のカスタマーサービス体験を創出し、柔軟にお客様のニーズに対応',
               '共感力と判断力を備え、完全なビジネスプロセスループを推進'
             ],
             button: 'Live Chat機能の詳細'
@@ -2539,9 +2586,6 @@ export const siteTranslations = {
             mainTitle: '7×24時間オムニチャネルオンライン',
             subtitle: '顧客とのコミュニケーションを逃さない',
             description: 'Zenavaは、顧客が選択したチャネルで7×24時間リアルタイムにコミュニケーションを取ることができます。ウェブページ、アプリ、ソーシャルメディア、メッセージアプリなど、企業は顧客の待機やビジネス機会の喪失を心配する必要がなく、顧客満足度とリテンション率を大幅に向上させます',
-            tag1: '7×24時間',
-            tag2: 'オムニチャネル',
-            tag3: 'リアルタイム',
             buttonText: '詳細を見る',
             imageAlt: '7×24時間オムニチャネルオンライン',
             imageSrc: '/assets/images/livechat/omnichannel.webp'
@@ -2550,9 +2594,6 @@ export const siteTranslations = {
             mainTitle: 'テキスト、画像、動画などのリッチメディアコミュニケーションをサポート',
             subtitle: '顧客の意図を正確に識別',
             description: 'Zenavaはテキストだけでなく、画像、動画など多様な形式の情報を理解でき、豊かな対話体験を提供し、複雑なマルチターン対話情報収集を実現し、顧客の意図を正確に識別し、顧客の問題を効率的に処理します',
-            tag1: 'リッチメディア',
-            tag2: '意図認識',
-            tag3: 'マルチターン対話',
             buttonText: '詳細を見る',
             imageAlt: 'リッチメディアコミュニケーション',
             imageSrc: '/assets/images/livechat/rich-media.webp'
@@ -2561,20 +2602,14 @@ export const siteTranslations = {
             mainTitle: '表現から顧客の感情を感知',
             subtitle: '友好的で尊重ある方法で応答',
             description: 'Zenavaは性格モデリングを通じて言語理解と感情認識能力を備えており、表現から感情を識別し、友好的で尊重ある方法で応答することで、顧客に心のこもった専門的なサービス体験を提供します',
-            tag1: '感情認識',
-            tag2: '友好的応答',
-            tag3: '専門サービス',
             buttonText: '詳細を見る',
             imageAlt: '感情感知',
             imageSrc: '/assets/images/livechat/emotion.webp'
           },
           item4: {
-            mainTitle: 'ブランドのビジネス基盤と顧客体験を両立',
+            mainTitle: '究極のカスタマーサービス体験を創出',
             subtitle: '顧客のニーズに柔軟に対応',
             description: '企業のビジネス基盤とブランド規範を遵守する前提で、Zenavaは顧客の個別ニーズに柔軟に対応でき、企業は安全性とコンプライアンスを確保しながら顧客体験を向上させることができます',
-            tag1: 'ビジネスコンプライアンス',
-            tag2: '柔軟なソリューション',
-            tag3: '顧客体験',
             buttonText: '詳細を見る',
             imageAlt: 'ビジネスと体験の両立',
             imageSrc: '/assets/images/livechat/balance.webp'
@@ -2583,9 +2618,6 @@ export const siteTranslations = {
             mainTitle: '共感力と判断力を備える',
             subtitle: 'ビジネスプロセス全体の閉環を推進',
             description: 'Zenavaは共感力と判断力を備えており、実際のビジネスシナリオでは、人間の従業員のようにツールを使用して、SMS送信、チケット作成、顧客データの照会、招待通知などのタスクを完了し、ビジネス閉環を実現します',
-            tag1: '共感力',
-            tag2: 'ビジネス自動化',
-            tag3: 'プロセス閉環',
             buttonText: '詳細を見る',
             imageAlt: '共感力と判断力',
             imageSrc: '/assets/images/livechat/empathy.webp'
@@ -3043,6 +3075,21 @@ export const siteTranslations = {
               imageAlt: '量化效果'
             }
           ]
+        },
+        quantifiedEffects: {
+          title: '量化效果',
+          subtitle: '',
+          description: '',
+          effects: [
+            '投資回報清晰可見',
+            '自動處理 90% 客戶常見問題',
+            '售後問題解決時長縮短 60%',
+            '客戶滿意度提升至 92%+',
+            '平均購買轉化率提升 30–40%'
+          ],
+          buttonText: '了解更多',
+          buttonLink: '/contact',
+          imageAlt: '量化效果'
         }
       },
       automotive: {
@@ -3189,7 +3236,7 @@ export const siteTranslations = {
               ],
               solution: '部署 Zenava，融合產品操作文檔、產品說明、技術支持常見問題、售前解決方案文檔構建知識庫，全時段覆蓋銷售、售前、客戶、實施工程師的問題諮詢',
               effects: [
-                '對客側員工效率提升 15%~30%',
+                '對客側員工效率提升15%~30%',
                 '技術支持團隊節省40%的內部支撐時間'
               ],
               buttonText: '了解更多',
@@ -3267,6 +3314,20 @@ export const siteTranslations = {
               imageAlt: '量化效果'
             }
           ]
+        },
+        quantifiedEffects: {
+          title: '量化效果',
+          subtitle: '',
+          description: '',
+          effects: [
+            '客戶滿意度提升 30%',
+            '運營成本降低 35%',
+            '預訂轉化率提升 25%',
+            '響應時間縮短 70%'
+          ],
+          buttonText: '了解更多',
+          buttonLink: '/contact',
+          imageAlt: '量化效果'
         }
       }
     },
@@ -3311,7 +3372,7 @@ export const siteTranslations = {
     contactForm: {
       title: '聯繫我們',
       subtitle: '獲取專屬解決方案',
-      description: '填寫表單，我們的專業顧問將盡快與您聯繫，為您提供定制化的AI對話解決方案。',
+      description: '我們的專業顧問將盡快與您聯繫。',
       firstName: '名',
       firstNamePlaceholder: '請輸入您的名',
       lastName: '姓',
@@ -3690,8 +3751,9 @@ export const siteTranslations = {
           title: '核心功能',
           subtitle: '',
           voice: {
-            title: 'Voice Agents',
-            subtitle: '超越真人的語音對話體驗',
+            label: 'Voice Agents',
+            title: '超越真人的語音對話體驗',
+            subtitle: '',
             list: [
               '擬人化音色：聲音富有情緒與表達力，溝通體驗超越真人',
               '低延遲交互：快速響應，實時對話無卡頓',
@@ -3701,13 +3763,14 @@ export const siteTranslations = {
             button: '了解更多Voice Agents功能'
           },
           messaging: {
+            label: 'Live Chat',
             title: '打造極致客戶服務體驗',
             subtitle: '',
             list: [
               '7x24小時全渠道在線，不錯失與客戶的每一次溝通',
               '支持文字、圖片、視頻等富媒體溝通，精準識別客戶意圖',
               '能夠從表述中感知客戶情緒，以友好、尊重的方式回應',
-              '兼顧品牌的業務底線和客戶體驗，靈活滿足客戶訴求',
+              '打造極致客戶服務體驗，靈活滿足客戶訴求',
               '具備同理心與判斷力，驅動業務全流程閉環'
             ],
             button: '了解更多Live Chat功能'
@@ -3883,9 +3946,6 @@ export const siteTranslations = {
             mainTitle: '7×24小時全渠道在線',
             subtitle: '不錯失與客戶的每一次溝通',
             description: 'Zenava可以7×24小時在客戶選擇的渠道上與他們實時溝通，無論是網頁、App、社交媒體還是消息應用，企業無需擔心客戶等待或錯失商機，顯著提升客戶滿意度與留存率',
-            tag1: '7×24小時',
-            tag2: '全渠道',
-            tag3: '實時溝通',
             buttonText: '了解更多',
             imageAlt: '7×24小時全渠道在線',
             imageSrc: '/assets/images/livechat/omnichannel.webp'
@@ -3894,9 +3954,6 @@ export const siteTranslations = {
             mainTitle: '支持文字、圖片、視頻等富媒體溝通',
             subtitle: '精準識別客戶意圖',
             description: 'Zenava不僅能理解文字，還能理解圖片、視頻等多種形態的信息，提供豐富的對話體驗，實現複雜多輪對話信息收集，精準識別客戶意圖，高效處理客戶問題',
-            tag1: '富媒體',
-            tag2: '意圖識別',
-            tag3: '多輪對話',
             buttonText: '了解更多',
             imageAlt: '富媒體溝通',
             imageSrc: '/assets/images/livechat/rich-media.webp'
@@ -3905,20 +3962,14 @@ export const siteTranslations = {
             mainTitle: '能夠從表述中感知客戶情緒',
             subtitle: '以友好、尊重的方式回應',
             description: 'Zenava通過性格建模具備語言理解與情緒感知能力，能夠從表述中識別情緒，並以友好、尊重的方式回應，讓客戶感受到貼心和專業的服務體驗',
-            tag1: '情緒識別',
-            tag2: '友好回應',
-            tag3: '專業服務',
             buttonText: '了解更多',
             imageAlt: '情緒感知',
             imageSrc: '/assets/images/livechat/emotion.webp'
           },
           item4: {
-            mainTitle: '兼顧品牌的業務底線和客戶體驗',
+            mainTitle: '打造極致客戶服務體驗',
             subtitle: '靈活滿足客戶訴求',
             description: '在遵守企業業務底線和品牌規範的前提下，Zenava能夠靈活滿足客戶個性化需求，使企業在保證安全與合規的同時提升客戶體驗',
-            tag1: '業務合規',
-            tag2: '靈活方案',
-            tag3: '客戶體驗',
             buttonText: '了解更多',
             imageAlt: '兼顧業務和體驗',
             imageSrc: '/assets/images/livechat/balance.webp'
@@ -3927,9 +3978,6 @@ export const siteTranslations = {
             mainTitle: '具備同理心與判斷力',
             subtitle: '驅動業務全流程閉環',
             description: 'Zenava具有同理心與判斷力，在實際業務場景中，能夠像人類員工一樣調用工具，完成如發送短信、創建工單、查詢客戶資料以及邀約通知等任務，實現業務閉環',
-            tag1: '同理心',
-            tag2: '業務自動化',
-            tag3: '流程閉環',
             buttonText: '了解更多',
             imageAlt: '同理心與判斷力',
             imageSrc: '/assets/images/livechat/empathy.webp'
@@ -4436,6 +4484,21 @@ export const siteTranslations = {
               imageAlt: '量化效果'
             }
           ]
+        },
+        quantifiedEffects: {
+          title: '量化效果',
+          subtitle: '',
+          description: '',
+          effects: [
+            '投资回报清晰可见',
+            '自动处理 90% 客户常见问题',
+            '售后问题解决时长缩短 60%',
+            '客户满意度提升至 92%+',
+            '平均购买转化率提升 30–40%'
+          ],
+          buttonText: '了解更多',
+          buttonLink: '/contact',
+          imageAlt: '量化效果'
         }
       },
       automotive: {
@@ -4582,7 +4645,7 @@ export const siteTranslations = {
               ],
               solution: '部署 Zenava，融合产品操作文档、产品说明、技术支持常见问题、售前解决方案文档构建知识库，全时段覆盖销售、售前、客户、实施工程师的问题咨询',
               effects: [
-                '对客侧员工效率提升 15%~30%',
+                '对客侧员工效率提升15%~30%',
                 '技术支持团队节省40%的内部支撑时间'
               ],
               buttonText: '了解更多',
@@ -4660,6 +4723,20 @@ export const siteTranslations = {
               imageAlt: '量化效果'
             }
           ]
+        },
+        quantifiedEffects: {
+          title: '量化效果',
+          subtitle: '',
+          description: '',
+          effects: [
+            '客户满意度提升 30%',
+            '运营成本降低 35%',
+            '预订转化率提升 25%',
+            '响应时间缩短 70%'
+          ],
+          buttonText: '了解更多',
+          buttonLink: '/contact',
+          imageAlt: '量化效果'
         }
       }
     },
@@ -4704,7 +4781,7 @@ export const siteTranslations = {
     contactForm: {
       title: '联系我们',
       subtitle: '获取专属解决方案',
-      description: '填写表单，我们的专业顾问将尽快与您联系，为您提供定制化的AI对话解决方案。',
+      description: '我们的专业顾问将尽快与您联系',
       firstName: '名',
       firstNamePlaceholder: '请输入您的名',
       lastName: '姓',
@@ -5083,8 +5160,9 @@ export const siteTranslations = {
           title: '核心功能',
           subtitle: '',
           voice: {
-            title: 'Voice Agents',
-            subtitle: '超越真人的语音对话体验',
+            label: 'Voice Agents',
+            title: '超越真人的语音对话体验',
+            subtitle: '',
             list: [
               '拟人化音色：声音富有情绪与表达力，沟通体验超越真人',
               '低延迟交互：快速响应，实时对话无卡顿',
@@ -5094,13 +5172,14 @@ export const siteTranslations = {
             button: '了解更多Voice Agents功能'
           },
           messaging: {
+            label: 'Live Chat',
             title: '打造极致客户服务体验',
             subtitle: '',
             list: [
               '7x24小时全渠道在线，不错失与客户的每一次沟通',
               '支持文字、图片、视频等富媒体沟通，精准识别客户意图',
               '能够从表述中感知客户情绪，以友好、尊重的方式回应',
-              '兼顾品牌的业务底线和客户体验，灵活满足客户诉求',
+              '打造极致客户服务体验，灵活满足客户诉求',
               '具备同理心与判断力，驱动业务全流程闭环'
             ],
             button: '了解更多Live Chat功能'
@@ -5276,9 +5355,6 @@ export const siteTranslations = {
             mainTitle: '7×24小时全渠道在线',
             subtitle: '不错失与客户的每一次沟通',
             description: 'Zenava可以7×24小时在客户选择的渠道上与他们实时沟通，无论是网页、App、社交媒体还是消息应用，企业无需担心客户等待或错失商机，显著提升客户满意度与留存率',
-            tag1: '7×24小时',
-            tag2: '全渠道',
-            tag3: '实时沟通',
             buttonText: '了解更多',
             imageAlt: '7×24小时全渠道在线',
             imageSrc: '/assets/images/livechat/omnichannel.webp'
@@ -5287,9 +5363,6 @@ export const siteTranslations = {
             mainTitle: '支持文字、图片、视频等富媒体沟通',
             subtitle: '精准识别客户意图',
             description: 'Zenava不仅能理解文字，还能理解图片、视频等多种形态的信息，提供丰富的对话体验，实现复杂多轮对话信息收集，精准识别客户意图，高效处理客户问题',
-            tag1: '富媒体',
-            tag2: '意图识别',
-            tag3: '多轮对话',
             buttonText: '了解更多',
             imageAlt: '富媒体沟通',
             imageSrc: '/assets/images/livechat/rich-media.webp'
@@ -5298,20 +5371,14 @@ export const siteTranslations = {
             mainTitle: '能够从表述中感知客户情绪',
             subtitle: '以友好、尊重的方式回应',
             description: 'Zenava通过性格建模具备语言理解与情绪感知能力，能够从表述中识别情绪，并以友好、尊重的方式回应，让客户感受到贴心和专业的服务体验',
-            tag1: '情绪识别',
-            tag2: '友好回应',
-            tag3: '专业服务',
             buttonText: '了解更多',
             imageAlt: '情绪感知',
             imageSrc: '/assets/images/livechat/emotion.webp'
           },
           item4: {
-            mainTitle: '兼顾品牌的业务底线和客户体验',
+            mainTitle: '打造极致客户服务体验',
             subtitle: '灵活满足客户诉求',
             description: '在遵守企业业务底线和品牌规范的前提下，Zenava能够灵活满足客户个性化需求，使企业在保证安全与合规的同时提升客户体验',
-            tag1: '业务合规',
-            tag2: '灵活方案',
-            tag3: '客户体验',
             buttonText: '了解更多',
             imageAlt: '兼顾业务和体验',
             imageSrc: '/assets/images/livechat/balance.webp'
@@ -5320,9 +5387,6 @@ export const siteTranslations = {
             mainTitle: '具备同理心与判断力',
             subtitle: '驱动业务全流程闭环',
             description: 'Zenava具有同理心与判断力，在实际业务场景中，能够像人类员工一样调用工具，完成如发送短信、创建工单、查询客户资料以及邀约通知等任务，实现业务闭环',
-            tag1: '同理心',
-            tag2: '业务自动化',
-            tag3: '流程闭环',
             buttonText: '了解更多',
             imageAlt: '同理心与判断力',
             imageSrc: '/assets/images/livechat/empathy.webp'

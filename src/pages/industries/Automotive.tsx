@@ -14,7 +14,7 @@ export const AutomotivePage: FC<AutomotivePageProps> = ({ language = 'zh' }) => 
     <>
       {/* Banner-FullImage Section - 全图横幅 */}
       {t.banner && (
-        <section class="relative w-full overflow-hidden" style="height: 740px;">
+        <section class="relative w-full overflow-hidden" style="height: 680px;">
           {t.banner.link && t.banner.link !== '无' ? (
             <a href={t.banner.link} class="block w-full h-full">
               <div class="absolute inset-0 bg-gray-100">

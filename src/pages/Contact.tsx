@@ -22,16 +22,10 @@ export const ContactPage: FC<ContactPageProps> = ({ language = 'zh' }) => {
                 {t.title || (language === 'zh' ? '联系我们' : language === 'en' ? 'Contact Us' : language === 'jp' ? 'お問い合わせ' : '聯繫我們')}
               </h1>
               
-              {/* 三行白色文字 */}
-              <div class="space-y-4 md:space-y-6">
+              {/* 一行白色文字 */}
+              <div>
                 <p class="text-white text-lg md:text-xl leading-relaxed">
-                  {t.description?.split('\n')[0] || (language === 'zh' ? '文字内容文字内容文字' : language === 'en' ? 'Text content text content text' : language === 'jp' ? 'テキストコンテンツテキストコンテンツテキスト' : '文字內容文字內容文字')}
-                </p>
-                <p class="text-white text-lg md:text-xl leading-relaxed">
-                  {t.description?.split('\n')[1] || (language === 'zh' ? '文字内容文字内容文字' : language === 'en' ? 'Text content text content text' : language === 'jp' ? 'テキストコンテンツテキストコンテンツテキスト' : '文字內容文字內容文字')}
-                </p>
-                <p class="text-white text-lg md:text-xl leading-relaxed">
-                  {t.description?.split('\n')[2] || (language === 'zh' ? '文字内容文字内容文字' : language === 'en' ? 'Text content text content text' : language === 'jp' ? 'テキストコンテンツテキストコンテンツテキスト' : '文字內容文字內容文字')}
+                  {t.description?.split('\n')[0] || (language === 'zh' ? '我们的专业顾问将尽快与您联系' : language === 'en' ? 'Our professional consultant will contact you soon.' : language === 'jp' ? '私たちの専門コンサルタントがまもなくご連絡いたします。' : '我們的專業顧問將盡快與您聯繫。')}
                 </p>
               </div>
             </div>

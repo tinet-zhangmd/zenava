@@ -64,6 +64,9 @@ export function LayoutWithUnifiedNav({
         <meta name="description" content={siteDescription} />
         {seoKeywords && <meta name="keywords" content={seoKeywords} />}
         
+        {/* Favicon */}
+        <link rel="icon" type="image/x-icon" href="/assets/images/zenava.ico" />
+        
         {/* Open Graph Tags */}
         <meta property="og:title" content={siteTitle} />
         <meta property="og:description" content={siteDescription} />

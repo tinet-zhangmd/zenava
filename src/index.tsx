@@ -173,6 +173,34 @@ app.get('/zh', (c) => {
   )
 })
 
+app.get('/en', (c) => {
+  const language: Language = 'en'
+  const currentPath = '/en'
+  
+  // Use static data for navigation and footer
+  const { config: navConfig, menuItems } = getNavigationData(language);
+  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  return c.html(
+    <LayoutWithUnifiedNav 
+      language={language} 
+      currentPath={currentPath}
+      navigationConfig={navConfig}
+      menuItems={menuItems}
+      footerConfig={footerConfig}
+      footerSections={footerSections}
+      privacyLinks={privacyLinks}
+    >
+      <HomepageDB 
+        language={language}
+        pageData={null}
+        modules={[]}
+        settings={{}}
+      />
+    </LayoutWithUnifiedNav>
+  )
+})
+
 app.get('/jp', (c) => {
   const language: Language = 'jp'
   const currentPath = '/jp'
