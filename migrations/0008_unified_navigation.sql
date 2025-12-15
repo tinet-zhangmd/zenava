@@ -218,6 +218,6 @@ INSERT OR REPLACE INTO navigation_submenu_items (
   '/products/live-chat', '/assets/images/nav/1-02.png', 2, 1),
 
 ('voice', 'products',
-  'Voice Connectivity', 'Voice Connectivity', 'Voice Connectivity', 'Voice Connectivity',
+  'Voice Agents', 'Voice Agents', 'Voice Agents', 'Voice Agents',
   NULL, NULL, NULL, NULL,
   '/products/voice-agents', '/assets/images/nav/1-03.png', 3, 1);

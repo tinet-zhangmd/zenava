@@ -969,7 +969,7 @@ export const siteTranslations = {
       title: 'Resource Center',
       cards: {
         voiceConnectivity: {
-          title: 'Voice Connectivity',
+          title: 'Voice Agents',
           learnMore: 'Learn More',
           bookDemo: 'Book a Demo'
         },
@@ -5097,7 +5097,7 @@ export const siteTranslations = {
       title: '资源中心',
       cards: {
         voiceConnectivity: {
-          title: 'Voice Connectivity',
+          title: 'Voice Agents',
           learnMore: '了解详情',
           bookDemo: '预约演示'
         },
