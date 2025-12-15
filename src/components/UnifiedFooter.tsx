@@ -302,8 +302,8 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
             </ul>
           </div>
           
-          {/* Column 3: Resources */}
-          <div>
+          {/* Column 3: Resources - 暂时隐藏 */}
+          {/* <div>
             <h4 class="text-white font-semibold mb-4 text-sm">{t.resources}</h4>
             <ul class="space-y-3">
               <li>
@@ -339,7 +339,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
                 </a>
               </li>
             </ul>
-          </div>
+          </div> */}
           
           {/* Column 4: Company */}
           <div>

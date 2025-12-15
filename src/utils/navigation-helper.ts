@@ -171,7 +171,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
         }
       ]
     },
-    // 一级导航：资源中心（改为直接链接）
+    // 一级导航：资源中心（改为直接链接）- 暂时隐藏
     {
       id: 'resources',
       type: 'link',
@@ -182,7 +182,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
       label_hk: '資源中心',
       url: '/resources',
       order: 3,
-      visible: true
+      visible: false
     },
     // 右侧：关于我们
     {
