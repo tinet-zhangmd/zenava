@@ -383,63 +383,60 @@ app.get('/contents/:id', async (c) => {
 // 创建内容
 app.post('/contents', async (c) => {
   try {
-    const { 
-      category_id, 
-      title, 
-      slug, 
-      thumbnail, 
-      author, 
-      publish_date, 
-      summary, 
-      body, 
-      tags, 
-      status, 
-      is_featured 
-    } = await c.req.json()
+    const data = await c.req.json()
+    console.log('📥 [POST /contents] 收到原始数据:', JSON.stringify(data).substring(0, 500) + '...');
     
     // 验证必填字段
-    if (!category_id || !title || !slug) {
-      return c.json({ 
-        success: false, 
-        error: '缺少必填字段' 
-      }, 400)
+    if (!data.category_id || !data.title) {
+      return c.json({ success: false, error: '缺少必填字段' }, 400)
     }
     
-    const result: any = await query(
-      `INSERT INTO resource_contents 
-       (category_id, title, slug, thumbnail, author, publish_date, summary, body, tags, status, is_featured) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        category_id, 
-        title, 
-        slug, 
-        thumbnail || null, 
-        author || null, 
-        publish_date || null, 
-        summary || null, 
-        body || null, 
-        tags || null, 
-        status || 'draft', 
-        is_featured || false
-      ]
-    )
+    // 明确定义所有允许存入数据库的字段
+    const allowedColumns = [
+      'category_id', 'title', 'slug', 'cover_image', 'author', 'published_at', 
+      'status', 'is_featured', 'sort_order', 'reading_time',
+      'title_zh', 'title_en', 'title_jp', 'title_hk',
+      'content_zh', 'content_en', 'content_jp', 'content_hk',
+      'cover_image_zh', 'cover_image_en', 'cover_image_jp', 'cover_image_hk',
+      'meta_title_zh', 'meta_title_en', 'meta_title_jp', 'meta_title_hk',
+      'meta_description_zh', 'meta_description_en', 'meta_description_jp', 'meta_description_hk',
+      'meta_keywords_zh', 'meta_keywords_en', 'meta_keywords_jp', 'meta_keywords_hk',
+      'meta_title', 'meta_description', 'meta_keywords',
+      'content', 'video_file', 'attachment_file'
+    ]
+    
+    // 过滤掉不在 allowedColumns 中的字段（如 id）
+    const finalData: any = {}
+    allowedColumns.forEach(col => {
+      if (data[col] !== undefined) {
+        // 处理日期
+        if (col === 'published_at' && data[col]) {
+          finalData[col] = data[col].replace('T', ' ');
+        } else {
+          finalData[col] = data[col];
+        }
+      }
+    })
+
+    const columns = Object.keys(finalData)
+    const values = Object.values(finalData)
+    const placeholders = columns.map(() => '?').join(', ')
+    
+    const sql = `INSERT INTO resource_contents (${columns.map(c => `\`${c}\``).join(', ')}) VALUES (${placeholders})`
+    console.log('📝 执行 SQL:', sql);
+    console.log('📊 字段列表 (columns):', columns);
+    console.log('📊 值列表 (values):', values);
+    console.log('📊 finalData 对象:', JSON.stringify(finalData, null, 2));
+    
+    const result: any = await query(sql, values)
     
     return c.json({ 
       success: true, 
-      data: { 
-        id: result.insertId,
-        category_id,
-        title,
-        slug,
-        status
-      }
+      data: { id: result.insertId }
     })
   } catch (error: any) {
-    console.error('创建内容失败:', error)
-    return c.json({ 
-      success: false, 
-      error: error.code === 'ER_DUP_ENTRY' ? '链接(slug)已存在' : error.message 
-    }, 500)
+    console.error('❌ 创建内容失败:', error)
+    return c.json({ success: false, error: error.message }, 500)
   }
 })
 
@@ -447,58 +444,51 @@ app.post('/contents', async (c) => {
 app.put('/contents/:id', async (c) => {
   try {
     const id = c.req.param('id')
-    const { 
-      category_id, 
-      title, 
-      slug, 
-      thumbnail, 
-      author, 
-      publish_date, 
-      summary, 
-      body, 
-      tags, 
-      status, 
-      is_featured 
-    } = await c.req.json()
+    const data = await c.req.json()
+    console.log(`📥 [PUT /contents/${id}] 收到原始数据:`, JSON.stringify(data).substring(0, 500) + '...');
     
-    const result: any = await query(
-      `UPDATE resource_contents 
-       SET category_id = ?, title = ?, slug = ?, thumbnail = ?, author = ?, 
-           publish_date = ?, summary = ?, body = ?, tags = ?, status = ?, is_featured = ?
-       WHERE id = ?`,
-      [
-        category_id, 
-        title, 
-        slug, 
-        thumbnail, 
-        author, 
-        publish_date, 
-        summary, 
-        body, 
-        tags, 
-        status, 
-        is_featured,
-        id
-      ]
-    )
+    const allowedColumns = [
+      'category_id', 'title', 'slug', 'cover_image', 'author', 'published_at', 
+      'status', 'is_featured', 'sort_order', 'reading_time',
+      'title_zh', 'title_en', 'title_jp', 'title_hk',
+      'content_zh', 'content_en', 'content_jp', 'content_hk',
+      'cover_image_zh', 'cover_image_en', 'cover_image_jp', 'cover_image_hk',
+      'meta_title_zh', 'meta_title_en', 'meta_title_jp', 'meta_title_hk',
+      'meta_description_zh', 'meta_description_en', 'meta_description_jp', 'meta_description_hk',
+      'meta_keywords_zh', 'meta_keywords_en', 'meta_keywords_jp', 'meta_keywords_hk',
+      'meta_title', 'meta_description', 'meta_keywords',
+      'content', 'video_file', 'attachment_file'
+    ]
+    
+    const updateData: any = {}
+    allowedColumns.forEach(col => {
+      if (data[col] !== undefined) {
+        if (col === 'published_at' && data[col]) {
+          updateData[col] = data[col].replace('T', ' ');
+        } else {
+          updateData[col] = data[col];
+        }
+      }
+    })
+
+    const columns = Object.keys(updateData)
+    const values = Object.values(updateData)
+    const setClause = columns.map(col => `\`${col}\` = ?`).join(', ')
+    values.push(id)
+    
+    const sql = `UPDATE resource_contents SET ${setClause} WHERE id = ?`
+    console.log('📝 执行 SQL:', sql);
+    
+    const result: any = await query(sql, values)
     
     if (result.affectedRows === 0) {
-      return c.json({ 
-        success: false, 
-        error: '内容不存在' 
-      }, 404)
+      return c.json({ success: false, error: '内容不存在' }, 404)
     }
     
-    return c.json({ 
-      success: true, 
-      data: { id }
-    })
+    return c.json({ success: true, data: { id } })
   } catch (error: any) {
-    console.error('更新内容失败:', error)
-    return c.json({ 
-      success: false, 
-      error: error.code === 'ER_DUP_ENTRY' ? '链接(slug)已存在' : error.message 
-    }, 500)
+    console.error('❌ 更新内容失败:', error)
+    return c.json({ success: false, error: error.message }, 500)
   }
 })
 

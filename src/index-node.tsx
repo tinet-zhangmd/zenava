@@ -8,7 +8,6 @@ import { cors } from 'hono/cors'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import { join } from 'path'
-import { createD1CompatibleDatabase } from './adapters/database.js'
 import { query as mysqlQuery } from './lib/mysql.js'
 import { saveUploadedImage, deleteUploadedImage } from './lib/upload.js'
 
@@ -77,24 +76,13 @@ import { AutomotivePage } from './pages/industries/Automotive.js'
 import { SoftwarePage } from './pages/industries/Software.js'
 import { TravelPage } from './pages/industries/Travel.js'
 
-// 初始化数据库
-const db = createD1CompatibleDatabase(process.env.DB_PATH)
-
 // 定义 Bindings 类型（兼容 Cloudflare）
 type Bindings = {
-  DB: typeof db
+  // 移除 DB binding，项目已完全使用 MySQL
 }
 
 // 创建 Hono 应用
 const app = new Hono<{ Bindings: Bindings }>()
-
-// 中间件：注入数据库到 context
-app.use('*', async (c, next) => {
-  c.env = {
-    DB: db as any
-  }
-  await next()
-})
 
 // Apply security headers to all routes
 app.use('*', securityHeaders())
@@ -2759,16 +2747,23 @@ app.get('/api/admin/resource-contents', async (c) => {
 app.post('/api/admin/resource-contents', async (c) => {
   try {
     const data = await c.req.json()
+    console.log('📥 [POST /api/admin/resource-contents] 收到数据:', JSON.stringify(data).substring(0, 500) + '...');
+    
     const {
-      category_id, title, content, author,
+      category_id, title, slug, content, author,
       cover_image, cover_image_size, cover_image_type,
       video_file, video_size, video_type, video_description,
       attachment_file, attachment_size, attachment_type, attachment_name,
       reading_time, status, published_at, sort_order, is_featured,
-      meta_title, meta_description, meta_keywords
+      meta_title, meta_description, meta_keywords,
+      // 多语言字段
+      title_zh, title_en, title_jp, title_hk,
+      content_zh, content_en, content_jp, content_hk,
+      cover_image_zh, cover_image_en, cover_image_jp, cover_image_hk,
+      meta_title_zh, meta_title_en, meta_title_jp, meta_title_hk,
+      meta_description_zh, meta_description_en, meta_description_jp, meta_description_hk,
+      meta_keywords_zh, meta_keywords_en, meta_keywords_jp, meta_keywords_hk
     } = data
-    
-    console.log('创建内容 - is_featured 值:', is_featured, '类型:', typeof is_featured)
     
     // 验证必填字段
     if (!title || !category_id) {
@@ -2779,26 +2774,41 @@ app.post('/api/admin/resource-contents', async (c) => {
     }
     
     // 处理发布时间
-    const publishTime = published_at || new Date().toISOString().slice(0, 19).replace('T', ' ')
+    const publishTime = published_at ? published_at.replace('T', ' ').slice(0, 19) : new Date().toISOString().slice(0, 19).replace('T', ' ')
     
     const result = await mysqlQuery(
       `INSERT INTO resource_contents 
-       (category_id, title, content, author, cover_image, cover_image_size, cover_image_type,
+       (category_id, title, slug, content, author, cover_image, cover_image_size, cover_image_type,
         video_file, video_size, video_type, video_description,
         attachment_file, attachment_size, attachment_type, attachment_name,
         reading_time, status, published_at, sort_order, is_featured,
-        meta_title, meta_description, meta_keywords)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        meta_title, meta_description, meta_keywords,
+        title_zh, title_en, title_jp, title_hk,
+        content_zh, content_en, content_jp, content_hk,
+        cover_image_zh, cover_image_en, cover_image_jp, cover_image_hk,
+        meta_title_zh, meta_title_en, meta_title_jp, meta_title_hk,
+        meta_description_zh, meta_description_en, meta_description_jp, meta_description_hk,
+        meta_keywords_zh, meta_keywords_en, meta_keywords_jp, meta_keywords_hk)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-        category_id, title, content || '', author || null,
+        category_id, title || '', slug || null, content || '', author || null,
         cover_image || null, cover_image_size || null, cover_image_type || null,
         video_file || null, video_size || null, video_type || null, video_description || null,
         attachment_file || null, attachment_size || null, attachment_type || null, attachment_name || null,
         reading_time || null, status || 'draft', publishTime, sort_order || 0, 
         (is_featured === true || is_featured === 1 || is_featured === 'true' || is_featured === '1') ? 1 : 0,
-        meta_title || null, meta_description || null, meta_keywords || null
+        meta_title || null, meta_description || null, meta_keywords || null,
+        // 多语言字段值
+        title_zh || null, title_en || null, title_jp || null, title_hk || null,
+        content_zh || null, content_en || null, content_jp || null, content_hk || null,
+        cover_image_zh || null, cover_image_en || null, cover_image_jp || null, cover_image_hk || null,
+        meta_title_zh || null, meta_title_en || null, meta_title_jp || null, meta_title_hk || null,
+        meta_description_zh || null, meta_description_en || null, meta_description_jp || null, meta_description_hk || null,
+        meta_keywords_zh || null, meta_keywords_en || null, meta_keywords_jp || null, meta_keywords_hk || null
       ]
     )
+    
+    console.log('✅ 创建成功，ID:', (result as any).insertId);
     
     return c.json({ 
       success: true, 
@@ -2806,7 +2816,7 @@ app.post('/api/admin/resource-contents', async (c) => {
       data: { id: (result as any).insertId }
     })
   } catch (error: any) {
-    console.error('创建内容失败:', error)
+    console.error('❌ 创建内容失败:', error)
     return c.json({ 
       success: false, 
       error: error.message 
@@ -2848,13 +2858,22 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
   try {
     const id = c.req.param('id')
     const data = await c.req.json()
+    console.log(`📥 [PUT /api/admin/resource-contents/${id}] 收到数据:`, JSON.stringify(data).substring(0, 500) + '...');
+    
     const {
-      category_id, title, content, author,
+      category_id, title, slug, content, author,
       cover_image, cover_image_size, cover_image_type,
       video_file, video_size, video_type, video_description,
       attachment_file, attachment_size, attachment_type, attachment_name,
       reading_time, status, published_at, sort_order, is_featured,
-      meta_title, meta_description, meta_keywords
+      meta_title, meta_description, meta_keywords,
+      // 多语言字段
+      title_zh, title_en, title_jp, title_hk,
+      content_zh, content_en, content_jp, content_hk,
+      cover_image_zh, cover_image_en, cover_image_jp, cover_image_hk,
+      meta_title_zh, meta_title_en, meta_title_jp, meta_title_hk,
+      meta_description_zh, meta_description_en, meta_description_jp, meta_description_hk,
+      meta_keywords_zh, meta_keywords_en, meta_keywords_jp, meta_keywords_hk
     } = data
     
     // 获取当前内容
@@ -2870,27 +2889,45 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
       }, 404)
     }
     
-    // 更新内容
+    // 处理发布时间
+    const publishTime = published_at ? published_at.replace('T', ' ').slice(0, 19) : currentContent.published_at
+    
+    // 更新内容（包含所有多语言字段）
     await mysqlQuery(
       `UPDATE resource_contents 
-       SET category_id = ?, title = ?, content = ?, author = ?,
+       SET category_id = ?, title = ?, slug = ?, content = ?, author = ?,
            cover_image = ?, cover_image_size = ?, cover_image_type = ?,
            video_file = ?, video_size = ?, video_type = ?, video_description = ?,
            attachment_file = ?, attachment_size = ?, attachment_type = ?, attachment_name = ?,
            reading_time = ?, status = ?, published_at = ?, sort_order = ?, is_featured = ?,
-           meta_title = ?, meta_description = ?, meta_keywords = ?
+           meta_title = ?, meta_description = ?, meta_keywords = ?,
+           title_zh = ?, title_en = ?, title_jp = ?, title_hk = ?,
+           content_zh = ?, content_en = ?, content_jp = ?, content_hk = ?,
+           cover_image_zh = ?, cover_image_en = ?, cover_image_jp = ?, cover_image_hk = ?,
+           meta_title_zh = ?, meta_title_en = ?, meta_title_jp = ?, meta_title_hk = ?,
+           meta_description_zh = ?, meta_description_en = ?, meta_description_jp = ?, meta_description_hk = ?,
+           meta_keywords_zh = ?, meta_keywords_en = ?, meta_keywords_jp = ?, meta_keywords_hk = ?
        WHERE id = ?`,
       [
-        category_id, title, content || '', author || null,
+        category_id, title || '', slug || null, content || '', author || null,
         cover_image || null, cover_image_size || null, cover_image_type || null,
         video_file || null, video_size || null, video_type || null, video_description || null,
         attachment_file || null, attachment_size || null, attachment_type || null, attachment_name || null,
-        reading_time || null, status || 'draft', published_at || currentContent.published_at, sort_order || 0, 
+        reading_time || null, status || 'draft', publishTime, sort_order || 0, 
         (is_featured === true || is_featured === 1 || is_featured === 'true' || is_featured === '1') ? 1 : 0,
         meta_title || null, meta_description || null, meta_keywords || null,
+        // 多语言字段值
+        title_zh || null, title_en || null, title_jp || null, title_hk || null,
+        content_zh || null, content_en || null, content_jp || null, content_hk || null,
+        cover_image_zh || null, cover_image_en || null, cover_image_jp || null, cover_image_hk || null,
+        meta_title_zh || null, meta_title_en || null, meta_title_jp || null, meta_title_hk || null,
+        meta_description_zh || null, meta_description_en || null, meta_description_jp || null, meta_description_hk || null,
+        meta_keywords_zh || null, meta_keywords_en || null, meta_keywords_jp || null, meta_keywords_hk || null,
         id
       ]
     )
+    
+    console.log('✅ 更新成功，ID:', id);
     
     // 如果更换了图片，删除旧图片
     if (currentContent.cover_image && cover_image && currentContent.cover_image !== cover_image) {

@@ -1,5 +1,9 @@
 import { Hono } from 'hono'
 
+// ⚠️ 警告: 此 API 仍在使用 D1/SQLite
+// TODO: 需要迁移到 MySQL (参考 resource-center.ts 的实现)
+// 当前状态: 部分管理后台功能仍依赖此 API
+
 type Bindings = {
   DB: D1Database;
 }
