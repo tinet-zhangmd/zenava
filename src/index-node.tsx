@@ -129,13 +129,34 @@ app.use('/assets/*', serveStatic({
 
 // Homepage routes
 // 默认语言为 zh，首页路由 / 直接显示中文内容
-app.get('/', (c) => {
+app.get('/', async (c) => {
   // 默认使用简体中文
   const language: Language = 'zh'
   const currentPath = '/'
   
   const { config: navConfig, menuItems } = getNavigationData(language);
   const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+  
+  // 获取推荐文章（已发布且推荐的内容，按浏览次数和发布时间排序，取前4条）
+  let featuredContents = []
+  try {
+    featuredContents = await mysqlQuery<any[]>(
+      `SELECT rc.id, rc.category_id, rc.title, rc.content, rc.author, 
+              rc.cover_image, rc.published_at, rc.views, rc.downloads,
+              rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
+              rc.content_zh, rc.content_en, rc.content_jp, rc.content_hk,
+              rc.cover_image_zh, rc.cover_image_en, rc.cover_image_jp, rc.cover_image_hk,
+              rcat.name as category_name, rcat.link as category_slug
+       FROM resource_contents rc
+       LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+       WHERE rc.status = 'published' AND rc.is_featured = 1
+       ORDER BY rc.views DESC, rc.published_at DESC
+       LIMIT 4`
+    )
+    console.log(`✅ 首页获取到 ${featuredContents.length} 条推荐文章`)
+  } catch (error) {
+    console.error('❌ 首页获取推荐文章失败:', error)
+  }
   
   return c.html(
     <LayoutWithUnifiedNav 
@@ -146,6 +167,7 @@ app.get('/', (c) => {
       footerConfig={footerConfig}
       footerSections={footerSections}
       privacyLinks={privacyLinks}
+      featuredContents={featuredContents}
     >
       <HomepageDB 
         language={language}
@@ -159,12 +181,33 @@ app.get('/', (c) => {
 
 // 多语言首页路由
 for (const lang of ['en', 'zh', 'jp', 'hk'] as Language[]) {
-  app.get(`/${lang}`, (c) => {
+  app.get(`/${lang}`, async (c) => {
     const language: Language = lang
     const currentPath = `/${lang}`
     
     const { config: navConfig, menuItems } = getNavigationData(language);
     const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
+    
+    // 获取推荐文章（已发布且推荐的内容，按浏览次数和发布时间排序，取前4条）
+    let featuredContents = []
+    try {
+      featuredContents = await mysqlQuery<any[]>(
+        `SELECT rc.id, rc.category_id, rc.title, rc.content, rc.author, 
+                rc.cover_image, rc.published_at, rc.views, rc.downloads,
+                rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
+                rc.content_zh, rc.content_en, rc.content_jp, rc.content_hk,
+                rc.cover_image_zh, rc.cover_image_en, rc.cover_image_jp, rc.cover_image_hk,
+                rcat.name as category_name, rcat.link as category_slug
+         FROM resource_contents rc
+         LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+         WHERE rc.status = 'published' AND rc.is_featured = 1
+         ORDER BY rc.views DESC, rc.published_at DESC
+         LIMIT 4`
+      )
+      console.log(`✅ 首页(${language})获取到 ${featuredContents.length} 条推荐文章`)
+    } catch (error) {
+      console.error(`❌ 首页(${language})获取推荐文章失败:`, error)
+    }
     
     return c.html(
       <LayoutWithUnifiedNav 
@@ -175,6 +218,7 @@ for (const lang of ['en', 'zh', 'jp', 'hk'] as Language[]) {
         footerConfig={footerConfig}
         footerSections={footerSections}
         privacyLinks={privacyLinks}
+        featuredContents={featuredContents}
       >
         <HomepageDB 
           language={language}
@@ -566,7 +610,10 @@ app.get('/resources', async (c) => {
   try {
     featuredContents = await mysqlQuery<any[]>(
       `SELECT rc.id, rc.category_id, rc.title, rc.content, rc.author, 
-              rc.cover_image, rc.published_at, rc.views, rc.downloads,
+              rc.cover_image, rc.published_at, rc.views, rc.downloads, rc.reading_time,
+              rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
+              rc.content_zh, rc.content_en, rc.content_jp, rc.content_hk,
+              rc.cover_image_zh, rc.cover_image_en, rc.cover_image_jp, rc.cover_image_hk,
               rcat.name as category_name, rcat.link as category_slug
        FROM resource_contents rc
        LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
@@ -597,7 +644,10 @@ app.get('/resources', async (c) => {
       
       const contents = await mysqlQuery<any[]>(
         `SELECT rc.id, rc.category_id, rc.title, rc.content, rc.author,
-                rc.cover_image, rc.published_at, rc.views, rc.downloads,
+                rc.cover_image, rc.published_at, rc.views, rc.downloads, rc.reading_time,
+                rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
+                rc.content_zh, rc.content_en, rc.content_jp, rc.content_hk,
+                rc.cover_image_zh, rc.cover_image_en, rc.cover_image_jp, rc.cover_image_hk,
                 rcat.name as category_name, rcat.link as category_slug, rc.status
          FROM resource_contents rc
          LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
@@ -650,6 +700,7 @@ app.get('/resources/:slug', async (c) => {
   const slug = c.req.param('slug')
   const language: Language = 'zh'
   const currentPath = `/resources/${slug}`
+  const page = parseInt(c.req.query('page') || '1')
   
   const { config: navConfig, menuItems } = getNavigationData(language);
   const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
@@ -674,13 +725,16 @@ app.get('/resources/:slug', async (c) => {
     return c.notFound()
   }
   
-  // 获取该栏目下的内容列表
+  // 获取该栏目下的内容列表（全部数据，组件内部分页）
   let contents = []
   try {
     contents = await mysqlQuery<any[]>(
       `SELECT id, title, content, author, cover_image, reading_time,
               video_file, attachment_file, attachment_name, 
-              published_at, views, downloads 
+              published_at, views, downloads,
+              title_zh, title_en, title_jp, title_hk,
+              content_zh, content_en, content_jp, content_hk,
+              cover_image_zh, cover_image_en, cover_image_jp, cover_image_hk
        FROM resource_contents 
        WHERE category_id = ? AND status = 'published' 
        ORDER BY sort_order ASC, published_at DESC`,
@@ -716,6 +770,7 @@ app.get('/resources/:slug', async (c) => {
       <ResourceListPage 
         language={language} 
         resourceType={slug}
+        page={page}
         category={category}
         contents={contents}
         categories={categories}
@@ -781,7 +836,10 @@ app.get('/:lang/resources', async (c) => {
   try {
     featuredContents = await mysqlQuery<any[]>(
       `SELECT rc.id, rc.category_id, rc.title, rc.content, rc.author, 
-              rc.cover_image, rc.published_at, rc.views, rc.downloads,
+              rc.cover_image, rc.published_at, rc.views, rc.downloads, rc.reading_time,
+              rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
+              rc.content_zh, rc.content_en, rc.content_jp, rc.content_hk,
+              rc.cover_image_zh, rc.cover_image_en, rc.cover_image_jp, rc.cover_image_hk,
               rcat.name as category_name, rcat.link as category_slug
        FROM resource_contents rc
        LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
@@ -812,7 +870,10 @@ app.get('/:lang/resources', async (c) => {
       
       const contents = await mysqlQuery<any[]>(
         `SELECT rc.id, rc.category_id, rc.title, rc.content, rc.author,
-                rc.cover_image, rc.published_at, rc.views, rc.downloads,
+                rc.cover_image, rc.published_at, rc.views, rc.downloads, rc.reading_time,
+                rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
+                rc.content_zh, rc.content_en, rc.content_jp, rc.content_hk,
+                rc.cover_image_zh, rc.cover_image_en, rc.cover_image_jp, rc.cover_image_hk,
                 rcat.name as category_name, rcat.link as category_slug, rc.status
          FROM resource_contents rc
          LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
@@ -866,6 +927,7 @@ app.get('/:lang/resources/:slug', async (c) => {
   const slug = c.req.param('slug')
   const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : 'zh'
   const currentPath = `/${language}/resources/${slug}`
+  const page = parseInt(c.req.query('page') || '1')
   
   const { config: navConfig, menuItems } = getNavigationData(language);
   const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
@@ -890,13 +952,16 @@ app.get('/:lang/resources/:slug', async (c) => {
     return c.notFound()
   }
   
-  // 获取该栏目下的内容列表
+  // 获取该栏目下的内容列表（全部数据，组件内部分页）
   let contents = []
   try {
     contents = await mysqlQuery<any[]>(
       `SELECT id, title, content, author, cover_image, reading_time,
               video_file, attachment_file, attachment_name, 
-              published_at, views, downloads 
+              published_at, views, downloads,
+              title_zh, title_en, title_jp, title_hk,
+              content_zh, content_en, content_jp, content_hk,
+              cover_image_zh, cover_image_en, cover_image_jp, cover_image_hk
        FROM resource_contents 
        WHERE category_id = ? AND status = 'published' 
        ORDER BY sort_order ASC, published_at DESC`,
@@ -932,6 +997,7 @@ app.get('/:lang/resources/:slug', async (c) => {
       <ResourceListPage 
         language={language} 
         resourceType={slug}
+        page={page}
         category={category}
         contents={contents}
         categories={categories}
@@ -1180,52 +1246,9 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
 })
 
 // Resource List routes - Blog
-app.get('/resources/blog', (c) => {
-  const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
-  const currentPath = '/resources/blog'
-  const page = parseInt(c.req.query('page') || '1')
-  
-  const { config: navConfig, menuItems } = getNavigationData(language);
-  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
-  
-  return c.html(
-    <LayoutWithUnifiedNav
-      language={language}
-      currentPath={currentPath}
-      navigationConfig={navConfig}
-      menuItems={menuItems}
-      footerConfig={footerConfig}
-      footerSections={footerSections}
-      privacyLinks={privacyLinks}
-    >
-      <ResourceListPage language={language} resourceType="blog" page={page} />
-    </LayoutWithUnifiedNav>
-  )
-})
-
-app.get('/:lang/resources/blog', (c) => {
-  const lang = c.req.param('lang') as Language
-  const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
-  const currentPath = `/${language}/resources/blog`
-  const page = parseInt(c.req.query('page') || '1')
-  
-  const { config: navConfig, menuItems } = getNavigationData(language);
-  const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
-  
-  return c.html(
-    <LayoutWithUnifiedNav
-      language={language}
-      currentPath={currentPath}
-      navigationConfig={navConfig}
-      menuItems={menuItems}
-      footerConfig={footerConfig}
-      footerSections={footerSections}
-      privacyLinks={privacyLinks}
-    >
-      <ResourceListPage language={language} resourceType="blog" page={page} />
-    </LayoutWithUnifiedNav>
-  )
-})
+// 注意：/resources/blog 和 /:lang/resources/blog 路由已删除
+// 这些路由现在由动态路由 /resources/:slug 和 /:lang/resources/:slug 处理
+// 这样可以自动获取数据库数据并支持分页
 
 // Resource List routes - Video
 app.get('/resources/video', (c) => {
