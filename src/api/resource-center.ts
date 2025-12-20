@@ -274,6 +274,8 @@ app.get('/contents', async (c) => {
     const category_id = c.req.query('category_id')
     const status = c.req.query('status')
     const search = c.req.query('search')
+    const is_featured = c.req.query('is_featured') // 推荐筛选
+    const is_hot = c.req.query('is_hot') // 热门筛选
     const page = parseInt(c.req.query('page') || '1')
     const limit = parseInt(c.req.query('limit') || '20')
     const offset = (page - 1) * limit
@@ -298,6 +300,16 @@ app.get('/contents', async (c) => {
       params.push(status)
     }
     
+    if (is_featured !== undefined && is_featured !== '') {
+      sql += ` AND c.is_featured = ?`
+      params.push(is_featured === 'true' || is_featured === '1' ? 1 : 0)
+    }
+    
+    if (is_hot !== undefined && is_hot !== '') {
+      sql += ` AND c.is_hot = ?`
+      params.push(is_hot === 'true' || is_hot === '1' ? 1 : 0)
+    }
+    
     if (search) {
       sql += ` AND (c.title LIKE ? OR c.author LIKE ?)`
       params.push(`%${search}%`, `%${search}%`)
@@ -320,6 +332,16 @@ app.get('/contents', async (c) => {
     if (status) {
       countSql += ` AND c.status = ?`
       countParams.push(status)
+    }
+    
+    if (is_featured !== undefined && is_featured !== '') {
+      countSql += ` AND c.is_featured = ?`
+      countParams.push(is_featured === 'true' || is_featured === '1' ? 1 : 0)
+    }
+    
+    if (is_hot !== undefined && is_hot !== '') {
+      countSql += ` AND c.is_hot = ?`
+      countParams.push(is_hot === 'true' || is_hot === '1' ? 1 : 0)
     }
     
     if (search) {
@@ -524,16 +546,21 @@ app.delete('/contents/:id', async (c) => {
 // 批量操作内容
 app.post('/contents/batch', async (c) => {
   try {
-    const { action, ids } = await c.req.json()
+    const body = await c.req.json()
+    console.log('📥 [POST /contents/batch] 收到请求:', JSON.stringify(body))
     
-    if (!action || !ids || ids.length === 0) {
+    const { action, ids } = body
+    
+    if (!action || !ids || !Array.isArray(ids) || ids.length === 0) {
+      console.error('❌ 批量操作参数错误:', { action, ids })
       return c.json({ 
         success: false, 
-        error: '缺少必要参数' 
+        error: '缺少必要参数：action 和 ids 数组' 
       }, 400)
     }
     
     const placeholders = ids.map(() => '?').join(',')
+    console.log(`📝 执行批量操作: ${action}, IDs: [${ids.join(', ')}]`)
     
     switch (action) {
       case 'delete':
@@ -571,21 +598,38 @@ app.post('/contents/batch', async (c) => {
         )
         break
         
+      case 'hot':
+        await query(
+          `UPDATE resource_contents SET is_hot = TRUE WHERE id IN (${placeholders})`,
+          ids
+        )
+        break
+        
+      case 'unhot':
+        await query(
+          `UPDATE resource_contents SET is_hot = FALSE WHERE id IN (${placeholders})`,
+          ids
+        )
+        break
+        
       default:
+        console.error('❌ 未知操作:', action)
         return c.json({ 
           success: false, 
-          error: '未知操作' 
+          error: `未知操作: ${action}` 
         }, 400)
     }
     
+    console.log(`✅ 批量操作成功: ${action}`)
     return c.json({ 
-      success: true 
+      success: true,
+      message: `成功执行批量${action}操作`
     })
   } catch (error: any) {
-    console.error('批量操作失败:', error)
+    console.error('❌ 批量操作失败:', error)
     return c.json({ 
       success: false, 
-      error: error.message 
+      error: error.message || '批量操作失败' 
     }, 500)
   }
 })

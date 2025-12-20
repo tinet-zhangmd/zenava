@@ -101,6 +101,7 @@ app.route('/api/common-content', commonContentApi)
 app.route('/api/upload', uploadApi)
 app.route('/api/ticket', ticketApi)
 app.route('/api/navigation', navigation)
+app.route('/api/resource-center', resourceCenterApi)
 app.route('/api/resource-center/banners', resourceBannerApi)
 
 // Resource Center API - 映射到正确的路径
@@ -1979,6 +1980,8 @@ app.get('/ticloudadmin/resource-contents', requireAuth(), async (c) => {
     const category = c.req.query('category')
     const status = c.req.query('status')
     const search = c.req.query('search')
+    const is_featured = c.req.query('is_featured') // 推荐筛选
+    const is_hot = c.req.query('is_hot') // 热门筛选
     
     // 构建WHERE条件
     let whereConditions = []
@@ -1991,6 +1994,14 @@ app.get('/ticloudadmin/resource-contents', requireAuth(), async (c) => {
     if (status) {
       whereConditions.push('rc.status = ?')
       queryParams.push(status)
+    }
+    if (is_featured !== undefined && is_featured !== '') {
+      whereConditions.push('rc.is_featured = ?')
+      queryParams.push(is_featured === 'true' || is_featured === '1' ? 1 : 0)
+    }
+    if (is_hot !== undefined && is_hot !== '') {
+      whereConditions.push('rc.is_hot = ?')
+      queryParams.push(is_hot === 'true' || is_hot === '1' ? 1 : 0)
     }
     if (search) {
       whereConditions.push('(rc.title LIKE ? OR rc.author LIKE ?)')
@@ -2014,7 +2025,7 @@ app.get('/ticloudadmin/resource-contents', requireAuth(), async (c) => {
     const contents = await mysqlQuery<any[]>(
       `SELECT rc.id, rc.category_id, rcat.name as category_name, 
               rc.title, rc.cover_image, rc.author, 
-              rc.published_at, rc.views, rc.status, rc.is_featured
+              rc.published_at, rc.views, rc.status, rc.is_featured, rc.is_hot
        FROM resource_contents rc
        LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
        ${whereClause}
@@ -2754,7 +2765,7 @@ app.post('/api/admin/resource-contents', async (c) => {
       cover_image, cover_image_size, cover_image_type,
       video_file, video_size, video_type, video_description,
       attachment_file, attachment_size, attachment_type, attachment_name,
-      reading_time, status, published_at, sort_order, is_featured,
+      reading_time, status, published_at, sort_order, is_featured, is_hot,
       meta_title, meta_description, meta_keywords,
       // 多语言字段
       title_zh, title_en, title_jp, title_hk,
@@ -2781,7 +2792,7 @@ app.post('/api/admin/resource-contents', async (c) => {
        (category_id, title, slug, content, author, cover_image, cover_image_size, cover_image_type,
         video_file, video_size, video_type, video_description,
         attachment_file, attachment_size, attachment_type, attachment_name,
-        reading_time, status, published_at, sort_order, is_featured,
+        reading_time, status, published_at, sort_order, is_featured, is_hot,
         meta_title, meta_description, meta_keywords,
         title_zh, title_en, title_jp, title_hk,
         content_zh, content_en, content_jp, content_hk,
@@ -2789,7 +2800,7 @@ app.post('/api/admin/resource-contents', async (c) => {
         meta_title_zh, meta_title_en, meta_title_jp, meta_title_hk,
         meta_description_zh, meta_description_en, meta_description_jp, meta_description_hk,
         meta_keywords_zh, meta_keywords_en, meta_keywords_jp, meta_keywords_hk)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         category_id, title || '', slug || null, content || '', author || null,
         cover_image || null, cover_image_size || null, cover_image_type || null,
@@ -2797,6 +2808,7 @@ app.post('/api/admin/resource-contents', async (c) => {
         attachment_file || null, attachment_size || null, attachment_type || null, attachment_name || null,
         reading_time || null, status || 'draft', publishTime, sort_order || 0, 
         (is_featured === true || is_featured === 1 || is_featured === 'true' || is_featured === '1') ? 1 : 0,
+        (is_hot === true || is_hot === 1 || is_hot === 'true' || is_hot === '1') ? 1 : 0,
         meta_title || null, meta_description || null, meta_keywords || null,
         // 多语言字段值
         title_zh || null, title_en || null, title_jp || null, title_hk || null,
@@ -2865,7 +2877,7 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
       cover_image, cover_image_size, cover_image_type,
       video_file, video_size, video_type, video_description,
       attachment_file, attachment_size, attachment_type, attachment_name,
-      reading_time, status, published_at, sort_order, is_featured,
+      reading_time, status, published_at, sort_order, is_featured, is_hot,
       meta_title, meta_description, meta_keywords,
       // 多语言字段
       title_zh, title_en, title_jp, title_hk,
@@ -2899,7 +2911,7 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
            cover_image = ?, cover_image_size = ?, cover_image_type = ?,
            video_file = ?, video_size = ?, video_type = ?, video_description = ?,
            attachment_file = ?, attachment_size = ?, attachment_type = ?, attachment_name = ?,
-           reading_time = ?, status = ?, published_at = ?, sort_order = ?, is_featured = ?,
+           reading_time = ?, status = ?, published_at = ?, sort_order = ?, is_featured = ?, is_hot = ?,
            meta_title = ?, meta_description = ?, meta_keywords = ?,
            title_zh = ?, title_en = ?, title_jp = ?, title_hk = ?,
            content_zh = ?, content_en = ?, content_jp = ?, content_hk = ?,
@@ -2915,6 +2927,7 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
         attachment_file || null, attachment_size || null, attachment_type || null, attachment_name || null,
         reading_time || null, status || 'draft', publishTime, sort_order || 0, 
         (is_featured === true || is_featured === 1 || is_featured === 'true' || is_featured === '1') ? 1 : 0,
+        (is_hot === true || is_hot === 1 || is_hot === 'true' || is_hot === '1') ? 1 : 0,
         meta_title || null, meta_description || null, meta_keywords || null,
         // 多语言字段值
         title_zh || null, title_en || null, title_jp || null, title_hk || null,
