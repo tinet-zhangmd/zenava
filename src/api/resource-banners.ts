@@ -97,6 +97,7 @@ bannerApi.get('/:id', async (c) => {
 bannerApi.post('/', async (c) => {
   try {
     const body = await c.req.json()
+    console.log('📥 [POST /api/resource-center/banners] 收到数据:', JSON.stringify(body).substring(0, 500) + '...');
     
     const {
       banner_type,
@@ -108,6 +109,10 @@ bannerApi.post('/', async (c) => {
       text_title,
       text_subtitle,
       text_button,
+      // 多语言字段
+      text_title_zh, text_title_en, text_title_jp, text_title_hk,
+      text_subtitle_zh, text_subtitle_en, text_subtitle_jp, text_subtitle_hk,
+      text_button_zh, text_button_en, text_button_jp, text_button_hk,
       button_link,
       button_target = '_self',
       text_position = 'left',
@@ -131,18 +136,29 @@ bannerApi.post('/', async (c) => {
     const sql = `
       INSERT INTO resource_banners (
         banner_type, title, sort_order, status,
-        text_title, text_subtitle, text_button, button_link, button_target,
+        text_title, text_subtitle, text_button,
+        text_title_zh, text_title_en, text_title_jp, text_title_hk,
+        text_subtitle_zh, text_subtitle_en, text_subtitle_jp, text_subtitle_hk,
+        text_button_zh, text_button_en, text_button_jp, text_button_hk,
+        button_link, button_target,
         text_position, text_color, subtitle_color, image_url, background_type, background_url,
         full_image_url, link_url, link_target
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `
     
     const result = await mysqlQuery(sql, [
       banner_type, title, sort_order, status,
-      text_title || null, text_subtitle || null, text_button || null, button_link || null, button_target,
+      text_title || null, text_subtitle || null, text_button || null,
+      // 多语言字段
+      text_title_zh || null, text_title_en || null, text_title_jp || null, text_title_hk || null,
+      text_subtitle_zh || null, text_subtitle_en || null, text_subtitle_jp || null, text_subtitle_hk || null,
+      text_button_zh || null, text_button_en || null, text_button_jp || null, text_button_hk || null,
+      button_link || null, button_target,
       text_position, text_color, subtitle_color, image_url || null, background_type, background_url || null,
       full_image_url || null, link_url || null, link_target
     ])
+    
+    console.log('✅ 创建Banner成功，ID:', (result as any).insertId);
     
     return c.json({ 
       success: true, 
@@ -160,6 +176,7 @@ bannerApi.put('/:id', async (c) => {
   try {
     const id = c.req.param('id')
     const body = await c.req.json()
+    console.log(`📥 [PUT /api/resource-center/banners/${id}] 收到数据:`, JSON.stringify(body).substring(0, 500) + '...');
     
     const {
       banner_type,
@@ -171,6 +188,10 @@ bannerApi.put('/:id', async (c) => {
       text_title,
       text_subtitle,
       text_button,
+      // 多语言字段
+      text_title_zh, text_title_en, text_title_jp, text_title_hk,
+      text_subtitle_zh, text_subtitle_en, text_subtitle_jp, text_subtitle_hk,
+      text_button_zh, text_button_en, text_button_jp, text_button_hk,
       button_link,
       button_target = '_self',
       text_position = 'left',
@@ -194,7 +215,11 @@ bannerApi.put('/:id', async (c) => {
     const sql = `
       UPDATE resource_banners SET
         banner_type = ?, title = ?, sort_order = ?, status = ?,
-        text_title = ?, text_subtitle = ?, text_button = ?, button_link = ?, button_target = ?,
+        text_title = ?, text_subtitle = ?, text_button = ?,
+        text_title_zh = ?, text_title_en = ?, text_title_jp = ?, text_title_hk = ?,
+        text_subtitle_zh = ?, text_subtitle_en = ?, text_subtitle_jp = ?, text_subtitle_hk = ?,
+        text_button_zh = ?, text_button_en = ?, text_button_jp = ?, text_button_hk = ?,
+        button_link = ?, button_target = ?,
         text_position = ?, text_color = ?, subtitle_color = ?, image_url = ?, background_type = ?, background_url = ?,
         full_image_url = ?, link_url = ?, link_target = ?,
         updated_at = CURRENT_TIMESTAMP
@@ -203,11 +228,18 @@ bannerApi.put('/:id', async (c) => {
     
     await mysqlQuery(sql, [
       banner_type, title, sort_order, status,
-      text_title || null, text_subtitle || null, text_button || null, button_link || null, button_target,
+      text_title || null, text_subtitle || null, text_button || null,
+      // 多语言字段
+      text_title_zh || null, text_title_en || null, text_title_jp || null, text_title_hk || null,
+      text_subtitle_zh || null, text_subtitle_en || null, text_subtitle_jp || null, text_subtitle_hk || null,
+      text_button_zh || null, text_button_en || null, text_button_jp || null, text_button_hk || null,
+      button_link || null, button_target,
       text_position, text_color, subtitle_color, image_url || null, background_type, background_url || null,
       full_image_url || null, link_url || null, link_target,
       id
     ])
+    
+    console.log('✅ 更新Banner成功，ID:', id);
     
     return c.json({ 
       success: true, 

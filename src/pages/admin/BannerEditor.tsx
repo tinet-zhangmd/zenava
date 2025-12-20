@@ -11,6 +11,19 @@ interface Banner {
   text_title?: string
   text_subtitle?: string
   text_button?: string
+  // 多语言字段
+  text_title_zh?: string
+  text_title_en?: string
+  text_title_jp?: string
+  text_title_hk?: string
+  text_subtitle_zh?: string
+  text_subtitle_en?: string
+  text_subtitle_jp?: string
+  text_subtitle_hk?: string
+  text_button_zh?: string
+  text_button_en?: string
+  text_button_jp?: string
+  text_button_hk?: string
   button_link?: string
   button_target?: string
   text_position?: string
@@ -128,35 +141,81 @@ export const BannerEditor: FC<BannerEditorProps> = ({
           {/* ========== 文字+图片模式字段 (默认显示) ========== */}
           <div id="text-image-fields" style="display: none;">
             <div class="border-t pt-6 mt-6">
-              <h3 class="text-base font-semibold mb-4 text-gray-800">文字+图片模式配置</h3>
-              
-              {/* 标题 */}
-              <div class="flex items-start mb-6">
-                <label for="text-title" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-                  标题
-                </label>
-                <div class="flex-1">
-                  <textarea 
-                    id="text-title" 
-                    rows="2"
-                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-                    placeholder="Banner主标题">{banner?.text_title || ''}</textarea>
+              {/* 多语言切换标签 */}
+              <div class="bg-blue-600 px-6 pt-4 pb-0 flex justify-between items-end mb-6 rounded-t-xl">
+                <div class="flex items-center text-white mb-4">
+                  <i class="fas fa-language mr-3 text-blue-200"></i>
+                  <h3 class="text-sm font-black uppercase tracking-widest">文字内容与多语言设定</h3>
                 </div>
+                <nav class="flex space-x-1" aria-label="语言切换">
+                  {['zh', 'en', 'jp', 'hk'].map((lang, idx) => (
+                    <button type="button" data-lang={lang} 
+                      class={`banner-lang-tab px-6 py-3 text-xs font-black uppercase tracking-tighter transition-all rounded-t-xl ${idx === 0 ? 'bg-white text-blue-600' : 'text-blue-100 hover:bg-blue-500'}`}>
+                      {lang === 'zh' ? '简体中文' : lang === 'en' ? 'English' : lang === 'jp' ? '日本語' : '繁體中文'}
+                    </button>
+                  ))}
+                </nav>
               </div>
 
-              {/* 副标题 */}
-              <div class="flex items-start mb-6">
-                <label for="text-subtitle" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-                  副标题
-                </label>
-                <div class="flex-1">
-                  <textarea 
-                    id="text-subtitle" 
-                    rows="2"
-                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-                    placeholder="Banner副标题">{banner?.text_subtitle || ''}</textarea>
-                </div>
+              <div class="bg-white border-2 border-blue-500 border-t-0 rounded-b-xl p-6">
+                {[
+                  { id: 'zh', label: '简体中文' },
+                  { id: 'en', label: 'English' },
+                  { id: 'jp', label: '日本語' },
+                  { id: 'hk', label: '繁體中文' }
+                ].map((lang, idx) => (
+                  <div class={`banner-lang-content space-y-6 ${idx !== 0 ? 'hidden' : ''}`} data-lang={lang.id}>
+                    {/* 标题 */}
+                    <div class="flex items-start">
+                      <label class="w-32 text-sm text-gray-700 font-black text-right mr-6 pt-2">
+                        标题
+                      </label>
+                      <div class="flex-1">
+                        <textarea 
+                          id={`text-title-${lang.id}`} 
+                          rows="2"
+                          class="w-full px-5 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:bg-white focus:border-blue-500 outline-none transition-all text-sm placeholder-gray-300 resize-none"
+                          placeholder={`请输入${lang.label}Banner主标题...`}
+                        >{(banner as any)?.[`text_title_${lang.id}`] || (lang.id === 'zh' ? banner?.text_title : '')}</textarea>
+                      </div>
+                    </div>
+
+                    {/* 副标题 */}
+                    <div class="flex items-start">
+                      <label class="w-32 text-sm text-gray-700 font-black text-right mr-6 pt-2">
+                        副标题
+                      </label>
+                      <div class="flex-1">
+                        <textarea 
+                          id={`text-subtitle-${lang.id}`} 
+                          rows="3"
+                          class="w-full px-5 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:bg-white focus:border-blue-500 outline-none transition-all text-sm placeholder-gray-300 resize-none"
+                          placeholder={`请输入${lang.label}Banner副标题...`}
+                        >{(banner as any)?.[`text_subtitle_${lang.id}`] || (lang.id === 'zh' ? banner?.text_subtitle : '')}</textarea>
+                      </div>
+                    </div>
+
+                    {/* 按钮文字 */}
+                    <div class="flex items-start">
+                      <label class="w-32 text-sm text-gray-700 font-black text-right mr-6 pt-2">
+                        按钮文字
+                      </label>
+                      <div class="flex-1">
+                        <input 
+                          type="text" 
+                          id={`text-button-${lang.id}`} 
+                          class="w-full px-5 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:bg-white focus:border-blue-500 outline-none transition-all text-sm placeholder-gray-300"
+                          placeholder={`请输入${lang.label}按钮文字...`}
+                          value={(banner as any)?.[`text_button_${lang.id}`] || (lang.id === 'zh' ? banner?.text_button : '')} 
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
+
+              {/* 通用配置（所有语言共用） */}
+              <div class="mt-6 space-y-6">
 
               {/* 文字颜色 */}
               <div class="flex items-start mb-6">
@@ -278,20 +337,6 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                 </div>
               </div>
 
-              {/* 按钮文字 */}
-              <div class="flex items-start mb-6">
-                <label for="text-button" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-                  按钮文字
-                </label>
-                <div class="flex-1">
-                  <input 
-                    type="text" 
-                    id="text-button" 
-                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-                    placeholder="了解详情"
-                    value={banner?.text_button || ''}
-                  />
-                </div>
               </div>
             </div>
           </div>
@@ -396,6 +441,24 @@ export const BannerEditor: FC<BannerEditorProps> = ({
       <script dangerouslySetInnerHTML={{
         __html: `
           (function() {
+            const languages = ['zh', 'en', 'jp', 'hk'];
+            
+            // Banner多语言Tab切换逻辑
+            document.querySelectorAll('.banner-lang-tab').forEach(tab => {
+              tab.addEventListener('click', function() {
+                const lang = this.dataset.lang;
+                document.querySelectorAll('.banner-lang-tab').forEach(t => {
+                  t.classList.remove('bg-white', 'text-blue-600');
+                  t.classList.add('text-blue-100', 'hover:bg-blue-500');
+                });
+                this.classList.add('bg-white', 'text-blue-600');
+                this.classList.remove('text-blue-100', 'hover:bg-blue-500');
+                
+                document.querySelectorAll('.banner-lang-content').forEach(c => c.classList.add('hidden'));
+                document.querySelector(\`.banner-lang-content[data-lang="\${lang}"]\`).classList.remove('hidden');
+              });
+            });
+            
             const textPosition = document.getElementById('text-position');
             const textImageFields = document.getElementById('text-image-fields');
             const fullImageFields = document.getElementById('full-image-fields');
@@ -776,15 +839,24 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                 };
                 
                 if (bannerType === 'text_image') {
-                  formData.text_title = document.getElementById('text-title').value;
-                  formData.text_subtitle = document.getElementById('text-subtitle').value;
+                  // 收集多语言字段
+                  for (const lang of languages) {
+                    formData['text_title_' + lang] = document.getElementById('text-title-' + lang).value;
+                    formData['text_subtitle_' + lang] = document.getElementById('text-subtitle-' + lang).value;
+                    formData['text_button_' + lang] = document.getElementById('text-button-' + lang).value;
+                  }
+                  
+                  // 同步核心字段（Fallback 为简体中文）
+                  formData.text_title = formData.text_title_zh || formData.text_title_en || '';
+                  formData.text_subtitle = formData.text_subtitle_zh || formData.text_subtitle_en || '';
+                  formData.text_button = formData.text_button_zh || formData.text_button_en || '';
+                  
                   formData.text_color = document.getElementById('text-color').value;
                   formData.subtitle_color = document.getElementById('subtitle-color').value;
                   formData.background_type = document.getElementById('background-type').value;
                   formData.background_url = backgroundUrl;
                   formData.button_link = document.getElementById('button-link').value;
                   formData.button_target = document.getElementById('button-target').value;
-                  formData.text_button = document.getElementById('text-button').value;
                 } else {
                   formData.full_image_url = document.getElementById('full-image-url').value;
                   formData.link_url = document.getElementById('link-url').value;

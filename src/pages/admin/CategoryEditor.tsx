@@ -6,10 +6,15 @@ interface Category {
   name: string
   slug: string
   description?: string
-  cover_image?: string
-  cover_image_size?: number
-  cover_image_type?: string
-  cover_image_link?: string
+  // 多语言字段
+  name_zh?: string
+  name_en?: string
+  name_jp?: string
+  name_hk?: string
+  description_zh?: string
+  description_en?: string
+  description_jp?: string
+  description_hk?: string
   list_template: string
   detail_template: string
   is_visible: boolean
@@ -22,421 +27,218 @@ interface CategoryEditorProps {
 
 export const CategoryEditor: FC<CategoryEditorProps> = ({ category, mode }) => {
   const isEdit = mode === 'edit'
+  const pageTitle = isEdit ? '编辑栏目' : '创建新栏目'
   
   return (
-    <div>
-      {/* 表单 */}
-      <div class="bg-white border">
-        {/* 头部：返回按钮 */}
-        <div class="px-6 py-4 border-b">
-          <a 
-            href="/ticloudadmin/resource-categories"
-            class="text-sm text-gray-600 hover:text-gray-900">
-            ← 返回列表
+    <div class="p-6 bg-gray-50 min-h-screen">
+      <div class="max-w-5xl mx-auto">
+        <div class="flex items-center justify-between mb-8">
+          <a href="/ticloudadmin/resource-categories" class="inline-flex items-center px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-gray-600 hover:text-blue-600 hover:border-blue-200 shadow-sm transition-all text-sm font-medium">
+            <i class="fas fa-chevron-left mr-2 text-xs"></i> 返回列表
           </a>
+          <h1 class="text-2xl font-black text-gray-900 tracking-tight">{pageTitle}</h1>
+          <div class="w-24"></div>
         </div>
 
-        <form id="category-form" class="px-6 py-6">
+        <form id="category-form" class="space-y-8">
           <input type="hidden" id="category-id" value={category?.id || ''} />
-          
-          <div class="space-y-6">
-            {/* 栏目名称 */}
-            <div class="flex items-start">
-              <label class="w-32 pt-2 text-sm text-gray-600 text-right pr-4">
-                <span class="text-red-500">* </span>栏目名称
-              </label>
-              <div class="flex-1">
-                <input 
-                  type="text" 
-                  id="category-name" 
-                  value={category?.name || ''}
-                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded"
-                  placeholder="请输入栏目名称"
-                  required 
-                />
-              </div>
-            </div>
 
-            {/* 栏目标识 */}
-            <div class="flex items-start">
-              <label class="w-32 pt-2 text-sm text-gray-600 text-right pr-4">
-                <span class="text-red-500">* </span>栏目标识
-              </label>
-              <div class="flex-1">
-                <input 
-                  type="text" 
-                  id="category-slug" 
-                  value={category?.slug || ''}
-                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded"
-                  placeholder="请输入栏目标识"
-                  required 
-                />
-                <p class="text-xs text-gray-500 mt-1">用于 URL 路径，建议使用英文和数字</p>
-              </div>
+          {/* 卡片 1: 基础设置 */}
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="bg-gray-50/80 px-6 py-4 border-b border-gray-200 flex items-center">
+              <i class="fas fa-sliders-h mr-3 text-gray-400"></i>
+              <h3 class="text-sm font-black text-gray-700 uppercase tracking-widest">基础配置 (所有语言通用)</h3>
             </div>
-
-            {/* 栏目描述 */}
-            <div class="flex items-start">
-              <label class="w-32 pt-2 text-sm text-gray-600 text-right pr-4">
-                栏目描述
-              </label>
-              <div class="flex-1">
-                <textarea 
-                  id="category-description" 
-                  rows="4"
-                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded"
-                  placeholder="请输入栏目描述"
-                >{category?.description || ''}</textarea>
-              </div>
-            </div>
-
-            {/* 封面图片 */}
-            <div class="flex items-start">
-              <label class="w-32 pt-2 text-sm text-gray-600 text-right pr-4">
-                栏目封面图
-              </label>
-              <div class="flex-1">
-                <div class="border-2 border-dashed border-gray-300 rounded p-4">
-                  <input 
-                    type="file" 
-                    id="category-cover-file" 
-                    accept=".png,.jpg,.jpeg,.webp"
-                    class="hidden"
-                  />
-                  <div class="flex items-center justify-center h-32">
-                    <button
-                      type="button"
-                      id="upload-cover-btn"
-                      class="text-gray-400 hover:text-gray-600 text-4xl cursor-pointer">
-                      +
-                    </button>
+            <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+              <div class="space-y-5">
+                <div>
+                  <label class="block text-xs font-black text-gray-400 uppercase mb-2">链接标识 (Slug)</label>
+                  <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 text-sm italic">/resources/</span>
+                    <input type="text" id="category-slug" class="w-full pl-24 pr-4 py-2.5 bg-blue-50/30 border-2 border-blue-100 rounded-xl focus:border-blue-500 outline-none font-mono text-sm text-blue-700" 
+                      placeholder="e.g. tech-docs" value={category?.slug || ''} required />
                   </div>
                 </div>
-                <p class="text-xs text-gray-500 mt-2">
-                  请上传 大小不超过 <span class="text-red-500">30MB</span> 格式为 png/jpg/jpeg 的文件
-                </p>
-                
-                {/* 预览 */}
-                <div id="cover-preview" class={`${category?.cover_image ? 'mt-3' : 'hidden mt-3'}`}>
-                  <img 
-                    id="preview-image" 
-                    src={category?.cover_image || ''} 
-                    alt="预览" 
-                    class="w-48 h-32 object-cover border" 
-                  />
-                  <button
-                    type="button"
-                    id="remove-cover"
-                    class="mt-2 text-sm text-red-600 hover:text-red-800">
-                    删除图片
-                  </button>
+              </div>
+              <div class="space-y-5">
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-black text-gray-400 uppercase mb-2">排序权重</label>
+                    <input type="number" id="category-sort-order" class="w-full px-4 py-2.5 bg-white border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none text-sm font-bold text-blue-600" 
+                      value={category?.sort_order || 0} required />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-black text-gray-400 uppercase mb-2">是否显示</label>
+                    <select id="category-is-visible" class="w-full px-4 py-2.5 bg-white border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none text-sm font-black text-blue-600">
+                      <option value="1" selected={category?.is_visible !== false && category?.is_visible !== 0}>显示</option>
+                      <option value="0" selected={category?.is_visible === false || category?.is_visible === 0}>隐藏</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            {/* 栏目封面图跳转链接 */}
-            <div class="flex items-start">
-              <label class="w-32 pt-2 text-sm text-gray-600 text-right pr-4">
-                封面图跳转链接
-              </label>
-              <div class="flex-1">
-                <input 
-                  type="url" 
-                  id="category-cover-link" 
-                  value={category?.cover_image_link || ''}
-                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded"
-                  placeholder="请输入封面图跳转链接（可选）"
-                />
-                <p class="text-xs text-gray-500 mt-1">点击封面图时跳转的链接地址</p>
-              </div>
-            </div>
-
-            {/* 分类模板 */}
-            <div class="flex items-start">
-              <label class="w-32 pt-2 text-sm text-gray-600 text-right pr-4">
-                <span class="text-red-500">* </span>分类模板
-              </label>
-              <div class="flex-1">
-                <select 
-                  id="category-list-template" 
-                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded"
-                  required>
-                  <option value="">请选择分类模板</option>
-                  <option value="list_article" selected={category?.list_template === 'list_article'}>
-                    list_article - 文章列表
-                  </option>
-                  <option value="list_video" selected={category?.list_template === 'list_video'}>
-                    list_video - 视频列表
-                  </option>
-                  <option value="list_download" selected={category?.list_template === 'list_download'}>
-                    list_download - 下载列表
-                  </option>
-                </select>
-              </div>
-            </div>
-
-            {/* 排序 */}
-            <div class="flex items-start">
-              <label class="w-32 pt-2 text-sm text-gray-600 text-right pr-4">
-                <span class="text-red-500">* </span>排序
-              </label>
-              <div class="flex-1">
-                <input 
-                  type="number" 
-                  id="category-sort-order" 
-                  value={category?.sort_order || 0}
-                  class="w-32 px-3 py-2 text-sm border border-gray-300 rounded"
-                  required 
-                />
-                <p class="text-xs text-gray-500 mt-1">数字越小越靠前</p>
-              </div>
-            </div>
-
-            {/* 是否显示 */}
-            <div class="flex items-start">
-              <label class="w-32 pt-2 text-sm text-gray-600 text-right pr-4">
-                是否显示
-              </label>
-              <div class="flex-1 pt-2">
-                <label class="inline-flex items-center">
-                is_visible: {category?.is_visible}
-                  <input 
-                    type="checkbox" 
-                    id="category-is-visible" 
-                    class="mr-2"
-                    checked={category?.is_visible == 1 || category?.is_visible === true}
-                  />
-                  <span class="text-sm text-gray-700">在前台显示此栏目</span>
-                </label>
+                <div>
+                  <label class="block text-xs font-black text-gray-400 uppercase mb-2">分类模板</label>
+                  <select id="category-list-template" class="w-full px-4 py-2.5 bg-white border-2 border-gray-100 rounded-xl focus:border-blue-500 outline-none text-sm font-bold" required>
+                    <option value="">请选择分类模板...</option>
+                    <option value="list_article" selected={category?.list_template === 'list_article'}>list_article - 文章列表</option>
+                    <option value="list_video" selected={category?.list_template === 'list_video'}>list_video - 视频列表</option>
+                    <option value="list_download" selected={category?.list_template === 'list_download'}>list_download - 下载列表</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* 按钮 */}
-          <div class="mt-8 pt-6 border-t flex items-center">
-            <div class="w-32"></div>
-            <div class="flex-1 flex space-x-3">
-              <button 
-                type="submit" 
-                class="px-6 py-2 text-sm bg-blue-600 text-white hover:bg-blue-700 rounded">
-                {isEdit ? '保存' : '创建'}
-              </button>
-              <a
-                href="/ticloudadmin/resource-categories"
-                class="px-6 py-2 text-sm border border-gray-300 hover:bg-gray-50 rounded">
-                取消
-              </a>
+          {/* 卡片 2: 多语言切换区 */}
+          <div class="bg-white rounded-2xl shadow-xl border-2 border-blue-500 overflow-hidden relative">
+            <div class="bg-blue-600 px-6 pt-4 pb-0 flex justify-between items-end">
+              <div class="flex items-center text-white mb-4">
+                <i class="fas fa-language mr-3 text-blue-200"></i>
+                <h3 class="text-sm font-black uppercase tracking-widest">栏目信息与多语言设定</h3>
+              </div>
+              <nav class="flex space-x-1" aria-label="语言切换">
+                {['zh', 'en', 'jp', 'hk'].map((lang, idx) => (
+                  <button type="button" data-lang={lang} 
+                    class={`lang-tab px-6 py-3 text-xs font-black uppercase tracking-tighter transition-all rounded-t-xl ${idx === 0 ? 'bg-white text-blue-600' : 'text-blue-100 hover:bg-blue-500'}`}>
+                    {lang === 'zh' ? '简体中文' : lang === 'en' ? 'English' : lang === 'jp' ? '日本語' : '繁體中文'}
+                  </button>
+                ))}
+              </nav>
             </div>
+            
+            <div class="p-10">
+              {[
+                { id: 'zh', label: '简体中文' },
+                { id: 'en', label: 'English' },
+                { id: 'jp', label: '日本語' },
+                { id: 'hk', label: '繁體中文' }
+              ].map((lang, idx) => (
+                <div class={`lang-content space-y-6 ${idx !== 0 ? 'hidden' : ''}`} data-lang={lang.id}>
+                  {/* 1. 栏目名称 */}
+                  <div class="flex items-center">
+                    <label class="w-32 text-sm text-gray-700 font-black text-right mr-6">栏目名称</label>
+                    <input type="text" id={`category-name-${lang.id}`} 
+                      class="flex-1 px-5 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:bg-white focus:border-blue-500 outline-none transition-all text-xl font-bold placeholder-gray-300"
+                      placeholder={`请输入${lang.label}栏目名称...`}
+                      value={(category as any)?.[`name_${lang.id}`] || (lang.id === 'zh' ? category?.name : '')} 
+                      required={lang.id === 'zh'} />
+                  </div>
+
+                  {/* 2. 栏目描述 */}
+                  <div class="flex items-start">
+                    <label class="w-32 text-sm text-gray-700 font-black text-right mr-6 pt-3">栏目描述</label>
+                    <textarea id={`category-description-${lang.id}`} 
+                      rows="4"
+                      class="flex-1 px-5 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:bg-white focus:border-blue-500 outline-none transition-all text-sm placeholder-gray-300 resize-none"
+                      placeholder={`请输入${lang.label}栏目描述...`}
+                    >{(category as any)?.[`description_${lang.id}`] || (lang.id === 'zh' ? category?.description : '')}</textarea>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 底部固定操作栏 */}
+          <div class="flex justify-center space-x-6 py-12">
+            <button type="submit" class="group px-12 py-4 bg-blue-600 text-white rounded-2xl font-black shadow-xl shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 active:scale-95 transition-all">
+              <i class="fas fa-check-circle mr-3 opacity-50 group-hover:opacity-100"></i>
+              保存所有语言版本
+            </button>
+            <a href="/ticloudadmin/resource-categories" class="px-12 py-4 bg-white border-2 border-gray-100 text-gray-500 rounded-2xl font-bold hover:bg-gray-50 hover:text-gray-700 transition-all">
+              取消并返回
+            </a>
           </div>
         </form>
       </div>
 
-      {/* JavaScript */}
-      <script dangerouslySetInnerHTML={{__html: `
-        console.log('脚本开始执行');
-        
-        // 将变量定义在外部作用域，以便表单提交时也能访问
-        let coverFileInput = null;
-        let coverPreview = null;
-        let previewImage = null;
-        
-        function initCoverUpload() {
-          console.log('初始化封面图上传功能');
-          coverFileInput = document.getElementById('category-cover-file');
-          coverPreview = document.getElementById('cover-preview');
-          previewImage = document.getElementById('preview-image');
-          const removeCoverBtn = document.getElementById('remove-cover');
-          const uploadCoverBtn = document.getElementById('upload-cover-btn');
-
-          console.log('查找元素:', {
-            coverFileInput: !!coverFileInput,
-            uploadCoverBtn: !!uploadCoverBtn,
-            coverPreview: !!coverPreview,
-            previewImage: !!previewImage
-          });
-
-          if (!coverFileInput || !uploadCoverBtn) {
-            console.error('找不到必要的元素');
-            return;
-          }
-
-          // 点击上传按钮触发文件选择
-          uploadCoverBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('点击上传按钮，触发文件选择');
-            coverFileInput.click();
-          });
-
-          // 文件选择事件
-          coverFileInput.addEventListener('change', function(e) {
-            console.log('文件选择事件触发');
-            const file = e.target.files[0];
-            if (!file) {
-              console.log('未选择文件');
-              return;
-            }
-            
-            console.log('选择的文件:', file.name, file.type, file.size);
-            
-            const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
-            if (!validTypes.includes(file.type)) {
-              alert('请上传 PNG、JPG 或 WebP 格式图片');
-              if (coverFileInput) coverFileInput.value = '';
-              return;
-            }
-            
-            if (file.size > 30 * 1024 * 1024) {
-              alert('文件不能超过 30MB');
-              if (coverFileInput) coverFileInput.value = '';
-              return;
-            }
-            
-            console.log('开始读取文件');
-            const reader = new FileReader();
-            reader.onload = function(event) {
-              console.log('文件读取成功');
-              const result = event.target ? event.target.result : reader.result;
-              if (previewImage && result) {
-                previewImage.src = result;
-                console.log('预览图片已设置');
-              }
-              if (coverPreview) {
-                coverPreview.classList.remove('hidden');
-                console.log('预览容器已显示');
-              }
-            };
-            reader.onerror = function(error) {
-              console.error('文件读取失败:', error);
-              alert('图片读取失败，请重试');
-            };
-            reader.readAsDataURL(file);
-          }, { once: false });
-
-          // 删除图片按钮
-          if (removeCoverBtn) {
-            removeCoverBtn.addEventListener('click', function() {
-              coverFileInput.value = '';
-              coverPreview.classList.add('hidden');
-              previewImage.src = '';
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          const languages = ['zh', 'en', 'jp', 'hk'];
+          
+          // Tab 切换逻辑
+          document.querySelectorAll('.lang-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+              const lang = this.dataset.lang;
+              document.querySelectorAll('.lang-tab').forEach(t => {
+                t.classList.remove('bg-white', 'text-blue-600');
+                t.classList.add('text-blue-100', 'hover:bg-blue-500');
+              });
+              this.classList.add('bg-white', 'text-blue-600');
+              this.classList.remove('text-blue-100', 'hover:bg-blue-500');
+              
+              document.querySelectorAll('.lang-content').forEach(c => c.classList.add('hidden'));
+              document.querySelector(\`.lang-content[data-lang="\${lang}"]\`).classList.remove('hidden');
             });
-          }
+          });
           
-          console.log('事件监听器已绑定');
-        }
+          // Slug 自动生成 (根据简体中文名称生成)
+          const nameZhInput = document.getElementById('category-name-zh');
+          const slugInput = document.getElementById('category-slug');
+          nameZhInput.addEventListener('blur', () => {
+            if (!slugInput.value && nameZhInput.value) {
+              slugInput.value = nameZhInput.value
+                .toLowerCase()
+                .replace(/[^\\u4e00-\\u9fa5a-zA-Z0-9\\s]/g, '')
+                .replace(/\\s+/g, '-');
+            }
+          });
 
-        // 初始化（只初始化一次）
-        let initialized = false;
-        function tryInit() {
-          if (initialized) return;
-          const btn = document.getElementById('upload-cover-btn');
-          const input = document.getElementById('category-cover-file');
-          if (btn && input) {
-            initCoverUpload();
-            initialized = true;
-            console.log('初始化完成');
-          }
-        }
-        
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', tryInit);
-        } else {
-          tryInit();
-        }
-        
-        // 备用方案：延迟初始化（如果第一次失败）
-        setTimeout(function() {
-          if (!initialized) {
-            tryInit();
-          }
-        }, 100);
-
-        document.getElementById('category-form')?.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          
-          const submitBtn = e.target.querySelector('[type="submit"]');
-          const originalText = submitBtn.textContent;
-          
-          try {
-            const categoryId = document.getElementById('category-id').value;
-            let coverImagePath = '';
-            let coverImageSize = 0;
-            let coverImageType = '';
+          // 提交处理
+          document.getElementById('category-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            console.log('🚀 开始提交多语言栏目表单...');
             
-            // 重新获取 coverFileInput，确保能访问到
-            const coverFileInput = document.getElementById('category-cover-file');
-            const coverFile = coverFileInput ? coverFileInput.files[0] : null;
-            if (coverFile) {
-              submitBtn.disabled = true;
-              submitBtn.textContent = '上传中...';
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> 正在处理中...';
+
+            try {
+              const formData = {
+                id: document.getElementById('category-id').value || undefined,
+                slug: document.getElementById('category-slug').value,
+                sort_order: parseInt(document.getElementById('category-sort-order').value) || 0,
+                list_template: document.getElementById('category-list-template').value,
+                detail_template: document.getElementById('category-list-template').value, // 使用相同的模板
+                is_visible: document.getElementById('category-is-visible').value === '1',
+              };
               
-              const uploadFormData = new FormData();
-              uploadFormData.append('file', coverFile);
-              uploadFormData.append('category', 'categories');
+              // 收集并处理所有语言字段
+              for (const lang of languages) {
+                formData['name_' + lang] = document.getElementById('category-name-' + lang).value;
+                formData['description_' + lang] = document.getElementById('category-description-' + lang).value || '';
+              }
               
-              const uploadRes = await fetch('/api/admin/upload/image', {
-                method: 'POST',
-                body: uploadFormData
+              // 同步核心字段 (Fallback 为简体中文)
+              formData.name = formData.name_zh || formData.name_en || 'Untitled';
+              formData.description = formData.description_zh || formData.description_en || '';
+
+              console.log('📦 准备发送到后端的数据:', formData);
+
+              const isEdit = !!formData.id;
+              const res = await fetch(isEdit ? \`/api/admin/resource-categories/\${formData.id}\` : '/api/admin/resource-categories', {
+                method: isEdit ? 'PUT' : 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
               });
               
-              const uploadResult = await uploadRes.json();
-              
-              if (uploadResult.success) {
-                coverImagePath = uploadResult.data.path;
-                coverImageSize = uploadResult.data.size;
-                coverImageType = uploadResult.data.type;
+              const result = await res.json();
+              if (result.success) {
+                console.log('✅ 保存成功:', result);
+                alert('🎉 保存成功！');
+                window.location.href = '/ticloudadmin/resource-categories';
               } else {
-                throw new Error(uploadResult.error || '上传失败');
+                console.error('❌ 保存失败:', result);
+                alert('❌ 保存失败：' + (result.error || '未知错误'));
               }
-            } else if (categoryId) {
-              // 编辑模式下，如果没有上传新图片，保留原有图片（不传 cover_image 字段）
-              coverImagePath = undefined;
+            } catch (err) {
+              console.error('💥 提交异常:', err);
+              alert('💥 系统错误：' + err.message);
+            } finally {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = '<i class="fas fa-check-circle mr-3"></i> 保存所有语言版本';
             }
-            
-            submitBtn.textContent = '保存中...';
-            
-            const formData = {
-              sort_order: parseInt(document.getElementById('category-sort-order').value) || 0,
-              name: document.getElementById('category-name').value,
-              slug: document.getElementById('category-slug').value,
-              description: document.getElementById('category-description').value || '',
-              cover_image_size: coverImageSize || null,
-              cover_image_type: coverImageType || null,
-              cover_image_link: document.getElementById('category-cover-link').value || null,
-              list_template: document.getElementById('category-list-template').value,
-              detail_template: document.getElementById('category-list-template').value,
-              is_visible: document.getElementById('category-is-visible').checked,
-            };
-            
-            // 只有在有上传新图片或创建新栏目时才设置 cover_image
-            if (coverImagePath !== undefined) {
-              formData.cover_image = coverImagePath || null;
-            }
-            
-            const url = categoryId 
-              ? '/api/admin/resource-categories/' + categoryId
-              : '/api/admin/resource-categories';
-            
-            const res = await fetch(url, {
-              method: categoryId ? 'PUT' : 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(formData),
-            });
-            
-            const result = await res.json();
-            
-            if (res.ok && result.success) {
-              window.location.href = '/ticloudadmin/resource-categories';
-            } else {
-              throw new Error(result.error || '保存失败');
-            }
-          } catch (error) {
-            alert('操作失败: ' + error.message);
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-          }
-        });
-      `}} />
+          });
+        `
+      }} />
     </div>
   )
 }

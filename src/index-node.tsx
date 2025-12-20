@@ -1886,7 +1886,9 @@ app.get('/ticloudadmin/resource-categories', requireAuth(), async (c) => {
     // 排序：sort_order 升序（数字越小越靠前），相同时按 created_at 降序（最新的在前）
     const categories = await mysqlQuery<any[]>(
       `SELECT id, sort_order, name, link as slug, 
-              description, cover_image, cover_image_size, cover_image_type,
+              description,
+              name_zh, name_en, name_jp, name_hk,
+              description_zh, description_en, description_jp, description_hk,
               category_template as list_template, 
               page_template as detail_template, 
               is_displayed as is_visible, created_at, updated_at 
@@ -1936,7 +1938,9 @@ app.get('/ticloudadmin/resource-categories/edit/:id', requireAuth(), async (c) =
     const id = c.req.param('id')
     const [category] = await mysqlQuery<any[]>(
       `SELECT id, sort_order, name, link as slug, 
-              description, cover_image, cover_image_size, cover_image_type, cover_image_link,
+              description,
+              name_zh, name_en, name_jp, name_hk,
+              description_zh, description_en, description_jp, description_hk,
               category_template as list_template, 
               page_template as detail_template, 
               is_displayed as is_visible 
@@ -2348,7 +2352,9 @@ app.get('/api/admin/resource-categories', async (c) => {
     // 排序：sort_order 升序（数字越小越靠前），相同时按 created_at 降序（最新的在前）
     const categories = await mysqlQuery<any[]>(
       `SELECT id, sort_order, name, link as slug, 
-              description, cover_image, cover_image_size, cover_image_type,
+              description,
+              name_zh, name_en, name_jp, name_hk,
+              description_zh, description_en, description_jp, description_hk,
               category_template as list_template, 
               page_template as detail_template, 
               is_displayed as is_visible, created_at, updated_at 
@@ -2372,19 +2378,21 @@ app.get('/api/admin/resource-categories', async (c) => {
 // 创建栏目
 app.post('/api/admin/resource-categories', async (c) => {
   try {
+    const data = await c.req.json()
+    console.log('📥 [POST /api/admin/resource-categories] 收到数据:', JSON.stringify(data).substring(0, 500) + '...');
+    
     const { 
       sort_order, 
       name, 
       slug, 
       description,
-      cover_image,
-      cover_image_size,
-      cover_image_type,
-      cover_image_link,
       list_template, 
       detail_template, 
-      is_visible 
-    } = await c.req.json()
+      is_visible,
+      // 多语言字段
+      name_zh, name_en, name_jp, name_hk,
+      description_zh, description_en, description_jp, description_hk
+    } = data
     
     if (!name || !slug || !list_template || !detail_template) {
       return c.json({ 
@@ -2404,23 +2412,26 @@ app.post('/api/admin/resource-categories', async (c) => {
     
     const result: any = await mysqlQuery(
       `INSERT INTO resource_categories 
-       (sort_order, name, link, description, cover_image, cover_image_size, cover_image_type, cover_image_link,
+       (sort_order, name, link, description,
+        name_zh, name_en, name_jp, name_hk,
+        description_zh, description_en, description_jp, description_hk,
         category_template, page_template, is_displayed) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         sort_order || 0, 
-        name, 
+        name || '', 
         slug, 
         description || null,
-        cover_image || null,
-        cover_image_size || null,
-        cover_image_type || null,
-        cover_image_link || null,
+        // 多语言字段
+        name_zh || null, name_en || null, name_jp || null, name_hk || null,
+        description_zh || null, description_en || null, description_jp || null, description_hk || null,
         list_template, 
         detail_template, 
         is_visible !== false
       ]
     )
+    
+    console.log('✅ 创建栏目成功，ID:', result.insertId);
     
     return c.json({ 
       success: true, 
@@ -2430,7 +2441,6 @@ app.post('/api/admin/resource-categories', async (c) => {
         name,
         slug,
         description,
-        cover_image,
         list_template,
         detail_template,
         is_visible
@@ -2451,7 +2461,9 @@ app.get('/api/admin/resource-categories/:id', async (c) => {
     const id = c.req.param('id')
     const [category] = await mysqlQuery<any[]>(
       `SELECT id, sort_order, name, link as slug, 
-              description, cover_image, cover_image_size, cover_image_type, cover_image_link,
+              description,
+              name_zh, name_en, name_jp, name_hk,
+              description_zh, description_en, description_jp, description_hk,
               category_template as list_template, 
               page_template as detail_template, 
               is_displayed as is_visible, created_at, updated_at 
@@ -2483,6 +2495,7 @@ app.put('/api/admin/resource-categories/:id', async (c) => {
   try {
     const id = c.req.param('id')
     const body = await c.req.json()
+    console.log(`📥 [PUT /api/admin/resource-categories/${id}] 收到数据:`, JSON.stringify(body).substring(0, 500) + '...');
     
     // 获取当前栏目数据
     const [currentCategory] = await mysqlQuery<any[]>(
@@ -2502,13 +2515,19 @@ app.put('/api/admin/resource-categories/:id', async (c) => {
     const name = body.name !== undefined ? body.name : currentCategory.name
     const slug = body.slug !== undefined ? body.slug : currentCategory.link
     const description = body.description !== undefined ? body.description : currentCategory.description
-    const cover_image = body.cover_image !== undefined ? body.cover_image : currentCategory.cover_image
-    const cover_image_size = body.cover_image_size !== undefined ? body.cover_image_size : currentCategory.cover_image_size
-    const cover_image_type = body.cover_image_type !== undefined ? body.cover_image_type : currentCategory.cover_image_type
-    const cover_image_link = body.cover_image_link !== undefined ? body.cover_image_link : currentCategory.cover_image_link
     const list_template = body.list_template !== undefined ? body.list_template : currentCategory.category_template
     const detail_template = body.detail_template !== undefined ? body.detail_template : currentCategory.page_template
     const is_visible = body.is_visible !== undefined ? body.is_visible : currentCategory.is_displayed
+    
+    // 多语言字段
+    const name_zh = body.name_zh !== undefined ? body.name_zh : currentCategory.name_zh
+    const name_en = body.name_en !== undefined ? body.name_en : currentCategory.name_en
+    const name_jp = body.name_jp !== undefined ? body.name_jp : currentCategory.name_jp
+    const name_hk = body.name_hk !== undefined ? body.name_hk : currentCategory.name_hk
+    const description_zh = body.description_zh !== undefined ? body.description_zh : currentCategory.description_zh
+    const description_en = body.description_en !== undefined ? body.description_en : currentCategory.description_en
+    const description_jp = body.description_jp !== undefined ? body.description_jp : currentCategory.description_jp
+    const description_hk = body.description_hk !== undefined ? body.description_hk : currentCategory.description_hk
     
     // 验证模板值（如果提供了模板）
     if (body.list_template !== undefined || body.detail_template !== undefined) {
@@ -2521,22 +2540,22 @@ app.put('/api/admin/resource-categories/:id', async (c) => {
       }
     }
     
-    // 更新栏目
+    // 更新栏目（包含多语言字段）
     await mysqlQuery(
       `UPDATE resource_categories 
-       SET sort_order = ?, name = ?, link = ?, description = ?, 
-           cover_image = ?, cover_image_size = ?, cover_image_type = ?, cover_image_link = ?,
+       SET sort_order = ?, name = ?, link = ?, description = ?,
+           name_zh = ?, name_en = ?, name_jp = ?, name_hk = ?,
+           description_zh = ?, description_en = ?, description_jp = ?, description_hk = ?,
            category_template = ?, page_template = ?, is_displayed = ?
        WHERE id = ?`,
       [
         sort_order, 
-        name, 
+        name || '', 
         slug, 
         description || null,
-        cover_image || null,
-        cover_image_size || null,
-        cover_image_type || null,
-        cover_image_link || null,
+        // 多语言字段
+        name_zh || null, name_en || null, name_jp || null, name_hk || null,
+        description_zh || null, description_en || null, description_jp || null, description_hk || null,
         list_template, 
         detail_template, 
         is_visible, 
@@ -2544,16 +2563,14 @@ app.put('/api/admin/resource-categories/:id', async (c) => {
       ]
     )
     
-    // 如果更换了图片，删除旧图片
-    if (currentCategory.cover_image && cover_image && currentCategory.cover_image !== cover_image) {
-      await deleteUploadedImage(currentCategory.cover_image)
-    }
+    console.log('✅ 更新栏目成功，ID:', id);
     
     return c.json({ 
       success: true, 
       message: '栏目更新成功' 
     })
   } catch (error: any) {
+    console.error('❌ 更新栏目失败:', error);
     return c.json({ 
       success: false, 
       error: error.message 
