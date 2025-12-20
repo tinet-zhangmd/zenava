@@ -58,11 +58,15 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
     : getResourceTypeConfig(resourceType, language)
   
   // 使用实际的内容数据
-  const currentItems = contents
   const itemsPerPage = 9
   const totalItems = contents.length
   const totalPages = Math.ceil(totalItems / itemsPerPage)
   const currentPage = Math.min(Math.max(1, page || 1), totalPages)
+  
+  // 对 contents 进行分页切片，每页显示9条
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const currentItems = contents.slice(startIndex, endIndex)
 
   return (
     <>

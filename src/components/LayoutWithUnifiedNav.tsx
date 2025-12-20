@@ -27,6 +27,7 @@ interface LayoutProps {
   footerConfig: FooterConfig
   footerSections: FooterSection[]
   privacyLinks: PrivacyLink[]
+  featuredContents?: any[]  // 推荐文章列表（可选，仅在首页传递）
 }
 
 export function LayoutWithUnifiedNav({ 
@@ -44,7 +45,8 @@ export function LayoutWithUnifiedNav({
   menuItems,
   footerConfig,
   footerSections,
-  privacyLinks
+  privacyLinks,
+  featuredContents = []
 }: LayoutProps) {
   const defaultTitle = language === 'jp' ? 'ZENAVA - エンタープライズ向けAIエージェント' : 
                        language === 'hk' ? 'ZENAVA - 企業級AI代理' : 
@@ -135,10 +137,36 @@ export function LayoutWithUnifiedNav({
         <main class={navigationConfig.nav_fixed !== false ? 'pt-16' : ''}>
           {children}
           
-          {/* Other Resources Section - 资源中心版块（所有页面统一，联系表单页面、关于我们页面和资源中心页面除外） */}
-          {!currentPath.includes('/contact') && !currentPath.includes('/about') && !currentPath.includes('/resources') && (
-          <OtherResourcesSection language={language} />
-          )}
+          {/* Other Resources Section - 资源中心版块（所有页面统一，联系表单页面、关于我们页面、资源中心页面和特定产品/行业页面除外） */}
+          {(() => {
+            // 排除的路径列表
+            const excludedPaths = [
+              '/contact',
+              '/about',
+              '/resources',
+              '/products/ai-agents',
+              '/products/live-chat',
+              '/products/voice-agents',
+              '/industries/retail',
+              '/industries/automotive',
+              '/industries/software',
+              '/industries/travel'
+            ]
+            
+            // 检查当前路径是否在排除列表中（支持多语言路径）
+            const shouldExclude = excludedPaths.some(path => {
+              // 检查完整路径匹配（如 /products/ai-agents）
+              if (currentPath === path) return true
+              // 检查多语言路径（如 /zh/products/ai-agents, /en/products/ai-agents）
+              // 使用 endsWith 确保精确匹配，避免误匹配（如 /products/ai-agents-new）
+              if (currentPath.endsWith(path) || currentPath.includes(`/${path}`)) return true
+              return false
+            })
+            
+            return !shouldExclude && (
+              <OtherResourcesSection language={language} featuredContents={featuredContents} />
+            )
+          })()}
           
           {/* Contact Section - 联系表单版块（所有页面统一，联系表单页面除外，关于我们页面和资源中心页面需要显示） */}
           {!currentPath.includes('/contact') && (

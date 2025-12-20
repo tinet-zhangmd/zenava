@@ -23,6 +23,20 @@ interface ResourceContent {
   published_at: string
   views: number
   downloads: number
+  reading_time?: number
+  // 多语言字段
+  title_zh?: string
+  title_en?: string
+  title_jp?: string
+  title_hk?: string
+  content_zh?: string
+  content_en?: string
+  content_jp?: string
+  content_hk?: string
+  cover_image_zh?: string
+  cover_image_en?: string
+  cover_image_jp?: string
+  cover_image_hk?: string
 }
 
 interface Banner {
@@ -272,17 +286,54 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                     const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
                     const contentLink = `${basePath}/${currentCategory.slug}/${content.id}`
                     
+                    // 获取多语言标题（根据当前语言选择）
+                    const getTitle = () => {
+                      if (language === 'zh') return content.title_zh || content.title || '文章标题'
+                      if (language === 'en') return content.title_en || content.title || 'Article Title'
+                      if (language === 'jp') return content.title_jp || content.title || '記事タイトル'
+                      if (language === 'hk') return content.title_hk || content.title || '文章標題'
+                      return content.title || 'Article Title'
+                    }
+                    
+                    // 获取多语言内容（根据当前语言选择）
+                    const getContent = () => {
+                      if (language === 'zh') return content.content_zh || content.content || ''
+                      else if (language === 'en') return content.content_en || content.content || ''
+                      else if (language === 'jp') return content.content_jp || content.content || ''
+                      else if (language === 'hk') return content.content_hk || content.content || ''
+                      return content.content || ''
+                    }
+                    
+                    // 格式化日期为 "2025/12/8 · 6 min" 格式
+                    const formatDateAndTime = () => {
+                      if (!content.published_at) return ''
+                      const date = new Date(content.published_at)
+                      const year = date.getFullYear()
+                      const month = date.getMonth() + 1
+                      const day = date.getDate()
+                      const readingTime = content.reading_time || 0
+                      return `${year}/${month}/${day} · ${readingTime} min`
+                    }
+                    
+                    // 提取纯文本描述（去除HTML标签）
+                    const getDescription = () => {
+                      const htmlContent = getContent()
+                      if (!htmlContent) return ''
+                      const text = htmlContent.replace(/<[^>]*>/g, '').trim()
+                      return text.length > 150 ? text.substring(0, 150) + '...' : text
+                    }
+                    
                     return (
                       <a 
                         key={content.id}
                         href={contentLink}
-                        class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block"
+                        class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden flex flex-col h-full"
                       >
-                        <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">
+                        <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden flex-shrink-0">
                           {content.cover_image ? (
                             <img 
                               src={content.cover_image}
-                              alt={content.title}
+                              alt={getTitle()}
                               class="w-full h-full object-cover"
                               loading="lazy"
                             />
@@ -297,21 +348,29 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                             </div>
                           )}
                         </div>
-                        <div class="p-6">
-                          <p class="text-sm text-gray-500 mb-2">
-                            {new Date(content.published_at).toLocaleDateString(language === 'en' ? 'en-US' : 'zh-CN')}
-                          </p>
-                          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                            {content.title}
-                          </h3>
-                          <p class="text-gray-600 text-sm md:text-base line-clamp-3">
-                            {content.content.replace(/<[^>]*>/g, '').substring(0, 150)}...
-                          </p>
-                          <div class="mt-4 flex items-center justify-between text-sm text-gray-500">
-                            <span><i class="fas fa-eye mr-1"></i> {content.views}</span>
-                            {content.downloads > 0 && (
-                              <span><i class="fas fa-download mr-1"></i> {content.downloads}</span>
+                        <div class="p-6 flex flex-col flex-grow">
+                          {/* 日期和阅读时间、作者信息（同一行） */}
+                          <div class="flex items-center justify-between text-sm text-gray-500 mb-3">
+                            <span>{formatDateAndTime()}</span>
+                            {content.author && (
+                              <span>
+                                {language === 'zh' ? '作者: ' : language === 'en' ? 'Author: ' : language === 'jp' ? '著者: ' : '作者: '}
+                                {content.author}
+                              </span>
                             )}
+                          </div>
+                          {/* 标题 */}
+                          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                            {getTitle()}
+                          </h3>
+                          {/* 内容描述（自动扩展） */}
+                          <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-4 flex-grow">
+                            {getDescription()}
+                          </p>
+                          {/* 浏览量（固定在底部） */}
+                          <div class="flex items-center text-sm text-gray-500 mt-auto">
+                            <i class="fas fa-eye mr-1"></i>
+                            <span>{content.views || 0}</span>
                           </div>
                         </div>
                       </a>
@@ -514,38 +573,54 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                   contentLink = `${langPrefix}/resources/${content.id}`
                 }
                 
-                // 格式化日期
-                const formatDate = (dateStr: string) => {
-                  if (!dateStr) return ''
-                  const date = new Date(dateStr)
-                  if (language === 'zh') {
-                    return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })
-                  } else if (language === 'en') {
-                    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-                  } else if (language === 'jp') {
-                    return date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })
-                  } else {
-                    return date.toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })
-                  }
+                // 获取多语言标题（根据当前语言选择）
+                const getTitle = () => {
+                  if (language === 'zh') return content.title_zh || content.title || '文章标题'
+                  if (language === 'en') return content.title_en || content.title || 'Article Title'
+                  if (language === 'jp') return content.title_jp || content.title || '記事タイトル'
+                  if (language === 'hk') return content.title_hk || content.title || '文章標題'
+                  return content.title || 'Article Title'
+                }
+                
+                // 获取多语言内容（根据当前语言选择）
+                const getContent = () => {
+                  if (language === 'zh') return content.content_zh || content.content || ''
+                  else if (language === 'en') return content.content_en || content.content || ''
+                  else if (language === 'jp') return content.content_jp || content.content || ''
+                  else if (language === 'hk') return content.content_hk || content.content || ''
+                  return content.content || ''
+                }
+                
+                // 格式化日期为 "2025/12/8 · 6 min" 格式
+                const formatDateAndTime = () => {
+                  if (!content.published_at) return ''
+                  const date = new Date(content.published_at)
+                  const year = date.getFullYear()
+                  const month = date.getMonth() + 1
+                  const day = date.getDate()
+                  const readingTime = content.reading_time || 0
+                  return `${year}/${month}/${day} · ${readingTime} min`
                 }
                 
                 // 提取纯文本描述（去除HTML标签）
-                const getDescription = (htmlContent: string) => {
+                const getDescription = () => {
+                  const htmlContent = getContent()
                   if (!htmlContent) return ''
-                  return htmlContent.replace(/<[^>]*>/g, '').substring(0, 150) + '...'
+                  const text = htmlContent.replace(/<[^>]*>/g, '').trim()
+                  return text.length > 150 ? text.substring(0, 150) + '...' : text
                 }
                 
                 return (
                   <a 
                     key={content.id}
                     href={contentLink}
-                    class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block"
+                    class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden flex flex-col h-full"
                   >
-                    <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">
+                    <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden flex-shrink-0">
                       {content.cover_image ? (
                         <img 
                           src={content.cover_image}
-                          alt={content.title || 'Featured resource'}
+                          alt={getTitle()}
                           class="w-full h-full object-cover"
                           loading={index === 0 ? 'eager' : 'lazy'}
                           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -573,16 +648,30 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                         </div>
                       )}
                     </div>
-                    <div class="p-6">
-                      <p class="text-sm text-gray-500 mb-2">
-                        {formatDate(content.published_at)}
-                      </p>
+                    <div class="p-6 flex flex-col flex-grow">
+                      {/* 日期和阅读时间、作者信息（同一行） */}
+                      <div class="flex items-center justify-between text-sm text-gray-500 mb-3">
+                        <span>{formatDateAndTime()}</span>
+                        {content.author && (
+                          <span>
+                            {language === 'zh' ? '作者: ' : language === 'en' ? 'Author: ' : language === 'jp' ? '著者: ' : '作者: '}
+                            {content.author}
+                          </span>
+                        )}
+                      </div>
+                      {/* 标题 */}
                       <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                        {content.title || 'Resource Title'}
+                        {getTitle()}
                       </h3>
-                      <p class="text-gray-600 text-sm md:text-base line-clamp-3">
-                        {getDescription(content.content)}
+                      {/* 内容描述（自动扩展） */}
+                      <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-4 flex-grow">
+                        {getDescription()}
                       </p>
+                      {/* 浏览量（固定在底部） */}
+                      <div class="flex items-center text-sm text-gray-500 mt-auto">
+                        <i class="fas fa-eye mr-1"></i>
+                        <span>{content.views || 0}</span>
+                      </div>
                     </div>
                   </a>
                 )
@@ -689,38 +778,54 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                         ? `${categoryLink}/${content.id}`
                         : `${langPrefix}/resources/${content.id}`
                       
-                      // 格式化日期
-                      const formatDate = (dateStr: string) => {
-                        if (!dateStr) return ''
-                        const date = new Date(dateStr)
-                        if (language === 'zh') {
-                          return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })
-                        } else if (language === 'en') {
-                          return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-                        } else if (language === 'jp') {
-                          return date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })
-                        } else {
-                          return date.toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })
-                        }
+                      // 获取多语言标题（根据当前语言选择）
+                      const getTitle = () => {
+                        if (language === 'zh') return content.title_zh || content.title || '文章标题'
+                        if (language === 'en') return content.title_en || content.title || 'Article Title'
+                        if (language === 'jp') return content.title_jp || content.title || '記事タイトル'
+                        if (language === 'hk') return content.title_hk || content.title || '文章標題'
+                        return content.title || 'Article Title'
                       }
                       
-                      // 提取纯文本描述
-                      const getDescription = (htmlContent: string) => {
+                      // 获取多语言内容（根据当前语言选择）
+                      const getContent = () => {
+                        if (language === 'zh') return content.content_zh || content.content || ''
+                        else if (language === 'en') return content.content_en || content.content || ''
+                        else if (language === 'jp') return content.content_jp || content.content || ''
+                        else if (language === 'hk') return content.content_hk || content.content || ''
+                        return content.content || ''
+                      }
+                      
+                      // 格式化日期为 "2025/12/8 · 6 min" 格式
+                      const formatDateAndTime = () => {
+                        if (!content.published_at) return ''
+                        const date = new Date(content.published_at)
+                        const year = date.getFullYear()
+                        const month = date.getMonth() + 1
+                        const day = date.getDate()
+                        const readingTime = content.reading_time || 0
+                        return `${year}/${month}/${day} · ${readingTime} min`
+                      }
+                      
+                      // 提取纯文本描述（去除HTML标签）
+                      const getDescription = () => {
+                        const htmlContent = getContent()
                         if (!htmlContent) return ''
-                        return htmlContent.replace(/<[^>]*>/g, '').substring(0, 150) + '...'
+                        const text = htmlContent.replace(/<[^>]*>/g, '').trim()
+                        return text.length > 150 ? text.substring(0, 150) + '...' : text
                       }
                       
                       return (
                         <a 
                           key={content.id}
                           href={contentLink}
-                          class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block"
+                          class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden flex flex-col h-full"
                         >
-                          <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">
+                          <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden flex-shrink-0">
                             {content.cover_image ? (
                               <img 
                                 src={content.cover_image}
-                                alt={content.title || ''}
+                                alt={getTitle()}
                                 class="w-full h-full object-cover"
                                 loading="lazy"
                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -735,16 +840,30 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                               </div>
                             </div>
                           </div>
-                          <div class="p-6">
-                            <p class="text-sm text-gray-500 mb-2">
-                              {formatDate(content.published_at)}
-                            </p>
+                          <div class="p-6 flex flex-col flex-grow">
+                            {/* 日期和阅读时间、作者信息（同一行） */}
+                            <div class="flex items-center justify-between text-sm text-gray-500 mb-3">
+                              <span>{formatDateAndTime()}</span>
+                              {content.author && (
+                                <span>
+                                  {language === 'zh' ? '作者: ' : language === 'en' ? 'Author: ' : language === 'jp' ? '著者: ' : '作者: '}
+                                  {content.author}
+                                </span>
+                              )}
+                            </div>
+                            {/* 标题 */}
                             <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                              {content.title || 'Resource Title'}
+                              {getTitle()}
                             </h4>
-                            <p class="text-gray-600 text-sm md:text-base line-clamp-3">
-                              {getDescription(content.content)}
+                            {/* 内容描述（自动扩展） */}
+                            <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-4 flex-grow">
+                              {getDescription()}
                             </p>
+                            {/* 浏览量（固定在底部） */}
+                            <div class="flex items-center text-sm text-gray-500 mt-auto">
+                              <i class="fas fa-eye mr-1"></i>
+                              <span>{content.views || 0}</span>
+                            </div>
                           </div>
                         </a>
                       )
