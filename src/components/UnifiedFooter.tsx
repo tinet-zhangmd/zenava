@@ -314,30 +314,6 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
                   {t.resources}
                 </a>
               </li>
-              <li>
-                <a 
-                  href={`${langPrefix}/resources/blog`}
-                  class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
-                >
-                  {t.blog}
-                </a>
-              </li>
-              <li>
-                <a 
-                  href={`${langPrefix}/resources/reports`}
-                  class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
-                >
-                  {t.reports}
-                </a>
-              </li>
-              <li>
-                <a 
-                  href={`${langPrefix}/resources/video`}
-                  class="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm block"
-                >
-                  {t.videos}
-                </a>
-              </li>
             </ul>
           </div>
           

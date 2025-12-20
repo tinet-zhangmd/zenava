@@ -55,7 +55,7 @@ import resourceCenterApi from './api/resource-center.js'
 
 // Define Cloudflare Bindings
 type Bindings = {
-  DB: D1Database;
+  // 移除 DB binding，项目已完全使用 MySQL
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
