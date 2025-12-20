@@ -10,6 +10,8 @@ interface Content {
   published_at: string
   views: number
   status: 'draft' | 'unpublished' | 'published'
+  is_featured?: boolean | number
+  is_hot?: boolean | number
 }
 
 interface Category {
@@ -50,13 +52,13 @@ export const ResourceContentManagement: FC<ResourceContentManagementProps> = ({
             id="batch-action" 
             class="px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
                   <option value="">批量操作</option>
-            <option value="publish">批量排序/删除</option>
-            <option value="move">批量转移</option>
-            <option value="copy">批量复制</option>
-            <option value="draft">批量取消推荐</option>
+            <option value="feature">批量推荐</option>
+            <option value="unfeature">批量取消推荐</option>
+            <option value="hot">批量热门</option>
+            <option value="unhot">批量取消热门</option>
+            <option value="publish">批量发布</option>
+            <option value="draft">批量草稿</option>
                   <option value="delete">批量删除</option>
-            <option value="update">批量更新</option>
-            <option value="edit">批量编辑</option>
                 </select>
               </div>
 
@@ -109,6 +111,32 @@ export const ResourceContentManagement: FC<ResourceContentManagementProps> = ({
                 />
           </div>
         </div>
+        
+        <div class="grid grid-cols-2 gap-4 mt-4">
+          {/* 推荐筛选 */}
+          <div>
+            <label class="block text-sm text-gray-600 mb-1">推荐</label>
+            <select 
+              id="filter-featured"
+              class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+              <option value="">全部</option>
+              <option value="1">已推荐</option>
+              <option value="0">未推荐</option>
+            </select>
+          </div>
+
+          {/* 热门筛选 */}
+          <div>
+            <label class="block text-sm text-gray-600 mb-1">热门</label>
+            <select 
+              id="filter-hot"
+              class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+              <option value="">全部</option>
+              <option value="1">热门</option>
+              <option value="0">非热门</option>
+            </select>
+          </div>
+        </div>
 
         <div class="mt-3 flex justify-end space-x-2">
           <button 
@@ -139,6 +167,7 @@ export const ResourceContentManagement: FC<ResourceContentManagementProps> = ({
               <th class="px-3 py-2 text-left text-gray-600 font-medium w-32">发布时间</th>
               <th class="px-3 py-2 text-left text-gray-600 font-medium w-24">访问量</th>
               <th class="px-3 py-2 text-center text-gray-600 font-medium w-20">推荐</th>
+              <th class="px-3 py-2 text-center text-gray-600 font-medium w-20">热门</th>
               <th class="px-3 py-2 text-center text-gray-600 font-medium w-32">操作</th>
               </tr>
             </thead>
@@ -207,6 +236,17 @@ export const ResourceContentManagement: FC<ResourceContentManagementProps> = ({
                     {(content.is_featured === true || content.is_featured === 1) ? '是' : '否'}
                   </td>
                   
+                  {/* 热门 */}
+                  <td class="px-3 py-3 text-center text-gray-600">
+                    {(content.is_hot === true || content.is_hot === 1) ? (
+                      <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                        <i class="fas fa-fire mr-1"></i> 热门
+                      </span>
+                    ) : (
+                      <span class="text-gray-400">否</span>
+                    )}
+                  </td>
+                  
                   {/* 操作 */}
                   <td class="px-3 py-3 text-center">
                     <div class="flex items-center justify-center space-x-2">
@@ -235,7 +275,7 @@ export const ResourceContentManagement: FC<ResourceContentManagementProps> = ({
                 ))
             ) : (
               <tr>
-                <td colSpan={9} class="px-3 py-12 text-center text-gray-500">
+                <td colSpan={10} class="px-3 py-12 text-center text-gray-500">
                   <i class="fas fa-inbox text-4xl mb-2 text-gray-300"></i>
                   <p>暂无内容</p>
                 </td>
@@ -304,9 +344,45 @@ export const ResourceContentManagement: FC<ResourceContentManagementProps> = ({
       {/* JavaScript */}
       <script dangerouslySetInnerHTML={{
         __html: `
+          // 从 URL 参数初始化筛选条件
+          function initializeFilters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            const status = urlParams.get('status');
+            const search = urlParams.get('search');
+            const featured = urlParams.get('is_featured');
+            const hot = urlParams.get('is_hot');
+            
+            if (category) {
+              const categorySelect = document.getElementById('filter-category');
+              if (categorySelect) categorySelect.value = category;
+            }
+            if (status) {
+              const statusSelect = document.getElementById('filter-status');
+              if (statusSelect) statusSelect.value = status;
+            }
+            if (search) {
+              const searchInput = document.getElementById('filter-search');
+              if (searchInput) searchInput.value = search;
+            }
+            if (featured !== null) {
+              const featuredSelect = document.getElementById('filter-featured');
+              if (featuredSelect) featuredSelect.value = featured;
+            }
+            if (hot !== null) {
+              const hotSelect = document.getElementById('filter-hot');
+              if (hotSelect) hotSelect.value = hot;
+            }
+          }
+          
+          // 页面加载时初始化筛选条件
+          initializeFilters();
+          
           // 筛选面板切换
           document.getElementById('filter-btn')?.addEventListener('click', function() {
             const panel = document.getElementById('filter-panel');
+            // 打开面板时重新初始化筛选条件（确保从 URL 读取最新值）
+            initializeFilters();
             panel.classList.toggle('hidden');
           });
           
@@ -331,13 +407,13 @@ export const ResourceContentManagement: FC<ResourceContentManagementProps> = ({
             
             const action = e.target.value;
             const actionNames = {
-              'publish': '批量排序/删除',
-              'move': '批量转移',
-              'copy': '批量复制',
-              'draft': '批量取消推荐',
-              'delete': '批量删除',
-              'update': '批量更新',
-              'edit': '批量编辑'
+              'feature': '批量推荐',
+              'unfeature': '批量取消推荐',
+              'hot': '批量热门',
+              'unhot': '批量取消热门',
+              'publish': '批量发布',
+              'draft': '批量草稿',
+              'delete': '批量删除'
             };
             
             // 批量删除功能
@@ -368,9 +444,52 @@ export const ResourceContentManagement: FC<ResourceContentManagementProps> = ({
                 console.error('批量删除失败:', error);
                 alert('批量删除失败：' + error.message);
               }
+            } else if (['feature', 'unfeature', 'hot', 'unhot', 'publish', 'draft'].includes(action)) {
+              // 批量操作（推荐、热门、发布状态）
+              if (!confirm(\`确定要对选中的 \${selected.length} 项内容执行"\${actionNames[action]}"操作吗？\`)) {
+                e.target.value = '';
+                return;
+              }
+              
+              try {
+                const response = await fetch('/api/resource-center/contents/batch', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ action: action, ids: selected })
+                });
+                
+                // 检查响应状态
+                if (!response.ok) {
+                  const text = await response.text();
+                  console.error('批量操作响应错误:', response.status, text);
+                  throw new Error(\`HTTP错误 \${response.status}: \${text.substring(0, 100)}\`);
+                }
+                
+                // 检查 Content-Type
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                  const text = await response.text();
+                  console.error('批量操作返回非JSON:', contentType, text);
+                  throw new Error('服务器返回了非JSON格式的响应');
+                }
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                  alert(\`成功执行"\${actionNames[action]}"操作\`);
+                  window.location.reload();
+                } else {
+                  alert('批量操作失败：' + (result.error || '未知错误'));
+                }
+              } catch (error) {
+                console.error('批量操作失败:', error);
+                alert('批量操作失败：' + (error.message || '未知错误'));
+              }
             } else {
               // 其他批量操作暂未实现
-              if (confirm(\`确定要对选中的 \${selected.length} 项内容执行"\${actionNames[action]}"操作吗？\`)) {
+              if (confirm(\`确定要对选中的 \${selected.length} 项内容执行"\${actionNames[action] || action}"操作吗？\`)) {
                 alert('该功能正在开发中...');
               }
             }
@@ -423,11 +542,15 @@ export const ResourceContentManagement: FC<ResourceContentManagementProps> = ({
             const category = document.getElementById('filter-category').value;
             const status = document.getElementById('filter-status').value;
             const search = document.getElementById('filter-search').value;
+            const featured = document.getElementById('filter-featured').value;
+            const hot = document.getElementById('filter-hot').value;
           
             const params = new URLSearchParams();
             if (category) params.append('category', category);
             if (status) params.append('status', status);
             if (search) params.append('search', search);
+            if (featured) params.append('is_featured', featured);
+            if (hot) params.append('is_hot', hot);
             
             window.location.href = '/ticloudadmin/resource-contents?' + params.toString();
           });

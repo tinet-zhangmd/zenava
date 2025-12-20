@@ -36,6 +36,8 @@ interface Content {
   status: 'draft' | 'unpublished' | 'published'
   published_at?: string
   sort_order?: number
+  is_featured?: boolean | number
+  is_hot?: boolean | number
   meta_title?: string
   meta_description?: string
   meta_keywords?: string
@@ -297,6 +299,13 @@ export const ContentEditor: FC<ContentEditorProps> = ({
                   <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-blue-600 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
                 </label>
               </div>
+              <div class="flex items-center justify-between pt-2 border-t border-blue-100">
+                <span class="text-xs font-black text-blue-900/40 uppercase">热门</span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="content-hot" class="sr-only peer" checked={(content?.is_hot === true || content?.is_hot === 1)} />
+                  <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-red-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
+                </label>
+              </div>
             </div>
           </div>
 
@@ -407,6 +416,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
               sort_order: parseInt(document.getElementById('content-sort').value) || 0,
                 reading_time: parseInt(document.getElementById('content-reading-time').value) || 0,
                 is_featured: document.getElementById('content-featured').checked ? 1 : 0,
+                is_hot: document.getElementById('content-hot').checked ? 1 : 0,
                 video_file: document.getElementById('video-file-url').value,
                 attachment_file: document.getElementById('attachment-file-url').value,
             };
