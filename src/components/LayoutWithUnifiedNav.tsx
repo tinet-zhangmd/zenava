@@ -167,7 +167,11 @@ export function LayoutWithUnifiedNav({
             // 资源详情页路径格式：/resources/:slug/:id 或 /:lang/resources/:slug/:id
             const isResourceDetailPage = /^(\/[a-z]{2})?\/resources\/[^\/]+\/\d+$/.test(currentPath)
             
-            return !shouldExclude && !isResourceDetailPage && (
+            // 排除资源列表页（如 /resources/hybg 或 /zh/resources/hybg）
+            // 资源列表页路径格式：/resources/:slug 或 /:lang/resources/:slug（不包含数字ID）
+            const isResourceListPage = /^(\/[a-z]{2})?\/resources\/[^\/]+$/.test(currentPath) && !isResourceDetailPage
+            
+            return !shouldExclude && !isResourceDetailPage && !isResourceListPage && (
               <OtherResourcesSection language={language} featuredContents={featuredContents} />
             )
           })()}
