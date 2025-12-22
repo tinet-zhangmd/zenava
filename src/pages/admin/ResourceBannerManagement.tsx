@@ -2,6 +2,9 @@ import { FC } from 'hono/jsx'
 
 interface Banner {
   id: number
+  category_id?: number | null
+  category_name?: string | null  // 栏目分类名称（关联查询）
+  category_slug?: string | null  // 栏目分类slug（关联查询）
   banner_type: 'text_image' | 'full_image'
   title: string
   sort_order: number
@@ -30,6 +33,7 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
   basePath = '/ticloudadmin/resource-banners',
   apiPath = '/api/resource-center/banners'
 }) => {
+  const isCategoryBanner = apiPath.includes('category-banners')  // 判断是否为栏目Banner
   return (
     <div>
       {/* 操作栏 */}
@@ -76,6 +80,9 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
                 <input type="checkbox" id="select-all" />
               </th>
               <th class="px-4 py-2 text-left font-medium text-gray-600">ID</th>
+              {isCategoryBanner && (
+                <th class="px-4 py-2 text-left font-medium text-gray-600">栏目分类</th>
+              )}
               <th class="px-4 py-2 text-left font-medium text-gray-600">排序/排版/按钮</th>
               <th class="px-4 py-2 text-left font-medium text-gray-600">图片</th>
               <th class="px-4 py-2 text-left font-medium text-gray-600">说明</th>
@@ -85,7 +92,7 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
           <tbody>
             {banners.length === 0 ? (
               <tr>
-                <td colspan="6" class="px-4 py-12 text-center text-gray-500">
+                <td colspan={isCategoryBanner ? 7 : 6} class="px-4 py-12 text-center text-gray-500">
                   <p class="mb-3">暂无Banner</p>
                   <a 
                     href={`${basePath}/new`}
@@ -111,6 +118,20 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
                     <td class="px-4 py-2 text-gray-600">
                       #{banner.id}
                     </td>
+                    
+                    {isCategoryBanner && (
+                      <td class="px-4 py-2">
+                        <div class="text-xs">
+                          {banner.category_name ? (
+                            <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded">
+                              {banner.category_name}
+                            </span>
+                          ) : (
+                            <span class="text-gray-400">未关联</span>
+                          )}
+                        </div>
+                      </td>
+                    )}
                     
                     <td class="px-4 py-2">
                       <div class="space-y-1">

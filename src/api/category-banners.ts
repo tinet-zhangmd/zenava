@@ -100,6 +100,7 @@ categoryBannerApi.post('/', async (c) => {
     console.log('📥 [POST /api/resource-center/category-banners] 收到数据:', JSON.stringify(body).substring(0, 500) + '...');
     
     const {
+      category_id,
       banner_type,
       title,
       sort_order = 0,
@@ -135,9 +136,20 @@ categoryBannerApi.post('/', async (c) => {
       return c.json({ success: false, message: '请填写必填字段' }, 400)
     }
     
+    // 验证栏目分类（如果提供了category_id）
+    if (category_id) {
+      const [category] = await mysqlQuery<any[]>(
+        'SELECT id FROM resource_categories WHERE id = ?',
+        [category_id]
+      )
+      if (!category) {
+        return c.json({ success: false, message: '栏目分类不存在' }, 400)
+      }
+    }
+    
     const sql = `
       INSERT INTO category_banners (
-        banner_type, title, sort_order, status,
+        category_id, banner_type, title, sort_order, status,
         text_title, text_subtitle, text_button,
         text_title_zh, text_title_en, text_title_jp, text_title_hk,
         text_subtitle_zh, text_subtitle_en, text_subtitle_jp, text_subtitle_hk,
@@ -146,11 +158,11 @@ categoryBannerApi.post('/', async (c) => {
         button_link, button_target,
         text_position, text_color, subtitle_color, image_url, background_type, background_url,
         full_image_url, link_url, link_target
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `
     
     const result = await mysqlQuery(sql, [
-      banner_type, title, sort_order, status,
+      category_id || null, banner_type, title, sort_order, status,
       text_title || null, text_subtitle || null, text_button || null,
       // 多语言字段
       text_title_zh || null, text_title_en || null, text_title_jp || null, text_title_hk || null,
@@ -184,6 +196,7 @@ categoryBannerApi.put('/:id', async (c) => {
     console.log(`📥 [PUT /api/resource-center/category-banners/${id}] 收到数据:`, JSON.stringify(body).substring(0, 500) + '...');
     
     const {
+      category_id,
       banner_type,
       title,
       sort_order = 0,
@@ -219,9 +232,20 @@ categoryBannerApi.put('/:id', async (c) => {
       return c.json({ success: false, message: '请填写必填字段' }, 400)
     }
     
+    // 验证栏目分类（如果提供了category_id）
+    if (category_id) {
+      const [category] = await mysqlQuery<any[]>(
+        'SELECT id FROM resource_categories WHERE id = ?',
+        [category_id]
+      )
+      if (!category) {
+        return c.json({ success: false, message: '栏目分类不存在' }, 400)
+      }
+    }
+    
     const sql = `
       UPDATE category_banners SET
-        banner_type = ?, title = ?, sort_order = ?, status = ?,
+        category_id = ?, banner_type = ?, title = ?, sort_order = ?, status = ?,
         text_title = ?, text_subtitle = ?, text_button = ?,
         text_title_zh = ?, text_title_en = ?, text_title_jp = ?, text_title_hk = ?,
         text_subtitle_zh = ?, text_subtitle_en = ?, text_subtitle_jp = ?, text_subtitle_hk = ?,
@@ -235,7 +259,7 @@ categoryBannerApi.put('/:id', async (c) => {
     `
     
     await mysqlQuery(sql, [
-      banner_type, title, sort_order, status,
+      category_id || null, banner_type, title, sort_order, status,
       text_title || null, text_subtitle || null, text_button || null,
       // 多语言字段
       text_title_zh || null, text_title_en || null, text_title_jp || null, text_title_hk || null,

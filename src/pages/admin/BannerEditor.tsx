@@ -2,6 +2,7 @@ import { FC } from 'hono/jsx'
 
 interface Banner {
   id?: number
+  category_id?: number | null  // 栏目分类ID（仅栏目Banner使用）
   banner_type: 'text_image' | 'full_image'
   title: string
   sort_order: number
@@ -39,21 +40,30 @@ interface Banner {
   link_target?: string
 }
 
+interface Category {
+  id: number
+  name: string
+  slug: string
+}
+
 interface BannerEditorProps {
   banner?: Banner | null
   mode: 'create' | 'edit'
   basePath?: string  // 基础路径，默认为 /ticloudadmin/resource-banners
   apiPath?: string   // API路径，默认为 /api/resource-center/banners
+  categories?: Category[]  // 栏目分类列表（仅栏目Banner使用）
 }
 
 export const BannerEditor: FC<BannerEditorProps> = ({ 
   banner = null, 
   mode,
   basePath = '/ticloudadmin/resource-banners',
-  apiPath = '/api/resource-center/banners'
+  apiPath = '/api/resource-center/banners',
+  categories = []
 }) => {
   const isEdit = mode === 'edit'
   const title = isEdit ? '编辑Banner' : '添加新Banner'
+  const isCategoryBanner = apiPath.includes('category-banners')  // 判断是否为栏目Banner
   
   return (
     <div class="p-4">
@@ -108,6 +118,33 @@ export const BannerEditor: FC<BannerEditorProps> = ({
               <p class="text-xs text-gray-500 mt-1">用于后台识别,不会显示在前台</p>
             </div>
           </div>
+
+          {/* 2.5. 栏目分类（仅栏目Banner显示） */}
+          {isCategoryBanner && (
+            <div class="flex items-start">
+              <label for="category-id" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
+                <span class="text-red-500">*</span> 栏目分类
+              </label>
+              <div class="flex-1">
+                <select 
+                  id="category-id"
+                  class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  required={isCategoryBanner}
+                >
+                  <option value="">请选择栏目分类</option>
+                  {categories.map((cat) => (
+                    <option 
+                      value={cat.id} 
+                      selected={banner?.category_id === cat.id}
+                    >
+                      {cat.name}
+                    </option>
+                  ))}
+                </select>
+                <p class="text-xs text-gray-500 mt-1">选择该Banner所属的栏目分类</p>
+              </div>
+            </div>
+          )}
 
           {/* 3. 排序 */}
           <div class="flex items-start">
@@ -890,6 +927,15 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                   status: document.getElementById('banner-status').value,
                   text_position: textPosition
                 };
+                
+                // 如果是栏目Banner，添加栏目分类ID
+                const isCategoryBanner = ${JSON.stringify(isCategoryBanner)};
+                if (isCategoryBanner) {
+                  const categoryIdInput = document.getElementById('category-id');
+                  if (categoryIdInput && categoryIdInput.value) {
+                    formData.category_id = parseInt(categoryIdInput.value);
+                  }
+                }
                 
                 if (bannerType === 'text_image') {
                   // 收集多语言字段

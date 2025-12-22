@@ -760,6 +760,33 @@ app.get('/resources/:slug', async (c) => {
     console.error('获取栏目分类失败:', error)
   }
   
+  // 获取栏目Banner数据（根据当前栏目筛选，最多8个，已发布的）
+  let categoryBanners = []
+  try {
+    if (category && category.id) {
+      // 如果有当前栏目，只获取该栏目的Banner
+      categoryBanners = await mysqlQuery<any[]>(
+        `SELECT * FROM category_banners 
+         WHERE status = 'published' AND category_id = ?
+         ORDER BY sort_order ASC, id DESC 
+         LIMIT 8`,
+        [category.id]
+      )
+      console.log(`✅ 获取到 ${categoryBanners.length} 个栏目Banner (栏目ID: ${category.id}, 中文路由)`)
+    } else {
+      // 如果没有当前栏目，获取所有未关联栏目的Banner（category_id为NULL）
+      categoryBanners = await mysqlQuery<any[]>(
+        `SELECT * FROM category_banners 
+         WHERE status = 'published' AND (category_id IS NULL OR category_id = 0)
+         ORDER BY sort_order ASC, id DESC 
+         LIMIT 8`
+      )
+      console.log(`✅ 获取到 ${categoryBanners.length} 个通用栏目Banner (中文路由)`)
+    }
+  } catch (error) {
+    console.error('获取栏目Banner失败:', error)
+  }
+  
   return c.html(
     <LayoutWithUnifiedNav
       language={language}
@@ -777,6 +804,7 @@ app.get('/resources/:slug', async (c) => {
         category={category}
         contents={contents}
         categories={categories}
+        categoryBanners={categoryBanners}
       />
     </LayoutWithUnifiedNav>
   )
@@ -987,6 +1015,33 @@ app.get('/:lang/resources/:slug', async (c) => {
     console.error('获取栏目分类失败:', error)
   }
   
+  // 获取栏目Banner数据（根据当前栏目筛选，最多8个，已发布的）
+  let categoryBanners = []
+  try {
+    if (category && category.id) {
+      // 如果有当前栏目，只获取该栏目的Banner
+      categoryBanners = await mysqlQuery<any[]>(
+        `SELECT * FROM category_banners 
+         WHERE status = 'published' AND category_id = ?
+         ORDER BY sort_order ASC, id DESC 
+         LIMIT 8`,
+        [category.id]
+      )
+      console.log(`✅ 获取到 ${categoryBanners.length} 个栏目Banner (栏目ID: ${category.id}, ${language}路由)`)
+    } else {
+      // 如果没有当前栏目，获取所有未关联栏目的Banner（category_id为NULL）
+      categoryBanners = await mysqlQuery<any[]>(
+        `SELECT * FROM category_banners 
+         WHERE status = 'published' AND (category_id IS NULL OR category_id = 0)
+         ORDER BY sort_order ASC, id DESC 
+         LIMIT 8`
+      )
+      console.log(`✅ 获取到 ${categoryBanners.length} 个通用栏目Banner (${language}路由)`)
+    }
+  } catch (error) {
+    console.error('获取栏目Banner失败:', error)
+  }
+  
   return c.html(
     <LayoutWithUnifiedNav
       language={language}
@@ -1004,6 +1059,7 @@ app.get('/:lang/resources/:slug', async (c) => {
         category={category}
         contents={contents}
         categories={categories}
+        categoryBanners={categoryBanners}
       />
     </LayoutWithUnifiedNav>
   )
@@ -2320,7 +2376,7 @@ app.get('/ticloudadmin/category-banners', requireAuth(), async (c) => {
     let queryParams: any[] = []
     
     if (search) {
-      whereClauses.push('(title LIKE ? OR text_title LIKE ?)')
+      whereClauses.push('(cb.title LIKE ? OR cb.text_title LIKE ?)')
       queryParams.push(`%${search}%`, `%${search}%`)
     }
     
@@ -2328,17 +2384,19 @@ app.get('/ticloudadmin/category-banners', requireAuth(), async (c) => {
     
     // 查询总数（使用 category_banners 表）
     const [countResult] = await mysqlQuery<any[]>(
-      `SELECT COUNT(*) as total FROM category_banners ${whereSQL}`,
+      `SELECT COUNT(*) as total FROM category_banners cb ${whereSQL}`,
       queryParams
     )
     const total = countResult.total || 0
     const totalPages = Math.ceil(total / pageSize)
     
-    // 查询列表（使用 category_banners 表）
+    // 查询列表（使用 category_banners 表，关联栏目分类）
     const banners = await mysqlQuery<any[]>(
-      `SELECT * FROM category_banners 
+      `SELECT cb.*, rc.name as category_name, rc.link as category_slug
+       FROM category_banners cb
+       LEFT JOIN resource_categories rc ON cb.category_id = rc.id
        ${whereSQL}
-       ORDER BY sort_order ASC, id DESC
+       ORDER BY cb.sort_order ASC, cb.id DESC
        LIMIT ${offset}, ${pageSize}`,
       queryParams
     )
@@ -2373,10 +2431,28 @@ app.get('/ticloudadmin/category-banners', requireAuth(), async (c) => {
 })
 
 // 创建栏目Banner页面
-app.get('/ticloudadmin/category-banners/new', requireAuth(), (c) => {
+app.get('/ticloudadmin/category-banners/new', requireAuth(), async (c) => {
+  // 获取栏目分类列表
+  let categories = []
+  try {
+    categories = await mysqlQuery<any[]>(
+      `SELECT id, name, link as slug 
+       FROM resource_categories 
+       WHERE is_displayed = 1 
+       ORDER BY sort_order ASC, id ASC`
+    )
+  } catch (error) {
+    console.error('获取栏目分类失败:', error)
+  }
+  
   return c.html(
     <AdminLayout title="添加新栏目Banner" currentPath="/ticloudadmin/category-banners">
-      <BannerEditor mode="create" basePath="/ticloudadmin/category-banners" apiPath="/api/resource-center/category-banners" />
+      <BannerEditor 
+        mode="create" 
+        basePath="/ticloudadmin/category-banners" 
+        apiPath="/api/resource-center/category-banners"
+        categories={categories}
+      />
     </AdminLayout>
   )
 })
@@ -2396,9 +2472,28 @@ app.get('/ticloudadmin/category-banners/edit/:id', requireAuth(), async (c) => {
       return c.text('Banner不存在', 404)
     }
     
+    // 获取栏目分类列表
+    let categories = []
+    try {
+      categories = await mysqlQuery<any[]>(
+        `SELECT id, name, link as slug 
+         FROM resource_categories 
+         WHERE is_displayed = 1 
+         ORDER BY sort_order ASC, id ASC`
+      )
+    } catch (error) {
+      console.error('获取栏目分类失败:', error)
+    }
+    
     return c.html(
       <AdminLayout title="编辑栏目Banner" currentPath="/ticloudadmin/category-banners">
-        <BannerEditor mode="edit" banner={banner} basePath="/ticloudadmin/category-banners" apiPath="/api/resource-center/category-banners" />
+        <BannerEditor 
+          mode="edit" 
+          banner={banner} 
+          basePath="/ticloudadmin/category-banners" 
+          apiPath="/api/resource-center/category-banners"
+          categories={categories}
+        />
       </AdminLayout>
     )
   } catch (error: any) {

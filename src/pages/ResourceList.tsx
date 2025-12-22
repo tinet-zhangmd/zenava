@@ -26,6 +26,43 @@ interface ResourceContent {
   downloads: number
 }
 
+interface Banner {
+  id: number
+  banner_type: 'text_image' | 'full_image'
+  title: string
+  sort_order: number
+  status: 'draft' | 'published'
+  text_title?: string
+  text_subtitle?: string
+  text_button?: string
+  text_title_zh?: string
+  text_title_en?: string
+  text_title_jp?: string
+  text_title_hk?: string
+  text_subtitle_zh?: string
+  text_subtitle_en?: string
+  text_subtitle_jp?: string
+  text_subtitle_hk?: string
+  text_button_zh?: string
+  text_button_en?: string
+  text_button_jp?: string
+  text_button_hk?: string
+  button_link?: string
+  button_target?: string
+  text_position?: string
+  text_color?: string
+  subtitle_color?: string
+  background_type?: string
+  background_url?: string
+  background_url_zh?: string
+  background_url_en?: string
+  background_url_jp?: string
+  background_url_hk?: string
+  full_image_url?: string
+  link_url?: string
+  link_target?: string
+}
+
 interface ResourceListPageProps {
   language?: Language
   resourceType?: string
@@ -33,6 +70,7 @@ interface ResourceListPageProps {
   category?: Category | null  // 当前栏目信息
   contents?: ResourceContent[]  // 当前栏目的内容列表
   categories?: Category[]  // 所有栏目（用于导航）
+  categoryBanners?: Banner[]  // 栏目Banner数据（用于轮播）
 }
 
 // 辅助函数：处理内容，移除图片和视频，只保留文字
@@ -113,7 +151,8 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
   page = 1,
   category = null,
   contents = [],
-  categories = []
+  categories = [],
+  categoryBanners = []
 }) => {
   const trans = getTranslations(language)
   const t = trans.resourcesCenter || {}
@@ -139,6 +178,87 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
   const currentItems = contents.slice(startIndex, endIndex)
+
+  // 将栏目Banner数据转换为轮播格式
+  const convertCategoryBannersToSlides = (banners: Banner[]) => {
+    return banners.map((banner) => {
+      if (banner.banner_type === 'full_image') {
+        // 整张大图模式
+        return {
+          id: `category-banner-${banner.id}`,
+          layout: 'full-image',
+          image: banner.full_image_url || '',
+          link: banner.link_url || '#',
+          target: banner.link_target || '_self'
+        }
+      } else {
+        // 文字+图片模式
+        const langPrefix = language === 'en' ? '' : `/${language}`
+        const buttonLink = banner.button_link || '#'
+        const fullLink = buttonLink.startsWith('/') 
+          ? (buttonLink.startsWith('/resources') 
+              ? `${langPrefix}${buttonLink}` 
+              : buttonLink)
+          : buttonLink
+        
+        // 根据语言获取对应的背景URL
+        const backgroundUrl = banner[`background_url_${language}`] || banner.background_url_zh || banner.background_url || ''
+        
+        // 判断背景是图片还是视频
+        const isVideo = banner.background_type === 'video' || 
+          (backgroundUrl && /\.(mp4|webm|ogg|mov|avi|wmv)$/i.test(backgroundUrl))
+        
+        // 处理文字颜色
+        let textColor = banner.text_color || 'rgba(31, 41, 55, 1)'
+        let subtitleColor = banner.subtitle_color || 'rgba(75, 85, 99, 1)'
+        
+        // 如果颜色是白色或接近白色，自动改为深色
+        if (textColor && (
+          textColor.includes('255,255,255') || 
+          textColor.toLowerCase() === '#ffffff' || 
+          textColor.toLowerCase() === '#fff' ||
+          textColor.toLowerCase() === 'white'
+        )) {
+          textColor = 'rgba(31, 41, 55, 1)'
+        }
+        
+        if (subtitleColor && (
+          subtitleColor.includes('255,255,255') || 
+          subtitleColor.toLowerCase() === '#ffffff' || 
+          subtitleColor.toLowerCase() === '#fff' ||
+          subtitleColor.toLowerCase() === 'white'
+        )) {
+          subtitleColor = 'rgba(75, 85, 99, 1)'
+        }
+        
+        // 根据语言获取文字内容
+        const textTitle = banner[`text_title_${language}`] || banner.text_title_zh || banner.text_title || ''
+        const textSubtitle = banner[`text_subtitle_${language}`] || banner.text_subtitle_zh || banner.text_subtitle || ''
+        const textButton = banner[`text_button_${language}`] || banner.text_button_zh || banner.text_button || ''
+        
+        return {
+          id: `category-banner-${banner.id}`,
+          layout: 'text-image',
+          title: textTitle,
+          description: textSubtitle,
+          buttonText: textButton,
+          image: backgroundUrl,
+          isVideo: isVideo,
+          link: fullLink,
+          target: banner.button_target || '_self',
+          textPosition: banner.text_position || 'left',
+          textColor: textColor,
+          subtitleColor: subtitleColor
+        }
+      }
+    })
+  }
+
+  // 转换栏目Banner为轮播数据（最多8个）
+  const categoryBannerSlides = categoryBanners.length > 0 
+    ? convertCategoryBannersToSlides(categoryBanners).slice(-8)
+    : []
+  const showCategoryBanner = categoryBannerSlides.length > 0
 
   return (
     <>
@@ -191,60 +311,13 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
             {category?.description || resourceTypeConfig.heroDescription}
           </p>
           
-          {/* Banner 部分：左侧图片，右侧文章标题和副标题 */}
-          {contents.length > 0 ? (
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-              {/* 左侧：图片 */}
-              <div class="order-2 lg:order-1">
-                {contents[0].cover_image ? (
-                  <img 
-                    src={contents[0].cover_image}
-                    alt={contents[0].title}
-                    class="w-full h-auto rounded-2xl shadow-2xl object-cover"
-                    loading="eager"
-                  />
-                ) : (
-                  <div class="w-full aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 rounded-2xl flex items-center justify-center">
-                    <div class="text-center">
-                      <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-4"></i>
-                      <p class="text-lg md:text-xl text-gray-500">
-                        {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
-              
-              {/* 右侧：文章标题和副标题 */}
-              <div class="order-1 lg:order-2">
-                <a href={(() => {
-                  const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
-                  return category ? `${basePath}/${category.slug}/${contents[0].id}` : '#'
-                })()} class="block group">
-                  {/* 文章标题 */}
-                  <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-6 group-hover:text-[#6438FF] transition-colors">
-                    {contents[0].title}
-                  </h2>
-                  
-                  {/* 副标题（正文） */}
-                  <p class="text-base md:text-lg text-gray-600 leading-relaxed line-clamp-3">
-                    {extractTextContent(contents[0].content || '')}
-                  </p>
-                </a>
-              </div>
+          {/* Category Banner Carousel - 栏目Banner轮播（原来的Banner位置） */}
+          {showCategoryBanner ? (
+            <div id="category-banner-carousel" class="relative overflow-hidden mb-8 md:mb-12" style="height: 500px;">
+              {/* Banner Slides Container */}
+              <div id="category-banner-slides" class="absolute inset-0"></div>
             </div>
-          ) : (
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-              <div class="w-full aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 rounded-2xl flex items-center justify-center">
-                <div class="text-center">
-                  <i class="fas fa-inbox text-4xl md:text-5xl text-gray-400 mb-4"></i>
-                  <p class="text-lg md:text-xl text-gray-500">
-                    {language === 'zh' ? '暂无内容' : language === 'en' ? 'No content yet' : language === 'jp' ? 'コンテンツがありません' : '暫無內容'}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
+          ) : null}
         </div>
       </section>
 
@@ -407,6 +480,207 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
           )}
         </div>
       </section>
+
+      {/* Category Banner Carousel Script - 栏目Banner轮播脚本 */}
+      {showCategoryBanner && (
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              const categoryBannerSlides = ${JSON.stringify(categoryBannerSlides)};
+              const currentLanguage = ${JSON.stringify(language)};
+              const slidesContainer = document.getElementById('category-banner-slides');
+              
+              if (!slidesContainer || categoryBannerSlides.length === 0) return;
+              
+              let currentSlide = 0;
+              let autoPlayInterval = null;
+              
+              const placeholderTexts = {
+                'zh': '暂无图片',
+                'en': 'No Image',
+                'jp': '画像なし',
+                'hk': '暫無圖片'
+              };
+              const placeholderText = placeholderTexts[currentLanguage] || placeholderTexts['zh'];
+              
+              // 构建语言前缀
+              const langPrefix = currentLanguage === 'en' ? '' : '/' + currentLanguage;
+              
+              function renderSlide(index) {
+                const slide = categoryBannerSlides[index];
+                if (!slide) return '';
+                
+                // 构建多语言链接
+                const resourceLink = slide.link || '#';
+                const fullLink = resourceLink.startsWith('/') 
+                  ? (resourceLink.startsWith('/resources') 
+                      ? langPrefix + resourceLink 
+                      : resourceLink)
+                  : resourceLink;
+                
+                // 整张大图模式
+                if (slide.layout === 'full-image') {
+                  const target = slide.target || '_self';
+                  return '<div class="category-banner-slide absolute inset-0 transition-opacity duration-700 ' + 
+                    (index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0') + '">' +
+                    '<a href="' + fullLink + '" target="' + target + '" class="block w-full h-full">' +
+                      '<img src="' + slide.image + '" alt="Category Banner" ' +
+                      'class="w-full h-full object-cover" ' +
+                      'loading="' + (index === 0 ? 'eager' : 'lazy') + '" ' +
+                      'onerror="this.style.display=\\'none\\'; this.nextElementSibling.style.display=\\'flex\\';" />' +
+                      '<div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">' +
+                        '<div class="text-center">' +
+                          '<i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>' +
+                          '<p class="text-sm md:text-base text-gray-500">' + placeholderText + '</p>' +
+                        '</div>' +
+                      '</div>' +
+                    '</a>' +
+                  '</div>';
+                }
+                
+                // 文字+图片模式
+                const buttonHtml = slide.buttonText ? 
+                  '<a href="' + fullLink + '" target="' + (slide.target || '_self') + '" class="inline-flex items-center px-6 py-3 bg-[#6438FF] text-white rounded-lg font-semibold hover:bg-[#5a2ee6] transition-all transform hover:scale-105">' +
+                    slide.buttonText + 
+                    '<i class="fas fa-arrow-right ml-2"></i>' +
+                  '</a>' : '';
+                
+                const textColor = slide.textColor || 'rgba(31, 41, 55, 1)';
+                const subtitleColor = slide.subtitleColor || 'rgba(75, 85, 99, 1)';
+                
+                // 判断是视频还是图片
+                const isVideo = slide.isVideo || false;
+                const hasImage = slide.image && slide.image.trim() !== '';
+                
+                // 构建图片/视频 HTML
+                let mediaHtml = '';
+                if (hasImage) {
+                  if (isVideo) {
+                    mediaHtml = '<video src="' + slide.image + '" ' +
+                      'class="w-full aspect-square object-cover rounded-2xl" ' +
+                      'autoplay muted loop playsinline ' +
+                      'style="pointer-events: none;" ' +
+                      'onerror="this.style.display=\\'none\\'; this.nextElementSibling.classList.remove(\\'hidden\\');"></video>';
+                  } else {
+                    mediaHtml = '<img src="' + slide.image + '" alt="' + (slide.title || 'Banner') + '" ' +
+                      'class="w-full aspect-square object-cover rounded-2xl hover:scale-105 transition-transform duration-500" ' +
+                      'loading="' + (index === 0 ? 'eager' : 'lazy') + '" ' +
+                      'onerror="this.style.display=\\'none\\'; this.nextElementSibling.classList.remove(\\'hidden\\');" />';
+                  }
+                }
+                
+                // 占位符
+                const placeholderClass = hasImage ? 'hidden' : 'flex';
+                const placeholderHtml = '<div class="' + placeholderClass + ' w-full aspect-square items-center justify-center bg-white/50 rounded-2xl">' +
+                  '<div class="text-center">' +
+                    '<i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>' +
+                    '<p class="text-sm md:text-base text-gray-500">' + placeholderText + '</p>' +
+                  '</div>' +
+                '</div>';
+                
+                // Pagination dots HTML（放在图片下方最左边，只在当前slide显示）
+                const paginationHtml = (categoryBannerSlides.length > 1 && index === currentSlide) ? 
+                  '<div class="category-banner-pagination-container flex items-center justify-start space-x-2 mt-4">' +
+                    categoryBannerSlides.map(function(_, idx) {
+                      return '<button class="w-12 h-1 rounded-full transition-all ' +
+                        (idx === currentSlide ? 'bg-[#6438FF]' : 'bg-gray-300') + '" ' +
+                        'onclick="categoryBannerGoToSlide(' + idx + ')" ' +
+                        'aria-label="Go to slide ' + (idx + 1) + '"></button>';
+                    }).join('') +
+                  '</div>' : '';
+                
+                return '<div class="category-banner-slide absolute inset-0 transition-opacity duration-700 ' + 
+                  (index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0') + '">' +
+                  '<div class="min-h-[500px] flex items-center justify-center">' +
+                    '<div class="container mx-auto px-8 md:px-12 lg:px-16 w-full">' +
+                      '<div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 md:gap-12">' +
+                        '<div class="flex flex-col items-center justify-center lg:justify-start w-full">' +
+                          '<a href="' + fullLink + '" target="' + (slide.target || '_self') + '" class="block w-full max-w-md mx-auto lg:mx-0">' +
+                            mediaHtml +
+                            placeholderHtml +
+                          '</a>' +
+                          paginationHtml +
+                        '</div>' +
+                        '<div class="flex items-center justify-center lg:justify-start w-full">' +
+                          '<div class="max-w-2xl">' +
+                            '<a href="' + fullLink + '" target="' + (slide.target || '_self') + '" class="block mb-4">' +
+                              '<h2 class="text-2xl md:text-3xl lg:text-4xl font-bold hover:opacity-80 transition-opacity" style="color: ' + textColor + ' !important;">' +
+                                (slide.title || 'Banner Title') +
+                              '</h2>' +
+                            '</a>' +
+                            '<p class="text-base md:text-lg mb-6 leading-relaxed" style="color: ' + subtitleColor + ' !important;">' +
+                              (slide.description || 'Banner description') +
+                            '</p>' +
+                            buttonHtml +
+                          '</div>' +
+                        '</div>' +
+                      '</div>' +
+                    '</div>' +
+                  '</div>' +
+                '</div>';
+              }
+              
+              function categoryBannerGoToSlide(index) {
+                if (index < 0 || index >= categoryBannerSlides.length) return;
+                currentSlide = index;
+                updateSlides();
+                resetAutoPlay();
+              }
+              
+              function updateSlides() {
+                if (!slidesContainer) return;
+                slidesContainer.innerHTML = categoryBannerSlides.map(function(_, index) {
+                  return renderSlide(index);
+                }).join('');
+              }
+              
+              function nextSlide() {
+                categoryBannerGoToSlide((currentSlide + 1) % categoryBannerSlides.length);
+              }
+              
+              function startAutoPlay() {
+                if (categoryBannerSlides.length <= 1) return;
+                autoPlayInterval = setInterval(nextSlide, 10000); // 10秒自动切换
+              }
+              
+              function stopAutoPlay() {
+                if (autoPlayInterval) {
+                  clearInterval(autoPlayInterval);
+                  autoPlayInterval = null;
+                }
+              }
+              
+              function resetAutoPlay() {
+                stopAutoPlay();
+                startAutoPlay();
+              }
+              
+              // Initialize
+              updateSlides();
+              startAutoPlay();
+              
+              // Pause on hover
+              const carousel = document.getElementById('category-banner-carousel');
+              if (carousel) {
+                carousel.addEventListener('mouseenter', stopAutoPlay);
+                carousel.addEventListener('mouseleave', startAutoPlay);
+              }
+              
+              // Page visibility change
+              document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                  stopAutoPlay();
+                } else {
+                  startAutoPlay();
+                }
+              });
+              
+              // Make goToSlide available globally
+              window.categoryBannerGoToSlide = categoryBannerGoToSlide;
+            })();
+          `
+        }} />
+      )}
 
       {/* Pagination Script - Scroll to top on page change */}
       <script dangerouslySetInnerHTML={{
