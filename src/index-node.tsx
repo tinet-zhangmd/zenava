@@ -28,6 +28,7 @@ import { VoiceAgentsPage } from './pages/products/VoiceAgents.js'
 import { ResourcesPage } from './pages/Resources.js'
 import { ResourceListPage } from './pages/ResourceList.js'
 import { ResourceDetailPage } from './pages/ResourceDetail.js'
+import { ResourceDownloadDetailPage } from './pages/ResourceDownloadDetail.js'
 import { VideoPodcastDetailPage } from './pages/VideoPodcastDetail.js'
 import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/i18n.js'
 
@@ -1100,6 +1101,7 @@ app.get('/resources/:slug/:id', async (c) => {
   
   // 根据 category_template 决定使用哪个页面组件
   const isVideoTemplate = category?.category_template === 'list_video'
+  const isDownloadTemplate = category?.category_template === 'list_download'
   
   // 构建 SEO 数据
   const protocol = c.req.header('x-forwarded-proto') || 'http'
@@ -1134,6 +1136,14 @@ app.get('/resources/:slug/:id', async (c) => {
           content={content}
           category={category}
           categories={categories}
+        />
+      ) : isDownloadTemplate ? (
+        <ResourceDownloadDetailPage 
+          language={language}
+          content={content}
+          category={category}
+          categories={categories}
+          recommendedContents={recommendedContents}
         />
       ) : (
         <ResourceDetailPage 
@@ -1243,6 +1253,7 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
   
   // 根据 category_template 决定使用哪个页面组件
   const isVideoTemplate = category?.category_template === 'list_video'
+  const isDownloadTemplate = category?.category_template === 'list_download'
   
   // 构建 SEO 数据
   const protocol = c.req.header('x-forwarded-proto') || 'http'
@@ -1277,6 +1288,14 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
           content={content}
           category={category}
           categories={categories}
+        />
+      ) : isDownloadTemplate ? (
+        <ResourceDownloadDetailPage 
+          language={language}
+          content={content}
+          category={category}
+          categories={categories}
+          recommendedContents={recommendedContents}
         />
       ) : (
         <ResourceDetailPage 

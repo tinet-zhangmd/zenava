@@ -406,6 +406,10 @@ export const ContentEditor: FC<ContentEditorProps> = ({
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> 正在处理中...';
 
             try {
+            const attachmentFileUrlInput = document.getElementById('attachment-file-url');
+            const attachmentFilename = attachmentFileUrlInput?.getAttribute('data-filename') || 
+                                     document.getElementById('attachment-filename')?.textContent || '';
+            
             const formData = {
               id: document.getElementById('content-id').value || undefined,
                 slug: document.getElementById('content-slug').value || '',
@@ -419,6 +423,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
                 is_hot: document.getElementById('content-hot').checked ? 1 : 0,
                 video_file: document.getElementById('video-file-url').value,
                 attachment_file: document.getElementById('attachment-file-url').value,
+                attachment_name: attachmentFilename,
             };
             
               // 收集并处理所有语言字段
@@ -482,6 +487,161 @@ export const ContentEditor: FC<ContentEditorProps> = ({
               submitBtn.innerHTML = '<i class="fas fa-check-circle mr-3"></i> 保存所有语言版本';
             }
           });
+          
+          // 视频上传处理
+          const videoUploadBtn = document.getElementById('upload-video-btn');
+          const videoFileInput = document.getElementById('content-video');
+          const videoFilenameSpan = document.getElementById('video-filename');
+          const videoFileUrlInput = document.getElementById('video-file-url');
+          
+          if (videoUploadBtn && videoFileInput) {
+            videoUploadBtn.addEventListener('click', () => {
+              videoFileInput.click();
+            });
+            
+            videoFileInput.addEventListener('change', async function(e) {
+              const file = e.target.files[0];
+              if (!file) return;
+              
+              // 验证文件类型
+              const allowedTypes = ['video/mp4', 'video/avi', 'video/quicktime', 'video/x-ms-wmv'];
+              if (!allowedTypes.includes(file.type)) {
+                alert('只支持 MP4、AVI、MOV、WMV 格式的视频');
+                this.value = '';
+                return;
+              }
+              
+              // 验证文件大小（100MB）
+              const maxSize = 100 * 1024 * 1024;
+              if (file.size > maxSize) {
+                alert('视频文件大小不能超过 100MB');
+                this.value = '';
+                return;
+              }
+              
+              videoFilenameSpan.textContent = '上传中...';
+              videoUploadBtn.disabled = true;
+              
+              try {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('category', 'videos');
+                
+                const response = await fetch('/api/admin/upload/file', {
+                  method: 'POST',
+                  body: formData
+                });
+                
+                if (!response.ok) {
+                  const errorText = await response.text();
+                  throw new Error('服务器错误: ' + response.status + ' ' + errorText);
+                }
+                
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                  const text = await response.text();
+                  throw new Error('服务器返回的不是JSON格式: ' + text.substring(0, 100));
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data && result.data.url) {
+                  videoFileUrlInput.value = result.data.url;
+                  videoFilenameSpan.textContent = file.name;
+                  alert('视频上传成功！');
+                } else {
+                  throw new Error(result.message || result.error || '上传失败');
+                }
+              } catch (error) {
+                console.error('视频上传错误:', error);
+                alert('视频上传失败: ' + error.message);
+                videoFilenameSpan.textContent = '未选择视频';
+                this.value = '';
+              } finally {
+                videoUploadBtn.disabled = false;
+              }
+            });
+          }
+          
+          // 附件上传处理
+          const attachmentUploadBtn = document.getElementById('upload-attachment-btn');
+          const attachmentFileInput = document.getElementById('content-attachment');
+          const attachmentFilenameSpan = document.getElementById('attachment-filename');
+          const attachmentFileUrlInput = document.getElementById('attachment-file-url');
+          
+          if (attachmentUploadBtn && attachmentFileInput) {
+            attachmentUploadBtn.addEventListener('click', () => {
+              attachmentFileInput.click();
+            });
+            
+            attachmentFileInput.addEventListener('change', async function(e) {
+              const file = e.target.files[0];
+              if (!file) return;
+              
+              // 验证文件类型
+              const allowedExts = ['.xls', '.xlsx', '.doc', '.docx', '.pdf', '.zip', '.rar', '.ppt', '.pptx'];
+              const fileName = file.name.toLowerCase();
+              const hasAllowedExt = allowedExts.some(ext => fileName.endsWith(ext));
+              
+              if (!hasAllowedExt) {
+                alert('只支持 XLS/XLSX/DOC/DOCX/PDF/ZIP/RAR/PPT/PPTX 格式的文件');
+                this.value = '';
+                return;
+              }
+              
+              // 验证文件大小（50MB）
+              const maxSize = 50 * 1024 * 1024;
+              if (file.size > maxSize) {
+                alert('附件文件大小不能超过 50MB');
+                this.value = '';
+                return;
+              }
+              
+              attachmentFilenameSpan.textContent = '上传中...';
+              attachmentUploadBtn.disabled = true;
+              
+              try {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('category', 'attachments');
+                
+                const response = await fetch('/api/admin/upload/file', {
+                  method: 'POST',
+                  body: formData
+                });
+                
+                if (!response.ok) {
+                  const errorText = await response.text();
+                  throw new Error('服务器错误: ' + response.status + ' ' + errorText);
+                }
+                
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                  const text = await response.text();
+                  throw new Error('服务器返回的不是JSON格式: ' + text.substring(0, 100));
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data && result.data.url) {
+                  attachmentFileUrlInput.value = result.data.url;
+                  // 保存文件名到 attachment_name 字段（在提交时会用到）
+                  attachmentFilenameSpan.textContent = file.name;
+                  attachmentFileUrlInput.setAttribute('data-filename', file.name);
+                  alert('附件上传成功！');
+                } else {
+                  throw new Error(result.message || result.error || '上传失败');
+                }
+              } catch (error) {
+                console.error('附件上传错误:', error);
+                alert('附件上传失败: ' + error.message);
+                attachmentFilenameSpan.textContent = '未选择文件';
+                this.value = '';
+              } finally {
+                attachmentUploadBtn.disabled = false;
+              }
+            });
+          }
           
           // 动态显示逻辑 (视频/附件)
           const updateVisibility = () => {
