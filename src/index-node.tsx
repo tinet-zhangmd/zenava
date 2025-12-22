@@ -8,6 +8,7 @@ import { cors } from 'hono/cors'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import { join } from 'path'
+import crypto from 'crypto'
 import { query as mysqlQuery } from './lib/mysql.js'
 import { saveUploadedImage, deleteUploadedImage } from './lib/upload.js'
 
@@ -2012,15 +2013,72 @@ app.post('/ticloudadmin/login', async (c) => {
   const email = body.get('email') as string
   const password = body.get('password') as string
   
+  if (!email || !password) {
+    return c.redirect('/ticloudadmin/login?error=Email and password are required')
+  }
+  
+  let authenticated = false
+  let userInfo: { id: number; email: string; username: string; role: string } | null = null
+  
+  // 首先检查环境变量（向后兼容）
   const adminEmail = process.env.ADMIN_EMAIL || 'ticloudhoutai@zenava.ai'
   const adminPassword = process.env.ADMIN_PASSWORD || 'tinet.Az2167Hk'
   
   if (email === adminEmail && password === adminPassword) {
+    authenticated = true
+    userInfo = {
+      id: 0,
+      email: email,
+      username: 'Admin',
+      role: 'super_admin'
+    }
+  } else {
+    // 查询数据库中的管理员账号
+    try {
+      const users = await mysqlQuery<any[]>(
+        `SELECT id, username, email, password_hash, role 
+         FROM admin_users 
+         WHERE email = ? 
+         LIMIT 1`,
+        [email]
+      )
+      
+      if (users && users.length > 0) {
+        const user = users[0]
+        // 验证密码
+        const isValidPassword = await verifyPassword(password, user.password_hash)
+        
+        if (isValidPassword) {
+          authenticated = true
+          userInfo = {
+            id: user.id,
+            email: user.email,
+            username: user.username,
+            role: user.role
+          }
+          
+          // 更新最后登录时间
+          await mysqlQuery(
+            `UPDATE admin_users SET last_login_at = NOW() WHERE id = ?`,
+            [user.id]
+          )
+        }
+      }
+    } catch (error) {
+      console.error('登录时查询数据库失败:', error)
+      // 如果数据库查询失败，继续尝试环境变量验证
+    }
+  }
+  
+  if (authenticated && userInfo) {
     const sessionToken = crypto.randomUUID()
     setSecureCookie(c, 'admin_session', sessionToken)
     
-    // 存储管理员邮箱用于自动填充作者
-    setSecureCookie(c, 'admin_email', email)
+    // 存储管理员信息用于后续使用
+    setSecureCookie(c, 'admin_email', userInfo.email)
+    setSecureCookie(c, 'admin_user_id', userInfo.id.toString())
+    setSecureCookie(c, 'admin_username', userInfo.username)
+    setSecureCookie(c, 'admin_role', userInfo.role)
     
     const csrfToken = generateCSRFToken()
     setSecureCookie(c, 'csrf_token', csrfToken)
