@@ -137,7 +137,7 @@ export function LayoutWithUnifiedNav({
         <main class={navigationConfig.nav_fixed !== false ? 'pt-16' : ''}>
           {children}
           
-          {/* Other Resources Section - 资源中心版块（所有页面统一，联系表单页面、关于我们页面、资源中心页面和特定产品/行业页面除外） */}
+          {/* Other Resources Section - 资源中心版块（所有页面统一，联系表单页面、关于我们页面、资源中心页面、资源详情页面和特定产品/行业页面除外） */}
           {(() => {
             // 排除的路径列表
             const excludedPaths = [
@@ -163,7 +163,11 @@ export function LayoutWithUnifiedNav({
               return false
             })
             
-            return !shouldExclude && (
+            // 排除资源详情页（如 /resources/blog/123 或 /zh/resources/blog/123）
+            // 资源详情页路径格式：/resources/:slug/:id 或 /:lang/resources/:slug/:id
+            const isResourceDetailPage = /^(\/[a-z]{2})?\/resources\/[^\/]+\/\d+$/.test(currentPath)
+            
+            return !shouldExclude && !isResourceDetailPage && (
               <OtherResourcesSection language={language} featuredContents={featuredContents} />
             )
           })()}

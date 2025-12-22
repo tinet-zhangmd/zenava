@@ -605,7 +605,7 @@ app.get('/resources', async (c) => {
     console.error('❌ 获取Banner失败:', error)
   }
   
-  // 获取热门推荐内容（已发布且推荐的内容，按浏览次数和发布时间排序，取前3条）
+  // 获取热门推荐内容（已发布且热门的内容，按浏览次数和发布时间排序，取前3条）
   let featuredContents = []
   try {
     featuredContents = await mysqlQuery<any[]>(
@@ -617,11 +617,11 @@ app.get('/resources', async (c) => {
               rcat.name as category_name, rcat.link as category_slug
        FROM resource_contents rc
        LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
-       WHERE rc.status = 'published' AND rc.is_featured = 1
+       WHERE rc.status = 'published' AND rc.is_hot = 1
        ORDER BY rc.views DESC, rc.published_at DESC
        LIMIT 3`
     )
-    console.log(`✅ 获取到 ${featuredContents.length} 条热门推荐内容（is_featured=1）`)
+    console.log(`✅ 获取到 ${featuredContents.length} 条热门推荐内容（is_hot=1）`)
   } catch (error) {
     console.error('❌ 获取热门推荐失败:', error)
   }
@@ -831,7 +831,7 @@ app.get('/:lang/resources', async (c) => {
     console.error('❌ 获取Banner失败:', error)
   }
   
-  // 获取热门推荐内容（已发布且推荐的内容，按浏览次数和发布时间排序，取前3条）
+  // 获取热门推荐内容（已发布且热门的内容，按浏览次数和发布时间排序，取前3条）
   let featuredContents = []
   try {
     featuredContents = await mysqlQuery<any[]>(
@@ -843,11 +843,11 @@ app.get('/:lang/resources', async (c) => {
               rcat.name as category_name, rcat.link as category_slug
        FROM resource_contents rc
        LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
-       WHERE rc.status = 'published' AND rc.is_featured = 1
+       WHERE rc.status = 'published' AND rc.is_hot = 1
        ORDER BY rc.views DESC, rc.published_at DESC
        LIMIT 3`
     )
-    console.log(`✅ 获取到 ${featuredContents.length} 条热门推荐内容 (${language}, is_featured=1)`)
+    console.log(`✅ 获取到 ${featuredContents.length} 条热门推荐内容 (${language}, is_hot=1)`)
   } catch (error) {
     console.error('❌ 获取热门推荐失败:', error)
   }
@@ -1076,6 +1076,28 @@ app.get('/resources/:slug/:id', async (c) => {
     console.error('获取栏目分类失败:', error)
   }
   
+  // 获取推荐阅读（同一栏目下的其他文章，排除当前文章，按阅读量/发布时间排序）
+  let recommendedContents = []
+  if (content && category) {
+    try {
+      recommendedContents = await mysqlQuery<any[]>(
+        `SELECT rc.id, rc.title, rc.cover_image, rc.published_at, rc.reading_time, 
+                rc.author, rc.views,
+                rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
+                rcat.link as category_slug
+         FROM resource_contents rc
+         LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+         WHERE rc.category_id = ? AND rc.id != ? AND rc.status = 'published'
+         ORDER BY rc.views DESC, rc.published_at DESC
+         LIMIT 3`,
+        [category.id, id]
+      )
+      console.log(`✅ 获取到 ${recommendedContents.length} 条推荐阅读内容`)
+    } catch (error) {
+      console.error('❌ 获取推荐阅读失败:', error)
+    }
+  }
+  
   // 根据 category_template 决定使用哪个页面组件
   const isVideoTemplate = category?.category_template === 'list_video'
   
@@ -1119,6 +1141,7 @@ app.get('/resources/:slug/:id', async (c) => {
           content={content}
           category={category}
           categories={categories}
+          recommendedContents={recommendedContents}
         />
       )}
     </LayoutWithUnifiedNav>
@@ -1196,6 +1219,28 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
     console.error('获取栏目分类失败:', error)
   }
   
+  // 获取推荐阅读（同一栏目下的其他文章，排除当前文章，按阅读量/发布时间排序）
+  let recommendedContents = []
+  if (content && category) {
+    try {
+      recommendedContents = await mysqlQuery<any[]>(
+        `SELECT rc.id, rc.title, rc.cover_image, rc.published_at, rc.reading_time, 
+                rc.author, rc.views,
+                rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
+                rcat.link as category_slug
+         FROM resource_contents rc
+         LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+         WHERE rc.category_id = ? AND rc.id != ? AND rc.status = 'published'
+         ORDER BY rc.views DESC, rc.published_at DESC
+         LIMIT 3`,
+        [category.id, id]
+      )
+      console.log(`✅ 获取到 ${recommendedContents.length} 条推荐阅读内容 (${language})`)
+    } catch (error) {
+      console.error(`❌ 获取推荐阅读失败 (${language}):`, error)
+    }
+  }
+  
   // 根据 category_template 决定使用哪个页面组件
   const isVideoTemplate = category?.category_template === 'list_video'
   
@@ -1239,6 +1284,7 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
           content={content}
           category={category}
           categories={categories}
+          recommendedContents={recommendedContents}
         />
       )}
     </LayoutWithUnifiedNav>
