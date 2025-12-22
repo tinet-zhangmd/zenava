@@ -1,13 +1,13 @@
 import { Hono } from 'hono'
 import { query as mysqlQuery } from '../lib/mysql.js'
 
-const bannerApi = new Hono()
+const categoryBannerApi = new Hono()
 
-// 获取已发布的Banner列表（用于前端展示）
-bannerApi.get('/published', async (c) => {
+// 获取已发布的栏目Banner列表（用于前端展示）
+categoryBannerApi.get('/published', async (c) => {
   try {
     const banners = await mysqlQuery<any[]>(
-      `SELECT * FROM resource_banners 
+      `SELECT * FROM category_banners 
        WHERE status = 'published' 
        ORDER BY sort_order ASC, id DESC 
        LIMIT 8`
@@ -18,13 +18,13 @@ bannerApi.get('/published', async (c) => {
       data: banners
     })
   } catch (error: any) {
-    console.error('获取已发布Banner列表失败:', error)
+    console.error('获取已发布栏目Banner列表失败:', error)
     return c.json({ success: false, message: error.message }, 500)
   }
 })
 
-// 获取Banner列表（管理后台用）
-bannerApi.get('/', async (c) => {
+// 获取栏目Banner列表（管理后台用）
+categoryBannerApi.get('/', async (c) => {
   try {
     const page = parseInt(c.req.query('page') || '1')
     const pageSize = parseInt(c.req.query('pageSize') || '20')
@@ -42,13 +42,13 @@ bannerApi.get('/', async (c) => {
     const whereSQL = whereClauses.length > 0 ? `WHERE ${whereClauses.join(' AND ')}` : ''
     
     // 查询总数
-    const countSQL = `SELECT COUNT(*) as total FROM resource_banners ${whereSQL}`
+    const countSQL = `SELECT COUNT(*) as total FROM category_banners ${whereSQL}`
     const countResult = await mysqlQuery<any[]>(countSQL, queryParams)
     const total = countResult[0]?.total || 0
     
     // 查询列表
     const listSQL = `
-      SELECT * FROM resource_banners 
+      SELECT * FROM category_banners 
       ${whereSQL}
       ORDER BY sort_order ASC, id DESC
       LIMIT ? OFFSET ?
@@ -68,17 +68,17 @@ bannerApi.get('/', async (c) => {
       }
     })
   } catch (error: any) {
-    console.error('获取Banner列表失败:', error)
+    console.error('获取栏目Banner列表失败:', error)
     return c.json({ success: false, message: error.message }, 500)
   }
 })
 
-// 获取单个Banner
-bannerApi.get('/:id', async (c) => {
+// 获取单个栏目Banner
+categoryBannerApi.get('/:id', async (c) => {
   try {
     const id = c.req.param('id')
     const banners = await mysqlQuery<any[]>(
-      'SELECT * FROM resource_banners WHERE id = ?',
+      'SELECT * FROM category_banners WHERE id = ?',
       [id]
     )
     
@@ -88,16 +88,16 @@ bannerApi.get('/:id', async (c) => {
     
     return c.json({ success: true, data: banners[0] })
   } catch (error: any) {
-    console.error('获取Banner失败:', error)
+    console.error('获取栏目Banner失败:', error)
     return c.json({ success: false, message: error.message }, 500)
   }
 })
 
-// 创建Banner
-bannerApi.post('/', async (c) => {
+// 创建栏目Banner
+categoryBannerApi.post('/', async (c) => {
   try {
     const body = await c.req.json()
-    console.log('📥 [POST /api/resource-center/banners] 收到数据:', JSON.stringify(body).substring(0, 500) + '...');
+    console.log('📥 [POST /api/resource-center/category-banners] 收到数据:', JSON.stringify(body).substring(0, 500) + '...');
     
     const {
       banner_type,
@@ -136,7 +136,7 @@ bannerApi.post('/', async (c) => {
     }
     
     const sql = `
-      INSERT INTO resource_banners (
+      INSERT INTO category_banners (
         banner_type, title, sort_order, status,
         text_title, text_subtitle, text_button,
         text_title_zh, text_title_en, text_title_jp, text_title_hk,
@@ -163,25 +163,25 @@ bannerApi.post('/', async (c) => {
       full_image_url || null, link_url || null, link_target
     ])
     
-    console.log('✅ 创建Banner成功，ID:', (result as any).insertId);
+    console.log('✅ 创建栏目Banner成功，ID:', (result as any).insertId);
     
     return c.json({ 
       success: true, 
-      message: 'Banner创建成功',
+      message: '栏目Banner创建成功',
       data: { id: (result as any).insertId }
     })
   } catch (error: any) {
-    console.error('创建Banner失败:', error)
+    console.error('创建栏目Banner失败:', error)
     return c.json({ success: false, message: error.message }, 500)
   }
 })
 
-// 更新Banner
-bannerApi.put('/:id', async (c) => {
+// 更新栏目Banner
+categoryBannerApi.put('/:id', async (c) => {
   try {
     const id = c.req.param('id')
     const body = await c.req.json()
-    console.log(`📥 [PUT /api/resource-center/banners/${id}] 收到数据:`, JSON.stringify(body).substring(0, 500) + '...');
+    console.log(`📥 [PUT /api/resource-center/category-banners/${id}] 收到数据:`, JSON.stringify(body).substring(0, 500) + '...');
     
     const {
       banner_type,
@@ -197,6 +197,8 @@ bannerApi.put('/:id', async (c) => {
       text_title_zh, text_title_en, text_title_jp, text_title_hk,
       text_subtitle_zh, text_subtitle_en, text_subtitle_jp, text_subtitle_hk,
       text_button_zh, text_button_en, text_button_jp, text_button_hk,
+      // 多语言背景字段
+      background_url_zh, background_url_en, background_url_jp, background_url_hk,
       button_link,
       button_target = '_self',
       text_position = 'left',
@@ -218,7 +220,7 @@ bannerApi.put('/:id', async (c) => {
     }
     
     const sql = `
-      UPDATE resource_banners SET
+      UPDATE category_banners SET
         banner_type = ?, title = ?, sort_order = ?, status = ?,
         text_title = ?, text_subtitle = ?, text_button = ?,
         text_title_zh = ?, text_title_en = ?, text_title_jp = ?, text_title_hk = ?,
@@ -247,37 +249,37 @@ bannerApi.put('/:id', async (c) => {
       id
     ])
     
-    console.log('✅ 更新Banner成功，ID:', id);
+    console.log('✅ 更新栏目Banner成功，ID:', id);
     
     return c.json({ 
       success: true, 
-      message: 'Banner更新成功'
+      message: '栏目Banner更新成功'
     })
   } catch (error: any) {
-    console.error('更新Banner失败:', error)
+    console.error('更新栏目Banner失败:', error)
     return c.json({ success: false, message: error.message }, 500)
   }
 })
 
-// 删除Banner
-bannerApi.delete('/:id', async (c) => {
+// 删除栏目Banner
+categoryBannerApi.delete('/:id', async (c) => {
   try {
     const id = c.req.param('id')
     
-    await mysqlQuery('DELETE FROM resource_banners WHERE id = ?', [id])
+    await mysqlQuery('DELETE FROM category_banners WHERE id = ?', [id])
     
     return c.json({ 
       success: true, 
-      message: 'Banner删除成功'
+      message: '栏目Banner删除成功'
     })
   } catch (error: any) {
-    console.error('删除Banner失败:', error)
+    console.error('删除栏目Banner失败:', error)
     return c.json({ success: false, message: error.message }, 500)
   }
 })
 
 // 批量操作
-bannerApi.post('/batch', async (c) => {
+categoryBannerApi.post('/batch', async (c) => {
   try {
     const { action, ids } = await c.req.json()
     
@@ -290,21 +292,21 @@ bannerApi.post('/batch', async (c) => {
     switch (action) {
       case 'delete':
         await mysqlQuery(
-          `DELETE FROM resource_banners WHERE id IN (${placeholders})`,
+          `DELETE FROM category_banners WHERE id IN (${placeholders})`,
           ids
         )
         break
       
       case 'publish':
         await mysqlQuery(
-          `UPDATE resource_banners SET status = 'published' WHERE id IN (${placeholders})`,
+          `UPDATE category_banners SET status = 'published' WHERE id IN (${placeholders})`,
           ids
         )
         break
       
       case 'draft':
         await mysqlQuery(
-          `UPDATE resource_banners SET status = 'draft' WHERE id IN (${placeholders})`,
+          `UPDATE category_banners SET status = 'draft' WHERE id IN (${placeholders})`,
           ids
         )
         break
@@ -323,5 +325,5 @@ bannerApi.post('/batch', async (c) => {
   }
 })
 
-export default bannerApi
+export default categoryBannerApi
 

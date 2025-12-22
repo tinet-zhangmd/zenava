@@ -42,11 +42,15 @@ interface Banner {
 interface BannerEditorProps {
   banner?: Banner | null
   mode: 'create' | 'edit'
+  basePath?: string  // 基础路径，默认为 /ticloudadmin/resource-banners
+  apiPath?: string   // API路径，默认为 /api/resource-center/banners
 }
 
 export const BannerEditor: FC<BannerEditorProps> = ({ 
   banner = null, 
-  mode
+  mode,
+  basePath = '/ticloudadmin/resource-banners',
+  apiPath = '/api/resource-center/banners'
 }) => {
   const isEdit = mode === 'edit'
   const title = isEdit ? '编辑Banner' : '添加新Banner'
@@ -56,7 +60,7 @@ export const BannerEditor: FC<BannerEditorProps> = ({
       {/* 页面顶部操作区 */}
       <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
         <a 
-          href="/ticloudadmin/resource-banners"
+          href={basePath}
           class="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors">
           <i class="fas fa-arrow-left mr-2"></i>
           返回列表
@@ -210,6 +214,60 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                         />
                       </div>
                     </div>
+
+                    {/* 背景（多语言） */}
+                    <div class="flex items-start">
+                      <label class="w-32 text-sm text-gray-700 font-black text-right mr-6 pt-2">
+                        背景
+                      </label>
+                      <div class="flex-1">
+                        <select 
+                          id={`background-type-${lang.id}`}
+                          class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 mb-2">
+                          <option value="image" selected={banner?.background_type === 'image' || !banner}>图片/动图/视频</option>
+                        </select>
+                        <p class="text-xs text-gray-500 mb-2">下拉选择</p>
+                        
+                        <div id={`background-upload-area-${lang.id}`} class="border-2 border-dashed border-gray-300 rounded p-4 text-center">
+                          <div id={`background-preview-container-${lang.id}`} style={(banner as any)?.[`background_url_${lang.id}`] || (lang.id === 'zh' ? banner?.background_url : '') ? 'display: block;' : 'display: none;'}>
+                            <div class="relative inline-block">
+                              <img 
+                                src={(banner as any)?.[`background_url_${lang.id}`] || (lang.id === 'zh' ? banner?.background_url : '') || ''} 
+                                alt={`${lang.label}背景预览`} 
+                                class="max-w-xs max-h-40 object-contain"
+                                id={`background-preview-${lang.id}`}
+                                style="display: none;"
+                              />
+                              <video 
+                                src={(banner as any)?.[`background_url_${lang.id}`] || (lang.id === 'zh' ? banner?.background_url : '') || ''} 
+                                class="max-w-xs max-h-40 object-contain"
+                                id={`background-preview-video-${lang.id}`}
+                                controls
+                                style="display: none;"
+                              />
+                              <button 
+                                type="button"
+                                id={`remove-background-${lang.id}`}
+                                class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center">
+                                ×
+                              </button>
+                            </div>
+                          </div>
+                          <div id={`background-placeholder-${lang.id}`} style={(banner as any)?.[`background_url_${lang.id}`] || (lang.id === 'zh' ? banner?.background_url : '') ? 'display: none;' : 'display: block;'}>
+                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                            <p class="text-sm text-gray-500">点击后弹出文件上传</p>
+                          </div>
+                        </div>
+                        <input 
+                          type="file" 
+                          id={`background-upload-${lang.id}`} 
+                          accept="image/*,video/*"
+                          class="hidden"
+                          data-lang={lang.id}
+                        />
+                        <input type="hidden" id={`background-url-${lang.id}`} value={(banner as any)?.[`background_url_${lang.id}`] || (lang.id === 'zh' ? banner?.background_url : '') || ''} />
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -247,60 +305,6 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                     placeholder="rgba(255,255,255,0.8)"
                     value={banner?.subtitle_color || 'rgba(255,255,255,0.8)'}
                   />
-                </div>
-              </div>
-
-
-              {/* 背景 */}
-              <div class="flex items-start mb-6">
-                <label class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-                  背景
-                </label>
-                <div class="flex-1">
-                  <select 
-                    id="background-type"
-                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 mb-2">
-                    <option value="image" selected={banner?.background_type === 'image' || !banner}>图片/动图/视频</option>
-                  </select>
-                  <p class="text-xs text-gray-500 mb-2">下拉选择</p>
-                  
-                  <div id="background-upload-area" class="border-2 border-dashed border-gray-300 rounded p-4 text-center">
-                    <div id="background-preview-container" style={banner?.background_url ? 'display: block;' : 'display: none;'}>
-                      <div class="relative inline-block">
-                        <img 
-                          src={banner?.background_url || ''} 
-                          alt="背景预览" 
-                          class="max-w-xs max-h-40 object-contain"
-                          id="background-preview"
-                          style="display: none;"
-                        />
-                        <video 
-                          src={banner?.background_url || ''} 
-                          class="max-w-xs max-h-40 object-contain"
-                          id="background-preview-video"
-                          controls
-                          style="display: none;"
-                        />
-                        <button 
-                          type="button"
-                          id="remove-background"
-                          class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center">
-                          ×
-                        </button>
-                      </div>
-                    </div>
-                    <div id="background-placeholder" style={banner?.background_url ? 'display: none;' : 'display: block;'}>
-                      <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
-                      <p class="text-sm text-gray-500">点击后弹出文件上传</p>
-                    </div>
-                  </div>
-                  <input 
-                    type="file" 
-                    id="background-upload" 
-                    accept="image/*,video/*"
-                    class="hidden"
-                  />
-                  <input type="hidden" id="background-url" value={banner?.background_url || ''} />
                 </div>
               </div>
 
@@ -423,7 +427,7 @@ export const BannerEditor: FC<BannerEditorProps> = ({
           {/* 提交按钮 */}
           <div class="flex items-center justify-end space-x-3 pt-6 border-t">
             <a 
-              href="/ticloudadmin/resource-banners"
+              href={basePath}
               class="px-4 py-2 text-sm border border-gray-300 rounded hover:bg-gray-50">
               取消
             </a>
@@ -481,19 +485,19 @@ export const BannerEditor: FC<BannerEditorProps> = ({
             toggleFields();
             textPosition.addEventListener('change', toggleFields);
 
-            // 存储待上传的背景文件（延迟上传）
-            let pendingBackgroundFile = null;
-            const originalBackgroundUrl = document.getElementById('background-url')?.value || '';
+            // 存储待上传的背景文件（按语言存储）
+            const pendingBackgroundFiles = {};
             
-            // 初始化背景预览显示（如果有已有URL）
-            function initBackgroundPreview() {
-              const backgroundUrl = document.getElementById('background-url')?.value || '';
+            // 初始化背景预览显示（多语言）
+            function initBackgroundPreview(lang) {
+              const backgroundUrlInput = document.getElementById('background-url-' + lang);
+              const backgroundUrl = backgroundUrlInput?.value || '';
               if (!backgroundUrl) return;
               
-              const previewImg = document.getElementById('background-preview');
-              const previewVideo = document.getElementById('background-preview-video');
-              const previewContainer = document.getElementById('background-preview-container');
-              const placeholder = document.getElementById('background-placeholder');
+              const previewImg = document.getElementById('background-preview-' + lang);
+              const previewVideo = document.getElementById('background-preview-video-' + lang);
+              const previewContainer = document.getElementById('background-preview-container-' + lang);
+              const placeholder = document.getElementById('background-placeholder-' + lang);
               
               // 判断是图片还是视频
               const isVideo = /\.(mp4|webm|ogg|mov|avi|wmv)$/i.test(backgroundUrl) || backgroundUrl.startsWith('data:video/');
@@ -525,11 +529,13 @@ export const BannerEditor: FC<BannerEditorProps> = ({
               }
             }
             
-            // 执行初始化
-            initBackgroundPreview();
+            // 为每个语言初始化背景预览
+            languages.forEach(lang => {
+              initBackgroundPreview(lang);
+            });
 
-            // 文件上传处理函数
-            function setupFileUpload(uploadBtnId, fileInputId, urlInputId, previewId, placeholderId, removeBtnId, delayUpload = false) {
+            // 文件上传处理函数（支持多语言背景）
+            function setupFileUpload(uploadBtnId, fileInputId, urlInputId, previewId, placeholderId, removeBtnId, delayUpload = false, lang = null) {
               const uploadArea = document.getElementById(uploadBtnId);
               const fileInput = document.getElementById(fileInputId);
               const urlInput = document.getElementById(urlInputId);
@@ -545,16 +551,16 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                   if (!file) return;
                   
                   // 如果是延迟上传（背景字段），只保存文件并显示预览
-                  if (delayUpload) {
-                    pendingBackgroundFile = file;
+                  if (delayUpload && lang) {
+                    pendingBackgroundFiles[lang] = file;
                     
                     // 创建本地预览URL
                     const localPreviewUrl = URL.createObjectURL(file);
                     
-                    // 显示预览，隐藏占位符
-                    const previewContainer = document.getElementById('background-preview-container');
-                    const previewImg = document.getElementById('background-preview');
-                    const previewVideo = document.getElementById('background-preview-video');
+                    // 显示预览，隐藏占位符（使用语言特定的ID）
+                    const previewContainer = document.getElementById('background-preview-container-' + lang);
+                    const previewImg = document.getElementById('background-preview-' + lang);
+                    const previewVideo = document.getElementById('background-preview-video-' + lang);
                     
                     // 判断是图片还是视频
                     const isVideo = file.type.startsWith('video/');
@@ -652,38 +658,69 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                     urlInput.value = '';
                     urlInput.removeAttribute('data-pending-upload');
                   }
-                  // 清理预览（图片和视频）
-                  const previewImg = document.getElementById('background-preview');
-                  const previewVideo = document.getElementById('background-preview-video');
-                  const previewContainer = document.getElementById('background-preview-container');
                   
-                  if (previewImg) {
-                    if (previewImg.src && previewImg.src.startsWith('blob:')) {
-                      URL.revokeObjectURL(previewImg.src);
+                  // 清理预览（图片和视频）- 使用语言特定的ID
+                  if (lang) {
+                    const previewImg = document.getElementById('background-preview-' + lang);
+                    const previewVideo = document.getElementById('background-preview-video-' + lang);
+                    const previewContainer = document.getElementById('background-preview-container-' + lang);
+                    const placeholder = document.getElementById('background-placeholder-' + lang);
+                    
+                    if (previewImg) {
+                      if (previewImg.src && previewImg.src.startsWith('blob:')) {
+                        URL.revokeObjectURL(previewImg.src);
+                      }
+                      previewImg.src = '';
+                      previewImg.style.display = 'none';
                     }
-                    previewImg.src = '';
-                    previewImg.style.display = 'none';
-                  }
-                  if (previewVideo) {
-                    if (previewVideo.src && previewVideo.src.startsWith('blob:')) {
-                      URL.revokeObjectURL(previewVideo.src);
+                    if (previewVideo) {
+                      if (previewVideo.src && previewVideo.src.startsWith('blob:')) {
+                        URL.revokeObjectURL(previewVideo.src);
+                      }
+                      previewVideo.src = '';
+                      previewVideo.style.display = 'none';
                     }
-                    previewVideo.src = '';
-                    previewVideo.style.display = 'none';
+                    if (previewContainer) {
+                      previewContainer.style.display = 'none';
+                    }
+                    if (placeholder) {
+                      placeholder.style.display = 'block';
+                    }
+                    
+                    // 清除待上传文件
+                    if (delayUpload && lang) {
+                      delete pendingBackgroundFiles[lang];
+                    }
+                  } else {
+                    // 非多语言字段的清理逻辑（保持兼容）
+                    const previewImg = document.getElementById(previewId);
+                    const previewVideo = document.getElementById(previewId + '-video');
+                    const previewContainer = previewImg?.parentElement;
+                    
+                    if (previewImg) {
+                      if (previewImg.src && previewImg.src.startsWith('blob:')) {
+                        URL.revokeObjectURL(previewImg.src);
+                      }
+                      previewImg.src = '';
+                      previewImg.style.display = 'none';
+                    }
+                    if (previewVideo) {
+                      if (previewVideo.src && previewVideo.src.startsWith('blob:')) {
+                        URL.revokeObjectURL(previewVideo.src);
+                      }
+                      previewVideo.src = '';
+                      previewVideo.style.display = 'none';
+                    }
+                    if (previewContainer) {
+                      previewContainer.style.display = 'none';
+                    }
+                    if (placeholder) {
+                      placeholder.style.display = 'block';
+                    }
                   }
-                  if (previewContainer) {
-                    previewContainer.style.display = 'none';
-                  }
-                  if (placeholder) {
-                    placeholder.style.display = 'block';
-                  }
+                  
                   if (fileInput) {
                     fileInput.value = '';
-                  }
-                  
-                  // 如果是背景字段，清除待上传文件
-                  if (delayUpload) {
-                    pendingBackgroundFile = null;
                   }
                 });
               }
@@ -738,10 +775,20 @@ export const BannerEditor: FC<BannerEditorProps> = ({
               }
             }
             
-            // 设置各个文件上传
-            // 背景字段：延迟上传（delayUpload = true）
-            setupFileUpload('background-upload-area', 'background-upload', 'background-url', 
-                           'background-preview', 'background-placeholder', 'remove-background', true);
+            // 为每个语言设置背景上传
+            languages.forEach(lang => {
+              setupFileUpload(
+                'background-upload-area-' + lang,
+                'background-upload-' + lang,
+                'background-url-' + lang,
+                'background-preview-' + lang,
+                'background-placeholder-' + lang,
+                'remove-background-' + lang,
+                true,
+                lang
+              );
+            });
+            
             // 整张大图：立即上传
             setupFileUpload('full-image-upload-area', 'full-image-upload', 'full-image-url', 
                            'full-image-preview', 'full-image-placeholder', 'remove-full-image', false);
@@ -749,7 +796,6 @@ export const BannerEditor: FC<BannerEditorProps> = ({
             // 表单提交
             const form = document.getElementById('banner-form');
             const submitBtn = document.getElementById('submit-btn');
-            const backgroundUrlInput = document.getElementById('background-url');
             
             form.addEventListener('submit', async function(e) {
               e.preventDefault();
@@ -765,66 +811,73 @@ export const BannerEditor: FC<BannerEditorProps> = ({
               submitBtn.textContent = '保存中...';
               
               try {
-                // 如果有待上传的背景文件，先上传
-                let backgroundUrl = backgroundUrlInput?.value || '';
-                if (pendingBackgroundFile) {
-                  submitBtn.textContent = '上传背景文件中...';
-                  try {
-                    backgroundUrl = await uploadBackgroundFile(pendingBackgroundFile);
-                    if (backgroundUrlInput) {
-                      backgroundUrlInput.value = backgroundUrl;
-                      backgroundUrlInput.removeAttribute('data-pending-upload');
-                    }
-                    // 更新预览为服务器URL
-                    const previewImg = document.getElementById('background-preview');
-                    const previewVideo = document.getElementById('background-preview-video');
-                    const previewContainer = document.getElementById('background-preview-container');
-                    const placeholder = document.getElementById('background-placeholder');
-                    
-                    // 判断是图片还是视频（根据文件类型或URL扩展名）
-                    const isVideo = pendingBackgroundFile && pendingBackgroundFile.type.startsWith('video/');
-                    const isVideoUrl = backgroundUrl && (backgroundUrl.includes('.mp4') || backgroundUrl.includes('.avi') || backgroundUrl.includes('.mov') || backgroundUrl.includes('.wmv') || backgroundUrl.startsWith('data:video/'));
-                    
-                    if (previewContainer) {
-                      previewContainer.style.display = 'block';
+                // 上传所有待上传的多语言背景文件
+                const backgroundUrls = {};
+                for (const lang of languages) {
+                  if (pendingBackgroundFiles[lang]) {
+                    submitBtn.textContent = '上传' + (lang === 'zh' ? '简体中文' : lang === 'en' ? '英文' : lang === 'jp' ? '日文' : '繁体中文') + '背景文件中...';
+                    try {
+                      const uploadedUrl = await uploadBackgroundFile(pendingBackgroundFiles[lang]);
+                      backgroundUrls[lang] = uploadedUrl;
                       
-                      if (isVideo || isVideoUrl) {
-                        // 显示视频预览
-                        if (previewVideo) {
-                          // 释放本地预览URL
-                          if (previewVideo.src && previewVideo.src.startsWith('blob:')) {
-                            URL.revokeObjectURL(previewVideo.src);
+                      // 更新URL输入和预览
+                      const urlInput = document.getElementById('background-url-' + lang);
+                      if (urlInput) {
+                        urlInput.value = uploadedUrl;
+                        urlInput.removeAttribute('data-pending-upload');
+                      }
+                      
+                      // 更新预览为服务器URL
+                      const previewImg = document.getElementById('background-preview-' + lang);
+                      const previewVideo = document.getElementById('background-preview-video-' + lang);
+                      const previewContainer = document.getElementById('background-preview-container-' + lang);
+                      const placeholder = document.getElementById('background-placeholder-' + lang);
+                      
+                      const isVideo = pendingBackgroundFiles[lang].type.startsWith('video/');
+                      const isVideoUrl = uploadedUrl && (uploadedUrl.includes('.mp4') || uploadedUrl.includes('.avi') || uploadedUrl.includes('.mov') || uploadedUrl.includes('.wmv'));
+                      
+                      if (previewContainer) {
+                        previewContainer.style.display = 'block';
+                        
+                        if (isVideo || isVideoUrl) {
+                          if (previewVideo) {
+                            if (previewVideo.src && previewVideo.src.startsWith('blob:')) {
+                              URL.revokeObjectURL(previewVideo.src);
+                            }
+                            previewVideo.src = uploadedUrl;
+                            previewVideo.style.display = 'block';
                           }
-                          previewVideo.src = backgroundUrl;
-                          previewVideo.style.display = 'block';
-                        }
-                        if (previewImg) {
-                          previewImg.style.display = 'none';
-                        }
-                      } else {
-                        // 显示图片预览
-                        if (previewImg) {
-                          // 释放本地预览URL
-                          if (previewImg.src && previewImg.src.startsWith('blob:')) {
-                            URL.revokeObjectURL(previewImg.src);
+                          if (previewImg) {
+                            previewImg.style.display = 'none';
                           }
-                          previewImg.src = backgroundUrl;
-                          previewImg.style.display = 'block';
-                        }
-                        if (previewVideo) {
-                          previewVideo.style.display = 'none';
+                        } else {
+                          if (previewImg) {
+                            if (previewImg.src && previewImg.src.startsWith('blob:')) {
+                              URL.revokeObjectURL(previewImg.src);
+                            }
+                            previewImg.src = uploadedUrl;
+                            previewImg.style.display = 'block';
+                          }
+                          if (previewVideo) {
+                            previewVideo.style.display = 'none';
+                          }
                         }
                       }
+                      if (placeholder) {
+                        placeholder.style.display = 'none';
+                      }
+                      
+                      delete pendingBackgroundFiles[lang];
+                    } catch (error) {
+                      alert((lang === 'zh' ? '简体中文' : lang === 'en' ? '英文' : lang === 'jp' ? '日文' : '繁体中文') + '背景文件上传失败: ' + error.message);
+                      submitBtn.disabled = false;
+                      submitBtn.textContent = isEdit ? '保存更新' : '发布';
+                      return;
                     }
-                    if (placeholder) {
-                      placeholder.style.display = 'none';
-                    }
-                    pendingBackgroundFile = null;
-                  } catch (error) {
-                    alert('背景文件上传失败: ' + error.message);
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = isEdit ? '保存更新' : '发布';
-                    return;
+                  } else {
+                    // 如果没有待上传文件，使用现有的URL
+                    const urlInput = document.getElementById('background-url-' + lang);
+                    backgroundUrls[lang] = urlInput?.value || '';
                   }
                 }
                 
@@ -844,17 +897,18 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                     formData['text_title_' + lang] = document.getElementById('text-title-' + lang).value;
                     formData['text_subtitle_' + lang] = document.getElementById('text-subtitle-' + lang).value;
                     formData['text_button_' + lang] = document.getElementById('text-button-' + lang).value;
+                    formData['background_url_' + lang] = backgroundUrls[lang] || '';
                   }
                   
                   // 同步核心字段（Fallback 为简体中文）
                   formData.text_title = formData.text_title_zh || formData.text_title_en || '';
                   formData.text_subtitle = formData.text_subtitle_zh || formData.text_subtitle_en || '';
                   formData.text_button = formData.text_button_zh || formData.text_button_en || '';
+                  formData.background_url = formData.background_url_zh || formData.background_url_en || '';
                   
                   formData.text_color = document.getElementById('text-color').value;
                   formData.subtitle_color = document.getElementById('subtitle-color').value;
-                  formData.background_type = document.getElementById('background-type').value;
-                  formData.background_url = backgroundUrl;
+                  formData.background_type = document.getElementById('background-type-zh').value; // 使用第一个语言的背景类型
                   formData.button_link = document.getElementById('button-link').value;
                   formData.button_target = document.getElementById('button-target').value;
                 } else {
@@ -863,9 +917,10 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                   formData.link_target = document.getElementById('link-target').value;
                 }
                 
+                const apiPath = '${apiPath}';
                 const url = isEdit 
-                  ? \`/api/resource-center/banners/\${bannerId}\`
-                  : '/api/resource-center/banners';
+                  ? \`\${apiPath}/\${bannerId}\`
+                  : apiPath;
                 
                 const method = isEdit ? 'PUT' : 'POST';
                 
@@ -877,9 +932,11 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                 
                 const result = await response.json();
                 
+                const basePath = '${basePath}';
+                
                 if (result.success) {
                   alert(isEdit ? '更新成功!' : '添加成功!');
-                  window.location.href = '/ticloudadmin/resource-banners';
+                  window.location.href = basePath;
                 } else {
                   alert('保存失败: ' + (result.message || '未知错误'));
                 }
