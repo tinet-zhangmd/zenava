@@ -35,6 +35,78 @@ interface ResourceListPageProps {
   categories?: Category[]  // 所有栏目（用于导航）
 }
 
+// 辅助函数：处理内容，移除图片和视频，只保留文字
+function extractTextContent(htmlContent: string): string {
+  if (!htmlContent) return ''
+  let textContent = htmlContent
+  
+  // 第一步：先移除所有包含 base64 图片数据的内容（在移除HTML标签之前）
+  // 这样可以确保即使标签格式不完整，base64数据也能被移除
+  
+  // 移除完整的 <img> 标签（包括包含 base64 的，使用非贪婪匹配处理跨行）
+  textContent = textContent.replace(/<img[\s\S]*?>/gi, '')
+  
+  // 移除可能不完整的 <img 标签片段（包括跨行的情况，匹配到字符串结束或遇到 >）
+  textContent = textContent.replace(/<img[\s\S]*?(?=>|$)/gi, '')
+  
+  // 移除所有包含 data:image 的内容（无论是否在标签内，匹配到空格、引号、<、>或字符串结束）
+  // 使用更宽松的匹配，包括可能被截断的 base64 字符串
+  textContent = textContent.replace(/data:image\/[^"'\s<>]*/gi, '')
+  
+  // 移除 base64 字符串（常见的图片格式标识符，包括可能被截断的）
+  // 匹配 /9j/ 开头的 base64 字符串（JPEG格式）
+  textContent = textContent.replace(/\/9j\/[A-Za-z0-9+/=\s\n\r]*/gi, '')
+  // 匹配 iVBORw0KGgo 开头的 base64 字符串（PNG格式）
+  textContent = textContent.replace(/iVBORw0KGgo[A-Za-z0-9+/=\s\n\r]*/gi, '')
+  
+  // 移除包含 "base64" 关键词的文本片段（包括可能被截断的）
+  textContent = textContent.replace(/base64[,:][A-Za-z0-9+/=\s\n\r]*/gi, '')
+  
+  // 移除 src="data:image..." 这样的属性片段
+  textContent = textContent.replace(/src\s*=\s*["']?\s*data:image[^"'\s<>]*/gi, '')
+  
+  // 第二步：移除所有视频相关的标签
+  textContent = textContent.replace(/<video[\s\S]*?<\/video>/gi, '')
+  textContent = textContent.replace(/<video[\s\S]*?>/gi, '')
+  
+  // 第三步：移除所有其他HTML标签（包括多行标签）
+  textContent = textContent.replace(/<[^>]+>/g, '')
+  
+  // 第四步：再次清理可能残留的 base64 相关内容（在移除HTML标签后）
+  // 移除任何看起来像 base64 的长字符串（至少20个字符）
+  textContent = textContent.replace(/[A-Za-z0-9+/=]{20,}/g, (match) => {
+    // 如果匹配的字符串看起来像 base64（包含很多 = 或 / 或 +），则移除
+    const base64Chars = (match.match(/[+/=]/g) || []).length
+    const totalLength = match.length
+    // 如果 base64 特征字符占比超过 5%，很可能是 base64 数据
+    if (base64Chars > 2 && base64Chars / totalLength > 0.05) {
+      return ''
+    }
+    return match
+  })
+  
+  // 移除可能残留的 "data:image" 或 "base64" 文本（包括可能被截断的）
+  textContent = textContent.replace(/data:image[^\s]*/gi, '')
+  textContent = textContent.replace(/base64[^\s]*/gi, '')
+  
+  // 移除可能残留的 <img 文本（即使标签已被部分移除）
+  textContent = textContent.replace(/<img[^\s>]*/gi, '')
+  
+  // 解码HTML实体（如 &nbsp; &lt; &gt; 等）
+  textContent = textContent
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+  
+  // 清理多余的空白字符（包括换行符、制表符等）
+  textContent = textContent.replace(/[\s\n\r\t]+/g, ' ').trim()
+  
+  return textContent
+}
+
 export const ResourceListPage: FC<ResourceListPageProps> = ({ 
   language = 'zh', 
   resourceType = 'all',
@@ -109,98 +181,70 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
       {/* Hero Section */}
       <section class="relative bg-white overflow-hidden py-12 md:py-16 lg:py-20">
         <div class="site-container px-4 sm:px-6 lg:px-8">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start">
-            {/* Left: Title and Description */}
-            <div class="order-2 lg:order-1">
-              <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6">
-                {resourceTypeConfig.heroTitle}
-              </h1>
-              <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
-                {resourceTypeConfig.heroDescription}
-              </p>
-            </div>
-            
-            {/* Right: Featured Story */}
-            <div class="order-1 lg:order-2">
-              {/* Featured Story Label */}
-              <p class="text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider mb-4">
-                {language === 'zh' ? '精选内容' : language === 'en' ? 'Featured Story' : language === 'jp' ? '特集' : '精選內容'}
-              </p>
-              
-              {/* Featured Card */}
-              {contents.length > 0 ? (
-                <>
-                  <div class="bg-gradient-to-br from-purple-700 via-purple-800 to-indigo-900 rounded-2xl overflow-hidden shadow-2xl mb-6 relative">
-                    <a href={(() => {
-                      const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
-                      return category ? `${basePath}/${category.slug}/${contents[0].id}` : '#'
-                    })()} class="block">
-                      {/* Card Image Background */}
-                      {contents[0].cover_image ? (
-                        <div class="absolute inset-0 opacity-30">
-                          <img 
-                            src={contents[0].cover_image}
-                            alt={contents[0].title}
-                            class="w-full h-full object-cover"
-                            loading="eager"
-                          />
-                        </div>
-                      ) : null}
-                      
-                      {/* Card Content Overlay */}
-                      <div class="relative p-6 md:p-8 min-h-[300px] md:min-h-[350px] flex flex-col justify-between">
-                        {/* Top Section: Logos and Badge */}
-                        <div class="flex items-start justify-between mb-4">
-                          <div class="flex flex-col space-y-3">
-                            {/* Logo placeholder - can be replaced with actual logo */}
-                            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                              <span class="text-white font-bold text-sm">Z</span>
-                            </div>
-                          </div>
-                          <div class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
-                            <span class="text-white font-bold text-sm md:text-base">#1</span>
-                          </div>
-                        </div>
-                        
-                        {/* Bottom Section: Title */}
-                        <div>
-                          <h2 class="text-xl md:text-2xl lg:text-3xl font-bold text-white uppercase leading-tight">
-                            {contents[0].title.length > 60 
-                              ? contents[0].title.substring(0, 60) + '...'
-                              : contents[0].title}
-                          </h2>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  
-                  {/* Featured Story Text Content */}
-                  <div>
-                    <a href={(() => {
-                      const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
-                      return category ? `${basePath}/${category.slug}/${contents[0].id}` : '#'
-                    })()} class="block group">
-                      <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#6438FF] transition-colors">
-                        {contents[0].title}
-                      </h3>
-                      <p class="text-base md:text-lg text-gray-600 leading-relaxed line-clamp-3">
-                        {contents[0].content.replace(/<[^>]*>/g, '').substring(0, 200)}...
+          {/* 第一行：栏目标题 */}
+          <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4">
+            {category?.name || resourceTypeConfig.heroTitle}
+          </h1>
+          
+          {/* 第二行：栏目描述 */}
+          <p class="text-xs md:text-sm text-gray-600 leading-relaxed mb-8 md:mb-12">
+            {category?.description || resourceTypeConfig.heroDescription}
+          </p>
+          
+          {/* Banner 部分：左侧图片，右侧文章标题和副标题 */}
+          {contents.length > 0 ? (
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+              {/* 左侧：图片 */}
+              <div class="order-2 lg:order-1">
+                {contents[0].cover_image ? (
+                  <img 
+                    src={contents[0].cover_image}
+                    alt={contents[0].title}
+                    class="w-full h-auto rounded-2xl shadow-2xl object-cover"
+                    loading="eager"
+                  />
+                ) : (
+                  <div class="w-full aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 rounded-2xl flex items-center justify-center">
+                    <div class="text-center">
+                      <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-4"></i>
+                      <p class="text-lg md:text-xl text-gray-500">
+                        {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
                       </p>
-                    </a>
+                    </div>
                   </div>
-                </>
-              ) : (
-                <div class="bg-gradient-to-br from-purple-700 via-purple-800 to-indigo-900 rounded-2xl overflow-hidden shadow-2xl mb-6 relative min-h-[300px] md:min-h-[350px] flex items-center justify-center">
-                  <div class="text-center text-white p-6">
-                    <i class="fas fa-inbox text-4xl md:text-5xl mb-4 opacity-50"></i>
-                    <p class="text-lg md:text-xl opacity-75">
-                      {language === 'zh' ? '暂无内容' : language === 'en' ? 'No content yet' : language === 'jp' ? 'コンテンツがありません' : '暫無內容'}
-                    </p>
-                  </div>
-                </div>
-              )}
+                )}
+              </div>
+              
+              {/* 右侧：文章标题和副标题 */}
+              <div class="order-1 lg:order-2">
+                <a href={(() => {
+                  const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
+                  return category ? `${basePath}/${category.slug}/${contents[0].id}` : '#'
+                })()} class="block group">
+                  {/* 文章标题 */}
+                  <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-6 group-hover:text-[#6438FF] transition-colors">
+                    {contents[0].title}
+                  </h2>
+                  
+                  {/* 副标题（正文） */}
+                  <p class="text-base md:text-lg text-gray-600 leading-relaxed line-clamp-3">
+                    {extractTextContent(contents[0].content || '')}
+                  </p>
+                </a>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+              <div class="w-full aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 rounded-2xl flex items-center justify-center">
+                <div class="text-center">
+                  <i class="fas fa-inbox text-4xl md:text-5xl text-gray-400 mb-4"></i>
+                  <p class="text-lg md:text-xl text-gray-500">
+                    {language === 'zh' ? '暂无内容' : language === 'en' ? 'No content yet' : language === 'jp' ? 'コンテンツがありません' : '暫無內容'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -272,9 +316,14 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
                       </h3>
                       
                       {/* Description */}
-                      <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-4">
-                        {item.content.replace(/<[^>]*>/g, '').substring(0, 150)}...
-                      </p>
+                      {(() => {
+                        const textContent = extractTextContent(item.content || '')
+                        return textContent ? (
+                          <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-4">
+                            {textContent}
+                          </p>
+                        ) : null
+                      })()}
                       
                       {/* Stats */}
                       <div class="flex items-center justify-between text-sm text-gray-500">

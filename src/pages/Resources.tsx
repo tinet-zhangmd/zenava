@@ -70,6 +70,79 @@ interface ResourcesPageProps {
   categoryContentsMap?: Record<number, any[]>  // 各个栏目的内容映射
 }
 
+// 辅助函数：处理内容，移除图片和视频，只保留文字
+// 辅助函数：处理内容，移除图片和视频，只保留文字
+function extractTextContent(htmlContent: string): string {
+  if (!htmlContent) return ''
+  let textContent = htmlContent
+  
+  // 第一步：先移除所有包含 base64 图片数据的内容（在移除HTML标签之前）
+  // 这样可以确保即使标签格式不完整，base64数据也能被移除
+  
+  // 移除完整的 <img> 标签（包括包含 base64 的，使用非贪婪匹配处理跨行）
+  textContent = textContent.replace(/<img[\s\S]*?>/gi, '')
+  
+  // 移除可能不完整的 <img 标签片段（包括跨行的情况，匹配到字符串结束或遇到 >）
+  textContent = textContent.replace(/<img[\s\S]*?(?=>|$)/gi, '')
+  
+  // 移除所有包含 data:image 的内容（无论是否在标签内，匹配到空格、引号、<、>或字符串结束）
+  // 使用更宽松的匹配，包括可能被截断的 base64 字符串
+  textContent = textContent.replace(/data:image\/[^"'\s<>]*/gi, '')
+  
+  // 移除 base64 字符串（常见的图片格式标识符，包括可能被截断的）
+  // 匹配 /9j/ 开头的 base64 字符串（JPEG格式）
+  textContent = textContent.replace(/\/9j\/[A-Za-z0-9+/=\s\n\r]*/gi, '')
+  // 匹配 iVBORw0KGgo 开头的 base64 字符串（PNG格式）
+  textContent = textContent.replace(/iVBORw0KGgo[A-Za-z0-9+/=\s\n\r]*/gi, '')
+  
+  // 移除包含 "base64" 关键词的文本片段（包括可能被截断的）
+  textContent = textContent.replace(/base64[,:][A-Za-z0-9+/=\s\n\r]*/gi, '')
+  
+  // 移除 src="data:image..." 这样的属性片段
+  textContent = textContent.replace(/src\s*=\s*["']?\s*data:image[^"'\s<>]*/gi, '')
+  
+  // 第二步：移除所有视频相关的标签
+  textContent = textContent.replace(/<video[\s\S]*?<\/video>/gi, '')
+  textContent = textContent.replace(/<video[\s\S]*?>/gi, '')
+  
+  // 第三步：移除所有其他HTML标签（包括多行标签）
+  textContent = textContent.replace(/<[^>]+>/g, '')
+  
+  // 第四步：再次清理可能残留的 base64 相关内容（在移除HTML标签后）
+  // 移除任何看起来像 base64 的长字符串（至少20个字符）
+  textContent = textContent.replace(/[A-Za-z0-9+/=]{20,}/g, (match) => {
+    // 如果匹配的字符串看起来像 base64（包含很多 = 或 / 或 +），则移除
+    const base64Chars = (match.match(/[+/=]/g) || []).length
+    const totalLength = match.length
+    // 如果 base64 特征字符占比超过 5%，很可能是 base64 数据
+    if (base64Chars > 2 && base64Chars / totalLength > 0.05) {
+      return ''
+    }
+    return match
+  })
+  
+  // 移除可能残留的 "data:image" 或 "base64" 文本（包括可能被截断的）
+  textContent = textContent.replace(/data:image[^\s]*/gi, '')
+  textContent = textContent.replace(/base64[^\s]*/gi, '')
+  
+  // 移除可能残留的 <img 文本（即使标签已被部分移除）
+  textContent = textContent.replace(/<img[^\s>]*/gi, '')
+  
+  // 解码HTML实体（如 &nbsp; &lt; &gt; 等）
+  textContent = textContent
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+  
+  // 清理多余的空白字符（包括换行符、制表符等）
+  textContent = textContent.replace(/[\s\n\r\t]+/g, ' ').trim()
+  
+  return textContent
+}
+
 export const ResourcesPage: FC<ResourcesPageProps> = ({ 
   language = 'zh', 
   categories = [], 
@@ -315,14 +388,6 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                       return `${year}/${month}/${day} · ${readingTime} min`
                     }
                     
-                    // 提取纯文本描述（去除HTML标签）
-                    const getDescription = () => {
-                      const htmlContent = getContent()
-                      if (!htmlContent) return ''
-                      const text = htmlContent.replace(/<[^>]*>/g, '').trim()
-                      return text.length > 150 ? text.substring(0, 150) + '...' : text
-                    }
-                    
                     return (
                       <a 
                         key={content.id}
@@ -364,9 +429,14 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                             {getTitle()}
                           </h3>
                           {/* 内容描述（自动扩展） */}
-                          <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-4 flex-grow">
-                            {getDescription()}
-                          </p>
+                          {(() => {
+                            const textContent = extractTextContent(getContent())
+                            return textContent ? (
+                              <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-4 flex-grow">
+                                {textContent}
+                              </p>
+                            ) : null
+                          })()}
                           {/* 浏览量（固定在底部） */}
                           <div class="flex items-center text-sm text-gray-500 mt-auto">
                             <i class="fas fa-eye mr-1"></i>
@@ -602,14 +672,6 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                   return `${year}/${month}/${day} · ${readingTime} min`
                 }
                 
-                // 提取纯文本描述（去除HTML标签）
-                const getDescription = () => {
-                  const htmlContent = getContent()
-                  if (!htmlContent) return ''
-                  const text = htmlContent.replace(/<[^>]*>/g, '').trim()
-                  return text.length > 150 ? text.substring(0, 150) + '...' : text
-                }
-                
                 return (
                   <a 
                     key={content.id}
@@ -664,9 +726,14 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                         {getTitle()}
                       </h3>
                       {/* 内容描述（自动扩展） */}
-                      <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-4 flex-grow">
-                        {getDescription()}
-                      </p>
+                      {(() => {
+                        const textContent = extractTextContent(getContent())
+                        return textContent ? (
+                          <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-4 flex-grow">
+                            {textContent}
+                          </p>
+                        ) : null
+                      })()}
                       {/* 浏览量（固定在底部） */}
                       <div class="flex items-center text-sm text-gray-500 mt-auto">
                         <i class="fas fa-eye mr-1"></i>
@@ -807,14 +874,6 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                         return `${year}/${month}/${day} · ${readingTime} min`
                       }
                       
-                      // 提取纯文本描述（去除HTML标签）
-                      const getDescription = () => {
-                        const htmlContent = getContent()
-                        if (!htmlContent) return ''
-                        const text = htmlContent.replace(/<[^>]*>/g, '').trim()
-                        return text.length > 150 ? text.substring(0, 150) + '...' : text
-                      }
-                      
                       return (
                         <a 
                           key={content.id}
@@ -856,9 +915,15 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                               {getTitle()}
                             </h4>
                             {/* 内容描述（自动扩展） */}
-                            <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-4 flex-grow">
-                              {getDescription()}
-                            </p>
+                            {/* {(() => {
+                              const textContent = extractTextContent(getContent())
+                              return textContent ? (
+                                <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-4 flex-grow">
+                                  {textContent}
+                                </p>
+                              ) : null
+                            })()} */}
+                            { extractTextContent(getContent())}
                             {/* 浏览量（固定在底部） */}
                             <div class="flex items-center text-sm text-gray-500 mt-auto">
                               <i class="fas fa-eye mr-1"></i>
