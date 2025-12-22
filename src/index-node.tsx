@@ -1077,7 +1077,7 @@ app.get('/resources/:slug/:id', async (c) => {
     console.error('获取栏目分类失败:', error)
   }
   
-  // 获取推荐阅读（同一栏目下的其他文章，排除当前文章，按阅读量/发布时间排序）
+  // 获取推荐阅读（同一栏目下的其他文章，排除当前文章，按阅读量>发布时间排序）
   let recommendedContents = []
   if (content && category) {
     try {
@@ -1085,12 +1085,12 @@ app.get('/resources/:slug/:id', async (c) => {
         `SELECT rc.id, rc.title, rc.cover_image, rc.published_at, rc.reading_time, 
                 rc.author, rc.views,
                 rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
-                rcat.link as category_slug
+                rcat.link as category_slug, rcat.name as category_name
          FROM resource_contents rc
          LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
          WHERE rc.category_id = ? AND rc.id != ? AND rc.status = 'published'
          ORDER BY rc.views DESC, rc.published_at DESC
-         LIMIT 3`,
+         LIMIT 4`,
         [category.id, id]
       )
       console.log(`✅ 获取到 ${recommendedContents.length} 条推荐阅读内容`)
@@ -1136,6 +1136,7 @@ app.get('/resources/:slug/:id', async (c) => {
           content={content}
           category={category}
           categories={categories}
+          recommendedContents={recommendedContents}
         />
       ) : isDownloadTemplate ? (
         <ResourceDownloadDetailPage 
@@ -1229,7 +1230,7 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
     console.error('获取栏目分类失败:', error)
   }
   
-  // 获取推荐阅读（同一栏目下的其他文章，排除当前文章，按阅读量/发布时间排序）
+  // 获取推荐阅读（同一栏目下的其他文章，排除当前文章，按阅读量>发布时间排序）
   let recommendedContents = []
   if (content && category) {
     try {
@@ -1237,12 +1238,12 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
         `SELECT rc.id, rc.title, rc.cover_image, rc.published_at, rc.reading_time, 
                 rc.author, rc.views,
                 rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
-                rcat.link as category_slug
+                rcat.link as category_slug, rcat.name as category_name
          FROM resource_contents rc
          LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
          WHERE rc.category_id = ? AND rc.id != ? AND rc.status = 'published'
          ORDER BY rc.views DESC, rc.published_at DESC
-         LIMIT 3`,
+         LIMIT 4`,
         [category.id, id]
       )
       console.log(`✅ 获取到 ${recommendedContents.length} 条推荐阅读内容 (${language})`)
@@ -1288,6 +1289,7 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
           content={content}
           category={category}
           categories={categories}
+          recommendedContents={recommendedContents}
         />
       ) : isDownloadTemplate ? (
         <ResourceDownloadDetailPage 

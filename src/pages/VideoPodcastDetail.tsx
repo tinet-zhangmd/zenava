@@ -33,18 +33,36 @@ interface Content {
   meta_keywords?: string
 }
 
+interface RecommendedContent {
+  id: number
+  title: string
+  title_zh?: string
+  title_en?: string
+  title_jp?: string
+  title_hk?: string
+  cover_image?: string
+  published_at: string
+  reading_time?: number
+  author?: string
+  views: number
+  category_slug: string
+  category_name: string
+}
+
 interface VideoPodcastDetailPageProps {
   language?: Language
   content: Content | null
   category: Category | null
   categories?: Category[]
+  recommendedContents?: RecommendedContent[]
 }
 
 export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({ 
   language = 'zh', 
   content,
   category,
-  categories = []
+  categories = [],
+  recommendedContents = []
 }) => {
   const trans = getTranslations(language)
   
@@ -58,9 +76,6 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
   
   // 根据 category_template 确定内容类型
   const contentType: 'video' | 'podcast' = category.category_template === 'list_video' ? 'video' : 'podcast'
-  
-  // TODO: 相关推荐从数据库获取
-  const relatedItems: any[] = []
 
   // 构建结构化数据（JSON-LD）用于 SEO
   const structuredData = contentType === 'video' ? {
@@ -156,47 +171,55 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
       {/* Main Content Section - Two Column Layout */}
       <section class="bg-white py-8 md:py-12 lg:py-16">
         <div class="site-container px-4 sm:px-6 lg:px-8">
+          {/* Title and Author Section - Full Width */}
+          <div class="mb-6 md:mb-8">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
+              {content.title}
+            </h1>
+            
+            {/* Author and Publication Info - Left: Avatar, Right: Author (top) and Published Date (bottom) */}
+            <div class="flex items-start gap-4 mb-4">
+              {/* Left: Avatar */}
+              <div class="flex-shrink-0">
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-black rounded-lg flex items-center justify-center">
+                  {content.author ? (
+                    <span class="text-white font-bold text-lg md:text-xl">
+                      {content.author.charAt(0).toUpperCase()}
+                    </span>
+                  ) : (
+                    <i class="fas fa-user text-white text-xl md:text-2xl"></i>
+                  )}
+                </div>
+              </div>
+              
+              {/* Right: Author Name (top) and Published Date (bottom) */}
+              <div class="flex flex-col">
+                {/* Author Name */}
+                {content.author && (
+                  <div class="mb-1">
+                    <span class="text-gray-900 font-semibold text-base md:text-lg">
+                      {content.author}
+                    </span>
+                  </div>
+                )}
+                
+                {/* Published Date */}
+                <div class="text-gray-600 text-sm md:text-base">
+                  <span>
+                    {new Date(content.published_at).toLocaleDateString(
+                      language === 'en' ? 'en-US' : language === 'jp' ? 'ja-JP' : 'zh-CN',
+                      { year: 'numeric', month: 'long', day: 'numeric' }
+                    )}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Video Player and Sidebar - Two Column Layout */}
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
             {/* Left Column: Main Content */}
             <div class="lg:col-span-2">
-              {/* Title and Author Section */}
-              <div class="mb-6 md:mb-8">
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight text-center lg:text-left">
-                  {content.title}
-                </h1>
-                
-                {/* Author Info */}
-                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 md:gap-6 text-sm md:text-base">
-                  {/* Author Info */}
-                  {content.author && (
-                    <div class="flex items-center space-x-2 md:space-x-3">
-                      <span class="font-medium text-gray-700">
-                        {language === 'zh' ? '作者：' : language === 'en' ? 'Author: ' : language === 'jp' ? '著者：' : '作者：'}
-                        {content.author}
-                      </span>
-                    </div>
-                  )}
-                  
-                  {/* Date and Stats Info */}
-                  <div class="flex flex-wrap items-center gap-2 md:gap-4 text-gray-500">
-                    <span>
-                      {language === 'zh' ? '发布：' : language === 'en' ? 'Published: ' : language === 'jp' ? '公開：' : '發布：'}
-                      {new Date(content.published_at).toLocaleDateString(language === 'en' ? 'en-US' : 'zh-CN')}
-                    </span>
-                    {content.reading_time && (
-                      <span>
-                        <i class="fas fa-clock mr-1"></i>
-                        {content.reading_time} min
-                      </span>
-                    )}
-                    <span>
-                      <i class="fas fa-eye mr-1"></i>
-                      {content.views}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
               {/* Video/Podcast Player Section */}
               <div class="mb-8 md:mb-12">
                 {contentType === 'video' && content.video_file ? (
@@ -284,8 +307,8 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
               </div>
             </div>
 
-            {/* Right Column: Sidebar */}
-            <div class="lg:col-span-1 space-y-6 md:space-y-8">
+            {/* Right Column: Sidebar - Aligned with Video Player */}
+            <div class="lg:col-span-1">
               {/* Video Description Section (Black Card) */}
               <div class="bg-black rounded-xl p-6 md:p-8 text-white">
                 <h3 class="text-xl md:text-2xl font-bold mb-4 whitespace-pre-line">
@@ -327,92 +350,106 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
                   <i class="fas fa-arrow-right ml-2"></i>
                 </a>
               </div>
-
-              {/* Help Section */}
-              <div class="bg-white border-2 border-gray-200 rounded-xl p-6 text-center">
-                <div class="w-16 h-16 mx-auto mb-4 bg-[#6438FF]/10 rounded-full flex items-center justify-center">
-                  <i class="fas fa-question-circle text-3xl text-[#6438FF]"></i>
-                </div>
-                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4">
-                  {language === 'zh' ? '需要帮助？' : language === 'en' ? 'Need Help?' : language === 'jp' ? 'ヘルプが必要ですか？' : '需要幫助？'}
-                </h3>
-                <p class="text-gray-600 mb-6 text-sm md:text-base">
-                  {language === 'zh' ? '我们的支持团队随时为您提供帮助' : language === 'en' ? 'Our support team is ready to help you' : language === 'jp' ? '私たちのサポートチームがお手伝いします' : '我們的支持團隊隨時為您提供幫助'}
-                </p>
-                <a
-                  href={language === 'zh' ? '/contact' : `/${language}/contact`}
-                  class="inline-flex items-center justify-center w-full px-6 py-3 bg-[#6438FF] text-white rounded-lg font-semibold hover:bg-[#5a2ee6] transition-all transform hover:scale-105"
-                >
-                  {language === 'zh' ? '获取支持' : language === 'en' ? 'Get Support' : language === 'jp' ? 'サポートを受ける' : '獲取支持'}
-                </a>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Related Recommendations Section */}
-      {relatedItems && relatedItems.length > 0 && (
+      {recommendedContents && recommendedContents.length > 0 && (
         <section class="bg-gray-50 py-12 md:py-16 lg:py-20">
           <div class="site-container px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-8 md:mb-12">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-8 md:mb-12 text-center">
               {language === 'zh' ? '相关推荐' : language === 'en' ? 'Related Recommendations' : language === 'jp' ? '関連おすすめ' : '相關推薦'}
             </h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-              {relatedItems.map((item: any, index: number) => (
-                <a
-                  key={index}
-                  href={item.link || '#'}
-                  class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block group"
-                >
-                  {/* Cover Image with Play Icon */}
-                  <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">
-                    <img 
-                      src={item.image || `/assets/images/resources/related-${index + 1}.jpg`}
-                      alt={item.title || 'Related content'}
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                    />
-                    {/* Placeholder */}
-                    <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
-                      <div class="text-center">
-                        <i class="fas fa-image text-2xl md:text-3xl text-gray-400 mb-2"></i>
-                        <p class="text-xs md:text-sm text-gray-500">
-                          {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
-                        </p>
-                      </div>
-                    </div>
-                    {/* Play Icon Overlay */}
-                    <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-all">
-                      <div class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/90 flex items-center justify-center">
-                        <i class="fas fa-play text-[#6438FF] text-lg md:text-xl ml-1"></i>
-                      </div>
-                    </div>
-                    {/* Category Badge */}
-                    {item.category && (
-                      <div class="absolute top-2 left-2">
-                        <span class="bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-medium text-gray-700">
-                          {item.category}
-                        </span>
-                      </div>
-                    )}
-                  </div>
+              {recommendedContents.map((item: RecommendedContent) => {
+                // 获取多语言标题
+                const getTitle = () => {
+                  if (language === 'zh') return item.title_zh || item.title || '文章标题'
+                  if (language === 'en') return item.title_en || item.title || 'Article Title'
+                  if (language === 'jp') return item.title_jp || item.title || '記事タイトル'
+                  if (language === 'hk') return item.title_hk || item.title || '文章標題'
+                  return item.title || 'Article Title'
+                }
+                
+                // 格式化日期 - 按照设计图格式 "August 14th, 2025"
+                const formatDate = () => {
+                  if (!item.published_at) return ''
+                  const date = new Date(item.published_at)
+                  const day = date.getDate()
+                  const month = date.toLocaleDateString(language === 'en' ? 'en-US' : language === 'jp' ? 'ja-JP' : 'zh-CN', { month: 'long' })
+                  const year = date.getFullYear()
                   
-                  {/* Card Content */}
-                  <div class="p-4 md:p-6">
-                    <h3 class="text-base md:text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#6438FF] transition-colors">
-                      {item.title || 'Related Content Title'}
-                    </h3>
-                    {item.date && (
+                  if (language === 'en') {
+                    const daySuffix = day === 1 ? 'st' : day === 2 ? 'nd' : day === 3 ? 'rd' : 'th'
+                    return `${month} ${day}${daySuffix}, ${year}`
+                  } else if (language === 'jp') {
+                    return `${year}年${date.getMonth() + 1}月${day}日`
+                  } else {
+                    return `${year}年${date.getMonth() + 1}月${day}日`
+                  }
+                }
+                
+                // 构建链接
+                const langPrefix = language === 'zh' ? '' : `/${language}`
+                const contentLink = `${langPrefix}/resources/${item.category_slug}/${item.id}`
+                
+                return (
+                  <a
+                    key={item.id}
+                    href={contentLink}
+                    class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block group"
+                  >
+                    {/* Cover Image with Play Icon */}
+                    <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">
+                      {item.cover_image ? (
+                        <img 
+                          src={item.cover_image}
+                          alt={getTitle()}
+                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        />
+                      ) : null}
+                      {/* Placeholder */}
+                      <div class={`${item.cover_image ? 'hidden' : 'flex'} w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0`}>
+                        <div class="text-center">
+                          <i class="fas fa-image text-2xl md:text-3xl text-gray-400 mb-2"></i>
+                          <p class="text-xs md:text-sm text-gray-500">
+                            {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
+                          </p>
+                        </div>
+                      </div>
+                      {/* Play Icon Overlay */}
+                      <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-all">
+                        <div class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/90 flex items-center justify-center">
+                          <i class="fas fa-play text-[#6438FF] text-lg md:text-xl ml-1"></i>
+                        </div>
+                      </div>
+                      {/* Category Badge */}
+                      {item.category_name && (
+                        <div class="absolute top-2 left-2">
+                          <span class="bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-medium text-gray-700 border border-gray-300">
+                            {item.category_name}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Card Content */}
+                    <div class="p-4 md:p-6">
+                      <h3 class="text-base md:text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#6438FF] transition-colors">
+                        {getTitle()}
+                      </h3>
                       <p class="text-xs md:text-sm text-gray-500">
-                        {item.date}
+                        {formatDate()}
                       </p>
-                    )}
-                  </div>
-                </a>
-              ))}
+                    </div>
+                  </a>
+                )
+              })}
             </div>
           </div>
         </section>
