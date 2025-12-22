@@ -135,6 +135,12 @@ var _hmt = _hmt || [];
                   发布管理
                 </a>
                 
+                <a href="/ticloudadmin/users"
+                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/users') ? 'active' : ''}`}>
+                  <i class="fas fa-users mr-3"></i>
+                  用户管理
+                </a>
+                
                 <a href="/ticloudadmin/settings"
                    class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/settings') ? 'active' : ''}`}>
                   <i class="fas fa-cog mr-3"></i>

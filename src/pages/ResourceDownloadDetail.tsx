@@ -82,13 +82,67 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
     </div>
   }
   
+  // 根据语言获取内容字段（双重保险，确保使用正确的多语言数据）
+  const getContentField = (field: 'title' | 'content' | 'cover_image' | 'meta_title' | 'meta_description' | 'meta_keywords') => {
+    if (field === 'title') {
+      if (language === 'zh') return content.title_zh || content.title || ''
+      if (language === 'en') return content.title_en || content.title_zh || content.title || ''
+      if (language === 'jp') return content.title_jp || content.title_zh || content.title || ''
+      if (language === 'hk') return content.title_hk || content.title_zh || content.title || ''
+      return content.title || ''
+    }
+    if (field === 'content') {
+      if (language === 'zh') return content.content_zh || content.content || ''
+      if (language === 'en') return content.content_en || content.content_zh || content.content || ''
+      if (language === 'jp') return content.content_jp || content.content_zh || content.content || ''
+      if (language === 'hk') return content.content_hk || content.content_zh || content.content || ''
+      return content.content || ''
+    }
+    if (field === 'cover_image') {
+      if (language === 'zh') return content.cover_image_zh || content.cover_image || ''
+      if (language === 'en') return content.cover_image_en || content.cover_image_zh || content.cover_image || ''
+      if (language === 'jp') return content.cover_image_jp || content.cover_image_zh || content.cover_image || ''
+      if (language === 'hk') return content.cover_image_hk || content.cover_image_zh || content.cover_image || ''
+      return content.cover_image || ''
+    }
+    if (field === 'meta_title') {
+      if (language === 'zh') return content.meta_title_zh || content.meta_title || ''
+      if (language === 'en') return content.meta_title_en || content.meta_title_zh || content.meta_title || ''
+      if (language === 'jp') return content.meta_title_jp || content.meta_title_zh || content.meta_title || ''
+      if (language === 'hk') return content.meta_title_hk || content.meta_title_zh || content.meta_title || ''
+      return content.meta_title || ''
+    }
+    if (field === 'meta_description') {
+      if (language === 'zh') return content.meta_description_zh || content.meta_description || ''
+      if (language === 'en') return content.meta_description_en || content.meta_description_zh || content.meta_description || ''
+      if (language === 'jp') return content.meta_description_jp || content.meta_description_zh || content.meta_description || ''
+      if (language === 'hk') return content.meta_description_hk || content.meta_description_zh || content.meta_description || ''
+      return content.meta_description || ''
+    }
+    if (field === 'meta_keywords') {
+      if (language === 'zh') return content.meta_keywords_zh || content.meta_keywords || ''
+      if (language === 'en') return content.meta_keywords_en || content.meta_keywords_zh || content.meta_keywords || ''
+      if (language === 'jp') return content.meta_keywords_jp || content.meta_keywords_zh || content.meta_keywords || ''
+      if (language === 'hk') return content.meta_keywords_hk || content.meta_keywords_zh || content.meta_keywords || ''
+      return content.meta_keywords || ''
+    }
+    return ''
+  }
+  
+  // 获取处理后的内容字段
+  const displayTitle = getContentField('title')
+  const displayContent = getContentField('content')
+  const displayCoverImage = getContentField('cover_image')
+  const displayMetaTitle = getContentField('meta_title')
+  const displayMetaDescription = getContentField('meta_description')
+  
   // 构建结构化数据（JSON-LD）用于 SEO
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": content.title,
-    "description": content.meta_description || content.content?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
-    "image": content.cover_image || '',
+    "headline": displayTitle,
+    "description": displayMetaDescription || displayContent?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
+    "image": displayCoverImage || '',
     "datePublished": content.published_at,
     "dateModified": content.published_at,
     "author": {
@@ -161,7 +215,7 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
             </a>
             <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
             <span class="text-gray-900 font-medium line-clamp-1">
-              {content.title}
+              {displayTitle}
             </span>
           </nav>
           
@@ -170,7 +224,7 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
             {/* Left Column: Title and Download Button */}
             <div>
               <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 md:mb-8 leading-tight">
-                {content.title}
+                {displayTitle}
               </h1>
               {content.attachment_file && (
                 <a
@@ -186,11 +240,11 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
             
             {/* Right Column: Promotional Banner */}
             <div class="hidden lg:block">
-              {content.cover_image ? (
+              {displayCoverImage ? (
                 <div class="rounded-xl overflow-hidden shadow-xl">
                   <img 
-                    src={content.cover_image}
-                    alt={content.title}
+                    src={displayCoverImage}
+                    alt={displayTitle}
                     class="w-full h-auto object-cover"
                     loading="eager"
                   />
@@ -285,7 +339,7 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
                 }} />
                 <div 
                   class="resource-content"
-                  dangerouslySetInnerHTML={{ __html: content.content || '' }}
+                  dangerouslySetInnerHTML={{ __html: displayContent || '' }}
                 />
               </div>
             </div>
@@ -402,11 +456,11 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
               {/* Left Column: Promotional Banner */}
               <div class="hidden lg:block">
-                {content.cover_image ? (
+                {displayCoverImage ? (
                   <div class="rounded-xl overflow-hidden shadow-xl">
                     <img 
-                      src={content.cover_image}
-                      alt={content.title}
+                      src={displayCoverImage}
+                      alt={displayTitle}
                       class="w-full h-auto object-cover"
                       loading="lazy"
                     />
@@ -426,7 +480,7 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
               {/* Right Column: Title and Download Button */}
               <div class="text-center lg:text-left">
                 <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 md:mb-8">
-                  {content.title}
+                  {displayTitle}
                 </h2>
                 <a
                   href={content.attachment_file}

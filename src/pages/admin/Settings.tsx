@@ -179,54 +179,6 @@ export function Settings({}: SettingsProps) {
         </div>
       </div>
 
-      {/* Admin Users */}
-      <div class="bg-white rounded-lg shadow-sm border">
-        <div class="p-6 border-b">
-          <h3 class="text-lg font-semibold text-gray-900">管理员账户</h3>
-          <p class="text-gray-600">管理后台登录账户</p>
-        </div>
-        <div class="p-6">
-          <div class="overflow-x-auto">
-            <table class="w-full">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">用户名</th>
-                  <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">邮箱</th>
-                  <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">角色</th>
-                  <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">最后登录</th>
-                  <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">操作</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200">
-                <tr>
-                  <td class="px-4 py-2 text-sm font-medium text-gray-900">Admin User</td>
-                  <td class="px-4 py-2 text-sm text-gray-500">admin@zenava.com</td>
-                  <td class="px-4 py-2">
-                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                      超级管理员
-                    </span>
-                  </td>
-                  <td class="px-4 py-2 text-sm text-gray-500">刚刚</td>
-                  <td class="px-4 py-2 text-sm">
-                    <button class="text-blue-600 hover:text-blue-900 mr-3">
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="text-red-600 hover:text-red-900">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          
-          <div class="mt-4">
-            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-              <i class="fas fa-plus mr-2"></i>添加管理员
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   )
 }

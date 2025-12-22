@@ -37,6 +37,7 @@ import { SEOManagement } from './pages/admin/SEOManagement.js'
 import { I18nManagement } from './pages/admin/I18nManagement.js'
 import { MediaLibrary } from './pages/admin/MediaLibrary.js'
 import { Settings } from './pages/admin/Settings.js'
+import { UserManagement } from './pages/admin/UserManagement.js'
 import { Logs } from './pages/admin/Logs.js'
 import { PublishManager } from './pages/admin/PublishManager.js'
 import { CommonContentManagement } from './pages/admin/CommonContentManagement.js'
@@ -1507,6 +1508,14 @@ app.get('/ticloudadmin/media', requireAuth(), (c) => {
   return c.html(
     <AdminLayout title="媒体库" currentPath="/admin/media">
       <MediaLibrary />
+    </AdminLayout>
+  )
+})
+
+app.get('/ticloudadmin/users', requireAuth(), (c) => {
+  return c.html(
+    <AdminLayout title="用户管理" currentPath="/ticloudadmin/users">
+      <UserManagement />
     </AdminLayout>
   )
 })

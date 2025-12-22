@@ -43,6 +43,7 @@ import { SEOManagement } from './pages/admin/SEOManagement.js'
 import { I18nManagement } from './pages/admin/I18nManagement.js'
 import { MediaLibrary } from './pages/admin/MediaLibrary.js'
 import { Settings } from './pages/admin/Settings.js'
+import { UserManagement } from './pages/admin/UserManagement.js'
 import { Logs } from './pages/admin/Logs.js'
 import { PublishManager } from './pages/admin/PublishManager.js'
 import { CommonContentManagement } from './pages/admin/CommonContentManagement.js'
@@ -95,6 +96,78 @@ app.use('/api/*', rateLimiter(100, 60000))
 
 // Enable CORS for API routes
 app.use('/api/*', cors())
+
+// 辅助函数：根据语言获取栏目分类的SQL查询字段
+function getCategoryNameField(language: Language): string {
+  const fieldMap: Record<Language, string> = {
+    'zh': 'COALESCE(name_zh, name) as name',
+    'en': 'COALESCE(name_en, name_zh, name) as name',
+    'jp': 'COALESCE(name_jp, name_zh, name) as name',
+    'hk': 'COALESCE(name_hk, name_zh, name) as name'
+  }
+  return fieldMap[language] || fieldMap['zh']
+}
+
+// 辅助函数：根据语言处理内容的多语言字段，将对应语言的字段映射到主字段
+function processContentByLanguage(content: any, language: Language): any {
+  if (!content) return content
+  
+  const lang: string = language || 'zh'
+  
+  // 处理标题
+  if (lang === 'zh') {
+    content.title = content.title_zh || content.title || ''
+  } else if (lang === 'en') {
+    content.title = content.title_en || content.title_zh || content.title || ''
+  } else if (lang === 'jp') {
+    content.title = content.title_jp || content.title_zh || content.title || ''
+  } else if (lang === 'hk') {
+    content.title = content.title_hk || content.title_zh || content.title || ''
+  }
+  
+  // 处理内容
+  if (lang === 'zh') {
+    content.content = content.content_zh || content.content || ''
+  } else if (lang === 'en') {
+    content.content = content.content_en || content.content_zh || content.content || ''
+  } else if (lang === 'jp') {
+    content.content = content.content_jp || content.content_zh || content.content || ''
+  } else if (lang === 'hk') {
+    content.content = content.content_hk || content.content_zh || content.content || ''
+  }
+  
+  // 处理封面图片
+  if (lang === 'zh') {
+    content.cover_image = content.cover_image_zh || content.cover_image || ''
+  } else if (lang === 'en') {
+    content.cover_image = content.cover_image_en || content.cover_image_zh || content.cover_image || ''
+  } else if (lang === 'jp') {
+    content.cover_image = content.cover_image_jp || content.cover_image_zh || content.cover_image || ''
+  } else if (lang === 'hk') {
+    content.cover_image = content.cover_image_hk || content.cover_image_zh || content.cover_image || ''
+  }
+  
+  // 处理SEO字段
+  if (lang === 'zh') {
+    content.meta_title = content.meta_title_zh || content.meta_title || ''
+    content.meta_description = content.meta_description_zh || content.meta_description || ''
+    content.meta_keywords = content.meta_keywords_zh || content.meta_keywords || ''
+  } else if (lang === 'en') {
+    content.meta_title = content.meta_title_en || content.meta_title_zh || content.meta_title || ''
+    content.meta_description = content.meta_description_en || content.meta_description_zh || content.meta_description || ''
+    content.meta_keywords = content.meta_keywords_en || content.meta_keywords_zh || content.meta_keywords || ''
+  } else if (lang === 'jp') {
+    content.meta_title = content.meta_title_jp || content.meta_title_zh || content.meta_title || ''
+    content.meta_description = content.meta_description_jp || content.meta_description_zh || content.meta_description || ''
+    content.meta_keywords = content.meta_keywords_jp || content.meta_keywords_zh || content.meta_keywords || ''
+  } else if (lang === 'hk') {
+    content.meta_title = content.meta_title_hk || content.meta_title_zh || content.meta_title || ''
+    content.meta_description = content.meta_description_hk || content.meta_description_zh || content.meta_description || ''
+    content.meta_keywords = content.meta_keywords_hk || content.meta_keywords_zh || content.meta_keywords || ''
+  }
+  
+  return content
+}
 
 // Mount CMS API routes
 app.route('/api/ticloudcms', cmsApi)
@@ -567,8 +640,9 @@ app.get('/resources', async (c) => {
   // 从数据库获取栏目分类（只获取显示的栏目）
   let categories = []
   try {
+    const nameField = getCategoryNameField(language)
     categories = await mysqlQuery<any[]>(
-      `SELECT id, name, link as slug, category_template 
+      `SELECT id, ${nameField}, link as slug, category_template 
        FROM resource_categories 
        WHERE is_displayed = 1 
        ORDER BY sort_order ASC, id ASC`
@@ -711,8 +785,9 @@ app.get('/resources/:slug', async (c) => {
   // 查询栏目信息
   let category = null
   try {
+    const nameField = getCategoryNameField(language)
     const result = await mysqlQuery<any[]>(
-      `SELECT id, name, link as slug, description, cover_image, category_template 
+      `SELECT id, ${nameField}, link as slug, description, cover_image, category_template 
        FROM resource_categories 
        WHERE link = ? AND is_displayed = 1 
        LIMIT 1`,
@@ -731,7 +806,7 @@ app.get('/resources/:slug', async (c) => {
   // 获取该栏目下的内容列表（全部数据，组件内部分页）
   let contents = []
   try {
-    contents = await mysqlQuery<any[]>(
+    const contentsResult = await mysqlQuery<any[]>(
       `SELECT id, title, content, author, cover_image, reading_time,
               video_file, attachment_file, attachment_name, 
               published_at, views, downloads,
@@ -743,6 +818,8 @@ app.get('/resources/:slug', async (c) => {
        ORDER BY sort_order ASC, published_at DESC`,
       [category.id]
     )
+    // 处理每个内容的多语言字段
+    contents = contentsResult.map(item => processContentByLanguage(item, language))
   } catch (error) {
     console.error('获取栏目内容失败:', error)
   }
@@ -750,8 +827,9 @@ app.get('/resources/:slug', async (c) => {
   // 获取所有栏目用于导航
   let categories = []
   try {
+    const nameFieldNav = getCategoryNameField(language)
     categories = await mysqlQuery<any[]>(
-      `SELECT id, name, link as slug, category_template 
+      `SELECT id, ${nameFieldNav}, link as slug, category_template 
        FROM resource_categories 
        WHERE is_displayed = 1 
        ORDER BY sort_order ASC, id ASC`
@@ -821,8 +899,9 @@ app.get('/:lang/resources', async (c) => {
   // 从数据库获取栏目分类（只获取显示的栏目）
   let categories = []
   try {
+    const nameField = getCategoryNameField(language)
     categories = await mysqlQuery<any[]>(
-      `SELECT id, name, link as slug, category_template 
+      `SELECT id, ${nameField}, link as slug, category_template 
        FROM resource_categories 
        WHERE is_displayed = 1 
        ORDER BY sort_order ASC, id ASC`
@@ -966,8 +1045,9 @@ app.get('/:lang/resources/:slug', async (c) => {
   // 查询栏目信息
   let category = null
   try {
+    const nameField = getCategoryNameField(language)
     const result = await mysqlQuery<any[]>(
-      `SELECT id, name, link as slug, description, cover_image, category_template 
+      `SELECT id, ${nameField}, link as slug, description, cover_image, category_template 
        FROM resource_categories 
        WHERE link = ? AND is_displayed = 1 
        LIMIT 1`,
@@ -986,7 +1066,7 @@ app.get('/:lang/resources/:slug', async (c) => {
   // 获取该栏目下的内容列表（全部数据，组件内部分页）
   let contents = []
   try {
-    contents = await mysqlQuery<any[]>(
+    const contentsResult = await mysqlQuery<any[]>(
       `SELECT id, title, content, author, cover_image, reading_time,
               video_file, attachment_file, attachment_name, 
               published_at, views, downloads,
@@ -998,6 +1078,8 @@ app.get('/:lang/resources/:slug', async (c) => {
        ORDER BY sort_order ASC, published_at DESC`,
       [category.id]
     )
+    // 处理每个内容的多语言字段
+    contents = contentsResult.map(item => processContentByLanguage(item, language))
   } catch (error) {
     console.error('获取栏目内容失败:', error)
   }
@@ -1005,8 +1087,9 @@ app.get('/:lang/resources/:slug', async (c) => {
   // 获取所有栏目用于导航
   let categories = []
   try {
+    const nameFieldNav = getCategoryNameField(language)
     categories = await mysqlQuery<any[]>(
-      `SELECT id, name, link as slug, category_template 
+      `SELECT id, ${nameFieldNav}, link as slug, category_template 
        FROM resource_categories 
        WHERE is_displayed = 1 
        ORDER BY sort_order ASC, id ASC`
@@ -1080,9 +1163,18 @@ app.get('/resources/:slug/:id', async (c) => {
   let category = null
   
   try {
-    // 获取内容详情
+    // 获取内容详情（JOIN查询中需要根据语言选择对应的name字段）
+    let categoryNameField = 'COALESCE(rcat.name_zh, rcat.name)'
+    if (language === 'en') {
+      categoryNameField = 'COALESCE(rcat.name_en, rcat.name_zh, rcat.name)'
+    } else if (language === 'jp') {
+      categoryNameField = 'COALESCE(rcat.name_jp, rcat.name_zh, rcat.name)'
+    } else if (language === 'hk') {
+      categoryNameField = 'COALESCE(rcat.name_hk, rcat.name_zh, rcat.name)'
+    }
+    
     const contentResult = await mysqlQuery<any[]>(
-      `SELECT rc.*, rcat.name as category_name, rcat.link as category_slug 
+      `SELECT rc.*, ${categoryNameField} as category_name, rcat.link as category_slug 
        FROM resource_contents rc
        LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
        WHERE rc.id = ? AND rc.status = 'published'
@@ -1101,6 +1193,9 @@ app.get('/resources/:slug/:id', async (c) => {
       return c.notFound()
     }
     
+    // 根据语言处理内容的多语言字段
+    content = processContentByLanguage(content, language)
+    
     // 增加访问量
     await mysqlQuery(
       `UPDATE resource_contents SET views = views + 1 WHERE id = ?`,
@@ -1108,8 +1203,9 @@ app.get('/resources/:slug/:id', async (c) => {
     )
     
     // 获取栏目信息
+    const nameField = getCategoryNameField(language)
     const categoryResult = await mysqlQuery<any[]>(
-      `SELECT id, name, link as slug, description, category_template 
+      `SELECT id, ${nameField}, link as slug, description, category_template 
        FROM resource_categories 
        WHERE link = ? AND is_displayed = 1 
        LIMIT 1`,
@@ -1125,8 +1221,9 @@ app.get('/resources/:slug/:id', async (c) => {
   // 获取所有栏目用于导航
   let categories = []
   try {
+    const nameFieldNav = getCategoryNameField(language)
     categories = await mysqlQuery<any[]>(
-      `SELECT id, name, link as slug, category_template 
+      `SELECT id, ${nameFieldNav}, link as slug, category_template 
        FROM resource_categories 
        WHERE is_displayed = 1 
        ORDER BY sort_order ASC, id ASC`
@@ -1139,11 +1236,22 @@ app.get('/resources/:slug/:id', async (c) => {
   let recommendedContents = []
   if (content && category) {
     try {
-      recommendedContents = await mysqlQuery<any[]>(
+      // 获取推荐阅读时也需要根据语言选择对应的name字段
+      let recommendedCategoryNameField = 'COALESCE(rcat.name_zh, rcat.name)'
+      if (language === 'en') {
+        recommendedCategoryNameField = 'COALESCE(rcat.name_en, rcat.name_zh, rcat.name)'
+      } else if (language === 'jp') {
+        recommendedCategoryNameField = 'COALESCE(rcat.name_jp, rcat.name_zh, rcat.name)'
+      } else if (language === 'hk') {
+        recommendedCategoryNameField = 'COALESCE(rcat.name_hk, rcat.name_zh, rcat.name)'
+      }
+      
+      const recommendedResult = await mysqlQuery<any[]>(
         `SELECT rc.id, rc.title, rc.cover_image, rc.published_at, rc.reading_time, 
                 rc.author, rc.views,
                 rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
-                rcat.link as category_slug, rcat.name as category_name
+                rc.cover_image_zh, rc.cover_image_en, rc.cover_image_jp, rc.cover_image_hk,
+                rcat.link as category_slug, ${recommendedCategoryNameField} as category_name
          FROM resource_contents rc
          LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
          WHERE rc.category_id = ? AND rc.id != ? AND rc.status = 'published'
@@ -1151,6 +1259,10 @@ app.get('/resources/:slug/:id', async (c) => {
          LIMIT 4`,
         [category.id, id]
       )
+      
+      // 处理推荐阅读内容的多语言字段
+      recommendedContents = recommendedResult.map(item => processContentByLanguage(item, language))
+      
       console.log(`✅ 获取到 ${recommendedContents.length} 条推荐阅读内容`)
     } catch (error) {
       console.error('❌ 获取推荐阅读失败:', error)
@@ -1233,9 +1345,18 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
   let category = null
   
   try {
-    // 获取内容详情
+    // 获取内容详情（JOIN查询中需要根据语言选择对应的name字段）
+    let categoryNameField = 'COALESCE(rcat.name_zh, rcat.name)'
+    if (language === 'en') {
+      categoryNameField = 'COALESCE(rcat.name_en, rcat.name_zh, rcat.name)'
+    } else if (language === 'jp') {
+      categoryNameField = 'COALESCE(rcat.name_jp, rcat.name_zh, rcat.name)'
+    } else if (language === 'hk') {
+      categoryNameField = 'COALESCE(rcat.name_hk, rcat.name_zh, rcat.name)'
+    }
+    
     const contentResult = await mysqlQuery<any[]>(
-      `SELECT rc.*, rcat.name as category_name, rcat.link as category_slug 
+      `SELECT rc.*, ${categoryNameField} as category_name, rcat.link as category_slug 
        FROM resource_contents rc
        LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
        WHERE rc.id = ? AND rc.status = 'published'
@@ -1261,8 +1382,9 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
     )
     
     // 获取栏目信息
+    const nameField = getCategoryNameField(language)
     const categoryResult = await mysqlQuery<any[]>(
-      `SELECT id, name, link as slug, description, category_template 
+      `SELECT id, ${nameField}, link as slug, description, category_template 
        FROM resource_categories 
        WHERE link = ? AND is_displayed = 1 
        LIMIT 1`,
@@ -1278,8 +1400,9 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
   // 获取所有栏目用于导航
   let categories = []
   try {
+    const nameFieldNav = getCategoryNameField(language)
     categories = await mysqlQuery<any[]>(
-      `SELECT id, name, link as slug, category_template 
+      `SELECT id, ${nameFieldNav}, link as slug, category_template 
        FROM resource_categories 
        WHERE is_displayed = 1 
        ORDER BY sort_order ASC, id ASC`
@@ -1975,6 +2098,15 @@ app.get('/ticloudadmin/media', requireAuth(), (c) => {
   return c.html(
     <AdminLayout title="媒体库" currentPath="/ticloudadmin/media">
       <MediaLibrary />
+    </AdminLayout>
+  )
+})
+
+// User Management
+app.get('/ticloudadmin/users', requireAuth(), (c) => {
+  return c.html(
+    <AdminLayout title="用户管理" currentPath="/ticloudadmin/users">
+      <UserManagement />
     </AdminLayout>
   )
 })
@@ -3500,6 +3632,293 @@ app.post('/ticloudadmin/api/seo/analyze/:id', requireAuth(), async (c) => {
       ]
     }
   })
+})
+
+// Admin Users API - 管理员用户管理
+// 获取所有管理员用户
+app.get('/api/admin/users', requireAuth(), async (c) => {
+  try {
+    const users = await mysqlQuery<any[]>(
+      `SELECT id, username, email, role, avatar, last_login_at, created_at, updated_at 
+       FROM admin_users 
+       ORDER BY created_at DESC`
+    )
+    
+    return c.json({ 
+      success: true, 
+      data: users.map(user => ({
+        ...user,
+        role_display: user.role === 'super_admin' ? '超级管理员' : 
+                      user.role === 'admin' ? '管理员' : '编辑'
+      }))
+    })
+  } catch (error: any) {
+    console.error('获取管理员列表失败:', error)
+    return c.json({ 
+      success: false, 
+      error: error.message 
+    }, 500)
+  }
+})
+
+// 获取单个管理员用户
+app.get('/api/admin/users/:id', requireAuth(), async (c) => {
+  try {
+    const id = c.req.param('id')
+    const [user] = await mysqlQuery<any[]>(
+      `SELECT id, username, email, role, avatar, last_login_at, created_at, updated_at 
+       FROM admin_users 
+       WHERE id = ?`,
+      [id]
+    )
+    
+    if (!user) {
+      return c.json({ 
+        success: false, 
+        error: '用户不存在' 
+      }, 404)
+    }
+    
+    return c.json({ 
+      success: true, 
+      data: {
+        ...user,
+        role_display: user.role === 'super_admin' ? '超级管理员' : 
+                      user.role === 'admin' ? '管理员' : '编辑'
+      }
+    })
+  } catch (error: any) {
+    return c.json({ 
+      success: false, 
+      error: error.message 
+    }, 500)
+  }
+})
+
+// 创建管理员用户
+app.post('/api/admin/users', requireAuth(), async (c) => {
+  try {
+    const data = await c.req.json()
+    const { username, email, password, role } = data
+    
+    if (!username || !email || !password) {
+      return c.json({ 
+        success: false, 
+        error: '缺少必填字段：用户名、邮箱、密码' 
+      }, 400)
+    }
+    
+    // 验证邮箱格式
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return c.json({ 
+        success: false, 
+        error: '邮箱格式不正确' 
+      }, 400)
+    }
+    
+    // 检查邮箱是否已存在
+    const [existing] = await mysqlQuery<any[]>(
+      `SELECT id FROM admin_users WHERE email = ?`,
+      [email]
+    )
+    
+    if (existing) {
+      return c.json({ 
+        success: false, 
+        error: '该邮箱已被使用' 
+      }, 400)
+    }
+    
+    // 验证角色
+    const validRoles = ['super_admin', 'admin', 'editor']
+    const userRole = validRoles.includes(role) ? role : 'admin'
+    
+    // 加密密码
+    const passwordHash = await hashPassword(password)
+    
+    // 插入用户
+    const avatar = data.avatar || null
+    const result: any = await mysqlQuery(
+      `INSERT INTO admin_users (username, email, password_hash, role, avatar) 
+       VALUES (?, ?, ?, ?, ?)`,
+      [username, email, passwordHash, userRole, avatar]
+    )
+    
+    // 获取创建的用户信息（包含头像）
+    const [created] = await mysqlQuery<any[]>(
+      `SELECT id, username, email, role, avatar, last_login_at, created_at, updated_at 
+       FROM admin_users WHERE id = ?`,
+      [result.insertId]
+    )
+    
+    return c.json({ 
+      success: true, 
+      data: {
+        ...created[0],
+        role_display: userRole === 'super_admin' ? '超级管理员' : 
+                      userRole === 'admin' ? '管理员' : '编辑'
+      }
+    })
+  } catch (error: any) {
+    console.error('创建管理员失败:', error)
+    return c.json({ 
+      success: false, 
+      error: error.message
+    }, 500)
+  }
+})
+
+// 更新管理员用户
+app.put('/api/admin/users/:id', requireAuth(), async (c) => {
+  try {
+    const id = c.req.param('id')
+    const data = await c.req.json()
+    const { username, email, password, role } = data
+    
+    // 检查用户是否存在
+    const [existing] = await mysqlQuery<any[]>(
+      `SELECT id FROM admin_users WHERE id = ?`,
+      [id]
+    )
+    
+    if (!existing) {
+      return c.json({ 
+        success: false, 
+        error: '用户不存在' 
+      }, 404)
+    }
+    
+    // 如果更新邮箱，检查是否已被其他用户使用
+    if (email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(email)) {
+        return c.json({ 
+          success: false, 
+          error: '邮箱格式不正确' 
+        }, 400)
+      }
+      
+      const [emailExists] = await mysqlQuery<any[]>(
+        `SELECT id FROM admin_users WHERE email = ? AND id != ?`,
+        [email, id]
+      )
+      
+      if (emailExists) {
+        return c.json({ 
+          success: false, 
+          error: '该邮箱已被其他用户使用' 
+        }, 400)
+      }
+    }
+    
+    // 构建更新字段
+    const updateFields: string[] = []
+    const updateValues: any[] = []
+    
+    if (username) {
+      updateFields.push('username = ?')
+      updateValues.push(username)
+    }
+    
+    if (email) {
+      updateFields.push('email = ?')
+      updateValues.push(email)
+    }
+    
+    if (password) {
+      const passwordHash = await hashPassword(password)
+      updateFields.push('password_hash = ?')
+      updateValues.push(passwordHash)
+    }
+    
+    if (role) {
+      const validRoles = ['super_admin', 'admin', 'editor']
+      if (validRoles.includes(role)) {
+        updateFields.push('role = ?')
+        updateValues.push(role)
+      }
+    }
+    
+    // 头像字段：如果提供了avatar字段（包括空字符串），则更新
+    if ('avatar' in data) {
+      updateFields.push('avatar = ?')
+      updateValues.push(data.avatar && data.avatar.trim() ? data.avatar.trim() : null)
+    }
+    
+    if (updateFields.length === 0) {
+      return c.json({ 
+        success: false, 
+        error: '没有要更新的字段' 
+      }, 400)
+    }
+    
+    updateValues.push(id)
+    
+    await mysqlQuery(
+      `UPDATE admin_users SET ${updateFields.join(', ')} WHERE id = ?`,
+      updateValues
+    )
+    
+    // 获取更新后的用户信息
+    const [updated] = await mysqlQuery<any[]>(
+      `SELECT id, username, email, role, avatar, last_login_at, created_at, updated_at 
+       FROM admin_users WHERE id = ?`,
+      [id]
+    )
+    
+    return c.json({ 
+      success: true, 
+      data: {
+        ...updated,
+        role_display: updated.role === 'super_admin' ? '超级管理员' : 
+                      updated.role === 'admin' ? '管理员' : '编辑'
+      }
+    })
+  } catch (error: any) {
+    console.error('更新管理员失败:', error)
+    return c.json({ 
+      success: false, 
+      error: error.message
+    }, 500)
+  }
+})
+
+// 删除管理员用户
+app.delete('/api/admin/users/:id', requireAuth(), async (c) => {
+  try {
+    const id = c.req.param('id')
+    
+    // 检查用户是否存在
+    const [user] = await mysqlQuery<any[]>(
+      `SELECT id, email FROM admin_users WHERE id = ?`,
+      [id]
+    )
+    
+    if (!user) {
+      return c.json({ 
+        success: false, 
+        error: '用户不存在' 
+      }, 404)
+    }
+    
+    // 删除用户
+    await mysqlQuery(
+      `DELETE FROM admin_users WHERE id = ?`,
+      [id]
+    )
+    
+    return c.json({ 
+      success: true, 
+      message: '用户已删除' 
+    })
+  } catch (error: any) {
+    console.error('删除管理员失败:', error)
+    return c.json({ 
+      success: false, 
+      error: error.message
+    }, 500)
+  }
 })
 
 // Translation

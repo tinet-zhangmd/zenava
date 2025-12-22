@@ -1,11 +1,8 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import { query as mysqlQuery } from '../lib/mysql.js';
 
-type Bindings = {
-  DB: D1Database;
-};
-
-const commonContentApi = new Hono<{ Bindings: Bindings }>();
+const commonContentApi = new Hono();
 
 // Enable CORS
 commonContentApi.use('/*', cors());
@@ -14,16 +11,17 @@ commonContentApi.use('/*', cors());
 
 // Get navigation config
 commonContentApi.get('/navigation', async (c) => {
-  const { env } = c;
   const language = c.req.query('lang') || 'zh';
   
   try {
     // Always get id=1 config (primary configuration)
-    const config = await env.DB.prepare(`
+    const configs = await mysqlQuery<any[]>(`
       SELECT * FROM navigation_config 
       WHERE id = 1
       LIMIT 1
-    `).first();
+    `);
+    
+    const config = configs[0] || null;
     
     return c.json({
       success: true,
@@ -44,38 +42,37 @@ commonContentApi.get('/navigation', async (c) => {
 
 // Update navigation config
 commonContentApi.post('/navigation', async (c) => {
-  const { env } = c;
   const body = await c.req.json();
   
   try {
     const { logo_url, logo_alt, status } = body;
     
     // Always update id=1 config (primary configuration)
-    const existing = await env.DB.prepare(`
+    const existing = await mysqlQuery<any[]>(`
       SELECT id FROM navigation_config WHERE id = 1 LIMIT 1
-    `).first();
+    `);
     
-    if (existing) {
+    if (existing && existing.length > 0) {
       // Update existing config
-      await env.DB.prepare(`
+      await mysqlQuery(`
         UPDATE navigation_config 
         SET logo_url = ?, logo_alt = ?, status = ?, updated_at = CURRENT_TIMESTAMP
         WHERE id = 1
-      `).bind(
+      `, [
         logo_url || null,
         logo_alt || 'ZENAVA',
         status || 'published' // Default to published for immediate reflection
-      ).run();
+      ]);
     } else {
       // Create new config with id=1
-      await env.DB.prepare(`
+      await mysqlQuery(`
         INSERT INTO navigation_config (id, logo_url, logo_alt, status)
         VALUES (1, ?, ?, ?)
-      `).bind(
+      `, [
         logo_url || null,
         logo_alt || 'ZENAVA',
         status || 'published' // Default to published for immediate reflection
-      ).run();
+      ]);
     }
     
     return c.json({ 
@@ -95,27 +92,27 @@ commonContentApi.post('/navigation', async (c) => {
 
 // Get footer config with sections and links
 commonContentApi.get('/footer', async (c) => {
-  const { env } = c;
   const language = c.req.query('lang') || 'zh';
   
   try {
     // Get footer config (get the latest regardless of language for consistency)
-    const config = await env.DB.prepare(`
+    const configs = await mysqlQuery<any[]>(`
       SELECT * FROM footer_config 
       ORDER BY updated_at DESC 
       LIMIT 1
-    `).first();
+    `);
+    const config = configs[0] || null;
     
     // Get footer sections for the language
-    const sections = await env.DB.prepare(`
+    const sections = await mysqlQuery<any[]>(`
       SELECT * FROM footer_sections
       WHERE is_visible = 1 AND language = ?
       ORDER BY position
-    `).bind(language).all();
+    `, [language]);
     
     // Get links for each section
-    const parsedSections = await Promise.all(sections.results.map(async (section) => {
-      const links = await env.DB.prepare(`
+    const parsedSections = await Promise.all(sections.map(async (section) => {
+      const links = await mysqlQuery<any[]>(`
         SELECT 
           id,
           link_text as label,
@@ -126,16 +123,16 @@ commonContentApi.get('/footer', async (c) => {
         FROM footer_links
         WHERE section_id = ? AND is_visible = 1
         ORDER BY position
-      `).bind(section.id).all();
+      `, [section.id]);
       
       return {
         ...section,
-        links: links.results || []
+        links: links || []
       };
     }));
     
     // Get privacy links for the language
-    const privacyLinks = await env.DB.prepare(`
+    const privacyLinks = await mysqlQuery<any[]>(`
       SELECT 
         id,
         link_type,
@@ -146,7 +143,7 @@ commonContentApi.get('/footer', async (c) => {
       FROM footer_privacy_links
       WHERE is_visible = 1 AND language = ?
       ORDER BY link_type
-    `).bind(language).all();
+    `, [language]);
     
     return c.json({
       success: true,
@@ -159,7 +156,7 @@ commonContentApi.get('/footer', async (c) => {
           status: 'draft'
         },
         sections: parsedSections,
-        privacyLinks: privacyLinks.results
+        privacyLinks: privacyLinks || []
       }
     });
   } catch (error: any) {
@@ -173,7 +170,6 @@ commonContentApi.get('/footer', async (c) => {
 
 // Update footer config
 commonContentApi.post('/footer/config', async (c) => {
-  const { env } = c;
   const language = c.req.query('lang') || 'zh';
   const body = await c.req.json();
   
@@ -181,70 +177,70 @@ commonContentApi.post('/footer/config', async (c) => {
     const { logo_url, logo_alt, subtitle_text, copyright_text, status } = body;
     
     // Check if config exists for this language
-    const existing = await env.DB.prepare(`
+    const existing = await mysqlQuery<any[]>(`
       SELECT id FROM footer_config WHERE language = ? LIMIT 1
-    `).bind(language).first();
+    `, [language]);
     
-    if (existing) {
+    if (existing && existing.length > 0) {
       // Update existing language-specific config
-      await env.DB.prepare(`
+      await mysqlQuery(`
         UPDATE footer_config 
         SET logo_url = ?, logo_alt = ?, logo_subtitle = ?, copyright_text = ?, status = ?, updated_at = CURRENT_TIMESTAMP
         WHERE id = ?
-      `).bind(
+      `, [
         logo_url || null,
         logo_alt || 'ZENAVA',
         subtitle_text || '企業與客戶對話場景的 AI 智能體',
         copyright_text || `© ${new Date().getFullYear()} ZENAVA. All rights reserved.`,
         status || 'published', // Default to published for immediate reflection
-        existing.id
-      ).run();
+        existing[0].id
+      ]);
       
       // IMPORTANT: Sync logo to all other languages (logo should be consistent across languages)
       if (logo_url !== undefined) {
-        await env.DB.prepare(`
+        await mysqlQuery(`
           UPDATE footer_config 
           SET logo_url = ?, logo_alt = ?, updated_at = CURRENT_TIMESTAMP
           WHERE language != ?
-        `).bind(
+        `, [
           logo_url || null,
           logo_alt || 'ZENAVA',
           language
-        ).run();
+        ]);
       }
     } else {
       // Create new language-specific config
-      await env.DB.prepare(`
+      await mysqlQuery(`
         INSERT INTO footer_config (logo_url, logo_alt, logo_subtitle, copyright_text, status, language)
         VALUES (?, ?, ?, ?, ?, ?)
-      `).bind(
+      `, [
         logo_url || null,
         logo_alt || 'ZENAVA',
         subtitle_text || '企業與客戶對話場景的 AI 智能體',
         copyright_text || `© ${new Date().getFullYear()} ZENAVA. All rights reserved.`,
         status || 'published', // Default to published for immediate reflection
         language
-      ).run();
+      ]);
       
       // IMPORTANT: Also create records for other languages with the same logo
       const languages = ['en', 'jp', 'hk'].filter(l => l !== language);
       for (const lang of languages) {
-        const langExists = await env.DB.prepare(`
+        const langExists = await mysqlQuery<any[]>(`
           SELECT id FROM footer_config WHERE language = ? LIMIT 1
-        `).bind(lang).first();
+        `, [lang]);
         
-        if (!langExists) {
-          await env.DB.prepare(`
+        if (!langExists || langExists.length === 0) {
+          await mysqlQuery(`
             INSERT INTO footer_config (logo_url, logo_alt, logo_subtitle, copyright_text, status, language)
             VALUES (?, ?, ?, ?, ?, ?)
-          `).bind(
+          `, [
             logo_url || null,
             logo_alt || 'ZENAVA',
             subtitle_text || '企業與客戶對話場景的 AI 智能體',
             copyright_text || `© ${new Date().getFullYear()} ZENAVA. All rights reserved.`,
             status || 'published',
             lang
-          ).run();
+          ]);
         }
       }
     }
@@ -264,7 +260,6 @@ commonContentApi.post('/footer/config', async (c) => {
 
 // Update footer section
 commonContentApi.post('/footer/section/:id', async (c) => {
-  const { env } = c;
   const sectionId = c.req.param('id');
   const language = c.req.query('lang') || 'zh';
   const body = await c.req.json();
@@ -272,16 +267,16 @@ commonContentApi.post('/footer/section/:id', async (c) => {
   try {
     const { title, position, is_visible } = body;
     
-    await env.DB.prepare(`
+    await mysqlQuery(`
       UPDATE footer_sections 
       SET title = ?, position = ?, is_visible = ?, updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
-    `).bind(
+    `, [
       title,
       position,
       is_visible ? 1 : 0,
       sectionId
-    ).run();
+    ]);
     
     return c.json({ success: true });
   } catch (error: any) {
@@ -295,7 +290,6 @@ commonContentApi.post('/footer/section/:id', async (c) => {
 
 // Add footer link
 commonContentApi.post('/footer/section/:id/link', async (c) => {
-  const { env } = c;
   const sectionId = c.req.param('id');
   const language = c.req.query('lang') || 'zh';
   const body = await c.req.json();
@@ -303,20 +297,20 @@ commonContentApi.post('/footer/section/:id/link', async (c) => {
   try {
     const { label, url, target, position } = body;
     
-    const result = await env.DB.prepare(`
+    const result: any = await mysqlQuery(`
       INSERT INTO footer_links (section_id, link_text, link_url, target, position)
       VALUES (?, ?, ?, ?, ?)
-    `).bind(
+    `, [
       sectionId,
       label,
       url,
       target || '_self',
       position || 0
-    ).run();
+    ]);
     
     return c.json({ 
       success: true, 
-      id: result.meta.last_row_id 
+      id: result.insertId 
     });
   } catch (error: any) {
     console.error('Error adding footer link:', error);
@@ -329,25 +323,24 @@ commonContentApi.post('/footer/section/:id/link', async (c) => {
 
 // Update footer link
 commonContentApi.put('/footer/link/:id', async (c) => {
-  const { env } = c;
   const linkId = c.req.param('id');
   const body = await c.req.json();
   
   try {
     const { label, url, target, position, is_visible } = body;
     
-    await env.DB.prepare(`
+    await mysqlQuery(`
       UPDATE footer_links 
       SET link_text = ?, link_url = ?, target = ?, position = ?, is_visible = ?, updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
-    `).bind(
+    `, [
       label,
       url,
       target || '_self',
       position || 0,
       is_visible ? 1 : 0,
       linkId
-    ).run();
+    ]);
     
     return c.json({ success: true });
   } catch (error: any) {
@@ -361,13 +354,12 @@ commonContentApi.put('/footer/link/:id', async (c) => {
 
 // Delete footer link
 commonContentApi.delete('/footer/link/:id', async (c) => {
-  const { env } = c;
   const linkId = c.req.param('id');
   
   try {
-    await env.DB.prepare(`
+    await mysqlQuery(`
       DELETE FROM footer_links WHERE id = ?
-    `).bind(linkId).run();
+    `, [linkId]);
     
     return c.json({ success: true });
   } catch (error: any) {
@@ -381,7 +373,6 @@ commonContentApi.delete('/footer/link/:id', async (c) => {
 
 // Update privacy links
 commonContentApi.post('/footer/privacy-links', async (c) => {
-  const { env } = c;
   const language = c.req.query('lang') || 'zh';
   const body = await c.req.json();
   
@@ -390,17 +381,17 @@ commonContentApi.post('/footer/privacy-links', async (c) => {
     
     // Update each link
     for (const link of links) {
-      await env.DB.prepare(`
+      await mysqlQuery(`
         UPDATE footer_privacy_links 
         SET link_text = ?, link_url = ?, target = ?, is_visible = ?, updated_at = CURRENT_TIMESTAMP
         WHERE id = ?
-      `).bind(
+      `, [
         link.label,
         link.url,
         link.target || '_self',
         link.is_visible ? 1 : 0,
         link.id
-      ).run();
+      ]);
     }
     
     return c.json({ success: true });
@@ -415,33 +406,32 @@ commonContentApi.post('/footer/privacy-links', async (c) => {
 
 // Publish common content (change status from draft to published and regenerate pages)
 commonContentApi.post('/publish', async (c) => {
-  const { env } = c;
   const body = await c.req.json();
   const { type } = body; // 'navigation', 'footer', or 'all'
   
   try {
     // Update status to published for all languages
     if (type === 'navigation' || type === 'all') {
-      await env.DB.prepare(`
+      await mysqlQuery(`
         UPDATE navigation_config 
         SET status = 'published', updated_at = CURRENT_TIMESTAMP
-      `).run();
+      `);
     }
     
     if (type === 'footer' || type === 'all') {
-      await env.DB.prepare(`
+      await mysqlQuery(`
         UPDATE footer_config 
         SET status = 'published', updated_at = CURRENT_TIMESTAMP
-      `).run();
+      `);
     }
     
     // Clear any cached data by updating timestamps
     // This ensures immediate reflection of changes
     try {
-      await env.DB.prepare(`
+      await mysqlQuery(`
         UPDATE page_content 
         SET updated_at = CURRENT_TIMESTAMP
-      `).run();
+      `);
     } catch (e) {
       // Table might not exist, ignore error
       console.log('page_content table might not exist, skipping update');
