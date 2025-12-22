@@ -18,6 +18,7 @@ interface Content {
   title: string
   content: string
   author?: string
+  author_avatar?: string
   cover_image?: string
   published_at: string
   views: number
@@ -260,13 +261,23 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
             <div class="flex items-start gap-4 mb-4">
               {/* Left: Avatar */}
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 md:w-14 md:h-14 bg-black rounded-lg flex items-center justify-center">
-                  {content.author ? (
-                    <span class="text-white font-bold text-lg md:text-xl">
-                      {content.author.charAt(0).toUpperCase()}
-                    </span>
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-lg overflow-hidden bg-gray-200 flex-shrink-0">
+                  {content.author_avatar ? (
+                    <img 
+                      src={content.author_avatar}
+                      alt={content.author || 'Author'}
+                      class="w-full h-full object-cover"
+                    />
+                  ) : content.author ? (
+                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#6438FF] to-[#5a2ee6]">
+                      <span class="text-white font-semibold text-lg md:text-xl">
+                        {content.author.charAt(0).toUpperCase()}
+                      </span>
+                    </div>
                   ) : (
-                    <i class="fas fa-user text-white text-xl md:text-2xl"></i>
+                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#6438FF] to-[#5a2ee6]">
+                      <i class="fas fa-user text-white text-xl md:text-2xl"></i>
+                    </div>
                   )}
                 </div>
               </div>

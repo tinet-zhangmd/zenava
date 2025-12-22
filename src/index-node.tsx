@@ -1175,9 +1175,11 @@ app.get('/resources/:slug/:id', async (c) => {
     }
     
     const contentResult = await mysqlQuery<any[]>(
-      `SELECT rc.*, ${categoryNameField} as category_name, rcat.link as category_slug 
+      `SELECT rc.*, ${categoryNameField} as category_name, rcat.link as category_slug,
+              au.avatar as author_avatar
        FROM resource_contents rc
        LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+       LEFT JOIN admin_users au ON rc.author = au.email
        WHERE rc.id = ? AND rc.status = 'published'
        LIMIT 1`,
       [id]
@@ -1252,9 +1254,11 @@ app.get('/resources/:slug/:id', async (c) => {
                 rc.author, rc.views,
                 rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
                 rc.cover_image_zh, rc.cover_image_en, rc.cover_image_jp, rc.cover_image_hk,
-                rcat.link as category_slug, ${recommendedCategoryNameField} as category_name
+                rcat.link as category_slug, ${recommendedCategoryNameField} as category_name,
+                au.avatar as author_avatar
          FROM resource_contents rc
          LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+         LEFT JOIN admin_users au ON rc.author = au.email
          WHERE rc.category_id = ? AND rc.id != ? AND rc.status = 'published'
          ORDER BY rc.views DESC, rc.published_at DESC
          LIMIT 4`,
@@ -1357,9 +1361,11 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
     }
     
     const contentResult = await mysqlQuery<any[]>(
-      `SELECT rc.*, ${categoryNameField} as category_name, rcat.link as category_slug 
+      `SELECT rc.*, ${categoryNameField} as category_name, rcat.link as category_slug,
+              au.avatar as author_avatar
        FROM resource_contents rc
        LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+       LEFT JOIN admin_users au ON rc.author = au.email
        WHERE rc.id = ? AND rc.status = 'published'
        LIMIT 1`,
       [id]
@@ -1420,9 +1426,11 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
         `SELECT rc.id, rc.title, rc.cover_image, rc.published_at, rc.reading_time, 
                 rc.author, rc.views,
                 rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
-                rcat.link as category_slug, rcat.name as category_name
+                rcat.link as category_slug, rcat.name as category_name,
+                au.avatar as author_avatar
          FROM resource_contents rc
          LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+         LEFT JOIN admin_users au ON rc.author = au.email
          WHERE rc.category_id = ? AND rc.id != ? AND rc.status = 'published'
          ORDER BY rc.views DESC, rc.published_at DESC
          LIMIT 4`,
