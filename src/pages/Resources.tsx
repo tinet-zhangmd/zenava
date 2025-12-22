@@ -917,16 +917,15 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                             <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2">
                               {getTitle()}
                             </h4>
-                            {/* 内容描述（自动扩展） */}
-                            {/* {(() => {
+                            {/* 内容描述（最多3行，超过省略号） */}
+                            {(() => {
                               const textContent = extractTextContent(getContent())
                               return textContent ? (
                                 <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-4 flex-grow">
                                   {textContent}
                                 </p>
                               ) : null
-                            })()} */}
-                            { extractTextContent(getContent())}
+                            })()}
                             {/* 浏览量（固定在底部） */}
                             <div class="flex items-center text-sm text-gray-500 mt-auto">
                               <i class="fas fa-eye mr-1"></i>

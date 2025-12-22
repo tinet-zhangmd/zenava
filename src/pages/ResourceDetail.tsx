@@ -49,6 +49,7 @@ interface RecommendedContent {
   published_at: string
   reading_time?: number
   author?: string
+  author_avatar?: string
   views: number
   category_slug: string
   // 多语言字段
