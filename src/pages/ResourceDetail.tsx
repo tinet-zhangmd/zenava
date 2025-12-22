@@ -83,6 +83,60 @@ export const ResourceDetailPage: FC<ResourceDetailPageProps> = ({
     </div>
   }
   
+  // 根据语言获取内容字段（双重保险，确保使用正确的多语言数据）
+  const getContentField = (field: 'title' | 'content' | 'cover_image' | 'meta_title' | 'meta_description' | 'meta_keywords') => {
+    if (field === 'title') {
+      if (language === 'zh') return content.title_zh || content.title || ''
+      if (language === 'en') return content.title_en || content.title_zh || content.title || ''
+      if (language === 'jp') return content.title_jp || content.title_zh || content.title || ''
+      if (language === 'hk') return content.title_hk || content.title_zh || content.title || ''
+      return content.title || ''
+    }
+    if (field === 'content') {
+      if (language === 'zh') return content.content_zh || content.content || ''
+      if (language === 'en') return content.content_en || content.content_zh || content.content || ''
+      if (language === 'jp') return content.content_jp || content.content_zh || content.content || ''
+      if (language === 'hk') return content.content_hk || content.content_zh || content.content || ''
+      return content.content || ''
+    }
+    if (field === 'cover_image') {
+      if (language === 'zh') return content.cover_image_zh || content.cover_image || ''
+      if (language === 'en') return content.cover_image_en || content.cover_image_zh || content.cover_image || ''
+      if (language === 'jp') return content.cover_image_jp || content.cover_image_zh || content.cover_image || ''
+      if (language === 'hk') return content.cover_image_hk || content.cover_image_zh || content.cover_image || ''
+      return content.cover_image || ''
+    }
+    if (field === 'meta_title') {
+      if (language === 'zh') return content.meta_title_zh || content.meta_title || ''
+      if (language === 'en') return content.meta_title_en || content.meta_title_zh || content.meta_title || ''
+      if (language === 'jp') return content.meta_title_jp || content.meta_title_zh || content.meta_title || ''
+      if (language === 'hk') return content.meta_title_hk || content.meta_title_zh || content.meta_title || ''
+      return content.meta_title || ''
+    }
+    if (field === 'meta_description') {
+      if (language === 'zh') return content.meta_description_zh || content.meta_description || ''
+      if (language === 'en') return content.meta_description_en || content.meta_description_zh || content.meta_description || ''
+      if (language === 'jp') return content.meta_description_jp || content.meta_description_zh || content.meta_description || ''
+      if (language === 'hk') return content.meta_description_hk || content.meta_description_zh || content.meta_description || ''
+      return content.meta_description || ''
+    }
+    if (field === 'meta_keywords') {
+      if (language === 'zh') return content.meta_keywords_zh || content.meta_keywords || ''
+      if (language === 'en') return content.meta_keywords_en || content.meta_keywords_zh || content.meta_keywords || ''
+      if (language === 'jp') return content.meta_keywords_jp || content.meta_keywords_zh || content.meta_keywords || ''
+      if (language === 'hk') return content.meta_keywords_hk || content.meta_keywords_zh || content.meta_keywords || ''
+      return content.meta_keywords || ''
+    }
+    return ''
+  }
+  
+  // 获取处理后的内容字段
+  const displayTitle = getContentField('title')
+  const displayContent = getContentField('content')
+  const displayCoverImage = getContentField('cover_image')
+  const displayMetaTitle = getContentField('meta_title')
+  const displayMetaDescription = getContentField('meta_description')
+  
   // 构建下载和联系 URL
   const downloadUrl = content.attachment_file || `/resources/download/${content.id}`
   const contactUrl = `/contact?source=resource_download&file=${content.id}`
@@ -91,9 +145,9 @@ export const ResourceDetailPage: FC<ResourceDetailPageProps> = ({
   const structuredData = {
     "@context": "https://schema.org",
     "@type": category.category_template === 'list_download' ? "Article" : "Article",
-    "headline": content.title,
-    "description": content.meta_description || content.content?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
-    "image": content.cover_image || '',
+    "headline": displayTitle,
+    "description": displayMetaDescription || displayContent?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
+    "image": displayCoverImage || '',
     "datePublished": content.published_at,
     "dateModified": content.published_at,
     "author": {
@@ -173,7 +227,7 @@ export const ResourceDetailPage: FC<ResourceDetailPageProps> = ({
             </a>
             <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
             <span class="text-gray-900 font-medium line-clamp-1">
-              {content.title}
+              {displayTitle}
             </span>
           </nav>
         </div>
@@ -187,7 +241,7 @@ export const ResourceDetailPage: FC<ResourceDetailPageProps> = ({
             <div class="lg:col-span-1">
               {/* Title */}
               <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 md:mb-8 leading-tight">
-                {content.title}
+                {displayTitle}
               </h1>
               
               {/* Author Info */}
@@ -242,8 +296,8 @@ export const ResourceDetailPage: FC<ResourceDetailPageProps> = ({
                     <i class="fas fa-link text-gray-600 text-sm md:text-base"></i>
                   </button>
                   <a 
-                    href={`mailto:?subject=${encodeURIComponent(content.title)}&body=`}
-                    onclick={`this.href = 'mailto:?subject=' + encodeURIComponent(${JSON.stringify(content.title)}) + '&body=' + encodeURIComponent(window.location.href);`}
+                    href={`mailto:?subject=${encodeURIComponent(displayTitle)}&body=`}
+                    onclick={`this.href = 'mailto:?subject=' + encodeURIComponent(${JSON.stringify(displayTitle)}) + '&body=' + encodeURIComponent(window.location.href);`}
                     class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
                     aria-label="Share via Email"
                   >
@@ -251,7 +305,7 @@ export const ResourceDetailPage: FC<ResourceDetailPageProps> = ({
                   </a>
                   <a 
                     href="#"
-                    onclick={`const url = window.location.href; const title = ${JSON.stringify(content.title)}; window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(title), '_blank', 'noopener,noreferrer'); return false;`}
+                    onclick={`const url = window.location.href; const title = ${JSON.stringify(displayTitle)}; window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(title), '_blank', 'noopener,noreferrer'); return false;`}
                     class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
                     aria-label="Share on X (Twitter)"
                   >
@@ -373,7 +427,7 @@ export const ResourceDetailPage: FC<ResourceDetailPageProps> = ({
                 }} />
                 <div 
                   class="resource-content"
-                  dangerouslySetInnerHTML={{ __html: content.content || '' }}
+                  dangerouslySetInnerHTML={{ __html: displayContent || '' }}
                 />
               </div>
             </div>

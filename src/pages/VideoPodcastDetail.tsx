@@ -31,6 +31,31 @@ interface Content {
   meta_title?: string
   meta_description?: string
   meta_keywords?: string
+  // 多语言字段
+  title_zh?: string
+  title_en?: string
+  title_jp?: string
+  title_hk?: string
+  content_zh?: string
+  content_en?: string
+  content_jp?: string
+  content_hk?: string
+  cover_image_zh?: string
+  cover_image_en?: string
+  cover_image_jp?: string
+  cover_image_hk?: string
+  meta_title_zh?: string
+  meta_title_en?: string
+  meta_title_jp?: string
+  meta_title_hk?: string
+  meta_description_zh?: string
+  meta_description_en?: string
+  meta_description_jp?: string
+  meta_description_hk?: string
+  meta_keywords_zh?: string
+  meta_keywords_en?: string
+  meta_keywords_jp?: string
+  meta_keywords_hk?: string
 }
 
 interface RecommendedContent {
@@ -74,6 +99,60 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
     </div>
   }
   
+  // 根据语言获取内容字段（双重保险，确保使用正确的多语言数据）
+  const getContentField = (field: 'title' | 'content' | 'cover_image' | 'meta_title' | 'meta_description' | 'meta_keywords') => {
+    if (field === 'title') {
+      if (language === 'zh') return content.title_zh || content.title || ''
+      if (language === 'en') return content.title_en || content.title_zh || content.title || ''
+      if (language === 'jp') return content.title_jp || content.title_zh || content.title || ''
+      if (language === 'hk') return content.title_hk || content.title_zh || content.title || ''
+      return content.title || ''
+    }
+    if (field === 'content') {
+      if (language === 'zh') return content.content_zh || content.content || ''
+      if (language === 'en') return content.content_en || content.content_zh || content.content || ''
+      if (language === 'jp') return content.content_jp || content.content_zh || content.content || ''
+      if (language === 'hk') return content.content_hk || content.content_zh || content.content || ''
+      return content.content || ''
+    }
+    if (field === 'cover_image') {
+      if (language === 'zh') return content.cover_image_zh || content.cover_image || ''
+      if (language === 'en') return content.cover_image_en || content.cover_image_zh || content.cover_image || ''
+      if (language === 'jp') return content.cover_image_jp || content.cover_image_zh || content.cover_image || ''
+      if (language === 'hk') return content.cover_image_hk || content.cover_image_zh || content.cover_image || ''
+      return content.cover_image || ''
+    }
+    if (field === 'meta_title') {
+      if (language === 'zh') return content.meta_title_zh || content.meta_title || ''
+      if (language === 'en') return content.meta_title_en || content.meta_title_zh || content.meta_title || ''
+      if (language === 'jp') return content.meta_title_jp || content.meta_title_zh || content.meta_title || ''
+      if (language === 'hk') return content.meta_title_hk || content.meta_title_zh || content.meta_title || ''
+      return content.meta_title || ''
+    }
+    if (field === 'meta_description') {
+      if (language === 'zh') return content.meta_description_zh || content.meta_description || ''
+      if (language === 'en') return content.meta_description_en || content.meta_description_zh || content.meta_description || ''
+      if (language === 'jp') return content.meta_description_jp || content.meta_description_zh || content.meta_description || ''
+      if (language === 'hk') return content.meta_description_hk || content.meta_description_zh || content.meta_description || ''
+      return content.meta_description || ''
+    }
+    if (field === 'meta_keywords') {
+      if (language === 'zh') return content.meta_keywords_zh || content.meta_keywords || ''
+      if (language === 'en') return content.meta_keywords_en || content.meta_keywords_zh || content.meta_keywords || ''
+      if (language === 'jp') return content.meta_keywords_jp || content.meta_keywords_zh || content.meta_keywords || ''
+      if (language === 'hk') return content.meta_keywords_hk || content.meta_keywords_zh || content.meta_keywords || ''
+      return content.meta_keywords || ''
+    }
+    return ''
+  }
+  
+  // 获取处理后的内容字段
+  const displayTitle = getContentField('title')
+  const displayContent = getContentField('content')
+  const displayCoverImage = getContentField('cover_image')
+  const displayMetaTitle = getContentField('meta_title')
+  const displayMetaDescription = getContentField('meta_description')
+  
   // 根据 category_template 确定内容类型
   const contentType: 'video' | 'podcast' = category.category_template === 'list_video' ? 'video' : 'podcast'
 
@@ -81,9 +160,9 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
   const structuredData = contentType === 'video' ? {
     "@context": "https://schema.org",
     "@type": "VideoObject",
-    "name": content.title,
-    "description": content.meta_description || content.video_description || content.content?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
-    "thumbnailUrl": content.cover_image || '',
+    "name": displayTitle,
+    "description": displayMetaDescription || content.video_description || displayContent?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
+    "thumbnailUrl": displayCoverImage || '',
     "uploadDate": content.published_at,
     "contentUrl": content.video_file || '',
     "author": {
@@ -93,9 +172,9 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
   } : {
     "@context": "https://schema.org",
     "@type": "PodcastEpisode",
-    "name": content.title,
-    "description": content.meta_description || content.video_description || content.content?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
-    "image": content.cover_image || '',
+    "name": displayTitle,
+    "description": displayMetaDescription || content.video_description || displayContent?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
+    "image": displayCoverImage || '',
     "datePublished": content.published_at,
     "author": {
       "@type": "Person",
@@ -162,7 +241,7 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
             </a>
             <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
             <span class="text-gray-900 font-medium line-clamp-1">
-              {content.title}
+              {displayTitle}
             </span>
           </nav>
         </div>
@@ -174,7 +253,7 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
           {/* Title and Author Section - Full Width */}
           <div class="mb-6 md:mb-8">
             <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
-              {content.title}
+              {displayTitle}
             </h1>
             
             {/* Author and Publication Info - Left: Avatar, Right: Author (top) and Published Date (bottom) */}
@@ -225,7 +304,7 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
                 {contentType === 'video' && content.video_file ? (
                   <VideoPlayer 
                     videoFile={content.video_file}
-                    coverImage={content.cover_image}
+                    coverImage={displayCoverImage}
                     language={language}
                   />
                 ) : (
@@ -302,7 +381,7 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
                   `
                 }} />
                 <div 
-                  dangerouslySetInnerHTML={{ __html: content.content || '' }}
+                  dangerouslySetInnerHTML={{ __html: displayContent || '' }}
                 />
               </div>
             </div>
