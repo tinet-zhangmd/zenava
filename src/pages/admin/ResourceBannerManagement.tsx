@@ -18,13 +18,17 @@ interface ResourceBannerManagementProps {
   currentPage?: number
   totalPages?: number
   total?: number
+  basePath?: string  // 基础路径，默认为 /ticloudadmin/resource-banners
+  apiPath?: string   // API路径，默认为 /api/resource-center/banners
 }
 
 export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({ 
   banners = [],
   currentPage = 1,
   totalPages = 1,
-  total = 0
+  total = 0,
+  basePath = '/ticloudadmin/resource-banners',
+  apiPath = '/api/resource-center/banners'
 }) => {
   return (
     <div>
@@ -47,7 +51,7 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
 
             {/* 添加按钮 */}
             <a 
-              href="/ticloudadmin/resource-banners/new"
+              href={`${basePath}/new`}
               class="px-3 py-1.5 text-sm bg-blue-600 text-white hover:bg-blue-700 rounded">
               添加新幻灯片
             </a>
@@ -84,7 +88,7 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
                 <td colspan="6" class="px-4 py-12 text-center text-gray-500">
                   <p class="mb-3">暂无Banner</p>
                   <a 
-                    href="/ticloudadmin/resource-banners/new"
+                    href={`${basePath}/new`}
                     class="inline-block px-4 py-2 text-sm bg-blue-600 text-white hover:bg-blue-700 rounded">
                     添加新幻灯片
                   </a>
@@ -146,13 +150,15 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
                     <td class="px-4 py-2">
                       <div class="flex items-center space-x-2">
                         <a 
-                          href={`/ticloudadmin/resource-banners/edit/${banner.id}`}
+                          href={`${basePath}/edit/${banner.id}`}
                           class="text-blue-600 hover:text-blue-800 text-xs">
                           编辑
                         </a>
                         <button 
                           class="delete-banner text-red-600 hover:text-red-800 text-xs"
-                          data-banner-id={banner.id}>
+                          data-banner-id={banner.id}
+                          data-base-path={basePath}
+                          data-api-path={apiPath}>
                           删除
                         </button>
                       </div>
@@ -174,14 +180,14 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
           <div class="flex items-center space-x-2">
             {currentPage > 1 && (
               <a 
-                href={`/ticloudadmin/resource-banners?page=${currentPage - 1}`}
+                href={`${basePath}?page=${currentPage - 1}`}
                 class="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50">
                 上一页
               </a>
             )}
             {currentPage < totalPages && (
               <a 
-                href={`/ticloudadmin/resource-banners?page=${currentPage + 1}`}
+                href={`${basePath}?page=${currentPage + 1}`}
                 class="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50">
                 下一页
               </a>
@@ -229,8 +235,10 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
                   return;
                 }
                 
+                const apiPath = '${apiPath}';
+                
                 try {
-                  const response = await fetch('/api/resource-center/banners/batch', {
+                  const response = await fetch(apiPath + '/batch', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action, ids: selected })
@@ -259,8 +267,12 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
                   return;
                 }
                 
+                const basePath = this.dataset.basePath || '/ticloudadmin/resource-banners';
+                
+                const apiPath = this.dataset.apiPath || '${apiPath}';
+                
                 try {
-                  const response = await fetch(\`/api/resource-center/banners/\${bannerId}\`, {
+                  const response = await fetch(\`\${apiPath}/\${bannerId}\`, {
                     method: 'DELETE'
                   });
                   
@@ -280,6 +292,7 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
 
             // 搜索功能
             const searchInput = document.getElementById('search-banners');
+            const basePath = '${basePath}';
             if (searchInput) {
               let searchTimeout;
               searchInput.addEventListener('input', function() {
@@ -287,9 +300,9 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
                 searchTimeout = setTimeout(() => {
                   const keyword = this.value.trim();
                   if (keyword) {
-                    window.location.href = '/ticloudadmin/resource-banners?search=' + encodeURIComponent(keyword);
+                    window.location.href = basePath + '?search=' + encodeURIComponent(keyword);
                   } else {
-                    window.location.href = '/ticloudadmin/resource-banners';
+                    window.location.href = basePath;
                   }
                 }, 500);
               });

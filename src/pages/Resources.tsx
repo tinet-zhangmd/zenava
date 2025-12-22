@@ -186,9 +186,12 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
               : buttonLink)
           : buttonLink
         
+        // 根据语言获取对应的背景URL
+        const backgroundUrl = banner[`background_url_${language}`] || banner.background_url_zh || banner.background_url || ''
+        
         // 判断背景是图片还是视频
         const isVideo = banner.background_type === 'video' || 
-          (banner.background_url && /\.(mp4|webm|ogg|mov|avi|wmv)$/i.test(banner.background_url))
+          (backgroundUrl && /\.(mp4|webm|ogg|mov|avi|wmv)$/i.test(backgroundUrl))
         
         // 处理文字颜色：如果数据库中是白色或未设置，使用深色默认值（因为右侧背景是白色）
         let textColor = banner.text_color || 'rgba(31, 41, 55, 1)'
@@ -219,7 +222,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
           title: banner.text_title || '',
           description: banner.text_subtitle || '',
           buttonText: banner.text_button || '',
-          image: banner.background_url || '',
+          image: backgroundUrl,
           isVideo: isVideo,
           link: fullLink,
           target: banner.button_target || '_self',

@@ -62,6 +62,7 @@ import ticketApi from './api/ticket.js'
 import { navigation } from './api/navigation.js'
 import resourceCenterApi from './api/resource-center.js'
 import resourceBannerApi from './api/resource-banners.js'
+import categoryBannerApi from './api/category-banners.js'
 
 // 导入其他页面
 import { MarketingScenario } from './pages/MarketingScenario.js'
@@ -104,6 +105,7 @@ app.route('/api/ticket', ticketApi)
 app.route('/api/navigation', navigation)
 app.route('/api/resource-center', resourceCenterApi)
 app.route('/api/resource-center/banners', resourceBannerApi)
+app.route('/api/resource-center/category-banners', categoryBannerApi)
 
 // Resource Center API - 映射到正确的路径
 // 注意：API 文件中的路由是 /categories 和 /contents
@@ -2242,24 +2244,28 @@ app.get('/ticloudadmin/resource-banners', requireAuth(), async (c) => {
     )
     
     return c.html(
-      <AdminLayout title="Banner管理" currentPath="/ticloudadmin/resource-banners">
+      <AdminLayout title="首页Banner管理" currentPath="/ticloudadmin/resource-banners">
         <ResourceBannerManagement 
           banners={banners}
           currentPage={page}
           totalPages={totalPages}
           total={total}
+          basePath="/ticloudadmin/resource-banners"
+          apiPath="/api/resource-center/banners"
         />
       </AdminLayout>
     )
   } catch (error) {
     console.error('获取Banner列表失败:', error)
     return c.html(
-      <AdminLayout title="Banner管理" currentPath="/ticloudadmin/resource-banners">
+      <AdminLayout title="首页Banner管理" currentPath="/ticloudadmin/resource-banners">
         <ResourceBannerManagement 
           banners={[]}
           currentPage={1}
           totalPages={1}
           total={0}
+          basePath="/ticloudadmin/resource-banners"
+          apiPath="/api/resource-center/banners"
         />
       </AdminLayout>
     )
@@ -2270,7 +2276,7 @@ app.get('/ticloudadmin/resource-banners', requireAuth(), async (c) => {
 app.get('/ticloudadmin/resource-banners/new', requireAuth(), (c) => {
   return c.html(
     <AdminLayout title="添加新Banner" currentPath="/ticloudadmin/resource-banners">
-      <BannerEditor mode="create" />
+      <BannerEditor mode="create" basePath="/ticloudadmin/resource-banners" apiPath="/api/resource-center/banners" />
     </AdminLayout>
   )
 })
@@ -2291,7 +2297,108 @@ app.get('/ticloudadmin/resource-banners/edit/:id', requireAuth(), async (c) => {
     
     return c.html(
       <AdminLayout title="编辑Banner" currentPath="/ticloudadmin/resource-banners">
-        <BannerEditor mode="edit" banner={banner} />
+        <BannerEditor mode="edit" banner={banner} basePath="/ticloudadmin/resource-banners" apiPath="/api/resource-center/banners" />
+      </AdminLayout>
+    )
+  } catch (error: any) {
+    console.error('加载编辑页失败:', error)
+    return c.text('加载失败', 500)
+  }
+})
+
+// ==================== Category Banner Routes ====================
+
+// 栏目Banner列表页面（使用新的数据库表和API）
+app.get('/ticloudadmin/category-banners', requireAuth(), async (c) => {
+  try {
+    const page = parseInt(c.req.query('page') || '1')
+    const pageSize = 20
+    const search = c.req.query('search') || ''
+    const offset = (page - 1) * pageSize
+    
+    let whereClauses = []
+    let queryParams: any[] = []
+    
+    if (search) {
+      whereClauses.push('(title LIKE ? OR text_title LIKE ?)')
+      queryParams.push(`%${search}%`, `%${search}%`)
+    }
+    
+    const whereSQL = whereClauses.length > 0 ? `WHERE ${whereClauses.join(' AND ')}` : ''
+    
+    // 查询总数（使用 category_banners 表）
+    const [countResult] = await mysqlQuery<any[]>(
+      `SELECT COUNT(*) as total FROM category_banners ${whereSQL}`,
+      queryParams
+    )
+    const total = countResult.total || 0
+    const totalPages = Math.ceil(total / pageSize)
+    
+    // 查询列表（使用 category_banners 表）
+    const banners = await mysqlQuery<any[]>(
+      `SELECT * FROM category_banners 
+       ${whereSQL}
+       ORDER BY sort_order ASC, id DESC
+       LIMIT ${offset}, ${pageSize}`,
+      queryParams
+    )
+    
+    return c.html(
+      <AdminLayout title="栏目Banner管理" currentPath="/ticloudadmin/category-banners">
+        <ResourceBannerManagement 
+          banners={banners}
+          currentPage={page}
+          totalPages={totalPages}
+          total={total}
+          basePath="/ticloudadmin/category-banners"
+          apiPath="/api/resource-center/category-banners"
+        />
+      </AdminLayout>
+    )
+  } catch (error) {
+    console.error('获取栏目Banner列表失败:', error)
+    return c.html(
+      <AdminLayout title="栏目Banner管理" currentPath="/ticloudadmin/category-banners">
+        <ResourceBannerManagement 
+          banners={[]}
+          currentPage={1}
+          totalPages={1}
+          total={0}
+          basePath="/ticloudadmin/category-banners"
+          apiPath="/api/resource-center/category-banners"
+        />
+      </AdminLayout>
+    )
+  }
+})
+
+// 创建栏目Banner页面
+app.get('/ticloudadmin/category-banners/new', requireAuth(), (c) => {
+  return c.html(
+    <AdminLayout title="添加新栏目Banner" currentPath="/ticloudadmin/category-banners">
+      <BannerEditor mode="create" basePath="/ticloudadmin/category-banners" apiPath="/api/resource-center/category-banners" />
+    </AdminLayout>
+  )
+})
+
+// 编辑栏目Banner页面
+app.get('/ticloudadmin/category-banners/edit/:id', requireAuth(), async (c) => {
+  try {
+    const id = c.req.param('id')
+    
+    // 使用 category_banners 表
+    const [banner] = await mysqlQuery<any[]>(
+      `SELECT * FROM category_banners WHERE id = ?`,
+      [id]
+    )
+    
+    if (!banner) {
+      return c.text('Banner不存在', 404)
+    }
+    
+    return c.html(
+      <AdminLayout title="编辑栏目Banner" currentPath="/ticloudadmin/category-banners">
+        <BannerEditor mode="edit" banner={banner} basePath="/ticloudadmin/category-banners" apiPath="/api/resource-center/category-banners" />
       </AdminLayout>
     )
   } catch (error: any) {

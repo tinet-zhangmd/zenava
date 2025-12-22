@@ -118,9 +118,14 @@ var _hmt = _hmt || [];
                     内容列表
                   </a>
                   <a href="/ticloudadmin/resource-banners"
-                     class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/resource-banners') ? 'active' : ''}`}>
+                     class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/resource-banners') && !currentPath.startsWith('/ticloudadmin/category-banners') ? 'active' : ''}`}>
                     <i class="fas fa-image mr-3"></i>
-                    Banner管理
+                    首页Banner管理
+                  </a>
+                  <a href="/ticloudadmin/category-banners"
+                     class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/category-banners') ? 'active' : ''}`}>
+                    <i class="fas fa-images mr-3"></i>
+                    栏目Banner管理
                   </a>
                 </div>
                 
