@@ -484,6 +484,20 @@ export const BannerEditor: FC<BannerEditorProps> = ({
           (function() {
             const languages = ['zh', 'en', 'jp', 'hk'];
             
+            // 从URL参数中读取category_id并自动选中（仅创建模式且为栏目Banner）
+            const isCategoryBanner = ${JSON.stringify(isCategoryBanner)};
+            const isEdit = ${JSON.stringify(isEdit)};
+            if (isCategoryBanner && !isEdit) {
+              const urlParams = new URLSearchParams(window.location.search);
+              const categoryId = urlParams.get('category_id');
+              if (categoryId) {
+                const categorySelect = document.getElementById('category-id');
+                if (categorySelect) {
+                  categorySelect.value = categoryId;
+                }
+              }
+            }
+            
             // Banner多语言Tab切换逻辑
             document.querySelectorAll('.banner-lang-tab').forEach(tab => {
               tab.addEventListener('click', function() {

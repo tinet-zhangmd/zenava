@@ -2370,10 +2370,30 @@ app.get('/ticloudadmin/category-banners', requireAuth(), async (c) => {
     const page = parseInt(c.req.query('page') || '1')
     const pageSize = 20
     const search = c.req.query('search') || ''
+    const categoryId = c.req.query('category_id') || ''  // 栏目分类ID筛选
     const offset = (page - 1) * pageSize
+    
+    // 获取所有栏目分类
+    let categories = []
+    try {
+      categories = await mysqlQuery<any[]>(
+        `SELECT id, name, link as slug 
+         FROM resource_categories 
+         WHERE is_displayed = 1 
+         ORDER BY sort_order ASC, id ASC`
+      )
+    } catch (error) {
+      console.error('获取栏目分类失败:', error)
+    }
     
     let whereClauses = []
     let queryParams: any[] = []
+    
+    // 根据栏目分类筛选
+    if (categoryId) {
+      whereClauses.push('cb.category_id = ?')
+      queryParams.push(parseInt(categoryId))
+    }
     
     if (search) {
       whereClauses.push('(cb.title LIKE ? OR cb.text_title LIKE ?)')
@@ -2401,6 +2421,21 @@ app.get('/ticloudadmin/category-banners', requireAuth(), async (c) => {
       queryParams
     )
     
+    // 统计每个栏目的Banner数量
+    const categoryStats: Record<number, number> = {}
+    try {
+      const stats = await mysqlQuery<any[]>(
+        `SELECT COALESCE(category_id, 0) as category_id, COUNT(*) as count 
+         FROM category_banners 
+         GROUP BY category_id`
+      )
+      stats.forEach((stat: any) => {
+        categoryStats[stat.category_id] = stat.count || 0
+      })
+    } catch (error) {
+      console.error('获取栏目统计失败:', error)
+    }
+    
     return c.html(
       <AdminLayout title="栏目Banner管理" currentPath="/ticloudadmin/category-banners">
         <ResourceBannerManagement 
@@ -2410,11 +2445,28 @@ app.get('/ticloudadmin/category-banners', requireAuth(), async (c) => {
           total={total}
           basePath="/ticloudadmin/category-banners"
           apiPath="/api/resource-center/category-banners"
+          categories={categories}
+          currentCategoryId={categoryId ? parseInt(categoryId) : null}
+          categoryStats={categoryStats}
         />
       </AdminLayout>
     )
   } catch (error) {
     console.error('获取栏目Banner列表失败:', error)
+    
+    // 获取所有栏目分类（即使出错也要显示tab）
+    let categories = []
+    try {
+      categories = await mysqlQuery<any[]>(
+        `SELECT id, name, link as slug 
+         FROM resource_categories 
+         WHERE is_displayed = 1 
+         ORDER BY sort_order ASC, id ASC`
+      )
+    } catch (error) {
+      console.error('获取栏目分类失败:', error)
+    }
+    
     return c.html(
       <AdminLayout title="栏目Banner管理" currentPath="/ticloudadmin/category-banners">
         <ResourceBannerManagement 
@@ -2424,6 +2476,9 @@ app.get('/ticloudadmin/category-banners', requireAuth(), async (c) => {
           total={0}
           basePath="/ticloudadmin/category-banners"
           apiPath="/api/resource-center/category-banners"
+          categories={categories}
+          currentCategoryId={null}
+          categoryStats={{}}
         />
       </AdminLayout>
     )

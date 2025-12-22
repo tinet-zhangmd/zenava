@@ -16,6 +16,12 @@ interface Banner {
   updated_at: string
 }
 
+interface Category {
+  id: number
+  name: string
+  slug: string
+}
+
 interface ResourceBannerManagementProps {
   banners?: Banner[]
   currentPage?: number
@@ -23,6 +29,9 @@ interface ResourceBannerManagementProps {
   total?: number
   basePath?: string  // 基础路径，默认为 /ticloudadmin/resource-banners
   apiPath?: string   // API路径，默认为 /api/resource-center/banners
+  categories?: Category[]  // 栏目分类列表（仅栏目Banner使用）
+  currentCategoryId?: number | null  // 当前选中的栏目分类ID
+  categoryStats?: Record<number, number>  // 每个栏目的Banner数量统计
 }
 
 export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({ 
@@ -31,11 +40,72 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
   totalPages = 1,
   total = 0,
   basePath = '/ticloudadmin/resource-banners',
-  apiPath = '/api/resource-center/banners'
+  apiPath = '/api/resource-center/banners',
+  categories = [],
+  currentCategoryId = null,
+  categoryStats = {}
 }) => {
   const isCategoryBanner = apiPath.includes('category-banners')  // 判断是否为栏目Banner
+  
+  // 构建新增Banner的URL，如果当前有选中的栏目分类，则传递category_id参数
+  const newBannerUrl = currentCategoryId 
+    ? `${basePath}/new?category_id=${currentCategoryId}`
+    : `${basePath}/new`
+  
   return (
     <div>
+      {/* 栏目分类Tab页（仅栏目Banner显示） */}
+      {isCategoryBanner && categories.length > 0 && (
+        <div class="bg-white border-b mb-4">
+          <div class="px-4 py-2">
+            <div class="flex items-center space-x-1 overflow-x-auto">
+              {/* 全部Tab */}
+              <a 
+                href={basePath}
+                class={`px-4 py-2 text-sm font-medium rounded-t-lg transition-colors whitespace-nowrap ${
+                  currentCategoryId === null
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}>
+                全部
+                {categoryStats[0] !== undefined && (
+                  <span class="ml-1 px-1.5 py-0.5 text-xs bg-white/20 rounded">
+                    {categoryStats[0]}
+                  </span>
+                )}
+              </a>
+              
+              {/* 各栏目分类Tab */}
+              {categories.map((category) => {
+                const count = categoryStats[category.id] || 0
+                const isActive = currentCategoryId === category.id
+                const tabUrl = `${basePath}?category_id=${category.id}`
+                
+                return (
+                  <a 
+                    key={category.id}
+                    href={tabUrl}
+                    class={`px-4 py-2 text-sm font-medium rounded-t-lg transition-colors whitespace-nowrap ${
+                      isActive
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}>
+                    {category.name}
+                    {count > 0 && (
+                      <span class={`ml-1 px-1.5 py-0.5 text-xs rounded ${
+                        isActive ? 'bg-white/20' : 'bg-gray-200'
+                      }`}>
+                        {count}
+                      </span>
+                    )}
+                  </a>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+      
       {/* 操作栏 */}
       <div class="bg-white border-b mb-4">
         <div class="px-4 py-3 flex justify-between items-center">
@@ -55,9 +125,9 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
 
             {/* 添加按钮 */}
             <a 
-              href={`${basePath}/new`}
+              href={newBannerUrl}
               class="px-3 py-1.5 text-sm bg-blue-600 text-white hover:bg-blue-700 rounded">
-              添加新幻灯片
+              {currentCategoryId ? '为该栏目添加Banner' : '添加新幻灯片'}
             </a>
           </div>
 
@@ -199,20 +269,27 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
             共 {total} 条记录，第 {currentPage} / {totalPages} 页
           </div>
           <div class="flex items-center space-x-2">
-            {currentPage > 1 && (
-              <a 
-                href={`${basePath}?page=${currentPage - 1}`}
-                class="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50">
-                上一页
-              </a>
-            )}
-            {currentPage < totalPages && (
-              <a 
-                href={`${basePath}?page=${currentPage + 1}`}
-                class="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50">
-                下一页
-              </a>
-            )}
+            {(() => {
+              const categoryParam = currentCategoryId ? `&category_id=${currentCategoryId}` : ''
+              return (
+                <>
+                  {currentPage > 1 && (
+                    <a 
+                      href={`${basePath}?page=${currentPage - 1}${categoryParam}`}
+                      class="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50">
+                      上一页
+                    </a>
+                  )}
+                  {currentPage < totalPages && (
+                    <a 
+                      href={`${basePath}?page=${currentPage + 1}${categoryParam}`}
+                      class="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50">
+                      下一页
+                    </a>
+                  )}
+                </>
+              )
+            })()}
           </div>
         </div>
       )}
@@ -314,14 +391,24 @@ export const ResourceBannerManagement: FC<ResourceBannerManagementProps> = ({
             // 搜索功能
             const searchInput = document.getElementById('search-banners');
             const basePath = '${basePath}';
+            const currentCategoryId = ${currentCategoryId !== null ? currentCategoryId : 'null'};
             if (searchInput) {
               let searchTimeout;
               searchInput.addEventListener('input', function() {
                 clearTimeout(searchTimeout);
                 searchTimeout = setTimeout(() => {
                   const keyword = this.value.trim();
+                  let url = basePath + '?';
+                  const params = [];
                   if (keyword) {
-                    window.location.href = basePath + '?search=' + encodeURIComponent(keyword);
+                    params.push('search=' + encodeURIComponent(keyword));
+                  }
+                  if (currentCategoryId) {
+                    params.push('category_id=' + currentCategoryId);
+                  }
+                  
+                  if (params.length > 0) {
+                    window.location.href = url + params.join('&');
                   } else {
                     window.location.href = basePath;
                   }
