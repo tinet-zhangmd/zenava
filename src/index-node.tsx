@@ -2841,11 +2841,17 @@ app.post('/api/admin/upload/file', requireAuth(), async (c) => {
 
     // 验证文件类型
     if (category === 'videos') {
-      const allowedTypes = ['video/mp4', 'video/avi', 'video/quicktime', 'video/x-ms-wmv']
+      // 支持视频和音频格式
+      const allowedTypes = [
+        // 视频格式
+        'video/mp4', 'video/avi', 'video/quicktime', 'video/x-ms-wmv', 'video/webm',
+        // 音频格式
+        'audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/ogg', 'audio/aac', 'audio/mp4', 'audio/webm', 'audio/x-m4a'
+      ]
       if (!allowedTypes.includes(file.type)) {
         return c.json({
           success: false,
-          error: '只支持 MP4、AVI、MOV、WMV 格式的视频'
+          error: '只支持以下格式：视频：MP4、AVI、MOV、WMV、WebM；音频：MP3、WAV、OGG、AAC、M4A'
         }, 400)
       }
     } else if (category === 'attachments') {
