@@ -30,6 +30,7 @@ interface Banner {
   text_position?: string
   text_color?: string
   subtitle_color?: string
+  background_color?: string
   image_url?: string
   background_type?: string
   background_url?: string
@@ -342,6 +343,23 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                     placeholder="rgba(255,255,255,0.8)"
                     value={banner?.subtitle_color || 'rgba(255,255,255,0.8)'}
                   />
+                </div>
+              </div>
+
+              {/* 背景颜色 */}
+              <div class="flex items-start mb-6">
+                <label for="background-color" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
+                  背景颜色
+                </label>
+                <div class="flex-1">
+                  <input 
+                    type="text" 
+                    id="background-color" 
+                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    placeholder="rgba(100,56,255,1) 或 #6438FF"
+                    value={banner?.background_color || ''}
+                  />
+                  <p class="text-xs text-gray-500 mt-1">格式: rgba(R,G,B,透明度) 或 #RRGGBB，留空则使用默认背景</p>
                 </div>
               </div>
 
@@ -968,6 +986,7 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                   
                   formData.text_color = document.getElementById('text-color').value;
                   formData.subtitle_color = document.getElementById('subtitle-color').value;
+                  formData.background_color = document.getElementById('background-color').value || null;
                   formData.background_type = document.getElementById('background-type-zh').value; // 使用第一个语言的背景类型
                   formData.button_link = document.getElementById('button-link').value;
                   formData.button_target = document.getElementById('button-target').value;
