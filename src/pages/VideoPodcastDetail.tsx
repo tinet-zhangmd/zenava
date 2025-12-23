@@ -331,7 +331,7 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
               </div>
 
               {/* Content Description Section */}
-              <div class="resource-content">
+              <div class="resource-content max-w-4xl mx-auto">
                 <style dangerouslySetInnerHTML={{
                   __html: `
                     .resource-content {

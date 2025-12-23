@@ -330,13 +330,250 @@ export const ContentEditor: FC<ContentEditorProps> = ({
           const languages = ['zh', 'en', 'jp', 'hk'];
           const quillEditors = {};
           
+          // 图片上传处理函数（将 base64 转换为文件并上传）
+          async function uploadImageToServer(imageDataUrl) {
+            try {
+              // 将 base64 转换为 Blob
+              const response = await fetch(imageDataUrl);
+              const blob = await response.blob();
+              
+              // 创建 File 对象
+              const file = new File([blob], 'image.png', { type: blob.type });
+              
+              // 上传到服务器
+              const formData = new FormData();
+              formData.append('file', file);
+              formData.append('category', 'contents'); // 富文本中的图片使用 contents 分类
+              
+              const uploadResponse = await fetch('/api/admin/upload/image', {
+                method: 'POST',
+                body: formData
+              });
+              
+              if (!uploadResponse.ok) {
+                throw new Error('上传失败');
+              }
+              
+              const result = await uploadResponse.json();
+              
+              if (result.success && result.data && result.data.url) {
+                return result.data.url;
+              } else {
+                throw new Error(result.error || '上传失败');
+              }
+            } catch (error) {
+              console.error('图片上传错误:', error);
+              throw error;
+            }
+          }
+          
           // 初始化编辑器
           languages.forEach(lang => {
             quillEditors[lang] = new Quill('#quill-editor-' + lang, {
             theme: 'snow',
               placeholder: '在这里撰写正文内容...',
-              modules: { toolbar: [['bold', 'italic', 'underline', 'strike'], [{header: [1,2,3,false]}], [{list:'ordered'}, {list:'bullet'}], ['link', 'image', 'video'], ['clean']] }
+              modules: { 
+                toolbar: [
+                  ['bold', 'italic', 'underline', 'strike'], 
+                  [{header: [1,2,3,false]}], 
+                  [{list:'ordered'}, {list:'bullet'}], 
+                  ['link', 'image', 'video'], 
+                  ['clean']
+                ]
+              }
             });
+            
+            // 配置图片上传处理器
+            const toolbar = quillEditors[lang].getModule('toolbar');
+            toolbar.addHandler('image', async function() {
+              const input = document.createElement('input');
+              input.setAttribute('type', 'file');
+              input.setAttribute('accept', 'image/*');
+              input.click();
+              
+              input.onchange = async function() {
+                const file = this.files[0];
+                if (!file) return;
+                
+                // 验证文件类型
+                const imageTypeRegex = new RegExp('^image/(png|jpeg|jpg|webp)$');
+                if (!imageTypeRegex.test(file.type)) {
+                  alert('只支持 PNG、JPG、WebP 格式的图片');
+                  return;
+                }
+                
+                // 验证文件大小（30MB）
+                const maxSize = 30 * 1024 * 1024;
+                if (file.size > maxSize) {
+                  alert('图片大小不能超过 30MB');
+                  return;
+                }
+                
+                // 获取当前光标位置
+                const range = quillEditors[lang].getSelection(true);
+                
+                // 显示上传中提示
+                quillEditors[lang].insertText(range.index, '上传中...', 'user');
+                quillEditors[lang].setSelection(range.index + 4);
+                
+                try {
+                  // 上传图片
+                  const formData = new FormData();
+                  formData.append('file', file);
+                  formData.append('category', 'contents');
+                  
+                  const response = await fetch('/api/admin/upload/image', {
+                    method: 'POST',
+                    body: formData
+                  });
+                  
+                  if (!response.ok) {
+                    throw new Error('上传失败');
+                  }
+                  
+                  const result = await response.json();
+                  
+                  if (result.success && result.data && result.data.url) {
+                    // 删除"上传中..."提示
+                    quillEditors[lang].deleteText(range.index, 4);
+                    
+                    // 插入图片
+                    quillEditors[lang].insertEmbed(range.index, 'image', result.data.url, 'user');
+                    quillEditors[lang].setSelection(range.index + 1);
+                  } else {
+                    throw new Error(result.error || '上传失败');
+                  }
+                } catch (error) {
+                  console.error('图片上传错误:', error);
+                  // 删除"上传中..."提示
+                  quillEditors[lang].deleteText(range.index, 4);
+                  alert('图片上传失败: ' + error.message);
+                }
+              };
+            });
+            
+            // 处理粘贴的图片（将 base64 转换为服务器 URL）
+            quillEditors[lang].root.addEventListener('paste', async function(e) {
+              const items = e.clipboardData.items;
+              
+              for (let i = 0; i < items.length; i++) {
+                if (items[i].type.indexOf('image') !== -1) {
+                  e.preventDefault();
+                  
+                  const blob = items[i].getAsFile();
+                  const reader = new FileReader();
+                  
+                  reader.onload = async function(event) {
+                    const imageDataUrl = event.target.result;
+                    
+                    // 获取当前光标位置
+                    const range = quillEditors[lang].getSelection(true);
+                    
+                    // 显示上传中提示
+                    quillEditors[lang].insertText(range.index, '上传中...', 'user');
+                    quillEditors[lang].setSelection(range.index + 4);
+                    
+                    try {
+                      // 将 base64 转换为文件并上传
+                      const file = new File([blob], 'pasted-image.png', { type: blob.type });
+                      const formData = new FormData();
+                      formData.append('file', file);
+                      formData.append('category', 'contents');
+                      
+                      const response = await fetch('/api/admin/upload/image', {
+                        method: 'POST',
+                        body: formData
+                      });
+                      
+                      if (!response.ok) {
+                        throw new Error('上传失败');
+                      }
+                      
+                      const result = await response.json();
+                      
+                      if (result.success && result.data && result.data.url) {
+                        // 删除"上传中..."提示
+                        quillEditors[lang].deleteText(range.index, 4);
+                        
+                        // 插入图片
+                        quillEditors[lang].insertEmbed(range.index, 'image', result.data.url, 'user');
+                        quillEditors[lang].setSelection(range.index + 1);
+                      } else {
+                        throw new Error(result.error || '上传失败');
+                      }
+                    } catch (error) {
+                      console.error('粘贴图片上传错误:', error);
+                      // 删除"上传中..."提示
+                      quillEditors[lang].deleteText(range.index, 4);
+                      alert('图片上传失败: ' + error.message);
+                    }
+                  };
+                  
+                  reader.readAsDataURL(blob);
+                  break;
+                }
+              }
+            });
+            
+            // 处理已存在的 base64 图片（在保存时转换）
+            // 这个函数会在提交表单时调用
+            quillEditors[lang].convertBase64Images = async function() {
+              const html = quillEditors[lang].root.innerHTML;
+              
+              // 匹配 base64 图片（分别处理双引号和单引号，避免转义问题）
+              const matches = [];
+              
+              // 匹配双引号的 base64 图片: src="data:image/..."
+              const doubleQuoteRegex = new RegExp('<img([^>]+)src="(data:image/[^"]+)"([^>]*)>', 'gi');
+              let match;
+              while ((match = doubleQuoteRegex.exec(html)) !== null) {
+                matches.push({
+                  before: match[1],
+                  quote: '"',
+                  base64: match[2],
+                  after: match[3],
+                  fullMatch: match[0],
+                  index: match.index
+                });
+              }
+              
+              // 匹配单引号的 base64 图片: src='data:image/...'
+              const singleQuoteRegex = new RegExp("<img([^>]+)src='(data:image/[^']+)'([^>]*)>", 'gi');
+              while ((match = singleQuoteRegex.exec(html)) !== null) {
+                matches.push({
+                  before: match[1],
+                  quote: "'",
+                  base64: match[2],
+                  after: match[3],
+                  fullMatch: match[0],
+                  index: match.index
+                });
+              }
+              
+              // 如果有 base64 图片，逐个上传并替换
+              if (matches.length > 0) {
+                let updatedHtml = html;
+                // 从后往前替换，避免索引变化问题
+                for (let i = matches.length - 1; i >= 0; i--) {
+                  const imgMatch = matches[i];
+                  try {
+                    const imageUrl = await uploadImageToServer(imgMatch.base64);
+                    // 构建新的 img 标签，保持原有属性
+                    const newImgTag = '<img' + imgMatch.before + 'src=' + imgMatch.quote + imageUrl + imgMatch.quote + imgMatch.after + '>';
+                    // 替换（从后往前，避免索引问题）
+                    updatedHtml = updatedHtml.substring(0, imgMatch.index) + 
+                                 newImgTag + 
+                                 updatedHtml.substring(imgMatch.index + imgMatch.fullMatch.length);
+                  } catch (error) {
+                    console.error('转换 base64 图片失败:', error);
+                    // 如果上传失败，保留原 base64（但会记录错误）
+                  }
+                }
+                
+                // 更新编辑器内容
+                quillEditors[lang].root.innerHTML = updatedHtml;
+              }
+            };
           });
           
           // Tab 切换逻辑
@@ -351,7 +588,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
               this.classList.remove('text-blue-100', 'hover:bg-blue-500');
               
               document.querySelectorAll('.lang-content').forEach(c => c.classList.add('hidden'));
-              document.querySelector(\`.lang-content[data-lang="\${lang}"]\`).classList.remove('hidden');
+              document.querySelector('.lang-content[data-lang="' + lang + '"]').classList.remove('hidden');
             });
           });
           
@@ -430,12 +667,21 @@ export const ContentEditor: FC<ContentEditorProps> = ({
               for (const lang of languages) {
                 formData['title_' + lang] = document.getElementById('content-title-' + lang).value;
                 
-                // 获取编辑器内容
+                // 获取编辑器内容（先转换 base64 图片为服务器 URL）
                 if (quillEditors[lang]) {
+                  // 如果编辑器有 convertBase64Images 方法，先转换 base64 图片
+                  if (typeof quillEditors[lang].convertBase64Images === 'function') {
+                    try {
+                      await quillEditors[lang].convertBase64Images();
+                    } catch (error) {
+                      console.error('转换 base64 图片失败:', error);
+                      // 继续执行，使用原始内容
+                    }
+                  }
                   formData['content_' + lang] = quillEditors[lang].root.innerHTML;
                 } else {
                   formData['content_' + lang] = '';
-              }
+                }
 
                 formData['meta_title_' + lang] = document.getElementById('meta-title-' + lang).value;
                 formData['meta_description_' + lang] = document.getElementById('meta-desc-' + lang).value;
@@ -464,7 +710,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
               console.log('📦 准备发送到后端的数据:', formData);
 
               const isEdit = !!formData.id;
-              const res = await fetch(isEdit ? \`/api/admin/resource-contents/\${formData.id}\` : '/api/admin/resource-contents', {
+              const res = await fetch(isEdit ? '/api/admin/resource-contents/' + formData.id : '/api/admin/resource-contents', {
                 method: isEdit ? 'PUT' : 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)

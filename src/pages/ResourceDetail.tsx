@@ -40,6 +40,22 @@ interface Content {
   content_en?: string
   content_jp?: string
   content_hk?: string
+  cover_image_zh?: string
+  cover_image_en?: string
+  cover_image_jp?: string
+  cover_image_hk?: string
+  meta_title_zh?: string
+  meta_title_en?: string
+  meta_title_jp?: string
+  meta_title_hk?: string
+  meta_description_zh?: string
+  meta_description_en?: string
+  meta_description_jp?: string
+  meta_description_hk?: string
+  meta_keywords_zh?: string
+  meta_keywords_en?: string
+  meta_keywords_jp?: string
+  meta_keywords_hk?: string
 }
 
 interface RecommendedContent {
@@ -359,7 +375,7 @@ export const ResourceDetailPage: FC<ResourceDetailPageProps> = ({
             {/* Right Column: Content Only */}
             <div class="lg:col-span-2">
               {/* Content */}
-              <div class="max-w-none">
+              <div class="max-w-4xl mx-auto">
                 <style dangerouslySetInnerHTML={{
                   __html: `
                     .resource-content {

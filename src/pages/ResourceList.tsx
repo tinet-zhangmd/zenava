@@ -298,6 +298,29 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
         </div>
       </section>
 
+      {/* Breadcrumb Navigation */}
+      <section class="bg-white border-b border-gray-200">
+        <div class="site-container px-4 sm:px-6 lg:px-8 py-4">
+          <nav class="flex items-center space-x-2 text-sm">
+            <a href={language === 'zh' ? '/' : `/${language}`} class="text-gray-500 hover:text-[#6438FF] transition-colors">
+              {language === 'zh' ? '首页' : language === 'en' ? 'Home' : language === 'jp' ? 'ホーム' : '首頁'}
+            </a>
+            <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+            <a href={language === 'zh' ? '/resources' : `/${language}/resources`} class="text-gray-500 hover:text-[#6438FF] transition-colors">
+              {language === 'zh' ? '资源中心' : language === 'en' ? 'Resource Center' : language === 'jp' ? 'リソースセンター' : '資源中心'}
+            </a>
+            {category && (
+              <>
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                <span class="text-gray-900 font-medium">
+                  {category.name}
+                </span>
+              </>
+            )}
+          </nav>
+        </div>
+      </section>
+
       {/* Hero Section */}
       <section class="relative bg-white overflow-hidden py-12 md:py-16 lg:py-20">
         <div class="site-container px-4 sm:px-6 lg:px-8">
