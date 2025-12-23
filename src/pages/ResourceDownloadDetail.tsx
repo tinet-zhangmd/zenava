@@ -39,6 +39,22 @@ interface Content {
   content_en?: string
   content_jp?: string
   content_hk?: string
+  cover_image_zh?: string
+  cover_image_en?: string
+  cover_image_jp?: string
+  cover_image_hk?: string
+  meta_title_zh?: string
+  meta_title_en?: string
+  meta_title_jp?: string
+  meta_title_hk?: string
+  meta_description_zh?: string
+  meta_description_en?: string
+  meta_description_jp?: string
+  meta_description_hk?: string
+  meta_keywords_zh?: string
+  meta_keywords_en?: string
+  meta_keywords_jp?: string
+  meta_keywords_hk?: string
 }
 
 interface RecommendedContent {
@@ -129,9 +145,112 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
     return ''
   }
   
+  // 清理和修复 HTML 内容中的图片标签
+  // 特别处理 base64 图片（可能很长）
+  const cleanImageTags = (html: string): string => {
+    if (!html) return ''
+    
+    // 使用更精确的方法：先找到所有 <img 标签的开始位置
+    let result = html
+    let searchIndex = 0
+    
+    while (true) {
+      // 查找 <img 标签的开始位置（不区分大小写）
+      const imgStartIndex = result.indexOf('<img', searchIndex)
+      if (imgStartIndex === -1) break
+      
+      // 从 <img 开始查找第一个 > 的位置
+      const tagEndIndex = result.indexOf('>', imgStartIndex)
+      if (tagEndIndex === -1) {
+        // 如果没有找到 >，说明标签格式有问题，跳过
+        searchIndex = imgStartIndex + 4
+        continue
+      }
+      
+      // 提取完整的标签内容（包括 <img 和 >）
+      const fullTag = result.substring(imgStartIndex, tagEndIndex + 1)
+      
+      // 提取标签属性部分（不包括 <img 和 >）
+      const tagContent = fullTag.substring(4, fullTag.length - 1).trim()
+      
+      // 提取 src 属性值
+      let src: string | null = null
+      
+      // 1. 优先处理 src="..." 格式（双引号）- 对于 base64，需要匹配到引号结束
+      const doubleQuoteStart = tagContent.indexOf('src="')
+      if (doubleQuoteStart !== -1) {
+        const srcValueStart = doubleQuoteStart + 5 // "src=\"" 的长度
+        const srcValueEnd = tagContent.indexOf('"', srcValueStart)
+        if (srcValueEnd !== -1) {
+          src = tagContent.substring(srcValueStart, srcValueEnd)
+        }
+      }
+      
+      // 2. 如果没找到，尝试 src='...' 格式（单引号）
+      if (!src) {
+        const singleQuoteStart = tagContent.indexOf("src='")
+        if (singleQuoteStart !== -1) {
+          const srcValueStart = singleQuoteStart + 5 // "src='" 的长度
+          const srcValueEnd = tagContent.indexOf("'", srcValueStart)
+          if (srcValueEnd !== -1) {
+            src = tagContent.substring(srcValueStart, srcValueEnd)
+          }
+        }
+      }
+      
+      // 3. 如果还没找到，尝试 src=... 格式（无引号，取到空格或 > 之前）
+      if (!src) {
+        const noQuoteMatch = tagContent.match(/src\s*=\s*([^\s>]+)/i)
+        if (noQuoteMatch && noQuoteMatch[1]) {
+          src = noQuoteMatch[1].trim()
+          // 移除可能包含的引号
+          src = src.replace(/^["']+|["']+$/g, '')
+        }
+      }
+      
+      // 如果找到了有效的 src，重建标签
+      if (src && src.length > 0) {
+        // 清理 src：确保不包含标签字符
+        src = src
+          .split('>')[0]  // 移除 > 之后的内容
+          .split('<')[0]  // 移除 < 之后的内容
+          .trim()
+        
+        // 验证 src 是否有效
+        if (src && src.length > 0 && !src.includes('<') && !src.includes('>')) {
+          // 提取其他属性（排除 src）
+          let otherAttributes = tagContent
+            .replace(/src\s*=\s*"[^"]*"/gi, '') // 移除带双引号的 src
+            .replace(/src\s*=\s*'[^']*'/gi, '') // 移除带单引号的 src
+            .replace(/src\s*=\s*[^\s>]+/gi, '') // 移除不带引号的 src
+            .replace(/\s+/g, ' ') // 规范化空格
+            .trim()
+          
+          // 构建新的图片标签
+          const newTag = `<img src="${src}"${otherAttributes ? ' ' + otherAttributes : ''} alt="">`
+          
+          // 替换原标签
+          result = result.substring(0, imgStartIndex) + newTag + result.substring(tagEndIndex + 1)
+          
+          // 更新搜索索引（从新标签之后开始）
+          searchIndex = imgStartIndex + newTag.length
+        } else {
+          // src 无效，跳过这个标签
+          searchIndex = tagEndIndex + 1
+        }
+      } else {
+        // 没有找到 src，跳过这个标签
+        searchIndex = tagEndIndex + 1
+      }
+    }
+    
+    return result
+  }
+  
   // 获取处理后的内容字段
   const displayTitle = getContentField('title')
-  const displayContent = getContentField('content')
+  const rawContent = getContentField('content')
+  const displayContent = cleanImageTags(rawContent) // 清理图片标签
   const displayCoverImage = getContentField('cover_image')
   const displayMetaTitle = getContentField('meta_title')
   const displayMetaDescription = getContentField('meta_description')
@@ -205,11 +324,18 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
         </div>
       </section>
 
-      {/* Header Section - 白色背景，左右布局 */}
-      <section class="bg-white py-8 md:py-12 lg:py-16">
-        <div class="site-container px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb Navigation */}
-          <nav class="flex items-center space-x-2 text-sm mb-6 md:mb-8">
+      {/* Breadcrumb Navigation */}
+      <section class="bg-white border-b border-gray-200">
+        <div class="site-container px-4 sm:px-6 lg:px-8 py-4">
+          <nav class="flex items-center space-x-2 text-sm">
+            <a href={language === 'zh' ? '/' : `/${language}`} class="text-gray-500 hover:text-[#6438FF] transition-colors">
+              {language === 'zh' ? '首页' : language === 'en' ? 'Home' : language === 'jp' ? 'ホーム' : '首頁'}
+            </a>
+            <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+            <a href={language === 'zh' ? '/resources' : `/${language}/resources`} class="text-gray-500 hover:text-[#6438FF] transition-colors">
+              {language === 'zh' ? '资源中心' : language === 'en' ? 'Resource Center' : language === 'jp' ? 'リソースセンター' : '資源中心'}
+            </a>
+            <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
             <a href={`${language === 'zh' ? '/resources' : `/${language}/resources`}/${category.slug}`} class="text-gray-500 hover:text-[#6438FF] transition-colors">
               {category.name}
             </a>
@@ -218,6 +344,12 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
               {displayTitle}
             </span>
           </nav>
+        </div>
+      </section>
+
+      {/* Header Section - 白色背景，左右布局 */}
+      <section class="bg-white py-8 md:py-12 lg:py-16">
+        <div class="site-container px-4 sm:px-6 lg:px-8">
           
           {/* Header Content - 左右布局 */}
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start">
@@ -264,90 +396,80 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
         </div>
       </section>
 
-      {/* Content Section - 两列布局：左列内容，右列空白 */}
+      {/* Content Section - 正文居中 */}
       <section class="bg-white py-8 md:py-12 lg:py-16">
         <div class="site-container px-4 sm:px-6 lg:px-8">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-            {/* Left Column: Content */}
-            <div>
-              <div class="max-w-none">
-                <style dangerouslySetInnerHTML={{
-                  __html: `
-                    .resource-content {
-                      line-height: 1.8;
-                      color: #374151;
-                    }
-                    .resource-content h2 {
-                      font-size: 1.875rem;
-                      font-weight: 700;
-                      color: #111827;
-                      margin-top: 2rem;
-                      margin-bottom: 1rem;
-                    }
-                    .resource-content h3 {
-                      font-size: 1.5rem;
-                      font-weight: 600;
-                      color: #1f2937;
-                      margin-top: 1.5rem;
-                      margin-bottom: 0.75rem;
-                    }
-                    .resource-content p {
-                      margin-bottom: 1.5rem;
-                      font-size: 1rem;
-                    }
-                    .resource-content ul {
-                      margin-bottom: 1.5rem;
-                      padding-left: 1.5rem;
-                    }
-                    .resource-content li {
-                      margin-bottom: 0.75rem;
-                      list-style-type: disc;
-                    }
-                    .resource-content img {
-                      max-width: 100%;
-                      height: auto;
-                      margin: 2rem auto;
-                      display: block;
-                      border-radius: 0.5rem;
-                    }
-                    .resource-content ol {
-                      margin-bottom: 1.5rem;
-                      padding-left: 1.5rem;
-                    }
-                    .resource-content ol li {
-                      list-style-type: decimal;
-                    }
-                    .resource-content blockquote {
-                      border-left: 4px solid #6438FF;
-                      padding-left: 1rem;
-                      margin: 1.5rem 0;
-                      color: #4b5563;
-                      font-style: italic;
-                    }
-                    @media (max-width: 768px) {
-                      .resource-content h2 {
-                        font-size: 1.5rem;
-                      }
-                      .resource-content h3 {
-                        font-size: 1.25rem;
-                      }
-                      .resource-content img {
-                        max-width: 100%;
-                      }
-                    }
-                  `
-                }} />
-                <div 
-                  class="resource-content"
-                  dangerouslySetInnerHTML={{ __html: displayContent || '' }}
-                />
-              </div>
-            </div>
-            
-            {/* Right Column: Empty/Reserved for Ads or Supplementary Content */}
-            <div class="hidden lg:block">
-              {/* 右侧栏保留为空，可用于补充内容或广告 */}
-            </div>
+          <div class="max-w-4xl mx-auto">
+            <style dangerouslySetInnerHTML={{
+              __html: `
+                .resource-content {
+                  line-height: 1.8;
+                  color: #374151;
+                }
+                .resource-content h2 {
+                  font-size: 1.875rem;
+                  font-weight: 700;
+                  color: #111827;
+                  margin-top: 2rem;
+                  margin-bottom: 1rem;
+                }
+                .resource-content h3 {
+                  font-size: 1.5rem;
+                  font-weight: 600;
+                  color: #1f2937;
+                  margin-top: 1.5rem;
+                  margin-bottom: 0.75rem;
+                }
+                .resource-content p {
+                  margin-bottom: 1.5rem;
+                  font-size: 1rem;
+                }
+                .resource-content ul {
+                  margin-bottom: 1.5rem;
+                  padding-left: 1.5rem;
+                }
+                .resource-content li {
+                  margin-bottom: 0.75rem;
+                  list-style-type: disc;
+                }
+                .resource-content img {
+                  max-width: 100%;
+                  height: auto;
+                  margin: 2rem auto;
+                  display: block;
+                  border-radius: 0.5rem;
+                }
+                .resource-content ol {
+                  margin-bottom: 1.5rem;
+                  padding-left: 1.5rem;
+                }
+                .resource-content ol li {
+                  list-style-type: decimal;
+                }
+                .resource-content blockquote {
+                  border-left: 4px solid #6438FF;
+                  padding-left: 1rem;
+                  margin: 1.5rem 0;
+                  color: #4b5563;
+                  font-style: italic;
+                }
+                @media (max-width: 768px) {
+                  .resource-content h2 {
+                    font-size: 1.5rem;
+                  }
+                  .resource-content h3 {
+                    font-size: 1.25rem;
+                  }
+                  .resource-content img {
+                    max-width: 100%;
+                  }
+                }
+              `
+            }} />
+            <div 
+              class="resource-content"
+              dangerouslySetInnerHTML={{ __html: displayContent || '' }}
+            />
           </div>
         </div>
       </section>
