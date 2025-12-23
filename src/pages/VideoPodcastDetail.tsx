@@ -57,6 +57,11 @@ interface Content {
   meta_keywords_en?: string
   meta_keywords_jp?: string
   meta_keywords_hk?: string
+  // 视频简介多语言字段
+  video_description_zh?: string
+  video_description_en?: string
+  video_description_jp?: string
+  video_description_hk?: string
 }
 
 interface RecommendedContent {
@@ -101,7 +106,7 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
   }
   
   // 根据语言获取内容字段（双重保险，确保使用正确的多语言数据）
-  const getContentField = (field: 'title' | 'content' | 'cover_image' | 'meta_title' | 'meta_description' | 'meta_keywords') => {
+  const getContentField = (field: 'title' | 'content' | 'cover_image' | 'meta_title' | 'meta_description' | 'meta_keywords' | 'video_description') => {
     if (field === 'title') {
       if (language === 'zh') return content.title_zh || content.title || ''
       if (language === 'en') return content.title_en || content.title_zh || content.title || ''
@@ -144,6 +149,13 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
       if (language === 'hk') return content.meta_keywords_hk || content.meta_keywords_zh || content.meta_keywords || ''
       return content.meta_keywords || ''
     }
+    if (field === 'video_description') {
+      if (language === 'zh') return content.video_description_zh || content.video_description || ''
+      if (language === 'en') return content.video_description_en || content.video_description_zh || content.video_description || ''
+      if (language === 'jp') return content.video_description_jp || content.video_description_zh || content.video_description || ''
+      if (language === 'hk') return content.video_description_hk || content.video_description_zh || content.video_description || ''
+      return content.video_description || ''
+    }
     return ''
   }
   
@@ -153,6 +165,7 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
   const displayCoverImage = getContentField('cover_image')
   const displayMetaTitle = getContentField('meta_title')
   const displayMetaDescription = getContentField('meta_description')
+  const displayVideoDescription = getContentField('video_description')
   
   // 根据 category_template 确定内容类型
   const contentType: 'video' | 'podcast' = category.category_template === 'list_video' ? 'video' : 'podcast'
@@ -162,7 +175,7 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
     "@context": "https://schema.org",
     "@type": "VideoObject",
     "name": displayTitle,
-    "description": displayMetaDescription || content.video_description || displayContent?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
+    "description": displayMetaDescription || displayVideoDescription || displayContent?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
     "thumbnailUrl": displayCoverImage || '',
     "uploadDate": content.published_at,
     "contentUrl": content.video_file || '',
@@ -174,7 +187,7 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
     "@context": "https://schema.org",
     "@type": "PodcastEpisode",
     "name": displayTitle,
-    "description": displayMetaDescription || content.video_description || displayContent?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
+    "description": displayMetaDescription || displayVideoDescription || displayContent?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
     "image": displayCoverImage || '',
     "datePublished": content.published_at,
     "author": {
@@ -402,12 +415,12 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
               {/* Video Description Section (Black Card) */}
               <div class="bg-black rounded-xl p-6 md:p-8 text-white">
                 <h3 class="text-xl md:text-2xl font-bold mb-4 whitespace-pre-line">
-                  {content.video_description || (
+                  {displayVideoDescription || (
                     language === 'zh' ? '上传、编辑和分享您的视频 - 不允许广告' : language === 'en' ? 'Upload, edit, and share your videos - no ads allowed' : language === 'jp' ? '動画をアップロード、編集、共有 - 広告なし' : '上傳、編輯和分享您的視頻 - 不允許廣告'
                   )}
                 </h3>
                 <p class="text-gray-300 mb-6 text-sm md:text-base leading-relaxed">
-                  {!content.video_description && (
+                  {!displayVideoDescription && (
                     language === 'zh' ? '无论您的经验如何，都可以轻松上传、创建或录制视频。然后快速编辑并按您想要的方式分享它们。' : language === 'en' ? 'Easily upload, create, or record videos, regardless of your experience. Then quickly edit and share them exactly how you want.' : language === 'jp' ? '経験に関係なく、簡単に動画をアップロード、作成、または録画できます。次に、迅速に編集して、希望どおりに共有します。' : '無論您的經驗如何，都可以輕鬆上傳、創建或錄製視頻。然後快速編輯並按您想要的方式分享它們。'
                   )}
                 </p>

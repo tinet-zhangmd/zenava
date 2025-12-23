@@ -3335,7 +3335,9 @@ app.post('/api/admin/resource-contents', async (c) => {
       cover_image_zh, cover_image_en, cover_image_jp, cover_image_hk,
       meta_title_zh, meta_title_en, meta_title_jp, meta_title_hk,
       meta_description_zh, meta_description_en, meta_description_jp, meta_description_hk,
-      meta_keywords_zh, meta_keywords_en, meta_keywords_jp, meta_keywords_hk
+      meta_keywords_zh, meta_keywords_en, meta_keywords_jp, meta_keywords_hk,
+      // 视频简介多语言字段
+      video_description_zh, video_description_en, video_description_jp, video_description_hk
     } = data
     
     // 验证必填字段
@@ -3361,8 +3363,9 @@ app.post('/api/admin/resource-contents', async (c) => {
         cover_image_zh, cover_image_en, cover_image_jp, cover_image_hk,
         meta_title_zh, meta_title_en, meta_title_jp, meta_title_hk,
         meta_description_zh, meta_description_en, meta_description_jp, meta_description_hk,
-        meta_keywords_zh, meta_keywords_en, meta_keywords_jp, meta_keywords_hk)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        meta_keywords_zh, meta_keywords_en, meta_keywords_jp, meta_keywords_hk,
+        video_description_zh, video_description_en, video_description_jp, video_description_hk)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         category_id, title || '', slug || null, content || '', author || null,
         cover_image || null, cover_image_size || null, cover_image_type || null,
@@ -3378,7 +3381,9 @@ app.post('/api/admin/resource-contents', async (c) => {
         cover_image_zh || null, cover_image_en || null, cover_image_jp || null, cover_image_hk || null,
         meta_title_zh || null, meta_title_en || null, meta_title_jp || null, meta_title_hk || null,
         meta_description_zh || null, meta_description_en || null, meta_description_jp || null, meta_description_hk || null,
-        meta_keywords_zh || null, meta_keywords_en || null, meta_keywords_jp || null, meta_keywords_hk || null
+        meta_keywords_zh || null, meta_keywords_en || null, meta_keywords_jp || null, meta_keywords_hk || null,
+        // 视频简介多语言字段值
+        video_description_zh || null, video_description_en || null, video_description_jp || null, video_description_hk || null
       ]
     )
     
@@ -3447,7 +3452,9 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
       cover_image_zh, cover_image_en, cover_image_jp, cover_image_hk,
       meta_title_zh, meta_title_en, meta_title_jp, meta_title_hk,
       meta_description_zh, meta_description_en, meta_description_jp, meta_description_hk,
-      meta_keywords_zh, meta_keywords_en, meta_keywords_jp, meta_keywords_hk
+      meta_keywords_zh, meta_keywords_en, meta_keywords_jp, meta_keywords_hk,
+      // 视频简介多语言字段
+      video_description_zh, video_description_en, video_description_jp, video_description_hk
     } = data
     
     // 获取当前内容
@@ -3480,7 +3487,8 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
            cover_image_zh = ?, cover_image_en = ?, cover_image_jp = ?, cover_image_hk = ?,
            meta_title_zh = ?, meta_title_en = ?, meta_title_jp = ?, meta_title_hk = ?,
            meta_description_zh = ?, meta_description_en = ?, meta_description_jp = ?, meta_description_hk = ?,
-           meta_keywords_zh = ?, meta_keywords_en = ?, meta_keywords_jp = ?, meta_keywords_hk = ?
+           meta_keywords_zh = ?, meta_keywords_en = ?, meta_keywords_jp = ?, meta_keywords_hk = ?,
+           video_description_zh = ?, video_description_en = ?, video_description_jp = ?, video_description_hk = ?
        WHERE id = ?`,
       [
         category_id, title || '', slug || null, content || '', author || null,
@@ -3498,6 +3506,8 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
         meta_title_zh || null, meta_title_en || null, meta_title_jp || null, meta_title_hk || null,
         meta_description_zh || null, meta_description_en || null, meta_description_jp || null, meta_description_hk || null,
         meta_keywords_zh || null, meta_keywords_en || null, meta_keywords_jp || null, meta_keywords_hk || null,
+        // 视频简介多语言字段值
+        video_description_zh || null, video_description_en || null, video_description_jp || null, video_description_hk || null,
         id
       ]
     )
