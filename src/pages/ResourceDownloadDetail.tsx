@@ -474,52 +474,6 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
         </div>
       </section>
 
-      {/* Bottom Download CTA Section - 底部左右布局：左侧横幅，右侧标题+按钮 */}
-      {content.attachment_file && (
-        <section class="bg-gradient-to-br from-[#6438FF] to-[#5a2ee6] py-12 md:py-16 lg:py-20">
-          <div class="site-container px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-              {/* Left Column: Promotional Banner */}
-              <div class="hidden lg:block">
-                {displayCoverImage ? (
-                  <div class="rounded-xl overflow-hidden shadow-xl">
-                    <img 
-                      src={displayCoverImage}
-                      alt={displayTitle}
-                      class="w-full h-auto object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                ) : (
-                  <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-8 md:p-12 shadow-xl min-h-[300px] flex items-center justify-center">
-                    <div class="text-center text-white">
-                      <i class="fas fa-file-pdf text-5xl md:text-6xl mb-4 opacity-50"></i>
-                      <p class="text-lg md:text-xl opacity-75">
-                        {language === 'zh' ? '资源封面' : language === 'en' ? 'Resource Cover' : language === 'jp' ? 'リソースカバー' : '資源封面'}
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
-              
-              {/* Right Column: Title and Download Button */}
-              <div class="text-center lg:text-left">
-                <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6 md:mb-8">
-                  {displayTitle}
-                </h2>
-                <a
-                  href={content.attachment_file}
-                  download={content.attachment_name || 'download'}
-                  class="inline-flex items-center px-8 py-4 bg-white text-[#6438FF] rounded-lg font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl text-lg"
-                >
-                  <i class="fas fa-download mr-3"></i>
-                  {language === 'zh' ? '立即下载' : language === 'en' ? 'Download Now' : language === 'jp' ? '今すぐダウンロード' : '立即下載'}
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
     </>
   )
 }
