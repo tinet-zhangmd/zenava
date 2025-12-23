@@ -169,6 +169,25 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
   
   // 根据 category_template 确定内容类型
   const contentType: 'video' | 'podcast' = category.category_template === 'list_video' ? 'video' : 'podcast'
+  
+  // 检测文件类型（音频或视频）
+  const isAudioFile = (url?: string): boolean => {
+    if (!url) return false
+    const audioExtensions = ['.mp3', '.wav', '.ogg', '.aac', '.m4a', '.webm']
+    const lowerUrl = url.toLowerCase()
+    return audioExtensions.some(ext => lowerUrl.includes(ext))
+  }
+  
+  const isVideoFile = (url?: string): boolean => {
+    if (!url) return false
+    const videoExtensions = ['.mp4', '.avi', '.mov', '.wmv', '.webm']
+    const lowerUrl = url.toLowerCase()
+    return videoExtensions.some(ext => lowerUrl.includes(ext))
+  }
+  
+  const mediaFileType = content.video_file 
+    ? (isAudioFile(content.video_file) ? 'audio' : isVideoFile(content.video_file) ? 'video' : 'unknown')
+    : 'none'
 
   // 构建结构化数据（JSON-LD）用于 SEO
   const structuredData = contentType === 'video' ? {
@@ -326,11 +345,28 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
               {/* Video/Podcast Player Section */}
               <div class="mb-8 md:mb-12">
                 {contentType === 'video' && content.video_file ? (
-                  <VideoPlayer 
-                    videoFile={content.video_file}
-                    coverImage={displayCoverImage}
-                    language={language}
-                  />
+                  mediaFileType === 'audio' ? (
+                    <AudioPlayer 
+                      audioFile={content.video_file}
+                      coverImage={displayCoverImage}
+                      language={language}
+                    />
+                  ) : mediaFileType === 'video' ? (
+                    <VideoPlayer 
+                      videoFile={content.video_file}
+                      coverImage={displayCoverImage}
+                      language={language}
+                    />
+                  ) : (
+                    <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 rounded-xl flex items-center justify-center">
+                      <div class="text-center">
+                        <i class="fas fa-file text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                        <p class="text-sm md:text-base text-gray-500">
+                          {language === 'zh' ? '不支持的文件格式' : language === 'en' ? 'Unsupported file format' : language === 'jp' ? 'サポートされていないファイル形式' : '不支援的檔案格式'}
+                        </p>
+                      </div>
+                    </div>
+                  )
                 ) : (
                   <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 rounded-xl flex items-center justify-center">
                     <div class="text-center">
@@ -342,9 +378,57 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
                   </div>
                 )}
               </div>
+            </div>
 
-              {/* Content Description Section */}
-              <div class="resource-content max-w-4xl mx-auto">
+            {/* Right Column: Sidebar - Aligned with Video Player */}
+            <div class="lg:col-span-1">
+              {/* Video Description Section (Black Card) */}
+              <div class="bg-black rounded-xl p-6 md:p-8 text-white">
+                <h3 class="text-xl md:text-2xl font-bold mb-4 whitespace-pre-line">
+                  {displayVideoDescription || (
+                    language === 'zh' ? '上传、编辑和分享您的视频 - 不允许广告' : language === 'en' ? 'Upload, edit, and share your videos - no ads allowed' : language === 'jp' ? '動画をアップロード、編集、共有 - 広告なし' : '上傳、編輯和分享您的視頻 - 不允許廣告'
+                  )}
+                </h3>
+                <p class="text-gray-300 mb-6 text-sm md:text-base leading-relaxed">
+                  {!displayVideoDescription && (
+                    language === 'zh' ? '无论您的经验如何，都可以轻松上传、创建或录制视频。然后快速编辑并按您想要的方式分享它们。' : language === 'en' ? 'Easily upload, create, or record videos, regardless of your experience. Then quickly edit and share them exactly how you want.' : language === 'jp' ? '経験に関係なく、簡単に動画をアップロード、作成、または録画できます。次に、迅速に編集して、希望どおりに共有します。' : '無論您的經驗如何，都可以輕鬆上傳、創建或錄製視頻。然後快速編輯並按您想要的方式分享它們。'
+                  )}
+                </p>
+                
+                {/* Social Icons - Optional, can be removed if not needed */}
+                <div class="flex items-center space-x-4 mb-6">
+                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="Twitter">
+                    <i class="fab fa-twitter text-xl md:text-2xl"></i>
+                  </a>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin text-xl md:text-2xl"></i>
+                  </a>
+                  <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="YouTube">
+                    <i class="fab fa-youtube text-xl md:text-2xl"></i>
+                  </a>
+                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="Instagram">
+                    <i class="fab fa-instagram text-xl md:text-2xl"></i>
+                  </a>
+                  <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="TikTok">
+                    <i class="fab fa-tiktok text-xl md:text-2xl"></i>
+                  </a>
+                </div>
+                
+                {/* Contact Button */}
+                <a
+                  href={language === 'zh' ? '/contact' : `/${language}/contact`}
+                  class="inline-flex items-center justify-center w-full px-6 py-3 bg-[#00D9FF] text-white rounded-lg font-semibold hover:bg-[#00C5E6] transition-all transform hover:scale-105"
+                >
+                  {language === 'zh' ? '联系我们' : language === 'en' ? 'Contact Us' : language === 'jp' ? 'お問い合わせ' : '聯繫我們'}
+                  <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Content Description Section - Centered across full width */}
+          <div class="mt-8 md:mt-12">
+            <div class="resource-content max-w-4xl mx-auto">
                 <style dangerouslySetInnerHTML={{
                   __html: `
                     .resource-content {
@@ -408,52 +492,6 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
                   dangerouslySetInnerHTML={{ __html: displayContent || '' }}
                 />
               </div>
-            </div>
-
-            {/* Right Column: Sidebar - Aligned with Video Player */}
-            <div class="lg:col-span-1">
-              {/* Video Description Section (Black Card) */}
-              <div class="bg-black rounded-xl p-6 md:p-8 text-white">
-                <h3 class="text-xl md:text-2xl font-bold mb-4 whitespace-pre-line">
-                  {displayVideoDescription || (
-                    language === 'zh' ? '上传、编辑和分享您的视频 - 不允许广告' : language === 'en' ? 'Upload, edit, and share your videos - no ads allowed' : language === 'jp' ? '動画をアップロード、編集、共有 - 広告なし' : '上傳、編輯和分享您的視頻 - 不允許廣告'
-                  )}
-                </h3>
-                <p class="text-gray-300 mb-6 text-sm md:text-base leading-relaxed">
-                  {!displayVideoDescription && (
-                    language === 'zh' ? '无论您的经验如何，都可以轻松上传、创建或录制视频。然后快速编辑并按您想要的方式分享它们。' : language === 'en' ? 'Easily upload, create, or record videos, regardless of your experience. Then quickly edit and share them exactly how you want.' : language === 'jp' ? '経験に関係なく、簡単に動画をアップロード、作成、または録画できます。次に、迅速に編集して、希望どおりに共有します。' : '無論您的經驗如何，都可以輕鬆上傳、創建或錄製視頻。然後快速編輯並按您想要的方式分享它們。'
-                  )}
-                </p>
-                
-                {/* Social Icons - Optional, can be removed if not needed */}
-                <div class="flex items-center space-x-4 mb-6">
-                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="Twitter">
-                    <i class="fab fa-twitter text-xl md:text-2xl"></i>
-                  </a>
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin text-xl md:text-2xl"></i>
-                  </a>
-                  <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="YouTube">
-                    <i class="fab fa-youtube text-xl md:text-2xl"></i>
-                  </a>
-                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="Instagram">
-                    <i class="fab fa-instagram text-xl md:text-2xl"></i>
-                  </a>
-                  <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#00D9FF] transition-colors" aria-label="TikTok">
-                    <i class="fab fa-tiktok text-xl md:text-2xl"></i>
-                  </a>
-                </div>
-                
-                {/* Contact Button */}
-                <a
-                  href={language === 'zh' ? '/contact' : `/${language}/contact`}
-                  class="inline-flex items-center justify-center w-full px-6 py-3 bg-[#00D9FF] text-white rounded-lg font-semibold hover:bg-[#00C5E6] transition-all transform hover:scale-105"
-                >
-                  {language === 'zh' ? '联系我们' : language === 'en' ? 'Contact Us' : language === 'jp' ? 'お問い合わせ' : '聯繫我們'}
-                  <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -673,6 +711,124 @@ const VideoPlayer: FC<{ videoFile?: string; coverImage?: string; language: Langu
           )}
         </div>
       )}
+    </div>
+  )
+}
+
+// Audio Player Component with Waveform Cover
+const AudioPlayer: FC<{ audioFile?: string; coverImage?: string; language: Language }> = ({ audioFile, coverImage, language }) => {
+  return (
+    <div class="relative w-full aspect-video bg-gradient-to-br from-[#6438FF] via-[#5a2ee6] to-[#4a1fd4] rounded-xl overflow-hidden shadow-xl">
+      {/* Waveform Cover Image */}
+      <div class="absolute inset-0 flex items-center justify-center">
+        {coverImage ? (
+          <img 
+            src={coverImage}
+            alt="Audio Cover"
+            class="w-full h-full object-cover opacity-30"
+            onerror="this.style.display='none';"
+          />
+        ) : null}
+        {/* Waveform SVG Overlay */}
+        <div class="absolute inset-0 flex items-center justify-center">
+          <svg class="w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="none">
+            {/* Background gradient */}
+            <defs>
+              <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:0.8" />
+                <stop offset="50%" style="stop-color:#6438FF;stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:#00D9FF;stop-opacity:0.8" />
+              </linearGradient>
+            </defs>
+            {/* Waveform bars */}
+            <rect x="20" y="80" width="8" height="40" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="40;80;40" dur="1s" repeatCount="indefinite" />
+            </rect>
+            <rect x="40" y="70" width="8" height="60" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="60;100;60" dur="1.2s" repeatCount="indefinite" />
+            </rect>
+            <rect x="60" y="60" width="8" height="80" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="80;120;80" dur="0.8s" repeatCount="indefinite" />
+            </rect>
+            <rect x="80" y="50" width="8" height="100" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="100;140;100" dur="1s" repeatCount="indefinite" />
+            </rect>
+            <rect x="100" y="40" width="8" height="120" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="120;160;120" dur="0.9s" repeatCount="indefinite" />
+            </rect>
+            <rect x="120" y="50" width="8" height="100" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="100;140;100" dur="1.1s" repeatCount="indefinite" />
+            </rect>
+            <rect x="140" y="60" width="8" height="80" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="80;120;80" dur="0.7s" repeatCount="indefinite" />
+            </rect>
+            <rect x="160" y="70" width="8" height="60" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="60;100;60" dur="1s" repeatCount="indefinite" />
+            </rect>
+            <rect x="180" y="80" width="8" height="40" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="40;80;40" dur="1.2s" repeatCount="indefinite" />
+            </rect>
+            <rect x="200" y="70" width="8" height="60" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="60;100;60" dur="0.9s" repeatCount="indefinite" />
+            </rect>
+            <rect x="220" y="60" width="8" height="80" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="80;120;80" dur="1s" repeatCount="indefinite" />
+            </rect>
+            <rect x="240" y="50" width="8" height="100" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="100;140;100" dur="1.1s" repeatCount="indefinite" />
+            </rect>
+            <rect x="260" y="40" width="8" height="120" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="120;160;120" dur="0.8s" repeatCount="indefinite" />
+            </rect>
+            <rect x="280" y="50" width="8" height="100" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="100;140;100" dur="1s" repeatCount="indefinite" />
+            </rect>
+            <rect x="300" y="60" width="8" height="80" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="80;120;80" dur="1.2s" repeatCount="indefinite" />
+            </rect>
+            <rect x="320" y="70" width="8" height="60" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="60;100;60" dur="0.9s" repeatCount="indefinite" />
+            </rect>
+            <rect x="340" y="80" width="8" height="40" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="40;80;40" dur="1s" repeatCount="indefinite" />
+            </rect>
+            <rect x="360" y="75" width="8" height="50" fill="url(#waveGradient)" rx="4">
+              <animate attributeName="height" values="50;90;50" dur="1.1s" repeatCount="indefinite" />
+            </rect>
+          </svg>
+        </div>
+        
+        {/* Audio Icon */}
+        <div class="relative z-10 flex flex-col items-center justify-center text-white">
+          <div class="mb-4">
+            <i class="fas fa-music text-5xl md:text-6xl opacity-90"></i>
+          </div>
+          <p class="text-sm md:text-base font-medium opacity-80">
+            {language === 'zh' ? '音频播放' : language === 'en' ? 'Audio Player' : language === 'jp' ? 'オーディオプレーヤー' : '音頻播放'}
+          </p>
+        </div>
+      </div>
+      
+      {/* Audio Player Controls - Bottom */}
+      <div class="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-sm p-4 md:p-6">
+        <audio
+          id="audio-player"
+          class="w-full"
+          controls
+          preload="metadata"
+          style="height: 48px;"
+        >
+          <source src={audioFile || ''} type="audio/mpeg" />
+          <source src={audioFile || ''} type="audio/mp3" />
+          <source src={audioFile || ''} type="audio/wav" />
+          <source src={audioFile || ''} type="audio/ogg" />
+          <source src={audioFile || ''} type="audio/aac" />
+          <source src={audioFile || ''} type="audio/mp4" />
+          <source src={audioFile || ''} type="audio/webm" />
+          <source src={audioFile || ''} type="audio/x-m4a" />
+          {language === 'zh' ? '您的浏览器不支持音频播放。' : language === 'en' ? 'Your browser does not support audio playback.' : language === 'jp' ? 'お使いのブラウザは音声再生をサポートしていません。' : '您的瀏覽器不支持音頻播放。'}
+        </audio>
+      </div>
     </div>
   )
 }
