@@ -30,6 +30,11 @@ interface Content {
   cover_image_hk?: string
   video_file?: string
   video_description?: string
+  // 视频简介多语言字段
+  video_description_zh?: string
+  video_description_en?: string
+  video_description_jp?: string
+  video_description_hk?: string
   attachment_file?: string
   attachment_name?: string
   reading_time?: number
@@ -125,7 +130,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
           </div>
           <div class="flex items-start">
             <label class="w-24 text-xs text-gray-500 font-bold uppercase tracking-wider pt-2">SEO Desc</label>
-            <textarea id={`meta-desc-${lang}`} rows="2" class="flex-1 px-3 py-2 border border-gray-200 rounded-md text-sm focus:border-blue-400 outline-none resize-none"
+            <textarea id={`meta-desc-${lang}`} rows={2} class="flex-1 px-3 py-2 border border-gray-200 rounded-md text-sm focus:border-blue-400 outline-none resize-none"
               >{(content as any)?.[`meta_description_${lang}`] || (lang === 'zh' ? content?.meta_description : '')}</textarea>
           </div>
           <div class="flex items-center">
@@ -165,7 +170,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
                   <div class="relative">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 text-sm italic">/resources/</span>
                     <input type="text" id="content-slug" class="w-full pl-24 pr-4 py-2.5 bg-blue-50/30 border-2 border-blue-100 rounded-xl focus:border-blue-500 outline-none font-mono text-sm text-blue-700" 
-                      placeholder="e.g. ai-marketing-trends (留空则自动生成)" value={content?.slug || ''} />
+                      placeholder="e.g. ai-marketing-trends (留空则使用默认值)" value={content?.slug || ''} />
           </div>
                 </div>
                 <div>
@@ -250,7 +255,23 @@ export const ContentEditor: FC<ContentEditorProps> = ({
                     </div>
                   </div>
 
-                  {/* 4. SEO */}
+                  {/* 4. 视频简介（仅视频类型显示） */}
+                  <div id={`video-description-field-${lang.id}`} class="hidden">
+                    <div class="flex items-start">
+                      <label class="w-32 text-sm text-gray-700 font-black text-right mr-6 pt-2">视频简介</label>
+                      <div class="flex-1">
+                        <textarea 
+                          id={`video-description-${lang.id}`}
+                          rows={3}
+                          class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl focus:bg-white focus:border-blue-500 outline-none resize-none text-sm transition-all"
+                          placeholder={`请输入${lang.label}视频简介...`}
+                        >{(content as any)?.[`video_description_${lang.id}`] || (lang.id === 'zh' ? content?.video_description : '')}</textarea>
+                        <p class="mt-2 text-xs text-gray-400">简要介绍视频/音频内容</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 5. SEO */}
                   {renderSEOFields(lang.id, lang.label)}
                 </div>
               ))}
@@ -261,13 +282,13 @@ export const ContentEditor: FC<ContentEditorProps> = ({
           <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 grid grid-cols-3 gap-8">
             <div class="col-span-2 space-y-6">
               <div id="video-upload-field" class="hidden">
-                <label class="block text-xs font-black text-gray-400 uppercase mb-3">视频媒体 (可选)</label>
+                <label class="block text-xs font-black text-gray-400 uppercase mb-3">视频/音频媒体 (可选)</label>
                 <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
-                  <input type="file" id="content-video" class="hidden" accept="video/*" />
+                  <input type="file" id="content-video" class="hidden" accept="video/*,audio/*" />
                   <button type="button" id="upload-video-btn" class="px-4 py-2 bg-white shadow-sm border border-gray-200 rounded-lg text-xs font-bold text-gray-600 hover:border-blue-400">
-                    <i class="fas fa-video mr-2"></i> 上传视频
+                    <i class="fas fa-video mr-2"></i> 上传视频/音频
                   </button>
-                  <span id="video-filename" class="text-xs text-gray-400 italic truncate max-w-xs">{content?.video_file || '未选择视频'}</span>
+                  <span id="video-filename" class="text-xs text-gray-400 italic truncate max-w-xs">{content?.video_file || '未选择文件'}</span>
                   <input type="hidden" id="video-file-url" value={content?.video_file || ''} />
                 </div>
               </div>
@@ -295,7 +316,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
               <div class="flex items-center justify-between pt-2 border-t border-blue-100">
                 <span class="text-xs font-black text-blue-900/40 uppercase">首页推荐</span>
                 <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" id="content-featured" class="sr-only peer" checked={content?.is_featured} />
+                  <input type="checkbox" id="content-featured" class="sr-only peer" checked={!!(content?.is_featured === true || content?.is_featured === 1)} />
                   <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-blue-600 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
                 </label>
               </div>
@@ -592,17 +613,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
             });
           });
           
-          // Slug 自动生成 (优化：改为根据简体中文标题生成)
-          const titleZhInput = document.getElementById('content-title-zh');
-          const slugInput = document.getElementById('content-slug');
-          titleZhInput.addEventListener('blur', () => {
-            if (!slugInput.value && titleZhInput.value) {
-              slugInput.value = titleZhInput.value
-                .toLowerCase()
-                .replace(/[^\u4e00-\u9fa5a-zA-Z0-9\s]/g, '')
-                .replace(/\s+/g, '-');
-            }
-          });
+          // Slug 字段：如果用户不填写，将使用数据库默认值（不自动根据标题生成）
 
           // 缩略图处理
           document.querySelectorAll('.upload-cover-btn').forEach(btn => {
@@ -686,6 +697,12 @@ export const ContentEditor: FC<ContentEditorProps> = ({
                 formData['meta_title_' + lang] = document.getElementById('meta-title-' + lang).value;
                 formData['meta_description_' + lang] = document.getElementById('meta-desc-' + lang).value;
                 formData['meta_keywords_' + lang] = document.getElementById('meta-key-' + lang).value;
+                
+                // 收集视频简介多语言字段
+                const videoDescInput = document.getElementById('video-description-' + lang);
+                if (videoDescInput) {
+                  formData['video_description_' + lang] = videoDescInput.value;
+                }
 
                 const fileInput = document.getElementById('content-cover-' + lang);
                 if (fileInput.files.length > 0) {
@@ -706,6 +723,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
               formData.meta_title = formData.meta_title_zh;
               formData.meta_description = formData.meta_description_zh;
               formData.meta_keywords = formData.meta_keywords_zh;
+              formData.video_description = formData.video_description_zh || formData.video_description_en || '';
 
               console.log('📦 准备发送到后端的数据:', formData);
 
@@ -749,10 +767,15 @@ export const ContentEditor: FC<ContentEditorProps> = ({
               const file = e.target.files[0];
               if (!file) return;
               
-              // 验证文件类型
-              const allowedTypes = ['video/mp4', 'video/avi', 'video/quicktime', 'video/x-ms-wmv'];
+              // 验证文件类型（支持视频和音频）
+              const allowedTypes = [
+                // 视频格式
+                'video/mp4', 'video/avi', 'video/quicktime', 'video/x-ms-wmv', 'video/webm',
+                // 音频格式
+                'audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/ogg', 'audio/aac', 'audio/mp4', 'audio/webm', 'audio/x-m4a'
+              ];
               if (!allowedTypes.includes(file.type)) {
-                alert('只支持 MP4、AVI、MOV、WMV 格式的视频');
+                alert('只支持以下格式：\\n视频：MP4、AVI、MOV、WMV、WebM\\n音频：MP3、WAV、OGG、AAC、M4A');
                 this.value = '';
                 return;
               }
@@ -760,7 +783,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
               // 验证文件大小（100MB）
               const maxSize = 100 * 1024 * 1024;
               if (file.size > maxSize) {
-                alert('视频文件大小不能超过 100MB');
+                alert('文件大小不能超过 100MB');
                 this.value = '';
                 return;
               }
@@ -794,14 +817,14 @@ export const ContentEditor: FC<ContentEditorProps> = ({
                 if (result.success && result.data && result.data.url) {
                   videoFileUrlInput.value = result.data.url;
                   videoFilenameSpan.textContent = file.name;
-                  alert('视频上传成功！');
+                  alert('文件上传成功！');
                 } else {
                   throw new Error(result.message || result.error || '上传失败');
                 }
               } catch (error) {
-                console.error('视频上传错误:', error);
-                alert('视频上传失败: ' + error.message);
-                videoFilenameSpan.textContent = '未选择视频';
+                console.error('文件上传错误:', error);
+                alert('文件上传失败: ' + error.message);
+                videoFilenameSpan.textContent = '未选择文件';
                 this.value = '';
               } finally {
                 videoUploadBtn.disabled = false;
@@ -893,8 +916,17 @@ export const ContentEditor: FC<ContentEditorProps> = ({
           const updateVisibility = () => {
             const select = document.getElementById('content-category');
             const template = select.options[select.selectedIndex]?.dataset.template;
-            document.getElementById('video-upload-field').classList.toggle('hidden', template !== 'list_video');
+            const isVideo = template === 'list_video';
+            document.getElementById('video-upload-field').classList.toggle('hidden', !isVideo);
             document.getElementById('attachment-upload-field').classList.toggle('hidden', template !== 'list_download');
+            
+            // 控制视频简介字段的显示/隐藏（所有语言）
+            languages.forEach(lang => {
+              const videoDescField = document.getElementById('video-description-field-' + lang);
+              if (videoDescField) {
+                videoDescField.classList.toggle('hidden', !isVideo);
+              }
+            });
           };
           document.getElementById('content-category').addEventListener('change', updateVisibility);
           updateVisibility();
