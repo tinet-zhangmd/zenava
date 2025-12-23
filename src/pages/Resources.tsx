@@ -53,6 +53,7 @@ interface Banner {
   text_position?: string
   text_color?: string
   subtitle_color?: string
+  background_color?: string
   background_type?: string
   background_url?: string
   full_image_url?: string
@@ -229,7 +230,9 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
           textPosition: banner.text_position || 'left',
           // 右侧内容区域是白色背景，所以使用深色文字
           textColor: textColor,
-          subtitleColor: subtitleColor
+          subtitleColor: subtitleColor,
+          // 背景颜色（如果配置了则使用，否则使用默认渐变）
+          backgroundColor: banner.background_color || null
         }
       }
     })
@@ -517,9 +520,18 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
               const isVideo = firstSlide.isVideo || false
               const hasImage = firstSlide.image && firstSlide.image.trim() !== ''
               
+              // 处理背景色：如果配置了background_color则使用，否则使用默认渐变
+              const backgroundColor = firstSlide.backgroundColor
+              const backgroundStyle = backgroundColor 
+                ? { backgroundColor: backgroundColor }
+                : {}
+              const backgroundClass = backgroundColor 
+                ? '' 
+                : 'bg-gradient-to-br from-orange-200 via-yellow-200 to-teal-300'
+              
               return (
                 <div class="hero-slide opacity-100 z-10">
-                  <div class="bg-gradient-to-br from-orange-200 via-yellow-200 to-teal-300 min-h-[500px] md:min-h-[500px] flex items-center justify-center">
+                  <div class={`${backgroundClass} min-h-[500px] md:min-h-[500px] flex items-center justify-center`} style={backgroundStyle}>
                     <div class="container mx-auto px-8 md:px-12 lg:px-16 w-full">
                       <div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 md:gap-12">
                         {/* Left: Square Image */}
@@ -1064,9 +1076,18 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                 '</div>' +
               '</div>';
               
+              // 处理背景色：如果配置了background_color则使用，否则使用默认渐变
+              const backgroundColor = slide.backgroundColor || null;
+              const backgroundClass = backgroundColor 
+                ? '' 
+                : 'bg-gradient-to-br from-orange-200 via-yellow-200 to-teal-300';
+              const backgroundStyle = backgroundColor 
+                ? ' style="background-color: ' + backgroundColor + ';"'
+                : '';
+              
               return '<div class="hero-slide absolute inset-0 transition-opacity duration-700 ' + 
                 (index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0') + '">' +
-                '<div class="bg-gradient-to-br from-orange-200 via-yellow-200 to-teal-300 min-h-[500px] md:min-h-[500px] flex items-center justify-center">' +
+                '<div class="' + backgroundClass + ' min-h-[500px] md:min-h-[500px] flex items-center justify-center"' + backgroundStyle + '>' +
                   '<div class="container mx-auto px-8 md:px-12 lg:px-16 w-full">' +
                     '<div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 md:gap-12">' +
                       '<div class="flex items-center justify-center lg:justify-start w-full">' +

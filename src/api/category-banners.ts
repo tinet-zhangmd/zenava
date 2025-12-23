@@ -121,6 +121,7 @@ categoryBannerApi.post('/', async (c) => {
       text_position = 'left',
       text_color = 'rgba(255,255,255,1)',
       subtitle_color = 'rgba(255,255,255,0.8)',
+      background_color,
       image_url,
       background_type = 'image',
       background_url,
@@ -156,9 +157,9 @@ categoryBannerApi.post('/', async (c) => {
         text_button_zh, text_button_en, text_button_jp, text_button_hk,
         background_url_zh, background_url_en, background_url_jp, background_url_hk,
         button_link, button_target,
-        text_position, text_color, subtitle_color, image_url, background_type, background_url,
+        text_position, text_color, subtitle_color, background_color, image_url, background_type, background_url,
         full_image_url, link_url, link_target
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `
     
     const result = await mysqlQuery(sql, [
@@ -171,7 +172,7 @@ categoryBannerApi.post('/', async (c) => {
       // 多语言背景字段
       background_url_zh || null, background_url_en || null, background_url_jp || null, background_url_hk || null,
       button_link || null, button_target,
-      text_position, text_color, subtitle_color, image_url || null, background_type, background_url || null,
+      text_position, text_color, subtitle_color, background_color || null, image_url || null, background_type, background_url || null,
       full_image_url || null, link_url || null, link_target
     ])
     
@@ -217,6 +218,7 @@ categoryBannerApi.put('/:id', async (c) => {
       text_position = 'left',
       text_color = 'rgba(255,255,255,1)',
       subtitle_color = 'rgba(255,255,255,0.8)',
+      background_color,
       image_url,
       background_type = 'image',
       background_url,
@@ -252,7 +254,7 @@ categoryBannerApi.put('/:id', async (c) => {
         text_button_zh = ?, text_button_en = ?, text_button_jp = ?, text_button_hk = ?,
         background_url_zh = ?, background_url_en = ?, background_url_jp = ?, background_url_hk = ?,
         button_link = ?, button_target = ?,
-        text_position = ?, text_color = ?, subtitle_color = ?, image_url = ?, background_type = ?, background_url = ?,
+        text_position = ?, text_color = ?, subtitle_color = ?, background_color = ?, image_url = ?, background_type = ?, background_url = ?,
         full_image_url = ?, link_url = ?, link_target = ?,
         updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
@@ -268,7 +270,7 @@ categoryBannerApi.put('/:id', async (c) => {
       // 多语言背景字段
       background_url_zh || null, background_url_en || null, background_url_jp || null, background_url_hk || null,
       button_link || null, button_target,
-      text_position, text_color, subtitle_color, image_url || null, background_type, background_url || null,
+      text_position, text_color, subtitle_color, background_color || null, image_url || null, background_type, background_url || null,
       full_image_url || null, link_url || null, link_target,
       id
     ])
