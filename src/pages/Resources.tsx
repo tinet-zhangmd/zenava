@@ -1018,9 +1018,21 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
               // 整张大图模式
               if (slide.layout === 'full-image') {
                 const target = slide.target || '_self';
+                
+                // 分页指示器（只在有多个slide且是当前slide时显示）
+                const paginationHtml = (heroSlides.length > 1 && index === currentSlide) ? 
+                  '<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex items-center space-x-2 bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full">' +
+                    heroSlides.map(function(_, idx) {
+                      return '<button class="w-12 h-1 rounded-full transition-all ' +
+                        (idx === currentSlide ? 'bg-white' : 'bg-white/50') + '" ' +
+                        'onclick="event.stopPropagation(); goToSlide(' + idx + ')" ' +
+                        'aria-label="Go to slide ' + (idx + 1) + '"></button>';
+                    }).join('') +
+                  '</div>' : '';
+                
                 return '<div class="hero-slide absolute inset-0 transition-opacity duration-700 ' + 
                   (index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0') + '">' +
-                  '<a href="' + fullLink + '" target="' + target + '" class="block w-full h-full">' +
+                  '<a href="' + fullLink + '" target="' + target + '" class="block w-full h-full relative">' +
                     '<img src="' + slide.image + '" alt="Banner" ' +
                     'class="w-full h-full object-cover" ' +
                     'style="min-height: 500px;" ' +
@@ -1032,6 +1044,7 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                         '<p class="text-sm md:text-base text-gray-500">' + placeholderText + '</p>' +
                       '</div>' +
                     '</div>' +
+                    paginationHtml +
                   '</a>' +
                 '</div>';
               }

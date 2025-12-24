@@ -1,3 +1,5 @@
+import { FC } from 'hono/jsx'
+
 interface MediaFile {
   id: string
   name: string
@@ -7,284 +9,184 @@ interface MediaFile {
   uploadedAt: string
   uploadedBy: string
   tags: string[]
+  width?: number
+  height?: number
 }
 
-export function MediaLibrary() {
-  // Mock media files
+export const MediaLibrary: FC = () => {
+  // Mock media files with varied heights for masonry effect
   const mediaFiles: MediaFile[] = [
-    {
-      id: '1',
-      name: 'zenava-hero-bg.jpg',
-      url: '/static/images/zenava-hero-bg.jpg',
-      type: 'image',
-      size: 2048576, // 2MB
-      uploadedAt: '2024-01-15 10:30',
-      uploadedBy: 'Admin',
-      tags: ['hero', 'background', 'homepage']
-    },
-    {
-      id: '2',
-      name: 'ai-automation-demo.mp4',
-      url: '/static/videos/ai-automation-demo.mp4',
-      type: 'video',
-      size: 15728640, // 15MB
-      uploadedAt: '2024-01-14 16:45',
-      uploadedBy: 'Admin',
-      tags: ['demo', 'automation', 'ai']
-    },
-    {
-      id: '3',
-      name: 'product-brochure.pdf',
-      url: '/static/documents/product-brochure.pdf',
-      type: 'document',
-      size: 1048576, // 1MB
-      uploadedAt: '2024-01-13 14:20',
-      uploadedBy: 'Admin',
-      tags: ['brochure', 'product', 'marketing']
-    },
-    {
-      id: '4',
-      name: 'dashboard-screenshot.png',
-      url: '/static/images/dashboard-screenshot.png',
-      type: 'image',
-      size: 512000, // 512KB
-      uploadedAt: '2024-01-12 11:15',
-      uploadedBy: 'Admin',
-      tags: ['dashboard', 'screenshot', 'ui']
-    }
+    { id: '1', name: 'zenava-hero-bg.jpg', url: 'https://picsum.photos/seed/1/400/600', type: 'image', size: 2048576, uploadedAt: '2024-01-15 10:30', uploadedBy: 'Admin', tags: ['hero', 'background'] },
+    { id: '2', name: 'ai-demo.mp4', url: '', type: 'video', size: 15728640, uploadedAt: '2024-01-14 16:45', uploadedBy: 'Admin', tags: ['demo', 'ai'] },
+    { id: '3', name: 'marketing.pdf', url: '', type: 'document', size: 1048576, uploadedAt: '2024-01-13 14:20', uploadedBy: 'Admin', tags: ['product'] },
+    { id: '4', name: 'ui-screenshot.png', url: 'https://picsum.photos/seed/4/400/300', type: 'image', size: 512000, uploadedAt: '2024-01-12 11:15', uploadedBy: 'Admin', tags: ['ui'] },
+    { id: '5', name: 'office-vibe.jpg', url: 'https://picsum.photos/seed/5/400/800', type: 'image', size: 1048576, uploadedAt: '2024-01-11 09:00', uploadedBy: 'Editor', tags: ['office'] },
+    { id: '6', name: 'team-photo.jpg', url: 'https://picsum.photos/seed/6/400/400', type: 'image', size: 3048576, uploadedAt: '2024-01-10 15:30', uploadedBy: 'Admin', tags: ['team'] },
+    { id: '7', name: 'abstract-art.jpg', url: 'https://picsum.photos/seed/7/400/700', type: 'image', size: 2048576, uploadedAt: '2024-01-09 12:00', uploadedBy: 'Admin', tags: ['abstract'] },
+    { id: '8', name: 'data-chart.png', url: 'https://picsum.photos/seed/8/400/500', type: 'image', size: 848576, uploadedAt: '2024-01-08 14:00', uploadedBy: 'Admin', tags: ['data'] },
   ]
-  
-  function formatFileSize(bytes: number): string {
-    if (bytes === 0) return '0 Bytes'
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 B'
     const k = 1024
-    const sizes = ['Bytes', 'KB', 'MB', 'GB']
+    const sizes = ['B', 'KB', 'MB', 'GB']
     const i = Math.floor(Math.log(bytes) / Math.log(k))
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i]
   }
-  
-  function getFileIcon(type: string): string {
-    switch (type) {
-      case 'image': return 'fas fa-image text-blue-600'
-      case 'video': return 'fas fa-video text-red-600'
-      case 'document': return 'fas fa-file-pdf text-green-600'
-      default: return 'fas fa-file text-gray-600'
-    }
-  }
-  
+
   return (
-    <div class="space-y-6">
-      {/* Header */}
-      <div class="flex justify-between items-center">
+    <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      {/* 顶部标题与主要操作 */}
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
-          <h2 class="text-2xl font-bold text-gray-900">Media Library</h2>
-          <p class="text-gray-600">Manage images, videos, and documents for your website</p>
+          <h2 class="text-3xl font-black text-slate-900 tracking-tight">媒体资产库</h2>
+          <p class="text-slate-500 font-medium mt-1">管理您的图片、视频及文档素材。</p>
         </div>
-        <div class="flex space-x-3">
-          <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-            <i class="fas fa-upload mr-2"></i>
-            Upload Files
+        <div class="flex items-center space-x-3">
+          <button class="flex items-center px-6 py-3 bg-white text-slate-700 font-bold rounded-2xl border border-slate-200 shadow-sm hover:bg-slate-50 transition-all active:scale-95">
+            <i class="fas fa-folder-plus mr-2 text-blue-500"></i>
+            新建目录
           </button>
-          <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-            <i class="fas fa-folder-plus mr-2"></i>
-            Create Folder
+          <button class="flex items-center px-6 py-3 bg-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all active:scale-95">
+            <i class="fas fa-cloud-upload-alt mr-2"></i>
+            上传素材
           </button>
         </div>
       </div>
-      
-      {/* Stats Cards */}
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div class="bg-white rounded-lg shadow-sm p-6 border">
-          <div class="flex items-center">
-            <div class="p-2 bg-blue-100 rounded-lg">
-              <i class="fas fa-image text-blue-600 text-xl"></i>
-            </div>
-            <div class="ml-4">
-              <p class="text-sm font-medium text-gray-600">Images</p>
-              <p class="text-2xl font-semibold text-gray-900">24</p>
-            </div>
+
+      {/* 统计指标 */}
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-3xl border border-slate-100 shadow-sm flex items-center space-x-4">
+          <div class="w-10 h-10 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-500">
+            <i class="fas fa-image"></i>
+          </div>
+          <div>
+            <p class="text-[10px] font-black text-slate-400 uppercase">图片</p>
+            <p class="text-lg font-black text-slate-900">256 <span class="text-xs text-slate-400 font-bold">张</span></p>
           </div>
         </div>
-        
-        <div class="bg-white rounded-lg shadow-sm p-6 border">
-          <div class="flex items-center">
-            <div class="p-2 bg-red-100 rounded-lg">
-              <i class="fas fa-video text-red-600 text-xl"></i>
-            </div>
-            <div class="ml-4">
-              <p class="text-sm font-medium text-gray-600">Videos</p>
-              <p class="text-2xl font-semibold text-gray-900">8</p>
-            </div>
+        <div class="bg-white p-4 rounded-3xl border border-slate-100 shadow-sm flex items-center space-x-4">
+          <div class="w-10 h-10 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-500">
+            <i class="fas fa-video"></i>
+          </div>
+          <div>
+            <p class="text-[10px] font-black text-slate-400 uppercase">视频</p>
+            <p class="text-lg font-black text-slate-900">42 <span class="text-xs text-slate-400 font-bold">个</span></p>
           </div>
         </div>
-        
-        <div class="bg-white rounded-lg shadow-sm p-6 border">
-          <div class="flex items-center">
-            <div class="p-2 bg-green-100 rounded-lg">
-              <i class="fas fa-file-alt text-green-600 text-xl"></i>
-            </div>
-            <div class="ml-4">
-              <p class="text-sm font-medium text-gray-600">Documents</p>
-              <p class="text-2xl font-semibold text-gray-900">13</p>
-            </div>
+        <div class="bg-white p-4 rounded-3xl border border-slate-100 shadow-sm flex items-center space-x-4">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-500">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div>
+            <p class="text-[10px] font-black text-slate-400 uppercase">文档</p>
+            <p class="text-lg font-black text-slate-900">18 <span class="text-xs text-slate-400 font-bold">份</span></p>
           </div>
         </div>
-        
-        <div class="bg-white rounded-lg shadow-sm p-6 border">
-          <div class="flex items-center">
-            <div class="p-2 bg-purple-100 rounded-lg">
-              <i class="fas fa-hdd text-purple-600 text-xl"></i>
-            </div>
-            <div class="ml-4">
-              <p class="text-sm font-medium text-gray-600">Storage Used</p>
-              <p class="text-2xl font-semibold text-gray-900">156MB</p>
-            </div>
+        <div class="bg-white p-4 rounded-3xl border border-slate-100 shadow-sm flex items-center space-x-4">
+          <div class="w-10 h-10 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-500">
+            <i class="fas fa-hdd"></i>
+          </div>
+          <div>
+            <p class="text-[10px] font-black text-slate-400 uppercase">已用空间</p>
+            <p class="text-lg font-black text-slate-900">1.4 <span class="text-xs text-slate-400 font-bold">GB</span></p>
           </div>
         </div>
       </div>
-      
-      {/* Upload Area */}
-      <div class="bg-white rounded-lg shadow-sm border">
-        <div class="p-6 border-b">
-          <h3 class="text-lg font-semibold text-gray-900">Upload New Files</h3>
+
+      {/* 筛选与搜索 */}
+      <div class="bg-white p-4 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col md:flex-row items-center gap-4">
+        <div class="relative flex-1 w-full">
+          <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+          <input 
+            type="text" 
+            placeholder="搜索素材名称、标签..." 
+            class="w-full pl-12 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-medium"
+          />
         </div>
-        <div class="p-6">
-          <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
-            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
-            <h4 class="text-lg font-medium text-gray-900 mb-2">Drop files here or click to browse</h4>
-            <p class="text-gray-600 mb-4">Supported formats: JPG, PNG, GIF, MP4, PDF, DOC</p>
-            <input type="file" multiple class="hidden" id="fileUpload" accept="image/*,video/*,.pdf,.doc,.docx" />
-            <label for="fileUpload" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer">
-              <i class="fas fa-upload mr-2"></i>
-              Choose Files
-            </label>
-          </div>
-        </div>
-      </div>
-      
-      {/* Filters and Search */}
-      <div class="bg-white rounded-lg shadow-sm border p-6">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Search Files</label>
-            <div class="relative">
-              <input 
-                type="text" 
-                placeholder="Search media files..."
-                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-            </div>
-          </div>
-          
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">File Type</label>
-            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option value="">All Types</option>
-              <option value="image">Images</option>
-              <option value="video">Videos</option>
-              <option value="document">Documents</option>
-            </select>
-          </div>
-          
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Upload Date</label>
-            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option value="">All Dates</option>
-              <option value="today">Today</option>
-              <option value="week">This Week</option>
-              <option value="month">This Month</option>
-            </select>
-          </div>
-          
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">View</label>
-            <div class="flex space-x-2">
-              <button class="flex-1 px-3 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium">
-                <i class="fas fa-th mr-1"></i>Grid
-              </button>
-              <button class="flex-1 px-3 py-2 text-gray-700 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50">
-                <i class="fas fa-list mr-1"></i>List
-              </button>
-            </div>
-          </div>
+        <div class="flex items-center space-x-2 w-full md:w-auto">
+          <select class="flex-1 md:flex-none px-4 py-3 bg-slate-50 border-none rounded-2xl text-sm font-bold text-slate-600 focus:ring-2 focus:ring-blue-500">
+            <option>所有类型</option>
+            <option>图片</option>
+            <option>视频</option>
+            <option>文档</option>
+          </select>
+          <button class="p-3 bg-slate-900 text-white rounded-2xl shadow-lg active:scale-95 transition-all">
+            <i class="fas fa-filter"></i>
+          </button>
         </div>
       </div>
-      
-      {/* Media Grid */}
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      {/* 瀑布流媒体网格 */}
+      <div class="columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6">
         {mediaFiles.map((file) => (
-          <div key={file.id} class="bg-white rounded-lg shadow-sm border overflow-hidden hover:shadow-md transition-shadow">
-            {/* File Preview */}
-            <div class="aspect-w-16 aspect-h-9 bg-gray-100 flex items-center justify-center">
+          <div key={file.id} class="break-inside-avoid group relative bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-500">
+            {/* 预览区域 */}
+            <div class="relative">
               {file.type === 'image' ? (
-                <img src={file.url} alt={file.name} class="w-full h-32 object-cover" />
+                <img src={file.url} alt={file.name} class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110" />
               ) : (
-                <i class={`${getFileIcon(file.type)} text-4xl`}></i>
-              )}
-            </div>
-            
-            {/* File Info */}
-            <div class="p-4">
-              <div class="flex items-center justify-between mb-2">
-                <h4 class="text-sm font-medium text-gray-900 truncate">{file.name}</h4>
-                <div class="flex space-x-1">
-                  <button class="text-blue-600 hover:text-blue-800 text-sm">
-                    <i class="fas fa-eye"></i>
-                  </button>
-                  <button class="text-gray-600 hover:text-gray-800 text-sm">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="text-red-600 hover:text-red-800 text-sm" onclick={`deleteMedia('${file.id}')`}>
-                    <i class="fas fa-trash"></i>
-                  </button>
+                <div class="aspect-video bg-slate-100 flex items-center justify-center">
+                  <i class={`fas ${file.type === 'video' ? 'fa-video text-orange-400' : 'fa-file-pdf text-emerald-400'} text-4xl`}></i>
                 </div>
+              )}
+              
+              {/* 悬停操作层 */}
+              <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center space-x-3 backdrop-blur-sm">
+                <button class="w-10 h-10 rounded-xl bg-white text-slate-900 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300">
+                  <i class="fas fa-eye text-sm"></i>
+                </button>
+                <button class="w-10 h-10 rounded-xl bg-white text-slate-900 flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 delay-75 duration-300">
+                  <i class="fas fa-copy text-sm"></i>
+                </button>
+                <button class="w-10 h-10 rounded-xl bg-white text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 delay-150 duration-300">
+                  <i class="fas fa-trash-alt text-sm"></i>
+                </button>
+              </div>
+
+              {/* 类型标识 */}
+              <div class="absolute top-4 left-4">
+                <span class="px-3 py-1 rounded-lg bg-white/90 backdrop-blur text-[10px] font-black uppercase tracking-widest text-slate-900 shadow-sm">
+                  {file.type}
+                </span>
+              </div>
+            </div>
+
+            {/* 信息区域 */}
+            <div class="p-5">
+              <h4 class="text-sm font-bold text-slate-900 truncate mb-1">{file.name}</h4>
+              <div class="flex items-center justify-between text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                <span>{formatFileSize(file.size)}</span>
+                <span>{file.uploadedAt.split(' ')[0]}</span>
               </div>
               
-              <div class="space-y-1">
-                <div class="flex justify-between text-xs text-gray-500">
-                  <span>{file.type.toUpperCase()}</span>
-                  <span>{formatFileSize(file.size)}</span>
-                </div>
-                <div class="text-xs text-gray-500">
-                  Uploaded: {file.uploadedAt}
-                </div>
-                <div class="flex flex-wrap gap-1 mt-2">
-                  {file.tags.map((tag) => (
-                    <span key={tag} class="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
-                      {tag}
+              {file.tags.length > 0 && (
+                <div class="mt-4 flex flex-wrap gap-2">
+                  {file.tags.map(tag => (
+                    <span key={tag} class="px-2 py-0.5 rounded-md bg-slate-50 border border-slate-100 text-[9px] font-bold text-slate-500 uppercase tracking-tighter">
+                      #{tag}
                     </span>
                   ))}
                 </div>
-              </div>
-              
-              <div class="mt-3 pt-3 border-t border-gray-100">
-                <button class="w-full px-3 py-2 text-sm bg-gray-50 text-gray-700 rounded hover:bg-gray-100 transition-colors">
-                  <i class="fas fa-copy mr-1"></i>
-                  Copy URL
-                </button>
-              </div>
+              )}
             </div>
           </div>
         ))}
       </div>
-      
-      {/* Pagination */}
-      <div class="bg-white rounded-lg shadow-sm border p-4">
-        <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-700">
-            Showing <span class="font-medium">1</span> to <span class="font-medium">4</span> of <span class="font-medium">45</span> files
-          </div>
-          <div class="flex space-x-2">
-            <button class="px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
-              <i class="fas fa-chevron-left mr-1"></i>Previous
-            </button>
-            <button class="px-3 py-2 text-sm bg-blue-600 text-white rounded-lg">1</button>
-            <button class="px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">2</button>
-            <button class="px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">3</button>
-            <button class="px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
-              Next<i class="fas fa-chevron-right ml-1"></i>
-            </button>
-          </div>
+
+      {/* 分页器 */}
+      <div class="flex items-center justify-between bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm">
+        <p class="text-xs font-bold text-slate-400">显示 1 到 8 项，共 45 项素材</p>
+        <div class="flex items-center space-x-2">
+          <button class="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center hover:bg-slate-100 transition-all cursor-not-allowed">
+            <i class="fas fa-chevron-left text-xs"></i>
+          </button>
+          <button class="w-10 h-10 rounded-xl bg-slate-900 text-white font-bold text-xs shadow-lg shadow-slate-200">1</button>
+          <button class="w-10 h-10 rounded-xl bg-white text-slate-600 font-bold text-xs border border-slate-100 hover:bg-slate-50 transition-all">2</button>
+          <button class="w-10 h-10 rounded-xl bg-white text-slate-600 font-bold text-xs border border-slate-100 hover:bg-slate-50 transition-all">3</button>
+          <button class="w-10 h-10 rounded-xl bg-white text-slate-600 flex items-center justify-center border border-slate-100 hover:bg-slate-50 transition-all">
+            <i class="fas fa-chevron-right text-xs"></i>
+          </button>
         </div>
       </div>
     </div>

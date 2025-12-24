@@ -133,9 +133,12 @@ categoryBannerApi.post('/', async (c) => {
     } = body
     
     // 验证必填字段
-    if (!banner_type || !title) {
+    if (!banner_type) {
       return c.json({ success: false, message: '请填写必填字段' }, 400)
     }
+    
+    // 如果没有提供 title，自动生成
+    const finalTitle = title || `Banner ${new Date().toLocaleString('zh-CN')}`
     
     // 验证栏目分类（如果提供了category_id）
     if (category_id) {
@@ -163,7 +166,7 @@ categoryBannerApi.post('/', async (c) => {
     `
     
     const result = await mysqlQuery(sql, [
-      category_id || null, banner_type, title, sort_order, status,
+      category_id || null, banner_type, finalTitle, sort_order, status,
       text_title || null, text_subtitle || null, text_button || null,
       // 多语言字段
       text_title_zh || null, text_title_en || null, text_title_jp || null, text_title_hk || null,
@@ -230,9 +233,12 @@ categoryBannerApi.put('/:id', async (c) => {
     } = body
     
     // 验证必填字段
-    if (!banner_type || !title) {
+    if (!banner_type) {
       return c.json({ success: false, message: '请填写必填字段' }, 400)
     }
+    
+    // 如果没有提供 title，自动生成
+    const finalTitle = title || `Banner ${new Date().toLocaleString('zh-CN')}`
     
     // 验证栏目分类（如果提供了category_id）
     if (category_id) {
@@ -261,7 +267,7 @@ categoryBannerApi.put('/:id', async (c) => {
     `
     
     await mysqlQuery(sql, [
-      category_id || null, banner_type, title, sort_order, status,
+      category_id || null, banner_type, finalTitle, sort_order, status,
       text_title || null, text_subtitle || null, text_button || null,
       // 多语言字段
       text_title_zh || null, text_title_en || null, text_title_jp || null, text_title_hk || null,

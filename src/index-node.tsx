@@ -36,6 +36,7 @@ import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/
 // 导入 Admin Pages
 import { AdminLayout } from './pages/admin/AdminLayout.js'
 import { AdminLogin } from './pages/admin/AdminLogin.js'
+import { Dashboard } from './pages/admin/Dashboard.js'
 import { ContentEditor } from './pages/admin/ContentEditor.js'
 import { MediaLibrary } from './pages/admin/MediaLibrary.js'
 import { Settings } from './pages/admin/Settings.js'
@@ -2066,6 +2067,18 @@ app.post('/ticloudadmin/login', async (c) => {
             `UPDATE admin_users SET last_login_at = NOW() WHERE id = ?`,
             [user.id]
           )
+          
+          // 记录登录日志
+          try {
+            await mysqlQuery(
+              `INSERT INTO admin_logs (user_id, user_name, action, description, ip_address, user_agent) 
+               VALUES (?, ?, 'login', '管理员登录系统', ?, ?)`,
+              [user.id, user.username, c.req.header('x-forwarded-for') || c.req.header('x-real-ip') || 'unknown', c.req.header('user-agent') || '']
+            )
+          } catch (logError) {
+            console.error('记录登录日志失败:', logError)
+            // 不影响登录流程
+          }
         }
       }
     } catch (error) {
@@ -2099,9 +2112,66 @@ app.get('/ticloudadmin/logout', (c) => {
   return c.redirect('/ticloudadmin/login')
 })
 
-// Admin Dashboard - 重定向到资源中心管理
-app.get('/ticloudadmin', requireAuth(), (c) => {
-  return c.redirect('/ticloudadmin/resource-categories')
+// Admin Dashboard - 仪表盘首页
+app.get('/ticloudadmin', requireAuth(), async (c) => {
+  try {
+    // 获取统计数据
+    const [contentsCount] = await mysqlQuery<any[]>('SELECT COUNT(*) as count FROM resource_contents')
+    const [categoriesCount] = await mysqlQuery<any[]>('SELECT COUNT(*) as count FROM resource_categories')
+    const [mediaCount] = await mysqlQuery<any[]>('SELECT COUNT(*) as count FROM media_files')
+    const [viewsSum] = await mysqlQuery<any[]>('SELECT SUM(views) as total FROM resource_contents')
+    
+    // 获取最近的审计日志（最多10条）
+    const logs = await mysqlQuery<any[]>(
+      `SELECT 
+        user_name,
+        action,
+        target_type,
+        target_name,
+        description,
+        created_at
+      FROM admin_logs
+      ORDER BY created_at DESC
+      LIMIT 10`
+    )
+    
+    // 获取当前用户信息
+    const userId = getCookie(c, 'admin_user_id')
+    let currentUser: any = null
+    if (userId) {
+      const users = await mysqlQuery<any[]>(
+        'SELECT username, email, last_login_at FROM admin_users WHERE id = ?',
+        [parseInt(userId)]
+      )
+      if (users && users.length > 0) {
+        currentUser = users[0]
+      }
+    }
+    
+    const stats = {
+      totalContents: contentsCount?.count || 0,
+      totalCategories: categoriesCount?.count || 0,
+      totalMedia: mediaCount?.count || 0,
+      totalViews: viewsSum?.total || 0
+    }
+    
+    return c.html(
+      <AdminLayout 
+        title="仪表盘" 
+        currentPath="/ticloudadmin"
+        user={currentUser ? { name: currentUser.username, email: currentUser.email, lastLogin: currentUser.last_login_at } : undefined}
+      >
+        <Dashboard stats={stats} logs={logs} />
+      </AdminLayout>
+    )
+  } catch (error) {
+    console.error('加载仪表盘数据失败:', error)
+    return c.html(
+      <AdminLayout title="仪表盘" currentPath="/ticloudadmin">
+        <Dashboard />
+      </AdminLayout>
+    )
+  }
 })
 
 
@@ -2138,12 +2208,56 @@ app.get('/ticloudadmin/settings', requireAuth(), (c) => {
 
 
 // Logs
-app.get('/ticloudadmin/logs', requireAuth(), (c) => {
-  return c.html(
-    <AdminLayout title="操作日志" currentPath="/ticloudadmin/logs">
-      <Logs />
-    </AdminLayout>
-  )
+app.get('/ticloudadmin/logs', requireAuth(), async (c) => {
+  try {
+    // 获取分页参数
+    const page = parseInt(c.req.query('page') || '1')
+    const pageSize = 20
+    const offset = (page - 1) * pageSize
+    
+    // 获取总数
+    const [countResult] = await mysqlQuery<any[]>('SELECT COUNT(*) as total FROM admin_logs')
+    const total = countResult?.total || 0
+    const totalPages = Math.ceil(total / pageSize)
+    
+    // 获取日志列表
+    const logs = await mysqlQuery<any[]>(
+      `SELECT 
+        id,
+        user_id,
+        user_name,
+        action,
+        target_type,
+        target_id,
+        target_name,
+        description,
+        ip_address,
+        user_agent,
+        created_at
+      FROM admin_logs
+      ORDER BY created_at DESC
+      LIMIT ? OFFSET ?`,
+      [pageSize, offset]
+    )
+    
+    return c.html(
+      <AdminLayout title="操作日志" currentPath="/ticloudadmin/logs">
+        <Logs 
+          logs={logs}
+          currentPage={page}
+          totalPages={totalPages}
+          total={total}
+        />
+      </AdminLayout>
+    )
+  } catch (error) {
+    console.error('读取日志失败:', error)
+    return c.html(
+      <AdminLayout title="操作日志" currentPath="/ticloudadmin/logs">
+        <Logs logs={[]} currentPage={1} totalPages={1} total={0} />
+      </AdminLayout>
+    )
+  }
 })
 
 
@@ -2620,6 +2734,10 @@ app.get('/ticloudadmin/category-banners', requireAuth(), async (c) => {
 
 // 创建栏目Banner页面
 app.get('/ticloudadmin/category-banners/new', requireAuth(), async (c) => {
+  // 获取URL中的category_id参数（如果从栏目页面跳转过来）
+  const categoryIdParam = c.req.query('category_id')
+  const initialCategoryId = categoryIdParam ? parseInt(categoryIdParam) : null
+  
   // 获取栏目分类列表
   let categories = []
   try {
@@ -2640,6 +2758,7 @@ app.get('/ticloudadmin/category-banners/new', requireAuth(), async (c) => {
         basePath="/ticloudadmin/category-banners" 
         apiPath="/api/resource-center/category-banners"
         categories={categories}
+        initialCategoryId={initialCategoryId}
       />
     </AdminLayout>
   )

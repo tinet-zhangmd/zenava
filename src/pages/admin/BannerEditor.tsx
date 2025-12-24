@@ -2,17 +2,14 @@ import { FC } from 'hono/jsx'
 
 interface Banner {
   id?: number
-  category_id?: number | null  // 栏目分类ID（仅栏目Banner使用）
+  category_id?: number | null
   banner_type: 'text_image' | 'full_image'
   title: string
   sort_order: number
   status: 'draft' | 'published'
-  
-  // 文字+图片模式
   text_title?: string
   text_subtitle?: string
   text_button?: string
-  // 多语言字段
   text_title_zh?: string
   text_title_en?: string
   text_title_jp?: string
@@ -34,8 +31,6 @@ interface Banner {
   image_url?: string
   background_type?: string
   background_url?: string
-  
-  // 整张大图模式
   full_image_url?: string
   link_url?: string
   link_target?: string
@@ -50,9 +45,10 @@ interface Category {
 interface BannerEditorProps {
   banner?: Banner | null
   mode: 'create' | 'edit'
-  basePath?: string  // 基础路径，默认为 /ticloudadmin/resource-banners
-  apiPath?: string   // API路径，默认为 /api/resource-center/banners
-  categories?: Category[]  // 栏目分类列表（仅栏目Banner使用）
+  basePath?: string
+  apiPath?: string
+  categories?: Category[]
+  initialCategoryId?: number | null
 }
 
 export const BannerEditor: FC<BannerEditorProps> = ({ 
@@ -60,507 +56,373 @@ export const BannerEditor: FC<BannerEditorProps> = ({
   mode,
   basePath = '/ticloudadmin/resource-banners',
   apiPath = '/api/resource-center/banners',
-  categories = []
+  categories = [],
+  initialCategoryId = null
 }) => {
   const isEdit = mode === 'edit'
-  const title = isEdit ? '编辑Banner' : '添加新Banner'
-  const isCategoryBanner = apiPath.includes('category-banners')  // 判断是否为栏目Banner
+  const title = isEdit ? '编辑 Banner' : '添加新 Banner'
+  const isCategoryBanner = apiPath.includes('category-banners')
   
   return (
-    <div class="p-4">
-      {/* 页面顶部操作区 */}
-      <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
-        <a 
-          href={basePath}
-          class="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors">
-          <i class="fas fa-arrow-left mr-2"></i>
-          返回列表
-        </a>
+    <div class="space-y-8 animate-in fade-in duration-500 pb-20">
+      {/* 顶部标题与返回 */}
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <a href={basePath} class="inline-flex items-center text-xs font-black text-slate-400 uppercase tracking-widest hover:text-blue-600 transition-colors mb-2 group">
+            <i class="fas fa-arrow-left mr-2 transition-transform group-hover:-translate-x-1"></i>
+            返回列表
+          </a>
+          <h2 class="text-3xl font-black text-slate-900 tracking-tight">{title}</h2>
+        </div>
+        <div class="flex items-center space-x-3">
+          <button id="submit-btn" type="submit" form="banner-form" class="flex items-center px-8 py-3 bg-blue-600 text-white font-black rounded-2xl shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all active:scale-95 uppercase tracking-widest text-xs">
+            <i class="fas fa-check-circle mr-2 text-sm"></i>
+            {isEdit ? '保存更新' : '立即发布'}
+          </button>
+        </div>
       </div>
 
-      {/* 表单卡片 */}
-      <div class="bg-white rounded border border-gray-200 p-6">
-        <form id="banner-form" class="space-y-6">
-          <input type="hidden" id="banner-id" value={banner?.id || ''} />
-          
-          {/* 1. 排版选择 */}
-          <div class="flex items-start">
-            <label class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-              <span class="text-red-500">*</span> 排版
-            </label>
-            <div class="flex-1">
-              <select 
-                id="text-position"
-                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-                required>
-                <option value="left" selected={banner?.text_position === 'left' || (!banner && !banner?.text_position)}>左</option>
-                <option value="center" selected={banner?.text_position === 'center'}>中</option>
-                <option value="right" selected={banner?.text_position === 'right'}>右</option>
-                <option value="no-text" selected={banner?.text_position === 'no-text' || banner?.banner_type === 'full_image'}>无文字</option>
-              </select>
-              <p class="text-xs text-gray-500 mt-1">下拉可选择按钮的排版:左、中、右、无文字,选择无文字之后,通过模式B的上传方式上传</p>
-            </div>
-          </div>
+      <div class="max-w-4xl mx-auto">
+        <div class="w-full">
+          <form id="banner-form" class="space-y-8">
+            <input type="hidden" id="banner-id" value={banner?.id || ''} />
+            
+            {/* 基本配置卡片 */}
+            <div class="bg-white rounded-[2.5rem] border border-slate-200 shadow-sm p-8 space-y-8">
+              <h3 class="text-xl font-black text-slate-900 tracking-tight flex items-center">
+                <i class="fas fa-sliders-h mr-3 text-blue-500"></i>
+                核心参数
+              </h3>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* 1. 排版选择 */}
+                <div class="space-y-2">
+                  <label for="text-position" class="text-[10px] font-black text-slate-400 uppercase tracking-widest flex justify-between">
+                    <span>排版布局</span>
+                    <span class="text-red-500">*</span>
+                  </label>
+                  <select 
+                    id="text-position"
+                    class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold text-slate-700"
+                    required>
+                    <option value="left" selected={banner?.text_position === 'left' || (!banner && !banner?.text_position)}>模式 A：文字居左</option>
+                    <option value="center" selected={banner?.text_position === 'center'}>模式 A：文字居中</option>
+                    <option value="right" selected={banner?.text_position === 'right'}>模式 A：文字居右</option>
+                    <option value="no-text" selected={banner?.text_position === 'no-text' || banner?.banner_type === 'full_image'}>模式 B：整张大图</option>
+                  </select>
+                </div>
 
-          {/* 2. 说明/标题 */}
-          <div class="flex items-start">
-            <label for="banner-title" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-              <span class="text-red-500">*</span> 说明
-            </label>
-            <div class="flex-1">
-              <input 
-                type="text" 
-                id="banner-title" 
-                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-                placeholder="主要是AI检索下的内容"
-                value={banner?.title || ''}
-                required 
-              />
-              <p class="text-xs text-gray-500 mt-1">用于后台识别,不会显示在前台</p>
-            </div>
-          </div>
+                {/* 3. 排序 */}
+                <div class="space-y-2">
+                  <label for="sort-order" class="text-[10px] font-black text-slate-400 uppercase tracking-widest flex justify-between">
+                    <span>显示排序</span>
+                    <span class="text-red-500">*</span>
+                  </label>
+                  <div class="flex items-center space-x-4">
+                    <input 
+                      type="number" 
+                      id="sort-order" 
+                      class="flex-1 px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold"
+                      value={banner?.sort_order || 0}
+                      min="0"
+                      required 
+                    />
+                    <div class="text-[10px] text-slate-400 font-bold uppercase w-24">越小越靠前</div>
+                  </div>
+                </div>
 
-          {/* 2.5. 栏目分类（仅栏目Banner显示） */}
-          {isCategoryBanner && (
-            <div class="flex items-start">
-              <label for="category-id" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-                <span class="text-red-500">*</span> 栏目分类
-              </label>
-              <div class="flex-1">
-                <select 
-                  id="category-id"
-                  class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  required={isCategoryBanner}
-                >
-                  <option value="">请选择栏目分类</option>
-                  {categories.map((cat) => (
-                    <option 
-                      value={cat.id} 
-                      selected={banner?.category_id === cat.id}
+                {/* 4. 状态 */}
+                <div class="space-y-2">
+                  <label for="banner-status" class="text-[10px] font-black text-slate-400 uppercase tracking-widest flex justify-between">
+                    <span>发布状态</span>
+                    <span class="text-red-500">*</span>
+                  </label>
+                  <select 
+                    id="banner-status"
+                    class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold text-slate-700">
+                    <option value="draft" selected={banner?.status === 'draft' || !banner}>存为草稿</option>
+                    <option value="published" selected={banner?.status === 'published'}>立即上线</option>
+                  </select>
+                </div>
+
+                {/* 5. 栏目分类（仅栏目Banner显示） */}
+                {isCategoryBanner && (
+                  <div class="md:col-span-2 space-y-2 animate-in slide-in-from-top-4 duration-300">
+                    <label for="category-id" class="text-[10px] font-black text-slate-400 uppercase tracking-widest flex justify-between">
+                      <span>所属栏目</span>
+                      <span class="text-red-500">*</span>
+                    </label>
+                    <select 
+                      id="category-id"
+                      class="w-full px-5 py-4 bg-blue-50 border border-blue-100 rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold text-blue-900"
+                      required={isCategoryBanner}
                     >
-                      {cat.name}
-                    </option>
-                  ))}
-                </select>
-                <p class="text-xs text-gray-500 mt-1">选择该Banner所属的栏目分类</p>
+                      <option value="">点击选择关联栏目</option>
+                      {categories.map((cat) => {
+                        // 优先使用banner的category_id，如果没有则使用initialCategoryId
+                        const isSelected = banner?.category_id === cat.id || (!banner && initialCategoryId === cat.id)
+                        return (
+                          <option value={cat.id} selected={isSelected}>{cat.name}</option>
+                        )
+                      })}
+                    </select>
+                  </div>
+                )}
               </div>
             </div>
-          )}
 
-          {/* 3. 排序 */}
-          <div class="flex items-start">
-            <label for="sort-order" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-              <span class="text-red-500">*</span> 排序
-            </label>
-            <div class="flex-1">
-              <input 
-                type="number" 
-                id="sort-order" 
-                class="w-32 px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-                value={banner?.sort_order || 0}
-                min="0"
-                required 
-              />
-              <p class="text-xs text-gray-500 mt-1">数字越小越靠前,设置完毕后点击排序按钮实现排序功能</p>
-            </div>
-          </div>
-
-          {/* 4. 状态 */}
-          <div class="flex items-start">
-            <label class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-              状态
-            </label>
-            <div class="flex-1">
-              <select 
-                id="banner-status"
-                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
-                <option value="draft" selected={banner?.status === 'draft' || !banner}>草稿</option>
-                <option value="published" selected={banner?.status === 'published'}>已发布</option>
-              </select>
-            </div>
-          </div>
-
-          {/* ========== 文字+图片模式字段 (默认显示) ========== */}
-          <div id="text-image-fields" style="display: none;">
-            <div class="border-t pt-6 mt-6">
-              {/* 多语言切换标签 */}
-              <div class="bg-blue-600 px-6 pt-4 pb-0 flex justify-between items-end mb-6 rounded-t-xl">
-                <div class="flex items-center text-white mb-4">
-                  <i class="fas fa-language mr-3 text-blue-200"></i>
-                  <h3 class="text-sm font-black uppercase tracking-widest">文字内容与多语言设定</h3>
+            {/* 多语言内容卡片 */}
+            <div id="text-image-fields" class="bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden hidden">
+              <div class="bg-slate-900 px-8 pt-6 pb-0 flex justify-between items-end">
+                <div class="flex items-center text-white mb-6">
+                  <i class="fas fa-language mr-3 text-blue-400"></i>
+                  <h3 class="text-lg font-black tracking-tight">多语言配置</h3>
                 </div>
                 <nav class="flex space-x-1" aria-label="语言切换">
-                  {['zh', 'en', 'jp', 'hk'].map((lang, idx) => (
-                    <button type="button" data-lang={lang} 
-                      class={`banner-lang-tab px-6 py-3 text-xs font-black uppercase tracking-tighter transition-all rounded-t-xl ${idx === 0 ? 'bg-white text-blue-600' : 'text-blue-100 hover:bg-blue-500'}`}>
-                      {lang === 'zh' ? '简体中文' : lang === 'en' ? 'English' : lang === 'jp' ? '日本語' : '繁體中文'}
+                  {[
+                    { id: 'zh', label: 'ZH' },
+                    { id: 'en', label: 'EN' },
+                    { id: 'jp', label: 'JP' },
+                    { id: 'hk', label: 'HK' }
+                  ].map((lang, idx) => (
+                    <button type="button" data-lang={lang.id} 
+                      class={`banner-lang-tab px-6 py-3 text-[10px] font-black uppercase tracking-widest transition-all rounded-t-2xl ${idx === 0 ? 'bg-white text-slate-900' : 'text-slate-400 hover:text-white hover:bg-white/10'}`}>
+                      {lang.label}
                     </button>
                   ))}
                 </nav>
               </div>
 
-              <div class="bg-white border-2 border-blue-500 border-t-0 rounded-b-xl p-6">
-                {[
-                  { id: 'zh', label: '简体中文' },
-                  { id: 'en', label: 'English' },
-                  { id: 'jp', label: '日本語' },
-                  { id: 'hk', label: '繁體中文' }
-                ].map((lang, idx) => (
-                  <div class={`banner-lang-content space-y-6 ${idx !== 0 ? 'hidden' : ''}`} data-lang={lang.id}>
-                    {/* 标题 */}
-                    <div class="flex items-start">
-                      <label class="w-32 text-sm text-gray-700 font-black text-right mr-6 pt-2">
-                        标题
-                      </label>
-                      <div class="flex-1">
+              <div class="p-8">
+                {['zh', 'en', 'jp', 'hk'].map((lang, idx) => (
+                  <div class={`banner-lang-content space-y-8 ${idx !== 0 ? 'hidden' : ''}`} data-lang={lang}>
+                    <div class="grid grid-cols-1 gap-8">
+                      {/* 标题 */}
+                      <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">主标题内容</label>
                         <textarea 
-                          id={`text-title-${lang.id}`} 
+                          id={`text-title-${lang}`} 
                           rows="2"
-                          class="w-full px-5 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:bg-white focus:border-blue-500 outline-none transition-all text-sm placeholder-gray-300 resize-none"
-                          placeholder={`请输入${lang.label}Banner主标题...`}
-                        >{(banner as any)?.[`text_title_${lang.id}`] || (lang.id === 'zh' ? banner?.text_title : '')}</textarea>
+                          class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold placeholder-slate-300 resize-none"
+                          placeholder="请输入吸引人的标题..."
+                        >{(banner as any)?.[`text_title_${lang}`] || (lang === 'zh' ? banner?.text_title : '')}</textarea>
                       </div>
-                    </div>
 
-                    {/* 副标题 */}
-                    <div class="flex items-start">
-                      <label class="w-32 text-sm text-gray-700 font-black text-right mr-6 pt-2">
-                        副标题
-                      </label>
-                      <div class="flex-1">
+                      {/* 副标题 */}
+                      <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">副标题 / 描述</label>
                         <textarea 
-                          id={`text-subtitle-${lang.id}`} 
+                          id={`text-subtitle-${lang}`} 
                           rows="3"
-                          class="w-full px-5 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:bg-white focus:border-blue-500 outline-none transition-all text-sm placeholder-gray-300 resize-none"
-                          placeholder={`请输入${lang.label}Banner副标题...`}
-                        >{(banner as any)?.[`text_subtitle_${lang.id}`] || (lang.id === 'zh' ? banner?.text_subtitle : '')}</textarea>
+                          class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-medium placeholder-slate-300 resize-none"
+                          placeholder="详细描述您的推广内容..."
+                        >{(banner as any)?.[`text_subtitle_${lang}`] || (lang === 'zh' ? banner?.text_subtitle : '')}</textarea>
                       </div>
-                    </div>
 
-                    {/* 按钮文字 */}
-                    <div class="flex items-start">
-                      <label class="w-32 text-sm text-gray-700 font-black text-right mr-6 pt-2">
-                        按钮文字
-                      </label>
-                      <div class="flex-1">
+                      {/* 按钮文字 */}
+                      <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">按钮呼吁文字</label>
                         <input 
                           type="text" 
-                          id={`text-button-${lang.id}`} 
-                          class="w-full px-5 py-4 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:bg-white focus:border-blue-500 outline-none transition-all text-sm placeholder-gray-300"
-                          placeholder={`请输入${lang.label}按钮文字...`}
-                          value={(banner as any)?.[`text_button_${lang.id}`] || (lang.id === 'zh' ? banner?.text_button : '')} 
+                          id={`text-button-${lang}`} 
+                          class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold placeholder-slate-300"
+                          placeholder="如: 立即体验、查看详情"
+                          value={(banner as any)?.[`text_button_${lang}`] || (lang === 'zh' ? banner?.text_button : '')} 
                         />
                       </div>
-                    </div>
 
-                    {/* 背景（多语言） */}
-                    <div class="flex items-start">
-                      <label class="w-32 text-sm text-gray-700 font-black text-right mr-6 pt-2">
-                        背景
-                      </label>
-                      <div class="flex-1">
-                        <select 
-                          id={`background-type-${lang.id}`}
-                          class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 mb-2">
-                          <option value="image" selected={banner?.background_type === 'image' || !banner}>图片/动图/视频</option>
-                        </select>
-                        <p class="text-xs text-gray-500 mb-2">下拉选择</p>
-                        
-                        <div id={`background-upload-area-${lang.id}`} class="border-2 border-dashed border-gray-300 rounded p-4 text-center">
-                          <div id={`background-preview-container-${lang.id}`} style={(banner as any)?.[`background_url_${lang.id}`] || (lang.id === 'zh' ? banner?.background_url : '') ? 'display: block;' : 'display: none;'}>
-                            <div class="relative inline-block">
-                              <img 
-                                src={(banner as any)?.[`background_url_${lang.id}`] || (lang.id === 'zh' ? banner?.background_url : '') || ''} 
-                                alt={`${lang.label}背景预览`} 
-                                class="max-w-xs max-h-40 object-contain"
-                                id={`background-preview-${lang.id}`}
-                                style="display: none;"
-                              />
-                              <video 
-                                src={(banner as any)?.[`background_url_${lang.id}`] || (lang.id === 'zh' ? banner?.background_url : '') || ''} 
-                                class="max-w-xs max-h-40 object-contain"
-                                id={`background-preview-video-${lang.id}`}
-                                controls
-                                style="display: none;"
-                              />
-                              <button 
-                                type="button"
-                                id={`remove-background-${lang.id}`}
-                                class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center">
-                                ×
+                      {/* 背景上传 (多语言) */}
+                      <div class="space-y-4">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">背景媒体 (图片/视频)</label>
+                        <div id={`background-upload-area-${lang}`} class="relative border-2 border-dashed border-slate-200 rounded-[2rem] p-8 text-center hover:border-blue-400 hover:bg-blue-50/30 transition-all cursor-pointer group">
+                          <div id={`background-preview-container-${lang}`} class="hidden">
+                            <div class="relative inline-block rounded-2xl overflow-hidden shadow-2xl">
+                              <img id={`background-preview-${lang}`} class="max-w-md max-h-48 object-contain" />
+                              <video id={`background-preview-video-${lang}`} class="max-w-md max-h-48 object-contain hidden" controls />
+                              <button type="button" id={`remove-background-${lang}`} class="absolute top-2 right-2 bg-red-500 text-white rounded-xl w-8 h-8 flex items-center justify-center shadow-lg hover:scale-110 transition-all">
+                                <i class="fas fa-times"></i>
                               </button>
                             </div>
                           </div>
-                          <div id={`background-placeholder-${lang.id}`} style={(banner as any)?.[`background_url_${lang.id}`] || (lang.id === 'zh' ? banner?.background_url : '') ? 'display: none;' : 'display: block;'}>
-                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
-                            <p class="text-sm text-gray-500">点击后弹出文件上传</p>
+                          <div id={`background-placeholder-${lang}`}>
+                            <div class="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                              <i class="fas fa-cloud-upload-alt text-2xl text-slate-400"></i>
+                            </div>
+                            <p class="text-sm font-black text-slate-900">点击或拖拽文件上传</p>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase mt-1">支持 JPG, PNG, GIF, MP4 (建议 1920x800)</p>
                           </div>
                         </div>
-                        <input 
-                          type="file" 
-                          id={`background-upload-${lang.id}`} 
-                          accept="image/*,video/*"
-                          class="hidden"
-                          data-lang={lang.id}
-                        />
-                        <input type="hidden" id={`background-url-${lang.id}`} value={(banner as any)?.[`background_url_${lang.id}`] || (lang.id === 'zh' ? banner?.background_url : '') || ''} />
+                        <input type="file" id={`background-upload-${lang}`} accept="image/*,video/*" class="hidden" data-lang={lang} />
+                        <input type="hidden" id={`background-url-${lang}`} value={(banner as any)?.[`background_url_${lang}`] || (lang === 'zh' ? banner?.background_url : '') || ''} />
+                        <input type="hidden" id={`background-type-${lang}`} value="image" />
                       </div>
                     </div>
                   </div>
                 ))}
-              </div>
 
-              {/* 通用配置（所有语言共用） */}
-              <div class="mt-6 space-y-6">
-
-              {/* 文字颜色 */}
-              <div class="flex items-start mb-6">
-                <label for="text-color" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-                  文字颜色
-                </label>
-                <div class="flex-1">
-                  <input 
-                    type="text" 
-                    id="text-color" 
-                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-                    placeholder="rgba(255,255,255,1)"
-                    value={banner?.text_color || 'rgba(255,255,255,1)'}
-                  />
-                  <p class="text-xs text-gray-500 mt-1">格式: rgba(R,G,B,透明度)</p>
-                </div>
-              </div>
-
-              {/* 副标题颜色 */}
-              <div class="flex items-start mb-6">
-                <label for="subtitle-color" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-                  副标题颜色
-                </label>
-                <div class="flex-1">
-                  <input 
-                    type="text" 
-                    id="subtitle-color" 
-                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-                    placeholder="rgba(255,255,255,0.8)"
-                    value={banner?.subtitle_color || 'rgba(255,255,255,0.8)'}
-                  />
-                </div>
-              </div>
-
-              {/* 背景颜色 */}
-              <div class="flex items-start mb-6">
-                <label for="background-color" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-                  背景颜色
-                </label>
-                <div class="flex-1">
-                  <input 
-                    type="text" 
-                    id="background-color" 
-                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-                    placeholder="rgba(100,56,255,1) 或 #6438FF"
-                    value={banner?.background_color || ''}
-                  />
-                  <p class="text-xs text-gray-500 mt-1">格式: rgba(R,G,B,透明度) 或 #RRGGBB，留空则使用默认背景</p>
-                </div>
-              </div>
-
-              {/* 链接地址 */}
-              <div class="flex items-start mb-6">
-                <label for="button-link" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-                  链接地址
-                </label>
-                <div class="flex-1">
-                  <input 
-                    type="text" 
-                    id="button-link" 
-                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-                    placeholder="用于设置banner的链接"
-                    value={banner?.button_link || ''}
-                  />
-                  <p class="text-xs text-gray-500 mt-1">用于设置banner的链接</p>
-                </div>
-              </div>
-
-              {/* 打开方式 */}
-              <div class="flex items-start mb-6">
-                <label class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-                  打开方式
-                </label>
-                <div class="flex-1">
-                  <select 
-                    id="button-target"
-                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
-                    <option value="_self" selected={banner?.button_target === '_self' || !banner}>当前页面</option>
-                    <option value="_blank" selected={banner?.button_target === '_blank'}>新页面</option>
-                  </select>
-                  <p class="text-xs text-gray-500 mt-1">点击弹出下拉,可选当前页面、新页面</p>
-                </div>
-              </div>
-
-              </div>
-            </div>
-          </div>
-
-          {/* ========== 整张大图模式字段 ========== */}
-          <div id="full-image-fields" style="display: none;">
-            <div class="border-t pt-6 mt-6">
-              <h3 class="text-base font-semibold mb-4 text-gray-800">整张大图模式配置</h3>
-              
-              {/* 图片上传 */}
-              <div class="flex items-start mb-6">
-                <label class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-                  <span class="text-red-500">*</span> 图片
-                </label>
-                <div class="flex-1">
-                  <div id="full-image-upload-area" class="border-2 border-dashed border-gray-300 rounded p-4 text-center">
-                    {banner?.full_image_url ? (
-                      <div class="relative inline-block">
-                        <img 
-                          src={banner.full_image_url} 
-                          alt="Banner预览" 
-                          class="max-w-md max-h-48 object-contain"
-                          id="full-image-preview"
-                        />
-                        <button 
-                          type="button"
-                          id="remove-full-image"
-                          class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center">
-                          ×
-                        </button>
+                {/* 样式配置区 */}
+                <div class="mt-12 pt-8 border-t border-slate-100 space-y-8">
+                  <h4 class="text-xs font-black text-slate-900 uppercase tracking-[0.2em]">视觉样式微调</h4>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                      <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">主标题颜色</label>
+                      <div class="flex items-center space-x-3">
+                        <input type="color" id="text-color-picker" class="w-10 h-10 rounded-lg overflow-hidden border-none cursor-pointer" value="#FFFFFF" />
+                        <input type="text" id="text-color" class="flex-1 px-5 py-3 bg-slate-50 border-none rounded-2xl text-xs font-bold" value={banner?.text_color || 'rgba(255,255,255,1)'} />
                       </div>
-                    ) : (
-                      <div id="full-image-placeholder">
-                        <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
-                        <p class="text-sm text-gray-500">点击上传Banner图片</p>
-                        <p class="text-xs text-gray-400 mt-1">即banner的预览图</p>
+                    </div>
+                    <div class="space-y-2">
+                      <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">副标题颜色</label>
+                      <div class="flex items-center space-x-3">
+                        <input type="color" id="subtitle-color-picker" class="w-10 h-10 rounded-lg overflow-hidden border-none cursor-pointer" value="#E2E8F0" />
+                        <input type="text" id="subtitle-color" class="flex-1 px-5 py-3 bg-slate-50 border-none rounded-2xl text-xs font-bold" value={banner?.subtitle_color || 'rgba(255,255,255,0.8)'} />
                       </div>
-                    )}
+                    </div>
+                    <div class="space-y-2">
+                      <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">容器背景色 (可选)</label>
+                      <div class="flex items-center space-x-3">
+                        <input type="color" id="background-color-picker" class="w-10 h-10 rounded-lg overflow-hidden border-none cursor-pointer" value="#6438FF" />
+                        <input type="text" id="background-color" class="flex-1 px-5 py-3 bg-slate-50 border-none rounded-2xl text-xs font-bold" placeholder="例如: #6438FF 或 rgba(0,0,0,0.5)" value={banner?.background_color || ''} />
+                      </div>
+                    </div>
+                    <div class="space-y-2">
+                      <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">跳转链接</label>
+                      <div class="flex items-center space-x-3">
+                        <input type="text" id="button-link" class="flex-1 px-5 py-3 bg-slate-50 border-none rounded-2xl text-xs font-bold" value={banner?.button_link || ''} />
+                        <select id="button-target" class="w-32 px-4 py-3 bg-slate-50 border-none rounded-2xl text-xs font-bold">
+                          <option value="_self" selected={banner?.button_target === '_self' || !banner}>当前</option>
+                          <option value="_blank" selected={banner?.button_target === '_blank'}>新窗</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                  <input 
-                    type="file" 
-                    id="full-image-upload" 
-                    accept="image/*"
-                    class="hidden"
-                  />
-                  <input type="hidden" id="full-image-url" value={banner?.full_image_url || ''} />
-                </div>
-              </div>
-
-              {/* 链接地址 */}
-              <div class="flex items-start mb-6">
-                <label for="link-url" class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-                  链接地址
-                </label>
-                <div class="flex-1">
-                  <input 
-                    type="text" 
-                    id="link-url" 
-                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-                    placeholder="https://www.ti-net.com.cn/news/11990.html"
-                    value={banner?.link_url || ''}
-                  />
-                </div>
-              </div>
-
-              {/* 打开方式 */}
-              <div class="flex items-start mb-6">
-                <label class="w-32 text-sm text-gray-600 text-right mr-4 pt-2">
-                  打开方式
-                </label>
-                <div class="flex-1">
-                  <select 
-                    id="link-target"
-                    class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
-                    <option value="_self" selected={banner?.link_target === '_self' || !banner}>当前页面</option>
-                    <option value="_blank" selected={banner?.link_target === '_blank'}>新页面</option>
-                  </select>
-                  <p class="text-xs text-gray-500 mt-1">点击弹出下拉,可选当前页面、新页面</p>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* 提交按钮 */}
-          <div class="flex items-center justify-end space-x-3 pt-6 border-t">
-            <a 
-              href={basePath}
-              class="px-4 py-2 text-sm border border-gray-300 rounded hover:bg-gray-50">
-              取消
-            </a>
-            <button 
-              type="submit"
-              id="submit-btn"
-              class="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700">
-              {isEdit ? '保存更新' : '发布'}
-            </button>
-          </div>
-        </form>
+            {/* 整张大图卡片 */}
+            <div id="full-image-fields" class="bg-white rounded-[2.5rem] border border-slate-200 shadow-sm p-8 space-y-8 hidden">
+              <h3 class="text-xl font-black text-slate-900 tracking-tight">大图模式配置</h3>
+              
+              <div class="space-y-4">
+                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest text-red-500">Banner 底图上传 *</label>
+                <div id="full-image-upload-area" class="relative border-2 border-dashed border-slate-200 rounded-[2rem] p-12 text-center hover:border-blue-400 hover:bg-blue-50/30 transition-all cursor-pointer group">
+                  {banner?.full_image_url ? (
+                    <div class="relative inline-block rounded-2xl overflow-hidden shadow-2xl">
+                      <img src={banner.full_image_url} class="max-w-md max-h-64 object-contain" id="full-image-preview" />
+                      <button type="button" id="remove-full-image" class="absolute top-2 right-2 bg-red-500 text-white rounded-xl w-8 h-8 flex items-center justify-center shadow-lg">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  ) : (
+                    <div id="full-image-placeholder">
+                      <div class="w-20 h-20 bg-slate-50 rounded-3xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-image text-3xl text-slate-400"></i>
+                      </div>
+                      <p class="text-sm font-black text-slate-900 text-blue-600">点击上传整屏 Banner</p>
+                      <p class="text-[10px] text-slate-400 font-bold uppercase mt-1">建议尺寸: 1920x600 px</p>
+                    </div>
+                  )}
+                </div>
+                <input type="file" id="full-image-upload" accept="image/*" class="hidden" />
+                <input type="hidden" id="full-image-url" value={banner?.full_image_url || ''} />
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-2">
+                  <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">大图跳转链接</label>
+                  <input type="text" id="link-url" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold" value={banner?.link_url || ''} />
+                </div>
+                <div class="space-y-2">
+                  <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">跳转方式</label>
+                  <select id="link-target" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold">
+                    <option value="_self" selected={banner?.link_target === '_self' || !banner}>当前页面</option>
+                    <option value="_blank" selected={banner?.link_target === '_blank'}>新页面打开</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
 
-      {/* JavaScript */}
+      {/* JavaScript - 原有的文件上传逻辑 */}
       <script dangerouslySetInnerHTML={{
         __html: `
           (function() {
             const languages = ['zh', 'en', 'jp', 'hk'];
-            
-            // 从URL参数中读取category_id并自动选中（仅创建模式且为栏目Banner）
             const isCategoryBanner = ${JSON.stringify(isCategoryBanner)};
             const isEdit = ${JSON.stringify(isEdit)};
-            if (isCategoryBanner && !isEdit) {
-              const urlParams = new URLSearchParams(window.location.search);
-              const categoryId = urlParams.get('category_id');
-              if (categoryId) {
-                const categorySelect = document.getElementById('category-id');
-                if (categorySelect) {
-                  categorySelect.value = categoryId;
-                }
+            const apiPath = ${JSON.stringify(apiPath)};
+            const basePath = ${JSON.stringify(basePath)};
+            
+            // 初始化显示字段
+            function toggleFields() {
+              const position = document.getElementById('text-position').value;
+              const textImageFields = document.getElementById('text-image-fields');
+              const fullImageFields = document.getElementById('full-image-fields');
+              
+              if (position === 'no-text') {
+                textImageFields.classList.add('hidden');
+                fullImageFields.classList.remove('hidden');
+              } else {
+                textImageFields.classList.remove('hidden');
+                fullImageFields.classList.add('hidden');
               }
             }
             
-            // Banner多语言Tab切换逻辑
+            document.getElementById('text-position').addEventListener('change', toggleFields);
+            toggleFields();
+
+            // Tab 切换
             document.querySelectorAll('.banner-lang-tab').forEach(tab => {
               tab.addEventListener('click', function() {
                 const lang = this.dataset.lang;
                 document.querySelectorAll('.banner-lang-tab').forEach(t => {
-                  t.classList.remove('bg-white', 'text-blue-600');
-                  t.classList.add('text-blue-100', 'hover:bg-blue-500');
+                  t.classList.remove('bg-white', 'text-slate-900');
+                  t.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-white/10');
                 });
-                this.classList.add('bg-white', 'text-blue-600');
-                this.classList.remove('text-blue-100', 'hover:bg-blue-500');
+                this.classList.add('bg-white', 'text-slate-900');
+                this.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-white/10');
                 
                 document.querySelectorAll('.banner-lang-content').forEach(c => c.classList.add('hidden'));
                 document.querySelector(\`.banner-lang-content[data-lang="\${lang}"]\`).classList.remove('hidden');
               });
             });
-            
-            const textPosition = document.getElementById('text-position');
-            const textImageFields = document.getElementById('text-image-fields');
-            const fullImageFields = document.getElementById('full-image-fields');
-            
-            // 切换显示字段
-            function toggleFields() {
-              const position = textPosition.value;
-              if (position === 'no-text') {
-                // 无文字 -> 显示模式B（整张大图）
-                textImageFields.style.display = 'none';
-                fullImageFields.style.display = 'block';
-              } else {
-                // 左/中/右 -> 显示模式A（文字+图片）
-                textImageFields.style.display = 'block';
-                fullImageFields.style.display = 'none';
+
+            // 颜色选择器同步
+            function syncColorPicker(pickerId, inputId) {
+              const picker = document.getElementById(pickerId);
+              const input = document.getElementById(inputId);
+              if (!picker || !input) return;
+
+              picker.addEventListener('input', () => {
+                input.value = picker.value;
+              });
+
+              input.addEventListener('input', () => {
+                const val = input.value.trim();
+                if (/^#[0-9A-F]{6}$/i.test(val)) {
+                  picker.value = val;
+                }
+              });
+              
+              // 设置初始值
+              const initialVal = input.value.trim();
+              if (/^#[0-9A-F]{6}$/i.test(initialVal)) {
+                picker.value = initialVal;
               }
             }
-            
-            // 初始化显示
-            toggleFields();
-            textPosition.addEventListener('change', toggleFields);
 
-            // 存储待上传的背景文件（按语言存储）
+            ['text-color', 'subtitle-color', 'background-color'].forEach(id => {
+              syncColorPicker(id + '-picker', id);
+            });
+
+            // ---------------- 原有的上传与保存逻辑 ----------------
             const pendingBackgroundFiles = {};
             
-            // 初始化背景预览显示（多语言）
             function initBackgroundPreview(lang) {
-              const backgroundUrlInput = document.getElementById('background-url-' + lang);
-              const backgroundUrl = backgroundUrlInput?.value || '';
+              const backgroundUrl = document.getElementById('background-url-' + lang)?.value || '';
               if (!backgroundUrl) return;
               
               const previewImg = document.getElementById('background-preview-' + lang);
@@ -568,48 +430,27 @@ export const BannerEditor: FC<BannerEditorProps> = ({
               const previewContainer = document.getElementById('background-preview-container-' + lang);
               const placeholder = document.getElementById('background-placeholder-' + lang);
               
-              // 判断是图片还是视频
-              const isVideo = /\.(mp4|webm|ogg|mov|avi|wmv)$/i.test(backgroundUrl) || backgroundUrl.startsWith('data:video/');
+              const isVideo = /\\.(mp4|webm|ogg|mov|avi|wmv)$/i.test(backgroundUrl) || backgroundUrl.startsWith('data:video/');
               
               if (previewContainer) {
-                previewContainer.style.display = 'block';
-                
+                previewContainer.classList.remove('hidden');
                 if (isVideo) {
-                  if (previewVideo) {
-                    previewVideo.src = backgroundUrl;
-                    previewVideo.style.display = 'block';
-                  }
-                  if (previewImg) {
-                    previewImg.style.display = 'none';
-                  }
+                  if (previewVideo) { previewVideo.src = backgroundUrl; previewVideo.classList.remove('hidden'); }
+                  if (previewImg) previewImg.classList.add('hidden');
                 } else {
-                  if (previewImg) {
-                    previewImg.src = backgroundUrl;
-                    previewImg.style.display = 'block';
-                  }
-                  if (previewVideo) {
-                    previewVideo.style.display = 'none';
-                  }
+                  if (previewImg) { previewImg.src = backgroundUrl; previewImg.classList.remove('hidden'); }
+                  if (previewVideo) previewVideo.classList.add('hidden');
                 }
               }
-              
-              if (placeholder) {
-                placeholder.style.display = 'none';
-              }
+              if (placeholder) placeholder.classList.add('hidden');
             }
             
-            // 为每个语言初始化背景预览
-            languages.forEach(lang => {
-              initBackgroundPreview(lang);
-            });
+            languages.forEach(lang => initBackgroundPreview(lang));
 
-            // 文件上传处理函数（支持多语言背景）
             function setupFileUpload(uploadBtnId, fileInputId, urlInputId, previewId, placeholderId, removeBtnId, delayUpload = false, lang = null) {
               const uploadArea = document.getElementById(uploadBtnId);
               const fileInput = document.getElementById(fileInputId);
               const urlInput = document.getElementById(urlInputId);
-              const preview = document.getElementById(previewId);
-              const placeholder = document.getElementById(placeholderId);
               const removeBtn = document.getElementById(removeBtnId);
               
               if (uploadArea && fileInput) {
@@ -619,375 +460,288 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                   const file = this.files[0];
                   if (!file) return;
                   
-                  // 如果是延迟上传（背景字段），只保存文件并显示预览
                   if (delayUpload && lang) {
                     pendingBackgroundFiles[lang] = file;
-                    
-                    // 创建本地预览URL
-                    const localPreviewUrl = URL.createObjectURL(file);
-                    
-                    // 显示预览，隐藏占位符（使用语言特定的ID）
-                    const previewContainer = document.getElementById('background-preview-container-' + lang);
+                    const localUrl = URL.createObjectURL(file);
+                    const container = document.getElementById('background-preview-container-' + lang);
                     const previewImg = document.getElementById('background-preview-' + lang);
                     const previewVideo = document.getElementById('background-preview-video-' + lang);
+                    const placeholder = document.getElementById('background-placeholder-' + lang);
                     
-                    // 判断是图片还是视频
-                    const isVideo = file.type.startsWith('video/');
+                    container.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
                     
-                    if (previewContainer) {
-                      previewContainer.style.display = 'block';
-                      
-                      if (isVideo) {
-                        // 显示视频预览
-                        if (previewVideo) {
-                          previewVideo.src = localPreviewUrl;
-                          previewVideo.style.display = 'block';
-                        }
-                        if (previewImg) {
-                          previewImg.style.display = 'none';
-                        }
-                      } else {
-                        // 显示图片预览
-                        if (previewImg) {
-                          previewImg.src = localPreviewUrl;
-                          previewImg.style.display = 'block';
-                        }
-                        if (previewVideo) {
-                          previewVideo.style.display = 'none';
-                        }
-                      }
+                    if (file.type.startsWith('video/')) {
+                      if (previewVideo) { previewVideo.src = localUrl; previewVideo.classList.remove('hidden'); }
+                      if (previewImg) previewImg.classList.add('hidden');
+                    } else {
+                      if (previewImg) { previewImg.src = localUrl; previewImg.classList.remove('hidden'); }
+                      if (previewVideo) previewVideo.classList.add('hidden');
                     }
                     
-                    if (placeholder) {
-                      placeholder.style.display = 'none';
-                    }
-                    
-                    // 清空URL输入，标记需要上传
                     if (urlInput) {
                       urlInput.value = '';
                       urlInput.setAttribute('data-pending-upload', 'true');
                     }
-                    
                     return;
                   }
                   
-                  // 立即上传（其他字段，如整张大图）
+                  // 立即上传 (Full Image模式)
                   const formData = new FormData();
                   formData.append('file', file);
-                  // 整张大图使用 'contents' 分类
                   formData.append('category', 'contents');
                   
                   try {
-                    const response = await fetch('/api/admin/upload/image', {
-                      method: 'POST',
-                      body: formData
-                    });
-                    
-                    // 检查响应状态
-                    if (!response.ok) {
-                      const errorText = await response.text();
-                      throw new Error('服务器错误: ' + response.status + ' ' + errorText);
-                    }
-                    
-                    // 检查内容类型
-                    const contentType = response.headers.get('content-type');
-                    if (!contentType || !contentType.includes('application/json')) {
-                      const text = await response.text();
-                      throw new Error('服务器返回的不是JSON格式: ' + text.substring(0, 100));
-                    }
-                    
+                    const response = await fetch('/api/admin/upload/image', { method: 'POST', body: formData });
                     const result = await response.json();
-                    
-                    // 处理响应格式：/api/admin/upload/image 返回 { success: true, data: { url: ... } }
                     const imageUrl = result.success && result.data ? result.data.url : (result.url || '');
                     
                     if (result.success && imageUrl) {
                       urlInput.value = imageUrl;
+                      const uploadArea = document.getElementById(uploadBtnId);
+                      const placeholder = document.getElementById(placeholderId);
                       
-                      if (preview) {
-                        preview.src = imageUrl;
-                        preview.parentElement.style.display = 'block';
+                      if (uploadArea) {
+                        // 隐藏占位符
+                        if (placeholder) {
+                          placeholder.classList.add('hidden');
+                        }
+                        
+                        // 检查是否已有预览容器
+                        let previewContainer = uploadArea.querySelector('.relative.inline-block');
+                        let previewImg = document.getElementById(previewId);
+                        
+                        if (!previewContainer) {
+                          // 创建预览容器
+                          previewContainer = document.createElement('div');
+                          previewContainer.className = 'relative inline-block rounded-2xl overflow-hidden shadow-2xl';
+                          
+                          previewImg = document.createElement('img');
+                          previewImg.id = previewId;
+                          previewImg.className = 'max-w-md max-h-64 object-contain';
+                          previewContainer.appendChild(previewImg);
+                          
+                          // 创建删除按钮
+                          const removeBtn = document.createElement('button');
+                          removeBtn.type = 'button';
+                          removeBtn.id = removeBtnId;
+                          removeBtn.className = 'absolute top-2 right-2 bg-red-500 text-white rounded-xl w-8 h-8 flex items-center justify-center shadow-lg hover:scale-110 transition-all';
+                          removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                          previewContainer.appendChild(removeBtn);
+                          
+                          uploadArea.appendChild(previewContainer);
+                        }
+                        
+                        // 设置图片源
+                        if (previewImg) {
+                          previewImg.src = imageUrl;
+                        }
+                        
+                        // 确保预览容器可见
+                        previewContainer.classList.remove('hidden');
+                        previewContainer.style.display = 'block';
                       }
-                      if (placeholder) {
-                        placeholder.style.display = 'none';
-                      }
-                    } else {
-                      alert('上传失败: ' + (result.message || result.error || '未知错误'));
                     }
-                  } catch (error) {
-                    console.error('上传错误详情:', error);
-                    alert('上传失败: ' + (error.message || '未知错误'));
-                  }
+                  } catch (e) { alert('上传失败: ' + e.message); }
                 });
               }
               
               if (removeBtn) {
-                removeBtn.addEventListener('click', function() {
-                  if (urlInput) {
-                    urlInput.value = '';
-                    urlInput.removeAttribute('data-pending-upload');
-                  }
-                  
-                  // 清理预览（图片和视频）- 使用语言特定的ID
+                removeBtn.addEventListener('click', function(e) {
+                  e.stopPropagation();
+                  urlInput.value = '';
+                  urlInput.removeAttribute('data-pending-upload');
                   if (lang) {
-                    const previewImg = document.getElementById('background-preview-' + lang);
-                    const previewVideo = document.getElementById('background-preview-video-' + lang);
-                    const previewContainer = document.getElementById('background-preview-container-' + lang);
-                    const placeholder = document.getElementById('background-placeholder-' + lang);
-                    
-                    if (previewImg) {
-                      if (previewImg.src && previewImg.src.startsWith('blob:')) {
-                        URL.revokeObjectURL(previewImg.src);
-                      }
-                      previewImg.src = '';
-                      previewImg.style.display = 'none';
-                    }
-                    if (previewVideo) {
-                      if (previewVideo.src && previewVideo.src.startsWith('blob:')) {
-                        URL.revokeObjectURL(previewVideo.src);
-                      }
-                      previewVideo.src = '';
-                      previewVideo.style.display = 'none';
-                    }
-                    if (previewContainer) {
-                      previewContainer.style.display = 'none';
-                    }
-                    if (placeholder) {
-                      placeholder.style.display = 'block';
-                    }
-                    
-                    // 清除待上传文件
-                    if (delayUpload && lang) {
-                      delete pendingBackgroundFiles[lang];
-                    }
+                    document.getElementById('background-preview-container-' + lang).classList.add('hidden');
+                    document.getElementById('background-placeholder-' + lang).classList.remove('hidden');
+                    if (delayUpload) delete pendingBackgroundFiles[lang];
                   } else {
-                    // 非多语言字段的清理逻辑（保持兼容）
-                    const previewImg = document.getElementById(previewId);
-                    const previewVideo = document.getElementById(previewId + '-video');
-                    const previewContainer = previewImg?.parentElement;
+                    // Full Image模式：移除预览容器，显示占位符
+                    const uploadArea = document.getElementById(uploadBtnId);
+                    const placeholder = document.getElementById(placeholderId);
+                    const previewContainer = uploadArea?.querySelector('.relative.inline-block');
                     
-                    if (previewImg) {
-                      if (previewImg.src && previewImg.src.startsWith('blob:')) {
-                        URL.revokeObjectURL(previewImg.src);
-                      }
-                      previewImg.src = '';
-                      previewImg.style.display = 'none';
-                    }
-                    if (previewVideo) {
-                      if (previewVideo.src && previewVideo.src.startsWith('blob:')) {
-                        URL.revokeObjectURL(previewVideo.src);
-                      }
-                      previewVideo.src = '';
-                      previewVideo.style.display = 'none';
-                    }
                     if (previewContainer) {
-                      previewContainer.style.display = 'none';
+                      previewContainer.remove();
                     }
                     if (placeholder) {
-                      placeholder.style.display = 'block';
+                      placeholder.classList.remove('hidden');
                     }
-                  }
-                  
-                  if (fileInput) {
-                    fileInput.value = '';
                   }
                 });
               }
             }
             
-            // 上传背景文件的函数（支持图片和视频）
-            async function uploadBackgroundFile(file) {
+            async function uploadFile(file) {
+              const isVideo = file.type.startsWith('video/');
               const formData = new FormData();
               formData.append('file', file);
+              formData.append('category', isVideo ? 'videos' : 'temp');
               
-              // 判断是图片还是视频
-              const isVideo = file.type.startsWith('video/');
+              const res = await fetch(isVideo ? '/api/admin/upload/file' : '/api/admin/upload/image', { method: 'POST', body: formData });
+              const result = await res.json();
+              if (result.success && (result.data?.url || result.url)) return result.data?.url || result.url;
+              throw new Error(result.message || '上传失败');
+            }
+
+            languages.forEach(lang => {
+              setupFileUpload('background-upload-area-'+lang, 'background-upload-'+lang, 'background-url-'+lang, 'background-preview-'+lang, 'background-placeholder-'+lang, 'remove-background-'+lang, true, lang);
+            });
+            // Full Image上传：需要特殊处理，因为预览容器可能不存在
+            const fullImageUploadArea = document.getElementById('full-image-upload-area');
+            const fullImageFileInput = document.getElementById('full-image-upload');
+            const fullImageUrlInput = document.getElementById('full-image-url');
+            const fullImagePlaceholder = document.getElementById('full-image-placeholder');
+            
+            if (fullImageUploadArea && fullImageFileInput) {
+              fullImageUploadArea.addEventListener('click', () => fullImageFileInput.click());
               
-              // 根据文件类型选择不同的接口
-              const uploadUrl = isVideo ? '/api/admin/upload/file' : '/api/admin/upload/image';
-              
-              if (isVideo) {
-                // 视频使用 'videos' 分类
-                formData.append('category', 'videos');
-              } else {
-                // 图片使用 'temp' 分类
-                formData.append('category', 'temp');
-              }
-              
-              const response = await fetch(uploadUrl, {
-                method: 'POST',
-                body: formData
+              fullImageFileInput.addEventListener('change', async function() {
+                const file = this.files[0];
+                if (!file) return;
+                
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('category', 'contents');
+                
+                try {
+                  const response = await fetch('/api/admin/upload/image', { method: 'POST', body: formData });
+                  const result = await response.json();
+                  const imageUrl = result.success && result.data ? result.data.url : (result.url || '');
+                  
+                  if (result.success && imageUrl) {
+                    fullImageUrlInput.value = imageUrl;
+                    
+                    // 隐藏占位符
+                    if (fullImagePlaceholder) {
+                      fullImagePlaceholder.classList.add('hidden');
+                    }
+                    
+                    // 检查是否已有预览容器
+                    let previewContainer = fullImageUploadArea.querySelector('.relative.inline-block');
+                    let previewImg = document.getElementById('full-image-preview');
+                    
+                    if (!previewContainer) {
+                      // 创建预览容器
+                      previewContainer = document.createElement('div');
+                      previewContainer.className = 'relative inline-block rounded-2xl overflow-hidden shadow-2xl';
+                      
+                      previewImg = document.createElement('img');
+                      previewImg.id = 'full-image-preview';
+                      previewImg.className = 'max-w-md max-h-64 object-contain';
+                      previewContainer.appendChild(previewImg);
+                      
+                      // 创建删除按钮
+                      const removeBtn = document.createElement('button');
+                      removeBtn.type = 'button';
+                      removeBtn.id = 'remove-full-image';
+                      removeBtn.className = 'absolute top-2 right-2 bg-red-500 text-white rounded-xl w-8 h-8 flex items-center justify-center shadow-lg hover:scale-110 transition-all';
+                      removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                      previewContainer.appendChild(removeBtn);
+                      
+                      fullImageUploadArea.appendChild(previewContainer);
+                      
+                      // 绑定删除按钮事件
+                      removeBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        fullImageUrlInput.value = '';
+                        previewContainer.remove();
+                        if (fullImagePlaceholder) {
+                          fullImagePlaceholder.classList.remove('hidden');
+                        }
+                      });
+                    }
+                    
+                    // 设置图片源
+                    if (previewImg) {
+                      previewImg.src = imageUrl;
+                    }
+                  }
+                } catch (e) {
+                  alert('上传失败: ' + e.message);
+                }
               });
-              
-              if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error('服务器错误: ' + response.status + ' ' + errorText);
-              }
-              
-              const contentType = response.headers.get('content-type');
-              if (!contentType || !contentType.includes('application/json')) {
-                const text = await response.text();
-                throw new Error('服务器返回的不是JSON格式: ' + text.substring(0, 100));
-              }
-              
-              const result = await response.json();
-              
-              // 处理响应格式：
-              // /api/admin/upload/image 返回 { success: true, data: { url: ... } }
-              // /api/admin/upload/file 返回 { success: true, data: { url: ... } }
-              const fileUrl = result.success && result.data ? result.data.url : (result.url || '');
-              
-              if (result.success && fileUrl) {
-                return fileUrl;
-              } else {
-                throw new Error(result.message || result.error || '上传失败');
-              }
             }
             
-            // 为每个语言设置背景上传
-            languages.forEach(lang => {
-              setupFileUpload(
-                'background-upload-area-' + lang,
-                'background-upload-' + lang,
-                'background-url-' + lang,
-                'background-preview-' + lang,
-                'background-placeholder-' + lang,
-                'remove-background-' + lang,
-                true,
-                lang
-              );
-            });
-            
-            // 整张大图：立即上传
-            setupFileUpload('full-image-upload-area', 'full-image-upload', 'full-image-url', 
-                           'full-image-preview', 'full-image-placeholder', 'remove-full-image', false);
+            // 处理已有的删除按钮（编辑模式）
+            const existingRemoveBtn = document.getElementById('remove-full-image');
+            if (existingRemoveBtn) {
+              existingRemoveBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const fullImageUrlInput = document.getElementById('full-image-url');
+                const fullImagePlaceholder = document.getElementById('full-image-placeholder');
+                const previewContainer = this.closest('.relative.inline-block');
+                
+                if (fullImageUrlInput) {
+                  fullImageUrlInput.value = '';
+                }
+                if (previewContainer) {
+                  previewContainer.remove();
+                }
+                if (fullImagePlaceholder) {
+                  fullImagePlaceholder.classList.remove('hidden');
+                }
+              });
+            }
 
-            // 表单提交
-            const form = document.getElementById('banner-form');
-            const submitBtn = document.getElementById('submit-btn');
-            
-            form.addEventListener('submit', async function(e) {
+            document.getElementById('banner-form').addEventListener('submit', async function(e) {
               e.preventDefault();
+              const btn = document.getElementById('submit-btn');
+              const textPos = document.getElementById('text-position').value;
+              const bType = textPos === 'no-text' ? 'full_image' : 'text_image';
               
-              const bannerId = document.getElementById('banner-id').value;
-              const isEdit = !!bannerId;
-              
-              // 根据排版值确定Banner类型
-              const textPosition = document.getElementById('text-position').value;
-              const bannerType = textPosition === 'no-text' ? 'full_image' : 'text_image';
-              
-              submitBtn.disabled = true;
-              submitBtn.textContent = '保存中...';
+              btn.disabled = true;
+              btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> 处理中...';
               
               try {
-                // 上传所有待上传的多语言背景文件
                 const backgroundUrls = {};
                 for (const lang of languages) {
                   if (pendingBackgroundFiles[lang]) {
-                    submitBtn.textContent = '上传' + (lang === 'zh' ? '简体中文' : lang === 'en' ? '英文' : lang === 'jp' ? '日文' : '繁体中文') + '背景文件中...';
-                    try {
-                      const uploadedUrl = await uploadBackgroundFile(pendingBackgroundFiles[lang]);
-                      backgroundUrls[lang] = uploadedUrl;
-                      
-                      // 更新URL输入和预览
-                      const urlInput = document.getElementById('background-url-' + lang);
-                      if (urlInput) {
-                        urlInput.value = uploadedUrl;
-                        urlInput.removeAttribute('data-pending-upload');
-                      }
-                      
-                      // 更新预览为服务器URL
-                      const previewImg = document.getElementById('background-preview-' + lang);
-                      const previewVideo = document.getElementById('background-preview-video-' + lang);
-                      const previewContainer = document.getElementById('background-preview-container-' + lang);
-                      const placeholder = document.getElementById('background-placeholder-' + lang);
-                      
-                      const isVideo = pendingBackgroundFiles[lang].type.startsWith('video/');
-                      const isVideoUrl = uploadedUrl && (uploadedUrl.includes('.mp4') || uploadedUrl.includes('.avi') || uploadedUrl.includes('.mov') || uploadedUrl.includes('.wmv'));
-                      
-                      if (previewContainer) {
-                        previewContainer.style.display = 'block';
-                        
-                        if (isVideo || isVideoUrl) {
-                          if (previewVideo) {
-                            if (previewVideo.src && previewVideo.src.startsWith('blob:')) {
-                              URL.revokeObjectURL(previewVideo.src);
-                            }
-                            previewVideo.src = uploadedUrl;
-                            previewVideo.style.display = 'block';
-                          }
-                          if (previewImg) {
-                            previewImg.style.display = 'none';
-                          }
-                        } else {
-                          if (previewImg) {
-                            if (previewImg.src && previewImg.src.startsWith('blob:')) {
-                              URL.revokeObjectURL(previewImg.src);
-                            }
-                            previewImg.src = uploadedUrl;
-                            previewImg.style.display = 'block';
-                          }
-                          if (previewVideo) {
-                            previewVideo.style.display = 'none';
-                          }
-                        }
-                      }
-                      if (placeholder) {
-                        placeholder.style.display = 'none';
-                      }
-                      
-                      delete pendingBackgroundFiles[lang];
-                    } catch (error) {
-                      alert((lang === 'zh' ? '简体中文' : lang === 'en' ? '英文' : lang === 'jp' ? '日文' : '繁体中文') + '背景文件上传失败: ' + error.message);
-                      submitBtn.disabled = false;
-                      submitBtn.textContent = isEdit ? '保存更新' : '发布';
-                      return;
-                    }
+                    backgroundUrls[lang] = await uploadFile(pendingBackgroundFiles[lang]);
                   } else {
-                    // 如果没有待上传文件，使用现有的URL
-                    const urlInput = document.getElementById('background-url-' + lang);
-                    backgroundUrls[lang] = urlInput?.value || '';
+                    backgroundUrls[lang] = document.getElementById('background-url-' + lang).value;
                   }
                 }
                 
-                submitBtn.textContent = '保存中...';
+                // 自动生成 title：使用主标题（中文）或默认值
+                let autoTitle = '';
+                if (bType === 'text_image') {
+                  autoTitle = document.getElementById('text-title-zh')?.value || 
+                             document.getElementById('text-title-en')?.value || 
+                             document.getElementById('text-title-jp')?.value || 
+                             document.getElementById('text-title-hk')?.value || 
+                             'Banner ' + new Date().toLocaleString('zh-CN');
+                } else {
+                  autoTitle = 'Full Image Banner ' + new Date().toLocaleString('zh-CN');
+                }
                 
                 const formData = {
-                  banner_type: bannerType,
-                  title: document.getElementById('banner-title').value,
+                  banner_type: bType,
+                  title: autoTitle,
                   sort_order: parseInt(document.getElementById('sort-order').value) || 0,
                   status: document.getElementById('banner-status').value,
-                  text_position: textPosition
+                  text_position: textPos
                 };
                 
-                // 如果是栏目Banner，添加栏目分类ID
-                const isCategoryBanner = ${JSON.stringify(isCategoryBanner)};
                 if (isCategoryBanner) {
-                  const categoryIdInput = document.getElementById('category-id');
-                  if (categoryIdInput && categoryIdInput.value) {
-                    formData.category_id = parseInt(categoryIdInput.value);
-                  }
+                  const catId = document.getElementById('category-id').value;
+                  if (catId) formData.category_id = parseInt(catId);
                 }
                 
-                if (bannerType === 'text_image') {
-                  // 收集多语言字段
-                  for (const lang of languages) {
+                if (bType === 'text_image') {
+                  languages.forEach(lang => {
                     formData['text_title_' + lang] = document.getElementById('text-title-' + lang).value;
                     formData['text_subtitle_' + lang] = document.getElementById('text-subtitle-' + lang).value;
                     formData['text_button_' + lang] = document.getElementById('text-button-' + lang).value;
                     formData['background_url_' + lang] = backgroundUrls[lang] || '';
-                  }
-                  
-                  // 同步核心字段（Fallback 为简体中文）
-                  formData.text_title = formData.text_title_zh || formData.text_title_en || '';
-                  formData.text_subtitle = formData.text_subtitle_zh || formData.text_subtitle_en || '';
-                  formData.text_button = formData.text_button_zh || formData.text_button_en || '';
-                  formData.background_url = formData.background_url_zh || formData.background_url_en || '';
-                  
+                  });
+                  formData.text_title = formData.text_title_zh;
+                  formData.text_subtitle = formData.text_subtitle_zh;
+                  formData.text_button = formData.text_button_zh;
+                  formData.background_url = formData.background_url_zh;
                   formData.text_color = document.getElementById('text-color').value;
                   formData.subtitle_color = document.getElementById('subtitle-color').value;
-                  formData.background_color = document.getElementById('background-color').value || null;
-                  formData.background_type = document.getElementById('background-type-zh').value; // 使用第一个语言的背景类型
+                  formData.background_color = document.getElementById('background-color').value;
                   formData.button_link = document.getElementById('button-link').value;
                   formData.button_target = document.getElementById('button-target').value;
                 } else {
@@ -996,35 +750,23 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                   formData.link_target = document.getElementById('link-target').value;
                 }
                 
-                const apiPath = '${apiPath}';
-                const url = isEdit 
-                  ? \`\${apiPath}/\${bannerId}\`
-                  : apiPath;
-                
-                const method = isEdit ? 'PUT' : 'POST';
+                const bannerId = document.getElementById('banner-id').value;
+                const method = bannerId ? 'PUT' : 'POST';
+                const url = bannerId ? \`\${apiPath}/\${bannerId}\` : apiPath;
                 
                 const response = await fetch(url, {
-                  method: method,
+                  method,
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify(formData)
                 });
-                
                 const result = await response.json();
-                
-                const basePath = '${basePath}';
-                
                 if (result.success) {
-                  alert(isEdit ? '更新成功!' : '添加成功!');
                   window.location.href = basePath;
                 } else {
-                  alert('保存失败: ' + (result.message || '未知错误'));
+                  alert('保存失败: ' + result.message);
                 }
-              } catch (error) {
-                alert('保存失败: ' + error.message);
-              } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = isEdit ? '保存更新' : '发布';
-              }
+              } catch (e) { alert('保存发生错误: ' + e.message); }
+              finally { btn.disabled = false; btn.textContent = isEdit ? '保存更新' : '立即发布'; }
             });
           })();
         `
@@ -1032,4 +774,3 @@ export const BannerEditor: FC<BannerEditorProps> = ({
     </div>
   )
 }
-

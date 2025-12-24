@@ -1,8 +1,57 @@
-interface LogsProps {
-  // Logs specific props can be added here
+interface Log {
+  id: number
+  user_id?: number
+  user_name?: string
+  action: string
+  target_type?: string
+  target_id?: number
+  target_name?: string
+  description?: string
+  ip_address?: string
+  user_agent?: string
+  created_at: string
 }
 
-export function Logs({}: LogsProps) {
+interface LogsProps {
+  logs?: Log[]
+  currentPage?: number
+  totalPages?: number
+  total?: number
+}
+
+export function Logs({ logs = [], currentPage = 1, totalPages = 1, total = 0 }: LogsProps) {
+  // 格式化时间
+  const formatTime = (dateString: string) => {
+    if (!dateString) return '未知时间'
+    try {
+      const date = new Date(dateString)
+      if (isNaN(date.getTime())) return '时间格式错误'
+      return date.toLocaleString('zh-CN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      })
+    } catch (e) {
+      return '时间解析错误'
+    }
+  }
+
+  // 根据操作类型返回标签样式和文本
+  const getActionBadge = (action: string) => {
+    const badges: Record<string, { text: string; class: string }> = {
+      'login': { text: '登录', class: 'bg-blue-100 text-blue-800' },
+      'create': { text: '创建', class: 'bg-purple-100 text-purple-800' },
+      'update': { text: '更新', class: 'bg-green-100 text-green-800' },
+      'delete': { text: '删除', class: 'bg-red-100 text-red-800' },
+      'upload': { text: '上传', class: 'bg-orange-100 text-orange-800' },
+      'system': { text: '系统', class: 'bg-gray-100 text-gray-800' }
+    }
+    return badges[action] || { text: action, class: 'bg-gray-100 text-gray-800' }
+  }
   return (
     <div class="space-y-6">
       {/* Filters */}
@@ -87,228 +136,91 @@ export function Logs({}: LogsProps) {
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-              <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  2024-01-15 15:32:45
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                    登录
-                  </span>
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-900">
-                  管理员登录后台系统
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  Admin User
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  192.168.1.100
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                    成功
-                  </span>
-                </td>
-              </tr>
-              
-              <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  2024-01-15 14:28:12
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-800">
-                    内容
-                  </span>
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-900">
-                  更新页面内容 - "Homepage"
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  Admin User
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  192.168.1.100
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                    成功
-                  </span>
-                </td>
-              </tr>
-              
-              <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  2024-01-15 13:15:33
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                    SEO
-                  </span>
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-900">
-                  优化SEO设置 - "Marketing Scenario"
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  Admin User
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  192.168.1.100
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                    成功
-                  </span>
-                </td>
-              </tr>
-              
-              <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  2024-01-15 12:45:21
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                    多语言
-                  </span>
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-900">
-                  添加日语翻译 - "about.title"
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  Admin User
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  192.168.1.100
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                    成功
-                  </span>
-                </td>
-              </tr>
-              
-              <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  2024-01-15 11:22:15
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-800">
-                    媒体
-                  </span>
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-900">
-                  上传媒体文件 - "zenava-logo.png"
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  Admin User
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  192.168.1.100
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                    成功
-                  </span>
-                </td>
-              </tr>
-              
-              <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  2024-01-15 10:05:42
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                    系统
-                  </span>
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-900">
-                  清除系统缓存
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  Admin User
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  192.168.1.100
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                    成功
-                  </span>
-                </td>
-              </tr>
-              
-              <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  2024-01-14 18:30:12
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                    登录
-                  </span>
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-900">
-                  登录失败 - 密码错误
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  Unknown
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  203.0.113.45
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                    失败
-                  </span>
-                </td>
-              </tr>
-              
-              <tr class="hover:bg-gray-50">
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  2024-01-14 16:45:33
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-800">
-                    内容
-                  </span>
-                </td>
-                <td class="px-6 py-4 text-sm text-gray-900">
-                  创建新页面 - "Sales Scenario"
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  Admin User
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  192.168.1.100
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                    成功
-                  </span>
-                </td>
-              </tr>
+              {logs.length === 0 ? (
+                <tr>
+                  <td colspan="6" class="px-6 py-8 text-center text-slate-500">
+                    <i class="fas fa-clipboard-list text-4xl mb-2 opacity-30"></i>
+                    <p>暂无操作日志</p>
+                  </td>
+                </tr>
+              ) : (
+                logs.map((log) => {
+                  const badge = getActionBadge(log.action)
+                  return (
+                    <tr key={log.id} class="hover:bg-gray-50">
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {formatTime(log.created_at)}
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span class={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${badge.class}`}>
+                          {badge.text}
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 text-sm text-gray-900">
+                        {log.description || `${badge.text}操作`}
+                        {log.target_name && ` - "${log.target_name}"`}
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {log.user_name || 'Unknown'}
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {log.ip_address || 'N/A'}
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                          成功
+                        </span>
+                      </td>
+                    </tr>
+                  )
+                })
+              )}
             </tbody>
           </table>
         </div>
         
         {/* Pagination */}
-        <div class="bg-white px-6 py-4 border-t border-gray-200">
-          <div class="flex items-center justify-between">
-            <div class="text-sm text-gray-700">
-              显示 <span class="font-medium">1</span> 到 <span class="font-medium">8</span> 条，共 <span class="font-medium">25</span> 条记录
-            </div>
-            <div class="flex space-x-2">
-              <button disabled class="px-3 py-2 text-sm text-gray-500 bg-gray-100 rounded-lg cursor-not-allowed">
-                上一页
-              </button>
-              <button class="px-3 py-2 text-sm bg-blue-600 text-white rounded-lg">1</button>
-              <button class="px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">2</button>
-              <button class="px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">3</button>
-              <button class="px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
-                下一页
-              </button>
+        {totalPages > 1 && (
+          <div class="bg-white px-6 py-4 border-t border-gray-200">
+            <div class="flex items-center justify-between">
+              <div class="text-sm text-gray-700">
+                显示 <span class="font-medium">{(currentPage - 1) * 20 + 1}</span> 到 <span class="font-medium">{Math.min(currentPage * 20, total)}</span> 条，共 <span class="font-medium">{total}</span> 条记录
+              </div>
+              <div class="flex space-x-2">
+                <a 
+                  href={`/ticloudadmin/logs?page=${currentPage - 1}`}
+                  class={`px-3 py-2 text-sm rounded-lg ${currentPage === 1 ? 'text-gray-500 bg-gray-100 cursor-not-allowed pointer-events-none' : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'}`}
+                >
+                  上一页
+                </a>
+                {[...Array(totalPages)].map((_, i) => {
+                  const pageNum = i + 1
+                  // 只显示当前页前后2页
+                  if (pageNum === 1 || pageNum === totalPages || (pageNum >= currentPage - 2 && pageNum <= currentPage + 2)) {
+                    return (
+                      <a
+                        key={pageNum}
+                        href={`/ticloudadmin/logs?page=${pageNum}`}
+                        class={`px-3 py-2 text-sm rounded-lg ${pageNum === currentPage ? 'bg-blue-600 text-white' : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'}`}
+                      >
+                        {pageNum}
+                      </a>
+                    )
+                  } else if (pageNum === currentPage - 3 || pageNum === currentPage + 3) {
+                    return <span key={pageNum} class="px-2 text-gray-500">...</span>
+                  }
+                  return null
+                })}
+                <a 
+                  href={`/ticloudadmin/logs?page=${currentPage + 1}`}
+                  class={`px-3 py-2 text-sm rounded-lg ${currentPage === totalPages ? 'text-gray-500 bg-gray-100 cursor-not-allowed pointer-events-none' : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'}`}
+                >
+                  下一页
+                </a>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* System Status */}
