@@ -6,8 +6,8 @@ module.exports = {
   apps: [
     {
       name: 'zenava-webapp',
-      script: 'npx',
-      args: 'wrangler pages dev dist --ip 0.0.0.0 --port 3000',
+      script: 'tsx',
+      args: 'server.js',
       cwd: process.cwd(),
       env: {
         NODE_ENV: 'production',

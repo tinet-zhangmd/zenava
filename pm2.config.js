@@ -6,8 +6,8 @@ module.exports = {
     {
       name: 'zenava-webapp',
       // 直接使用shell命令
-      script: 'bash',
-      args: '-c "npx wrangler pages dev dist --ip 0.0.0.0 --port 3000"',
+      script: 'tsx',
+      args: 'server.js',
       
       // 或者使用npm脚本
       // script: 'npm',
@@ -39,4 +39,4 @@ module.exports = {
 }
 
 // 注意：如果这个配置文件不工作，请使用以下命令直接启动：
-// pm2 start npx --name zenava-webapp -- wrangler pages dev dist --ip 0.0.0.0 --port 3000
+// pm2 start npm --name zenava-webapp -- run start:node
