@@ -428,9 +428,12 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
             </div>
           </div>
 
-          {/* Content Description Section - Centered across full width */}
+          {/* Content Description Section - Left aligned with video player */}
           <div class="mt-8 md:mt-12">
-            <div class="resource-content max-w-4xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
+              {/* Left Column: Content aligned with video player */}
+              <div class="lg:col-span-2">
+                <div class="resource-content">
                 <style dangerouslySetInnerHTML={{
                   __html: `
                     .resource-content {
@@ -493,7 +496,11 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
                 <div 
                   dangerouslySetInnerHTML={{ __html: displayContent || '' }}
                 />
+                </div>
               </div>
+              {/* Right Column: Empty space to match sidebar */}
+              <div class="lg:col-span-1"></div>
+            </div>
           </div>
         </div>
       </section>
