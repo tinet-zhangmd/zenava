@@ -356,7 +356,9 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
               {currentItems.map((item, index) => {
                 const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
-                const itemLink = category ? `${basePath}/${category.slug}/${item.id}` : '#'
+                // 优先使用 slug，如果没有则使用 id
+                const contentIdentifier = (item as any).slug || item.id
+                const itemLink = category ? `${basePath}/${category.slug}/${contentIdentifier}` : '#'
                 
                 return (
                   <a

@@ -15,6 +15,7 @@ interface Content {
   category_id: number
   category_name: string
   category_slug: string
+  slug?: string
   title: string
   content: string
   author?: string
@@ -60,6 +61,7 @@ interface Content {
 
 interface RecommendedContent {
   id: number
+  slug?: string
   title: string
   cover_image?: string
   published_at: string
@@ -480,9 +482,10 @@ export const ResourceDetailPage: FC<ResourceDetailPageProps> = ({
                   return `${day} ${month}`
                 }
                 
-                // 构建链接
+                // 构建链接（优先使用slug，如果没有则使用id）
                 const langPrefix = language === 'zh' ? '' : `/${language}`
-                const contentLink = `${langPrefix}/resources/${item.category_slug}/${item.id}`
+                const contentIdentifier = item.slug || item.id
+                const contentLink = `${langPrefix}/resources/${item.category_slug}/${contentIdentifier}`
                 
                 return (
                   <a 

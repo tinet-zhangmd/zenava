@@ -52,11 +52,26 @@ export const CategoryEditor: FC<CategoryEditorProps> = ({ category, mode }) => {
             <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
               <div class="space-y-5">
                 <div>
-                  <label class="block text-xs font-black text-gray-400 uppercase mb-2">链接标识 (Slug)</label>
+                  <label class="block text-xs font-black text-gray-400 uppercase mb-2">
+                    链接标识 (Slug)
+                    <span class="text-red-500 ml-1">*</span>
+                  </label>
                   <div class="relative">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400 text-sm italic">/resources/</span>
-                    <input type="text" id="category-slug" class="w-full pl-24 pr-4 py-2.5 bg-blue-50/30 border-2 border-blue-100 rounded-xl focus:border-blue-500 outline-none font-mono text-sm text-blue-700" 
-                      placeholder="e.g. tech-docs" value={category?.slug || ''} required />
+                    <input 
+                      type="text" 
+                      id="category-slug" 
+                      class="w-full pl-24 pr-4 py-2.5 bg-blue-50/30 border-2 border-blue-100 rounded-xl focus:border-blue-500 outline-none font-mono text-sm text-blue-700" 
+                      placeholder="e.g. tech-docs" 
+                      value={category?.slug || ''} 
+                      required 
+                      pattern="[a-zA-Z0-9_-]+"
+                      title="只能包含英文字母、数字、连字符(-)和下划线(_)，不能包含中文"
+                    />
+                    <div id="slug-error" class="hidden mt-2 text-xs text-red-500 flex items-center">
+                      <i class="fas fa-exclamation-circle mr-1"></i>
+                      <span>Slug 只能包含英文字母、数字、连字符(-)和下划线(_)，不能包含中文</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -170,15 +185,55 @@ export const CategoryEditor: FC<CategoryEditorProps> = ({ category, mode }) => {
             });
           });
           
-          // Slug 自动生成 (根据简体中文名称生成)
-          const nameZhInput = document.getElementById('category-name-zh');
+          // Slug 验证函数：检查是否包含中文
+          function validateSlug(slug) {
+            // 检查是否包含中文字符（Unicode范围：\u4e00-\u9fa5）
+            const chineseRegex = /[\u4e00-\u9fa5]/;
+            return !chineseRegex.test(slug) && /^[a-zA-Z0-9_-]+$/.test(slug);
+          }
+          
+          // Slug 输入框实时验证
           const slugInput = document.getElementById('category-slug');
+          const slugError = document.getElementById('slug-error');
+          
+          slugInput.addEventListener('input', function() {
+            const value = this.value;
+            if (value && !validateSlug(value)) {
+              this.classList.add('border-red-500', 'bg-red-50');
+              this.classList.remove('border-blue-100', 'bg-blue-50/30');
+              slugError.classList.remove('hidden');
+            } else {
+              this.classList.remove('border-red-500', 'bg-red-50');
+              this.classList.add('border-blue-100', 'bg-blue-50/30');
+              slugError.classList.add('hidden');
+            }
+          });
+          
+          slugInput.addEventListener('blur', function() {
+            const value = this.value.trim();
+            if (value && !validateSlug(value)) {
+              this.classList.add('border-red-500', 'bg-red-50');
+              slugError.classList.remove('hidden');
+            }
+          });
+          
+          // Slug 自动生成 (根据简体中文名称生成，移除中文)
+          const nameZhInput = document.getElementById('category-name-zh');
           nameZhInput.addEventListener('blur', () => {
             if (!slugInput.value && nameZhInput.value) {
-              slugInput.value = nameZhInput.value
+              // 移除所有非英文字母、数字、空格、连字符和下划线的字符
+              let generatedSlug = nameZhInput.value
                 .toLowerCase()
-                .replace(/[^\\u4e00-\\u9fa5a-zA-Z0-9\\s]/g, '')
-                .replace(/\\s+/g, '-');
+                .replace(/[^a-zA-Z0-9\s_-]/g, '') // 移除所有非字母数字空格连字符下划线的字符（包括中文）
+                .replace(/\s+/g, '-') // 空格替换为连字符
+                .replace(/-+/g, '-') // 多个连字符合并为一个
+                .replace(/^-|-$/g, ''); // 移除开头和结尾的连字符
+              
+              if (generatedSlug) {
+                slugInput.value = generatedSlug;
+                // 触发验证
+                slugInput.dispatchEvent(new Event('input'));
+              }
             }
           });
 
@@ -188,13 +243,30 @@ export const CategoryEditor: FC<CategoryEditorProps> = ({ category, mode }) => {
             console.log('🚀 开始提交多语言栏目表单...');
             
             const submitBtn = this.querySelector('button[type="submit"]');
+            
+            // 验证 Slug 字段
+            const slugValue = document.getElementById('category-slug').value.trim();
+            if (!slugValue) {
+              alert('❌ 请填写链接标识 (Slug) 字段');
+              slugInput.focus();
+              return;
+            }
+            
+            if (!validateSlug(slugValue)) {
+              alert('❌ Slug 只能包含英文字母、数字、连字符(-)和下划线(_)，不能包含中文');
+              slugInput.focus();
+              slugInput.classList.add('border-red-500', 'bg-red-50');
+              slugError.classList.remove('hidden');
+              return;
+            }
+            
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> 正在处理中...';
 
             try {
               const formData = {
                 id: document.getElementById('category-id').value || undefined,
-                slug: document.getElementById('category-slug').value,
+                slug: slugValue,
                 sort_order: parseInt(document.getElementById('category-sort-order').value) || 0,
                 list_template: document.getElementById('category-list-template').value,
                 detail_template: document.getElementById('category-list-template').value, // 使用相同的模板

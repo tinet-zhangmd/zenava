@@ -150,7 +150,7 @@ export const ResourceContentManagement: FC<ResourceContentManagementProps> = ({
             <tbody class="divide-y divide-slate-50">
               {contents.length === 0 ? (
                 <tr>
-                  <td colspan="7" class="px-6 py-20 text-center">
+                  <td colSpan={7} class="px-6 py-20 text-center">
                     <div class="flex flex-col items-center space-y-3">
                       <div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-slate-300">
                         <i class="fas fa-inbox text-2xl"></i>
@@ -296,23 +296,126 @@ export const ResourceContentManagement: FC<ResourceContentManagementProps> = ({
           checkboxes.forEach(cb => cb.checked = e.target.checked);
         });
               
-        // 批量操作与删除逻辑... (保持原有逻辑不变，仅美化UI)
+        // 批量操作逻辑
         document.getElementById('batch-action')?.addEventListener('change', async function(e) {
           if (!e.target.value) return;
+          
           const selected = Array.from(document.querySelectorAll('.content-checkbox:checked')).map(cb => cb.dataset.id);
-          if (selected.length === 0) { alert('请先选择要操作的内容'); e.target.value = ''; return; }
-          const action = e.target.value;
-          if (confirm(\`确定要执行批量操作吗？\`)) {
-            // 原有批量操作代码...
+          if (selected.length === 0) { 
+            alert('请先选择要操作的内容'); 
+            e.target.value = ''; 
+            return; 
           }
+          
+          const action = e.target.value;
+          const actionNames = {
+            'feature': '设为推荐',
+            'unfeature': '取消推荐',
+            'hot': '设为热门',
+            'unhot': '取消热门',
+            'publish': '立即发布',
+            'draft': '转为草稿',
+            'delete': '批量删除'
+          };
+          
+          const selectedCount = selected.length;
+          const actionName = actionNames[action] || '执行操作';
+          const confirmMessage = '确定要将选中的 ' + selectedCount + ' 项内容' + actionName + '吗？';
+          
+          if (!confirm(confirmMessage)) {
+            e.target.value = '';
+            return;
+          }
+          
+          try {
+            const response = await fetch('/api/admin/resource-contents/batch', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                action: action,
+                ids: selected.map(id => parseInt(id))
+              })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+              alert(result.message || '操作成功');
+              // 刷新页面
+              window.location.reload();
+            } else {
+              alert('操作失败: ' + (result.error || '未知错误'));
+            }
+          } catch (error) {
+            console.error('批量操作失败:', error);
+            alert('操作失败，请稍后重试');
+          }
+          
           e.target.value = '';
         });
 
         // 绑定删除按钮
         document.querySelectorAll('.delete-content-btn').forEach(btn => {
           btn.addEventListener('click', async function() {
-            if (confirm(\`确定要删除内容"\${this.dataset.title}"吗？\`)) {
-              // 原有删除代码...
+            const contentId = this.dataset.id;
+            const contentTitle = this.dataset.title;
+            
+            const confirmMessage = '确定要删除内容"' + contentTitle + '"吗？';
+            if (!confirm(confirmMessage)) {
+              return;
+            }
+            
+            try {
+              const response = await fetch('/api/admin/resource-contents/' + contentId, {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              });
+              
+              const result = await response.json();
+              
+              if (result.success) {
+                alert('删除成功');
+                // 刷新页面
+                window.location.reload();
+              } else {
+                alert('删除失败: ' + (result.error || '未知错误'));
+              }
+            } catch (error) {
+              console.error('删除失败:', error);
+              alert('删除失败，请稍后重试');
+            }
+          });
+        });
+        
+        // 绑定复制按钮
+        document.querySelectorAll('.copy-content-btn').forEach(btn => {
+          btn.addEventListener('click', async function() {
+            const contentId = this.dataset.id;
+            
+            try {
+              const response = await fetch('/api/admin/resource-contents/' + contentId + '/copy', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              });
+              
+              const result = await response.json();
+              
+              if (result.success) {
+                alert('复制成功，正在跳转到编辑页面...');
+                const newId = result.data && result.data.id ? result.data.id : contentId;
+                window.location.href = '/ticloudadmin/resource-contents/edit/' + newId;
+              } else {
+                alert('复制失败: ' + (result.error || '未知错误'));
+              }
+            } catch (error) {
+              console.error('复制失败:', error);
+              alert('复制失败，请稍后重试');
             }
           });
         });
