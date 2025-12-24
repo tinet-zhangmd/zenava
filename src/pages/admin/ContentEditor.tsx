@@ -271,7 +271,44 @@ export const ContentEditor: FC<ContentEditorProps> = ({
                     </div>
                   </div>
 
-                  {/* 5. SEO */}
+                  {/* 5. 视频/音频上传（仅视频类型显示，多语言） */}
+                  <div id={`video-upload-field-${lang.id}`} class="hidden">
+                    <div class="flex items-start">
+                      <label class="w-32 text-sm text-gray-700 font-black text-right mr-6 pt-2">视频/音频 ({lang.label})</label>
+                      <div class="flex-1">
+                        <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
+                          <input type="file" id={`content-video-${lang.id}`} class="hidden" accept="video/*,audio/*" data-lang={lang.id} />
+                          <button type="button" id={`upload-video-btn-${lang.id}`} class="px-4 py-2 bg-white shadow-sm border border-gray-200 rounded-lg text-xs font-bold text-gray-600 hover:border-blue-400">
+                            <i class="fas fa-video mr-2"></i> 上传视频/音频
+                          </button>
+                          <span id={`video-filename-${lang.id}`} class="text-xs text-gray-400 italic truncate max-w-xs">{(content as any)?.[`video_file_${lang.id}`] || (lang.id === 'zh' ? content?.video_file : '') || '未选择文件'}</span>
+                          <input type="hidden" id={`video-file-url-${lang.id}`} value={(content as any)?.[`video_file_${lang.id}`] || (lang.id === 'zh' ? content?.video_file : '') || ''} />
+                        </div>
+                        <p class="mt-2 text-xs text-gray-400">支持 MP4、AVI、MOV、WMV、WebM 视频格式，MP3、WAV、OGG、AAC、M4A 音频格式</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 6. 附件上传（仅下载类型显示，多语言） */}
+                  <div id={`attachment-upload-field-${lang.id}`} class="hidden">
+                    <div class="flex items-start">
+                      <label class="w-32 text-sm text-gray-700 font-black text-right mr-6 pt-2">资料附件 ({lang.label})</label>
+                      <div class="flex-1">
+                        <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
+                          <input type="file" id={`content-attachment-${lang.id}`} class="hidden" data-lang={lang.id} />
+                          <button type="button" id={`upload-attachment-btn-${lang.id}`} class="px-4 py-2 bg-white shadow-sm border border-gray-200 rounded-lg text-xs font-bold text-gray-600 hover:border-blue-400">
+                            <i class="fas fa-file-download mr-2"></i> 上传附件
+                          </button>
+                          <span id={`attachment-filename-${lang.id}`} class="text-xs text-gray-400 italic truncate max-w-xs">{(content as any)?.[`attachment_name_${lang.id}`] || (lang.id === 'zh' ? content?.attachment_name : '') || '未选择文件'}</span>
+                          <input type="hidden" id={`attachment-file-url-${lang.id}`} value={(content as any)?.[`attachment_file_${lang.id}`] || (lang.id === 'zh' ? content?.attachment_file : '') || ''} />
+                          <input type="hidden" id={`attachment-name-${lang.id}`} value={(content as any)?.[`attachment_name_${lang.id}`] || (lang.id === 'zh' ? content?.attachment_name : '') || ''} />
+                        </div>
+                        <p class="mt-2 text-xs text-gray-400">支持 XLS/XLSX/DOC/DOCX/PDF/ZIP/RAR/PPT/PPTX 格式的文件</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 7. SEO */}
                   {renderSEOFields(lang.id, lang.label)}
                 </div>
               ))}
@@ -281,28 +318,7 @@ export const ContentEditor: FC<ContentEditorProps> = ({
           {/* 卡片 3: 底部通用字段 */}
           <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 grid grid-cols-3 gap-8">
             <div class="col-span-2 space-y-6">
-              <div id="video-upload-field" class="hidden">
-                <label class="block text-xs font-black text-gray-400 uppercase mb-3">视频/音频媒体 (可选)</label>
-                <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
-                  <input type="file" id="content-video" class="hidden" accept="video/*,audio/*" />
-                  <button type="button" id="upload-video-btn" class="px-4 py-2 bg-white shadow-sm border border-gray-200 rounded-lg text-xs font-bold text-gray-600 hover:border-blue-400">
-                    <i class="fas fa-video mr-2"></i> 上传视频/音频
-                  </button>
-                  <span id="video-filename" class="text-xs text-gray-400 italic truncate max-w-xs">{content?.video_file || '未选择文件'}</span>
-                  <input type="hidden" id="video-file-url" value={content?.video_file || ''} />
-                </div>
-              </div>
-              <div id="attachment-upload-field" class="hidden">
-                <label class="block text-xs font-black text-gray-400 uppercase mb-3">资料附件 (可选)</label>
-                <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
-                  <input type="file" id="content-attachment" class="hidden" />
-                  <button type="button" id="upload-attachment-btn" class="px-4 py-2 bg-white shadow-sm border border-gray-200 rounded-lg text-xs font-bold text-gray-600 hover:border-blue-400">
-                    <i class="fas fa-file-download mr-2"></i> 上传附件
-                  </button>
-                  <span id="attachment-filename" class="text-xs text-gray-400 italic truncate max-w-xs">{content?.attachment_name || '未选择文件'}</span>
-                  <input type="hidden" id="attachment-file-url" value={content?.attachment_file || ''} />
-                </div>
-              </div>
+              {/* 视频和附件上传已移至多语言区域 */}
             </div>
             <div class="bg-blue-50/50 p-6 rounded-2xl space-y-4">
               <div class="flex items-center justify-between">
@@ -654,10 +670,6 @@ export const ContentEditor: FC<ContentEditorProps> = ({
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> 正在处理中...';
 
             try {
-            const attachmentFileUrlInput = document.getElementById('attachment-file-url');
-            const attachmentFilename = attachmentFileUrlInput?.getAttribute('data-filename') || 
-                                     document.getElementById('attachment-filename')?.textContent || '';
-            
             const formData = {
               id: document.getElementById('content-id').value || undefined,
                 slug: document.getElementById('content-slug').value || '',
@@ -669,9 +681,6 @@ export const ContentEditor: FC<ContentEditorProps> = ({
                 reading_time: parseInt(document.getElementById('content-reading-time').value) || 0,
                 is_featured: document.getElementById('content-featured').checked ? 1 : 0,
                 is_hot: document.getElementById('content-hot').checked ? 1 : 0,
-                video_file: document.getElementById('video-file-url').value,
-                attachment_file: document.getElementById('attachment-file-url').value,
-                attachment_name: attachmentFilename,
             };
             
               // 收集并处理所有语言字段
@@ -714,6 +723,22 @@ export const ContentEditor: FC<ContentEditorProps> = ({
                 } else {
                   formData['cover_image_' + lang] = document.getElementById('cover-image-url-' + lang).value;
                 }
+                
+                // 收集视频文件多语言字段
+                const videoFileUrlInput = document.getElementById('video-file-url-' + lang);
+                if (videoFileUrlInput) {
+                  formData['video_file_' + lang] = videoFileUrlInput.value;
+                }
+                
+                // 收集附件文件多语言字段
+                const attachmentFileUrlInput = document.getElementById('attachment-file-url-' + lang);
+                const attachmentNameInput = document.getElementById('attachment-name-' + lang);
+                if (attachmentFileUrlInput) {
+                  formData['attachment_file_' + lang] = attachmentFileUrlInput.value;
+                }
+                if (attachmentNameInput) {
+                  formData['attachment_name_' + lang] = attachmentNameInput.value;
+                }
             }
             
               // 同步核心字段 (Fallback 为简体中文)
@@ -724,6 +749,9 @@ export const ContentEditor: FC<ContentEditorProps> = ({
               formData.meta_description = formData.meta_description_zh;
               formData.meta_keywords = formData.meta_keywords_zh;
               formData.video_description = formData.video_description_zh || formData.video_description_en || '';
+              formData.video_file = formData.video_file_zh || formData.video_file_en || '';
+              formData.attachment_file = formData.attachment_file_zh || formData.attachment_file_en || '';
+              formData.attachment_name = formData.attachment_name_zh || formData.attachment_name_en || '';
 
               console.log('📦 准备发送到后端的数据:', formData);
 
@@ -752,179 +780,191 @@ export const ContentEditor: FC<ContentEditorProps> = ({
             }
           });
           
-          // 视频上传处理
-          const videoUploadBtn = document.getElementById('upload-video-btn');
-          const videoFileInput = document.getElementById('content-video');
-          const videoFilenameSpan = document.getElementById('video-filename');
-          const videoFileUrlInput = document.getElementById('video-file-url');
-          
-          if (videoUploadBtn && videoFileInput) {
-            videoUploadBtn.addEventListener('click', () => {
-              videoFileInput.click();
-            });
+          // 视频上传处理（多语言）
+          languages.forEach(lang => {
+            const videoUploadBtn = document.getElementById('upload-video-btn-' + lang);
+            const videoFileInput = document.getElementById('content-video-' + lang);
+            const videoFilenameSpan = document.getElementById('video-filename-' + lang);
+            const videoFileUrlInput = document.getElementById('video-file-url-' + lang);
             
-            videoFileInput.addEventListener('change', async function(e) {
-              const file = e.target.files[0];
-              if (!file) return;
+            if (videoUploadBtn && videoFileInput) {
+              videoUploadBtn.addEventListener('click', () => {
+                videoFileInput.click();
+              });
               
-              // 验证文件类型（支持视频和音频）
-              const allowedTypes = [
-                // 视频格式
-                'video/mp4', 'video/avi', 'video/quicktime', 'video/x-ms-wmv', 'video/webm',
-                // 音频格式
-                'audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/ogg', 'audio/aac', 'audio/mp4', 'audio/webm', 'audio/x-m4a'
-              ];
-              if (!allowedTypes.includes(file.type)) {
-                alert('只支持以下格式：\\n视频：MP4、AVI、MOV、WMV、WebM\\n音频：MP3、WAV、OGG、AAC、M4A');
-                this.value = '';
-                return;
-              }
-              
-              // 验证文件大小（100MB）
-              const maxSize = 100 * 1024 * 1024;
-              if (file.size > maxSize) {
-                alert('文件大小不能超过 100MB');
-                this.value = '';
-                return;
-              }
-              
-              videoFilenameSpan.textContent = '上传中...';
-              videoUploadBtn.disabled = true;
-              
-              try {
-                const formData = new FormData();
-                formData.append('file', file);
-                formData.append('category', 'videos');
+              videoFileInput.addEventListener('change', async function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
                 
-                const response = await fetch('/api/admin/upload/file', {
-                  method: 'POST',
-                  body: formData
-                });
-                
-                if (!response.ok) {
-                  const errorText = await response.text();
-                  throw new Error('服务器错误: ' + response.status + ' ' + errorText);
+                // 验证文件类型（支持视频和音频）
+                const allowedTypes = [
+                  // 视频格式
+                  'video/mp4', 'video/avi', 'video/quicktime', 'video/x-ms-wmv', 'video/webm',
+                  // 音频格式
+                  'audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/ogg', 'audio/aac', 'audio/mp4', 'audio/webm', 'audio/x-m4a'
+                ];
+                if (!allowedTypes.includes(file.type)) {
+                  alert('只支持以下格式：\\n视频：MP4、AVI、MOV、WMV、WebM\\n音频：MP3、WAV、OGG、AAC、M4A');
+                  this.value = '';
+                  return;
                 }
                 
-                const contentType = response.headers.get('content-type');
-                if (!contentType || !contentType.includes('application/json')) {
-                  const text = await response.text();
-                  throw new Error('服务器返回的不是JSON格式: ' + text.substring(0, 100));
+                // 验证文件大小（100MB）
+                const maxSize = 100 * 1024 * 1024;
+                if (file.size > maxSize) {
+                  alert('文件大小不能超过 100MB');
+                  this.value = '';
+                  return;
                 }
                 
-                const result = await response.json();
+                videoFilenameSpan.textContent = '上传中...';
+                videoUploadBtn.disabled = true;
                 
-                if (result.success && result.data && result.data.url) {
-                  videoFileUrlInput.value = result.data.url;
-                  videoFilenameSpan.textContent = file.name;
-                  alert('文件上传成功！');
-                } else {
-                  throw new Error(result.message || result.error || '上传失败');
+                try {
+                  const formData = new FormData();
+                  formData.append('file', file);
+                  formData.append('category', 'videos');
+                  
+                  const response = await fetch('/api/admin/upload/file', {
+                    method: 'POST',
+                    body: formData
+                  });
+                  
+                  if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error('服务器错误: ' + response.status + ' ' + errorText);
+                  }
+                  
+                  const contentType = response.headers.get('content-type');
+                  if (!contentType || !contentType.includes('application/json')) {
+                    const text = await response.text();
+                    throw new Error('服务器返回的不是JSON格式: ' + text.substring(0, 100));
+                  }
+                  
+                  const result = await response.json();
+                  
+                  if (result.success && result.data && result.data.url) {
+                    videoFileUrlInput.value = result.data.url;
+                    videoFilenameSpan.textContent = file.name;
+                    alert('文件上传成功！');
+                  } else {
+                    throw new Error(result.message || result.error || '上传失败');
+                  }
+                } catch (error) {
+                  console.error('文件上传错误:', error);
+                  alert('文件上传失败: ' + error.message);
+                  videoFilenameSpan.textContent = '未选择文件';
+                  this.value = '';
+                } finally {
+                  videoUploadBtn.disabled = false;
                 }
-              } catch (error) {
-                console.error('文件上传错误:', error);
-                alert('文件上传失败: ' + error.message);
-                videoFilenameSpan.textContent = '未选择文件';
-                this.value = '';
-              } finally {
-                videoUploadBtn.disabled = false;
-              }
-            });
-          }
+              });
+            }
+          });
           
-          // 附件上传处理
-          const attachmentUploadBtn = document.getElementById('upload-attachment-btn');
-          const attachmentFileInput = document.getElementById('content-attachment');
-          const attachmentFilenameSpan = document.getElementById('attachment-filename');
-          const attachmentFileUrlInput = document.getElementById('attachment-file-url');
-          
-          if (attachmentUploadBtn && attachmentFileInput) {
-            attachmentUploadBtn.addEventListener('click', () => {
-              attachmentFileInput.click();
-            });
+          // 附件上传处理（多语言）
+          languages.forEach(lang => {
+            const attachmentUploadBtn = document.getElementById('upload-attachment-btn-' + lang);
+            const attachmentFileInput = document.getElementById('content-attachment-' + lang);
+            const attachmentFilenameSpan = document.getElementById('attachment-filename-' + lang);
+            const attachmentFileUrlInput = document.getElementById('attachment-file-url-' + lang);
+            const attachmentNameInput = document.getElementById('attachment-name-' + lang);
             
-            attachmentFileInput.addEventListener('change', async function(e) {
-              const file = e.target.files[0];
-              if (!file) return;
+            if (attachmentUploadBtn && attachmentFileInput) {
+              attachmentUploadBtn.addEventListener('click', () => {
+                attachmentFileInput.click();
+              });
               
-              // 验证文件类型
-              const allowedExts = ['.xls', '.xlsx', '.doc', '.docx', '.pdf', '.zip', '.rar', '.ppt', '.pptx'];
-              const fileName = file.name.toLowerCase();
-              const hasAllowedExt = allowedExts.some(ext => fileName.endsWith(ext));
-              
-              if (!hasAllowedExt) {
-                alert('只支持 XLS/XLSX/DOC/DOCX/PDF/ZIP/RAR/PPT/PPTX 格式的文件');
-                this.value = '';
-                return;
-              }
-              
-              // 验证文件大小（50MB）
-              const maxSize = 50 * 1024 * 1024;
-              if (file.size > maxSize) {
-                alert('附件文件大小不能超过 50MB');
-                this.value = '';
-                return;
-              }
-              
-              attachmentFilenameSpan.textContent = '上传中...';
-              attachmentUploadBtn.disabled = true;
-              
-              try {
-                const formData = new FormData();
-                formData.append('file', file);
-                formData.append('category', 'attachments');
+              attachmentFileInput.addEventListener('change', async function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
                 
-                const response = await fetch('/api/admin/upload/file', {
-                  method: 'POST',
-                  body: formData
-                });
+                // 验证文件类型
+                const allowedExts = ['.xls', '.xlsx', '.doc', '.docx', '.pdf', '.zip', '.rar', '.ppt', '.pptx'];
+                const fileName = file.name.toLowerCase();
+                const hasAllowedExt = allowedExts.some(ext => fileName.endsWith(ext));
                 
-                if (!response.ok) {
-                  const errorText = await response.text();
-                  throw new Error('服务器错误: ' + response.status + ' ' + errorText);
+                if (!hasAllowedExt) {
+                  alert('只支持 XLS/XLSX/DOC/DOCX/PDF/ZIP/RAR/PPT/PPTX 格式的文件');
+                  this.value = '';
+                  return;
                 }
                 
-                const contentType = response.headers.get('content-type');
-                if (!contentType || !contentType.includes('application/json')) {
-                  const text = await response.text();
-                  throw new Error('服务器返回的不是JSON格式: ' + text.substring(0, 100));
+                // 验证文件大小（50MB）
+                const maxSize = 50 * 1024 * 1024;
+                if (file.size > maxSize) {
+                  alert('附件文件大小不能超过 50MB');
+                  this.value = '';
+                  return;
                 }
                 
-                const result = await response.json();
+                attachmentFilenameSpan.textContent = '上传中...';
+                attachmentUploadBtn.disabled = true;
                 
-                if (result.success && result.data && result.data.url) {
-                  attachmentFileUrlInput.value = result.data.url;
-                  // 保存文件名到 attachment_name 字段（在提交时会用到）
-                  attachmentFilenameSpan.textContent = file.name;
-                  attachmentFileUrlInput.setAttribute('data-filename', file.name);
-                  alert('附件上传成功！');
-                } else {
-                  throw new Error(result.message || result.error || '上传失败');
+                try {
+                  const formData = new FormData();
+                  formData.append('file', file);
+                  formData.append('category', 'attachments');
+                  
+                  const response = await fetch('/api/admin/upload/file', {
+                    method: 'POST',
+                    body: formData
+                  });
+                  
+                  if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error('服务器错误: ' + response.status + ' ' + errorText);
+                  }
+                  
+                  const contentType = response.headers.get('content-type');
+                  if (!contentType || !contentType.includes('application/json')) {
+                    const text = await response.text();
+                    throw new Error('服务器返回的不是JSON格式: ' + text.substring(0, 100));
+                  }
+                  
+                  const result = await response.json();
+                  
+                  if (result.success && result.data && result.data.url) {
+                    attachmentFileUrlInput.value = result.data.url;
+                    attachmentNameInput.value = file.name;
+                    attachmentFilenameSpan.textContent = file.name;
+                    alert('附件上传成功！');
+                  } else {
+                    throw new Error(result.message || result.error || '上传失败');
+                  }
+                } catch (error) {
+                  console.error('附件上传错误:', error);
+                  alert('附件上传失败: ' + error.message);
+                  attachmentFilenameSpan.textContent = '未选择文件';
+                  this.value = '';
+                } finally {
+                  attachmentUploadBtn.disabled = false;
                 }
-              } catch (error) {
-                console.error('附件上传错误:', error);
-                alert('附件上传失败: ' + error.message);
-                attachmentFilenameSpan.textContent = '未选择文件';
-                this.value = '';
-              } finally {
-                attachmentUploadBtn.disabled = false;
-              }
-            });
-          }
+              });
+            }
+          });
           
           // 动态显示逻辑 (视频/附件)
           const updateVisibility = () => {
             const select = document.getElementById('content-category');
             const template = select.options[select.selectedIndex]?.dataset.template;
             const isVideo = template === 'list_video';
-            document.getElementById('video-upload-field').classList.toggle('hidden', !isVideo);
-            document.getElementById('attachment-upload-field').classList.toggle('hidden', template !== 'list_download');
+            const isDownload = template === 'list_download';
             
             // 控制视频简介字段的显示/隐藏（所有语言）
             languages.forEach(lang => {
               const videoDescField = document.getElementById('video-description-field-' + lang);
+              const videoUploadField = document.getElementById('video-upload-field-' + lang);
+              const attachmentUploadField = document.getElementById('attachment-upload-field-' + lang);
+              
               if (videoDescField) {
                 videoDescField.classList.toggle('hidden', !isVideo);
+              }
+              if (videoUploadField) {
+                videoUploadField.classList.toggle('hidden', !isVideo);
+              }
+              if (attachmentUploadField) {
+                attachmentUploadField.classList.toggle('hidden', !isDownload);
               }
             });
           };

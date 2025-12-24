@@ -3479,7 +3479,12 @@ app.post('/api/admin/resource-contents', async (c) => {
       meta_description_zh, meta_description_en, meta_description_jp, meta_description_hk,
       meta_keywords_zh, meta_keywords_en, meta_keywords_jp, meta_keywords_hk,
       // 视频简介多语言字段
-      video_description_zh, video_description_en, video_description_jp, video_description_hk
+      video_description_zh, video_description_en, video_description_jp, video_description_hk,
+      // 视频文件多语言字段
+      video_file_zh, video_file_en, video_file_jp, video_file_hk,
+      // 附件文件多语言字段
+      attachment_file_zh, attachment_file_en, attachment_file_jp, attachment_file_hk,
+      attachment_name_zh, attachment_name_en, attachment_name_jp, attachment_name_hk
     } = data
     
     // 验证必填字段
@@ -3506,8 +3511,11 @@ app.post('/api/admin/resource-contents', async (c) => {
         meta_title_zh, meta_title_en, meta_title_jp, meta_title_hk,
         meta_description_zh, meta_description_en, meta_description_jp, meta_description_hk,
         meta_keywords_zh, meta_keywords_en, meta_keywords_jp, meta_keywords_hk,
-        video_description_zh, video_description_en, video_description_jp, video_description_hk)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        video_description_zh, video_description_en, video_description_jp, video_description_hk,
+        video_file_zh, video_file_en, video_file_jp, video_file_hk,
+        attachment_file_zh, attachment_file_en, attachment_file_jp, attachment_file_hk,
+        attachment_name_zh, attachment_name_en, attachment_name_jp, attachment_name_hk)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         category_id, title || '', slug || null, content || '', author || null,
         cover_image || null, cover_image_size || null, cover_image_type || null,
@@ -3525,7 +3533,12 @@ app.post('/api/admin/resource-contents', async (c) => {
         meta_description_zh || null, meta_description_en || null, meta_description_jp || null, meta_description_hk || null,
         meta_keywords_zh || null, meta_keywords_en || null, meta_keywords_jp || null, meta_keywords_hk || null,
         // 视频简介多语言字段值
-        video_description_zh || null, video_description_en || null, video_description_jp || null, video_description_hk || null
+        video_description_zh || null, video_description_en || null, video_description_jp || null, video_description_hk || null,
+        // 视频文件多语言字段值（从 data 中解构）
+        video_file_zh || null, video_file_en || null, video_file_jp || null, video_file_hk || null,
+        // 附件文件多语言字段值（从 data 中解构）
+        attachment_file_zh || null, attachment_file_en || null, attachment_file_jp || null, attachment_file_hk || null,
+        attachment_name_zh || null, attachment_name_en || null, attachment_name_jp || null, attachment_name_hk || null
       ]
     )
     
@@ -3596,7 +3609,12 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
       meta_description_zh, meta_description_en, meta_description_jp, meta_description_hk,
       meta_keywords_zh, meta_keywords_en, meta_keywords_jp, meta_keywords_hk,
       // 视频简介多语言字段
-      video_description_zh, video_description_en, video_description_jp, video_description_hk
+      video_description_zh, video_description_en, video_description_jp, video_description_hk,
+      // 视频文件多语言字段
+      video_file_zh, video_file_en, video_file_jp, video_file_hk,
+      // 附件文件多语言字段
+      attachment_file_zh, attachment_file_en, attachment_file_jp, attachment_file_hk,
+      attachment_name_zh, attachment_name_en, attachment_name_jp, attachment_name_hk
     } = data
     
     // 获取当前内容
@@ -3630,7 +3648,10 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
            meta_title_zh = ?, meta_title_en = ?, meta_title_jp = ?, meta_title_hk = ?,
            meta_description_zh = ?, meta_description_en = ?, meta_description_jp = ?, meta_description_hk = ?,
            meta_keywords_zh = ?, meta_keywords_en = ?, meta_keywords_jp = ?, meta_keywords_hk = ?,
-           video_description_zh = ?, video_description_en = ?, video_description_jp = ?, video_description_hk = ?
+           video_description_zh = ?, video_description_en = ?, video_description_jp = ?, video_description_hk = ?,
+           video_file_zh = ?, video_file_en = ?, video_file_jp = ?, video_file_hk = ?,
+           attachment_file_zh = ?, attachment_file_en = ?, attachment_file_jp = ?, attachment_file_hk = ?,
+           attachment_name_zh = ?, attachment_name_en = ?, attachment_name_jp = ?, attachment_name_hk = ?
        WHERE id = ?`,
       [
         category_id, title || '', slug || null, content || '', author || null,
@@ -3650,6 +3671,11 @@ app.put('/api/admin/resource-contents/:id', async (c) => {
         meta_keywords_zh || null, meta_keywords_en || null, meta_keywords_jp || null, meta_keywords_hk || null,
         // 视频简介多语言字段值
         video_description_zh || null, video_description_en || null, video_description_jp || null, video_description_hk || null,
+        // 视频文件多语言字段值
+        video_file_zh || null, video_file_en || null, video_file_jp || null, video_file_hk || null,
+        // 附件文件多语言字段值
+        attachment_file_zh || null, attachment_file_en || null, attachment_file_jp || null, attachment_file_hk || null,
+        attachment_name_zh || null, attachment_name_en || null, attachment_name_jp || null, attachment_name_hk || null,
         id
       ]
     )

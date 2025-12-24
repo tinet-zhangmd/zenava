@@ -33,6 +33,15 @@ interface Content {
   meta_keywords?: string
   // 多语言字段
   title_zh?: string
+  // 多语言附件字段
+  attachment_file_zh?: string
+  attachment_file_en?: string
+  attachment_file_jp?: string
+  attachment_file_hk?: string
+  attachment_name_zh?: string
+  attachment_name_en?: string
+  attachment_name_jp?: string
+  attachment_name_hk?: string
   title_en?: string
   title_jp?: string
   title_hk?: string
@@ -249,6 +258,25 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
     return result
   }
   
+  // 根据语言获取附件字段
+  const getAttachmentField = (field: 'file' | 'name') => {
+    if (field === 'file') {
+      if (language === 'zh') return content.attachment_file_zh || content.attachment_file || ''
+      if (language === 'en') return content.attachment_file_en || content.attachment_file_zh || content.attachment_file || ''
+      if (language === 'jp') return content.attachment_file_jp || content.attachment_file_zh || content.attachment_file || ''
+      if (language === 'hk') return content.attachment_file_hk || content.attachment_file_zh || content.attachment_file || ''
+      return content.attachment_file || ''
+    }
+    if (field === 'name') {
+      if (language === 'zh') return content.attachment_name_zh || content.attachment_name || 'download'
+      if (language === 'en') return content.attachment_name_en || content.attachment_name_zh || content.attachment_name || 'download'
+      if (language === 'jp') return content.attachment_name_jp || content.attachment_name_zh || content.attachment_name || 'download'
+      if (language === 'hk') return content.attachment_name_hk || content.attachment_name_zh || content.attachment_name || 'download'
+      return content.attachment_name || 'download'
+    }
+    return ''
+  }
+  
   // 获取处理后的内容字段
   const displayTitle = getContentField('title')
   const rawContent = getContentField('content')
@@ -256,6 +284,8 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
   const displayCoverImage = getContentField('cover_image')
   const displayMetaTitle = getContentField('meta_title')
   const displayMetaDescription = getContentField('meta_description')
+  const displayAttachmentFile = getAttachmentField('file')
+  const displayAttachmentName = getAttachmentField('name')
   
   // 构建结构化数据（JSON-LD）用于 SEO
   const structuredData = {
@@ -360,10 +390,10 @@ export const ResourceDownloadDetailPage: FC<ResourceDownloadDetailPageProps> = (
               <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 md:mb-8 leading-tight">
                 {displayTitle}
               </h1>
-              {content.attachment_file && (
+              {displayAttachmentFile && (
                 <a
-                  href={content.attachment_file}
-                  download={content.attachment_name || 'download'}
+                  href={displayAttachmentFile}
+                  download={displayAttachmentName}
                   class="inline-flex items-center px-8 py-4 bg-[#6438FF] text-white rounded-lg font-semibold hover:bg-[#5a2ee6] transition-all transform hover:scale-105 shadow-lg hover:shadow-xl text-lg"
                 >
                   <i class="fas fa-download mr-3"></i>
