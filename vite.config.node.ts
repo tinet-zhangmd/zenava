@@ -15,7 +15,7 @@ export default defineConfig({
       fileName: 'index-node'
     },
     rollupOptions: {
-      external: ['better-sqlite3', '@hono/node-server'],
+      external: ['@hono/node-server'],
       output: {
         format: 'es'
       }
