@@ -734,7 +734,7 @@ const AudioPlayer: FC<{ audioFile?: string; coverImage?: string; language: Langu
         ) : null}
         {/* Waveform SVG Overlay */}
         <div class="absolute inset-0 flex items-center justify-center">
-          <svg class="w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="none">
+          <svg id="waveform-svg" class="w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="none">
             {/* Background gradient */}
             <defs>
               <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -743,60 +743,60 @@ const AudioPlayer: FC<{ audioFile?: string; coverImage?: string; language: Langu
                 <stop offset="100%" style="stop-color:#00D9FF;stop-opacity:0.8" />
               </linearGradient>
             </defs>
-            {/* Waveform bars */}
+            {/* Waveform bars - 默认动画暂停，只有音频播放时才播放 */}
             <rect x="20" y="80" width="8" height="40" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="40;80;40" dur="1s" repeatCount="indefinite" />
+              <animate id="wave-1" attributeName="height" values="40;80;40" dur="1s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="40" y="70" width="8" height="60" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="60;100;60" dur="1.2s" repeatCount="indefinite" />
+              <animate id="wave-2" attributeName="height" values="60;100;60" dur="1.2s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="60" y="60" width="8" height="80" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="80;120;80" dur="0.8s" repeatCount="indefinite" />
+              <animate id="wave-3" attributeName="height" values="80;120;80" dur="0.8s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="80" y="50" width="8" height="100" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="100;140;100" dur="1s" repeatCount="indefinite" />
+              <animate id="wave-4" attributeName="height" values="100;140;100" dur="1s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="100" y="40" width="8" height="120" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="120;160;120" dur="0.9s" repeatCount="indefinite" />
+              <animate id="wave-5" attributeName="height" values="120;160;120" dur="0.9s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="120" y="50" width="8" height="100" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="100;140;100" dur="1.1s" repeatCount="indefinite" />
+              <animate id="wave-6" attributeName="height" values="100;140;100" dur="1.1s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="140" y="60" width="8" height="80" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="80;120;80" dur="0.7s" repeatCount="indefinite" />
+              <animate id="wave-7" attributeName="height" values="80;120;80" dur="0.7s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="160" y="70" width="8" height="60" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="60;100;60" dur="1s" repeatCount="indefinite" />
+              <animate id="wave-8" attributeName="height" values="60;100;60" dur="1s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="180" y="80" width="8" height="40" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="40;80;40" dur="1.2s" repeatCount="indefinite" />
+              <animate id="wave-9" attributeName="height" values="40;80;40" dur="1.2s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="200" y="70" width="8" height="60" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="60;100;60" dur="0.9s" repeatCount="indefinite" />
+              <animate id="wave-10" attributeName="height" values="60;100;60" dur="0.9s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="220" y="60" width="8" height="80" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="80;120;80" dur="1s" repeatCount="indefinite" />
+              <animate id="wave-11" attributeName="height" values="80;120;80" dur="1s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="240" y="50" width="8" height="100" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="100;140;100" dur="1.1s" repeatCount="indefinite" />
+              <animate id="wave-12" attributeName="height" values="100;140;100" dur="1.1s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="260" y="40" width="8" height="120" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="120;160;120" dur="0.8s" repeatCount="indefinite" />
+              <animate id="wave-13" attributeName="height" values="120;160;120" dur="0.8s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="280" y="50" width="8" height="100" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="100;140;100" dur="1s" repeatCount="indefinite" />
+              <animate id="wave-14" attributeName="height" values="100;140;100" dur="1s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="300" y="60" width="8" height="80" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="80;120;80" dur="1.2s" repeatCount="indefinite" />
+              <animate id="wave-15" attributeName="height" values="80;120;80" dur="1.2s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="320" y="70" width="8" height="60" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="60;100;60" dur="0.9s" repeatCount="indefinite" />
+              <animate id="wave-16" attributeName="height" values="60;100;60" dur="0.9s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="340" y="80" width="8" height="40" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="40;80;40" dur="1s" repeatCount="indefinite" />
+              <animate id="wave-17" attributeName="height" values="40;80;40" dur="1s" repeatCount="indefinite" begin="indefinite" />
             </rect>
             <rect x="360" y="75" width="8" height="50" fill="url(#waveGradient)" rx="4">
-              <animate attributeName="height" values="50;90;50" dur="1.1s" repeatCount="indefinite" />
+              <animate id="wave-18" attributeName="height" values="50;90;50" dur="1.1s" repeatCount="indefinite" begin="indefinite" />
             </rect>
           </svg>
         </div>
@@ -832,6 +832,70 @@ const AudioPlayer: FC<{ audioFile?: string; coverImage?: string; language: Langu
           {language === 'zh' ? '您的浏览器不支持音频播放。' : language === 'en' ? 'Your browser does not support audio playback.' : language === 'jp' ? 'お使いのブラウザは音声再生をサポートしていません。' : '您的瀏覽器不支持音頻播放。'}
         </audio>
       </div>
+      
+      {/* Audio Player Waveform Control Script */}
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          (function() {
+            const audioPlayer = document.getElementById('audio-player');
+            if (!audioPlayer) return;
+            
+            // 获取所有音波动画元素
+            const getWaveAnimations = () => {
+              const animations = [];
+              for (let i = 1; i <= 18; i++) {
+                const anim = document.getElementById('wave-' + i);
+                if (anim) animations.push(anim);
+              }
+              return animations;
+            };
+            
+            // 启动音波动画
+            const startWaveform = () => {
+              const animations = getWaveAnimations();
+              animations.forEach(anim => {
+                try {
+                  anim.beginElement();
+                } catch (e) {
+                  // 如果 beginElement 失败，尝试设置 begin 属性
+                  anim.setAttribute('begin', '0s');
+                }
+              });
+            };
+            
+            // 停止音波动画
+            const stopWaveform = () => {
+              const animations = getWaveAnimations();
+              animations.forEach(anim => {
+                try {
+                  anim.endElement();
+                } catch (e) {
+                  // 如果 endElement 失败，尝试设置 begin 属性为 indefinite
+                  anim.setAttribute('begin', 'indefinite');
+                }
+              });
+            };
+            
+            // 监听音频播放事件
+            audioPlayer.addEventListener('play', function() {
+              startWaveform();
+            });
+            
+            // 监听音频暂停事件
+            audioPlayer.addEventListener('pause', function() {
+              stopWaveform();
+            });
+            
+            // 监听音频结束事件
+            audioPlayer.addEventListener('ended', function() {
+              stopWaveform();
+            });
+            
+            // 初始化：确保动画默认是停止的
+            stopWaveform();
+          })();
+        `
+      }} />
     </div>
   )
 }
