@@ -12,7 +12,7 @@ export function AdminLayout({ children, title, currentPath, user }: AdminLayoutP
   const siteTitle = title ? `${title} - Zenava Admin` : 'Zenava Admin'
   
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,148 +24,224 @@ export function AdminLayout({ children, title, currentPath, user }: AdminLayoutP
         {/* FontAwesome Icons */}
         <link href="/static/fontawesome/css/all.min.css" rel="stylesheet" />
         
+        {/* Google Fonts - Inter */}
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        
         {/* Quill Editor for Rich Text */}
         <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
         <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
         
-        {/* Custom Admin Styles */}
         <style dangerouslySetInnerHTML={{
           __html: `
-            .admin-sidebar { 
-              min-height: 100vh; 
-              background: linear-gradient(180deg, #1e293b 0%, #334155 100%);
+            body { 
+              font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+              -webkit-font-smoothing: antialiased;
             }
-            .admin-sidebar a:hover { background-color: rgba(255, 255, 255, 0.1); }
-            .admin-sidebar a.active { background-color: rgba(59, 130, 246, 0.3); }
-            .admin-content { min-height: 100vh; background-color: #f8fafc; }
-            .quill-editor { background-color: white; }
-          `
-        }} />
-        
-        {/* Baidu Analytics */}
-        <script dangerouslySetInnerHTML={{
-          __html: `
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?7948de4d0f78a0d3290eb6d24d2b1696";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
+            .admin-sidebar { 
+              background: #0f172a;
+              border-right: 1px solid rgba(255, 255, 255, 0.05);
+              transition: all 0.3s ease;
+            }
+            .nav-link {
+              margin: 0.25rem 0.875rem;
+              padding: 0.75rem 1rem;
+              border-radius: 0.75rem;
+              color: #94a3b8;
+              transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+              display: flex;
+              align-items: center;
+              font-size: 0.875rem;
+              font-weight: 500;
+              text-decoration: none;
+            }
+            .nav-link:hover {
+              background: rgba(255, 255, 255, 0.05);
+              color: #f8fafc;
+            }
+            .nav-link.active {
+              background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+              color: #ffffff;
+              box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+            }
+            .nav-link i {
+              width: 1.5rem;
+              margin-right: 0.75rem;
+              font-size: 1.1rem;
+              text-align: center;
+              opacity: 0.8;
+            }
+            .nav-link.active i {
+              opacity: 1;
+            }
+            .nav-group-title {
+              padding: 1.75rem 1.75rem 0.5rem;
+              font-size: 0.7rem;
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 0.1em;
+              color: #475569;
+            }
+            .top-bar {
+              background: rgba(255, 255, 255, 0.85);
+              backdrop-filter: blur(12px);
+              border-bottom: 1px solid #e2e8f0;
+            }
+            .custom-scrollbar::-webkit-scrollbar {
+              width: 5px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-track {
+              background: transparent;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+              background: #334155;
+              border-radius: 10px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+              background: #475569;
+            }
+            .main-container {
+              background-color: #f8fafc;
+            }
+            /* 页面进入动画 */
+            .page-fade-in {
+              animation: fadeIn 0.4s ease-out;
+            }
+            @keyframes fadeIn {
+              from { opacity: 0; transform: translateY(8px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
           `
         }} />
       </head>
-      <body class="bg-gray-50 font-sans">
-        <div class="flex">
+      <body class="bg-gray-50 text-slate-900 antialiased">
+        <div class="flex h-screen overflow-hidden">
           {/* Sidebar */}
-          <div class="w-64 admin-sidebar text-white">
-            <div class="p-6">
-              <h1 class="text-2xl font-bold text-white mb-8">
-                <i class="fas fa-cog mr-2"></i>
-                Zenava 管理后台
-              </h1>
-              
-              <nav class="space-y-2">
+          <aside class="w-64 admin-sidebar flex flex-col flex-shrink-0 z-30">
+            <div class="p-7 mb-2">
+              <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/20">
+                  <i class="fas fa-bolt text-white text-base"></i>
+                </div>
+                <h1 class="text-xl font-bold text-white tracking-tight">
+                  Zenava<span class="text-blue-500">.</span>
+                </h1>
+              </div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto custom-scrollbar pb-8">
+              <nav>
+                <div class="nav-group-title">控制中心</div>
                 <a href="/ticloudadmin" 
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath === '/ticloudadmin' ? 'active' : ''}`}>
-                  <i class="fas fa-tachometer-alt mr-3"></i>
-                  控制台
+                   class={`nav-link ${currentPath === '/ticloudadmin' ? 'active' : ''}`}>
+                  <i class="fas fa-chart-pie"></i>
+                  <span>仪表盘</span>
                 </a>
                 
-                <a href="/ticloudadmin/media"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/media') ? 'active' : ''}`}>
-                  <i class="fas fa-images mr-3"></i>
-                  媒体库
-                </a>
-                
-                {/* Resource Center Menu */}
-                <div class="mt-2">
-                  <div class="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                    资源中心
-                  </div>
+                <div class="nav-group-title">内容引擎</div>
+                <div class="space-y-0.5">
                   <a href="/ticloudadmin/resource-categories"
-                     class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/resource-categories') ? 'active' : ''}`}>
-                    <i class="fas fa-folder mr-3"></i>
-                    栏目分类
+                     class={`nav-link ${currentPath.startsWith('/ticloudadmin/resource-categories') ? 'active' : ''}`}>
+                    <i class="fas fa-layer-group"></i>
+                    <span>栏目分类</span>
                   </a>
                   <a href="/ticloudadmin/resource-contents"
-                     class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/resource-contents') ? 'active' : ''}`}>
-                    <i class="fas fa-file-alt mr-3"></i>
-                    内容列表
+                     class={`nav-link ${currentPath.startsWith('/ticloudadmin/resource-contents') ? 'active' : ''}`}>
+                    <i class="fas fa-file-invoice"></i>
+                    <span>内容管理</span>
                   </a>
                   <a href="/ticloudadmin/resource-banners"
-                     class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/resource-banners') && !currentPath.startsWith('/ticloudadmin/category-banners') ? 'active' : ''}`}>
-                    <i class="fas fa-image mr-3"></i>
-                    首页Banner管理
+                     class={`nav-link ${currentPath.startsWith('/ticloudadmin/resource-banners') && !currentPath.startsWith('/ticloudadmin/category-banners') ? 'active' : ''}`}>
+                    <i class="fas fa-pager"></i>
+                    <span>首页 Banner</span>
                   </a>
                   <a href="/ticloudadmin/category-banners"
-                     class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/category-banners') ? 'active' : ''}`}>
-                    <i class="fas fa-images mr-3"></i>
-                    栏目Banner管理
+                     class={`nav-link ${currentPath.startsWith('/ticloudadmin/category-banners') ? 'active' : ''}`}>
+                    <i class="fas fa-images"></i>
+                    <span>栏目 Banner</span>
                   </a>
                 </div>
-                
-                <a href="/ticloudadmin/users"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/users') ? 'active' : ''}`}>
-                  <i class="fas fa-users mr-3"></i>
-                  用户管理
-                </a>
-                
-                <a href="/ticloudadmin/settings"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/settings') ? 'active' : ''}`}>
-                  <i class="fas fa-cog mr-3"></i>
-                  系统设置
-                </a>
-                
-                <hr class="my-6 border-slate-600" />
-                
-                <a href="/ticloudadmin/logs"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/logs') ? 'active' : ''}`}>
-                  <i class="fas fa-list mr-3"></i>
-                  操作日志
-                </a>
+
+                <div class="nav-group-title">系统工具</div>
+                <div class="space-y-0.5">
+                  <a href="/ticloudadmin/media"
+                     class={`nav-link ${currentPath.startsWith('/ticloudadmin/media') ? 'active' : ''}`}>
+                    <i class="fas fa-photo-video"></i>
+                    <span>媒体资产</span>
+                  </a>
+                  <a href="/ticloudadmin/users"
+                     class={`nav-link ${currentPath.startsWith('/ticloudadmin/users') ? 'active' : ''}`}>
+                    <i class="fas fa-user-shield"></i>
+                    <span>管理员</span>
+                  </a>
+                  <a href="/ticloudadmin/settings"
+                     class={`nav-link ${currentPath.startsWith('/ticloudadmin/settings') ? 'active' : ''}`}>
+                    <i class="fas fa-sliders-h"></i>
+                    <span>全局设置</span>
+                  </a>
+                  <a href="/ticloudadmin/logs"
+                     class={`nav-link ${currentPath.startsWith('/ticloudadmin/logs') ? 'active' : ''}`}>
+                    <i class="fas fa-terminal"></i>
+                    <span>审计日志</span>
+                  </a>
+                </div>
               </nav>
             </div>
-          </div>
-          
-          {/* Main Content */}
-          <div class="flex-1 admin-content">
-            {/* Top Bar */}
-            <header class="bg-white border-b border-gray-200 px-6 py-4">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h2 class="text-2xl font-semibold text-gray-800">{title || '控制台'}</h2>
-                  <p class="text-gray-600 text-sm">管理您的网站内容和设置</p>
+
+            {/* Sidebar User Card */}
+            <div class="p-4 border-t border-white/5 bg-black/20">
+              <div class="flex items-center p-3 rounded-xl bg-white/5 group border border-white/5">
+                <div class="w-9 h-9 rounded-lg bg-blue-500/20 border border-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-sm mr-3">
+                  {user?.name?.[0] || 'A'}
                 </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-bold text-white truncate leading-tight">{user?.name || 'Administrator'}</p>
+                  <p class="text-[10px] text-slate-500 truncate mt-0.5">{user?.email || 'admin@zenava.com'}</p>
+                </div>
+                <a href="/ticloudadmin/logout" class="p-2 text-slate-500 hover:text-red-400 transition-colors" title="退出登录">
+                  <i class="fas fa-sign-out-alt text-sm"></i>
+                </a>
+              </div>
+            </div>
+          </aside>
+          
+          {/* Main Content Area */}
+          <main class="flex-1 flex flex-col min-w-0 overflow-hidden main-container">
+            {/* Top Bar Navigation */}
+            <header class="h-16 top-bar flex items-center justify-between px-8 flex-shrink-0 z-20">
+              <div class="flex items-center">
+                <div class="flex items-center text-slate-400 text-xs font-medium uppercase tracking-wider">
+                  <span class="hover:text-slate-600 cursor-default">Admin</span>
+                  <i class="fas fa-chevron-right mx-3 text-[8px] opacity-50"></i>
+                  <span class="text-blue-600 font-bold">{title}</span>
+                </div>
+              </div>
+              
+              <div class="flex items-center space-x-5">
+                <a href="/" target="_blank" class="flex items-center text-xs font-bold text-slate-600 hover:text-blue-600 bg-white border border-slate-200 px-3 py-1.5 rounded-lg shadow-sm transition-all active:scale-95">
+                  <i class="fas fa-external-link-alt mr-2 text-[10px]"></i>
+                  预览站点
+                </a>
                 
-                <div class="flex items-center space-x-4">
-                  <a href="/" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">
-                    <i class="fas fa-external-link-alt mr-1"></i>
-                    查看网站
-                  </a>
-                  
-                  <div class="flex items-center space-x-2 text-gray-700">
-                    <i class="fas fa-user-circle text-xl"></i>
-                    <span class="text-sm font-medium">{user?.name || '管理员'}</span>
-                  </div>
-                  
-                  <a href="/ticloudadmin/logout" class="text-red-600 hover:text-red-800 text-sm">
-                    <i class="fas fa-sign-out-alt mr-1"></i>
-                    退出
-                  </a>
+                <div class="h-6 w-[1px] bg-slate-200"></div>
+                
+                <div class="flex items-center space-x-2">
+                  <button class="relative p-2 text-slate-400 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-bell"></i>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+                  </button>
                 </div>
               </div>
             </header>
             
-            {/* Page Content */}
-            <main class="p-6">
-              {children}
-            </main>
-          </div>
+            {/* Page Body */}
+            <div class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+              <div class="max-w-7xl mx-auto page-fade-in">
+                {/* Dynamic Content */}
+                {children}
+              </div>
+            </div>
+          </main>
         </div>
-        
-        {/* Admin JavaScript */}
-        <script src="/static/admin.js"></script>
       </body>
     </html>
   )
