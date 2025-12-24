@@ -1991,13 +1991,23 @@ app.post('/api/contact', async (c) => {
 // Database health check
 app.get('/api/db/health', async (c) => {
   try {
-    const result = await c.env.DB.prepare('SELECT 1 as health').first();
-    return c.json({ 
-      success: true, 
-      status: 'healthy',
-      database: 'SQLite (Node.js)',
-      timestamp: new Date().toISOString()
-    });
+    // Node.js 版本：使用 MySQL 连接检查
+    const result = await mysqlQuery('SELECT 1 as health');
+    // MySQL 返回的是数组，检查是否有结果
+    if (Array.isArray(result) && result.length > 0) {
+      return c.json({ 
+        success: true, 
+        status: 'healthy',
+        database: 'MySQL (Node.js)',
+        timestamp: new Date().toISOString()
+      });
+    } else {
+      return c.json({ 
+        success: false,
+        status: 'unhealthy',
+        error: 'Database query returned no results'
+      });
+    }
   } catch (error: any) {
     return c.json({ 
       success: false, 

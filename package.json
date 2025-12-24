@@ -2,28 +2,19 @@
   "name": "webapp",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:sandbox": "wrangler pages dev dist --ip 0.0.0.0 --port 3000",
-    "build": "vite build",
+    "dev": "tsx server.js",
+    "build": "vite build --config vite.config.node.ts",
     "build:package": "./build-package.sh",
-    "preview": "wrangler pages dev dist",
-    "deploy:test": "./deploy-test.sh",
-    "deploy:test:public": "./deploy-test-public.sh",
     "deploy:local": "./deploy-local.sh",
-    "start:local": "npx wrangler pages dev dist --ip 0.0.0.0 --port 3000",
-    "pm2:start": "pm2 start npx --name zenava-webapp -- wrangler pages dev dist --ip 0.0.0.0 --port 3000",
+    "pm2:start": "pm2 start npm --name zenava-webapp -- run start:node",
+    "pm2:start:d1": "pm2 start npm --name zenava-webapp -- run start:node",
     "pm2:stop": "pm2 stop all",
     "pm2:restart": "pm2 restart all",
     "pm2:delete": "pm2 delete all",
     "pm2:logs": "pm2 logs",
     "pm2:monit": "pm2 monit",
     "start": "npm run build && npm run pm2:start",
-    "deploy": "npm run build && wrangler pages deploy dist",
-    "deploy:prod": "npm run build && wrangler pages deploy dist --project-name zenava-official",
-    "deploy:cf": "./deploy-cloudflare.sh",
-    "deploy:cf:domain": "./deploy-with-domain.sh",
     "start:node": "tsx server.js",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "clean-port": "./clean-port.sh 3000",
     "clean-port:3000": "./clean-port.sh 3000",
     "clean-port:3001": "./clean-port.sh 3001",
@@ -42,12 +33,9 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "@hono/vite-build": "^1.2.0",
-    "@hono/vite-dev-server": "^0.18.2",
     "@types/uuid": "^10.0.0",
     "glob": "^11.0.3",
     "tsx": "^4.20.6",
-    "vite": "^6.3.5",
-    "wrangler": "^4.4.0"
+    "vite": "^6.3.5"
   }
 }
