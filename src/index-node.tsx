@@ -36,19 +36,11 @@ import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/
 // 导入 Admin Pages
 import { AdminLayout } from './pages/admin/AdminLayout.js'
 import { AdminLogin } from './pages/admin/AdminLogin.js'
-import { Dashboard } from './pages/admin/Dashboard.js'
-import { ContentManagement } from './pages/admin/ContentManagement.js'
-import { ContentManagementDB } from './pages/admin/ContentManagementDB.js'
 import { ContentEditor } from './pages/admin/ContentEditor.js'
-import { SEOManagement } from './pages/admin/SEOManagement.js'
-import { I18nManagement } from './pages/admin/I18nManagement.js'
 import { MediaLibrary } from './pages/admin/MediaLibrary.js'
 import { Settings } from './pages/admin/Settings.js'
 import { UserManagement } from './pages/admin/UserManagement.js'
 import { Logs } from './pages/admin/Logs.js'
-import { PublishManager } from './pages/admin/PublishManager.js'
-import { CommonContentManagement } from './pages/admin/CommonContentManagement.js'
-import { CommonContentManagementV2 } from './pages/admin/CommonContentManagementV2.js'
 import { ResourceCategoryManagement } from './pages/admin/ResourceCategoryManagement.js'
 import { ResourceContentManagement } from './pages/admin/ResourceContentManagement.js'
 import { CategoryEditor } from './pages/admin/CategoryEditor.js'
@@ -56,9 +48,6 @@ import { ResourceBannerManagement } from './pages/admin/ResourceBannerManagement
 import { BannerEditor } from './pages/admin/BannerEditor.js'
 
 // 导入 CMS API
-import cmsApi from './api/cms.js'
-import publishApi from './api/publish.js'
-import commonContentApi from './api/common-content.js'
 import uploadApi from './api/upload.js'
 import ticketApi from './api/ticket.js'
 import { navigation } from './api/navigation.js'
@@ -171,9 +160,6 @@ function processContentByLanguage(content: any, language: Language): any {
 }
 
 // Mount CMS API routes
-app.route('/api/ticloudcms', cmsApi)
-app.route('/api/publish', publishApi)
-app.route('/api/common-content', commonContentApi)
 app.route('/api/upload', uploadApi)
 app.route('/api/ticket', ticketApi)
 app.route('/api/navigation', navigation)
@@ -2113,61 +2099,14 @@ app.get('/ticloudadmin/logout', (c) => {
   return c.redirect('/ticloudadmin/login')
 })
 
-// Dashboard
+// Admin Dashboard - 重定向到资源中心管理
 app.get('/ticloudadmin', requireAuth(), (c) => {
-  return c.html(
-    <AdminLayout title="控制台" currentPath="/ticloudadmin" user={{ name: '管理员', email: 'admin@zenava.com' }}>
-      <Dashboard />
-    </AdminLayout>
-  )
+  return c.redirect('/ticloudadmin/resource-categories')
 })
 
-// Content Management
-app.get('/ticloudadmin/content', requireAuth(), (c) => {
-  return c.html(
-    <AdminLayout title="内容管理" currentPath="/ticloudadmin/content">
-      <ContentManagementDB />
-    </AdminLayout>
-  )
-})
 
-// Content Editor - New
-app.get('/ticloudadmin/content/new', requireAuth(), (c) => {
-  return c.html(
-    <AdminLayout title="创建新内容" currentPath="/ticloudadmin/content">
-      <ContentEditor mode="create" />
-    </AdminLayout>
-  )
-})
 
-// Content Editor - Edit
-app.get('/ticloudadmin/content/edit/:id', requireAuth(), (c) => {
-  const contentId = c.req.param('id')
-  
-  return c.html(
-    <AdminLayout title="编辑内容" currentPath="/ticloudadmin/content">
-      <ContentEditor mode="edit" contentId={contentId} />
-    </AdminLayout>
-  )
-})
 
-// SEO Management
-app.get('/ticloudadmin/seo', requireAuth(), (c) => {
-  return c.html(
-    <AdminLayout title="SEO 管理" currentPath="/ticloudadmin/seo">
-      <SEOManagement />
-    </AdminLayout>
-  )
-})
-
-// I18n Management
-app.get('/ticloudadmin/i18n', requireAuth(), (c) => {
-  return c.html(
-    <AdminLayout title="多语言管理" currentPath="/ticloudadmin/i18n">
-      <I18nManagement />
-    </AdminLayout>
-  )
-})
 
 // Media Library
 app.get('/ticloudadmin/media', requireAuth(), (c) => {
@@ -2196,14 +2135,7 @@ app.get('/ticloudadmin/settings', requireAuth(), (c) => {
   )
 })
 
-// Common Content Management
-app.get('/ticloudadmin/common-content', requireAuth(), (c) => {
-  return c.html(
-    <AdminLayout title="公共内容管理" currentPath="/ticloudadmin/common-content">
-      <CommonContentManagementV2 />
-    </AdminLayout>
-  )
-})
+
 
 // Logs
 app.get('/ticloudadmin/logs', requireAuth(), (c) => {
@@ -2214,14 +2146,7 @@ app.get('/ticloudadmin/logs', requireAuth(), (c) => {
   )
 })
 
-// Publish Manager
-app.get('/ticloudadmin/publish', requireAuth(), (c) => {
-  return c.html(
-    <AdminLayout title="发布管理" currentPath="/ticloudadmin/publish">
-      <PublishManager />
-    </AdminLayout>
-  )
-})
+
 
 // Resource Center - Categories
 app.get('/ticloudadmin/resource-categories', requireAuth(), async (c) => {
@@ -3708,24 +3633,6 @@ app.post('/ticloudadmin/api/content/:id/publish', requireAuth(), async (c) => {
   return c.json({ success: true, message: 'Content published' })
 })
 
-// SEO Analysis
-app.post('/ticloudadmin/api/seo/analyze/:id', requireAuth(), async (c) => {
-  const id = c.req.param('id')
-  // Mock SEO analysis
-  return c.json({ 
-    success: true, 
-    analysis: {
-      score: Math.floor(Math.random() * 40) + 60,
-      recommendations: [
-        'Add more descriptive meta titles',
-        'Optimize image alt text',
-        'Improve page loading speed',
-        'Add structured data markup'
-      ]
-    }
-  })
-})
-
 // Admin Users API - 管理员用户管理
 // 获取所有管理员用户
 app.get('/api/admin/users', requireAuth(), async (c) => {
@@ -4031,15 +3938,6 @@ app.post('/ticloudadmin/api/translate', requireAuth(), async (c) => {
   const translation = mockTranslations[key] || text
   
   return c.json({ success: true, translation })
-})
-
-// Update i18n
-app.put('/ticloudadmin/api/i18n/:key', requireAuth(), async (c) => {
-  const key = c.req.param('key')
-  const { translations } = await c.req.json()
-  
-  // In real app, save to database or i18n files
-  return c.json({ success: true, message: 'Translation saved' })
 })
 
 export function createApp() {

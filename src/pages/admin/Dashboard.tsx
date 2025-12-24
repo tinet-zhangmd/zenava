@@ -64,14 +64,6 @@ export function Dashboard({}: DashboardProps) {
         </div>
         <div class="p-6">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <a href="/ticloudadmin/content/new" class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
-              <i class="fas fa-plus text-blue-600 text-xl mr-3"></i>
-              <div>
-                <p class="font-medium text-gray-900">创建新页面</p>
-                <p class="text-sm text-gray-600">添加新的内容页面</p>
-              </div>
-            </a>
-            
             <a href="/ticloudadmin/seo" class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
               <i class="fas fa-search text-green-600 text-xl mr-3"></i>
               <div>
