@@ -48,7 +48,15 @@ interface Banner {
   text_button_jp?: string
   text_button_hk?: string
   button_link?: string
+  button_link_zh?: string
+  button_link_en?: string
+  button_link_jp?: string
+  button_link_hk?: string
   button_target?: string
+  button_target_zh?: string
+  button_target_en?: string
+  button_target_jp?: string
+  button_target_hk?: string
   text_position?: string
   text_color?: string
   subtitle_color?: string
@@ -60,6 +68,10 @@ interface Banner {
   background_url_hk?: string
   full_image_url?: string
   link_url?: string
+  link_url_zh?: string
+  link_url_en?: string
+  link_url_jp?: string
+  link_url_hk?: string
   link_target?: string
 }
 
@@ -184,22 +196,30 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
     return banners.map((banner) => {
       if (banner.banner_type === 'full_image') {
         // 整张大图模式
+        // 根据语言获取对应的链接（多语言）
+        const linkUrl = banner[`link_url_${language}`] || banner.link_url_zh || banner.link_url || '#'
+        
         return {
           id: `category-banner-${banner.id}`,
           layout: 'full-image',
           image: banner.full_image_url || '',
-          link: banner.link_url || '#',
+          link: linkUrl,
           target: banner.link_target || '_self'
         }
       } else {
         // 文字+图片模式
         const langPrefix = language === 'en' ? '' : `/${language}`
-        const buttonLink = banner.button_link || '#'
+        
+        // 根据语言获取对应的按钮链接（多语言）
+        const buttonLink = banner[`button_link_${language}`] || banner.button_link_zh || banner.button_link || '#'
         const fullLink = buttonLink.startsWith('/') 
           ? (buttonLink.startsWith('/resources') 
               ? `${langPrefix}${buttonLink}` 
               : buttonLink)
           : buttonLink
+        
+        // 根据语言获取对应的跳转方式（多语言）
+        const buttonTarget = banner[`button_target_${language}`] || banner.button_target_zh || banner.button_target || '_self'
         
         // 根据语言获取对应的背景URL
         const backgroundUrl = banner[`background_url_${language}`] || banner.background_url_zh || banner.background_url || ''
@@ -245,7 +265,7 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
           image: backgroundUrl,
           isVideo: isVideo,
           link: fullLink,
-          target: banner.button_target || '_self',
+          target: buttonTarget,
           textPosition: banner.text_position || 'left',
           textColor: textColor,
           subtitleColor: subtitleColor

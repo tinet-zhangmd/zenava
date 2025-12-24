@@ -116,7 +116,9 @@ bannerApi.post('/', async (c) => {
       // 多语言背景字段
       background_url_zh, background_url_en, background_url_jp, background_url_hk,
       button_link,
+      button_link_zh, button_link_en, button_link_jp, button_link_hk,
       button_target = '_self',
+      button_target_zh, button_target_en, button_target_jp, button_target_hk,
       text_position = 'left',
       text_color = 'rgba(255,255,255,1)',
       subtitle_color = 'rgba(255,255,255,0.8)',
@@ -128,6 +130,7 @@ bannerApi.post('/', async (c) => {
       // 整张大图模式
       full_image_url,
       link_url,
+      link_url_zh, link_url_en, link_url_jp, link_url_hk,
       link_target = '_self'
     } = body
     
@@ -144,10 +147,10 @@ bannerApi.post('/', async (c) => {
         text_subtitle_zh, text_subtitle_en, text_subtitle_jp, text_subtitle_hk,
         text_button_zh, text_button_en, text_button_jp, text_button_hk,
         background_url_zh, background_url_en, background_url_jp, background_url_hk,
-        button_link, button_target,
+        button_link, button_link_zh, button_link_en, button_link_jp, button_link_hk, button_target,
         text_position, text_color, subtitle_color, background_color, image_url, background_type, background_url,
-        full_image_url, link_url, link_target
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        full_image_url, link_url, link_url_zh, link_url_en, link_url_jp, link_url_hk, link_target
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `
     
     const result = await mysqlQuery(sql, [
@@ -159,9 +162,10 @@ bannerApi.post('/', async (c) => {
       text_button_zh || null, text_button_en || null, text_button_jp || null, text_button_hk || null,
       // 多语言背景字段
       background_url_zh || null, background_url_en || null, background_url_jp || null, background_url_hk || null,
-      button_link || null, button_target,
+      button_link || null, button_link_zh || null, button_link_en || null, button_link_jp || null, button_link_hk || null, 
+      button_target_zh || button_target || '_self', // 使用中文的跳转方式，如果没有则使用全局配置
       text_position, text_color, subtitle_color, background_color || null, image_url || null, background_type, background_url || null,
-      full_image_url || null, link_url || null, link_target
+      full_image_url || null, link_url || null, link_url_zh || null, link_url_en || null, link_url_jp || null, link_url_hk || null, link_target
     ])
     
     console.log('✅ 创建Banner成功，ID:', (result as any).insertId);
@@ -201,7 +205,9 @@ bannerApi.put('/:id', async (c) => {
       // 多语言背景字段
       background_url_zh, background_url_en, background_url_jp, background_url_hk,
       button_link,
+      button_link_zh, button_link_en, button_link_jp, button_link_hk,
       button_target = '_self',
+      button_target_zh, button_target_en, button_target_jp, button_target_hk,
       text_position = 'left',
       text_color = 'rgba(255,255,255,1)',
       subtitle_color = 'rgba(255,255,255,0.8)',
@@ -213,6 +219,7 @@ bannerApi.put('/:id', async (c) => {
       // 整张大图模式
       full_image_url,
       link_url,
+      link_url_zh, link_url_en, link_url_jp, link_url_hk,
       link_target = '_self'
     } = body
     
@@ -229,9 +236,9 @@ bannerApi.put('/:id', async (c) => {
         text_subtitle_zh = ?, text_subtitle_en = ?, text_subtitle_jp = ?, text_subtitle_hk = ?,
         text_button_zh = ?, text_button_en = ?, text_button_jp = ?, text_button_hk = ?,
         background_url_zh = ?, background_url_en = ?, background_url_jp = ?, background_url_hk = ?,
-        button_link = ?, button_target = ?,
+        button_link = ?, button_link_zh = ?, button_link_en = ?, button_link_jp = ?, button_link_hk = ?, button_target = ?,
         text_position = ?, text_color = ?, subtitle_color = ?, background_color = ?, image_url = ?, background_type = ?, background_url = ?,
-        full_image_url = ?, link_url = ?, link_target = ?,
+        full_image_url = ?, link_url = ?, link_url_zh = ?, link_url_en = ?, link_url_jp = ?, link_url_hk = ?, link_target = ?,
         updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `
@@ -245,9 +252,10 @@ bannerApi.put('/:id', async (c) => {
       text_button_zh || null, text_button_en || null, text_button_jp || null, text_button_hk || null,
       // 多语言背景字段
       background_url_zh || null, background_url_en || null, background_url_jp || null, background_url_hk || null,
-      button_link || null, button_target,
+      button_link || null, button_link_zh || null, button_link_en || null, button_link_jp || null, button_link_hk || null, 
+      button_target_zh || button_target || '_self', // 使用中文的跳转方式，如果没有则使用全局配置
       text_position, text_color, subtitle_color, background_color || null, image_url || null, background_type, background_url || null,
-      full_image_url || null, link_url || null, link_target,
+      full_image_url || null, link_url || null, link_url_zh || null, link_url_en || null, link_url_jp || null, link_url_hk || null, link_target,
       id
     ])
     

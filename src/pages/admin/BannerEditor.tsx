@@ -23,7 +23,15 @@ interface Banner {
   text_button_jp?: string
   text_button_hk?: string
   button_link?: string
+  button_link_zh?: string
+  button_link_en?: string
+  button_link_jp?: string
+  button_link_hk?: string
   button_target?: string
+  button_target_zh?: string
+  button_target_en?: string
+  button_target_jp?: string
+  button_target_hk?: string
   text_position?: string
   text_color?: string
   subtitle_color?: string
@@ -33,6 +41,10 @@ interface Banner {
   background_url?: string
   full_image_url?: string
   link_url?: string
+  link_url_zh?: string
+  link_url_en?: string
+  link_url_jp?: string
+  link_url_hk?: string
   link_target?: string
 }
 
@@ -105,7 +117,7 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                     id="text-position"
                     class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold text-slate-700"
                     required>
-                    <option value="left" selected={banner?.text_position === 'left' || (!banner && !banner?.text_position)}>模式 A：文字居左</option>
+                    <option value="left" selected={banner?.text_position === 'left' || (!banner)}>模式 A：文字居左</option>
                     <option value="center" selected={banner?.text_position === 'center'}>模式 A：文字居中</option>
                     <option value="right" selected={banner?.text_position === 'right'}>模式 A：文字居右</option>
                     <option value="no-text" selected={banner?.text_position === 'no-text' || banner?.banner_type === 'full_image'}>模式 B：整张大图</option>
@@ -202,7 +214,7 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">主标题内容</label>
                         <textarea 
                           id={`text-title-${lang}`} 
-                          rows="2"
+                          rows={2}
                           class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold placeholder-slate-300 resize-none"
                           placeholder="请输入吸引人的标题..."
                         >{(banner as any)?.[`text_title_${lang}`] || (lang === 'zh' ? banner?.text_title : '')}</textarea>
@@ -213,7 +225,7 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">副标题 / 描述</label>
                         <textarea 
                           id={`text-subtitle-${lang}`} 
-                          rows="3"
+                          rows={3}
                           class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-medium placeholder-slate-300 resize-none"
                           placeholder="详细描述您的推广内容..."
                         >{(banner as any)?.[`text_subtitle_${lang}`] || (lang === 'zh' ? banner?.text_subtitle : '')}</textarea>
@@ -229,6 +241,31 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                           placeholder="如: 立即体验、查看详情"
                           value={(banner as any)?.[`text_button_${lang}`] || (lang === 'zh' ? banner?.text_button : '')} 
                         />
+                      </div>
+
+                      {/* 按钮链接（多语言） */}
+                      <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">按钮跳转链接</label>
+                        <div class="flex items-center space-x-3">
+                          <input 
+                            type="text" 
+                            id={`button-link-${lang}`} 
+                            class="flex-1 px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold placeholder-slate-300"
+                            placeholder="如: /contact 或 https://example.com"
+                            value={(banner as any)?.[`button_link_${lang}`] || (lang === 'zh' ? banner?.button_link : '')} 
+                          />
+                          <select id={`button-target-${lang}`} class="w-32 px-4 py-3 bg-slate-50 border-none rounded-2xl text-xs font-bold">
+                            {(() => {
+                              const targetValue = (banner as any)?.[`button_target_${lang}`] || (lang === 'zh' ? banner?.button_target : null) || '_self';
+                              return (
+                                <>
+                                  <option value="_self" selected={targetValue === '_self'}>当前</option>
+                                  <option value="_blank" selected={targetValue === '_blank'}>新窗</option>
+                                </>
+                              );
+                            })()}
+                          </select>
+                        </div>
                       </div>
 
                       {/* 背景上传 (多语言) */}
@@ -286,14 +323,9 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                       </div>
                     </div>
                     <div class="space-y-2">
-                      <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">跳转链接</label>
-                      <div class="flex items-center space-x-3">
-                        <input type="text" id="button-link" class="flex-1 px-5 py-3 bg-slate-50 border-none rounded-2xl text-xs font-bold" value={banner?.button_link || ''} />
-                        <select id="button-target" class="w-32 px-4 py-3 bg-slate-50 border-none rounded-2xl text-xs font-bold">
-                          <option value="_self" selected={banner?.button_target === '_self' || !banner}>当前</option>
-                          <option value="_blank" selected={banner?.button_target === '_blank'}>新窗</option>
-                        </select>
-                      </div>
+                      <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">默认链接（兼容旧数据）</label>
+                      <input type="text" id="button-link" class="w-full px-5 py-3 bg-slate-50 border-none rounded-2xl text-xs font-bold" value={banner?.button_link || ''} placeholder="默认链接（兼容旧数据）" />
+                      <p class="text-[9px] text-slate-400 italic">提示：多语言链接和跳转方式在各语言标签页中配置</p>
                     </div>
                   </div>
                 </div>
@@ -328,17 +360,41 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                 <input type="hidden" id="full-image-url" value={banner?.full_image_url || ''} />
               </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="space-y-2">
-                  <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">大图跳转链接</label>
-                  <input type="text" id="link-url" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold" value={banner?.link_url || ''} />
-                </div>
-                <div class="space-y-2">
-                  <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">跳转方式</label>
-                  <select id="link-target" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold">
-                    <option value="_self" selected={banner?.link_target === '_self' || !banner}>当前页面</option>
-                    <option value="_blank" selected={banner?.link_target === '_blank'}>新页面打开</option>
-                  </select>
+              {/* 多语言链接配置 */}
+              <div class="space-y-6">
+                <h4 class="text-xs font-black text-slate-900 uppercase tracking-[0.2em]">多语言跳转链接</h4>
+                {['zh', 'en', 'jp', 'hk'].map((lang, idx) => {
+                  const langLabels: Record<string, string> = { zh: '简体中文', en: 'English', jp: '日本語', hk: '繁體中文' }
+                  return (
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div class="md:col-span-1">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">{langLabels[lang]} 链接</label>
+                        <input 
+                          type="text" 
+                          id={`link-url-${lang}`} 
+                          class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold" 
+                          placeholder={`${langLabels[lang]} 跳转链接`}
+                          value={(banner as any)?.[`link_url_${lang}`] || (lang === 'zh' ? banner?.link_url : '')} 
+                        />
+                      </div>
+                      {idx === 0 && (
+                        <div class="md:col-span-2 space-y-2">
+                          <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">跳转方式（所有语言共用）</label>
+                          <select id="link-target" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold">
+                            <option value="_self" selected={banner?.link_target === '_self' || !banner}>当前页面</option>
+                            <option value="_blank" selected={banner?.link_target === '_blank'}>新页面打开</option>
+                          </select>
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div class="space-y-2">
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">默认链接（兼容旧数据）</label>
+                    <input type="text" id="link-url" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all text-sm font-bold" value={banner?.link_url || ''} placeholder="默认链接（兼容旧数据）" />
+                    <p class="text-[9px] text-slate-400 italic">提示：多语言链接优先于默认链接</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -734,6 +790,9 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                     formData['text_subtitle_' + lang] = document.getElementById('text-subtitle-' + lang).value;
                     formData['text_button_' + lang] = document.getElementById('text-button-' + lang).value;
                     formData['background_url_' + lang] = backgroundUrls[lang] || '';
+                    // 多语言按钮链接和跳转方式
+                    formData['button_link_' + lang] = document.getElementById('button-link-' + lang).value;
+                    formData['button_target_' + lang] = document.getElementById('button-target-' + lang).value;
                   });
                   formData.text_title = formData.text_title_zh;
                   formData.text_subtitle = formData.text_subtitle_zh;
@@ -742,11 +801,15 @@ export const BannerEditor: FC<BannerEditorProps> = ({
                   formData.text_color = document.getElementById('text-color').value;
                   formData.subtitle_color = document.getElementById('subtitle-color').value;
                   formData.background_color = document.getElementById('background-color').value;
-                  formData.button_link = document.getElementById('button-link').value;
-                  formData.button_target = document.getElementById('button-target').value;
+                  formData.button_link = document.getElementById('button-link').value || formData.button_link_zh || ''; // 默认使用中文链接
+                  formData.button_target = formData.button_target_zh || '_self'; // 使用中文的跳转方式作为全局配置
                 } else {
                   formData.full_image_url = document.getElementById('full-image-url').value;
-                  formData.link_url = document.getElementById('link-url').value;
+                  // 多语言链接
+                  languages.forEach(lang => {
+                    formData['link_url_' + lang] = document.getElementById('link-url-' + lang).value;
+                  });
+                  formData.link_url = document.getElementById('link-url').value || formData.link_url_zh || ''; // 默认使用中文链接
                   formData.link_target = document.getElementById('link-target').value;
                 }
                 
