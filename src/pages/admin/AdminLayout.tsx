@@ -72,34 +72,10 @@ var _hmt = _hmt || [];
                   控制台
                 </a>
                 
-                <a href="/ticloudadmin/content"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/content') ? 'active' : ''}`}>
-                  <i class="fas fa-file-alt mr-3"></i>
-                  内容管理
-                </a>
-                
-                <a href="/ticloudadmin/seo"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/seo') ? 'active' : ''}`}>
-                  <i class="fas fa-search mr-3"></i>
-                  SEO 管理
-                </a>
-                
-                <a href="/ticloudadmin/i18n"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/i18n') ? 'active' : ''}`}>
-                  <i class="fas fa-globe mr-3"></i>
-                  多语言管理
-                </a>
-                
                 <a href="/ticloudadmin/media"
                    class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/media') ? 'active' : ''}`}>
                   <i class="fas fa-images mr-3"></i>
                   媒体库
-                </a>
-                
-                <a href="/ticloudadmin/common-content"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/common-content') ? 'active' : ''}`}>
-                  <i class="fas fa-layer-group mr-3"></i>
-                  公共内容
                 </a>
                 
                 {/* Resource Center Menu */}
@@ -128,12 +104,6 @@ var _hmt = _hmt || [];
                     栏目Banner管理
                   </a>
                 </div>
-                
-                <a href="/ticloudadmin/publish"
-                   class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/publish') ? 'active' : ''}`}>
-                  <i class="fas fa-rocket mr-3"></i>
-                  发布管理
-                </a>
                 
                 <a href="/ticloudadmin/users"
                    class={`flex items-center px-4 py-3 rounded-lg transition-colors ${currentPath.startsWith('/ticloudadmin/users') ? 'active' : ''}`}>

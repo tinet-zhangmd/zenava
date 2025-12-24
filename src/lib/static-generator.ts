@@ -1,21 +1,21 @@
 // Static Site Generator for Zenava CMS
 // This is a placeholder implementation for the static site generator
 
+import { query } from './mysql.js'
+
 export class StaticSiteGenerator {
-  private db: D1Database
   private config: any
 
-  constructor(db: D1Database, config: any) {
-    this.db = db
+  constructor(config: any) {
     this.config = config
   }
 
   async generateAllPages(versionId: number): Promise<any> {
     try {
       // Get all page snapshots for this version
-      const { results: snapshots } = await this.db.prepare(`
+      const snapshots = await query<any[]>(`
         SELECT * FROM page_snapshots WHERE version_id = ?
-      `).bind(versionId).all()
+      `, [versionId])
 
       const errors: string[] = []
       let pagesBuilt = 0
@@ -105,22 +105,38 @@ export class StaticSiteGenerator {
 
   private async saveStaticFile(versionId: number, slug: string, content: string): Promise<void> {
     const filePath = `${this.config.outputDir}/${slug}.html`
+    const fileSize = Buffer.from(content).length
     
-    await this.db.prepare(`
-      INSERT INTO static_files (version_id, file_path, content, file_type, file_size)
-      VALUES (?, ?, ?, 'html', ?)
-      ON CONFLICT(version_id, file_path) DO UPDATE SET
-        content = excluded.content,
-        file_size = excluded.file_size,
-        updated_at = CURRENT_TIMESTAMP
-    `).bind(versionId, filePath, content, new Blob([content]).size).run()
+    try {
+      // Check if file exists
+      const existing = await query<any[]>(`
+        SELECT id FROM static_files WHERE version_id = ? AND file_path = ?
+      `, [versionId, filePath])
+      
+      if (existing && existing.length > 0) {
+        await query(`
+          UPDATE static_files SET
+            content = ?,
+            file_size = ?,
+            updated_at = CURRENT_TIMESTAMP
+          WHERE version_id = ? AND file_path = ?
+        `, [content, fileSize, versionId, filePath])
+      } else {
+        await query(`
+          INSERT INTO static_files (version_id, file_path, content, file_type, file_size)
+          VALUES (?, ?, ?, 'html', ?)
+        `, [versionId, filePath, content, 'html', fileSize])
+      }
+    } catch (e) {
+      console.error('Error saving static file:', e)
+    }
   }
 
   private async generateSitemap(versionId: number): Promise<void> {
-    const { results: files } = await this.db.prepare(`
+    const files = await query<any[]>(`
       SELECT file_path FROM static_files 
       WHERE version_id = ? AND file_type = 'html'
-    `).bind(versionId).all()
+    `, [versionId])
 
     let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
