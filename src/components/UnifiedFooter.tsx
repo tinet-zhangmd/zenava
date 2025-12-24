@@ -25,7 +25,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       products: '产品',
       aiAgents: 'AI Agents',
       messaging: 'Live Chat',
-      voice: 'Voice Connectivity',
+      voice: 'Voice Agents',
       // Column 2: Industries
       industries: '行业',
       retail: '零售',
@@ -53,7 +53,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       products: 'Products',
       aiAgents: 'AI Agents',
       messaging: 'Live Chat',
-      voice: 'Voice Connectivity',
+      voice: 'Voice Agents',
       // Column 2: Industries
       industries: 'Industries',
       retail: 'Retail',
@@ -81,7 +81,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       products: '製品',
       aiAgents: 'AIチャットカスタマーサービス',
       messaging: 'Live Chat',
-      voice: 'Voice Connectivity',
+      voice: 'Voice Agents',
       // Column 2: Industries
       industries: '業界',
       retail: '小売',
@@ -109,7 +109,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       products: '產品',
       aiAgents: 'AI Agents',
       messaging: 'Live Chat',
-      voice: 'Voice Connectivity',
+      voice: 'Voice Agents',
       // Column 2: Industries
       industries: '行業',
       retail: '零售',

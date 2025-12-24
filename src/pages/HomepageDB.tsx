@@ -469,7 +469,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Resource Cards - 两个卡片水平排列 */}
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
-            {/* Card 1 - Voice Connectivity */}
+            {/* Card 1 - Voice Agents */}
             <div class="bg-white rounded-3xl p-8 md:p-10 shadow-xl">
               {/* Icon 和 Title 水平排列 */}
               <div class="flex items-center mb-8">
