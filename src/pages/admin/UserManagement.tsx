@@ -195,18 +195,25 @@ export function UserManagement({}: UserManagementProps) {
             // 格式化时间
             function formatTime(dateString) {
               if (!dateString) return '从未登录';
-              const date = new Date(dateString);
-              const now = new Date();
-              const diff = now - date;
-              const minutes = Math.floor(diff / 60000);
-              const hours = Math.floor(diff / 3600000);
-              const days = Math.floor(diff / 86400000);
-              
-              if (minutes < 1) return '刚刚';
-              if (minutes < 60) return minutes + '分钟前';
-              if (hours < 24) return hours + '小时前';
-              if (days < 7) return days + '天前';
-              return date.toLocaleDateString('zh-CN');
+              try {
+                const date = new Date(dateString);
+                if (isNaN(date.getTime())) return '时间格式错误';
+                
+                const now = new Date();
+                const diff = now.getTime() - date.getTime();
+                const minutes = Math.floor(diff / 60000);
+                const hours = Math.floor(diff / 3600000);
+                const days = Math.floor(diff / 86400000);
+                
+                if (minutes < 1) return '刚刚';
+                if (minutes < 60) return minutes + ' 分钟前';
+                if (hours < 24) return hours + ' 小时前';
+                if (days < 7) return days + ' 天前';
+                return date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+              } catch (e) {
+                console.error('时间格式化错误:', e);
+                return '时间格式错误';
+              }
             }
             
               // 获取角色显示文本和样式

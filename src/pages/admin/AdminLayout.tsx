@@ -5,7 +5,7 @@ interface AdminLayoutProps {
   children: any
   title?: string
   currentPath: string
-  user?: { name: string; email: string }
+  user?: { name: string; email: string; lastLogin?: string }
 }
 
 export function AdminLayout({ children, title, currentPath, user }: AdminLayoutProps) {
@@ -189,18 +189,64 @@ export function AdminLayout({ children, title, currentPath, user }: AdminLayoutP
 
             {/* Sidebar User Card */}
             <div class="p-4 border-t border-white/5 bg-black/20">
-              <div class="flex items-center p-3 rounded-xl bg-white/5 group border border-white/5">
-                <div class="w-9 h-9 rounded-lg bg-blue-500/20 border border-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-sm mr-3">
-                  {user?.name?.[0] || 'A'}
+              <div class="p-3 rounded-xl bg-white/5 group border border-white/5">
+                <div class="flex items-center">
+                  <div class="w-9 h-9 rounded-lg bg-blue-500/20 border border-blue-500/20 flex items-center justify-center text-blue-400 font-bold text-sm mr-3">
+                    {user?.name?.[0] || 'A'}
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-xs font-bold text-white truncate leading-tight">{user?.name || 'Administrator'}</p>
+                    <p class="text-[10px] text-slate-500 truncate mt-0.5">{user?.email || 'admin@zenava.com'}</p>
+                  </div>
+                  <a href="/ticloudadmin/logout" class="p-2 text-slate-500 hover:text-red-400 transition-colors" title="退出登录">
+                    <i class="fas fa-sign-out-alt text-sm"></i>
+                  </a>
                 </div>
-                <div class="flex-1 min-w-0">
-                  <p class="text-xs font-bold text-white truncate leading-tight">{user?.name || 'Administrator'}</p>
-                  <p class="text-[10px] text-slate-500 truncate mt-0.5">{user?.email || 'admin@zenava.com'}</p>
-                </div>
-                <a href="/ticloudadmin/logout" class="p-2 text-slate-500 hover:text-red-400 transition-colors" title="退出登录">
-                  <i class="fas fa-sign-out-alt text-sm"></i>
-                </a>
+                {user?.lastLogin && (
+                  <div class="mt-2 pt-2 border-t border-white/5">
+                    <p class="text-[10px] text-slate-500">
+                      <i class="fas fa-clock mr-1"></i>
+                      <span id="last-login-time" data-time={user.lastLogin}>加载中...</span>
+                    </p>
+                  </div>
+                )}
               </div>
+              
+              {user?.lastLogin && (
+                <script dangerouslySetInnerHTML={{
+                  __html: `
+                    (function() {
+                      const el = document.getElementById('last-login-time');
+                      if (!el) return;
+                      
+                      const dateString = el.dataset.time;
+                      if (!dateString) return;
+                      
+                      try {
+                        const date = new Date(dateString);
+                        if (isNaN(date.getTime())) {
+                          el.textContent = '时间格式错误';
+                          return;
+                        }
+                        
+                        const now = new Date();
+                        const diff = now.getTime() - date.getTime();
+                        const minutes = Math.floor(diff / 60000);
+                        const hours = Math.floor(diff / 3600000);
+                        const days = Math.floor(diff / 86400000);
+                        
+                        if (minutes < 1) el.textContent = '刚刚登录';
+                        else if (minutes < 60) el.textContent = minutes + ' 分钟前登录';
+                        else if (hours < 24) el.textContent = hours + ' 小时前登录';
+                        else if (days < 7) el.textContent = days + ' 天前登录';
+                        else el.textContent = date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                      } catch (e) {
+                        el.textContent = '时间解析失败';
+                      }
+                    })();
+                  `
+                }} />
+              )}
             </div>
           </aside>
           
