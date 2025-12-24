@@ -708,7 +708,7 @@ app.get('/resources', async (c) => {
       }
       
       const contents = await mysqlQuery<any[]>(
-        `SELECT rc.id, rc.category_id, rc.title, rc.content, rc.author,
+        `SELECT rc.id, rc.slug, rc.category_id, rc.title, rc.content, rc.author,
                 rc.cover_image, rc.published_at, rc.views, rc.downloads, rc.reading_time,
                 rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
                 rc.content_zh, rc.content_en, rc.content_jp, rc.content_hk,
@@ -795,7 +795,7 @@ app.get('/resources/:slug', async (c) => {
   let contents = []
   try {
     const contentsResult = await mysqlQuery<any[]>(
-      `SELECT id, title, content, author, cover_image, reading_time,
+      `SELECT id, slug, title, content, author, cover_image, reading_time,
               video_file, attachment_file, attachment_name, 
               published_at, views, downloads,
               title_zh, title_en, title_jp, title_hk,
@@ -967,7 +967,7 @@ app.get('/:lang/resources', async (c) => {
       }
       
       const contents = await mysqlQuery<any[]>(
-        `SELECT rc.id, rc.category_id, rc.title, rc.content, rc.author,
+        `SELECT rc.id, rc.slug, rc.category_id, rc.title, rc.content, rc.author,
                 rc.cover_image, rc.published_at, rc.views, rc.downloads, rc.reading_time,
                 rc.title_zh, rc.title_en, rc.title_jp, rc.title_hk,
                 rc.content_zh, rc.content_en, rc.content_jp, rc.content_hk,
@@ -1055,7 +1055,7 @@ app.get('/:lang/resources/:slug', async (c) => {
   let contents = []
   try {
     const contentsResult = await mysqlQuery<any[]>(
-      `SELECT id, title, content, author, cover_image, reading_time,
+      `SELECT id, slug, title, content, author, cover_image, reading_time,
               video_file, attachment_file, attachment_name, 
               published_at, views, downloads,
               title_zh, title_en, title_jp, title_hk,
@@ -1139,9 +1139,9 @@ app.get('/:lang/resources/:slug', async (c) => {
 // 内容详情页路由（中文）
 app.get('/resources/:slug/:id', async (c) => {
   const slug = c.req.param('slug')
-  const id = parseInt(c.req.param('id'))
+  const idParam = c.req.param('id')
   const language: Language = 'zh'
-  const currentPath = `/resources/${slug}/${id}`
+  const currentPath = `/resources/${slug}/${idParam}`
   
   const { config: navConfig, menuItems } = getNavigationData(language);
   const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
@@ -1161,16 +1161,36 @@ app.get('/resources/:slug/:id', async (c) => {
       categoryNameField = 'COALESCE(rcat.name_hk, rcat.name_zh, rcat.name)'
     }
     
-    const contentResult = await mysqlQuery<any[]>(
-      `SELECT rc.*, ${categoryNameField} as category_name, rcat.link as category_slug,
-              au.avatar as author_avatar
-       FROM resource_contents rc
-       LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
-       LEFT JOIN admin_users au ON rc.author = au.email
-       WHERE rc.id = ? AND rc.status = 'published'
-       LIMIT 1`,
-      [id]
-    )
+    // 判断 idParam 是数字还是 slug
+    const isNumeric = /^\d+$/.test(idParam)
+    let contentResult: any[] = []
+    
+    if (isNumeric) {
+      // 如果是数字，使用 id 查询
+      const id = parseInt(idParam)
+      contentResult = await mysqlQuery<any[]>(
+        `SELECT rc.*, ${categoryNameField} as category_name, rcat.link as category_slug,
+                au.avatar as author_avatar
+         FROM resource_contents rc
+         LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+         LEFT JOIN admin_users au ON rc.author = au.email
+         WHERE rc.id = ? AND rc.status = 'published'
+         LIMIT 1`,
+        [id]
+      )
+    } else {
+      // 如果是字符串，使用 slug 查询
+      contentResult = await mysqlQuery<any[]>(
+        `SELECT rc.*, ${categoryNameField} as category_name, rcat.link as category_slug,
+                au.avatar as author_avatar
+         FROM resource_contents rc
+         LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+         LEFT JOIN admin_users au ON rc.author = au.email
+         WHERE rc.slug = ? AND rc.status = 'published'
+         LIMIT 1`,
+        [idParam]
+      )
+    }
     
     if (contentResult.length === 0) {
       return c.notFound()
@@ -1187,9 +1207,10 @@ app.get('/resources/:slug/:id', async (c) => {
     content = processContentByLanguage(content, language)
     
     // 增加访问量
+    const contentId = content.id
     await mysqlQuery(
       `UPDATE resource_contents SET views = views + 1 WHERE id = ?`,
-      [id]
+      [contentId]
     )
     
     // 获取栏目信息
@@ -1226,6 +1247,9 @@ app.get('/resources/:slug/:id', async (c) => {
   let recommendedContents = []
   if (content && category) {
     try {
+      // 获取内容ID（用于排除当前文章）
+      const contentId = content.id
+      
       // 获取推荐阅读时也需要根据语言选择对应的name字段
       let recommendedCategoryNameField = 'COALESCE(rcat.name_zh, rcat.name)'
       if (language === 'en') {
@@ -1249,7 +1273,7 @@ app.get('/resources/:slug/:id', async (c) => {
          WHERE rc.category_id = ? AND rc.id != ? AND rc.status = 'published'
          ORDER BY rc.views DESC, rc.published_at DESC
          LIMIT 4`,
-        [category.id, id]
+        [category.id, contentId]
       )
       
       // 处理推荐阅读内容的多语言字段
@@ -1325,9 +1349,9 @@ app.get('/resources/:slug/:id', async (c) => {
 app.get('/:lang/resources/:slug/:id', async (c) => {
   const lang = c.req.param('lang') as Language
   const slug = c.req.param('slug')
-  const id = parseInt(c.req.param('id'))
+  const idParam = c.req.param('id')
   const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : 'zh'
-  const currentPath = `/${language}/resources/${slug}/${id}`
+  const currentPath = `/${language}/resources/${slug}/${idParam}`
   
   const { config: navConfig, menuItems } = getNavigationData(language);
   const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
@@ -1347,16 +1371,36 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
       categoryNameField = 'COALESCE(rcat.name_hk, rcat.name_zh, rcat.name)'
     }
     
-    const contentResult = await mysqlQuery<any[]>(
-      `SELECT rc.*, ${categoryNameField} as category_name, rcat.link as category_slug,
-              au.avatar as author_avatar
-       FROM resource_contents rc
-       LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
-       LEFT JOIN admin_users au ON rc.author = au.email
-       WHERE rc.id = ? AND rc.status = 'published'
-       LIMIT 1`,
-      [id]
-    )
+    // 判断 idParam 是数字还是 slug
+    const isNumeric = /^\d+$/.test(idParam)
+    let contentResult: any[] = []
+    
+    if (isNumeric) {
+      // 如果是数字，使用 id 查询
+      const id = parseInt(idParam)
+      contentResult = await mysqlQuery<any[]>(
+        `SELECT rc.*, ${categoryNameField} as category_name, rcat.link as category_slug,
+                au.avatar as author_avatar
+         FROM resource_contents rc
+         LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+         LEFT JOIN admin_users au ON rc.author = au.email
+         WHERE rc.id = ? AND rc.status = 'published'
+         LIMIT 1`,
+        [id]
+      )
+    } else {
+      // 如果是字符串，使用 slug 查询
+      contentResult = await mysqlQuery<any[]>(
+        `SELECT rc.*, ${categoryNameField} as category_name, rcat.link as category_slug,
+                au.avatar as author_avatar
+         FROM resource_contents rc
+         LEFT JOIN resource_categories rcat ON rc.category_id = rcat.id
+         LEFT JOIN admin_users au ON rc.author = au.email
+         WHERE rc.slug = ? AND rc.status = 'published'
+         LIMIT 1`,
+        [idParam]
+      )
+    }
     
     if (contentResult.length === 0) {
       return c.notFound()
@@ -1370,9 +1414,10 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
     }
     
     // 增加访问量
+    const contentId = content.id
     await mysqlQuery(
       `UPDATE resource_contents SET views = views + 1 WHERE id = ?`,
-      [id]
+      [contentId]
     )
     
     // 获取栏目信息
@@ -1409,6 +1454,9 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
   let recommendedContents = []
   if (content && category) {
     try {
+      // 获取内容ID（用于排除当前文章）
+      const contentId = content.id
+      
       recommendedContents = await mysqlQuery<any[]>(
         `SELECT rc.id, rc.title, rc.cover_image, rc.published_at, rc.reading_time, 
                 rc.author, rc.views,
@@ -1421,7 +1469,7 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
          WHERE rc.category_id = ? AND rc.id != ? AND rc.status = 'published'
          ORDER BY rc.views DESC, rc.published_at DESC
          LIMIT 4`,
-        [category.id, id]
+        [category.id, contentId]
       )
       console.log(`✅ 获取到 ${recommendedContents.length} 条推荐阅读内容 (${language})`)
     } catch (error) {
@@ -3006,6 +3054,22 @@ app.post('/api/admin/resource-categories', async (c) => {
       }, 400)
     }
     
+    // 验证 slug 格式：只能包含英文字母、数字、连字符和下划线，不能包含中文
+    const slugRegex = /^[a-zA-Z0-9_-]+$/
+    const chineseRegex = /[\u4e00-\u9fa5]/
+    if (!slug.trim()) {
+      return c.json({ 
+        success: false, 
+        error: '链接标识 (Slug) 不能为空' 
+      }, 400)
+    }
+    if (chineseRegex.test(slug) || !slugRegex.test(slug)) {
+      return c.json({ 
+        success: false, 
+        error: '链接标识 (Slug) 只能包含英文字母、数字、连字符(-)和下划线(_)，不能包含中文' 
+      }, 400)
+    }
+    
     // 验证值是否有效
     const validTemplates = ['list_article', 'list_video', 'list_download']
     if (!validTemplates.includes(list_template) || !validTemplates.includes(detail_template)) {
@@ -3123,6 +3187,24 @@ app.put('/api/admin/resource-categories/:id', async (c) => {
     const list_template = body.list_template !== undefined ? body.list_template : currentCategory.category_template
     const detail_template = body.detail_template !== undefined ? body.detail_template : currentCategory.page_template
     const is_visible = body.is_visible !== undefined ? body.is_visible : currentCategory.is_displayed
+    
+    // 验证 slug 格式：只能包含英文字母、数字、连字符和下划线，不能包含中文
+    if (slug) {
+      const slugRegex = /^[a-zA-Z0-9_-]+$/
+      const chineseRegex = /[\u4e00-\u9fa5]/
+      if (!slug.trim()) {
+        return c.json({ 
+          success: false, 
+          error: '链接标识 (Slug) 不能为空' 
+        }, 400)
+      }
+      if (chineseRegex.test(slug) || !slugRegex.test(slug)) {
+        return c.json({ 
+          success: false, 
+          error: '链接标识 (Slug) 只能包含英文字母、数字、连字符(-)和下划线(_)，不能包含中文' 
+        }, 400)
+      }
+    }
     
     // 多语言字段
     const name_zh = body.name_zh !== undefined ? body.name_zh : currentCategory.name_zh
@@ -3650,7 +3732,161 @@ app.delete('/api/admin/resource-contents/:id', async (c) => {
   }
 })
 
-// 批量删除资源内容
+// 批量操作资源内容
+app.post('/api/admin/resource-contents/batch', async (c) => {
+  try {
+    const { action, ids } = await c.req.json()
+    
+    if (!action || !ids || !Array.isArray(ids) || ids.length === 0) {
+      return c.json({ 
+        success: false, 
+        error: '缺少必要参数' 
+      }, 400)
+    }
+    
+    const placeholders = ids.map(() => '?').join(',')
+    let affectedCount = 0
+    
+    switch (action) {
+      case 'feature':
+        // 设为推荐
+        const featureResult = await mysqlQuery(
+          `UPDATE resource_contents SET is_featured = 1 WHERE id IN (${placeholders})`,
+          ids
+        )
+        affectedCount = (featureResult as any).affectedRows || 0
+        break
+        
+      case 'unfeature':
+        // 取消推荐
+        const unfeatureResult = await mysqlQuery(
+          `UPDATE resource_contents SET is_featured = 0 WHERE id IN (${placeholders})`,
+          ids
+        )
+        affectedCount = (unfeatureResult as any).affectedRows || 0
+        break
+        
+      case 'hot':
+        // 设为热门
+        const hotResult = await mysqlQuery(
+          `UPDATE resource_contents SET is_hot = 1 WHERE id IN (${placeholders})`,
+          ids
+        )
+        affectedCount = (hotResult as any).affectedRows || 0
+        break
+        
+      case 'unhot':
+        // 取消热门
+        const unhotResult = await mysqlQuery(
+          `UPDATE resource_contents SET is_hot = 0 WHERE id IN (${placeholders})`,
+          ids
+        )
+        affectedCount = (unhotResult as any).affectedRows || 0
+        break
+        
+      case 'publish':
+        // 立即发布
+        const publishResult = await mysqlQuery(
+          `UPDATE resource_contents SET status = 'published' WHERE id IN (${placeholders})`,
+          ids
+        )
+        affectedCount = (publishResult as any).affectedRows || 0
+        break
+        
+      case 'draft':
+        // 转为草稿
+        const draftResult = await mysqlQuery(
+          `UPDATE resource_contents SET status = 'draft' WHERE id IN (${placeholders})`,
+          ids
+        )
+        affectedCount = (draftResult as any).affectedRows || 0
+        break
+        
+      case 'delete':
+        // 批量删除（调用现有的批量删除逻辑）
+        let deletedCount = 0
+        const errors: string[] = []
+        
+        for (const id of ids) {
+          try {
+            const [content] = await mysqlQuery<any[]>(
+              'SELECT cover_image, video_file, attachment_file FROM resource_contents WHERE id = ?',
+              [id]
+            )
+            
+            if (content) {
+              if (content.cover_image) {
+                await deleteUploadedImage(content.cover_image).catch(err => {
+                  console.warn(`删除封面图片失败 (ID: ${id}):`, err)
+                })
+              }
+              if (content.video_file) {
+                await deleteUploadedImage(content.video_file).catch(err => {
+                  console.warn(`删除视频文件失败 (ID: ${id}):`, err)
+                })
+              }
+              if (content.attachment_file) {
+                await deleteUploadedImage(content.attachment_file).catch(err => {
+                  console.warn(`删除附件文件失败 (ID: ${id}):`, err)
+                })
+              }
+              
+              await mysqlQuery(
+                'DELETE FROM resource_contents WHERE id = ?',
+                [id]
+              )
+              
+              deletedCount++
+            }
+          } catch (error: any) {
+            console.error(`删除内容失败 (ID: ${id}):`, error)
+            errors.push(`删除失败 (ID: ${id}): ${error.message}`)
+          }
+        }
+        
+        if (deletedCount === ids.length) {
+          return c.json({ 
+            success: true, 
+            message: `成功删除 ${deletedCount} 项内容`,
+            affected: deletedCount
+          })
+        } else if (deletedCount > 0) {
+          return c.json({ 
+            success: true, 
+            message: `成功删除 ${deletedCount}/${ids.length} 项内容`,
+            affected: deletedCount,
+            errors: errors
+          })
+        } else {
+          return c.json({ 
+            success: false, 
+            error: '批量删除失败',
+            errors: errors
+          }, 500)
+        }
+        
+      default:
+        return c.json({ 
+          success: false, 
+          error: '未知操作类型' 
+        }, 400)
+    }
+    
+    return c.json({ 
+      success: true, 
+      message: `批量操作成功，影响 ${affectedCount} 项内容`,
+      affected: affectedCount
+    })
+  } catch (error: any) {
+    console.error('批量操作失败:', error)
+    return c.json({ 
+      success: false, 
+      error: error.message || '批量操作失败'
+    }, 500)
+  }
+})
+
+// 批量删除资源内容（保留向后兼容）
 app.post('/api/admin/resource-contents/batch-delete', async (c) => {
   try {
     const { ids } = await c.req.json()

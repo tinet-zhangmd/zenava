@@ -363,7 +363,9 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                   {categoryContents.map((content) => {
                     const basePath = language === 'zh' ? '/resources' : `/${language}/resources`
-                    const contentLink = `${basePath}/${currentCategory.slug}/${content.id}`
+                    // 优先使用 slug，如果没有则使用 id
+                    const contentIdentifier = (content as any).slug || content.id
+                    const contentLink = `${basePath}/${currentCategory.slug}/${contentIdentifier}`
                     
                     // 获取多语言标题（根据当前语言选择）
                     const getTitle = () => {
@@ -645,7 +647,9 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                 // 构建多语言链接
                 const langPrefix = language === 'en' ? '' : `/${language}`
                 const categorySlug = content.category_slug || ''
-                // 构建内容详情页链接：/语言/resources/栏目slug/内容id
+                // 构建内容详情页链接：/语言/resources/栏目slug/内容slug或id
+                // 优先使用内容 slug，如果没有则使用 id
+                const contentIdentifier = (content as any).slug || content.id
                 let contentLink
                 if (categorySlug) {
                   // 移除 category_slug 开头的 /resources（如果有）
@@ -653,9 +657,9 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                   // 移除开头的斜杠（如果有）
                   slug = slug.replace(/^\//, '')
                   // 构建完整路径
-                  contentLink = `${langPrefix}/resources/${slug}/${content.id}`
+                  contentLink = `${langPrefix}/resources/${slug}/${contentIdentifier}`
                 } else {
-                  contentLink = `${langPrefix}/resources/${content.id}`
+                  contentLink = `${langPrefix}/resources/${contentIdentifier}`
                 }
                 
                 // 获取多语言标题（根据当前语言选择）
@@ -856,9 +860,11 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                   </div>
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                     {categoryContents.slice(0, 3).map((content: any) => {
+                      // 优先使用 slug，如果没有则使用 id
+                      const contentIdentifier = content.slug || content.id
                       const contentLink = categoryLink 
-                        ? `${categoryLink}/${content.id}`
-                        : `${langPrefix}/resources/${content.id}`
+                        ? `${categoryLink}/${contentIdentifier}`
+                        : `${langPrefix}/resources/${contentIdentifier}`
                       
                       // 获取多语言标题（根据当前语言选择）
                       const getTitle = () => {

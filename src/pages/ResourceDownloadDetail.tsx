@@ -15,6 +15,7 @@ interface Content {
   category_id: number
   category_name: string
   category_slug: string
+  slug?: string
   title: string
   content: string
   author?: string
@@ -59,6 +60,7 @@ interface Content {
 
 interface RecommendedContent {
   id: number
+  slug?: string
   title: string
   cover_image?: string
   published_at: string
