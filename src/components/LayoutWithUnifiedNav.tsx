@@ -163,9 +163,10 @@ export function LayoutWithUnifiedNav({
               return false
             })
             
-            // 排除资源详情页（如 /resources/blog/123 或 /zh/resources/blog/123）
+            // 排除资源详情页（如 /resources/blog/123 或 /zh/resources/blog/video-two）
             // 资源详情页路径格式：/resources/:slug/:id 或 /:lang/resources/:slug/:id
-            const isResourceDetailPage = /^(\/[a-z]{2})?\/resources\/[^\/]+\/\d+$/.test(currentPath)
+            // :id 可以是数字（如 123）或 slug（如 video-two）
+            const isResourceDetailPage = /^(\/[a-z]{2})?\/resources\/[^\/]+\/[^\/]+$/.test(currentPath)
             
             // 排除资源列表页（如 /resources/hybg 或 /zh/resources/hybg）
             // 资源列表页路径格式：/resources/:slug 或 /:lang/resources/:slug（不包含数字ID）
