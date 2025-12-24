@@ -7,7 +7,7 @@
     "build:package": "./build-package.sh",
     "deploy:local": "./deploy-local.sh",
     "pm2:start": "pm2 start npm --name zenava-webapp -- run start:node",
-    "pm2:start:d1": "pm2 start npm --name zenava-webapp -- run start:node",
+    "pm2:start:mysql": "pm2 start npm --name zenava-webapp -- run start:node",
     "pm2:stop": "pm2 stop all",
     "pm2:restart": "pm2 restart all",
     "pm2:delete": "pm2 delete all",
