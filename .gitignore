@@ -133,3 +133,6 @@ docker-compose.override.yml
 .dev.vars
 *.env.local
 *.env.production
+deploy-package/
+test-local-deploy/
+dist-node/
