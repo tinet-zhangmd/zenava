@@ -173,7 +173,6 @@ cp -r public "$DEPLOY_DIR/" 2>/dev/null || true
 cp server.js "$DEPLOY_DIR/"
 cp package.json "$DEPLOY_DIR/"
 cp package-lock.json "$DEPLOY_DIR/" 2>/dev/null || true
-cp ecosystem.config.cjs "$DEPLOY_DIR/" 2>/dev/null || true
 
 # 保留现有的 .env 文件
 if [ ! -f "$DEPLOY_DIR/.env" ]; then
