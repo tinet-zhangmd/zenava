@@ -136,3 +136,4 @@ docker-compose.override.yml
 dist-node/
 test-local-deploy/
 deploy-package/
+ZENAVA*.tar.gz
