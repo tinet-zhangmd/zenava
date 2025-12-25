@@ -33,7 +33,6 @@ cp package.json deploy-package/
 cp package-lock.json deploy-package/ 2>/dev/null || true
 
 # 配置文件
-cp ecosystem.config.cjs deploy-package/ 2>/dev/null || true
 cp nginx.conf deploy-package/ 2>/dev/null || true
 cp server.js deploy-package/ 2>/dev/null || true
 
@@ -73,7 +72,6 @@ echo "📋 复制文件..."
 sudo cp -r dist "$DEPLOY_DIR/"
 sudo cp package.json "$DEPLOY_DIR/"
 sudo cp package-lock.json "$DEPLOY_DIR/" 2>/dev/null || true
-sudo cp ecosystem.config.cjs "$DEPLOY_DIR/" 2>/dev/null || true
 
 # 4. 安装生产依赖
 echo "📥 安装生产依赖..."
@@ -85,13 +83,37 @@ echo "🔐 设置权限..."
 sudo chown -R www-data:www-data "$DEPLOY_DIR" 2>/dev/null || sudo chown -R $USER:$USER "$DEPLOY_DIR"
 sudo chmod -R 755 "$DEPLOY_DIR"
 
-# 6. 重启应用
-echo "🔄 重启应用..."
-if command -v pm2 &> /dev/null; then
-  cd "$DEPLOY_DIR"
-  sudo -u www-data pm2 restart zenava-webapp || sudo -u www-data pm2 start ecosystem.config.cjs || echo "⚠️  PM2 启动失败，请手动启动"
+# 6. 创建 systemd 服务并启动应用
+echo "🔄 创建 systemd 服务..."
+cat > /etc/systemd/system/zenava.service << 'SYSTEMD_SERVICE'
+[Unit]
+Description=Zenava Web Application
+After=network.target mysql.service
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/zenava
+Environment="NODE_ENV=production"
+Environment="PORT=3000"
+EnvironmentFile=/var/www/zenava/.env
+ExecStart=/usr/bin/tsx /var/www/zenava/server.js
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=zenava
+
+[Install]
+WantedBy=multi-user.target
+SYSTEMD_SERVICE
+
+systemctl daemon-reload
+if systemctl start zenava; then
+  systemctl enable zenava
+  echo "✅ 应用已启动并设置开机自启"
 else
-  echo "⚠️  PM2 未安装，请手动启动应用"
+  echo "⚠️  服务启动失败，请检查日志: sudo journalctl -u zenava -n 50"
 fi
 
 # 7. 重载 Nginx（如果需要）
@@ -108,21 +130,17 @@ DEPLOY_SCRIPT
 
 chmod +x deploy-package/deploy.sh
 
-# 7. 创建启动脚本（使用 Wrangler）
+# 7. 创建启动脚本（使用 systemd）
 cat > deploy-package/start.sh << 'START_SCRIPT'
 #!/bin/bash
-# 启动脚本 - 使用 Wrangler 运行
+# 启动脚本 - 使用 systemd 服务
 
-cd /var/www/zenava
+# 启动 systemd 服务
+sudo systemctl start zenava
+sudo systemctl enable zenava
 
-# 使用 PM2 启动
-if command -v pm2 &> /dev/null; then
-  pm2 start ecosystem.config.cjs || pm2 restart zenava-webapp
-  pm2 save
-else
-  echo "⚠️  PM2 未安装，使用 npx 直接启动..."
-  npx wrangler pages dev dist --ip 0.0.0.0 --port 3000
-fi
+# 查看状态
+sudo systemctl status zenava
 START_SCRIPT
 
 chmod +x deploy-package/start.sh
@@ -135,7 +153,6 @@ cat > deploy-package/README.md << 'README'
 
 - `dist/` - 构建后的静态文件和 Worker 代码
 - `package.json` - 项目依赖配置
-- `ecosystem.config.cjs` - PM2 配置文件
 - `deploy.sh` - 自动部署脚本
 - `start.sh` - 应用启动脚本
 - `nginx.conf` - Nginx 配置示例
@@ -153,19 +170,20 @@ sudo ./deploy.sh
 
 1. 解压文件到 `/var/www/zenava`
 2. 安装依赖: `npm ci --production`
-3. 使用 PM2 启动: `pm2 start ecosystem.config.cjs`
+3. 创建 systemd 服务（部署脚本会自动创建）
+4. 启动服务: `sudo systemctl start zenava`
 
 ## 环境要求
 
 - Node.js 18+
-- PM2 (推荐)
+- systemd (Linux 系统自带)
 - Nginx (可选，用于反向代理)
 
 ## 端口配置
 
 默认端口: 3000
 
-修改 `ecosystem.config.cjs` 中的 `PORT` 环境变量来更改端口。
+修改 `.env` 文件中的 `PORT` 环境变量来更改端口。
 README
 
 # 9. 创建压缩包

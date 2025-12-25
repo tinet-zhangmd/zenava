@@ -187,7 +187,6 @@ cp -r dist-node deploy-package/
 cp -r public deploy-package/
 cp package.json deploy-package/
 cp server.js deploy-package/
-cp ecosystem.config.cjs deploy-package/
 cp -r migrations deploy-package/ 2>/dev/null || true
 
 # 5. 创建压缩包
