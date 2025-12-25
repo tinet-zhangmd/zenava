@@ -15,7 +15,22 @@ export default defineConfig({
       fileName: 'index-node'
     },
     rollupOptions: {
-      external: ['@hono/node-server'],
+      external: (id) => {
+        // 将 Node.js 内置模块标记为 external
+        const nodeBuiltins = [
+          'fs', 'fs/promises', 'path', 'crypto', 'node:crypto',
+          'events', 'process', 'net', 'tls', 'timers', 'stream',
+          'buffer', 'zlib', 'util', 'url', 'os', 'string_decoder'
+        ]
+        if (nodeBuiltins.includes(id) || id.startsWith('node:')) {
+          return true
+        }
+        // 将所有 node_modules 中的包标记为 external（不以 . 或 / 开头的都是外部包）
+        if (!id.startsWith('.') && !id.startsWith('/')) {
+          return true
+        }
+        return false
+      },
       output: {
         format: 'es'
       }

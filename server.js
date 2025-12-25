@@ -22,8 +22,31 @@ try {
 }
 
 // 导入应用（Node.js 适配版本）
-// 使用 tsx 运行时，可以直接导入 .tsx 文件
-import app from './src/index-node.tsx'
+// 在生产环境中使用构建后的文件，开发环境使用源文件
+import { existsSync } from 'fs'
+
+const distPath = join(__dirname, 'dist-node', 'index-node.js')
+const srcPath = join(__dirname, 'src', 'index-node.tsx')
+
+// 使用动态导入，根据文件存在性选择
+const appModule = existsSync(distPath)
+  ? await import('./dist-node/index-node.js')
+  : existsSync(srcPath)
+  ? await import('./src/index-node.tsx')
+  : (() => {
+      console.error('❌ 无法找到应用文件')
+      console.error(`   尝试了: ${distPath}`)
+      console.error(`   尝试了: ${srcPath}`)
+      process.exit(1)
+    })()
+
+if (existsSync(distPath)) {
+  console.log('📦 使用构建后的文件: dist-node/index-node.js')
+} else {
+  console.log('🔧 使用源文件: src/index-node.tsx')
+}
+
+const app = appModule.default || appModule
 
 // 启动服务器
 const port = process.env.PORT || 3000

@@ -804,65 +804,30 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
                 )
               })
             ) : (
-              // 如果没有数据库数据，回退到翻译文件数据
-              (t.featured?.cards || []).slice(0, 3).map((card: any, index: number) => {
-                const langPrefix = language === 'en' ? '' : `/${language}`
-                const resourceLink = card.link || '#'
-                const fullLink = resourceLink.startsWith('/') 
-                  ? (resourceLink.startsWith('/resources') 
-                      ? `${langPrefix}${resourceLink}` 
-                      : resourceLink)
-                  : resourceLink
-                
-                return (
-                  <a 
-                    key={index}
-                    href={fullLink}
-                    class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block"
-                  >
-                    <div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">
-                      <img 
-                        src={card.image || `/assets/images/resources/featured-${index + 1}.jpg`}
-                        alt={card.imageAlt || card.title || 'Featured resource'}
-                        class="w-full h-full object-cover"
-                        loading={index === 0 ? 'eager' : 'lazy'}
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                      />
-                      <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
-                        <div class="text-center">
-                          <i class="fas fa-image text-3xl md:text-4xl text-gray-400 mb-2"></i>
-                          <p class="text-xs md:text-sm text-gray-500">
-                            {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
-                          </p>
-                        </div>
-                      </div>
-                      <div class="absolute top-4 left-4 z-10">
-                        <span class="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-medium text-gray-700">
-                          {card.category || 'Article'}
-                        </span>
-                      </div>
-                      {card.badge && (
-                        <div class="absolute top-4 right-4 z-10">
-                          <span class="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-medium">
-                            {card.badge}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <div class="p-6">
-                      <p class="text-sm text-gray-500 mb-2">
-                        {card.date || 'September 6, 2023'}
-                      </p>
-                      <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                        {card.title || 'Resource Title'}
-                      </h3>
-                      <p class="text-gray-600 text-sm md:text-base line-clamp-3">
-                        {card.description || 'Resource description text here...'}
-                      </p>
-                    </div>
-                  </a>
-                )
-              })
+              // 如果没有数据库数据，显示空状态提示
+              <div class="col-span-full py-12 text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
+                  <i class="fas fa-inbox text-2xl text-gray-400"></i>
+                </div>
+                <p class="text-gray-500 text-lg">
+                  {language === 'zh' 
+                    ? '暂无热门推荐内容' 
+                    : language === 'en' 
+                    ? 'No featured content available' 
+                    : language === 'jp' 
+                    ? 'おすすめコンテンツがありません' 
+                    : '暫無熱門推薦內容'}
+                </p>
+                <p class="text-gray-400 text-sm mt-2">
+                  {language === 'zh' 
+                    ? '请先在后台添加并标记为"热门"的内容' 
+                    : language === 'en' 
+                    ? 'Please add content and mark it as "Hot" in the admin panel' 
+                    : language === 'jp' 
+                    ? '管理画面でコンテンツを追加し、「人気」としてマークしてください' 
+                    : '請先在後台添加並標記為「熱門」的內容'}
+                </p>
+              </div>
             )}
           </div>
         </div>
@@ -1247,104 +1212,8 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
       }} />
       )}
 
-      {/* Resource Categories Script - 只在首页加载且没有数据库数据时使用 */}
-      {!currentCategory && categories.length === 0 && (
-      <script dangerouslySetInnerHTML={{
-        __html: `
-          (function() {
-            const categories = ${JSON.stringify(t.categories || [])};
-            const currentLanguage = ${JSON.stringify(language)};
-            const container = document.getElementById('resource-categories');
-            
-            if (!container || categories.length === 0) return;
-            
-            const placeholderTexts = {
-              'zh': '暂无图片',
-              'en': 'No Image',
-              'jp': '画像なし',
-              'hk': '暫無圖片'
-            };
-            const placeholderText = placeholderTexts[currentLanguage] || placeholderTexts['zh'];
-            
-            function renderCategory(category) {
-              const placeholderTexts = {
-                'zh': '暂无图片',
-                'en': 'No Image',
-                'jp': '画像なし',
-                'hk': '暫無圖片'
-              };
-              const placeholderText = placeholderTexts[currentLanguage] || placeholderTexts['zh'];
-              
-              // 构建语言前缀
-              const langPrefix = currentLanguage === 'en' ? '' : '/' + currentLanguage;
-              
-              const itemsHtml = (category.items || []).slice(0, 3).map(function(item) {
-                // 构建多语言链接
-                const resourceLink = item.link || '#';
-                const fullLink = resourceLink.startsWith('/') 
-                  ? (resourceLink.startsWith('/resources') 
-                      ? langPrefix + resourceLink 
-                      : resourceLink)
-                  : resourceLink;
-                
-                return '<a href="' + fullLink + '" ' +
-                  'class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] overflow-hidden block">' +
-                  '<div class="aspect-video bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 relative overflow-hidden">' +
-                    '<img src="' + (item.image || '/assets/images/placeholder.jpg') + '" ' +
-                    'alt="' + (item.imageAlt || item.title || '') + '" ' +
-                    'class="w-full h-full object-cover" loading="lazy" ' +
-                    'onerror="this.style.display=\\'none\\'; this.nextElementSibling.style.display=\\'flex\\';" />' +
-                    '<div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">' +
-                      '<div class="text-center">' +
-                        '<i class="fas fa-image text-2xl md:text-3xl text-gray-400 mb-2"></i>' +
-                        '<p class="text-xs md:text-sm text-gray-500">' + placeholderText + '</p>' +
-                      '</div>' +
-                    '</div>' +
-                  '</div>' +
-                  '<div class="p-6">' +
-                    '<p class="text-sm text-gray-500 mb-2">' + (item.date || '') + '</p>' +
-                    '<h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2">' +
-                      (item.title || 'Resource Title') +
-                    '</h4>' +
-                    '<p class="text-gray-600 text-sm md:text-base line-clamp-3">' +
-                      (item.description || 'Resource description...') +
-                    '</p>' +
-                  '</div>' +
-                '</a>';
-              }).join('');
-              
-              // 构建"查看更多"链接的语言前缀
-              const moreLink = category.moreLink || '#';
-              const fullMoreLink = moreLink.startsWith('/') 
-                ? (moreLink.startsWith('/resources') 
-                    ? langPrefix + moreLink 
-                    : moreLink)
-                : moreLink;
-              
-              return '<div class="mb-16 md:mb-20">' +
-                '<div class="flex items-center justify-between mb-6 md:mb-8">' +
-                  '<h3 class="text-2xl md:text-3xl font-bold text-gray-900">' +
-                    (category.title || 'Category') +
-                  '</h3>' +
-                  '<a href="' + fullMoreLink + '" ' +
-                  'class="text-[#6438FF] hover:text-[#5a2ee6] font-medium flex items-center">' +
-                    (category.moreText || '查看更多') +
-                    '<i class="fas fa-arrow-right ml-2"></i>' +
-                  '</a>' +
-                '</div>' +
-                '<div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">' +
-                  itemsHtml +
-                '</div>' +
-              '</div>';
-            }
-            
-            container.innerHTML = categories.map(function(category) {
-              return renderCategory(category);
-            }).join('');
-          })();
-        `
-      }} />
-      )}
+      {/* Resource Categories Script - 已移除，现在完全依赖数据库数据 */}
+      {/* 如果数据库中没有栏目数据，不会显示任何栏目内容 */}
     </>
   )
 }
