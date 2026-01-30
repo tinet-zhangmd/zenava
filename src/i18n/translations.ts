@@ -255,8 +255,8 @@ export const siteTranslations = {
       retail: {
         pageTitle: 'AI Agents for Retail',
         banner: {
-          src: '/assets/images/retail/banner.png',
-          mobileSrc: '/assets/images/retail/banner-mobile.png',
+          src: '/assets/images/retail/banner-en.webp',
+          mobileSrc: '/assets/images/retail/banner-mobile-en.webp',
           alt: 'Retail Product Banner',
           link: '/contact'
         },
@@ -298,7 +298,7 @@ export const siteTranslations = {
               tags: ['Intent Recognition', 'Personalized Recommendations', 'Promotional Information', 'Conversion Enhancement'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/retail/01.webp',
+              mediaPath: '/assets/images/retail/01-en.webp',
               mediaAlt: 'Intelligent Shopping Guidance'
             },
             {
@@ -309,7 +309,7 @@ export const siteTranslations = {
               tags: ['Order Queries', 'Returns & Exchanges', 'Logistics Tracking', 'Efficiency Improvement'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/retail/02.webp',
+              mediaPath: '/assets/images/retail/02-en.webp',
               mediaAlt: 'Order Management'
             },
             {
@@ -320,7 +320,7 @@ export const siteTranslations = {
               tags: ['Issue Identification', 'Multi-turn Conversations', 'Image & Video Support', 'Problem Resolution'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/retail/03.webp',
+              mediaPath: '/assets/images/retail/03-en.webp',
               mediaAlt: 'After-Sales Troubleshooting'
             },
             {
@@ -331,7 +331,7 @@ export const siteTranslations = {
               tags: ['Work Order Generation', 'Smart Dispatch', 'Satisfaction Surveys', 'Service Closed Loop'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/retail/04.webp',
+              mediaPath: '/assets/images/retail/04-en.webp',
               mediaAlt: 'Installation, Repair & Smart Follow-up'
             }
           ]
@@ -352,7 +352,7 @@ export const siteTranslations = {
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              imagePath: '/assets/images/retail/05.webp',
+              imagePath: '/assets/images/retail/05-en.webp',
               imageAlt: 'Quantifiable Results'
             }
           ]
@@ -370,13 +370,14 @@ export const siteTranslations = {
           ],
           buttonText: 'Learn More',
           buttonLink: '/contact',
-          imageAlt: 'Quantified Effects'
+          imageAlt: 'Quantified Effects',
+          imageSrc: '/assets/images/retail/06-en.webp'
         }
       },
       automotive: {
         banner: {
-          src: '/assets/images/automotive/banner.png',
-          mobileSrc: '/assets/images/automotive/banner-mobile.png',
+          src: '/assets/images/automotive/banner-en.webp',
+          mobileSrc: '/assets/images/automotive/banner-mobile-en.webp',
           alt: 'Automotive Product Banner',
           link: '/contact'
         },
@@ -400,7 +401,7 @@ export const siteTranslations = {
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/automotive/01-en.webp',
               imageAlt: 'Test Drive Invitation'
             },
             {
@@ -419,7 +420,7 @@ export const siteTranslations = {
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/automotive/02-en.webp',
               imageAlt: 'After-Sales Service & Customer Care'
             }
           ]
@@ -427,8 +428,8 @@ export const siteTranslations = {
       },
       software: {
         banner: {
-          src: '/assets/images/software/banner.png',
-          mobileSrc: '/assets/images/software/banner-mobile.png',
+          src: '/assets/images/software/banner-en.webp',
+          mobileSrc: '/assets/images/software/banner-mobile-en.webp',
           alt: 'Software Product Banner',
           link: '/contact'
         },
@@ -451,7 +452,7 @@ export const siteTranslations = {
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/01-en.webp',
               imageAlt: 'Pre-Sales Lead Generation'
             },
             {
@@ -467,7 +468,7 @@ export const siteTranslations = {
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/02-en.webp',
               imageAlt: 'Software Usage Consultation'
             },
             {
@@ -485,7 +486,7 @@ export const siteTranslations = {
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/03-en.webp',
               imageAlt: 'Technical Support'
             }
           ]
@@ -507,7 +508,7 @@ export const siteTranslations = {
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/04-en.webp',
               imageAlt: 'SaaS Enterprise Website Unmanned Customer Service'
             },
             {
@@ -522,7 +523,7 @@ export const siteTranslations = {
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/05-en.webp',
               imageAlt: 'Software Company Internal Technical Support'
             }
           ]
@@ -530,8 +531,8 @@ export const siteTranslations = {
       },
       travel: {
         banner: {
-          src: '/assets/images/travel/banner.png',
-          mobileSrc: '/assets/images/travel/banner-mobile.png',
+          src: '/assets/images/travel/banner-en.webp',
+          mobileSrc: '/assets/images/travel/banner-mobile-en.webp',
           alt: 'Travel Product Banner',
           link: '/contact'
         },
@@ -548,7 +549,7 @@ export const siteTranslations = {
               tags: ['Intent Recognition', 'Full Process Automation', 'Booking Conversion', 'Customer Satisfaction'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/travel/01.webp',
+              mediaPath: '/assets/images/travel/01-en.webp',
               mediaAlt: 'Hotel & Ticket Booking'
             },
             {
@@ -560,7 +561,7 @@ export const siteTranslations = {
               tags: ['Instant Response', 'Self-Service', 'Member Management', 'Efficiency Improvement'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/travel/02.webp',
+              mediaPath: '/assets/images/travel/02-en.webp',
               mediaAlt: 'Account Management'
             },
             {
@@ -572,7 +573,7 @@ export const siteTranslations = {
               tags: ['Instant Assistance', 'Problem Resolution', 'Response Speed', 'Customer Experience'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/travel/03.webp',
+              mediaPath: '/assets/images/travel/03-en.webp',
               mediaAlt: 'Travel Support'
             }
           ]
@@ -591,7 +592,7 @@ export const siteTranslations = {
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
-              imagePath: '/assets/images/travel/04.webp',
+              imagePath: '/assets/images/travel/04-en.webp',
               imageAlt: 'Quantifiable Results'
             }
           ]
@@ -608,7 +609,8 @@ export const siteTranslations = {
           ],
           buttonText: 'Learn More',
           buttonLink: '/contact',
-          imageAlt: 'Quantified Effects'
+          imageAlt: 'Quantified Effects',
+          imageSrc: '/assets/images/travel/05-en.webp'
         }
       }
     },
@@ -777,6 +779,11 @@ export const siteTranslations = {
     // AI Agents Page
     products: {
       aiAgents: {
+        banner: {
+          src: '/assets/images/ai-agents/banner-en.webp',
+          mobileSrc: '/assets/images/ai-agents/banner-mobile-en.webp',
+          alt: 'AI Agents Banner'
+        },
         hero: {
           title: 'ZENAVA Independently Handles 80% of Repetitive, High-Frequency, Clear-Process Customer Interactions',
           subtitle: 'Significantly reduces reliance on human scale in traditional customer service, achieving a leap in customer experience',
@@ -818,7 +825,11 @@ export const siteTranslations = {
               'Precise Intelligent Interruption: Can interrupt and interject at any time, as natural as face-to-face conversation with real people',
               'Complete Business Loop, Significantly Improving Service Efficiency and Customer Experience'
             ],
-            button: 'Learn More About Voice Agents'
+            button: 'Learn More About Voice Agents',
+            image: {
+              src: '/assets/images/ai-agents/voice-en.webp',
+              alt: 'Voice Feature Demo - Beyond Human Voice Conversation Experience'
+            }
           },
           messaging: {
             label: 'Live Chat',
@@ -831,7 +842,11 @@ export const siteTranslations = {
               'Create ultimate customer service experience, flexibly meeting customer needs',
               'Possess empathy and judgment, driving complete business process loop'
             ],
-            button: 'Learn More About Live Chat'
+            button: 'Learn More About Live Chat',
+            image: {
+              src: '/assets/images/ai-agents/person-en.webp',
+              alt: 'Instant Messaging Feature Demo - Create Ultimate Customer Service Experience'
+            }
           }
         },
         resources: {
@@ -861,6 +876,8 @@ export const siteTranslations = {
       },
       voiceAgents: {
         banner: {
+          src: '/assets/images/voice-agents/banner-en.webp',
+          mobileSrc: '/assets/images/voice-agents/banner-mobile-en.webp',
           imageAlt: 'VoiceAgents Product Banner - Beyond Human Voice Conversation Experience'
         },
         coreFeatures: {
@@ -872,7 +889,8 @@ export const siteTranslations = {
             description: 'Natural and smooth voice interactions with rich emotions, featuring multiple timbres and tone styles to meet personalized preferences. Capable of expressing care, understanding, and professionalism based on scenarios, delivering communication experiences beyond real humans',
             tags: ['Natural Flow', 'Emotional Rich', 'Multiple Timbres', 'Personalized'],
             button: 'Learn More',
-            mediaAlt: 'Human-like Timbre Feature Demo'
+            mediaAlt: 'Human-like Timbre Feature Demo',
+            mediaPath: '/assets/images/voice-agents/humanized-voice-en.webp'
           },
           feature2: {
             title: 'Low-latency Interaction',
@@ -880,7 +898,8 @@ export const siteTranslations = {
             description: 'Millisecond-level response speed, real-time conversation without lag, making interactions more natural. Whether customer inquiries, business processing, or complaint handling, Zenava responds quickly',
             tags: ['Millisecond Response', 'Real-time Dialogue', 'Seamless Transition', 'Efficient Flow'],
             button: 'Learn More',
-            mediaAlt: 'Low-latency Interaction Feature Demo'
+            mediaAlt: 'Low-latency Interaction Feature Demo',
+            mediaPath: '/assets/images/voice-agents/low-latency-en.webp'
           },
           feature3: {
             title: 'Precise Intelligent Interruption',
@@ -888,7 +907,8 @@ export const siteTranslations = {
             description: 'Supports users interrupting and interjecting at any time, with real-time responses without interruption, as natural and flexible as face-to-face conversation',
             tags: ['Smart Interruption', 'Intent Recognition', 'Natural Dialogue', 'Real-time Response'],
             button: 'Learn More',
-            mediaAlt: 'Precise Intelligent Interruption Feature Demo'
+            mediaAlt: 'Precise Intelligent Interruption Feature Demo',
+            mediaPath: '/assets/images/voice-agents/intelligent-interruption-en.webp'
           },
           feature4: {
             title: 'Complete Business Loop',
@@ -896,7 +916,8 @@ export const siteTranslations = {
             description: 'Zenava can directly execute tasks such as creating tickets, sending notifications, querying information, etc., turning conversations into actionable business operations',
             tags: ['Task Execution', 'Business Automation', 'Ticket Creation', 'Information Query'],
             button: 'Learn More',
-            mediaAlt: 'Complete Business Loop Feature Demo'
+            mediaAlt: 'Complete Business Loop Feature Demo',
+            mediaPath: '/assets/images/voice-agents/business-loop-en.webp'
           }
         },
         customerCases: {
@@ -912,7 +933,8 @@ export const siteTranslations = {
               'Project ROI as high as 425%'
             ],
             button: 'Learn More',
-            imageAlt: 'Kitchen Appliance Customer Service Automation Case'
+            imageAlt: 'Kitchen Appliance Customer Service Automation Case',
+            imageSrc: '/assets/images/voice-agents/case-kitchen-appliances-en.webp'
           },
           case2: {
             tag: 'Automotive Industry',
@@ -924,7 +946,8 @@ export const siteTranslations = {
               'Invitation conversion rate rises to 85%'
             ],
             button: 'Learn More',
-            imageAlt: 'Automotive Customer Test Drive Invitation Case'
+            imageAlt: 'Automotive Customer Test Drive Invitation Case',
+            imageSrc: '/assets/images/voice-agents/case-automotive-en.webp'
           },
           case3: {
             tag: 'Hotel Industry',
@@ -936,11 +959,17 @@ export const siteTranslations = {
               'Booking conversion rate increases by 15%-25%'
             ],
             button: 'Learn More',
-            imageAlt: 'Hotel Group Booking Automation Case'
+            imageAlt: 'Hotel Group Booking Automation Case',
+            imageSrc: '/assets/images/voice-agents/case-hotel-en.webp'
           }
         }
       },
       liveChat: {
+        banner: {
+          src: '/assets/images/livechat/banner-en.webp',
+          mobileSrc: '/assets/images/livechat/banner-mobile-en.webp',
+          alt: 'LiveChat Banner'
+        },
         advantages: {
           title: 'LiveChat Advantages',
           card1: {
@@ -974,7 +1003,7 @@ export const siteTranslations = {
             ],
             metric: '46%',
             metricLabel: 'Lead Conversion Rate',
-            imageSrc: '/assets/images/livechat/case1-b2b.webp',
+            imageSrc: '/assets/images/livechat/case1-b2b-en.webp',
             imageAlt: 'B2B Enterprise Website Unmanned Customer Service',
             button: 'Learn More',
             buttonLink: '/products/live-chat'
@@ -991,7 +1020,7 @@ export const siteTranslations = {
             metricLabel: 'Annual Cost Savings',
             metric2: '83%',
             metric2Label: 'Independent Reception Rate',
-            imageSrc: '/assets/images/livechat/case2-smartlock.webp',
+            imageSrc: '/assets/images/livechat/case2-smartlock-en.webp',
             imageAlt: 'Smart Lock End-to-End After-Sales Service Automation',
             button: 'Learn More',
             buttonLink: '/products/live-chat'
@@ -1006,7 +1035,7 @@ export const siteTranslations = {
             description: 'Zenava can communicate with customers in real-time 7x24 hours on their chosen channels, whether it\'s web pages, Apps, social media, or messaging applications. Enterprises don\'t need to worry about customers waiting or missing business opportunities, significantly improving customer satisfaction and retention',
             buttonText: 'Learn More',
             imageAlt: '7x24 Hour Omnichannel Online',
-            imageSrc: '/assets/images/livechat/omnichannel.webp'
+            imageSrc: '/assets/images/livechat/omnichannel-en.webp'
           },
           item2: {
             mainTitle: 'Rich Media Communication',
@@ -1014,7 +1043,7 @@ export const siteTranslations = {
             description: 'Zenava can not only understand text but also images, videos, and other forms of information, providing a rich dialogue experience, enabling complex multi-turn dialogue information collection, accurately identifying customer intent, and efficiently handling customer problems',
             buttonText: 'Learn More',
             imageAlt: 'Rich Media Communication',
-            imageSrc: '/assets/images/livechat/rich-media.webp'
+            imageSrc: '/assets/images/livechat/rich-media-en.webp'
           },
           item3: {
             mainTitle: 'Emotion Perception',
@@ -1022,7 +1051,7 @@ export const siteTranslations = {
             description: 'Zenava, through personality modeling, possesses language understanding and emotional perception capabilities, able to identify emotions from expressions and respond in a friendly and respectful manner, allowing customers to feel attentive and professional service experience',
             buttonText: 'Learn More',
             imageAlt: 'Emotion Perception',
-            imageSrc: '/assets/images/livechat/emotion.webp'
+            imageSrc: '/assets/images/livechat/emotion-en.webp'
           },
           item4: {
             mainTitle: 'Create Ultimate Customer Service Experience',
@@ -1030,7 +1059,7 @@ export const siteTranslations = {
             description: 'Under the premise of adhering to enterprise business bottom lines and brand norms, Zenava can flexibly meet customers\' personalized needs, enabling enterprises to enhance customer experience while ensuring safety and compliance',
             buttonText: 'Learn More',
             imageAlt: 'Balance Business and Experience',
-            imageSrc: '/assets/images/livechat/balance.webp'
+            imageSrc: '/assets/images/livechat/balance-en.webp'
           },
           item5: {
             mainTitle: 'Empathy and Judgment',
@@ -1038,7 +1067,7 @@ export const siteTranslations = {
             description: 'Zenava possesses empathy and judgment, and in actual business scenarios, it can use tools like human employees to complete tasks such as sending SMS messages, creating work orders, querying customer data, and sending invitation notifications, achieving business closure',
             buttonText: 'Learn More',
             imageAlt: 'Empathy and Judgment',
-            imageSrc: '/assets/images/livechat/empathy.webp'
+            imageSrc: '/assets/images/livechat/empathy-en.webp'
           }
         }
       }
@@ -1146,43 +1175,64 @@ export const siteTranslations = {
         mainTitle: 'Enterprise AI Conversation Solutions',
         description: 'Transform your customer service with intelligent AI agents, enhance customer experience, reduce operational costs',
         buttonText: 'Schedule Consultation',
-        imageAlt: 'Banner Image 1'
+        imageAlt: 'Banner Image 1',
+        src: '/assets/images/banners/slide1-en.webp',
+        mobileSrc: '/assets/images/banners/slide1-mobile-en.webp'
       },
       slide2: {
         siteName: 'ZENAVA Sales',
         mainTitle: 'Intelligent Sales Enablement System',
         description: 'AI-driven intelligent sales platform, precise customer profile analysis, intelligent sales strategy recommendations, improve closing rates and shorten sales cycles',
         buttonText: 'Learn About Sales Solutions',
-        imageAlt: 'Intelligent Sales System Interface'
+        imageAlt: 'Intelligent Sales System Interface',
+        src: '/assets/images/banners/slide2-en.webp',
+        mobileSrc: '/assets/images/banners/slide2-mobile-en.webp'
       },
       slide3: {
         siteName: 'Intelligent AI Platform',
         mainTitle: '4345323',
         description: '43244444444',
         buttonText: 'Schedule Consultation',
-        imageAlt: 'Intelligent AI Platform Display'
+        imageAlt: 'Intelligent AI Platform Display',
+        src: '/assets/images/banners/slide3-en.webp',
+        mobileSrc: '/assets/images/banners/slide3-mobile-en.webp'
       },
       slide4: {
         siteName: 'ZENAVA',
         mainTitle: '7x24 Intelligent Customer Service',
         description: 'AI-powered customer service system provides 24/7 service, automatically handles common issues, emotion recognition enhances experience',
         buttonText: 'View Details',
-        imageAlt: 'Intelligent Customer Service'
+        imageAlt: 'Intelligent Customer Service',
+        src: '/assets/images/banners/slide4-en.webp',
+        mobileSrc: '/assets/images/banners/slide4-mobile-en.webp'
       },
       slide5: {
         siteName: '',
         mainTitle: '',
         description: '',
         buttonText: '',
-        imageAlt: 'Marketing Campaign Banner'
+        imageAlt: 'Marketing Campaign Banner',
+        src: '/assets/images/banners/slide5-en.webp',
+        mobileSrc: '/assets/images/banners/slide5-mobile-en.webp'
       },
       slide6: {
         siteName: '',
         mainTitle: '',
         description: '',
         buttonText: '',
-        imageAlt: 'Marketing Campaign Banner'
+        imageAlt: 'Marketing Campaign Banner',
+        src: '/assets/images/banners/slide6-en.webp',
+        mobileSrc: '/assets/images/banners/slide6-mobile-en.webp'
       }
+    },
+    
+    // Common images and texts
+    common: {
+      logo: {
+        src: '/assets/images/common/logo-en.webp',
+        alt: 'Zenava Logo'
+      },
+      noImage: 'No Image'
     }
   },
   
@@ -1391,8 +1441,8 @@ export const siteTranslations = {
       retail: {
         pageTitle: 'AI Agents for Retail',
         banner: {
-          src: '/assets/images/retail/banner.png',
-          mobileSrc: '/assets/images/retail/banner-mobile.png',
+          src: '/assets/images/retail/banner-jp.webp',
+          mobileSrc: '/assets/images/retail/banner-mobile-jp.webp',
           alt: '小売業向けAIエージェント',
           link: '/contact'
         },
@@ -1434,7 +1484,7 @@ export const siteTranslations = {
               tags: ['意図認識', 'パーソナライズ推奨', 'プロモーション情報', '転換向上'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/retail/01.webp',
+              mediaPath: '/assets/images/retail/01-jp.webp',
               mediaAlt: 'インテリジェントショッピングガイド'
             },
             {
@@ -1445,7 +1495,7 @@ export const siteTranslations = {
               tags: ['注文照会', '返品・交換処理', '物流追跡', '効率向上'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/retail/02.webp',
+              mediaPath: '/assets/images/retail/02-jp.webp',
               mediaAlt: '注文管理'
             },
             {
@@ -1456,7 +1506,7 @@ export const siteTranslations = {
               tags: ['故障識別', '多回対話', '画像・動画サポート', '問題解決'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/retail/03.webp',
+              mediaPath: '/assets/images/retail/03-jp.webp',
               mediaAlt: 'アフターサービス故障診断'
             },
             {
@@ -1467,7 +1517,7 @@ export const siteTranslations = {
               tags: ['作業チケット生成', 'インテリジェント配信', '満足度調査', 'サービス閉ループ'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/retail/04.webp',
+              mediaPath: '/assets/images/retail/04-jp.webp',
               mediaAlt: '設置・修理とインテリジェントフォローアップ'
             }
           ]
@@ -1488,7 +1538,7 @@ export const siteTranslations = {
               ],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              imagePath: '/assets/images/retail/05.webp',
+              imagePath: '/assets/images/retail/05-jp.webp',
               imageAlt: '定量化された効果'
             }
           ]
@@ -1506,13 +1556,14 @@ export const siteTranslations = {
           ],
           buttonText: '詳細を見る',
           buttonLink: '/contact',
-          imageAlt: '定量化された効果'
+          imageAlt: '定量化された効果',
+          imageSrc: '/assets/images/retail/06-jp.webp'
         }
       },
       automotive: {
         banner: {
-          src: '/assets/images/automotive/banner.png',
-          mobileSrc: '/assets/images/automotive/banner-mobile.png',
+          src: '/assets/images/automotive/banner-jp.webp',
+          mobileSrc: '/assets/images/automotive/banner-mobile-jp.webp',
           alt: '自動車製品バナー',
           link: '/contact'
         },
@@ -1536,7 +1587,7 @@ export const siteTranslations = {
               ],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/automotive/01-jp.webp',
               imageAlt: '試乗招待'
             },
             {
@@ -1555,7 +1606,7 @@ export const siteTranslations = {
               ],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/automotive/02-jp.webp',
               imageAlt: 'アフターサービスと顧客ケア'
             }
           ]
@@ -1563,8 +1614,8 @@ export const siteTranslations = {
       },
       software: {
         banner: {
-          src: '/assets/images/software/banner.png',
-          mobileSrc: '/assets/images/software/banner-mobile.png',
+          src: '/assets/images/software/banner-jp.webp',
+          mobileSrc: '/assets/images/software/banner-mobile-jp.webp',
           alt: 'ソフトウェア製品バナー',
           link: '/contact'
         },
@@ -1587,7 +1638,7 @@ export const siteTranslations = {
               ],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/01-jp.webp',
               imageAlt: 'セールス前リード生成'
             },
             {
@@ -1603,7 +1654,7 @@ export const siteTranslations = {
               ],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/02-jp.webp',
               imageAlt: 'ソフトウェア使用相談'
             },
             {
@@ -1621,7 +1672,7 @@ export const siteTranslations = {
               ],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/03-jp.webp',
               imageAlt: 'テクニカルサポート'
             }
           ]
@@ -1643,7 +1694,7 @@ export const siteTranslations = {
               ],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/04-jp.webp',
               imageAlt: 'SaaS企業ウェブサイト無人カスタマーサービス'
             },
             {
@@ -1658,7 +1709,7 @@ export const siteTranslations = {
               ],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/05-jp.webp',
               imageAlt: 'ソフトウェア会社内部テクニカルサポート'
             }
           ]
@@ -1666,8 +1717,8 @@ export const siteTranslations = {
       },
       travel: {
         banner: {
-          src: '/assets/images/travel/banner.png',
-          mobileSrc: '/assets/images/travel/banner-mobile.png',
+          src: '/assets/images/travel/banner-jp.webp',
+          mobileSrc: '/assets/images/travel/banner-mobile-jp.webp',
           alt: '旅行・ホテル製品バナー',
           link: '/contact'
         },
@@ -1684,7 +1735,7 @@ export const siteTranslations = {
               tags: ['意図認識', '全プロセス自動化', '予約転換', '顧客満足度'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/travel/01.webp',
+              mediaPath: '/assets/images/travel/01-jp.webp',
               mediaAlt: 'ホテル・チケット予約'
             },
             {
@@ -1696,7 +1747,7 @@ export const siteTranslations = {
               tags: ['即座の対応', 'セルフサービス', '会員管理', '効率向上'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/travel/02.webp',
+              mediaPath: '/assets/images/travel/02-jp.webp',
               mediaAlt: 'アカウント管理'
             },
             {
@@ -1708,7 +1759,7 @@ export const siteTranslations = {
               tags: ['即座の支援', '問題解決', '応答速度', '顧客体験'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/travel/03.webp',
+              mediaPath: '/assets/images/travel/03-jp.webp',
               mediaAlt: '旅行サポート'
             }
           ]
@@ -1727,7 +1778,7 @@ export const siteTranslations = {
               ],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
-              imagePath: '/assets/images/travel/04.webp',
+              imagePath: '/assets/images/travel/04-jp.webp',
               imageAlt: '定量化された効果'
             }
           ]
@@ -1744,7 +1795,8 @@ export const siteTranslations = {
           ],
           buttonText: '詳細を見る',
           buttonLink: '/contact',
-          imageAlt: '定量化された効果'
+          imageAlt: '定量化された効果',
+          imageSrc: '/assets/images/travel/05-jp.webp'
         }
       }
     },
@@ -1913,6 +1965,11 @@ export const siteTranslations = {
     // AI Agents Page
     products: {
       aiAgents: {
+        banner: {
+          src: '/assets/images/ai-agents/banner-jp.webp',
+          mobileSrc: '/assets/images/ai-agents/banner-mobile-jp.webp',
+          alt: 'AI Agents Banner'
+        },
         hero: {
           title: 'ZENAVAは、反復的で高頻度、プロセスが明確な顧客対応タスクの80%を独立して処理します',
           subtitle: '従来のカスタマーサービスにおける人的規模への依存を大幅に削減し、顧客体験の飛躍的な向上を実現します',
@@ -1954,7 +2011,11 @@ export const siteTranslations = {
               '精密なインテリジェント割り込み：いつでも割り込みや発言が可能で、人間との対面会話のように自然',
               '完全なビジネスループ、サービス効率と顧客体験を大幅に向上'
             ],
-            button: 'Voice Agents機能の詳細'
+            button: 'Voice Agents機能の詳細',
+            image: {
+              src: '/assets/images/ai-agents/voice-jp.webp',
+              alt: 'Voice機能デモ - 人間を超える音声対話体験'
+            }
           },
           messaging: {
             label: 'Live Chat',
@@ -1967,7 +2028,11 @@ export const siteTranslations = {
               '究極のカスタマーサービス体験を創出し、柔軟にお客様のニーズに対応',
               '共感力と判断力を備え、完全なビジネスプロセスループを推進'
             ],
-            button: 'Live Chat機能の詳細'
+            button: 'Live Chat機能の詳細',
+            image: {
+              src: '/assets/images/ai-agents/person-jp.webp',
+              alt: 'インスタントメッセージ機能デモ - 究極のカスタマーサービス体験を創出'
+            }
           }
         },
         resources: {
@@ -1997,6 +2062,8 @@ export const siteTranslations = {
       },
       voiceAgents: {
         banner: {
+          src: '/assets/images/voice-agents/banner-jp.webp',
+          mobileSrc: '/assets/images/voice-agents/banner-mobile-jp.webp',
           imageAlt: 'VoiceAgents製品バナー - 人間を超える音声対話体験'
         },
         coreFeatures: {
@@ -2008,7 +2075,8 @@ export const siteTranslations = {
             description: '自然で滑らかな音声インタラクション、豊かな感情、複数の音色とトーンスタイルを備え、ユーザーの個性化されたニーズに対応。シナリオに応じて思いやり、理解、プロフェッショナリズムを表現し、本物の人間を超えるコミュニケーション体験を提供します',
             tags: ['自然な流れ', '豊かな感情', '複数の音色', 'パーソナライズ'],
             button: '詳細を見る',
-            mediaAlt: '人間らしい音色機能デモ'
+            mediaAlt: '人間らしい音色機能デモ',
+            mediaPath: '/assets/images/voice-agents/humanized-voice-jp.webp'
           },
           feature2: {
             title: '低遅延インタラクション',
@@ -2016,7 +2084,8 @@ export const siteTranslations = {
             description: 'ミリ秒レベルの応答速度、リアルタイム対話でラグなし、より自然なインタラクションを実現。顧客からの問い合わせ、業務処理、クレーム処理など、Zenavaは迅速に応答します',
             tags: ['ミリ秒応答', 'リアルタイム対話', 'シームレス移行', '効率的な流れ'],
             button: '詳細を見る',
-            mediaAlt: '低遅延インタラクション機能デモ'
+            mediaAlt: '低遅延インタラクション機能デモ',
+            mediaPath: '/assets/images/voice-agents/low-latency-jp.webp'
           },
           feature3: {
             title: '精密なインテリジェント割り込み',
@@ -2024,7 +2093,8 @@ export const siteTranslations = {
             description: 'ユーザーがいつでも割り込みや発言ができ、中断なくリアルタイムで応答し、対面会話のように自然で柔軟です',
             tags: ['スマート割り込み', '意図認識', '自然な対話', 'リアルタイム応答'],
             button: '詳細を見る',
-            mediaAlt: '精密なインテリジェント割り込み機能デモ'
+            mediaAlt: '精密なインテリジェント割り込み機能デモ',
+            mediaPath: '/assets/images/voice-agents/intelligent-interruption-jp.webp'
           },
           feature4: {
             title: '完全なビジネスループ',
@@ -2032,7 +2102,8 @@ export const siteTranslations = {
             description: 'Zenavaはチケット作成、通知送信、情報照会などのタスクを直接実行でき、会話を実行可能なビジネスアクションに変換します',
             tags: ['タスク実行', 'ビジネス自動化', 'チケット作成', '情報照会'],
             button: '詳細を見る',
-            mediaAlt: '完全なビジネスループ機能デモ'
+            mediaAlt: '完全なビジネスループ機能デモ',
+            mediaPath: '/assets/images/voice-agents/business-loop-jp.webp'
           }
         },
         customerCases: {
@@ -2048,7 +2119,8 @@ export const siteTranslations = {
               'プロジェクトROIは425%に達する'
             ],
             button: '詳細を見る',
-            imageAlt: '厨房電気顧客サービス自動化ケース'
+            imageAlt: '厨房電気顧客サービス自動化ケース',
+            imageSrc: '/assets/images/voice-agents/case-kitchen-appliances-jp.webp'
           },
           case2: {
             tag: '自動車業界',
@@ -2060,7 +2132,8 @@ export const siteTranslations = {
               '招待コンバージョン率85%に向上'
             ],
             button: '詳細を見る',
-            imageAlt: '自動車顧客試乗招待ケース'
+            imageAlt: '自動車顧客試乗招待ケース',
+            imageSrc: '/assets/images/voice-agents/case-automotive-jp.webp'
           },
           case3: {
             tag: 'ホテル業界',
@@ -2072,11 +2145,17 @@ export const siteTranslations = {
               '予約コンバージョン率15%-25%向上'
             ],
             button: '詳細を見る',
-            imageAlt: 'ホテルグループ予約自動化ケース'
+            imageAlt: 'ホテルグループ予約自動化ケース',
+            imageSrc: '/assets/images/voice-agents/case-hotel-jp.webp'
           }
         }
       },
       liveChat: {
+        banner: {
+          src: '/assets/images/livechat/banner-jp.webp',
+          mobileSrc: '/assets/images/livechat/banner-mobile-jp.webp',
+          alt: 'LiveChat Banner'
+        },
         advantages: {
           title: 'LiveChatの強み',
           card1: {
@@ -2110,7 +2189,7 @@ export const siteTranslations = {
             ],
             metric: '46%',
             metricLabel: 'リード獲得率',
-            imageSrc: '/assets/images/livechat/case1-b2b.webp',
+            imageSrc: '/assets/images/livechat/case1-b2b-jp.webp',
             imageAlt: 'B2B企業公式サイト無人カスタマーサービス',
             button: '詳細を見る',
             buttonLink: '/products/live-chat'
@@ -2127,7 +2206,7 @@ export const siteTranslations = {
             metricLabel: '年間コスト削減',
             metric2: '83%',
             metric2Label: '独立受付率',
-            imageSrc: '/assets/images/livechat/case2-smartlock.webp',
+            imageSrc: '/assets/images/livechat/case2-smartlock-jp.webp',
             imageAlt: 'スマートロック顧客のエンドツーエンドアフターサービス自動化',
             button: '詳細を見る',
             buttonLink: '/products/live-chat'
@@ -2142,7 +2221,7 @@ export const siteTranslations = {
             description: 'Zenavaは、顧客が選択したチャネルで7×24時間リアルタイムにコミュニケーションを取ることができます。ウェブページ、アプリ、ソーシャルメディア、メッセージアプリなど、企業は顧客の待機やビジネス機会の喪失を心配する必要がなく、顧客満足度とリテンション率を大幅に向上させます',
             buttonText: '詳細を見る',
             imageAlt: '7×24時間オムニチャネルオンライン',
-            imageSrc: '/assets/images/livechat/omnichannel.webp'
+            imageSrc: '/assets/images/livechat/omnichannel-jp.webp'
           },
           item2: {
             mainTitle: 'テキスト、画像、動画などのリッチメディアコミュニケーションをサポート',
@@ -2150,7 +2229,7 @@ export const siteTranslations = {
             description: 'Zenavaはテキストだけでなく、画像、動画など多様な形式の情報を理解でき、豊かな対話体験を提供し、複雑なマルチターン対話情報収集を実現し、顧客の意図を正確に識別し、顧客の問題を効率的に処理します',
             buttonText: '詳細を見る',
             imageAlt: 'リッチメディアコミュニケーション',
-            imageSrc: '/assets/images/livechat/rich-media.webp'
+            imageSrc: '/assets/images/livechat/rich-media-jp.webp'
           },
           item3: {
             mainTitle: '表現から顧客の感情を感知',
@@ -2158,7 +2237,7 @@ export const siteTranslations = {
             description: 'Zenavaは性格モデリングを通じて言語理解と感情認識能力を備えており、表現から感情を識別し、友好的で尊重ある方法で応答することで、顧客に心のこもった専門的なサービス体験を提供します',
             buttonText: '詳細を見る',
             imageAlt: '感情感知',
-            imageSrc: '/assets/images/livechat/emotion.webp'
+            imageSrc: '/assets/images/livechat/emotion-jp.webp'
           },
           item4: {
             mainTitle: '究極のカスタマーサービス体験を創出',
@@ -2166,7 +2245,7 @@ export const siteTranslations = {
             description: '企業のビジネス基盤とブランド規範を遵守する前提で、Zenavaは顧客の個別ニーズに柔軟に対応でき、企業は安全性とコンプライアンスを確保しながら顧客体験を向上させることができます',
             buttonText: '詳細を見る',
             imageAlt: 'ビジネスと体験の両立',
-            imageSrc: '/assets/images/livechat/balance.webp'
+            imageSrc: '/assets/images/livechat/balance-jp.webp'
           },
           item5: {
             mainTitle: '共感力と判断力を備える',
@@ -2174,7 +2253,7 @@ export const siteTranslations = {
             description: 'Zenavaは共感力と判断力を備えており、実際のビジネスシナリオでは、人間の従業員のようにツールを使用して、SMS送信、チケット作成、顧客データの照会、招待通知などのタスクを完了し、ビジネス閉環を実現します',
             buttonText: '詳細を見る',
             imageAlt: '共感力と判断力',
-            imageSrc: '/assets/images/livechat/empathy.webp'
+            imageSrc: '/assets/images/livechat/empathy-jp.webp'
           }
         }
       }
@@ -2283,43 +2362,64 @@ export const siteTranslations = {
         mainTitle: '企業向けAI会話ソリューション',
         description: 'インテリジェントなAIアシスタントでカスタマーサービスを変革し、顧客体験を向上させ、運用コストを削減',
         buttonText: '相談を予約',
-        imageAlt: 'バナー画像1'
+        imageAlt: 'バナー画像1',
+        src: '/assets/images/banners/slide1-jp.webp',
+        mobileSrc: '/assets/images/banners/slide1-mobile-jp.webp'
       },
       slide2: {
         siteName: 'ZENAVA Sales',
         mainTitle: 'インテリジェント営業支援システム',
         description: 'AI駆動のインテリジェント営業プラットフォーム、正確な顧客プロファイル分析、インテリジェントな営業戦略の推奨、成約率を向上させ、営業サイクルを短縮',
         buttonText: '営業ソリューションの詳細',
-        imageAlt: 'インテリジェント営業システムインターフェース'
+        imageAlt: 'インテリジェント営業システムインターフェース',
+        src: '/assets/images/banners/slide2-jp.webp',
+        mobileSrc: '/assets/images/banners/slide2-mobile-jp.webp'
       },
       slide3: {
         siteName: 'インテリジェントAIプラットフォーム',
         mainTitle: '4345323',
         description: '43244444444',
         buttonText: '相談を予約',
-        imageAlt: 'インテリジェントAIプラットフォームディスプレイ'
+        imageAlt: 'インテリジェントAIプラットフォームディスプレイ',
+        src: '/assets/images/banners/slide3-jp.webp',
+        mobileSrc: '/assets/images/banners/slide3-mobile-jp.webp'
       },
       slide4: {
         siteName: 'ZENAVA',
         mainTitle: '7x24スマートカスタマーサービス',
         description: 'AIスマートカスタマーサービスシステムは24時間365日のサービスを実現し、よくある質問を自動処理し、感情認識で体験を向上',
         buttonText: '詳細を見る',
-        imageAlt: 'スマートカスタマーサービス'
+        imageAlt: 'スマートカスタマーサービス',
+        src: '/assets/images/banners/slide4-jp.webp',
+        mobileSrc: '/assets/images/banners/slide4-mobile-jp.webp'
       },
       slide5: {
         siteName: '',
         mainTitle: '',
         description: '',
         buttonText: '',
-        imageAlt: 'マーケティングキャンペーンバナー'
+        imageAlt: 'マーケティングキャンペーンバナー',
+        src: '/assets/images/banners/slide5-jp.webp',
+        mobileSrc: '/assets/images/banners/slide5-mobile-jp.webp'
       },
       slide6: {
         siteName: '',
         mainTitle: '',
         description: '',
         buttonText: '',
-        imageAlt: 'マーケティングキャンペーンバナー'
+        imageAlt: 'マーケティングキャンペーンバナー',
+        src: '/assets/images/banners/slide6-jp.webp',
+        mobileSrc: '/assets/images/banners/slide6-mobile-jp.webp'
       }
+    },
+    
+    // Common images and texts
+    common: {
+      logo: {
+        src: '/assets/images/common/logo-jp.webp',
+        alt: 'Zenava Logo'
+      },
+      noImage: '画像なし'
     }
   },
   
@@ -2528,8 +2628,8 @@ export const siteTranslations = {
       retail: {
         pageTitle: 'AI Agents for Retail',
         banner: {
-          src: '/assets/images/retail/banner.png',
-          mobileSrc: '/assets/images/retail/banner-mobile.png',
+          src: '/assets/images/retail/banner-hk.webp',
+          mobileSrc: '/assets/images/retail/banner-mobile-hk.webp',
           alt: '零售行業Banner圖',
           link: '/contact'
         },
@@ -2571,7 +2671,7 @@ export const siteTranslations = {
               tags: ['意圖識別', '個性化推薦', '優惠信息', '轉化提升'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/retail/01.webp',
+              mediaPath: '/assets/images/retail/01-hk.webp',
               mediaAlt: '智能導購'
             },
             {
@@ -2582,7 +2682,7 @@ export const siteTranslations = {
               tags: ['訂單查詢', '退換貨處理', '物流追蹤', '效率提升'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/retail/02.webp',
+              mediaPath: '/assets/images/retail/02-hk.webp',
               mediaAlt: '訂單管理'
             },
             {
@@ -2593,7 +2693,7 @@ export const siteTranslations = {
               tags: ['故障識別', '多輪對話', '圖片視頻支持', '問題解決'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/retail/03.webp',
+              mediaPath: '/assets/images/retail/03-hk.webp',
               mediaAlt: '售後故障排查'
             },
             {
@@ -2604,7 +2704,7 @@ export const siteTranslations = {
               tags: ['工單生成', '智能派發', '滿意度回訪', '服務閉環'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/retail/04.webp',
+              mediaPath: '/assets/images/retail/04-hk.webp',
               mediaAlt: '報裝報修與智能回訪'
             }
           ]
@@ -2625,7 +2725,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '/assets/images/retail/05.webp',
+              imagePath: '/assets/images/retail/05-hk.webp',
               imageAlt: '量化效果'
             }
           ]
@@ -2643,13 +2743,14 @@ export const siteTranslations = {
           ],
           buttonText: '了解更多',
           buttonLink: '/contact',
-          imageAlt: '量化效果'
+          imageAlt: '量化效果',
+          imageSrc: '/assets/images/retail/06-hk.webp'
         }
       },
       automotive: {
         banner: {
-          src: '/assets/images/automotive/banner.png',
-          mobileSrc: '/assets/images/automotive/banner-mobile.png',
+          src: '/assets/images/automotive/banner-hk.webp',
+          mobileSrc: '/assets/images/automotive/banner-mobile-hk.webp',
           alt: '汽車產品Banner圖',
           link: '/contact'
         },
@@ -2673,7 +2774,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/automotive/01-hk.webp',
               imageAlt: '試駕邀約'
             },
             {
@@ -2692,7 +2793,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/automotive/02-hk.webp',
               imageAlt: '售後服務與客戶關懷'
             }
           ]
@@ -2700,8 +2801,8 @@ export const siteTranslations = {
       },
       software: {
         banner: {
-          src: '/assets/images/software/banner.png',
-          mobileSrc: '/assets/images/software/banner-mobile.png',
+          src: '/assets/images/software/banner-hk.webp',
+          mobileSrc: '/assets/images/software/banner-mobile-hk.webp',
           alt: '軟件產品Banner圖',
           link: '/contact'
         },
@@ -2724,7 +2825,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/01-hk.webp',
               imageAlt: '售前留資'
             },
             {
@@ -2740,7 +2841,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/02-hk.webp',
               imageAlt: '軟件使用諮詢'
             },
             {
@@ -2758,7 +2859,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/03-hk.webp',
               imageAlt: '技術支持'
             }
           ]
@@ -2780,7 +2881,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/04-hk.webp',
               imageAlt: 'SaaS企業官網客服無人化接待'
             },
             {
@@ -2795,7 +2896,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/05-hk.webp',
               imageAlt: '軟件公司內部技術支持'
             }
           ]
@@ -2803,8 +2904,8 @@ export const siteTranslations = {
       },
       travel: {
         banner: {
-          src: '/assets/images/travel/banner.png',
-          mobileSrc: '/assets/images/travel/banner-mobile.png',
+          src: '/assets/images/travel/banner-hk.webp',
+          mobileSrc: '/assets/images/travel/banner-mobile-hk.webp',
           alt: '旅遊產品Banner圖',
           link: '/contact'
         },
@@ -2821,7 +2922,7 @@ export const siteTranslations = {
               tags: ['意圖識別', '全流程自動化', '預訂轉化', '客戶滿意度'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/travel/01.webp',
+              mediaPath: '/assets/images/travel/01-hk.webp',
               mediaAlt: '酒店與票務預訂'
             },
             {
@@ -2833,7 +2934,7 @@ export const siteTranslations = {
               tags: ['即時響應', '自助服務', '會員管理', '效率提升'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/travel/02.webp',
+              mediaPath: '/assets/images/travel/02-hk.webp',
               mediaAlt: '賬戶管理'
             },
             {
@@ -2845,7 +2946,7 @@ export const siteTranslations = {
               tags: ['即時幫助', '問題解決', '響應速度', '客戶體驗'],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              mediaPath: '/assets/images/travel/03.webp',
+              mediaPath: '/assets/images/travel/03-hk.webp',
               mediaAlt: '旅行支持'
             }
           ]
@@ -2864,7 +2965,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '/assets/images/travel/04.webp',
+              imagePath: '/assets/images/travel/04-hk.webp',
               imageAlt: '量化效果'
             }
           ]
@@ -2881,7 +2982,8 @@ export const siteTranslations = {
           ],
           buttonText: '了解更多',
           buttonLink: '/contact',
-          imageAlt: '量化效果'
+          imageAlt: '量化效果',
+          imageSrc: '/assets/images/travel/05-hk.webp'
         }
       }
     },
@@ -3050,6 +3152,11 @@ export const siteTranslations = {
     // AI Agents Page
     products: {
       aiAgents: {
+        banner: {
+          src: '/assets/images/ai-agents/banner-hk.webp',
+          mobileSrc: '/assets/images/ai-agents/banner-mobile-hk.webp',
+          alt: 'AI Agents Banner'
+        },
         hero: {
           title: 'ZENAVA能夠獨立承擔 80%的重複性、高頻次、流程清晰的客戶聯絡任務',
           subtitle: '顯著降低了傳統客服對人力規模的依賴，實現了客戶體驗的跨越式升級',
@@ -3091,7 +3198,11 @@ export const siteTranslations = {
               '精準智能打斷：可隨時打斷和插話，像真人面對面聊天那樣自然',
               '完整業務閉環，大幅提升服務效率與客戶體驗'
             ],
-            button: '了解更多Voice Agents功能'
+            button: '了解更多Voice Agents功能',
+            image: {
+              src: '/assets/images/ai-agents/voice-hk.webp',
+              alt: 'Voice功能演示圖 - 超越真人的語音對話體驗'
+            }
           },
           messaging: {
             label: 'Live Chat',
@@ -3104,7 +3215,11 @@ export const siteTranslations = {
               '打造極致客戶服務體驗，靈活滿足客戶訴求',
               '具備同理心與判斷力，驅動業務全流程閉環'
             ],
-            button: '了解更多Live Chat功能'
+            button: '了解更多Live Chat功能',
+            image: {
+              src: '/assets/images/ai-agents/person-hk.webp',
+              alt: '即時對話功能演示圖 - 打造極致客戶服務體驗'
+            }
           }
         },
         resources: {
@@ -3134,6 +3249,8 @@ export const siteTranslations = {
       },
       voiceAgents: {
         banner: {
+          src: '/assets/images/voice-agents/banner-hk.webp',
+          mobileSrc: '/assets/images/voice-agents/banner-mobile-hk.webp',
           imageAlt: 'VoiceAgents產品Banner圖 - 超越真人的語音對話體驗'
         },
         coreFeatures: {
@@ -3145,7 +3262,8 @@ export const siteTranslations = {
             description: '語音交互自然流暢、情感豐富，具備多種音色與語氣風格，滿足用戶個性化偏好。能夠根據場景表達關懷、理解與專業感，讓溝通體驗超越真人',
             tags: ['自然流暢', '情感豐富', '多種音色', '個性化'],
             button: '了解更多',
-            mediaAlt: '擬人化音色功能演示'
+            mediaAlt: '擬人化音色功能演示',
+            mediaPath: '/assets/images/voice-agents/humanized-voice-hk.webp'
           },
           feature2: {
             title: '低延遲交互',
@@ -3153,7 +3271,8 @@ export const siteTranslations = {
             description: '毫秒級響應速度，實時對話無卡頓，讓交互更自然。無論是客戶諮詢、業務辦理還是投訴處理，Zenava都能快速響應',
             tags: ['毫秒級響應', '實時對話', '無縫跳轉', '高效流暢'],
             button: '了解更多',
-            mediaAlt: '低延遲交互功能演示'
+            mediaAlt: '低延遲交互功能演示',
+            mediaPath: '/assets/images/voice-agents/low-latency-hk.webp'
           },
           feature3: {
             title: '精準智能打斷',
@@ -3161,7 +3280,8 @@ export const siteTranslations = {
             description: '支持用戶隨時打斷和插話，實時響應不中斷，像真人面對面聊天那樣自然靈活',
             tags: ['智能打斷', '意圖識別', '自然對話', '實時響應'],
             button: '了解更多',
-            mediaAlt: '精準智能打斷功能演示'
+            mediaAlt: '精準智能打斷功能演示',
+            mediaPath: '/assets/images/voice-agents/intelligent-interruption-hk.webp'
           },
           feature4: {
             title: '完整業務閉環',
@@ -3169,7 +3289,8 @@ export const siteTranslations = {
             description: 'Zenava能直接執行任務，如創建工單、發送通知、查詢信息等，讓對話真正轉化為可落地的業務動作',
             tags: ['任務執行', '業務自動化', '工單創建', '信息查詢'],
             button: '了解更多',
-            mediaAlt: '完整業務閉環功能演示'
+            mediaAlt: '完整業務閉環功能演示',
+            mediaPath: '/assets/images/voice-agents/business-loop-hk.webp'
           }
         },
         customerCases: {
@@ -3185,7 +3306,8 @@ export const siteTranslations = {
               '項目ROI高達425%'
             ],
             button: '了解更多',
-            imageAlt: '廚電客戶服務自動化案例'
+            imageAlt: '廚電客戶服務自動化案例',
+            imageSrc: '/assets/images/voice-agents/case-kitchen-appliances-hk.webp'
           },
           case2: {
             tag: '汽車行業',
@@ -3197,7 +3319,8 @@ export const siteTranslations = {
               '邀約轉化率提升至85%'
             ],
             button: '了解更多',
-            imageAlt: '汽車客戶試駕邀約案例'
+            imageAlt: '汽車客戶試駕邀約案例',
+            imageSrc: '/assets/images/voice-agents/case-automotive-hk.webp'
           },
           case3: {
             tag: '酒店行業',
@@ -3209,11 +3332,17 @@ export const siteTranslations = {
               '預訂轉化率提升15%-25%'
             ],
             button: '了解更多',
-            imageAlt: '酒店集團預訂自動化案例'
+            imageAlt: '酒店集團預訂自動化案例',
+            imageSrc: '/assets/images/voice-agents/case-hotel-hk.webp'
           }
         }
       },
       liveChat: {
+        banner: {
+          src: '/assets/images/livechat/banner-hk.webp',
+          mobileSrc: '/assets/images/livechat/banner-mobile-hk.webp',
+          alt: 'LiveChat Banner'
+        },
         advantages: {
           title: 'LiveChat的優勢',
           card1: {
@@ -3247,7 +3376,7 @@ export const siteTranslations = {
             ],
             metric: '46%',
             metricLabel: '留資率',
-            imageSrc: '/assets/images/livechat/case1-b2b.webp',
+            imageSrc: '/assets/images/livechat/case1-b2b-hk.webp',
             imageAlt: 'B2B企業官網客服無人化接待',
             button: '了解更多',
             buttonLink: '/products/live-chat'
@@ -3264,7 +3393,7 @@ export const siteTranslations = {
             metricLabel: '年節省成本',
             metric2: '83%',
             metric2Label: '獨立接待率',
-            imageSrc: '/assets/images/livechat/case2-smartlock.webp',
+            imageSrc: '/assets/images/livechat/case2-smartlock-hk.webp',
             imageAlt: '智能鎖客戶實現端到端售後服務自動化',
             button: '了解更多',
             buttonLink: '/products/live-chat'
@@ -3287,7 +3416,7 @@ export const siteTranslations = {
             description: 'Zenava不僅能理解文字，還能理解圖片、視頻等多種形態的信息，提供豐富的對話體驗，實現複雜多輪對話信息收集，精準識別客戶意圖，高效處理客戶問題',
             buttonText: '了解更多',
             imageAlt: '富媒體溝通',
-            imageSrc: '/assets/images/livechat/rich-media.webp'
+            imageSrc: '/assets/images/livechat/rich-media-hk.webp'
           },
           item3: {
             mainTitle: '能夠從表述中感知客戶情緒',
@@ -3295,7 +3424,7 @@ export const siteTranslations = {
             description: 'Zenava通過性格建模具備語言理解與情緒感知能力，能夠從表述中識別情緒，並以友好、尊重的方式回應，讓客戶感受到貼心和專業的服務體驗',
             buttonText: '了解更多',
             imageAlt: '情緒感知',
-            imageSrc: '/assets/images/livechat/emotion.webp'
+            imageSrc: '/assets/images/livechat/emotion-hk.webp'
           },
           item4: {
             mainTitle: '打造極致客戶服務體驗',
@@ -3303,7 +3432,7 @@ export const siteTranslations = {
             description: '在遵守企業業務底線和品牌規範的前提下，Zenava能夠靈活滿足客戶個性化需求，使企業在保證安全與合規的同時提升客戶體驗',
             buttonText: '了解更多',
             imageAlt: '兼顧業務和體驗',
-            imageSrc: '/assets/images/livechat/balance.webp'
+            imageSrc: '/assets/images/livechat/balance-hk.webp'
           },
           item5: {
             mainTitle: '具備同理心與判斷力',
@@ -3311,7 +3440,7 @@ export const siteTranslations = {
             description: 'Zenava具有同理心與判斷力，在實際業務場景中，能夠像人類員工一樣調用工具，完成如發送短信、創建工單、查詢客戶資料以及邀約通知等任務，實現業務閉環',
             buttonText: '了解更多',
             imageAlt: '同理心與判斷力',
-            imageSrc: '/assets/images/livechat/empathy.webp'
+            imageSrc: '/assets/images/livechat/empathy-jp.webp'
           }
         }
       }
@@ -3420,43 +3549,64 @@ export const siteTranslations = {
         mainTitle: '企業級AI對話解決方案',
         description: '通過智能AI助手轉變您的客戶服務，提升客戶體驗，降低運營成本',
         buttonText: '預約諮詢',
-        imageAlt: '橫幅圖片1'
+        imageAlt: '橫幅圖片1',
+        src: '/assets/images/banners/slide1-hk.webp',
+        mobileSrc: '/assets/images/banners/slide1-mobile-hk.webp'
       },
       slide2: {
         siteName: 'ZENAVA Sales',
         mainTitle: '智能銷售賦能系統',
         description: 'AI驅動的銷售智能化平台，精準客戶畫像分析，智能推薦銷售策略，提升成單率縮短銷售週期',
         buttonText: '了解銷售方案',
-        imageAlt: '智能銷售系統界面'
+        imageAlt: '智能銷售系統界面',
+        src: '/assets/images/banners/slide2-hk.webp',
+        mobileSrc: '/assets/images/banners/slide2-mobile-hk.webp'
       },
       slide3: {
         siteName: '智能AI平台',
         mainTitle: '4345323',
         description: '43244444444',
         buttonText: '預約諮詢',
-        imageAlt: '智能AI平台展示'
+        imageAlt: '智能AI平台展示',
+        src: '/assets/images/banners/slide3-hk.webp',
+        mobileSrc: '/assets/images/banners/slide3-mobile-hk.webp'
       },
       slide4: {
         siteName: 'ZENAVA',
         mainTitle: '7x24智能客服',
         description: 'AI智能客服系統實現全天候服務，自動處理常見問題，情感識別提升體驗',
         buttonText: '查看詳情',
-        imageAlt: '智能客服'
+        imageAlt: '智能客服',
+        src: '/assets/images/banners/slide4-hk.webp',
+        mobileSrc: '/assets/images/banners/slide4-mobile-hk.webp'
       },
       slide5: {
         siteName: '',
         mainTitle: '',
         description: '',
         buttonText: '',
-        imageAlt: '營銷活動Banner圖'
+        imageAlt: '營銷活動Banner圖',
+        src: '/assets/images/banners/slide5-hk.webp',
+        mobileSrc: '/assets/images/banners/slide5-mobile-hk.webp'
       },
       slide6: {
         siteName: '',
         mainTitle: '',
         description: '',
         buttonText: '',
-        imageAlt: '營銷活動Banner圖'
+        imageAlt: '營銷活動Banner圖',
+        src: '/assets/images/banners/slide6-hk.webp',
+        mobileSrc: '/assets/images/banners/slide6-mobile-hk.webp'
       }
+    },
+    
+    // Common images and texts
+    common: {
+      logo: {
+        src: '/assets/images/common/logo-hk.webp',
+        alt: 'Zenava Logo'
+      },
+      noImage: '暫無圖片'
     }
   },
   
@@ -3714,8 +3864,8 @@ export const siteTranslations = {
       retail: {
         pageTitle: 'AI Agents for Retail',
         banner: {
-          src: '/assets/images/retail/banner.png',
-          mobileSrc: '/assets/images/retail/banner-mobile.png',
+          src: '/assets/images/retail/banner.webp',
+          mobileSrc: '/assets/images/retail/banner-mobile.webp',
           alt: '零售行业Banner图',
           link: '/contact'
         },
@@ -3829,13 +3979,14 @@ export const siteTranslations = {
           ],
           buttonText: '了解更多',
           buttonLink: '/contact',
-          imageAlt: '量化效果'
+          imageAlt: '量化效果',
+          imageSrc: '/assets/images/retail/06.webp'
         }
       },
       automotive: {
         banner: {
-          src: '/assets/images/automotive/banner.png',
-          mobileSrc: '/assets/images/automotive/banner-mobile.png',
+          src: '/assets/images/automotive/banner.webp',
+          mobileSrc: '/assets/images/automotive/banner-mobile.webp',
           alt: 'Automotive产品Banner图',
           link: '/contact'
         },
@@ -3859,7 +4010,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/automotive/01.webp',
               imageAlt: '试驾邀约'
             },
             {
@@ -3878,7 +4029,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/automotive/02.webp',
               imageAlt: '售后服务与客户关怀'
             }
           ]
@@ -3886,8 +4037,8 @@ export const siteTranslations = {
       },
       software: {
         banner: {
-          src: '/assets/images/software/banner.png',
-          mobileSrc: '/assets/images/software/banner-mobile.png',
+          src: '/assets/images/software/banner.webp',
+          mobileSrc: '/assets/images/software/banner-mobile.webp',
           alt: 'Software产品Banner图',
           link: '/contact'
         },
@@ -3910,7 +4061,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/01.webp',
               imageAlt: '售前留资'
             },
             {
@@ -3926,7 +4077,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/02.webp',
               imageAlt: '软件使用咨询'
             },
             {
@@ -3944,7 +4095,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/03.webp',
               imageAlt: '技术支持'
             }
           ]
@@ -3966,7 +4117,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/04.webp',
               imageAlt: 'SaaS企业官网客服无人化接待'
             },
             {
@@ -3981,7 +4132,7 @@ export const siteTranslations = {
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
-              imagePath: '',
+              imagePath: '/assets/images/software/05.webp',
               imageAlt: '软件公司内部技术支持'
             }
           ]
@@ -3989,8 +4140,8 @@ export const siteTranslations = {
       },
       travel: {
         banner: {
-          src: '/assets/images/travel/banner.png',
-          mobileSrc: '/assets/images/travel/banner-mobile.png',
+          src: '/assets/images/travel/banner.webp',
+          mobileSrc: '/assets/images/travel/banner-mobile.webp',
           alt: 'Travel产品Banner图',
           link: '/contact'
         },
@@ -4067,7 +4218,8 @@ export const siteTranslations = {
           ],
           buttonText: '了解更多',
           buttonLink: '/contact',
-          imageAlt: '量化效果'
+          imageAlt: '量化效果',
+          imageSrc: '/assets/images/travel/05.webp'
         }
       }
     },
@@ -4236,6 +4388,11 @@ export const siteTranslations = {
     // AI Agents Page
     products: {
       aiAgents: {
+        banner: {
+          src: '/assets/images/ai-agents/banner.webp',
+          mobileSrc: '/assets/images/ai-agents/banner-mobile.webp',
+          alt: 'AI Agents Banner'
+        },
         hero: {
           title: 'ZENAVA能够独立承担 80%的重复性、高频次、流程清晰的客户联络任务',
           subtitle: '显著降低了传统客服对人力规模的依赖，实现了客户体验的跨越式升级',
@@ -4277,7 +4434,11 @@ export const siteTranslations = {
               '精准智能打断：可随时打断和插话，像真人面对面聊天那样自然',
               '完整业务闭环，大幅提升服务效率与客户体验'
             ],
-            button: '了解更多Voice Agents功能'
+            button: '了解更多Voice Agents功能',
+            image: {
+              src: '/assets/images/ai-agents/voice.webp',
+              alt: 'Voice功能演示图 - 超越真人的语音对话体验'
+            }
           },
           messaging: {
             label: 'Live Chat',
@@ -4290,7 +4451,11 @@ export const siteTranslations = {
               '打造极致客户服务体验，灵活满足客户诉求',
               '具备同理心与判断力，驱动业务全流程闭环'
             ],
-            button: '了解更多Live Chat功能'
+            button: '了解更多Live Chat功能',
+            image: {
+              src: '/assets/images/ai-agents/person.webp',
+              alt: '即时对话功能演示图 - 打造极致客户服务体验'
+            }
           }
         },
         resources: {
@@ -4320,6 +4485,8 @@ export const siteTranslations = {
       },
       voiceAgents: {
         banner: {
+          src: '/assets/images/voice-agents/banner.webp',
+          mobileSrc: '/assets/images/voice-agents/banner-mobile.webp',
           imageAlt: 'VoiceAgents产品Banner图 - 超越真人的语音对话体验'
         },
         coreFeatures: {
@@ -4331,7 +4498,8 @@ export const siteTranslations = {
             description: '语音交互自然流畅、情感丰富，具备多种音色与语气风格，满足用户个性化偏好。能够根据场景表达关怀、理解与专业感，让沟通体验超越真人',
             tags: ['自然流畅', '情感丰富', '多种音色', '个性化'],
             button: '了解更多',
-            mediaAlt: '拟人化音色功能演示'
+            mediaAlt: '拟人化音色功能演示',
+            mediaPath: '/assets/images/voice-agents/humanized-voice.webp'
           },
           feature2: {
             title: '低延迟交互',
@@ -4339,7 +4507,8 @@ export const siteTranslations = {
             description: '毫秒级响应速度，实时对话无卡顿，让交互更自然。无论是客户咨询、业务办理还是投诉处理，Zenava都能快速响应',
             tags: ['毫秒级响应', '实时对话', '无缝跳转', '高效流畅'],
             button: '了解更多',
-            mediaAlt: '低延迟交互功能演示'
+            mediaAlt: '低延迟交互功能演示',
+            mediaPath: '/assets/images/voice-agents/low-latency.webp'
           },
           feature3: {
             title: '精准智能打断',
@@ -4347,7 +4516,8 @@ export const siteTranslations = {
             description: '支持用户随时打断和插话，实时响应不中断，像真人面对面聊天那样自然灵活',
             tags: ['智能打断', '意图识别', '自然对话', '实时响应'],
             button: '了解更多',
-            mediaAlt: '精准智能打断功能演示'
+            mediaAlt: '精准智能打断功能演示',
+            mediaPath: '/assets/images/voice-agents/intelligent-interruption.webp'
           },
           feature4: {
             title: '完整业务闭环',
@@ -4355,7 +4525,8 @@ export const siteTranslations = {
             description: 'Zenava能直接执行任务，如创建工单、发送通知、查询信息等，让对话真正转化为可落地的业务动作',
             tags: ['任务执行', '业务自动化', '工单创建', '信息查询'],
             button: '了解更多',
-            mediaAlt: '完整业务闭环功能演示'
+            mediaAlt: '完整业务闭环功能演示',
+            mediaPath: '/assets/images/voice-agents/business-loop.webp'
           }
         },
         customerCases: {
@@ -4371,7 +4542,8 @@ export const siteTranslations = {
               '项目ROI高达425%'
             ],
             button: '了解更多',
-            imageAlt: '厨电客户服务自动化案例'
+            imageAlt: '厨电客户服务自动化案例',
+            imageSrc: '/assets/images/voice-agents/case-kitchen-appliances.webp'
           },
           case2: {
             tag: '汽车行业',
@@ -4383,7 +4555,8 @@ export const siteTranslations = {
               '邀约转化率提升至85%'
             ],
             button: '了解更多',
-            imageAlt: '汽车客户试驾邀约案例'
+            imageAlt: '汽车客户试驾邀约案例',
+            imageSrc: '/assets/images/voice-agents/case-automotive.webp'
           },
           case3: {
             tag: '酒店行业',
@@ -4395,11 +4568,17 @@ export const siteTranslations = {
               '预订转化率提升15%-25%'
             ],
             button: '了解更多',
-            imageAlt: '酒店集团预订自动化案例'
+            imageAlt: '酒店集团预订自动化案例',
+            imageSrc: '/assets/images/voice-agents/case-hotel.webp'
           }
         }
       },
       liveChat: {
+        banner: {
+          src: '/assets/images/livechat/banner.webp',
+          mobileSrc: '/assets/images/livechat/banner-mobile.webp',
+          alt: 'LiveChat Banner'
+        },
         advantages: {
           title: 'LiveChat的优势',
           card1: {
@@ -4497,7 +4676,7 @@ export const siteTranslations = {
             description: 'Zenava具有同理心与判断力，在实际业务场景中，能够像人类员工一样调用工具，完成如发送短信、创建工单、查询客户资料以及邀约通知等任务，实现业务闭环',
             buttonText: '了解更多',
             imageAlt: '同理心与判断力',
-            imageSrc: '/assets/images/livechat/empathy.webp'
+            imageSrc: '/assets/images/livechat/empathy-jp.webp'
           }
         }
       }
@@ -4605,43 +4784,64 @@ export const siteTranslations = {
         mainTitle: '企业级AI对话解决方案',
         description: '通过智能AI助手转变您的客户服务，提升客户体验，降低运营成本',
         buttonText: '预约咨询',
-        imageAlt: '横幅图片1'
+        imageAlt: '横幅图片1',
+        src: '/assets/images/banners/slide1.webp',
+        mobileSrc: '/assets/images/banners/slide1-mobile.webp'
       },
       slide2: {
         siteName: 'ZENAVA Sales',
         mainTitle: '智能销售赋能系统',
         description: 'AI驱动的销售智能化平台，精准客户画像分析，智能推荐销售策略，提升成单率缩短销售周期',
         buttonText: '了解销售方案',
-        imageAlt: '智能销售系统界面'
+        imageAlt: '智能销售系统界面',
+        src: '/assets/images/banners/slide2.webp',
+        mobileSrc: '/assets/images/banners/slide2-mobile.webp'
       },
       slide3: {
         siteName: '智能AI平台',
         mainTitle: '4345323',
         description: '43244444444',
         buttonText: '预约咨询',
-        imageAlt: '智能AI平台展示'
+        imageAlt: '智能AI平台展示',
+        src: '/assets/images/banners/slide3.webp',
+        mobileSrc: '/assets/images/banners/slide3-mobile.webp'
       },
       slide4: {
         siteName: 'ZENAVA',
         mainTitle: '7x24智能客服',
         description: 'AI智能客服系统实现全天候服务，自动处理常见问题，情感识别提升体验',
         buttonText: '查看详情',
-        imageAlt: '智能客服'
+        imageAlt: '智能客服',
+        src: '/assets/images/banners/slide4.webp',
+        mobileSrc: '/assets/images/banners/slide4-mobile.webp'
       },
       slide5: {
         siteName: '',
         mainTitle: '',
         description: '',
         buttonText: '',
-        imageAlt: '营销活动Banner图'
+        imageAlt: '营销活动Banner图',
+        src: '/assets/images/banners/slide5.webp',
+        mobileSrc: '/assets/images/banners/slide5-mobile.webp'
       },
       slide6: {
         siteName: '',
         mainTitle: '',
         description: '',
         buttonText: '',
-        imageAlt: '营销活动Banner图'
+        imageAlt: '营销活动Banner图',
+        src: '/assets/images/banners/slide6.webp',
+        mobileSrc: '/assets/images/banners/slide6-mobile.webp'
       }
+    },
+    
+    // Common images and texts
+    common: {
+      logo: {
+        src: '/assets/images/common/logo.webp',
+        alt: 'Zenava Logo'
+      },
+      noImage: '暂无图片'
     }
   }
 }

@@ -1,10 +1,12 @@
 # 图片多语言支持实施计划
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+> 
+> **重要提示：** 本计划执行过程中，**不要自动提交代码**。所有代码更改完成后，由用户审核后自行提交。
 
 **Goal:** 为所有静态页面、导航、页脚和通用组件的图片实现多语言支持，确保每张图片都有四个语言版本（zh/en/jp/hk），图片路径和alt文本根据当前语言动态切换。
 
-**Architecture:** 图片路径作为翻译数据统一在 `translations.ts` 中管理，组件通过 `getTranslations(language)` 获取当前语言的图片路径和alt文本。文件命名规范：基础文件名 + 语言后缀（-zh/-en/-jp/-hk）+ 扩展名。
+**Architecture:** 图片路径作为翻译数据统一在 `translations.ts` 中管理，组件通过 `getTranslations(language)` 获取当前语言的图片路径和alt文本。文件命名规范：简体中文（zh）作为默认语言，不使用后缀；其他语言使用语言后缀（-en/-jp/-hk）+ 扩展名。
 
 **Tech Stack:** TypeScript, Hono JSX, translations.ts
 
@@ -22,7 +24,7 @@
 ```typescript
 common: {
   logo: {
-    src: '/assets/images/common/logo-zh.webp',
+    src: '/assets/images/common/logo.webp',  // 简体中文：无后缀
     alt: 'Zenava Logo'
   },
   noImage: '暂无图片'
@@ -76,12 +78,9 @@ common: {
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 6: Commit**
+**Step 6: 代码更改完成**
 
-```bash
-git add src/i18n/translations.ts
-git commit -m "feat: add common logo and noImage translations for all languages"
-```
+代码更改已完成，等待用户审核后自行提交。
 
 ---
 
@@ -139,12 +138,9 @@ const trans = getTranslations(currentLanguage)
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 6: Commit**
+**Step 6: 代码更改完成**
 
-```bash
-git add src/components/UnifiedNavigation.tsx
-git commit -m "feat: update UnifiedNavigation to use multilingual logo from translations"
-```
+代码更改已完成，等待用户审核后自行提交。
 
 ---
 
@@ -199,12 +195,9 @@ const trans = getTranslations(language)
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 6: Commit**
+**Step 6: 代码更改完成**
 
-```bash
-git add src/components/UnifiedFooter.tsx
-git commit -m "feat: update UnifiedFooter to use multilingual logo from translations"
-```
+代码更改已完成，等待用户审核后自行提交。
 
 ---
 
@@ -229,8 +222,8 @@ banners: {
     description: '通过智能AI助手转变您的客户服务，提升客户体验，降低运营成本',
     buttonText: '预约咨询',
     imageAlt: '横幅图片1',
-    src: '/assets/images/banners/slide1-zh.webp',
-    mobileSrc: '/assets/images/banners/slide1-mobile-zh.webp' // 可选
+    src: '/assets/images/banners/slide1.webp',              // 简体中文：无后缀
+    mobileSrc: '/assets/images/banners/slide1-mobile.webp' // 简体中文：无后缀
   },
   // ... 其他 slide
 }
@@ -253,12 +246,8 @@ banners: {
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 7: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/i18n/translations.ts
-git commit -m "feat: add banner image paths to translations for all languages"
-```
 
 ---
 
@@ -295,12 +284,8 @@ git commit -m "feat: add banner image paths to translations for all languages"
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 6: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/pages/HomepageDB.tsx
-git commit -m "feat: update HomepageDB to use multilingual banner images from translations"
-```
 
 ---
 
@@ -315,8 +300,8 @@ git commit -m "feat: update HomepageDB to use multilingual banner images from tr
 products: {
   aiAgents: {
     banner: {
-      src: '/assets/images/ai-agents/banner-zh.webp',
-      mobileSrc: '/assets/images/ai-agents/banner-mobile-zh.webp',
+      src: '/assets/images/ai-agents/banner.webp',              // 简体中文：无后缀
+      mobileSrc: '/assets/images/ai-agents/banner-mobile.webp', // 简体中文：无后缀
       alt: 'AI Agents Banner'
     },
     // ... 其他配置
@@ -337,12 +322,8 @@ products: {
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 5: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/i18n/translations.ts
-git commit -m "feat: add product page banner image paths to translations"
-```
 
 ---
 
@@ -378,12 +359,8 @@ git commit -m "feat: add product page banner image paths to translations"
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 4: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/pages/products/AiAgents.tsx
-git commit -m "feat: update AiAgents banner to use multilingual images"
-```
 
 ---
 
@@ -409,12 +386,8 @@ git commit -m "feat: update AiAgents banner to use multilingual images"
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 5: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/pages/products/LiveChat.tsx
-git commit -m "feat: update LiveChat banner to use multilingual images"
-```
 
 ---
 
@@ -440,12 +413,8 @@ git commit -m "feat: update LiveChat banner to use multilingual images"
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 5: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/pages/products/VoiceAgents.tsx
-git commit -m "feat: update VoiceAgents banner to use multilingual images"
-```
 
 ---
 
@@ -479,12 +448,8 @@ industries: {
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 4: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/i18n/translations.ts
-git commit -m "feat: add industry page banner image paths to translations"
-```
 
 ---
 
@@ -521,12 +486,8 @@ git commit -m "feat: add industry page banner image paths to translations"
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 7: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/pages/industries/*.tsx
-git commit -m "feat: update industry pages to use multilingual banner images"
-```
 
 ---
 
@@ -546,12 +507,8 @@ git commit -m "feat: update industry pages to use multilingual banner images"
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 4: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/i18n/translations.ts
-git commit -m "feat: add scenario page banner image paths to translations"
-```
 
 ---
 
@@ -579,12 +536,8 @@ git commit -m "feat: add scenario page banner image paths to translations"
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 5: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/pages/*Scenario.tsx
-git commit -m "feat: update scenario pages to use multilingual banner images"
-```
 
 ---
 
@@ -602,12 +555,8 @@ git commit -m "feat: update scenario pages to use multilingual banner images"
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 3: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/i18n/translations.ts
-git commit -m "feat: add other page image paths to translations"
-```
 
 ---
 
@@ -642,12 +591,8 @@ git commit -m "feat: add other page image paths to translations"
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 7: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/pages/AboutUs.tsx src/pages/Contact.tsx src/pages/PrivacyPolicy.tsx src/pages/TermsAndConditions.tsx
-git commit -m "feat: update other pages to use multilingual images"
-```
 
 ---
 
@@ -669,12 +614,8 @@ git commit -m "feat: update other pages to use multilingual images"
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 4: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/i18n/translations.ts
-git commit -m "feat: add product feature demo image paths to translations"
-```
 
 ---
 
@@ -700,12 +641,8 @@ git commit -m "feat: add product feature demo image paths to translations"
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 6: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/pages/products/*.tsx
-git commit -m "feat: update product feature demo images to use multilingual paths"
-```
 
 ---
 
@@ -727,12 +664,8 @@ git commit -m "feat: update product feature demo images to use multilingual path
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 4: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/i18n/translations.ts
-git commit -m "feat: add homepage capability image paths to translations"
-```
 
 ---
 
@@ -756,12 +689,8 @@ git commit -m "feat: add homepage capability image paths to translations"
 Run: `npm run build` 或 `tsc --noEmit`
 Expected: 无语法错误
 
-**Step 5: Commit**
+**Step X: 代码更改完成**
 
-```bash
-git add src/pages/HomepageDB.tsx
-git commit -m "feat: update homepage capability images to use multilingual paths"
-```
 
 ---
 
@@ -792,27 +721,22 @@ Expected: 服务器正常启动
 1. 故意使用错误的图片路径，检查占位符是否正确显示
 2. 检查占位符文本是否使用正确的语言
 
-**Step 5: 提交最终更改**
+**Step 5: 代码更改完成**
 
-```bash
-git add .
-git commit -m "feat: complete image multilingual support implementation
-
-- All static pages now support multilingual images
-- Logo in navigation and footer use translations
-- All banners and feature images support 4 languages
-- Added proper error handling with placeholders"
-```
+所有代码更改已完成，等待用户审核后自行提交。
 
 ---
 
 ## 实施注意事项
 
-1. **图片文件准备**：确保所有图片文件按照命名规范（-zh/-en/-jp/-hk）准备好
+1. **图片文件准备**：确保所有图片文件按照命名规范（简体无后缀，其他语言使用 -en/-jp/-hk 后缀）准备好
 2. **路径一致性**：确保 translations.ts 中的图片路径与实际文件路径一致
-3. **测试覆盖**：每个任务完成后都要测试对应功能
-4. **渐进式提交**：每个任务完成后立即提交，便于回滚
-5. **错误处理**：所有图片都要添加 onerror 处理和占位符
+3. **降级策略**：如果多语言版本的图片文件不存在，translations.ts 中该语言的图片路径应使用简体中文版本（无后缀）作为回退
+   - 例如：如果 `banner-en.webp` 不存在，`en.banner.src` 设为 `'/assets/images/ai-agents/banner.webp'`
+   - 这样可以确保即使某些语言的图片文件还没准备好，页面也能正常显示
+4. **测试覆盖**：每个任务完成后都要测试对应功能
+5. **代码审核**：所有代码更改完成后，由用户审核后自行提交，不自动提交
+6. **错误处理**：所有图片都要添加 onerror 处理和占位符
 
 ---
 

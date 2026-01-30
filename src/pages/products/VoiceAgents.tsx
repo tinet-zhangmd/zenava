@@ -19,16 +19,24 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
             {/* 全图背景 - 支持移动端专用图片 */}
             <picture>
               {/* 移动端图片（< 768px） */}
-              <source media="(max-width: 767px)" srcset="/assets/images/voice-agents/banner-mobile.webp" />
+              <source media="(max-width: 767px)" srcset={t.banner.mobileSrc || t.banner.src} />
               {/* 桌面端图片（>= 768px） */}
             <img 
-              src="/assets/images/voice-agents/banner.webp" 
+              src={t.banner.src}
               alt={t.banner.imageAlt}
               class="w-full h-full object-cover"
               loading="eager"
               decoding="async"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
             </picture>
+            {/* 占位符（图片加载失败时显示） */}
+            <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+              <div class="text-center">
+                <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+              </div>
+            </div>
           </div>
         </a>
       </section>
@@ -75,14 +83,22 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
 
             {/* Right Media */}
             <div class="relative rounded-2xl overflow-hidden order-1 lg:order-2">
-              <div class="aspect-[4/3] flex items-center justify-center">
+              <div class="aspect-[4/3] flex items-center justify-center relative">
                 <img 
-                  src="/assets/images/voice-agents/humanized-voice.webp" 
+                  src={t.coreFeatures.feature1.mediaPath || '/assets/images/voice-agents/humanized-voice.webp'} 
                   alt={t.coreFeatures.feature1.mediaAlt}
                   class="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                 />
+                {/* 占位符（图片加载失败时显示） */}
+                <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                  <div class="text-center">
+                    <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                    <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -91,14 +107,22 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center mb-16 md:mb-20 lg:mb-24">
             {/* Left Media */}
             <div class="relative rounded-2xl overflow-hidden">
-              <div class="aspect-[4/3] flex items-center justify-center">
+              <div class="aspect-[4/3] flex items-center justify-center relative">
                 <img 
-                  src="/assets/images/voice-agents/low-latency.webp" 
+                  src={t.coreFeatures.feature2.mediaPath || '/assets/images/voice-agents/low-latency.webp'} 
                   alt={t.coreFeatures.feature2.mediaAlt}
                   class="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                 />
+                {/* 占位符（图片加载失败时显示） */}
+                <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                  <div class="text-center">
+                    <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                    <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -163,14 +187,22 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
 
             {/* Right Media */}
             <div class="relative rounded-2xl overflow-hidden order-1 lg:order-2">
-              <div class="aspect-[4/3] flex items-center justify-center">
+              <div class="aspect-[4/3] flex items-center justify-center relative">
                 <img 
-                  src="/assets/images/voice-agents/intelligent-interruption.webp" 
+                  src={t.coreFeatures.feature3.mediaPath || '/assets/images/voice-agents/intelligent-interruption.webp'} 
                   alt={t.coreFeatures.feature3.mediaAlt}
                   class="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                 />
+                {/* 占位符（图片加载失败时显示） */}
+                <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                  <div class="text-center">
+                    <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                    <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -179,14 +211,22 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
             {/* Left Media */}
             <div class="relative rounded-2xl overflow-hidden">
-              <div class="aspect-[4/3] flex items-center justify-center">
+              <div class="aspect-[4/3] flex items-center justify-center relative">
                 <img 
-                  src="/assets/images/voice-agents/business-loop.webp" 
+                  src={t.coreFeatures.feature4.mediaPath || '/assets/images/voice-agents/business-loop.webp'} 
                   alt={t.coreFeatures.feature4.mediaAlt}
                   class="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                 />
+                {/* 占位符（图片加载失败时显示） */}
+                <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                  <div class="text-center">
+                    <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                    <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -238,14 +278,22 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center mb-16 md:mb-20 lg:mb-24">
             {/* Left Image */}
             <div class="relative rounded-2xl overflow-hidden">
-              <div class="aspect-[4/3] flex items-center justify-center p-4 md:p-6 lg:p-8">
+              <div class="aspect-[4/3] flex items-center justify-center p-4 md:p-6 lg:p-8 relative">
                 <img 
-                  src="/assets/images/voice-agents/case-kitchen-appliances.webp" 
+                  src={t.customerCases.case1.imageSrc || '/assets/images/voice-agents/case-kitchen-appliances.webp'} 
                   alt={t.customerCases.case1.imageAlt}
                   class="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                 />
+                {/* 占位符（图片加载失败时显示） */}
+                <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                  <div class="text-center">
+                    <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                    <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -326,14 +374,22 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
 
             {/* Right Image */}
             <div class="relative rounded-2xl overflow-hidden order-1 lg:order-2">
-              <div class="aspect-[4/3] flex items-center justify-center p-4 md:p-6 lg:p-8">
+              <div class="aspect-[4/3] flex items-center justify-center p-4 md:p-6 lg:p-8 relative">
                 <img 
-                  src="/assets/images/voice-agents/case-automotive.webp" 
+                  src={t.customerCases.case2.imageSrc || '/assets/images/voice-agents/case-automotive.webp'} 
                   alt={t.customerCases.case2.imageAlt}
                   class="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                 />
+                {/* 占位符（图片加载失败时显示） */}
+                <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                  <div class="text-center">
+                    <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                    <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -342,14 +398,22 @@ export const VoiceAgentsPage: FC<VoiceAgentsPageProps> = ({ language = 'zh' }) =
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
             {/* Left Image */}
             <div class="relative rounded-2xl overflow-hidden">
-              <div class="aspect-[4/3] flex items-center justify-center p-4 md:p-6 lg:p-8">
+              <div class="aspect-[4/3] flex items-center justify-center p-4 md:p-6 lg:p-8 relative">
                 <img 
-                  src="/assets/images/voice-agents/case-hotel.webp" 
+                  src={t.customerCases.case3.imageSrc || '/assets/images/voice-agents/case-hotel.webp'} 
                   alt={t.customerCases.case3.imageAlt}
                   class="w-full h-full object-contain"
                   loading="lazy"
                   decoding="async"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                 />
+                {/* 占位符（图片加载失败时显示） */}
+                <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                  <div class="text-center">
+                    <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                    <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                  </div>
+                </div>
               </div>
             </div>
 

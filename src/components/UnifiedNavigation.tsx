@@ -1,5 +1,6 @@
 import { FC } from 'hono/jsx'
 import { Language, getLocalizedPath, languageFlags, languageNames } from '../utils/i18n.js'
+import { getTranslations } from '../i18n/translations.js'
 
 // Navigation item types
 export interface NavMenuItem {
@@ -112,6 +113,9 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
   currentLanguage, 
   currentPath 
 }) => {
+  // Get translations for current language
+  const trans = getTranslations(currentLanguage)
+  
   // Check if icon is an image path (starts with / or contains image extensions)
   const isImageIcon = (icon: string | undefined): boolean => {
     if (!icon) return false
@@ -196,16 +200,23 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
             {/* Logo */}
             <div class="flex-shrink-0">
               <a href={getLocalizedPath('/', currentLanguage)} class="flex items-center">
-                {config.logo_url ? (
-                  <img 
-                    src={config.logo_url}
-                    alt={config.logo_alt || 'Logo'}
-                    class="w-auto object-contain transition-all duration-300 hover:opacity-80"
-                    style={{
-                      height: config.logo_height || '2.5rem',
-                      maxWidth: config.logo_max_width || '200px'
-                    }}
-                  />
+                {trans.common.logo.src ? (
+                  <>
+                    <img 
+                      src={trans.common.logo.src}
+                      alt={trans.common.logo.alt}
+                      class="w-auto object-contain transition-all duration-300 hover:opacity-80"
+                      style={{
+                        height: config.logo_height || '2.5rem',
+                        maxWidth: config.logo_max_width || '200px'
+                      }}
+                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    />
+                    <div class="hidden w-full h-full items-center justify-center bg-gray-100">
+                      <i class="fas fa-image text-gray-400"></i>
+                      <span class="ml-2 text-sm text-gray-500">{trans.common.noImage}</span>
+                    </div>
+                  </>
                 ) : (
                   <span class="text-2xl font-bold">ZENAVA</span>
                 )}

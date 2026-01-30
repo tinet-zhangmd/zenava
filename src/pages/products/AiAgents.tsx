@@ -29,16 +29,24 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
             {/* 全图背景 - 支持移动端专用图片 */}
             <picture>
               {/* 移动端图片（< 768px） */}
-              <source media="(max-width: 767px)" srcset="/assets/images/ai-agents/banner-mobile.webp" />
+              <source media="(max-width: 767px)" srcset={t.banner.mobileSrc || t.banner.src} />
               {/* 桌面端图片（>= 768px） */}
             <img 
-              src="/assets/images/ai-agents/banner.webp" 
-              alt="AIAgents Banner"
+              src={t.banner.src}
+              alt={t.banner.alt}
               class="w-full h-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105"
               loading="eager"
               decoding="async"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
             </picture>
+            {/* 占位符（图片加载失败时显示） */}
+            <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+              <div class="text-center">
+                <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+              </div>
+            </div>
             {/* Subtle Overlay for better depth */}
             <div class="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/10 pointer-events-none"></div>
           </div>
@@ -110,15 +118,23 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
             {/* Left Image */}
             <div class="rounded-xl overflow-hidden">
-              <div class="aspect-[4/3] flex items-center justify-center">
-                  <img 
-                    src="/assets/images/ai-agents/person.webp" 
-                    alt="即时对话功能演示图 - 打造极致客户服务体验"
-                    loading="lazy"
-                    decoding="async"
+              <div class="aspect-[4/3] flex items-center justify-center relative">
+                <img 
+                  src={t.features.messaging.image.src}
+                  alt={t.features.messaging.image.alt}
+                  loading="lazy"
+                  decoding="async"
                   class="w-full h-full object-contain"
-                  />
-               </div>
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                />
+                {/* 占位符（图片加载失败时显示） */}
+                <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                  <div class="text-center">
+                    <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                    <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                  </div>
+                </div>
+              </div>
             </div>
             
             {/* Right Content */}
@@ -208,15 +224,23 @@ export const AiAgentsPage: FC<AiAgentsPageProps> = ({ language = 'zh' }) => {
 
             {/* Right Image */}
             <div class="rounded-xl overflow-hidden order-1 lg:order-2">
-              <div class="aspect-[4/3] flex items-center justify-center">
-                  <img 
-                    src="/assets/images/ai-agents/voice.webp" 
-                    alt="Voice功能演示图 - 超越真人的语音对话体验"
-                    loading="lazy"
-                    decoding="async"
+              <div class="aspect-[4/3] flex items-center justify-center relative">
+                <img 
+                  src={t.features.voice.image.src}
+                  alt={t.features.voice.image.alt}
+                  loading="lazy"
+                  decoding="async"
                   class="w-full h-full object-contain"
-                  />
-               </div>
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                />
+                {/* 占位符（图片加载失败时显示） */}
+                <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                  <div class="text-center">
+                    <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                    <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

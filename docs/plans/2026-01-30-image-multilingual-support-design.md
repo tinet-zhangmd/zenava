@@ -40,13 +40,17 @@
 ### 文件命名示例
 
 ```
-banner-zh.webp          # 中文版桌面端
+banner.webp             # 简体中文版桌面端（默认，无后缀）
 banner-en.webp          # 英文版桌面端
 banner-jp.webp          # 日文版桌面端
 banner-hk.webp          # 繁体中文版桌面端
-banner-mobile-zh.webp   # 中文版移动端
+banner-mobile.webp      # 简体中文版移动端（默认，无后缀）
 banner-mobile-en.webp   # 英文版移动端
+banner-mobile-jp.webp   # 日文版移动端
+banner-mobile-hk.webp   # 繁体中文版移动端
 ```
+
+**重要说明：** 简体中文（zh）作为默认语言，图片文件名不使用 `-zh` 后缀。
 
 ---
 
@@ -60,8 +64,8 @@ banner-mobile-en.webp   # 英文版移动端
   // 首页 Banner
   banners: {
     slide1: {
-      src: '/assets/images/banners/slide1-zh.webp',
-      mobileSrc: '/assets/images/banners/slide1-mobile-zh.webp', // 可选
+      src: '/assets/images/banners/slide1.webp',              // zh: 无后缀
+      mobileSrc: '/assets/images/banners/slide1-mobile.webp',  // zh: 无后缀
       alt: '横幅图片1'
     }
   },
@@ -70,13 +74,13 @@ banner-mobile-en.webp   # 英文版移动端
   products: {
     aiAgents: {
       banner: {
-        src: '/assets/images/ai-agents/banner-zh.webp',
-        mobileSrc: '/assets/images/ai-agents/banner-mobile-zh.webp',
+        src: '/assets/images/ai-agents/banner.webp',              // zh: 无后缀
+        mobileSrc: '/assets/images/ai-agents/banner-mobile.webp', // zh: 无后缀
         alt: 'AI Agents Banner'
       },
       features: {
         feature1: {
-          imageSrc: '/assets/images/ai-agents/feature1-zh.webp',
+          imageSrc: '/assets/images/ai-agents/feature1.webp',    // zh: 无后缀
           imageAlt: '即时对话功能演示图'
         }
       }
@@ -86,7 +90,7 @@ banner-mobile-en.webp   # 英文版移动端
   // 通用组件
   common: {
     logo: {
-      src: '/assets/images/common/logo-zh.webp',
+      src: '/assets/images/common/logo.webp',  // zh: 无后缀
       alt: 'Zenava Logo'
     },
     noImage: '暂无图片' // 占位符文本
@@ -194,9 +198,11 @@ const trans = getTranslations(language)
    - 图片加载失败时隐藏图片，显示占位符
    - 占位符包含图标和多语言提示文本
 
-2. **降级策略**
-   - 如果当前语言的图片不存在，回退到中文版本
-   - 如果中文版本也不存在，显示占位符
+2. **降级策略（在 translations.ts 中设置）**
+   - **主要策略**：如果多语言版本的图片文件不存在，`translations.ts` 中该语言的图片路径直接使用简体中文版本（无后缀）
+   - 例如：如果 `banner-en.webp` 不存在，`en.banner.src` 设为 `'/assets/images/ai-agents/banner.webp'`
+   - 这样可以确保即使某些语言的图片文件还没准备好，页面也能正常显示简体中文版本的图片
+   - 如果简体中文版本也不存在，显示占位符
 
 ### 代码示例
 

@@ -19,16 +19,24 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
             {/* 全图背景 - 支持移动端专用图片 */}
             <picture>
               {/* 移动端图片（< 768px） */}
-              <source media="(max-width: 767px)" srcset="/assets/images/livechat/banner-mobile.webp" />
+              <source media="(max-width: 767px)" srcset={t.banner.mobileSrc || t.banner.src} />
               {/* 桌面端图片（>= 768px） */}
             <img 
-              src="/assets/images/livechat/banner.webp" 
-              alt="LiveChat Banner"
+              src={t.banner.src}
+              alt={t.banner.alt}
               class="w-full h-full object-cover"
               loading="eager"
               decoding="async"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
             </picture>
+            {/* 占位符（图片加载失败时显示） */}
+            <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+              <div class="text-center">
+                <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+              </div>
+            </div>
           </div>
         </a>
       </section>
@@ -137,14 +145,22 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
                       data-animate="slide-up"
                       class={`relative ${isEven ? 'lg:col-start-1 lg:order-1' : 'lg:order-2'}`}
                     >
-                      <div class="rounded-xl overflow-hidden">
+                      <div class="rounded-xl overflow-hidden relative">
                         <img 
                           src={item.imageSrc || '/assets/images/livechat/default.webp'} 
                           alt={item.imageAlt}
                           class="w-full h-auto object-contain"
                           loading="lazy"
                           decoding="async"
+                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                         />
+                        {/* 占位符（图片加载失败时显示） */}
+                        <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                          <div class="text-center">
+                            <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                            <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -179,14 +195,22 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
                   {/* Left Image */}
                   <div class="relative rounded-2xl overflow-hidden">
-                    <div class="aspect-[4/3] flex items-center justify-center">
+                    <div class="aspect-[4/3] flex items-center justify-center relative">
                       <img 
                         src={t.caseStudies.case1.imageSrc || '/assets/images/livechat/case1-b2b.webp'} 
                         alt={t.caseStudies.case1.imageAlt || t.caseStudies.case1.mainTitle}
                         class="w-full h-full object-contain"
                         loading="lazy"
                         decoding="async"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                       />
+                      {/* 占位符（图片加载失败时显示） */}
+                      <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                        <div class="text-center">
+                          <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                          <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   
@@ -273,14 +297,22 @@ export const LiveChatPage: FC<LiveChatPageProps> = ({ language = 'zh' }) => {
 
                   {/* Right Image */}
                   <div class="relative rounded-2xl overflow-hidden order-1 lg:order-2">
-                    <div class="aspect-[4/3] flex items-center justify-center">
+                    <div class="aspect-[4/3] flex items-center justify-center relative">
                       <img 
                         src={t.caseStudies.case2.imageSrc || '/assets/images/livechat/case2-smartlock.webp'} 
                         alt={t.caseStudies.case2.imageAlt || t.caseStudies.case2.mainTitle}
                         class="w-full h-full object-contain"
                         loading="lazy"
                         decoding="async"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                       />
+                      {/* 占位符（图片加载失败时显示） */}
+                      <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                        <div class="text-center">
+                          <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                          <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

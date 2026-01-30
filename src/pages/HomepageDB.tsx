@@ -72,21 +72,123 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         // 🎯 Banner 数据配置（支持最多8页）
         // 翻译数据已迁移到 src/i18n/translations.ts 中的 banners 配置
         const bannerSlides = [
-          // 第1页 - 新增全图Banner（全图模式）
-          {
+          // Slide 1 - 全图模式
+          trans.banners.slide1.src ? {
+            id: 'slide-1',
+            layout: 'full-image',
+            fullImage: {
+              src: trans.banners.slide1.src,
+              mobileSrc: trans.banners.slide1.mobileSrc,
+              alt: trans.banners.slide1.imageAlt,
+              overlay: false,
+            },
+            overlayContent: {
+              siteName: trans.banners.slide1.siteName,
+              mainTitle: trans.banners.slide1.mainTitle,
+              description: trans.banners.slide1.description,
+              button: {
+                text: trans.banners.slide1.buttonText,
+                link: '/contact',
+                icon: 'fas fa-phone'
+              },
+              position: 'center'
+            },
+            clickLink: '/contact'
+          } : null,
+          // Slide 2 - 全图模式
+          trans.banners.slide2.src ? {
+            id: 'slide-2',
+            layout: 'full-image',
+            fullImage: {
+              src: trans.banners.slide2.src,
+              mobileSrc: trans.banners.slide2.mobileSrc,
+              alt: trans.banners.slide2.imageAlt,
+              overlay: false,
+            },
+            overlayContent: {
+              siteName: trans.banners.slide2.siteName,
+              mainTitle: trans.banners.slide2.mainTitle,
+              description: trans.banners.slide2.description,
+              button: {
+                text: trans.banners.slide2.buttonText,
+                link: '/contact',
+                icon: 'fas fa-phone'
+              },
+              position: 'center'
+            },
+            clickLink: '/contact'
+          } : null,
+          // Slide 3 - 全图模式
+          trans.banners.slide3.src ? {
+            id: 'slide-3',
+            layout: 'full-image',
+            fullImage: {
+              src: trans.banners.slide3.src,
+              mobileSrc: trans.banners.slide3.mobileSrc,
+              alt: trans.banners.slide3.imageAlt,
+              overlay: false,
+            },
+            overlayContent: {
+              siteName: trans.banners.slide3.siteName,
+              mainTitle: trans.banners.slide3.mainTitle,
+              description: trans.banners.slide3.description,
+              button: {
+                text: trans.banners.slide3.buttonText,
+                link: '/contact',
+                icon: 'fas fa-phone'
+              },
+              position: 'center'
+            },
+            clickLink: '/contact'
+          } : null,
+          // Slide 4 - 全图模式
+          trans.banners.slide4.src ? {
+            id: 'slide-4',
+            layout: 'full-image',
+            fullImage: {
+              src: trans.banners.slide4.src,
+              mobileSrc: trans.banners.slide4.mobileSrc,
+              alt: trans.banners.slide4.imageAlt,
+              overlay: false,
+            },
+            overlayContent: {
+              siteName: trans.banners.slide4.siteName,
+              mainTitle: trans.banners.slide4.mainTitle,
+              description: trans.banners.slide4.description,
+              button: {
+                text: trans.banners.slide4.buttonText,
+                link: '/contact',
+                icon: 'fas fa-phone'
+              },
+              position: 'center'
+            },
+            clickLink: '/contact'
+          } : null,
+          // Slide 5 - 全图模式
+          trans.banners.slide5.src ? {
+            id: 'slide-5',
+            layout: 'full-image',
+            fullImage: {
+              src: trans.banners.slide5.src,
+              mobileSrc: trans.banners.slide5.mobileSrc,
+              alt: trans.banners.slide5.imageAlt,
+              overlay: false,
+            },
+            clickLink: '/contact'
+          } : null,
+          // Slide 6 - 全图模式
+          trans.banners.slide6.src ? {
             id: 'slide-6',
             layout: 'full-image',
             fullImage: {
-              src: '/assets/images/banner-full-marketing.webp',
-              mobileSrc: '/assets/images/banner-full-marketing-mobile.webp',  // 移动端图片路径
+              src: trans.banners.slide6.src,
+              mobileSrc: trans.banners.slide6.mobileSrc,
               alt: trans.banners.slide6.imageAlt,
-              overlay: false,  // 不显示遮罩层
+              overlay: false,
             },
-            // 不提供 overlayContent，表示不显示文字内容
-            // 整个Banner可点击跳转（可选）
             clickLink: '/contact'
-          }
-        ];
+          } : null
+        ].filter(Boolean); // 过滤掉 null 值
 
         // 🎬 只显示最新的8个Banner（如果超过8个）
         const displaySlides = bannerSlides.slice(-8);
@@ -120,6 +222,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                             alt={fullImageSlide.fullImage.alt}
                             class="w-full h-full object-cover"
                             loading="lazy"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                           />
                             </picture>
                           ) : (
@@ -128,8 +231,16 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                               alt={fullImageSlide.fullImage.alt}
                               class="w-full h-full object-cover"
                               loading="lazy"
+                              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                             />
                           )}
+                          {/* 占位符（图片加载失败时显示） */}
+                          <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                            <div class="text-center">
+                              <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                              <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                            </div>
+                          </div>
                         </div>
                         
                         {/* 遮罩层（可选） */}

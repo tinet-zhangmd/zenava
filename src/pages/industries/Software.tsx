@@ -81,28 +81,33 @@ export const SoftwarePage: FC<SoftwarePageProps> = ({ language = 'zh' }) => {
             ]
             const colors = colorSchemes[index % colorSchemes.length]
             
-            // 图片路径数组
-            const imagePaths = [
-              '/assets/images/software/01.webp',
-              '/assets/images/software/02.webp',
-              '/assets/images/software/03.webp'
-            ]
-            const imagePath = imagePaths[index] || item.imagePath
+            // 从 translations 获取图片路径
+            const imagePath = item.imagePath || ''
             
             return (
               <section key={index} class={`py-12 md:py-16 lg:py-20 ${isOdd ? 'bg-gray-50' : 'bg-white'}`}>
                 <div class="site-container px-4 sm:px-6 lg:px-8">
                   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
                     {/* Image Section - Right for first (0,2,4...), Left for second (1,3,5...) */}
-                    <div class={`${isOdd ? 'order-1 lg:order-1' : 'order-1 lg:order-2'}`}>
+                    <div class={`${isOdd ? 'order-1 lg:order-1' : 'order-1 lg:order-2'} relative`}>
                       {imagePath ? (
-                        <img 
-                          src={imagePath}
-                          alt={item.imageAlt || item.title}
-                          class="w-full h-auto"
-                          loading="lazy"
-                          decoding="async"
-                        />
+                        <>
+                          <img 
+                            src={imagePath}
+                            alt={item.imageAlt || item.title}
+                            class="w-full h-auto"
+                            loading="lazy"
+                            decoding="async"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                          />
+                          {/* 占位符（图片加载失败时显示） */}
+                          <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                            <div class="text-center">
+                              <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                              <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                            </div>
+                          </div>
+                        </>
                       ) : (
                         <div class={`aspect-[4/3] flex items-center justify-center`}>
                           <div class={`w-20 h-20 md:w-24 md:h-24 ${colors.bg} rounded-2xl flex items-center justify-center`}>
@@ -221,12 +226,8 @@ export const SoftwarePage: FC<SoftwarePageProps> = ({ language = 'zh' }) => {
               {t.casesList.items?.map((item: any, index: number) => {
                 const isEven = index % 2 === 1
                 
-                // 图片路径数组
-                const caseImagePaths = [
-                  '/assets/images/software/04.webp',
-                  '/assets/images/software/05.webp'
-                ]
-                const caseImagePath = caseImagePaths[index] || item.imagePath
+                // 从 translations 获取图片路径
+                const caseImagePath = item.imagePath || ''
                 
                 return (
                   <div key={index} class={`grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start ${isEven ? 'lg:flex-row-reverse' : ''}`}>
@@ -315,19 +316,30 @@ export const SoftwarePage: FC<SoftwarePageProps> = ({ language = 'zh' }) => {
                     {/* Media Area */}
                     <div class={`${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
                       <div class="rounded-xl overflow-hidden">
-                        <div class="aspect-[4/3] flex items-center justify-center">
+                        <div class="aspect-[4/3] flex items-center justify-center relative">
                           {caseImagePath ? (
-                            <img 
-                              src={caseImagePath}
-                              alt={item.imageAlt || item.title}
-                              class="w-full h-full object-contain"
-                              loading="lazy"
-                            />
+                            <>
+                              <img 
+                                src={caseImagePath}
+                                alt={item.imageAlt || item.title}
+                                class="w-full h-full object-contain"
+                                loading="lazy"
+                                decoding="async"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                              />
+                              {/* 占位符（图片加载失败时显示） */}
+                              <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                                <div class="text-center">
+                                  <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                                  <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                                </div>
+                              </div>
+                            </>
                           ) : (
                             <div class="text-center">
                               <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
                               <p class="text-sm md:text-base text-gray-500">
-                                {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
+                                {trans.common.noImage}
                               </p>
                             </div>
                           )}

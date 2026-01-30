@@ -164,20 +164,28 @@ export const RetailPage: FC<RetailPageProps> = ({ language = 'zh' }) => {
                     {/* Media Area */}
                     <div class={`${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
                       <div class="rounded-xl overflow-hidden">
-                        <div class="aspect-[4/3] flex items-center justify-center">
+                        <div class="aspect-[4/3] flex items-center justify-center relative">
                           {item.mediaPath ? (
-                            <img 
-                              src={item.mediaPath}
-                              alt={item.mediaAlt || item.title}
-                              class="w-full h-full object-contain"
-                              loading="lazy"
-                            />
+                            <>
+                              <img 
+                                src={item.mediaPath}
+                                alt={item.mediaAlt || item.title}
+                                class="w-full h-full object-contain"
+                                loading="lazy"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                              />
+                              {/* 占位符（图片加载失败时显示） */}
+                              <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                                <div class="text-center">
+                                  <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                                  <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                                </div>
+                              </div>
+                            </>
                           ) : (
                             <div class="text-center">
                               <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
-                              <p class="text-sm md:text-base text-gray-500">
-                                {language === 'zh' ? '暂无图片' : language === 'en' ? 'No Image' : language === 'jp' ? '画像なし' : '暫無圖片'}
-                              </p>
+                              <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
                             </div>
                           )}
                         </div>
@@ -213,14 +221,22 @@ export const RetailPage: FC<RetailPageProps> = ({ language = 'zh' }) => {
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               {/* Left Image */}
               <div class="rounded-xl overflow-hidden">
-                <div class="aspect-[4/3] flex items-center justify-center">
+                <div class="aspect-[4/3] flex items-center justify-center relative">
                   <img 
-                    src="/assets/images/retail/06.webp"
-                    alt={t.quantifiedEffects.imageAlt || language === 'zh' ? '量化效果' : language === 'en' ? 'Quantified Effects' : language === 'jp' ? '定量化された効果' : '量化效果'}
+                    src={t.quantifiedEffects.imageSrc}
+                    alt={t.quantifiedEffects.imageAlt}
                     class="w-full h-full object-contain"
                     loading="lazy"
                     decoding="async"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                   />
+                  {/* 占位符（图片加载失败时显示） */}
+                  <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                    <div class="text-center">
+                      <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                      <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 

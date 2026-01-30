@@ -2,6 +2,7 @@ import { FC } from 'hono/jsx'
 import { Language } from '../utils/i18n.js'
 import { FooterConfig, FooterSection, PrivacyLink } from '../utils/common-content.js'
 import { ZENAVA_LOGO_BASE64 } from '../assets/zenava-logo-base64.js'
+import { getTranslations } from '../i18n/translations.js'
 
 interface UnifiedFooterProps {
   language?: Language
@@ -134,6 +135,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
 
   const t = footerText[language] || footerText.en
   const langPrefix = language === 'en' ? '' : `/${language}`
+  const trans = getTranslations(language)
 
   return (
     <footer class="bg-gradient-to-b from-gray-900 to-black text-white">
@@ -146,11 +148,16 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               {/* Logo with link */}
               <a href={langPrefix === '' ? '/' : langPrefix} class="inline-block mb-4 cursor-pointer">
                 <img 
-                  src={ZENAVA_LOGO_BASE64}
-                  alt="ZENAVA"
+                  src={trans.common.logo.src}
+                  alt={trans.common.logo.alt}
                   class="h-10 md:h-12 w-auto object-contain hover:opacity-80 transition-opacity"
                   style="max-width: 160px; filter: brightness(0) invert(1);"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                 />
+                <div class="hidden w-full h-full items-center justify-center bg-gray-100">
+                  <i class="fas fa-image text-gray-400"></i>
+                  <span class="ml-2 text-sm text-gray-500">{trans.common.noImage}</span>
+                </div>
               </a>
               <p class="text-gray-400 text-sm leading-relaxed max-w-full md:max-w-sm mb-3">
                 {t.subtitle}

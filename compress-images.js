@@ -40,17 +40,29 @@ function getAllImageFiles(dir, fileList = []) {
 /**
  * 压缩单张图片
  */
-async function compressImage(inputPath, outputPath, quality = DEFAULT_QUALITY) {
+async function compressImage(inputPath, outputPath, quality = DEFAULT_QUALITY, deleteSource = true) {
   try {
-    // 如果输出文件已存在，跳过
+    const relativePath = path.relative(process.cwd(), inputPath);
+    
+    // 如果输出文件已存在，检查是否需要删除源文件
     if (fs.existsSync(outputPath)) {
-      console.log(`⏭️  跳过: ${path.relative(process.cwd(), inputPath)} (WebP 已存在)`);
+      console.log(`⏭️  跳过: ${relativePath} (WebP 已存在)`);
+      
+      // 如果 WebP 已存在且需要删除源文件，则删除源文件
+      if (deleteSource && fs.existsSync(inputPath)) {
+        try {
+          fs.unlinkSync(inputPath);
+          console.log(`   🗑️  已删除源文件: ${path.basename(inputPath)}`);
+        } catch (deleteError) {
+          console.warn(`   ⚠️  删除源文件失败: ${deleteError.message}`);
+        }
+      }
+      
       return { success: true, skipped: true };
     }
     
     // 获取原图信息
     const metadata = await sharp(inputPath).metadata();
-    const relativePath = path.relative(process.cwd(), inputPath);
     
     console.log(`\n📸 处理: ${relativePath}`);
     console.log(`   分辨率: ${metadata.width}x${metadata.height}px`);
@@ -70,6 +82,16 @@ async function compressImage(inputPath, outputPath, quality = DEFAULT_QUALITY) {
     console.log(`   原始: ${(inputStats.size / 1024 / 1024).toFixed(2)} MB`);
     console.log(`   WebP: ${(outputStats.size / 1024 / 1024).toFixed(2)} MB (减少 ${reduction}%)`);
     console.log(`   ✅ 已转换为 WebP (质量: ${quality})`);
+    
+    // 验证 WebP 文件已成功创建后，删除源文件
+    if (fs.existsSync(outputPath)) {
+      try {
+        fs.unlinkSync(inputPath);
+        console.log(`   🗑️  已删除源文件: ${path.basename(inputPath)}`);
+      } catch (deleteError) {
+        console.warn(`   ⚠️  删除源文件失败: ${deleteError.message}`);
+      }
+    }
     
     return { success: true, skipped: false, inputSize: inputStats.size, outputSize: outputStats.size };
   } catch (error) {
@@ -106,14 +128,14 @@ async function main() {
   console.log(`📊 找到 ${imageFiles.length} 个图片文件\n`);
   console.log('━'.repeat(60));
   
-  // 批量处理图片
+  // 批量处理图片（转换后删除源文件）
   const tasks = imageFiles.map(inputPath => {
     const dir = path.dirname(inputPath);
     const ext = path.extname(inputPath);
     const basename = path.basename(inputPath, ext);
     const outputPath = path.join(dir, `${basename}.webp`);
     
-    return compressImage(inputPath, outputPath, DEFAULT_QUALITY);
+    return compressImage(inputPath, outputPath, DEFAULT_QUALITY, true);
   });
   
   const results = await Promise.all(tasks);
