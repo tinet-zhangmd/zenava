@@ -1,0 +1,1201 @@
+      contact: '聯絡我們',
+      getStarted: '立即開始',
+      learnMore: '了解更多',
+      bookDemo: '預約演示',
+      language: '語言'
+    },
+    
+    // Hero Section
+    hero: {
+      title: '面向營銷和服務場景的對話式AI智能體',
+      subtitle: '助力企業完成生產力與組織形態變革，實現從「人力驅動」到「AI驅動」的跨越',
+      cta: {
+        primary: '預約演示',
+        secondary: '查看方案'
+      }
+    },
+    
+    // Business Value
+    businessValue: {
+      title: 'Zenava能為企業帶來什麼',
+      subtitle: '讓企業隨時隨地高效服務客戶，打造卓越客戶體驗，降低服務成本',
+      metrics: {
+        marketing: {
+          title: '行銷成效指標',
+          costReduction: '平均獲客成本降低',
+          conversionIncrease: '線索轉化率提升',
+          responseTime: '客戶響應時間',
+          responseValue: '<30秒',
+          channelCoverage: '智能行銷覆蓋渠道',
+          channelCount: '10+',
+          dailyInquiries: '日均處理諮詢量',
+          dailyCount: '50,000+'
+        },
+        sales: {
+          title: '銷售成效指標',
+          cycleReduction: '銷售週期縮短',
+          winRateIncrease: '成交率提升'
+        },
+        service: {
+          title: '服務成效指標',
+          responseTime: '平均響應時間',
+          resolutionRate: '首次解決率'
+        },
+        internal: {
+          title: '營運指標',
+          efficiency: '流程效率提升',
+          satisfaction: '員工滿意度'
+        },
+        product: {
+          title: '產品創新指標',
+          insights: '客戶洞察產生',
+          iterations: '產品迭代速度'
+        },
+        brand: {
+          title: '品牌保護指標',
+          monitoring: '實時監控',
+          response: '危機響應時間'
+        }
+      },
+      // 核心能力版塊 - Alternating-Text-Media-List 格式
+      capabilities: {
+        item1: {
+          title: '即時響應，快速解決客戶問題',
+          list: [
+            '為企業提供 7×24 小時即時響應服務',
+            '支持在網站、APP、WHATSAPP、LINE、Facebook等數字渠道與客戶以語音、文本消息的方式互動，快速響應客戶，解決客戶問題',
+            '降低等待時間、減少人工成本，提升客戶滿意度'
+          ],
+          button: '了解更多',
+          imageAlt: '即時響應服務'
+        },
+        item2: {
+          title: '媲美真人的自然溝通體驗，更值得信賴',
+          list: [
+            '能聽懂語音，理解文字、圖片、視頻等多種形態信息，精準解決客戶問題',
+            '支持複雜多輪對話信息收集，能拆解複雜需求，處理複雜問題',
+            '具備情緒感知能力，耐心、有溫度，通過媲美真人的自然溝通體驗，提升客戶忠誠度'
+          ],
+          button: '了解更多',
+          imageAlt: '自然溝通體驗'
+        },
+        item3: {
+          title: '客戶服務自動化，實現真正的端到端閉環',
+          list: [
+            '能夠獨立處理80%重複性、高頻次、流程清晰的客戶聯絡任務',
+            '實現從意圖識別 → 任務執行 → 反饋結果的端到端自動化閉環，在特定任務中可完全取代人力'
+          ],
+          button: '了解更多',
+          imageAlt: '客戶服務自動化'
+        },
+        item4: {
+          title: '智能引導訪客留資，提升客戶轉化率',
+          list: [
+            '精準識別客戶意圖，深入挖掘客戶需求，提供專業回應，促進成交',
+            '主動追問、澄清關鍵信息，引導客戶留資，自動化收集線索，提升客戶轉化率'
+          ],
+          button: '了解更多',
+          imageAlt: '智能引導訪客留資'
+        },
+        item5: {
+          title: '效果可量化，讓AI價值看得見',
+          list: [
+            '重構企業成本結構，服務成本降低約20%',
+            '企業降本增效的首選'
+          ],
+          button: '了解更多',
+          imageAlt: '效果可量化'
+        }
+      }
+    },
+    
+    // Scenarios/Solutions
+    scenarios: {
+      marketing: {
+        title: '市場營銷自動化',
+        subtitle: '提升轉化率，降低獲客成本',
+        description: '實時識別客戶意圖，統一話術留資，智能分配高潛線索。基於會話分析反哺營銷策略',
+        features: [
+          '意圖識別',
+          '智能留資',
+          '多渠道整合',
+          '預測分析'
+        ],
+        section3: {
+          mainTitle: 'AI驅動的營銷自動化',
+          subtitle: '智能獲客，精準轉化',
+          description: '通過AI智能獲客識別',
+          tag1: '智能識別',
+          tag2: '實時優化',
+          buttonText: '了解更多營銷自動化',
+          imageAlt: '實體圖片'
+        }
+      },
+      sales: {
+        title: '銷售賦能',
+        subtitle: '縮短成交週期，提升成交率',
+        description: '實時話術推薦，競品知識調用，最佳實踐建議。AI輔助成交策略，驗證轉化提升',
+        features: [
+          '話術推薦',
+          '競品分析',
+          '智能成交輔助',
+          '業績分析'
+        ],
+        featureShort: ['話術推薦', '競品分析', '智能成交'],
+        buttonText: '了解更多智能銷售'
+      },
+      customerService: {
+        title: '客戶服務',
+        subtitle: '更快、更準、更有溫度',
+        description: '全天候智能響應，複雜問題智能分流，情緒感知互動。知識庫聯動快速解決問題',
+        features: [
+          '24/7響應',
+          '情緒識別',
+          '智能工單',
+          '知識管理'
+        ],
+        buttonText: '了解更多客戶服務'
+      },
+      internalService: {
+        title: '內部運營',
+        subtitle: '多層級組織高效管理',
+        description: '統一服務入口處理設備、庫存、培訓事務。智能派單與進度追蹤，優化運營效率',
+        features: [
+          '統一入口',
+          '智能派單',
+          '數據分析',
+          '流程自動化'
+        ],
+        buttonText: '了解更多內部服務',
+        videoError: '您的瀏覽器不支持視頻播放'
+      },
+      management: {
+        title: '管理優化',
+        subtitle: '客戶聲音驅動產品創新',
+        description: '從對話中提取產品洞察，量化反饋趨勢，建立客戶聲音到產品迭代閉環',
+        features: [
+          '洞察挖掘',
+          '需求提取',
+          '迭代閉環',
+          '趨勢分析'
+        ],
+        brandFeatures: ['風險預警', '情緒分析', '品質控制'],
+        buttonText: '了解更多管理優化'
+      }
+    },
+    
+    // 行業解決方案
+    industries: {
+      retail: {
+        pageTitle: 'AI Agents for Retail',
+        banner: {
+          src: '/assets/images/retail/banner-hk.webp',
+          mobileSrc: '/assets/images/retail/banner-mobile-hk.webp',
+          alt: '零售行業Banner圖',
+          link: '/contact'
+        },
+        cardGrid: {
+          card1: {
+            title: '隨時隨地連接消費者',
+            description: '在品牌網站、APP、社交媒體等數字渠道與消費者建立全天候聯繫',
+            button1Text: '了解更多',
+            button1Link: '/contact',
+            button2Text: '預約演示',
+            button2Link: '/contact'
+          },
+          card2: {
+            title: '個性化客戶服務',
+            description: '為消費者提供精準、個性化服務，提升客戶體驗',
+            button1Text: '了解更多',
+            button1Link: '/contact',
+            button2Text: '預約演示',
+            button2Link: '/contact'
+          },
+          card3: {
+            title: '承接海量客戶諮詢',
+            description: '可同時處理大量客戶諮詢，輕鬆應對銷售旺季和購物高峰',
+            button1Text: '了解更多',
+            button1Link: '/contact',
+            button2Text: '預約演示',
+            button2Link: '/contact'
+          }
+        },
+        alternatingTags: {
+          title: '核心業務場景',
+          subtitle: '為消費者提供全生命週期服務',
+          items: [
+            {
+              icon: 'fas fa-shopping-bag',
+              title: '智能導購',
+              subtitle: '',
+              description: '精準識別客戶諮詢意圖，主動提供個性化商品推薦與優惠信息，促進銷售，提升購買轉化率。',
+              tags: ['意圖識別', '個性化推薦', '優惠信息', '轉化提升'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '/assets/images/retail/01-hk.webp',
+              mediaAlt: '智能導購'
+            },
+            {
+              icon: 'fas fa-clipboard-list',
+              title: '訂單管理',
+              subtitle: '',
+              description: '自動處理訂單查詢、退換貨、物流追蹤等常見問題，減少等待時間，提高客戶滿意度和購物體驗。',
+              tags: ['訂單查詢', '退換貨處理', '物流追蹤', '效率提升'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '/assets/images/retail/02-hk.webp',
+              mediaAlt: '訂單管理'
+            },
+            {
+              icon: 'fas fa-tools',
+              title: '售後故障排查',
+              subtitle: '',
+              description: '當客戶遇到產品故障問題時，通過多輪對話結合圖片或視頻，精準識別故障，獨立引導客戶完成故障排查，提高問題解決效率',
+              tags: ['故障識別', '多輪對話', '圖片視頻支持', '問題解決'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '/assets/images/retail/03-hk.webp',
+              mediaAlt: '售後故障排查'
+            },
+            {
+              icon: 'fas fa-wrench',
+              title: '報裝報修與智能回訪',
+              subtitle: '',
+              description: '自動識別客戶報修、安裝等服務需求，生成工單並派發至對應人員；服務完成後自動發起滿意度回訪，形成完整客戶服務閉環，提升客戶體驗。',
+              tags: ['工單生成', '智能派發', '滿意度回訪', '服務閉環'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '/assets/images/retail/04-hk.webp',
+              mediaAlt: '報裝報修與智能回訪'
+            }
+          ]
+        },
+        alternatingList: {
+          title: '',
+          subtitle: '',
+          items: [
+            {
+              title: '量化效果',
+              subtitle: 'Every Investment is Quantifiable',
+              features: [
+                '投資回報清晰可見',
+                '自動處理90%客戶常見問題',
+                '售後問題解決時長縮短 60%',
+                '客戶滿意度提升至 92%+',
+                '平均購買轉化率提升 30–40%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/retail/05-hk.webp',
+              imageAlt: '量化效果'
+            }
+          ]
+        },
+        quantifiedEffects: {
+          title: '量化效果',
+          subtitle: '',
+          description: '',
+          effects: [
+            '投資回報清晰可見',
+            '自動處理 90% 客戶常見問題',
+            '售後問題解決時長縮短 60%',
+            '客戶滿意度提升至 92%+',
+            '平均購買轉化率提升 30–40%'
+          ],
+          buttonText: '了解更多',
+          buttonLink: '/contact',
+          imageAlt: '量化效果',
+          imageSrc: '/assets/images/retail/06-hk.webp'
+        }
+      },
+      automotive: {
+        banner: {
+          src: '/assets/images/automotive/banner-hk.webp',
+          mobileSrc: '/assets/images/automotive/banner-mobile-hk.webp',
+          alt: '汽車產品Banner圖',
+          link: '/contact'
+        },
+        alternatingList: {
+          title: '核心業務場景',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-car',
+              title: '試駕邀約',
+              description: '精準識別客戶意圖，高效推動試駕轉化',
+              features: [
+                '敏銳捕捉客戶關注點，快速精準解答車型配置、價格、優惠等問題',
+                '自動識別客戶購車意圖與可用時間，引導客戶完成試駕預約',
+                '從客戶識別、諮詢解答到任務派發，實現銷售跟單全流程自動化'
+              ],
+              businessValue: [
+                '試駕邀約轉化率提升 35%+',
+                '客戶滿意度提升至95%',
+                '客戶響應時長縮短 30%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/automotive/01-hk.webp',
+              imageAlt: '試駕邀約'
+            },
+            {
+              icon: 'fas fa-headset',
+              title: '售後服務與客戶關懷',
+              description: '快速響應客戶需求，提升品牌忠誠度',
+              features: [
+                '提供維保/維修進度實時查詢，無需等待人工客服',
+                '主動進行保養提醒與召回通知等，提升客戶滿意度與忠誠度',
+                '試駕/服務後自動回訪與滿意度調查，收集改進意見'
+              ],
+              businessValue: [
+                '售後諮詢響應時間縮短 50%',
+                '售後滿意度提升 25%+',
+                '客戶留存率提升 20%+'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/automotive/02-hk.webp',
+              imageAlt: '售後服務與客戶關懷'
+            }
+          ]
+        }
+      },
+      software: {
+        banner: {
+          src: '/assets/images/software/banner-hk.webp',
+          mobileSrc: '/assets/images/software/banner-mobile-hk.webp',
+          alt: '軟件產品Banner圖',
+          link: '/contact'
+        },
+        scenariosList: {
+          title: '核心業務場景',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-user-check',
+              title: '售前留資',
+              description: '自動識別高意向客戶，高效收集關鍵信息，提升線索轉化率',
+              features: [
+                '24小時接待，覆蓋夜間及節假日，提供秒級響應',
+                '在開放式對話中精準判斷客戶意向與留資意願',
+                '利用豐富產品知識與強大通識能力，實現高質量專業解答，提升客戶信任度'
+              ],
+              effects: [
+                '諮詢到線索的轉化率從10%提升至 40%',
+                '每年節省超100萬人力成本'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/software/01-hk.webp',
+              imageAlt: '售前留資'
+            },
+            {
+              icon: 'fas fa-question-circle',
+              title: '軟件使用諮詢',
+              description: '快速響應用戶疑問，高效指導用戶使用軟件功能，幫助新用戶快速上手',
+              features: [
+                '精準理解用戶模糊或不完整提問，快速定位到具體功能或界面操作',
+                '在不同版本、不同權限或個性化配置下，提供上下文一致、易於執行的指導'
+              ],
+              effects: [
+                '獨立接待率達到62%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/software/02-hk.webp',
+              imageAlt: '軟件使用諮詢'
+            },
+            {
+              icon: 'fas fa-tools',
+              title: '技術支持',
+              description: '面向客戶與內部團隊，在售後或產品使用過程中，自動化解答產品技術問題，提供排障指導和工單分流，提升服務效率',
+              features: [
+                '準確識別複雜技術問題的語義表達與上下文依賴，確保答案精準且符合用戶場景',
+                '基於智能體知識庫，通過大模型分析快速定位問題，提供綜合性解決方案',
+                '無法解決問題時，平滑升級至人工處理'
+              ],
+              effects: [
+                '準確率超85%，平均響應時間3S內',
+                '獨立接待率從20%提升至35%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/software/03-hk.webp',
+              imageAlt: '技術支持'
+            }
+          ]
+        },
+        casesList: {
+          title: '應用案例與量化效果',
+          subtitle: '',
+          items: [
+            {
+              title: 'SaaS企業官網客服無人化接待',
+              challenge: [
+                '人工客服接待無法全時段覆蓋，傳統表單留資率低',
+                '人工客服培養週期長，無法快速有效覆蓋全量的產品專業知識'
+              ],
+              solution: '部署Zenava，在官網獨立作業，結合產品功能介紹、行業案例、產品亮點等為客戶提供專業解讀，自動進行線索的初步篩選和信息收集',
+              effects: [
+                '全時段覆蓋售前接待，實現官網客服無人化值守',
+                '留資率高達46%，超過人工留資率40%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/software/04-hk.webp',
+              imageAlt: 'SaaS企業官網客服無人化接待'
+            },
+            {
+              title: '軟件公司內部技術支持',
+              challenge: [
+                '內部支持流程複雜，如系統功能使用、系統對接等需要多個崗位協同支持'
+              ],
+              solution: '部署 Zenava，融合產品操作文檔、產品說明、技術支持常見問題、售前解決方案文檔構建知識庫，全時段覆蓋銷售、售前、客戶、實施工程師的問題諮詢',
+              effects: [
+                '對客側員工效率提升15%~30%',
+                '技術支持團隊節省40%的內部支撐時間'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/software/05-hk.webp',
+              imageAlt: '軟件公司內部技術支持'
+            }
+          ]
+        }
+      },
+      travel: {
+        banner: {
+          src: '/assets/images/travel/banner-hk.webp',
+          mobileSrc: '/assets/images/travel/banner-mobile-hk.webp',
+          alt: '旅遊產品Banner圖',
+          link: '/contact'
+        },
+        alternatingTags: {
+          title: '核心業務場景',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-hotel',
+              title: '酒店與票務預訂',
+              titleLink: '',
+              subtitle: '',
+              description: '準確理解客戶意圖，獨立完整執行從確認房型、時間、票務信息等到完成預訂全流程，提升客戶滿意度與預訂轉化率。',
+              tags: ['意圖識別', '全流程自動化', '預訂轉化', '客戶滿意度'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '/assets/images/travel/01-hk.webp',
+              mediaAlt: '酒店與票務預訂'
+            },
+            {
+              icon: 'fas fa-user-circle',
+              title: '賬戶管理',
+              titleLink: '',
+              subtitle: '',
+              description: '即時響應客戶關於賬戶訪問、積分計劃、會員權益等的諮詢，自助處理常見問題，縮短平均處理時長，提高會員忠誠度。',
+              tags: ['即時響應', '自助服務', '會員管理', '效率提升'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '/assets/images/travel/02-hk.webp',
+              mediaAlt: '賬戶管理'
+            },
+            {
+              icon: 'fas fa-life-ring',
+              title: '旅行支持',
+              titleLink: '',
+              subtitle: '',
+              description: '為客戶提供關於行李丟失、錯過航班或入住時間等問題的即時幫助，縮短響應時間，提升客戶體驗。',
+              tags: ['即時幫助', '問題解決', '響應速度', '客戶體驗'],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              mediaPath: '/assets/images/travel/03-hk.webp',
+              mediaAlt: '旅行支持'
+            }
+          ]
+        },
+        alternatingList: {
+          title: '量化效果',
+          subtitle: '',
+          items: [
+            {
+              title: '量化效果',
+              features: [
+                '客戶滿意度提升 30%',
+                '運營成本降低 35%',
+                '預訂轉化率提升 25%',
+                '響應時間縮短 70%'
+              ],
+              buttonText: '了解更多',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/travel/04-hk.webp',
+              imageAlt: '量化效果'
+            }
+          ]
+        },
+        quantifiedEffects: {
+          title: '量化效果',
+          subtitle: '',
+          description: '',
+          effects: [
+            '客戶滿意度提升 30%',
+            '運營成本降低 35%',
+            '預訂轉化率提升 25%',
+            '響應時間縮短 70%'
+          ],
+          buttonText: '了解更多',
+          buttonLink: '/contact',
+          imageAlt: '量化效果',
+          imageSrc: '/assets/images/travel/05-hk.webp'
+        }
+      }
+    },
+    
+    // Contact Section
+    contact: {
+      title: '開啟智能對話新篇章',
+      subtitle: '讓Zenava AI助力您的企業實現客戶對話場景的智能化升級',
+      form: {
+        name: '姓名',
+        email: '商務郵箱',
+        company: '公司名稱',
+        message: '諮詢內容',
+        submit: '發送訊息'
+      },
+      cta: {
+        demo: '預約演示',
+        download: '下載產品手冊'
+      }
+    },
+    
+    // Footer
+    footer: {
+      sections: {
+        solutions: '解決方案',
+        company: '公司',
+        legal: '法律條款',
+        resources: '資源'
+      },
+      links: {
+        about: '關於我們',
+        contact: '聯絡我們',
+        privacy: '隱私政策',
+        terms: '條款與條件',
+        cookies: 'Cookie偏好設定'
+      },
+      copyright: '© 2024 Zenava. 版權所有。',
+      followUs: '關注我們'
+    },
+
+    // Contact Form Page - 聯繫表單頁面
+    contactForm: {
+      title: '聯繫我們',
+      subtitle: '獲取專屬解決方案',
+      description: '我們的專業顧問將盡快與您聯繫。',
+      firstName: '名',
+      firstNamePlaceholder: '請輸入您的名',
+      lastName: '姓',
+      lastNamePlaceholder: '請輸入您的姓',
+      jobTitle: '職位',
+      jobTitlePlaceholder: '請輸入您的職位',
+      companyEmail: '企業郵箱',
+      companyEmailPlaceholder: 'example@company.com',
+      companyName: '公司名稱',
+      companyNamePlaceholder: '請輸入公司名稱',
+      industry: '行業',
+      selectIndustry: '請選擇行業',
+      industryTech: '科技',
+      industryFinance: '金融',
+      industryHealthcare: '醫療',
+      industryRetail: '零售',
+      industryManufacturing: '製造業',
+      industryEducation: '教育',
+      industryOther: '其他',
+      privacyAgree: '我同意隱私政策',
+      submit: '提交',
+      submitting: '提交中...',
+      privacyNotice: '點擊提交即表示您同意我們按照',
+      privacyLink: '隱私政策',
+      successMessage: '感謝您的提交，我們的顧問將盡快與您聯繫。',
+      errorMessage: '提交失敗，請重試。',
+      downloadReady: '您的下載已準備就緒',
+      download: '下載'
+    },
+    
+    // 資源中心頁面
+    resourcesCenter: {
+      hero: {
+        slides: [
+          {
+            image: '/assets/images/resources/hero-1.jpg',
+            imageAlt: '資源中心Hero圖片',
+            date: '2023年9月6日',
+            title: '有一個代理，它在Sierra上運行',
+            description: '今天，我們宣布在Greenoaks的領導下，我們以100億美元的估值籌集了3.5億美元的額外資本，Greenoaks正在加倍投資Sierra。',
+            buttonText: '了解更多',
+            link: '/contact'
+          },
+          {
+            image: '/assets/images/resources/hero-2.jpg',
+            imageAlt: '資源中心Hero圖片2',
+            date: '2023年9月5日',
+            title: 'AI驅動的客戶服務革命',
+            description: '發現Zenava AI如何通過能夠實時理解、學習和適應的智能代理來轉變客戶服務。',
+            buttonText: '了解更多',
+            link: '/contact'
+          },
+          {
+            image: '/assets/images/resources/hero-3.jpg',
+            imageAlt: '資源中心Hero圖片3',
+            date: '2023年9月4日',
+            title: '面向現代企業的企業AI解決方案',
+            description: '探索我們專為企業規模設計的綜合AI平台，幫助企業實現數字化轉型。',
+            buttonText: '了解更多',
+            link: '/contact'
+          }
+        ]
+      }
+    },
+    
+    // Common Actions
+    actions: {
+      learnMore: '了解更多',
+      getStarted: '立即開始',
+      contactUs: '聯絡我們',
+      bookDemo: '預約演示',
+      download: '下載',
+      viewAll: '查看全部'
+    },
+    
+    // Statistics
+    stats: {
+      title: '平台性能',
+      conversations: '處理對話數',
+      uptime: '運行時間SLA',
+      enterprises: '企業客戶',
+      satisfaction: '客戶滿意度',
+      uptimeValue: '99.9%',
+      enterprisesValue: '5000+',
+      satisfactionValue: '4.9/5'
+    },
+    
+    // Other Resources Section
+    otherResources: {
+      title: '資源中心',
+      cards: {
+        voiceConnectivity: {
+          title: '語音連接',
+          learnMore: '了解更多',
+          bookDemo: '預約演示'
+        },
+        liveChat: {
+          title: '實時聊天',
+          learnMore: '了解更多',
+          bookDemo: '預約演示'
+        }
+      }
+    },
+
+    
+    // Product Feedback Panel
+    productFeedbackPanel: {
+      title: '客戶反饋分析面板',
+      painPoints: '產品痛點',
+      painPointCount: '1,842',
+      featureAdoption: '功能採用率',
+      adoptionRate: '78%',
+      fixCycle: '問題修復週期',
+      fixTime: '3.2天',
+      monthlyIterations: '月度迭代',
+      iterationCount: '12個版本',
+      satisfactionIncrease: '滿意度提升',
+      satisfactionGrowth: '+18%'
+    },
+
+    // AI Agents Page
+    products: {
+      aiAgents: {
+        banner: {
+          src: '/assets/images/ai-agents/banner-hk.webp',
+          mobileSrc: '/assets/images/ai-agents/banner-mobile-hk.webp',
+          alt: 'AI Agents Banner'
+        },
+        hero: {
+          title: 'ZENAVA能夠獨立承擔 80%的重複性、高頻次、流程清晰的客戶聯絡任務',
+          subtitle: '顯著降低了傳統客服對人力規模的依賴，實現了客戶體驗的跨越式升級',
+          button: '預約諮詢'
+        },
+        advantages: {
+          title: 'ZENAVA的優勢',
+          card1: {
+            title: '能溝通',
+            subtitle: '像真人一樣交流',
+            desc: '具備多模態理解、情緒感知與高擬人化交互能力，帶來超越真人的溝通體驗'
+          },
+          card2: {
+            title: '能執行',
+            subtitle: '獨立完成業務閉環',
+            desc: '直接驅動業務流程，完成如發送短信、創建工單、查詢客戶資料以及邀約通知等任務'
+          },
+          card3: {
+            title: '快速上崗',
+            subtitle: '越用越聰明',
+            desc: '開箱即用，快速部署「上崗」，內置帶教流程，遇到問題時自我修正錯誤，越用越聰明'
+          },
+          card4: {
+            title: '可量化價值',
+            subtitle: '讓每一分AI投入都清晰可見',
+            desc: '價值可量化，實現純粹、顛覆性的成本結構重構，單位服務成本(CPC)降低約20%'
+          }
+        },
+        features: {
+          title: '核心功能',
+          subtitle: '',
+          voice: {
+            label: 'Voice Agents',
+            title: '超越真人的語音對話體驗',
+            subtitle: '',
+            list: [
+              '擬人化音色：聲音富有情緒與表達力，溝通體驗超越真人',
+              '低延遲交互：快速響應，實時對話無卡頓',
+              '精準智能打斷：可隨時打斷和插話，像真人面對面聊天那樣自然',
+              '完整業務閉環，大幅提升服務效率與客戶體驗'
+            ],
+            button: '了解更多Voice Agents功能',
+            image: {
+              src: '/assets/images/ai-agents/voice-hk.webp',
+              alt: 'Voice功能演示圖 - 超越真人的語音對話體驗'
+            }
+          },
+          messaging: {
+            label: 'Live Chat',
+            title: '打造極致客戶服務體驗',
+            subtitle: '',
+            list: [
+              '7x24小時全渠道在線，不錯失與客戶的每一次溝通',
+              '支持文字、圖片、視頻等富媒體溝通，精準識別客戶意圖',
+              '能夠從表述中感知客戶情緒，以友好、尊重的方式回應',
+              '打造極致客戶服務體驗，靈活滿足客戶訴求',
+              '具備同理心與判斷力，驅動業務全流程閉環'
+            ],
+            button: '了解更多Live Chat功能',
+            image: {
+              src: '/assets/images/ai-agents/person-hk.webp',
+              alt: '即時對話功能演示圖 - 打造極致客戶服務體驗'
+            }
+          }
+        },
+        resources: {
+          title: '資源中心',
+          card1: {
+            tag: '產品',
+            title: '構建持續進化的AI生產力'
+          },
+          card2: {
+            tag: '行業報告',
+            title: '構建持續進化的AI生產力'
+          },
+          card3: {
+            tag: '教育',
+            title: '構建持續進化的AI生產力'
+          },
+          card4: {
+            tag: '文章',
+            title: '構建持續進化的AI生產力'
+          }
+        },
+        cta: {
+          title: '開啟智能對話新篇章',
+          subtitle: '讓Zenava AI助力您的企業實現客戶對話場景的智能化升級',
+          button: '聯絡我們'
+        }
+      },
+      voiceAgents: {
+        banner: {
+          src: '/assets/images/voice-agents/banner-hk.webp',
+          mobileSrc: '/assets/images/voice-agents/banner-mobile-hk.webp',
+          imageAlt: 'VoiceAgents產品Banner圖 - 超越真人的語音對話體驗'
+        },
+        coreFeatures: {
+          title: '核心能力',
+          subtitle: '',
+          feature1: {
+            title: '擬人化音色',
+            subtitle: '像真人一樣交流',
+            description: '語音交互自然流暢、情感豐富，具備多種音色與語氣風格，滿足用戶個性化偏好。能夠根據場景表達關懷、理解與專業感，讓溝通體驗超越真人',
+            tags: ['自然流暢', '情感豐富', '多種音色', '個性化'],
+            button: '了解更多',
+            mediaAlt: '擬人化音色功能演示',
+            mediaPath: '/assets/images/voice-agents/humanized-voice-hk.webp'
+          },
+          feature2: {
+            title: '低延遲交互',
+            subtitle: '實時響應，無需等待',
+            description: '毫秒級響應速度，實時對話無卡頓，讓交互更自然。無論是客戶諮詢、業務辦理還是投訴處理，Zenava都能快速響應',
+            tags: ['毫秒級響應', '實時對話', '無縫跳轉', '高效流暢'],
+            button: '了解更多',
+            mediaAlt: '低延遲交互功能演示',
+            mediaPath: '/assets/images/voice-agents/low-latency-hk.webp'
+          },
+          feature3: {
+            title: '精準智能打斷',
+            subtitle: '理解用戶真實意圖',
+            description: '支持用戶隨時打斷和插話，實時響應不中斷，像真人面對面聊天那樣自然靈活',
+            tags: ['智能打斷', '意圖識別', '自然對話', '實時響應'],
+            button: '了解更多',
+            mediaAlt: '精準智能打斷功能演示',
+            mediaPath: '/assets/images/voice-agents/intelligent-interruption-hk.webp'
+          },
+          feature4: {
+            title: '完整業務閉環',
+            subtitle: '端到端業務自動化',
+            description: 'Zenava能直接執行任務，如創建工單、發送通知、查詢信息等，讓對話真正轉化為可落地的業務動作',
+            tags: ['任務執行', '業務自動化', '工單創建', '信息查詢'],
+            button: '了解更多',
+            mediaAlt: '完整業務閉環功能演示',
+            mediaPath: '/assets/images/voice-agents/business-loop-hk.webp'
+          }
+        },
+        customerCases: {
+          title: '應用與量化效果',
+          subtitle: '',
+          case1: {
+            tag: '廚電行業',
+            title: '廚電客戶實現大規模客戶服務自動化，年節省總成本525萬',
+            subtitle: '年節省成本525萬',
+            description: 'Zenava獨立處理產品諮詢、報修、訂單查詢等大量重複性諮詢，替代35個呼叫中心座席的工作量',
+            features: [
+              '年度節省成本約525萬元',
+              '項目ROI高達425%'
+            ],
+            button: '了解更多',
+            imageAlt: '廚電客戶服務自動化案例',
+            imageSrc: '/assets/images/voice-agents/case-kitchen-appliances-hk.webp'
+          },
+          case2: {
+            tag: '汽車行業',
+            title: '汽車客戶使用Zenava接管試駕邀約，轉化率提升至85%',
+            subtitle: '轉化率提升至85%',
+            description: 'Zenava能夠自動清洗客戶線索，通過語音交互及時篩選有效客戶，邀約高意向客戶到店試駕',
+            features: [
+              '提高潛在客戶的跟進效率，提升線索轉化率，帶動銷量增長',
+              '邀約轉化率提升至85%'
+            ],
+            button: '了解更多',
+            imageAlt: '汽車客戶試駕邀約案例',
+            imageSrc: '/assets/images/voice-agents/case-automotive-hk.webp'
+          },
+          case3: {
+            tag: '酒店行業',
+            title: '酒店集團預訂全流程無人化，大幅提升預訂轉化率',
+            subtitle: '預訂轉化率提升15%-25%',
+            description: 'Zenava獨立完整執行從理解預訂需求、確認時間與房型到完成預訂的全流程',
+            features: [
+              '支持多語言溝通，覆蓋全球客戶',
+              '預訂轉化率提升15%-25%'
+            ],
+            button: '了解更多',
+            imageAlt: '酒店集團預訂自動化案例',
+            imageSrc: '/assets/images/voice-agents/case-hotel-hk.webp'
+          }
+        }
+      },
+      liveChat: {
+        banner: {
+          src: '/assets/images/livechat/banner-hk.webp',
+          mobileSrc: '/assets/images/livechat/banner-mobile-hk.webp',
+          alt: 'LiveChat Banner'
+        },
+        advantages: {
+          title: 'LiveChat的優勢',
+          card1: {
+            title: '實時響應',
+            subtitle: '秒級回復客戶',
+            desc: '7x24小時在線，智能路由分配，確保客戶問題得到及時響應和處理'
+          },
+          card2: {
+            title: '多渠道支持',
+            subtitle: '統一管理所有渠道',
+            desc: '支持網站、移動端、社交媒體等多種渠道，統一管理客戶對話，提升服務效率'
+          },
+          card3: {
+            title: '智能分析',
+            subtitle: '數據驅動優化',
+            desc: '實時分析客戶對話數據，識別常見問題，優化服務流程，提升客戶滿意度'
+          }
+        },
+        features: {},
+        caseStudies: {
+          title: '應用與量化效果',
+          subtitle: '',
+          case1: {
+            mainTitle: 'B2B企業官網客服無人化接待，留資率高達46%',
+            highlight: '留資率高達46%',
+            description: 'Zenava在官網獨立接待客戶，自動進行線索的初步篩選和信息收集',
+            points: [
+              '全時段覆蓋售前接待，實現官網客服無人化值守',
+              '留資率高達46%，超過人工留資率40%',
+              '產品業務知識分鐘級更新，保障服務準確性和專業度'
+            ],
+            metric: '46%',
+            metricLabel: '留資率',
+            imageSrc: '/assets/images/livechat/case1-b2b-hk.webp',
+            imageAlt: 'B2B企業官網客服無人化接待',
+            button: '了解更多',
+            buttonLink: '/products/live-chat'
+          },
+          case2: {
+            mainTitle: '智能鎖客戶實現端到端售後服務自動化，年節省總成本 621 萬',
+            highlight: '年節省總成本 621萬',
+            description: 'Zenava通過多輪對話結合圖片精準識別，獨立完成智能鎖故障排查',
+            points: [
+              '獨立接待率達到83%',
+              '年節省總成本 621萬'
+            ],
+            metric: '621萬',
+            metricLabel: '年節省成本',
+            metric2: '83%',
+            metric2Label: '獨立接待率',
+            imageSrc: '/assets/images/livechat/case2-smartlock-hk.webp',
+            imageAlt: '智能鎖客戶實現端到端售後服務自動化',
+            button: '了解更多',
+            buttonLink: '/products/live-chat'
+          }
+        },
+        section3: {
+          title: 'AI Agents for Chat',
+          subtitle: '',
+          item1: {
+            mainTitle: '7×24小時全渠道在線',
+            subtitle: '不錯失與客戶的每一次溝通',
+            description: 'Zenava可以7×24小時在客戶選擇的渠道上與他們實時溝通，無論是網頁、App、社交媒體還是消息應用，企業無需擔心客戶等待或錯失商機，顯著提升客戶滿意度與留存率',
+            buttonText: '了解更多',
+            imageAlt: '7×24小時全渠道在線',
+            imageSrc: '/assets/images/livechat/omnichannel.webp'
+          },
+          item2: {
+            mainTitle: '支持文字、圖片、視頻等富媒體溝通',
+            subtitle: '精準識別客戶意圖',
+            description: 'Zenava不僅能理解文字，還能理解圖片、視頻等多種形態的信息，提供豐富的對話體驗，實現複雜多輪對話信息收集，精準識別客戶意圖，高效處理客戶問題',
+            buttonText: '了解更多',
+            imageAlt: '富媒體溝通',
+            imageSrc: '/assets/images/livechat/rich-media-hk.webp'
+          },
+          item3: {
+            mainTitle: '能夠從表述中感知客戶情緒',
+            subtitle: '以友好、尊重的方式回應',
+            description: 'Zenava通過性格建模具備語言理解與情緒感知能力，能夠從表述中識別情緒，並以友好、尊重的方式回應，讓客戶感受到貼心和專業的服務體驗',
+            buttonText: '了解更多',
+            imageAlt: '情緒感知',
+            imageSrc: '/assets/images/livechat/emotion-hk.webp'
+          },
+          item4: {
+            mainTitle: '打造極致客戶服務體驗',
+            subtitle: '靈活滿足客戶訴求',
+            description: '在遵守企業業務底線和品牌規範的前提下，Zenava能夠靈活滿足客戶個性化需求，使企業在保證安全與合規的同時提升客戶體驗',
+            buttonText: '了解更多',
+            imageAlt: '兼顧業務和體驗',
+            imageSrc: '/assets/images/livechat/balance-hk.webp'
+          },
+          item5: {
+            mainTitle: '具備同理心與判斷力',
+            subtitle: '驅動業務全流程閉環',
+            description: 'Zenava具有同理心與判斷力，在實際業務場景中，能夠像人類員工一樣調用工具，完成如發送短信、創建工單、查詢客戶資料以及邀約通知等任務，實現業務閉環',
+            buttonText: '了解更多',
+            imageAlt: '同理心與判斷力',
+            imageSrc: '/assets/images/livechat/empathy-jp.webp'
+          }
+        }
+      }
+    },
+    
+    // Sentiment Panel
+    sentimentPanel: {
+      title: '實時情緒監控',
+      negativeAlert: '負面情緒預警',
+      alertCount: '3項',
+      sensitiveWords: '敏感詞檢測',
+      detectionRate: '99.8%',
+      brandSentiment: '品牌好感度',
+      sentimentGrowth: '+12%',
+      responseTime: '響應時間',
+      responseSpeed: '<5分鐘',
+      crisisSuccess: '危機處理成功率',
+      successRate: '98%'
+    },
+
+    
+    // AI Simulation Dialog  
+    aiSimulation: {
+      aiAssistant: 'Zenava AI',
+      status: '在線',
+      live: '實時',
+      customerQuery: '您好，我的訂單 #A12345 想查詢一下物流',
+      aiProcessing: '正在識別問題...',
+      aiLocating: '為您定位訂單資訊中...',
+      aiResponse: '已找到訂單，包裹已出庫，預計 24 小時內送達。需要我發送追蹤連結嗎？',
+      customerReply: '好的，謝謝！請發我追蹤連結 👍',
+      inputPlaceholder: '輸入您的訊息...',
+      responseTime: '響應時間',
+      responseValue: '< 1.8s',
+      satisfaction: '滿意度',
+      satisfactionValue: '98.7%'
+    },
+    
+    // Sales Process Flow
+    salesProcess: {
+      title: '銷售賦能流程',
+      step1: {
+        title: '實時話術推薦',
+        description: '根據客戶關注點推薦最佳話術',
+        value: '實時'
+      },
+      step2: {
+        title: '知識庫調用',
+        description: '產品、競品、案例即時調取',
+        value: '秒級'
+      },
+      step3: {
+        title: '智能成交輔助',
+        description: '成交率提升45%',
+        value: '+45%'
+      }
+    },
+    
+    // Platform Performance
+    platformPerformance: {
+      title: '平台性能',
+      subtitle: '獲得全球5000家企業的信賴，為關鍵客戶互動提供可靠服務',
+      uptime: '運行時間SLA',
+      enterprisesServed: '企業客戶',
+      satisfaction: '客戶滿意度'
+    },
+    
+    // Smart Ticket Process  
+    ticketProcess: {
+      title: '智能工單處理流程',
+      step1: {
+        title: 'AI定位問題',
+        description: '智能分析客戶問題類型和緊急程度'
+      },
+      step2: {
+        title: '知識庫調用',
+        description: '歷史解決方案和最佳實踐'
+      },
+      step3: {
+        title: '智能路由',
+        description: '自動分配給合適的服務人員'
+      },
+      step4: {
+        title: '跟蹤解決',
+        description: '實時狀態更新和滿意度追蹤'
+      }
+    },
+    
+    // Internal Operations Metrics
+    operationsMetrics: {
+      title: '營運效率提升',
+      storeAccess: '門店接入',
+      storeCount: '500+',
+      dailyProcessing: '日均處理',
+      dailyVolume: '10K+',
+      avgResponse: '平均響應',
+      responseTime: '2小時',
+      dispatchEfficiency: '派單效率',
+      efficiencyRate: '85%'
+    },
+
+    // Banner 轮播翻译
+    banners: {
+      slide1: {
+        siteName: 'ZENAVA',
+        mainTitle: '企業級AI對話解決方案',
+        description: '通過智能AI助手轉變您的客戶服務，提升客戶體驗，降低運營成本',
+        buttonText: '預約諮詢',
+        imageAlt: '橫幅圖片1',
+        src: '/assets/images/banners/slide1-hk.webp',
+        mobileSrc: '/assets/images/banners/slide1-mobile-hk.webp'
+      },
+      slide2: {
+        siteName: 'ZENAVA Sales',
+        mainTitle: '智能銷售賦能系統',
+        description: 'AI驅動的銷售智能化平台，精準客戶畫像分析，智能推薦銷售策略，提升成單率縮短銷售週期',
+        buttonText: '了解銷售方案',
+        imageAlt: '智能銷售系統界面',
+        src: '/assets/images/banners/slide2-hk.webp',
+        mobileSrc: '/assets/images/banners/slide2-mobile-hk.webp'
+      },
+      slide3: {
+        siteName: '智能AI平台',
+        mainTitle: '4345323',
+        description: '43244444444',
+        buttonText: '預約諮詢',
+        imageAlt: '智能AI平台展示',
+        src: '/assets/images/banners/slide3-hk.webp',
+        mobileSrc: '/assets/images/banners/slide3-mobile-hk.webp'
+      },
+      slide4: {
+        siteName: 'ZENAVA',
+        mainTitle: '7x24智能客服',
+        description: 'AI智能客服系統實現全天候服務，自動處理常見問題，情感識別提升體驗',
+        buttonText: '查看詳情',
+        imageAlt: '智能客服',
+        src: '/assets/images/banners/slide4-hk.webp',
+        mobileSrc: '/assets/images/banners/slide4-mobile-hk.webp'
+      },
+      slide5: {
+        siteName: '',
+        mainTitle: '',
+        description: '',
+        buttonText: '',
+        imageAlt: '營銷活動Banner圖',
+        src: '/assets/images/banners/slide5-hk.webp',
+        mobileSrc: '/assets/images/banners/slide5-mobile-hk.webp'
+      },
+      slide6: {
+        siteName: '',
+        mainTitle: '',
+        description: '',
+        buttonText: '',
+        imageAlt: '營銷活動Banner圖',
+        src: '/assets/images/banners/slide6-hk.webp',
+        mobileSrc: '/assets/images/banners/slide6-mobile-hk.webp'
+      }
+    },
+    
+    // Common images and texts
+    common: {
+      logo: {
+        src: '/assets/images/common/logo-hk.webp',
+        alt: 'Zenava Logo'
+      },
+      noImage: '暫無圖片'
+    }
+  },
+  
+  zh: {
+    // 公司与品牌 - 简体中文
+    company: {
+      name: 'Zenava',
+      tagline: '面向客服和营销场景的AI生产力平台',
+      vision: '助力企业完成生产力与组织形态变革，实现从"人力驱动"到"AI驱动"的跨越',
+      description: '企业级AI对话解决方案，革新客户互动体验'
+    },
+    
+    // 导航
+    nav: {
+      home: '首页',
+      scenarios: '解决方案',
+      about: '关于我们',
+      contact: '联系我们',
+      getStarted: '立即开始',
+      learnMore: '了解更多',
+      bookDemo: '预约演示',
+      language: '语言'
+    },
+    
+    // 主横幅区
+    hero: {
+      title: '面向客服和营销场景的AI生产力平台',
+      subtitle: '助力企业完成生产力与组织形态变革，实现从"人力驱动"到"AI驱动"的跨越',
+      cta: {
+        primary: '预约演示',
+        secondary: '查看方案'

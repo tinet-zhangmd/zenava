@@ -1221,8 +1221,8 @@ export const siteTranslations = {
         description: '',
         buttonText: '',
         imageAlt: 'Marketing Campaign Banner',
-        src: '/assets/images/banners/slide6-en.webp',
-        mobileSrc: '/assets/images/banners/slide6-mobile-en.webp'
+        src: '/assets/images/banner-full-marketing-en.webp',
+        mobileSrc: '/assets/images/banner-full-marketing-mobile-en.webp'
       }
     },
     
@@ -2408,8 +2408,8 @@ export const siteTranslations = {
         description: '',
         buttonText: '',
         imageAlt: 'マーケティングキャンペーンバナー',
-        src: '/assets/images/banners/slide6-jp.webp',
-        mobileSrc: '/assets/images/banners/slide6-mobile-jp.webp'
+        src: '/assets/images/banner-full-marketing-jp.webp',
+        mobileSrc: '/assets/images/banner-full-marketing-mobile-jp.webp'
       }
     },
     
@@ -3595,8 +3595,8 @@ export const siteTranslations = {
         description: '',
         buttonText: '',
         imageAlt: '營銷活動Banner圖',
-        src: '/assets/images/banners/slide6-hk.webp',
-        mobileSrc: '/assets/images/banners/slide6-mobile-hk.webp'
+        src: '/assets/images/banner-full-marketing-hk.webp',
+        mobileSrc: '/assets/images/banner-full-marketing-mobile-hk.webp'
       }
     },
     
@@ -4830,8 +4830,8 @@ export const siteTranslations = {
         description: '',
         buttonText: '',
         imageAlt: '营销活动Banner图',
-        src: '/assets/images/banners/slide6.webp',
-        mobileSrc: '/assets/images/banners/slide6-mobile.webp'
+        src: '/assets/images/banner-full-marketing.webp',
+        mobileSrc: '/assets/images/banner-full-marketing-mobile.webp'
       }
     },
     

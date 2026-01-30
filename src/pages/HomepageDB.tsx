@@ -72,111 +72,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
         // 🎯 Banner 数据配置（支持最多8页）
         // 翻译数据已迁移到 src/i18n/translations.ts 中的 banners 配置
         const bannerSlides = [
-          // Slide 1 - 全图模式
-          trans.banners.slide1.src ? {
-            id: 'slide-1',
-            layout: 'full-image',
-            fullImage: {
-              src: trans.banners.slide1.src,
-              mobileSrc: trans.banners.slide1.mobileSrc,
-              alt: trans.banners.slide1.imageAlt,
-              overlay: false,
-            },
-            overlayContent: {
-              siteName: trans.banners.slide1.siteName,
-              mainTitle: trans.banners.slide1.mainTitle,
-              description: trans.banners.slide1.description,
-              button: {
-                text: trans.banners.slide1.buttonText,
-                link: '/contact',
-                icon: 'fas fa-phone'
-              },
-              position: 'center'
-            },
-            clickLink: '/contact'
-          } : null,
-          // Slide 2 - 全图模式
-          trans.banners.slide2.src ? {
-            id: 'slide-2',
-            layout: 'full-image',
-            fullImage: {
-              src: trans.banners.slide2.src,
-              mobileSrc: trans.banners.slide2.mobileSrc,
-              alt: trans.banners.slide2.imageAlt,
-              overlay: false,
-            },
-            overlayContent: {
-              siteName: trans.banners.slide2.siteName,
-              mainTitle: trans.banners.slide2.mainTitle,
-              description: trans.banners.slide2.description,
-              button: {
-                text: trans.banners.slide2.buttonText,
-                link: '/contact',
-                icon: 'fas fa-phone'
-              },
-              position: 'center'
-            },
-            clickLink: '/contact'
-          } : null,
-          // Slide 3 - 全图模式
-          trans.banners.slide3.src ? {
-            id: 'slide-3',
-            layout: 'full-image',
-            fullImage: {
-              src: trans.banners.slide3.src,
-              mobileSrc: trans.banners.slide3.mobileSrc,
-              alt: trans.banners.slide3.imageAlt,
-              overlay: false,
-            },
-            overlayContent: {
-              siteName: trans.banners.slide3.siteName,
-              mainTitle: trans.banners.slide3.mainTitle,
-              description: trans.banners.slide3.description,
-              button: {
-                text: trans.banners.slide3.buttonText,
-                link: '/contact',
-                icon: 'fas fa-phone'
-              },
-              position: 'center'
-            },
-            clickLink: '/contact'
-          } : null,
-          // Slide 4 - 全图模式
-          trans.banners.slide4.src ? {
-            id: 'slide-4',
-            layout: 'full-image',
-            fullImage: {
-              src: trans.banners.slide4.src,
-              mobileSrc: trans.banners.slide4.mobileSrc,
-              alt: trans.banners.slide4.imageAlt,
-              overlay: false,
-            },
-            overlayContent: {
-              siteName: trans.banners.slide4.siteName,
-              mainTitle: trans.banners.slide4.mainTitle,
-              description: trans.banners.slide4.description,
-              button: {
-                text: trans.banners.slide4.buttonText,
-                link: '/contact',
-                icon: 'fas fa-phone'
-              },
-              position: 'center'
-            },
-            clickLink: '/contact'
-          } : null,
-          // Slide 5 - 全图模式
-          trans.banners.slide5.src ? {
-            id: 'slide-5',
-            layout: 'full-image',
-            fullImage: {
-              src: trans.banners.slide5.src,
-              mobileSrc: trans.banners.slide5.mobileSrc,
-              alt: trans.banners.slide5.imageAlt,
-              overlay: false,
-            },
-            clickLink: '/contact'
-          } : null,
-          // Slide 6 - 全图模式
+          // 第1页 - 新增全图Banner（全图模式）
           trans.banners.slide6.src ? {
             id: 'slide-6',
             layout: 'full-image',
@@ -184,11 +80,13 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               src: trans.banners.slide6.src,
               mobileSrc: trans.banners.slide6.mobileSrc,
               alt: trans.banners.slide6.imageAlt,
-              overlay: false,
+              overlay: false,  // 不显示遮罩层
             },
+            // 不提供 overlayContent，表示不显示文字内容
+            // 整个Banner可点击跳转（可选）
             clickLink: '/contact'
           } : null
-        ].filter(Boolean); // 过滤掉 null 值
+        ].filter(Boolean);
 
         // 🎬 只显示最新的8个Banner（如果超过8个）
         const displaySlides = bannerSlides.slice(-8);
@@ -211,36 +109,43 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                     const slideContent = (
                       <>
                         {/* 全图背景 - 支持移动端专用图片 */}
-        <div class="absolute inset-0">
+        <div class="absolute inset-0 relative">
                           {fullImageSlide.fullImage.mobileSrc ? (
-                            <picture>
-                              {/* 移动端图片（< 768px） */}
-                              <source media="(max-width: 767px)" srcset={fullImageSlide.fullImage.mobileSrc} />
-                              {/* 桌面端图片（>= 768px） */}
-                          <img 
-                            src={fullImageSlide.fullImage.src} 
-                            alt={fullImageSlide.fullImage.alt}
-                            class="w-full h-full object-cover"
-                            loading="lazy"
-                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                          />
-                            </picture>
+                            <>
+                              <picture>
+                                <source media="(max-width: 767px)" srcset={fullImageSlide.fullImage.mobileSrc} />
+                                <img 
+                                  src={fullImageSlide.fullImage.src} 
+                                  alt={fullImageSlide.fullImage.alt}
+                                  class="w-full h-full object-cover"
+                                  loading="lazy"
+                                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                                />
+                              </picture>
+                              <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                                <div class="text-center">
+                                  <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                                  <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                                </div>
+                              </div>
+                            </>
                           ) : (
-                            <img 
-                              src={fullImageSlide.fullImage.src} 
-                              alt={fullImageSlide.fullImage.alt}
-                              class="w-full h-full object-cover"
-                              loading="lazy"
-                              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                            />
+                            <>
+                              <img 
+                                src={fullImageSlide.fullImage.src} 
+                                alt={fullImageSlide.fullImage.alt}
+                                class="w-full h-full object-cover"
+                                loading="lazy"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                              />
+                              <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                                <div class="text-center">
+                                  <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                                  <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                                </div>
+                              </div>
+                            </>
                           )}
-                          {/* 占位符（图片加载失败时显示） */}
-                          <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
-                            <div class="text-center">
-                              <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
-                              <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
-                            </div>
-                          </div>
                         </div>
                         
                         {/* 遮罩层（可选） */}
@@ -678,13 +583,21 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
                   {/* 左侧：图片 */}
                   <div class="order-1" data-animate="slide-up">
-                <div class="rounded-xl overflow-hidden">
+                <div class="rounded-xl overflow-hidden relative">
                   <img 
-                        src="/assets/images/01.webp" 
+                        src={trans.businessValue.capabilities.item1.imagePath || '/assets/images/01.webp'} 
                         alt={trans.businessValue.capabilities.item1.imageAlt || '即时响应服务'}
                         class="w-full h-auto object-contain"
                     loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                   />
+                  {/* 占位符（图片加载失败时显示） */}
+                  <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                    <div class="text-center">
+                      <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                      <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                    </div>
+                  </div>
               </div>
             </div>
 
@@ -747,13 +660,21 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   
                   {/* 右侧：图片 */}
                   <div class="order-1 lg:order-2" data-animate="slide-up">
-                    <div class="rounded-xl overflow-hidden">
+                    <div class="rounded-xl overflow-hidden relative">
                       <img 
-                        src="/assets/images/02.webp" 
+                        src={trans.businessValue.capabilities.item2.imagePath || '/assets/images/02.webp'} 
                         alt={trans.businessValue.capabilities.item2.imageAlt || '自然沟通体验'}
                         class="w-full h-auto object-contain"
                         loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                       />
+                      {/* 占位符（图片加载失败时显示） */}
+                      <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                        <div class="text-center">
+                          <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                          <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                        </div>
+                      </div>
                     </div>
                     </div>
                   </div>
@@ -762,13 +683,21 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
               {/* 左侧：图片 */}
                   <div class="order-1" data-animate="slide-up">
-                <div class="rounded-xl overflow-hidden">
+                <div class="rounded-xl overflow-hidden relative">
                   <img 
-                        src="/assets/images/03.webp" 
+                        src={trans.businessValue.capabilities.item3.imagePath || '/assets/images/03.webp'} 
                         alt={trans.businessValue.capabilities.item3.imageAlt || '客户服务自动化'}
                         class="w-full h-auto object-contain"
                     loading="lazy"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                   />
+                  {/* 占位符（图片加载失败时显示） */}
+                  <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                    <div class="text-center">
+                      <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                      <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
               
@@ -831,13 +760,21 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   
                   {/* 右侧：图片 */}
                   <div class="order-1 lg:order-2" data-animate="slide-up">
-                    <div class="rounded-xl overflow-hidden">
+                    <div class="rounded-xl overflow-hidden relative">
                       <img 
-                        src="/assets/images/04.webp" 
+                        src={trans.businessValue.capabilities.item4.imagePath || '/assets/images/04.webp'} 
                         alt={trans.businessValue.capabilities.item4.imageAlt || '智能引导访客留资'}
                         class="w-full h-auto object-contain"
                         loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                       />
+                      {/* 占位符（图片加载失败时显示） */}
+                      <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                        <div class="text-center">
+                          <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                          <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                        </div>
+                      </div>
                     </div>
                     </div>
                   </div>
@@ -846,13 +783,21 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
                   {/* 左侧：图片 */}
                   <div class="order-1" data-animate="slide-up">
-                    <div class="rounded-xl overflow-hidden">
+                    <div class="rounded-xl overflow-hidden relative">
                       <img 
-                        src="/assets/images/05.webp" 
+                        src={trans.businessValue.capabilities.item5.imagePath || '/assets/images/05.webp'} 
                         alt={trans.businessValue.capabilities.item5.imageAlt || '效果可量化'}
                         class="w-full h-auto object-contain"
                         loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                       />
+                      {/* 占位符（图片加载失败时显示） */}
+                      <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+                        <div class="text-center">
+                          <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+                          <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   
@@ -892,13 +837,21 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
 
       {/* Job Image Section - 招聘图片 */}
       <section class="py-0">
-        <div class="w-full">
+        <div class="w-full relative">
           <img 
-            src="/assets/images/job.jpg" 
-            alt="招聘信息"
+            src={trans.common.jobImage || '/assets/images/job.webp'} 
+            alt={trans.common.jobImageAlt || '招聘信息'}
             class="w-full h-auto object-cover"
             loading="lazy"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
           />
+          {/* 占位符（图片加载失败时显示） */}
+          <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 absolute inset-0">
+            <div class="text-center">
+              <i class="fas fa-image text-4xl md:text-5xl text-gray-400 mb-3"></i>
+              <p class="text-sm md:text-base text-gray-500">{trans.common.noImage}</p>
+            </div>
+          </div>
         </div>
       </section>
 

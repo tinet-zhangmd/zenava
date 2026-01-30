@@ -1,0 +1,1054 @@
+    // Scenarios/Solutions
+    scenarios: {
+      marketing: {
+        title: 'Marketing Automation',
+        subtitle: 'Increase Conversion Rate, Reduce Customer Acquisition Cost',
+        description: 'Real-time intent recognition, unified lead capture, intelligent high-potential lead routing. Conversation analytics inform marketing strategy optimization',
+        features: [
+          'Intent Recognition',
+          'Smart Lead Capture',
+          'Multi-channel Integration',
+          'Predictive Analytics'
+        ],
+        section3: {
+          mainTitle: 'AI-Driven Marketing Automation',
+          subtitle: 'Intelligent Lead Generation, Precise Conversion',
+          description: 'Through AI-powered intelligent customer acquisition and recognition',
+          tag1: 'Smart Recognition',
+          tag2: 'Real-time Optimization',
+          buttonText: 'Learn More About Marketing Automation',
+          imageAlt: 'Physical Image'
+        }
+      },
+      sales: {
+        title: 'Sales Enablement',
+        subtitle: 'Shorten sales cycle, increase conversion rate',
+        description: 'Real-Time Talk Track Recommendation, Competitor Knowledge Retrieval, Best Practice Suggestions. Al-assisted deal-closing strategies verify conversion improvement',
+        features: [
+          'Talk Track Recommendations',
+          'Competitive Analysis',
+          'Intelligent Closing Assistance',
+          'Performance Analytics'
+        ],
+        featureShort: ['Talk Track Recommendation', 'Competitor Analysis', 'Smart Deal-closing'],
+        buttonText: 'Learn More About Sales'
+      },
+      customerService: {
+        title: 'Customer Service',
+        subtitle: 'Faster, Accurate, Empathetic Support',
+        description: '24/7 intelligent response, smart routing for complex inquiries, sentiment-aware interactions. Knowledge base integration for fast resolution',
+        features: [
+          '24/7 Availability',
+          'Emotion Recognition',
+          'Smart Ticket Processing Workflow',
+          'Knowledge Management'
+        ],
+        featureShort: ['24/7 Response', 'Emotion Recognition', 'Smart Ticket Processing Workflow'],
+        buttonText: 'Learn More About Customer Service'
+      },
+      internalService: {
+        title: 'Internal Operations',
+        subtitle: 'Efficient Management of Multi-level Organizations',
+        description: 'Unified service portal for equipment, inventory, and training. Intelligent dispatch and progress tracking optimize operational efficiency',
+        features: [
+          'Unified Portal',
+          'Intelligent Routing',
+          'Data Analytics',
+          'Process Automation'
+        ],
+        featureShort: ['Unified Portal', 'Intelligent Dispatch', 'Data Analytics'],
+        buttonText: 'Learn More About Internal Service',
+        videoError: 'Your browser does not support video playback'
+      },
+      management: {
+        title: 'Management Optimization',
+        subtitle: 'Customer Feedback Drives Product lnnovation',
+        description: 'Extract product insights from conversations, quantify feedback trends, establish a closed loop from customer feedback to product iteration',
+        features: [
+          'Insight Mining',
+          'Requirement Extraction',
+          'Iteration Loop',
+          'Trend Analysis'
+        ],
+        featureShort: ['Insights Mining', 'Requirement Extraction', 'lteration Closed Loop'],
+        brandFeatures: ['Risk Alert', 'Sentiment Analysis', 'Quality Control'],
+        buttonText: 'Learn More About Management'
+      }
+    },
+    
+    // Industry Solutions
+    industries: {
+      retail: {
+        pageTitle: 'AI Agents for Retail',
+        banner: {
+          src: '/assets/images/retail/banner-en.webp',
+          mobileSrc: '/assets/images/retail/banner-mobile-en.webp',
+          alt: 'Retail Product Banner',
+          link: '/contact'
+        },
+        cardGrid: {
+          card1: {
+            title: 'Connect with Consumers Anytime, Anywhere',
+            description: 'Establish 24/7 connections with consumers across brand websites, apps, social media, and other digital channels',
+            button1Text: 'Learn More',
+            button1Link: '/contact',
+            button2Text: 'Book Demo',
+            button2Link: '/contact'
+          },
+          card2: {
+            title: 'Personalized Customer Service',
+            description: 'Provide precise, personalized services to consumers, enhancing customer experience',
+            button1Text: 'Learn More',
+            button1Link: '/contact',
+            button2Text: 'Book Demo',
+            button2Link: '/contact'
+          },
+          card3: {
+            title: 'Handle Massive Customer Inquiries',
+            description: 'Process large volumes of customer inquiries simultaneously, easily handling peak sales seasons and shopping surges',
+            button1Text: 'Learn More',
+            button1Link: '/contact',
+            button2Text: 'Book Demo',
+            button2Link: '/contact'
+          }
+        },
+        alternatingTags: {
+          title: 'Core Business Scenarios',
+          subtitle: 'Providing Full Lifecycle Services for Consumers',
+          items: [
+            {
+              icon: 'fas fa-shopping-bag',
+              title: 'Intelligent Shopping Guidance',
+              subtitle: '',
+              description: 'Accurately identify customer inquiry intent, proactively provide personalized product recommendations and promotional information, boost sales, and improve purchase conversion rates.',
+              tags: ['Intent Recognition', 'Personalized Recommendations', 'Promotional Information', 'Conversion Enhancement'],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              mediaPath: '/assets/images/retail/01-en.webp',
+              mediaAlt: 'Intelligent Shopping Guidance'
+            },
+            {
+              icon: 'fas fa-clipboard-list',
+              title: 'Order Management',
+              subtitle: '',
+              description: 'Automatically handle common inquiries such as order queries, returns and exchanges, and logistics tracking, reducing wait times and improving customer satisfaction and shopping experience.',
+              tags: ['Order Queries', 'Returns & Exchanges', 'Logistics Tracking', 'Efficiency Improvement'],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              mediaPath: '/assets/images/retail/02-en.webp',
+              mediaAlt: 'Order Management'
+            },
+            {
+              icon: 'fas fa-tools',
+              title: 'After-Sales Troubleshooting',
+              subtitle: '',
+              description: 'When customers encounter product issues, accurately identify problems through multi-turn conversations combined with images or videos, independently guide customers to complete troubleshooting, improving problem resolution efficiency',
+              tags: ['Issue Identification', 'Multi-turn Conversations', 'Image & Video Support', 'Problem Resolution'],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              mediaPath: '/assets/images/retail/03-en.webp',
+              mediaAlt: 'After-Sales Troubleshooting'
+            },
+            {
+              icon: 'fas fa-wrench',
+              title: 'Installation, Repair & Smart Follow-up',
+              subtitle: '',
+              description: 'Automatically identify customer service needs such as repairs and installations, generate work orders and dispatch to relevant personnel; automatically initiate satisfaction surveys after service completion, forming a complete customer service closed loop and enhancing customer experience.',
+              tags: ['Work Order Generation', 'Smart Dispatch', 'Satisfaction Surveys', 'Service Closed Loop'],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              mediaPath: '/assets/images/retail/04-en.webp',
+              mediaAlt: 'Installation, Repair & Smart Follow-up'
+            }
+          ]
+        },
+        alternatingList: {
+          title: '',
+          subtitle: '',
+          items: [
+            {
+              title: 'Quantifiable Results',
+              subtitle: 'Every Investment is Quantifiable',
+              features: [
+                'Clear ROI Visibility',
+                'Automatically Handle 90% of Common Customer Issues',
+                'After-Sales Issue Resolution Time Reduced by 60%',
+                'Customer Satisfaction Increased to 92%+',
+                'Average Purchase Conversion Rate Increased by 30–40%'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/retail/05-en.webp',
+              imageAlt: 'Quantifiable Results'
+            }
+          ]
+        },
+        quantifiedEffects: {
+          title: 'Quantified Effects',
+          subtitle: '',
+          description: '',
+          effects: [
+            'Clear Return on Investment',
+            'Automatically handle 90% of common customer issues',
+            'After-sales problem resolution time reduced 60%',
+            'Customer satisfaction increased to 92%+',
+            'Average purchase conversion rate increased 30–40%'
+          ],
+          buttonText: 'Learn More',
+          buttonLink: '/contact',
+          imageAlt: 'Quantified Effects',
+          imageSrc: '/assets/images/retail/06-en.webp'
+        }
+      },
+      automotive: {
+        banner: {
+          src: '/assets/images/automotive/banner-en.webp',
+          mobileSrc: '/assets/images/automotive/banner-mobile-en.webp',
+          alt: 'Automotive Product Banner',
+          link: '/contact'
+        },
+        alternatingList: {
+          title: 'Core Business Scenarios',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-car',
+              title: 'Test Drive Invitation',
+              description: 'Accurately identify customer intent and efficiently drive test drive conversion',
+              features: [
+                'Sensitively capture customer concerns, quickly and accurately answer questions about model configuration, pricing, and promotions',
+                'Automatically identify customer purchase intent and available time, guide customers to complete test drive appointments',
+                'From customer identification, consultation answers to task dispatch, achieve full-process automation of sales follow-up'
+              ],
+              businessValue: [
+                'Test Drive Invitation Conversion Rate Increased by 35%+',
+                'Customer Satisfaction Increased to 95%',
+                'Customer Response Time Reduced by 30%'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/automotive/01-en.webp',
+              imageAlt: 'Test Drive Invitation'
+            },
+            {
+              icon: 'fas fa-headset',
+              title: 'After-Sales Service & Customer Care',
+              description: 'Quickly respond to customer needs and enhance brand loyalty',
+              features: [
+                'Provide real-time maintenance/repair progress queries without waiting for human customer service',
+                'Proactively conduct maintenance reminders and recall notifications to improve customer satisfaction and loyalty',
+                'Automatically follow up and conduct satisfaction surveys after test drives/services to collect improvement feedback'
+              ],
+              businessValue: [
+                'After-Sales Inquiry Response Time Reduced by 50%',
+                'After-Sales Satisfaction Increased by 25%+',
+                'Customer Retention Rate Increased by 20%+'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/automotive/02-en.webp',
+              imageAlt: 'After-Sales Service & Customer Care'
+            }
+          ]
+        }
+      },
+      software: {
+        banner: {
+          src: '/assets/images/software/banner-en.webp',
+          mobileSrc: '/assets/images/software/banner-mobile-en.webp',
+          alt: 'Software Product Banner',
+          link: '/contact'
+        },
+        scenariosList: {
+          title: 'Core Business Scenarios',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-user-check',
+              title: 'Pre-Sales Lead Generation',
+              description: 'Automatically identify high-intent customers, efficiently collect key information, and improve lead conversion rates',
+              features: [
+                '24/7 reception, covering nights and holidays, providing second-level response',
+                'Accurately judge customer intent and lead generation willingness in open conversations',
+                'Leverage rich product knowledge and strong general knowledge to provide high-quality professional answers and enhance customer trust'
+              ],
+              effects: [
+                'Conversion rate from inquiry to lead increased from 10% to 40%',
+                'Save over 1 million in labor costs annually'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/software/01-en.webp',
+              imageAlt: 'Pre-Sales Lead Generation'
+            },
+            {
+              icon: 'fas fa-question-circle',
+              title: 'Software Usage Consultation',
+              description: 'Quickly respond to user questions, efficiently guide users on software features, and help new users get started quickly',
+              features: [
+                'Accurately understand vague or incomplete user questions, quickly locate specific functions or interface operations',
+                'Provide contextually consistent and easy-to-follow guidance under different versions, permissions, or personalized configurations'
+              ],
+              effects: [
+                'Independent reception rate reaches 62%'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/software/02-en.webp',
+              imageAlt: 'Software Usage Consultation'
+            },
+            {
+              icon: 'fas fa-tools',
+              title: 'Technical Support',
+              description: 'For customers and internal teams, automatically answer product technical questions during after-sales or product usage, provide troubleshooting guidance and ticket routing, improving service efficiency',
+              features: [
+                'Accurately identify semantic expressions and contextual dependencies of complex technical issues, ensuring accurate answers that match user scenarios',
+                'Based on intelligent agent knowledge base, quickly locate problems through large model analysis and provide comprehensive solutions',
+                'Smoothly escalate to human handling when problems cannot be solved'
+              ],
+              effects: [
+                'Accuracy exceeds 85%, average response time within 3S',
+                'Independent reception rate increased from 20% to 35%'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/software/03-en.webp',
+              imageAlt: 'Technical Support'
+            }
+          ]
+        },
+        casesList: {
+          title: 'Case Studies & Quantified Effects',
+          subtitle: '',
+          items: [
+            {
+              title: 'SaaS Enterprise Website Unmanned Customer Service',
+              challenge: [
+                'Human customer service cannot provide full-time coverage, traditional form lead generation rate is low',
+                'Human customer service training cycle is long, cannot quickly and effectively cover all product professional knowledge'
+              ],
+              solution: 'Deploy Zenava to work independently on the website, combining product feature introductions, industry cases, and product highlights to provide professional interpretation for customers, automatically conducting preliminary screening and information collection of leads',
+              effects: [
+                'Full-time coverage of pre-sales reception, achieving unmanned website customer service',
+                'Lead generation rate as high as 46%, exceeding human lead generation rate by 40%'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/software/04-en.webp',
+              imageAlt: 'SaaS Enterprise Website Unmanned Customer Service'
+            },
+            {
+              title: 'Software Company Internal Technical Support',
+              challenge: [
+                'Internal support processes are complex, such as system function usage and system integration requiring coordination from multiple positions'
+              ],
+              solution: 'Deploy Zenava, integrating product operation documents, product descriptions, technical support FAQs, and pre-sales solution documents to build a knowledge base, providing full-time coverage for questions from sales, pre-sales, customers, and implementation engineers',
+              effects: [
+                'Customer-facing employee efficiency increased by 15%~30%',
+                'Technical support team saves 40% of internal support time'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/software/05-en.webp',
+              imageAlt: 'Software Company Internal Technical Support'
+            }
+          ]
+        }
+      },
+      travel: {
+        banner: {
+          src: '/assets/images/travel/banner-en.webp',
+          mobileSrc: '/assets/images/travel/banner-mobile-en.webp',
+          alt: 'Travel Product Banner',
+          link: '/contact'
+        },
+        alternatingTags: {
+          title: 'Core Business Scenarios',
+          subtitle: '',
+          items: [
+            {
+              icon: 'fas fa-hotel',
+              title: 'Hotel & Ticket Booking',
+              titleLink: '',
+              subtitle: '',
+              description: 'Accurately understand customer intent, independently and completely execute the entire booking process from confirming room type, time, ticket information to completing the booking, improving customer satisfaction and booking conversion rates.',
+              tags: ['Intent Recognition', 'Full Process Automation', 'Booking Conversion', 'Customer Satisfaction'],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              mediaPath: '/assets/images/travel/01-en.webp',
+              mediaAlt: 'Hotel & Ticket Booking'
+            },
+            {
+              icon: 'fas fa-user-circle',
+              title: 'Account Management',
+              titleLink: '',
+              subtitle: '',
+              description: 'Instantly respond to customer inquiries about account access, loyalty programs, member benefits, etc., self-service common issues, reduce average handling time, and improve member loyalty.',
+              tags: ['Instant Response', 'Self-Service', 'Member Management', 'Efficiency Improvement'],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              mediaPath: '/assets/images/travel/02-en.webp',
+              mediaAlt: 'Account Management'
+            },
+            {
+              icon: 'fas fa-life-ring',
+              title: 'Travel Support',
+              titleLink: '',
+              subtitle: '',
+              description: 'Provide instant assistance to customers regarding issues such as lost luggage, missed flights, or check-in times, reduce response time, and improve customer experience.',
+              tags: ['Instant Assistance', 'Problem Resolution', 'Response Speed', 'Customer Experience'],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              mediaPath: '/assets/images/travel/03-en.webp',
+              mediaAlt: 'Travel Support'
+            }
+          ]
+        },
+        alternatingList: {
+          title: 'Quantifiable Results',
+          subtitle: '',
+          items: [
+            {
+              title: 'Quantifiable Results',
+              features: [
+                'Customer Satisfaction Increased by 30%',
+                'Operating Costs Reduced by 35%',
+                'Booking Conversion Rate Increased by 25%',
+                'Response Time Reduced by 70%'
+              ],
+              buttonText: 'Learn More',
+              buttonLink: '/contact',
+              imagePath: '/assets/images/travel/04-en.webp',
+              imageAlt: 'Quantifiable Results'
+            }
+          ]
+        },
+        quantifiedEffects: {
+          title: 'Quantified Effects',
+          subtitle: '',
+          description: '',
+          effects: [
+            'Customer Satisfaction Increased 30%',
+            'Operating Costs Reduced 35%',
+            'Booking Conversion Rate Increased 25%',
+            'Response Time Shortened 70%'
+          ],
+          buttonText: 'Learn More',
+          buttonLink: '/contact',
+          imageAlt: 'Quantified Effects',
+          imageSrc: '/assets/images/travel/05-en.webp'
+        }
+      }
+    },
+    
+    // Contact Section
+    contact: {
+      title: 'Unveiling a New Chapter in Intelligent Conversations',
+      subtitle: 'See how Zenava transforms your customer dialogue operations with intelligent upgrades',
+      form: {
+        name: 'Full Name',
+        email: 'Business Email',
+        company: 'Company',
+        message: 'How can we help?',
+        submit: 'Send Message'
+      },
+      cta: {
+        demo: 'Schedule Demo',
+        download: 'Download Brochure'
+      }
+    },
+    
+    // Footer
+    footer: {
+      sections: {
+        solutions: 'Solutions',
+        company: 'Company',
+        legal: 'Legal',
+        resources: 'Resources'
+      },
+      links: {
+        about: 'About Us',
+        contact: 'Contact',
+        privacy: 'Privacy Policy',
+        terms: 'Terms of Service',
+        cookies: 'Cookie Preferences'
+      },
+      copyright: '© 2024 Zenava. All rights reserved.',
+      followUs: 'Follow Us'
+    },
+
+    // Contact Form Page
+    contactForm: {
+      title: 'Contact Us',
+      subtitle: 'Get Your Custom Solution',
+      description: 'Our professional consultant will contact you soon.',
+      firstName: 'First Name',
+      firstNamePlaceholder: 'Enter your first name',
+      lastName: 'Last Name',
+      lastNamePlaceholder: 'Enter your last name',
+      jobTitle: 'Job Title',
+      jobTitlePlaceholder: 'Enter your job title',
+      companyEmail: 'Company Email',
+      companyEmailPlaceholder: 'example@company.com',
+      companyName: 'Company Name',
+      companyNamePlaceholder: 'Enter your company name',
+      industry: 'Industry',
+      selectIndustry: 'Please select',
+      industryTech: 'Technology',
+      industryFinance: 'Finance',
+      industryHealthcare: 'Healthcare',
+      industryRetail: 'Retail',
+      industryManufacturing: 'Manufacturing',
+      industryEducation: 'Education',
+      industryOther: 'Other',
+      privacyAgree: 'I agree to the Privacy Policy',
+      submit: 'Submit',
+      submitting: 'Submitting...',
+      privacyNotice: 'By clicking submit, you acknowledge your data will be processed according to our',
+      privacyLink: 'Privacy Policy',
+      successMessage: 'Thank you for your submission. Our advisor will contact you soon.',
+      errorMessage: 'Submission failed. Please try again.',
+      downloadReady: 'Your download is ready',
+      download: 'Download'
+    },
+    
+    // Resource Center Page
+    resourcesCenter: {
+      hero: {
+        slides: [
+          {
+            image: '/assets/images/resources/hero-1.jpg',
+            imageAlt: 'Resource Center Hero Image',
+            date: 'September 6, 2023',
+            title: 'There\'s an agent for that, and it runs on Sierra',
+            description: 'Today, we\'re announcing that we\'ve raised $350M additional capital at a valuation of $10B, led by Greenoaks, which is doubling down on Sierra.',
+            buttonText: 'Learn More',
+            link: '/contact'
+          },
+          {
+            image: '/assets/images/resources/hero-2.jpg',
+            imageAlt: 'Resource Center Hero Image 2',
+            date: 'September 5, 2023',
+            title: 'AI-Powered Customer Service Revolution',
+            description: 'Discover how Zenava AI is transforming customer service with intelligent agents that understand, learn, and adapt in real-time.',
+            buttonText: 'Learn More',
+            link: '/contact'
+          },
+          {
+            image: '/assets/images/resources/hero-3.jpg',
+            imageAlt: 'Resource Center Hero Image 3',
+            date: 'September 4, 2023',
+            title: 'Enterprise AI Solutions for Modern Businesses',
+            description: 'Explore our comprehensive AI platform designed for enterprise scale, helping businesses achieve digital transformation.',
+            buttonText: 'Learn More',
+            link: '/contact'
+          }
+        ]
+      }
+    },
+    
+    // Common Actions
+    actions: {
+      learnMore: 'Learn More',
+      getStarted: 'Get Started',
+      contactUs: 'Contact Us',
+      bookDemo: 'Book a Demo',
+      download: 'Download',
+      viewAll: 'View All'
+    },
+    
+    // Statistics
+    stats: {
+      title: 'Platform Performance',
+      conversations: 'Conversations Handled',
+      uptime: 'Uptime SLA',
+      enterprises: 'Enterprise Clients',
+      satisfaction: 'Customer Satisfaction',
+      uptimeValue: '99.9%',
+      enterprisesValue: '5000+',
+      satisfactionValue: '4.9/5'
+    },
+    
+    // Other Resources Section
+    otherResources: {
+      title: 'Resource Center',
+      cards: {
+        voiceConnectivity: {
+          title: 'Voice Agents',
+          learnMore: 'Learn More',
+          bookDemo: 'Book a Demo'
+        },
+        liveChat: {
+          title: 'Live Chat',
+          learnMore: 'Learn More',
+          bookDemo: 'Book a Demo'
+        }
+      }
+    },
+
+    
+    // Product Feedback Panel
+    productFeedbackPanel: {
+      title: 'Customer Feedback Analysis Panel',
+      painPoints: 'Product Pain Points',
+      painPointCount: '1,842',
+      featureAdoption: 'Feature Adoption',
+      adoptionRate: '78%',
+      fixCycle: 'Issue Fix Cycle',
+      fixTime: '3.2 days',
+      monthlyIterations: 'Monthly Iterations',
+      iterationCount: '12 versions',
+      satisfactionIncrease: 'Satisfaction Increase',
+      satisfactionGrowth: '+18%'
+    },
+
+    // AI Agents Page
+    products: {
+      aiAgents: {
+        banner: {
+          src: '/assets/images/ai-agents/banner-en.webp',
+          mobileSrc: '/assets/images/ai-agents/banner-mobile-en.webp',
+          alt: 'AI Agents Banner'
+        },
+        hero: {
+          title: 'ZENAVA Independently Handles 80% of Repetitive, High-Frequency, Clear-Process Customer Interactions',
+          subtitle: 'Significantly reduces reliance on human scale in traditional customer service, achieving a leap in customer experience',
+          button: 'Schedule Consultation'
+        },
+        advantages: {
+          title: 'ZENAVA Advantages',
+          card1: {
+            title: 'Conversational',
+            subtitle: 'Communicate Like a Human',
+            desc: 'Equipped with multimodal understanding, emotional perception, and highly humanized interaction capabilities, delivering communication experiences that surpass human interactions'
+          },
+          card2: {
+            title: 'Action-Oriented',
+            subtitle: 'Independently Complete Business Loops',
+            desc: 'Directly drives business processes, completing tasks such as sending SMS, creating tickets, querying customer information, and sending appointment notifications'
+          },
+          card3: {
+            title: 'Fast Deployment',
+            subtitle: 'Smarter with Use',
+            desc: 'Ready to use out of the box, quickly deploy and "go live", with built-in training processes that self-correct errors when encountering problems, getting smarter with use'
+          },
+          card4: {
+            title: 'Quantifiable Value',
+            subtitle: 'Make Every AI Investment Clearly Visible',
+            desc: 'Value is quantifiable, achieving pure and disruptive cost structure reconstruction, reducing unit service cost (CPC) by approximately 20%'
+          }
+        },
+        features: {
+          title: 'Core Features',
+          subtitle: '',
+          voice: {
+            label: 'Voice Agents',
+            title: 'Beyond Human Voice Conversation Experience',
+            subtitle: '',
+            list: [
+              'Human-like Timbre: Voice rich with emotion and expressiveness, delivering communication experiences that surpass real humans',
+              'Low-latency Interaction: Fast response, real-time conversation without lag',
+              'Precise Intelligent Interruption: Can interrupt and interject at any time, as natural as face-to-face conversation with real people',
+              'Complete Business Loop, Significantly Improving Service Efficiency and Customer Experience'
+            ],
+            button: 'Learn More About Voice Agents',
+            image: {
+              src: '/assets/images/ai-agents/voice-en.webp',
+              alt: 'Voice Feature Demo - Beyond Human Voice Conversation Experience'
+            }
+          },
+          messaging: {
+            label: 'Live Chat',
+            title: 'Create Ultimate Customer Service Experience',
+            subtitle: '',
+            list: [
+              '7x24 hours omnichannel online, never miss any communication with customers',
+              'Support rich media communication including text, images, and videos, accurately identifying customer intent',
+              'Able to sense customer emotions from expressions and respond in a friendly and respectful manner',
+              'Create ultimate customer service experience, flexibly meeting customer needs',
+              'Possess empathy and judgment, driving complete business process loop'
+            ],
+            button: 'Learn More About Live Chat',
+            image: {
+              src: '/assets/images/ai-agents/person-en.webp',
+              alt: 'Instant Messaging Feature Demo - Create Ultimate Customer Service Experience'
+            }
+          }
+        },
+        resources: {
+          title: 'Resource Center',
+          card1: {
+            tag: 'Product',
+            title: 'Building Continuously Evolving AI Productivity'
+          },
+          card2: {
+            tag: 'Industry Report',
+            title: 'Building Continuously Evolving AI Productivity'
+          },
+          card3: {
+            tag: 'Education',
+            title: 'Building Continuously Evolving AI Productivity'
+          },
+          card4: {
+            tag: 'Article',
+            title: 'Building Continuously Evolving AI Productivity'
+          }
+        },
+        cta: {
+          title: 'Open a New Chapter in Intelligent Conversation',
+          subtitle: 'Let Zenava AI help your enterprise achieve intelligent upgrades in customer conversation scenarios',
+          button: 'Contact Us'
+        }
+      },
+      voiceAgents: {
+        banner: {
+          src: '/assets/images/voice-agents/banner-en.webp',
+          mobileSrc: '/assets/images/voice-agents/banner-mobile-en.webp',
+          imageAlt: 'VoiceAgents Product Banner - Beyond Human Voice Conversation Experience'
+        },
+        coreFeatures: {
+          title: 'Core Capabilities',
+          subtitle: '',
+          feature1: {
+            title: 'Human-like Timbre',
+            subtitle: 'Communicate Like a Real Person',
+            description: 'Natural and smooth voice interactions with rich emotions, featuring multiple timbres and tone styles to meet personalized preferences. Capable of expressing care, understanding, and professionalism based on scenarios, delivering communication experiences beyond real humans',
+            tags: ['Natural Flow', 'Emotional Rich', 'Multiple Timbres', 'Personalized'],
+            button: 'Learn More',
+            mediaAlt: 'Human-like Timbre Feature Demo',
+            mediaPath: '/assets/images/voice-agents/humanized-voice-en.webp'
+          },
+          feature2: {
+            title: 'Low-latency Interaction',
+            subtitle: 'Real-time Response, No Waiting',
+            description: 'Millisecond-level response speed, real-time conversation without lag, making interactions more natural. Whether customer inquiries, business processing, or complaint handling, Zenava responds quickly',
+            tags: ['Millisecond Response', 'Real-time Dialogue', 'Seamless Transition', 'Efficient Flow'],
+            button: 'Learn More',
+            mediaAlt: 'Low-latency Interaction Feature Demo',
+            mediaPath: '/assets/images/voice-agents/low-latency-en.webp'
+          },
+          feature3: {
+            title: 'Precise Intelligent Interruption',
+            subtitle: 'Understanding True User Intent',
+            description: 'Supports users interrupting and interjecting at any time, with real-time responses without interruption, as natural and flexible as face-to-face conversation',
+            tags: ['Smart Interruption', 'Intent Recognition', 'Natural Dialogue', 'Real-time Response'],
+            button: 'Learn More',
+            mediaAlt: 'Precise Intelligent Interruption Feature Demo',
+            mediaPath: '/assets/images/voice-agents/intelligent-interruption-en.webp'
+          },
+          feature4: {
+            title: 'Complete Business Loop',
+            subtitle: 'End-to-End Business Automation',
+            description: 'Zenava can directly execute tasks such as creating tickets, sending notifications, querying information, etc., turning conversations into actionable business operations',
+            tags: ['Task Execution', 'Business Automation', 'Ticket Creation', 'Information Query'],
+            button: 'Learn More',
+            mediaAlt: 'Complete Business Loop Feature Demo',
+            mediaPath: '/assets/images/voice-agents/business-loop-en.webp'
+          }
+        },
+        customerCases: {
+          title: 'Applications and Quantified Results',
+          subtitle: '',
+          case1: {
+            tag: 'Kitchen Appliances Industry',
+            title: 'Kitchen Appliance Customer Achieves Large-scale Customer Service Automation, Saving 5.25 Million Annually',
+            subtitle: 'Annual Cost Savings of 5.25 Million',
+            description: 'Zenava independently handles product inquiries, repairs, order queries, and other repetitive consultations, replacing the workload of 35 call center agents',
+            features: [
+              'Annual cost savings of approximately 5.25 million yuan',
+              'Project ROI as high as 425%'
+            ],
+            button: 'Learn More',
+            imageAlt: 'Kitchen Appliance Customer Service Automation Case',
+            imageSrc: '/assets/images/voice-agents/case-kitchen-appliances-en.webp'
+          },
+          case2: {
+            tag: 'Automotive Industry',
+            title: 'Automotive Customer Uses Zenava for Test Drive Invitations, Conversion Rate Rises to 85%',
+            subtitle: 'Conversion Rate Up to 85%',
+            description: 'Zenava automatically qualifies customer leads, timely screens effective customers through voice interaction, invites high-intent customers for test drives',
+            features: [
+              'Improves potential customer follow-up efficiency, enhances lead conversion rate, drives sales growth',
+              'Invitation conversion rate rises to 85%'
+            ],
+            button: 'Learn More',
+            imageAlt: 'Automotive Customer Test Drive Invitation Case',
+            imageSrc: '/assets/images/voice-agents/case-automotive-en.webp'
+          },
+          case3: {
+            tag: 'Hotel Industry',
+            title: 'Hotel Group Achieves Unmanned Booking Process, Significantly Boosting Booking Conversion Rate',
+            subtitle: 'Booking Conversion Rate Up 15%-25%',
+            description: 'Zenava independently completes the entire process from understanding booking needs, confirming time and room type to completing the booking',
+            features: [
+              'Supports multilingual communication, covering global customers',
+              'Booking conversion rate increases by 15%-25%'
+            ],
+            button: 'Learn More',
+            imageAlt: 'Hotel Group Booking Automation Case',
+            imageSrc: '/assets/images/voice-agents/case-hotel-en.webp'
+          }
+        }
+      },
+      liveChat: {
+        banner: {
+          src: '/assets/images/livechat/banner-en.webp',
+          mobileSrc: '/assets/images/livechat/banner-mobile-en.webp',
+          alt: 'LiveChat Banner'
+        },
+        advantages: {
+          title: 'LiveChat Advantages',
+          card1: {
+            title: 'Real-time Response',
+            subtitle: 'Second-level Customer Reply',
+            desc: '7x24 hours online, intelligent routing allocation, ensuring customer issues are responded to and handled promptly'
+          },
+          card2: {
+            title: 'Multi-channel Support',
+            subtitle: 'Unified Management of All Channels',
+            desc: 'Support website, mobile, social media and other channels, unified management of customer conversations, improving service efficiency'
+          },
+          card3: {
+            title: 'Intelligent Analytics',
+            subtitle: 'Data-driven Optimization',
+            desc: 'Real-time analysis of customer conversation data, identifying common issues, optimizing service processes, improving customer satisfaction'
+          }
+        },
+        features: {},
+        caseStudies: {
+          title: 'Applications and Quantified Results',
+          subtitle: '',
+          case1: {
+            mainTitle: 'B2B Enterprise Website Unmanned Customer Service, Lead Conversion Rate Up to 46%',
+            highlight: 'Lead Conversion Rate Up to 46%',
+            description: 'Zenava independently receives customers on the official website, automatically performs preliminary screening of leads and information collection',
+            points: [
+              'Covers pre-sales reception during all time slots, achieving unmanned customer service on the official website',
+              'Lead conversion rate as high as 46%, exceeding manual lead conversion rate of 40%',
+              'Product business knowledge updated at minute level, ensuring service accuracy and professionalism'
+            ],
+            metric: '46%',
+            metricLabel: 'Lead Conversion Rate',
+            imageSrc: '/assets/images/livechat/case1-b2b-en.webp',
+            imageAlt: 'B2B Enterprise Website Unmanned Customer Service',
+            button: 'Learn More',
+            buttonLink: '/products/live-chat'
+          },
+          case2: {
+            mainTitle: 'Smart Lock End-to-End After-Sales Service Automation, Annual Total Cost Savings of 6.21 Million',
+            highlight: 'Annual Total Cost Savings of 6.21 Million',
+            description: 'Zenava accurately identifies images through multi-round conversations, independently completing smart lock troubleshooting',
+            points: [
+              'Independent reception rate reaches 83%',
+              'Annual total cost savings of 6.21 million'
+            ],
+            metric: '6.21M',
+            metricLabel: 'Annual Cost Savings',
+            metric2: '83%',
+            metric2Label: 'Independent Reception Rate',
+            imageSrc: '/assets/images/livechat/case2-smartlock-en.webp',
+            imageAlt: 'Smart Lock End-to-End After-Sales Service Automation',
+            button: 'Learn More',
+            buttonLink: '/products/live-chat'
+          }
+        },
+        section3: {
+          title: 'AI Agents for Chat',
+          subtitle: '',
+          item1: {
+            mainTitle: '7x24 Hour Omnichannel Online',
+            subtitle: 'Never Miss Any Communication with Customers',
+            description: 'Zenava can communicate with customers in real-time 7x24 hours on their chosen channels, whether it\'s web pages, Apps, social media, or messaging applications. Enterprises don\'t need to worry about customers waiting or missing business opportunities, significantly improving customer satisfaction and retention',
+            buttonText: 'Learn More',
+            imageAlt: '7x24 Hour Omnichannel Online',
+            imageSrc: '/assets/images/livechat/omnichannel-en.webp'
+          },
+          item2: {
+            mainTitle: 'Rich Media Communication',
+            subtitle: 'Accurately Identify Customer Intent',
+            description: 'Zenava can not only understand text but also images, videos, and other forms of information, providing a rich dialogue experience, enabling complex multi-turn dialogue information collection, accurately identifying customer intent, and efficiently handling customer problems',
+            buttonText: 'Learn More',
+            imageAlt: 'Rich Media Communication',
+            imageSrc: '/assets/images/livechat/rich-media-en.webp'
+          },
+          item3: {
+            mainTitle: 'Emotion Perception',
+            subtitle: 'Respond in a Friendly and Respectful Manner',
+            description: 'Zenava, through personality modeling, possesses language understanding and emotional perception capabilities, able to identify emotions from expressions and respond in a friendly and respectful manner, allowing customers to feel attentive and professional service experience',
+            buttonText: 'Learn More',
+            imageAlt: 'Emotion Perception',
+            imageSrc: '/assets/images/livechat/emotion-en.webp'
+          },
+          item4: {
+            mainTitle: 'Create Ultimate Customer Service Experience',
+            subtitle: 'Flexibly Meet Customer Demands',
+            description: 'Under the premise of adhering to enterprise business bottom lines and brand norms, Zenava can flexibly meet customers\' personalized needs, enabling enterprises to enhance customer experience while ensuring safety and compliance',
+            buttonText: 'Learn More',
+            imageAlt: 'Balance Business and Experience',
+            imageSrc: '/assets/images/livechat/balance-en.webp'
+          },
+          item5: {
+            mainTitle: 'Empathy and Judgment',
+            subtitle: 'Drive Full Business Process Closure',
+            description: 'Zenava possesses empathy and judgment, and in actual business scenarios, it can use tools like human employees to complete tasks such as sending SMS messages, creating work orders, querying customer data, and sending invitation notifications, achieving business closure',
+            buttonText: 'Learn More',
+            imageAlt: 'Empathy and Judgment',
+            imageSrc: '/assets/images/livechat/empathy-en.webp'
+          }
+        }
+      }
+    },
+    
+    // Sentiment Panel
+    sentimentPanel: {
+      title: 'Real-time Sentiment Monitoring',
+      negativeAlert: 'Negative Sentiment Alert',
+      alertCount: '3 items',
+      sensitiveWords: 'Sensitive Word Detection',
+      detectionRate: '99.8%',
+      brandSentiment: 'Brand Favorability',
+      sentimentGrowth: '+12%',
+      responseTime: 'Response Time',
+      responseSpeed: '<5 minutes',
+      crisisSuccess: 'Crisis Success Rate',
+      successRate: '98%'
+    },
+    
+    // AI Simulation Dialog
+    aiSimulation: {
+      aiAssistant: 'Zenava AI',
+      status: 'Online',
+      live: 'Real-time',
+      customerQuery: "Hello, l'd like to check the logistics status of my order #A12345",
+      aiProcessing: 'Identifying issue...',
+      aiLocating: 'Locating your order information...',
+      aiResponse: 'We have located your order. The package has been shipped and is expected to be delivered within 24 hours. Would you like me to send you the tracking link?',
+      customerReply: 'Yes, thanks! Please send me the tracking link👍',
+      inputPlaceholder: 'Type your message...',
+      responseTime: 'Response Time',
+      responseValue: '< 1.8s',
+      satisfaction: 'Satisfaction',
+      satisfactionValue: '98.7%'
+    },
+    
+    // Sales Process Flow
+    salesProcess: {
+      title: 'Sales Enablement Process',
+      step1: {
+        title: 'Real-time Talk Track',
+        description: 'Best talk track based on customer focus',
+        value: 'Real-time'
+      },
+      step2: {
+        title: 'Knowledge Base Access',
+        description: 'Instant access to products, competitors, cases',
+        value: 'Instant'
+      },
+      step3: {
+        title: 'Smart Closing Assistance',
+        description: '45% closing rate improvement',
+        value: '+45%'
+      }
+    },
+    
+    // Platform Performance
+    platformPerformance: {
+      title: 'PLATFORM PERFORMANCE',
+      subtitle: 'Trusted by 5000 enterprise companies worldwide for mission-critical customer interactions',
+      uptime: 'Uptime SLA',
+      enterprisesServed: 'Enterprise Clients',
+      satisfaction: 'Customer Satisfaction'
+    },
+    
+    // Smart Ticket Process
+    ticketProcess: {
+      title: 'Smart Ticket Process',
+      step1: {
+        title: 'AI Problem Detection',
+        description: 'Smart analysis of issue type and urgency'
+      },
+      step2: {
+        title: 'Knowledge Base Access',
+        description: 'Historical solutions and best practices'
+      },
+      step3: {
+        title: 'Smart Routing',
+        description: 'Auto-assign to appropriate agent'
+      },
+      step4: {
+        title: 'Track Resolution',
+        description: 'Real-time status and satisfaction tracking'
+      }
+    },
+    
+    // Internal Operations Metrics
+    operationsMetrics: {
+      title: 'Operational Efficiency',
+      storeAccess: 'Store Connections',
+      storeCount: '500+',
+      dailyProcessing: 'Daily Processing',
+      dailyVolume: '10K+',
+      avgResponse: 'Average Response',
+      responseTime: '2 Hours',
+      dispatchEfficiency: 'Dispatch Efficiency',
+      efficiencyRate: '85%'
+    },
+
+    // Banner Carousel Translations
+    banners: {
+      slide1: {
+        siteName: 'ZENAVA',
+        mainTitle: 'Enterprise AI Conversation Solutions',
+        description: 'Transform your customer service with intelligent AI agents, enhance customer experience, reduce operational costs',
+        buttonText: 'Schedule Consultation',
+        imageAlt: 'Banner Image 1',
+        src: '/assets/images/banners/slide1-en.webp',
+        mobileSrc: '/assets/images/banners/slide1-mobile-en.webp'
+      },
+      slide2: {
+        siteName: 'ZENAVA Sales',
+        mainTitle: 'Intelligent Sales Enablement System',
+        description: 'AI-driven intelligent sales platform, precise customer profile analysis, intelligent sales strategy recommendations, improve closing rates and shorten sales cycles',
+        buttonText: 'Learn About Sales Solutions',
+        imageAlt: 'Intelligent Sales System Interface',
+        src: '/assets/images/banners/slide2-en.webp',
+        mobileSrc: '/assets/images/banners/slide2-mobile-en.webp'
+      },
+      slide3: {
+        siteName: 'Intelligent AI Platform',
+        mainTitle: '4345323',
+        description: '43244444444',
+        buttonText: 'Schedule Consultation',
+        imageAlt: 'Intelligent AI Platform Display',
+        src: '/assets/images/banners/slide3-en.webp',
+        mobileSrc: '/assets/images/banners/slide3-mobile-en.webp'
+      },
+      slide4: {
+        siteName: 'ZENAVA',
+        mainTitle: '7x24 Intelligent Customer Service',
+        description: 'AI-powered customer service system provides 24/7 service, automatically handles common issues, emotion recognition enhances experience',
+        buttonText: 'View Details',
+        imageAlt: 'Intelligent Customer Service',
+        src: '/assets/images/banners/slide4-en.webp',
+        mobileSrc: '/assets/images/banners/slide4-mobile-en.webp'
+      },
+      slide5: {
+        siteName: '',
+        mainTitle: '',
+        description: '',
+        buttonText: '',
+        imageAlt: 'Marketing Campaign Banner',
+        src: '/assets/images/banners/slide5-en.webp',
+        mobileSrc: '/assets/images/banners/slide5-mobile-en.webp'
+      },
+      slide6: {
+        siteName: '',
+        mainTitle: '',
+        description: '',
+        buttonText: '',
+        imageAlt: 'Marketing Campaign Banner',
+        src: '/assets/images/banners/slide6-en.webp',
+        mobileSrc: '/assets/images/banners/slide6-mobile-en.webp'
+      }
+    },
+    
