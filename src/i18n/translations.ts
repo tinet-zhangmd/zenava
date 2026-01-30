@@ -36,7 +36,7 @@ export const siteTranslations = {
     // Business Value
     businessValue: {
       title: 'What Zenava Can Bring to Enterprises',
-      subtitle: 'Enable enterprises to efficiently serve customers anytime, anywhere, creating exceptional customer experiences while reducing service costs',
+      subtitle: 'Enable enterprises to efficiently serve customers anytime and anywhere, delivering exceptional customer experiences while reducing service costs',
       metrics: {
         marketing: {
           title: 'Marketing Performance Metrics',
@@ -123,48 +123,48 @@ export const siteTranslations = {
       // Capabilities Section - Alternating-Text-Media-List format
       capabilities: {
         item1: {
-          title: 'Instant Response, Quick Problem Resolution',
+          title: 'Instant Response, Rapid Resolution of Customer Issues',
           list: [
-            'Provide 7×24 hour instant response service for enterprises',
-            'Support interaction with customers via voice and text messages on digital channels such as website, APP, WhatsApp, LINE, Facebook, quickly respond to customers and solve problems',
+            'Provide 24/7 instant response services for enterprises',
+            'Support voice and text interactions with customers across digital channels such as websites, apps, WhatsApp, LINE, and Facebook, enabling rapid response and issue resolution',
             'Reduce waiting time, lower labor costs, and improve customer satisfaction'
           ],
           button: 'Learn More',
           imageAlt: 'Instant Response Service'
         },
         item2: {
-          title: 'Natural Communication Experience Comparable to Humans, More Trustworthy',
+          title: 'A Natural Communication Experience Comparable to Real Humans, Even More Trustworthy',
           list: [
-            'Can understand voice, text, images, videos and other forms of information to accurately solve customer problems',
-            'Support complex multi-turn dialogue information collection, can break down complex needs and handle complex problems',
-            'Have emotional perception ability, patient and warm, through natural communication experience comparable to humans, improve customer loyalty'
+            'Able to understand voice, text, images, videos, and other forms of information to accurately resolve customer issues',
+            'Support complex multi-turn conversations, enabling structured information collection, requirement decomposition, and complex issue handling',
+            'Equipped with emotional awareness, delivering patient and empathetic interactions that enhance customer loyalty through human-like communication.'
           ],
           button: 'Learn More',
           imageAlt: 'Natural Communication Experience'
         },
         item3: {
-          title: 'Customer Service Automation, Achieve True End-to-End Closed Loop',
+          title: 'Customer Service Automation for a True End-to-End Closed Loop',
           list: [
-            'Can independently handle 80% of repetitive, high-frequency, process-clear customer contact tasks',
-            'Achieve end-to-end automated closed loop from intent recognition → task execution → feedback results, can completely replace human resources in specific tasks'
+            'Independently handle up to 80% of repetitive, high-frequency, and well-defined customer contact tasks',
+            'Enable a fully automated closed loop from intent recognition to task execution and result feedback, fully replacing human effort in specific scenarios'
           ],
           button: 'Learn More',
           imageAlt: 'Customer Service Automation'
         },
         item4: {
-          title: 'Intelligent Lead Generation, Improve Customer Conversion Rate',
+          title: 'Intelligently guide visitors through lead capture, boosting customer conversion rates',
           list: [
-            'Accurately identify customer intent, deeply explore customer needs, provide professional responses, and promote transactions',
-            'Actively ask and clarify key information, guide customers to leave information, automatically collect leads, and improve customer conversion rate'
+            'Accurately identify customer intent, delve into customer needs, provide professional responses, and promote transactions',
+            'Proactively ask follow-up questions, clarify key information, guide customers to submit their details, and automatically collect leads to improve conversion rates'
           ],
           button: 'Learn More',
           imageAlt: 'Intelligent Lead Generation'
         },
         item5: {
-          title: 'Quantifiable Results, Make AI Value Visible',
+          title: 'Quantifiable Effects That Make the Value of AI Visible',
           list: [
-            'Restructure enterprise cost structure, service costs reduced by approximately 20%',
-            'The preferred choice for enterprises to reduce costs and increase efficiency'
+            'Restructure enterprise cost structures, reducing service costs by approximately 20%',
+            'The preferred solution for enterprises seeking cost reduction and efficiency gains'
           ],
           button: 'Learn More',
           imageAlt: 'Quantifiable Results'
@@ -753,7 +753,7 @@ export const siteTranslations = {
           bookDemo: 'Book a Demo'
         },
         liveChat: {
-          title: 'Live Chat',
+          title: 'Chat agents',
           learnMore: 'Learn More',
           bookDemo: 'Book a Demo'
         }
@@ -832,7 +832,7 @@ export const siteTranslations = {
             }
           },
           messaging: {
-            label: 'Live Chat',
+            label: 'Chat agents',
             title: 'Create Ultimate Customer Service Experience',
             subtitle: '',
             list: [
@@ -842,7 +842,7 @@ export const siteTranslations = {
               'Create ultimate customer service experience, flexibly meeting customer needs',
               'Possess empathy and judgment, driving complete business process loop'
             ],
-            button: 'Learn More About Live Chat',
+            button: 'Learn More About Chat agents',
             image: {
               src: '/assets/images/ai-agents/person-en.webp',
               alt: 'Instant Messaging Feature Demo - Create Ultimate Customer Service Experience'
@@ -1315,38 +1315,38 @@ export const siteTranslations = {
           title: '即時応答、迅速な問題解決',
           list: [
             '企業に7×24時間の即時応答サービスを提供',
-            'ウェブサイト、APP、WHATSAPP、LINE、Facebookなどのデジタルチャネルで、音声やテキストメッセージを通じて顧客と対話し、迅速に応答して問題を解決',
+            'ウェブサイト、アプリ、WHATSAPP、LINE、FacebookなどのSNSで、音声やテキストメッセージでやり取り、迅速に顧客に対応し、問題を解決する。',
             '待機時間の短縮、人件費の削減、顧客満足度の向上'
           ],
-          button: '詳細を見る',
+          button: '詳細はこちら',
           imageAlt: '即時応答サービス'
         },
         item2: {
-          title: '人間に匹敵する自然なコミュニケーション体験、より信頼できる',
+          title: '人間らしい自然なコミュニケーション体験、より信頼できる',
           list: [
-            '音声を理解し、テキスト、画像、動画など多様な形式の情報を理解し、顧客の問題を正確に解決',
-            '複雑な多回対話情報収集をサポートし、複雑なニーズを分解し、複雑な問題を処理',
-            '感情認識能力を備え、忍耐強く、温かみがあり、人間に匹敵する自然なコミュニケーション体験を通じて、顧客ロイヤルティを向上'
+            '音声、テキスト、画像、動画など多様な形式の情報を理解し、顧客の問題を正確に解決',
+            '多回対話情報収集をサポートし、複雑なニーズを分解し、問題を処理',
+            '感情認識能力を備え、根気あり、熱心で、人間らしい自然なコミュニケーション体験て、顧客ロイヤルティを向上'
           ],
-          button: '詳細を見る',
+          button: '詳細はこちら',
           imageAlt: '自然なコミュニケーション体験'
         },
         item3: {
-          title: '顧客サービス自動化、真のエンドツーエンド閉ループを実現',
+          title: '顧客サービス自動化、エンドツーエンド閉ループを実現',
           list: [
-            '反復的、高頻度、プロセスが明確な顧客連絡タスクの80%を独立して処理可能',
-            '意図認識 → タスク実行 → フィードバック結果のエンドツーエンド自動化閉ループを実現し、特定のタスクでは完全に人的リソースを置き換え可能'
+            '反復的、高頻度、プロセスが明確な顧客連絡タスクの80%を独立処理可能',
+            '意図認識 → タスク実行 → 結果フィードバックのエンドツーエンド自動化閉ループを実現し、特定のタスクでは完全に無人化可能'
           ],
-          button: '詳細を見る',
+          button: '詳細はこちら',
           imageAlt: '顧客サービス自動化'
         },
         item4: {
           title: 'インテリジェントなリード獲得、顧客転換率の向上',
           list: [
             '顧客の意図を正確に識別し、顧客のニーズを深く掘り下げ、専門的な対応を提供し、取引を促進',
-            '積極的に質問し、重要な情報を明確化し、顧客に情報を残すよう導き、リードを自動収集し、顧客転換率を向上'
+            '自主的に質問し、重要な情報を明確化し、顧客に情報を残すよう案内する、リードを自動収集し、顧客転換率を向上'
           ],
-          button: '詳細を見る',
+          button: '詳細はこちら',
           imageAlt: 'インテリジェントなリード獲得'
         },
         item5: {
@@ -1355,8 +1355,8 @@ export const siteTranslations = {
             '企業のコスト構造を再構築し、サービスコストを約20%削減',
             '企業のコスト削減と効率向上の最適な選択'
           ],
-          button: '詳細を見る',
-          imageAlt: '効果の定量化'
+          button: '詳細はこちら',
+          imageAlt: '効果を定量化'
         }
       }
     },
@@ -1934,13 +1934,13 @@ export const siteTranslations = {
       title: 'リソースセンター',
       cards: {
         voiceConnectivity: {
-          title: '音声接続',
-          learnMore: '詳細を見る',
+          title: '音声エージェント',
+          learnMore: '詳細はこちら',
           bookDemo: 'デモを予約'
         },
         liveChat: {
-          title: 'ライブチャット',
-          learnMore: '詳細を見る',
+          title: 'チャットエージェント',
+          learnMore: '詳細はこちら',
           bookDemo: 'デモを予約'
         }
       }
@@ -2018,7 +2018,7 @@ export const siteTranslations = {
             }
           },
           messaging: {
-            label: 'Live Chat',
+            label: 'Chat agents',
             title: '究極のカスタマーサービス体験を創出',
             subtitle: '',
             list: [
@@ -3205,7 +3205,7 @@ export const siteTranslations = {
             }
           },
           messaging: {
-            label: 'Live Chat',
+            label: 'Chat agents',
             title: '打造極致客戶服務體驗',
             subtitle: '',
             list: [
@@ -4357,13 +4357,13 @@ export const siteTranslations = {
       title: '资源中心',
       cards: {
         voiceConnectivity: {
-          title: 'Voice Agents',
-          learnMore: '了解详情',
+          title: 'Voice agents',
+          learnMore: '了解更多',
           bookDemo: '预约演示'
         },
         liveChat: {
-          title: 'Live Chat',
-          learnMore: '了解详情',
+          title: 'Chat agents',
+          learnMore: '了解更多',
           bookDemo: '预约演示'
         }
       }
@@ -4441,7 +4441,7 @@ export const siteTranslations = {
             }
           },
           messaging: {
-            label: 'Live Chat',
+            label: 'Chat agents',
             title: '打造极致客户服务体验',
             subtitle: '',
             list: [
