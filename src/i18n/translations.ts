@@ -395,12 +395,9 @@ export const siteTranslations = {
                 'Automates the entire sales follow‑up process from customer identification and inquiry resolution to task assignment'
               ],
               businessValue: [
-                '35%',
-                'Increase in Test Drive Conversion',
-                '95%',
-                'Satisfaction Rate Achieved',
-                '30%',
-                'Faster Customer Response'
+                'Increase in Test Drive Conversion 35%',
+                'Satisfaction Rate Achieved 95%',
+                'Faster Customer Response 30%'
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
@@ -417,12 +414,9 @@ export const siteTranslations = {
                 'Automatically follow up and conduct satisfaction surveys after test drives/services to collect improvement feedback'
               ],
               businessValue: [
-                '50%',
-                'Reduction in After‑Sales Inquiry Response Time',
-                '25%',
-                'Increase in After‑Sales Satisfaction Rate',
-                '20%',
-                'Improvement in Customer Retention Rate'
+                'Reduction in After‑Sales Inquiry Response Time 50%',
+                'Increase in After‑Sales Satisfaction Rate 25%',
+                'Improvement in Customer Retention Rate 20%'
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
@@ -1479,7 +1473,7 @@ export const siteTranslations = {
           }
         },
         alternatingTags: {
-          title: 'コアビジネスシナリオ',
+          title: 'コア業務シナリオ',
           subtitle: '消費者にライフサイクル全体のサービスを提供',
           items: [
             {
@@ -1574,7 +1568,7 @@ export const siteTranslations = {
           link: '/contact'
         },
         alternatingList: {
-          title: 'コアビジネスシナリオ',
+          title: 'コア業務シナリオ',
           subtitle: '',
           items: [
             {
@@ -1587,12 +1581,9 @@ export const siteTranslations = {
                 '顧客識別、相談回答からタスク割り当てまで、営業スフォローアップの全プロセス自動化を実現'
               ],
               businessValue: [
-                '35%',
-                '試乗招待転換率が向上',
-                '95%',
-                '顧客満足度が達成',
-                '30%',
-                '顧客応答時間が短縮'
+                '試乗招待転換率が向上 35%',
+                '顧客満足度が達成 95%',
+                '顧客応答時間が短縮 30%'
               ],
               buttonText: '詳細はこちら',
               buttonLink: '/contact',
@@ -1609,12 +1600,9 @@ export const siteTranslations = {
                 '試乗/サービス後に自動的にフォローアップと満足度調査を実施し、改善フィードバックを収集'
               ],
               businessValue: [
-                '50%',
-                'アフターサービス問い合わせ応答時間が短縮',
-                '25%',
-                'アフターサービス満足度が向上',
-                '20%',
-                '顧客維持率が向上'
+                'アフターサービス問い合わせ応答時間が短縮 50%',
+                'アフターサービス満足度が向上 25%',
+                '顧客維持率が向上 20%'
               ],
               buttonText: '詳細はこちら',
               buttonLink: '/contact',
@@ -1632,7 +1620,7 @@ export const siteTranslations = {
           link: '/contact'
         },
         scenariosList: {
-          title: 'コアビジネスシナリオ',
+          title: 'コア業務シナリオ',
           subtitle: '',
           items: [
             {
@@ -1735,7 +1723,7 @@ export const siteTranslations = {
           link: '/contact'
         },
         alternatingTags: {
-          title: 'コアビジネスシナリオ',
+          title: 'コア業務シナリオ',
           subtitle: '',
           items: [
             {
@@ -4016,12 +4004,9 @@ export const siteTranslations = {
                 '从客户识别、咨询解答到任务派发，实现销售跟单全流程自动化'
               ],
               businessValue: [
-                '35%',
-                '试驾邀约转化率提升',
-                '95%',
-                '客户满意度提升至',
-                '30%',
-                '客户响应时长缩短'
+                '试驾邀约转化率提升35%',
+                '客户满意度提升至95%',
+                '客户响应时长缩短30%'
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
@@ -4038,12 +4023,9 @@ export const siteTranslations = {
                 '试驾/服务后自动回访与满意度调查，收集改进意见'
               ],
               businessValue: [
-                '50%',
-                '售后咨询响应时间缩短',
-                '25%',
-                '售后满意度提升',
-                '20%',
-                '客户留存率提升'
+                '售后咨询响应时间缩短50%',
+                '售后满意度提升25%',
+                '客户留存率提升20%'
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
