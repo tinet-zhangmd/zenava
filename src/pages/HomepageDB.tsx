@@ -542,7 +542,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
               <div class="flex flex-col sm:flex-row gap-3">
                 {/* Learn More Button - 紫色，带白色圆形图标 */}
                 <a 
-                  href={`${language === 'en' ? '' : `/${language}`}/products/live-chat`}
+                  href={`${language === 'en' ? '' : `/${language}`}/products/chat-agents`}
                   class="inline-flex items-center justify-center px-6 py-3 bg-[#6438FF] text-white rounded-full font-medium hover:bg-[#5a2ee6] transition-all duration-300"
                 >
                   <span class="inline-flex items-center justify-center w-5 h-5 bg-white rounded-full mr-2">

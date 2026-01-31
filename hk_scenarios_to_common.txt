@@ -832,7 +832,7 @@
             imageSrc: '/assets/images/livechat/case1-b2b-en.webp',
             imageAlt: 'B2B Enterprise Website Unmanned Customer Service',
             button: 'Learn More',
-            buttonLink: '/products/live-chat'
+            buttonLink: '/products/chat-agents'
           },
           case2: {
             mainTitle: 'Smart Lock End-to-End After-Sales Service Automation, Annual Total Cost Savings of 6.21 Million',
@@ -849,7 +849,7 @@
             imageSrc: '/assets/images/livechat/case2-smartlock-en.webp',
             imageAlt: 'Smart Lock End-to-End After-Sales Service Automation',
             button: 'Learn More',
-            buttonLink: '/products/live-chat'
+            buttonLink: '/products/chat-agents'
           }
         },
         section3: {

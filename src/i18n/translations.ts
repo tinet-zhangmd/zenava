@@ -1006,12 +1006,12 @@ export const siteTranslations = {
             imageSrc: '/assets/images/livechat/case1-b2b-en.webp',
             imageAlt: 'B2B Enterprise Website Unmanned Customer Service',
             button: 'Learn More',
-            buttonLink: '/products/live-chat'
+            buttonLink: '/products/chat-agents'
           },
           case2: {
             mainTitle: 'Enable A Smart Lock Customer to Achieve End‑to‑End After‑Sales Service Automation, Saving a Total of 6.21 Million Annually',
             highlight: 'Saving a Total of 6.21 Million Annually',
-            description: 'Zenava combines multi-turn conversations with image understanding to accurately identify issues and independently complete smart lock troubleshooting.<br>*   Independent reception rate reaches 83%<br>    <br>*   Annual total cost savings of 6.21 million<br>    <br>*   Learn More',
+            description: 'Zenava combines multi-turn conversations with image understanding to accurately identify issues and independently complete smart lock troubleshooting',
             points: [
               'Independent reception rate reaches 83%',
               'Annual total cost savings of 6.21 million'
@@ -1023,7 +1023,7 @@ export const siteTranslations = {
             imageSrc: '/assets/images/livechat/case2-smartlock-en.webp',
             imageAlt: 'Smart Lock End-to-End After-Sales Service Automation',
             button: 'Learn More',
-            buttonLink: '/products/live-chat'
+            buttonLink: '/products/chat-agents'
           }
         },
         section3: {
@@ -2194,7 +2194,7 @@ export const siteTranslations = {
             imageSrc: '/assets/images/livechat/case1-b2b-jp.webp',
             imageAlt: 'B2B企業公式サイト無人カスタマーサービス',
             button: '詳細を見る',
-            buttonLink: '/products/live-chat'
+            buttonLink: '/products/chat-agents'
           },
           case2: {
             mainTitle: 'スマートロック顧客のエンドツーエンドアフターサービス自動化、年間総コスト１億２千万円削減',
@@ -2211,7 +2211,7 @@ export const siteTranslations = {
             imageSrc: '/assets/images/livechat/case2-smartlock-jp.webp',
             imageAlt: 'スマートロック顧客のエンドツーエンドアフターサービス自動化',
             button: '詳細を見る',
-            buttonLink: '/products/live-chat'
+            buttonLink: '/products/chat-agents'
           }
         },
         section3: {
@@ -3383,7 +3383,7 @@ export const siteTranslations = {
             imageSrc: '/assets/images/livechat/case1-b2b-hk.webp',
             imageAlt: 'B2B企業官網客服無人化接待',
             button: '了解更多',
-            buttonLink: '/products/live-chat'
+            buttonLink: '/products/chat-agents'
           },
           case2: {
             mainTitle: '智能鎖客戶實現端到端售後服務自動化，年節省總成本 621 萬',
@@ -3400,7 +3400,7 @@ export const siteTranslations = {
             imageSrc: '/assets/images/livechat/case2-smartlock-hk.webp',
             imageAlt: '智能鎖客戶實現端到端售後服務自動化',
             button: '了解更多',
-            buttonLink: '/products/live-chat'
+            buttonLink: '/products/chat-agents'
           }
         },
         section3: {
@@ -3909,7 +3909,7 @@ export const siteTranslations = {
               icon: 'fas fa-shopping-bag',
               title: '智能导购',
               subtitle: '',
-              description: '精准识别客户咨询意图，主动提供个性化商品推荐与优惠信息，促进销售，提升购买转化率。<br>了解更多',
+              description: '精准识别客户咨询意图，主动提供个性化商品推荐与优惠信息，促进销售，提升购买转化率。',
               tags: ['意图识别', '个性化推荐', '优惠信息', '转化提升'],
               buttonText: '了解更多',
               buttonLink: '/contact',
@@ -3920,7 +3920,7 @@ export const siteTranslations = {
               icon: 'fas fa-clipboard-list',
               title: '订单管理',
               subtitle: '',
-              description: '自动处理订单查询、退换货、物流追踪等常见问题，减少等待时间，提高客户满意度和购物体验。<br>了解更多',
+              description: '自动处理订单查询、退换货、物流追踪等常见问题，减少等待时间，提高客户满意度和购物体验。',
               tags: ['订单查询', '退换货处理', '物流追踪', '效率提升'],
               buttonText: '了解更多',
               buttonLink: '/contact',
@@ -3931,7 +3931,7 @@ export const siteTranslations = {
               icon: 'fas fa-tools',
               title: '售后故障排查',
               subtitle: '',
-              description: '当客户遇到产品故障问题时，通过多轮对话结合图片或视频，精准识别故障，独立引导客户完成故障排查，提高问题解决效率<br>了解更多',
+              description: '当客户遇到产品故障问题时，通过多轮对话结合图片或视频，精准识别故障，独立引导客户完成故障排查，提高问题解决效率',
               tags: ['故障识别', '多轮对话', '图片视频支持', '问题解决'],
               buttonText: '了解更多',
               buttonLink: '/contact',
@@ -3942,7 +3942,7 @@ export const siteTranslations = {
               icon: 'fas fa-wrench',
               title: '报装报修与智能回访',
               subtitle: '',
-              description: '自动识别客户报修、安装等服务需求，生成工单并派发至对应人员；服务完成后自动发起满意度回访，形成完整客户服务闭环，提升客户体验。<br>了解更多',
+              description: '自动识别客户报修、安装等服务需求，生成工单并派发至对应人员；服务完成后自动发起满意度回访，形成完整客户服务闭环，提升客户体验。',
               tags: ['工单生成', '智能派发', '满意度回访', '服务闭环'],
               buttonText: '了解更多',
               buttonLink: '/contact',
@@ -4542,7 +4542,7 @@ export const siteTranslations = {
             tag: '厨电行业',
             title: '厨电客户实现大规模客户服务自动化，年节省总成本525万',
             subtitle: '年节省成本525万',
-            description: 'Zenava独立处理产品咨询、报修、订单查询等大量重复性咨询，替代35个呼叫中心座席的工作量<br>*   年度节省成本约525万元<br>    <br>*   项目ROI高达425%<br>    <br>*   了解更多',
+            description: 'Zenava独立处理产品咨询、报修、订单查询等大量重复性咨询，替代35个呼叫中心座席的工作量',
             features: [
               '年度节省成本约525万元',
               '项目ROI高达425%'
@@ -4555,7 +4555,7 @@ export const siteTranslations = {
             tag: '汽车行业',
             title: '汽车客户使用Zenava接管试驾邀约，转化率提升至85%',
             subtitle: '转化率提升至85%',
-            description: 'Zenava能够自动清洗客户线索，通过语音交互及时筛选有效客户，邀约高意向客户到店试驾<br>*   提高潜在客户的跟进效率，提升线索转化率，带动销量增长<br>    <br>*   邀约转化率提升至85%<br>    <br>*   了解更多',
+            description: 'Zenava能够自动清洗客户线索，通过语音交互及时筛选有效客户，邀约高意向客户到店试驾',
             features: [
               '提高潜在客户的跟进效率，提升线索转化率，带动销量增长',
               '邀约转化率提升至85%'
@@ -4568,7 +4568,7 @@ export const siteTranslations = {
             tag: '酒店行业',
             title: '酒店集团预订全流程无人化，大幅提升预订转化率',
             subtitle: '预订转化率提升15%-25%',
-            description: 'Zenava独立完整执行从理解预订需求、确认时间与房型到完成预订的全流程<br>*   支持多语言沟通，覆盖全球客户<br>    <br>*   预订转化率提升15%-25%<br>    <br>*   了解更多',
+            description: 'Zenava独立完整执行从理解预订需求、确认时间与房型到完成预订的全流程',
             features: [
               '支持多语言沟通，覆盖全球客户',
               '预订转化率提升15%-25%'
@@ -4610,7 +4610,7 @@ export const siteTranslations = {
           case1: {
             mainTitle: 'B2B企业官网客服无人化接待，留资率高达46%',
             highlight: '留资率高达46%',
-            description: 'Zenava在官网独立接待客户，自动进行线索的初步筛选和信息收集<br>*   全时段覆盖售前接待，实现官网客服无人化值守<br>    <br>*   留资率高达46%，超过人工留资率40%<br>    <br>*   产品业务知识分钟级更新，保障服务准确性和专业度<br>    <br>*   了解更多',
+            description: 'Zenava在官网独立接待客户，自动进行线索的初步筛选和信息收集',
             points: [
               '全时段覆盖售前接待，实现官网客服无人化值守',
               '留资率高达46%，超过人工留资率40%',
@@ -4621,12 +4621,12 @@ export const siteTranslations = {
             imageSrc: '/assets/images/livechat/case1-b2b.webp',
             imageAlt: 'B2B企业官网客服无人化接待',
             button: '了解更多',
-            buttonLink: '/products/live-chat'
+            buttonLink: '/products/chat-agents'
           },
           case2: {
             mainTitle: '智能锁客户实现端到端售后服务自动化，年节省总成本 621 万',
             highlight: '年节省总成本 621万',
-            description: 'Zenava通过多轮对话结合图片精准识别，独立完成智能锁故障排查<br>*   独立接待率达到83%<br>    <br>*   年节省总成本 621万<br>    <br>*   了解更多',
+            description: 'Zenava通过多轮对话结合图片精准识别，独立完成智能锁故障排查',
             points: [
               '独立接待率达到83%',
               '年节省总成本 621万'
@@ -4638,7 +4638,7 @@ export const siteTranslations = {
             imageSrc: '/assets/images/livechat/case2-smartlock.webp',
             imageAlt: '智能锁客户实现端到端售后服务自动化',
             button: '了解更多',
-            buttonLink: '/products/live-chat'
+            buttonLink: '/products/chat-agents'
           }
         },
         section3: {

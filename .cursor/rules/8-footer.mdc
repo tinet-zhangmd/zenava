@@ -121,7 +121,7 @@ alwaysApply: false
       title: { zh: '产品', en: 'Products', jp: '製品', hk: '產品' },
       links: [
         { label: { zh: 'AI agents', en: 'AI agents', ... }, url: '/products/ai-agents' },
-        { label: { zh: '传讯与即时对话', en: 'Messaging & Chat', ... }, url: '/products/messaging' },
+        { label: { zh: '传讯与即时对话', en: 'Messaging & Chat', ... }, url: '/products/chat-agents' },
         { label: { zh: 'Voice', en: 'Voice', ... }, url: '/products/voice' }
       ]
     },
@@ -153,7 +153,7 @@ alwaysApply: false
 
 产品列：
 - AI agents → /products/ai-agents
-- 传讯与即时对话 → /products/messaging
+- 传讯与即时对话 → /products/chat-agents
 - Voice → /products/voice
 ```
 

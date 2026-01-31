@@ -168,7 +168,7 @@ alwaysApply: false
 - 显示顺序：1
 - 子菜单：
   1. AI Agents → /products/ai-agents（图标：fas fa-robot）
-  2. 传讯与即时对话 → /products/messaging（图标：fas fa-comments）
+  2. 传讯与即时对话 → /products/chat-agents（图标：fas fa-comments）
   3. Voice → /products/voice（图标：fas fa-microphone）
 ```
 

@@ -215,7 +215,7 @@ INSERT OR REPLACE INTO navigation_submenu_items (
 ('messaging', 'products',
   'Live Chat', 'Live Chat', 'Live Chat', 'Live Chat',
   NULL, NULL, NULL, NULL,
-  '/products/live-chat', '/assets/images/nav/1-02.png', 2, 1),
+  '/products/chat-agents', '/assets/images/nav/1-02.png', 2, 1),
 
 ('voice', 'products',
   'Voice Connectivity', 'Voice Connectivity', 'Voice Connectivity', 'Voice Connectivity',

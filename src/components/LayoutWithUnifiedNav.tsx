@@ -145,7 +145,7 @@ export function LayoutWithUnifiedNav({
               '/about',
               '/resources',
               '/products/ai-agents',
-              '/products/live-chat',
+              '/products/chat-agents',
               '/products/voice-agents',
               '/industries/retail',
               '/industries/automotive',

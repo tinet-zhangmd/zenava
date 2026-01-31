@@ -90,7 +90,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
           label_en: 'Chat Agents',
           label_jp: 'Chat Agents',
           label_hk: 'Chat Agents',
-          url: '/products/live-chat',
+          url: '/products/chat-agents',
           icon: '/assets/images/nav/1-02.webp',
           order: 2,
           visible: true

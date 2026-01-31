@@ -59,15 +59,15 @@ alwaysApply: false
 新增 [产品名称] 产品页面：
 - 产品Key：liveChat
 - 产品名称：LiveChat
-- Banner图片路径：/assets/images/live-chat/banner.png
-- Banner链接地址：/products/live-chat
+- Banner图片路径：/assets/images/chat-agents/banner.png
+- Banner链接地址：/products/chat-agents
 - 优势展示标题：LiveChat的优势
 - 优势卡片：
   - card1: 标题="实时响应", 副标题="秒级回复", 描述="...", 图标="fas fa-bolt", 背景色="bg-yellow-100", 颜色="text-yellow-600"
   - card2: 标题="多渠道支持", 副标题="统一管理", 描述="...", 图标="fas fa-comments", 背景色="bg-blue-100", 颜色="text-blue-600"
   - card3: 标题="智能分析", 副标题="数据驱动", 描述="...", 图标="fas fa-chart-line", 背景色="bg-green-100", 颜色="text-green-600"
 - 功能特性：
-  - feature1: 标签="Live Chat", 主标题="7x24小时在线客服", 功能列表=["实时响应", "智能路由", "多语言支持"], 按钮文字="了解更多", 按钮链接="/products/live-chat", 图片路径="/assets/images/live-chat/chat-demo.png"
+  - feature1: 标签="Live Chat", 主标题="7x24小时在线客服", 功能列表=["实时响应", "智能路由", "多语言支持"], 按钮文字="了解更多", 按钮链接="/products/chat-agents", 图片路径="/assets/images/chat-agents/chat-demo.png"
 ```
 
 #### 模板2：简化产品页面（仅Banner和优势展示）
@@ -1105,7 +1105,7 @@ products: {
         
         <div>
           <a 
-            href="/products/messaging"  // 按钮链接（配置）
+            href="/products/chat-agents"  // 按钮链接（配置）
             class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-colors min-h-[44px]"
           >
             {t.features.messaging.button}

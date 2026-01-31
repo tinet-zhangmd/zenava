@@ -812,7 +812,7 @@
             imageSrc: '/assets/images/livechat/case1-b2b-hk.webp',
             imageAlt: 'B2B企業官網客服無人化接待',
             button: '了解更多',
-            buttonLink: '/products/live-chat'
+            buttonLink: '/products/chat-agents'
           },
           case2: {
             mainTitle: '智能鎖客戶實現端到端售後服務自動化，年節省總成本 621 萬',
@@ -829,7 +829,7 @@
             imageSrc: '/assets/images/livechat/case2-smartlock-hk.webp',
             imageAlt: '智能鎖客戶實現端到端售後服務自動化',
             button: '了解更多',
-            buttonLink: '/products/live-chat'
+            buttonLink: '/products/chat-agents'
           }
         },
         section3: {

@@ -342,9 +342,9 @@ app.get('/:lang/products/ai-agents', (c) => {
 })
 
 // Live Chat Page Routes
-app.get('/products/live-chat', (c) => {
+app.get('/products/chat-agents', (c) => {
   const language: Language = detectLanguageFromPath(c.req.path) || 'zh'
-  const currentPath = '/products/live-chat'
+  const currentPath = '/products/chat-agents'
   
   const { config: navConfig, menuItems } = getNavigationData(language);
   const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
@@ -364,10 +364,10 @@ app.get('/products/live-chat', (c) => {
   )
 })
 
-app.get('/:lang/products/live-chat', (c) => {
+app.get('/:lang/products/chat-agents', (c) => {
   const lang = c.req.param('lang') as Language
   const language: Language = (lang && ['zh', 'en', 'jp', 'hk'].includes(lang)) ? lang : detectLanguageFromPath(c.req.path) || 'zh'
-  const currentPath = `/${language}/products/live-chat`
+  const currentPath = `/${language}/products/chat-agents`
   
   const { config: navConfig, menuItems } = getNavigationData(language);
   const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);

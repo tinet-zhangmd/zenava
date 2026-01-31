@@ -367,7 +367,7 @@ AI 回复：
 
 **页面信息：**
 - 页面名称：【如：LiveChat、Voice、Messaging】
-- 页面路径：【如：/products/live-chat】
+- 页面路径：【如：/products/chat-agents】
 - 页面标题：【如：LiveChat - 7x24小时在线客服】
 
 **然后，我将为每个排版类型询问具体内容。**
@@ -576,7 +576,7 @@ AI 回复：
 - 功能列表：多渠道提供统一个性化服务、多模态沟通、复杂多轮信息收集、业务全流程闭环
 - 列表样式：checkmark（对勾风格，绿色圆形+✓图标，匹配主标题颜色）
 - 按钮文字：了解更多
-- 按钮链接：/products/messaging
+- 按钮链接：/products/chat-agents
 - 图片路径：/assets/images/smart-assistant/messaging-demo.png
 - 图片描述：即时对话功能演示图
 ```
