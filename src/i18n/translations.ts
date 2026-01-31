@@ -794,22 +794,22 @@ export const siteTranslations = {
           card1: {
             title: 'Conversational',
             subtitle: 'Interacts like a real person',
-            desc: 'Equipped with multimodal understanding, emotional awareness, and highly human-like interaction capabilities, delivering communication experiences surpass human interactions'
+            desc: 'Equipped with multimodal understanding, emotional awareness, and highly human-like interaction capabilities, delivering communication experiences surpass human interactions.'
           },
           card2: {
             title: 'Action-Oriented',
             subtitle: 'Independently Complete Business Closed‑Loops',
-            desc: 'Directly drives business processes, completing tasks such as sending SMS, creating tickets, querying customer information, and sending appointment notifications'
+            desc: 'Directly drives business processes by completing tasks such as sending SMS messages, creating tickets, querying customer information, and sending invitation notifications.'
           },
           card3: {
-            title: 'Rapid Deployment ',
+            title: 'Rapid Deployment',
             subtitle: 'Gets Smarter with Use',
-            desc: 'Ready to use out of the box, quickly deploy and go live, with built-in  coaching workflows that self-correct errors and continuously improve through use'
+            desc: 'Ready to use out of the box, quickly deploy and go live, with built-in coaching workflows that self-correct errors and continuously improve through use.'
           },
           card4: {
             title: 'Quantifiable Value',
             subtitle: 'Make Every AI Investment clearly Visible',
-            desc: 'Value is quantifiable, achieving pure and disruptive cost structure reconstruction, reducing unit service cost (CPC) by approximately 20%'
+            desc: 'Value is quantifiable, enabling a fundamentally disruptive restructuring of cost structures and reducing unit service cost (CPC) by approximately 20%.'
           }
         },
         features: {
@@ -817,7 +817,7 @@ export const siteTranslations = {
           subtitle: '',
           voice: {
             label: 'Voice Agents',
-            title: 'Beyond Human Voice Conversation Experience',
+            title: 'Voice Conversations Surpass Real Humans',
             subtitle: '',
             list: [
               'Human-like Voice Timbre: Voices rich in emotion and expressiveness, delivering a communication experience that surpasses real human interaction',
@@ -836,13 +836,13 @@ export const siteTranslations = {
             title: 'Create Ultimate Customer Service Experience',
             subtitle: '',
             list: [
-              '7x24 hours omnichannel online, never miss any communication with customers',
-              'Support rich media communication including text, images, and videos, accurately identifying customer intent',
-              'Able to sense customer emotions from expressions and respond in a friendly and respectful manner',
+              '24/7 omnichannel availability, never missing any customer interaction',
+              'Support rich media communication, including text, images, and videos, while accurately identifying customer intent.',
+              'Able to perceive customer emotions from their expressions and respond in a friendly and respectful manner',
               'Create ultimate customer service experience, flexibly meeting customer needs',
               'Possess empathy and judgment, driving a end‑to‑end closed‑loop business process'
             ],
-            button: 'Learn More About Chat agents',
+            button: 'Learn More About Chat Agents',
             image: {
               src: '/assets/images/ai-agents/person-en.webp',
               alt: 'Instant Messaging Feature Demo - Create Ultimate Customer Service Experience'
@@ -2006,12 +2006,12 @@ export const siteTranslations = {
             title: '人間を超える音声対話体験',
             subtitle: '',
             list: [
-              '人間のような声色：感情と表現力に富んだ声で、人間を超えるコミュニケーション体験を提供',
+              '人間のような音色：感情と表現力に富んだ声で、人間を超えるコミュニケーション体験を提供',
               '低遅延インタラクション：迅速な応答、リアルタイム対話でラグなし',
-              '精密なインテリジェント割り込み：いつでも割り込みや発言が可能で、人間との対面会話のように自然',
-              '完全なビジネスループ、サービス効率と顧客体験を大幅に向上'
+              '精密なインテリジェント会話割り込み：いつでも会話割り込みや発言が可能で、人間との対面会話のように自然',
+              '完全な業務プロセスループ、サービス効率と顧客体験を大幅に向上'
             ],
-            button: 'Voice Agents機能の詳細',
+            button: '音声エージェント機能の詳細はこちら',
             image: {
               src: '/assets/images/ai-agents/voice-jp.webp',
               alt: 'Voice機能デモ - 人間を超える音声対話体験'
@@ -2025,7 +2025,7 @@ export const siteTranslations = {
               '7x24時間オムニチャネルオンライン、お客様とのすべてのコミュニケーションを見逃さない',
               'テキスト、画像、動画などのリッチメディアコミュニケーションをサポートし、お客様の意図を正確に識別',
               'お客様の感情を表現から察知し、友好的かつ敬意を持って応答する',
-              '柔軟にお客様のニーズに対応、究極のカスタマーサービス体験を創出',
+              '柔軟にお客様のニーズに対応、究極のカスタマーサービス体験を創出。',
               '共感力と判断力を備え、完全な業務プロセスループを推進'
             ],
             button: 'チャットエージェント機能の詳細はこちら',
@@ -3215,7 +3215,7 @@ export const siteTranslations = {
               '打造極致客戶服務體驗，靈活滿足客戶訴求',
               '具備同理心與判斷力，驅動業務全流程閉環'
             ],
-            button: '了解更多Live Chat功能',
+            button: '了解更多Chat Agents功能',
             image: {
               src: '/assets/images/ai-agents/person-hk.webp',
               alt: '即時對話功能演示圖 - 打造極致客戶服務體驗'
@@ -4451,7 +4451,7 @@ export const siteTranslations = {
               '打造极致客户服务体验，灵活满足客户诉求',
               '具备同理心与判断力，驱动业务全流程闭环'
             ],
-            button: '了解更多Live Chat功能',
+            button: '了解更多Chat Agents功能',
             image: {
               src: '/assets/images/ai-agents/person.webp',
               alt: '即时对话功能演示图 - 打造极致客户服务体验'
