@@ -1232,7 +1232,9 @@ export const siteTranslations = {
         src: '/assets/images/common/logo-en.webp',
         alt: 'Zenava Logo'
       },
-      noImage: 'No Image'
+      noImage: 'No Image',
+      jobImage: '/assets/images/job-en.webp',
+      jobImageAlt: 'Careers'
     }
   },
   
@@ -2419,7 +2421,9 @@ export const siteTranslations = {
         src: '/assets/images/common/logo-jp.webp',
         alt: 'Zenava Logo'
       },
-      noImage: '画像なし'
+      noImage: '画像なし',
+      jobImage: '/assets/images/job-jp.webp',
+      jobImageAlt: '採用情報'
     }
   },
   
@@ -3606,7 +3610,9 @@ export const siteTranslations = {
         src: '/assets/images/common/logo-hk.webp',
         alt: 'Zenava Logo'
       },
-      noImage: '暫無圖片'
+      noImage: '暫無圖片',
+      jobImage: '/assets/images/job-hk.webp',
+      jobImageAlt: '招聘資訊'
     }
   },
   
@@ -4843,7 +4849,9 @@ export const siteTranslations = {
         src: '/assets/images/common/logo.webp',
         alt: 'Zenava Logo'
       },
-      noImage: '暂无图片'
+      noImage: '暂无图片',
+      jobImage: '/assets/images/job.webp',
+      jobImageAlt: '招聘信息'
     }
   }
 }
