@@ -279,7 +279,7 @@ export const siteTranslations = {
           },
           card3: {
             title: 'Handle Massive Customer Inquiries',
-            description: 'Process large volumes of customer inquiries simultaneously, easily handling peak sales seasons and shopping surges',
+            description: 'Capable of handling large volumes of customer inquiries simultaneously, effortlessly managing peak sales seasons and shopping surges',
             button1Text: 'Learn More',
             button1Link: '/contact',
             button2Text: 'Book Demo',
@@ -294,7 +294,7 @@ export const siteTranslations = {
               icon: 'fas fa-shopping-bag',
               title: 'Intelligent Shopping Guidance',
               subtitle: '',
-              description: 'Accurately identify customer inquiry intent, proactively provide personalized product recommendations and promotional information, boost sales, and improve purchase conversion rates.',
+              description: 'Accurately identify customer inquiry intent, proactively provide personalized product recommendations and promotional information, boost sales, and improve purchase conversion rates',
               tags: ['Intent Recognition', 'Personalized Recommendations', 'Promotional Information', 'Conversion Enhancement'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
@@ -305,7 +305,7 @@ export const siteTranslations = {
               icon: 'fas fa-clipboard-list',
               title: 'Order Management',
               subtitle: '',
-              description: 'Automatically handle common inquiries such as order queries, returns and exchanges, and logistics tracking, reducing wait times and improving customer satisfaction and shopping experience.',
+              description: 'Automatically handle common inquiries such as order queries, returns and exchanges, and logistics tracking, reducing wait times and improving customer satisfaction and shopping experience',
               tags: ['Order Queries', 'Returns & Exchanges', 'Logistics Tracking', 'Efficiency Improvement'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
@@ -316,7 +316,7 @@ export const siteTranslations = {
               icon: 'fas fa-tools',
               title: 'After-Sales Troubleshooting',
               subtitle: '',
-              description: 'When customers encounter product issues, accurately identify problems through multi-turn conversations combined with images or videos, independently guide customers to complete troubleshooting, improving problem resolution efficiency',
+              description: 'When customers encounter product issues, it accurately identifies faults through multi‑turn dialogue combined with images or videos, independently guiding customers through troubleshooting steps to improve resolution efficiency',
               tags: ['Issue Identification', 'Multi-turn Conversations', 'Image & Video Support', 'Problem Resolution'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
@@ -325,9 +325,9 @@ export const siteTranslations = {
             },
             {
               icon: 'fas fa-wrench',
-              title: 'Installation, Repair & Smart Follow-up',
+              title: 'Installation, Repair &  Intelligent Follow-up',
               subtitle: '',
-              description: 'Automatically identify customer service needs such as repairs and installations, generate work orders and dispatch to relevant personnel; automatically initiate satisfaction surveys after service completion, forming a complete customer service closed loop and enhancing customer experience.',
+              description: 'Automatically identify customer service needs such as repairs and installations, generate work orders and dispatch to relevant personnel. Upon service completion, it automatically initiates satisfaction follow‑ups, forming a complete customer service loop to enhance the overall customer experience',
               tags: ['Work Order Generation', 'Smart Dispatch', 'Satisfaction Surveys', 'Service Closed Loop'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
@@ -363,10 +363,10 @@ export const siteTranslations = {
           description: '',
           effects: [
             'Clear Return on Investment',
-            'Automatically handle 90% of common customer issues',
-            'After-sales problem resolution time reduced 60%',
+            'Automatically handle 90% of common customer Inquiries',
+            'After-sales problem resolution time reduced by 60%',
             'Customer satisfaction increased to 92%+',
-            'Average purchase conversion rate increased 30–40%'
+            'Average purchase conversion rate increased by 30–40%'
           ],
           buttonText: 'Learn More',
           buttonLink: '/contact',
@@ -388,16 +388,19 @@ export const siteTranslations = {
             {
               icon: 'fas fa-car',
               title: 'Test Drive Invitation',
-              description: 'Accurately identify customer intent and efficiently drive test drive conversion',
+              description: 'Accurately identify customer intent and efficiently drive test drive conversions',
               features: [
-                'Sensitively capture customer concerns, quickly and accurately answer questions about model configuration, pricing, and promotions',
-                'Automatically identify customer purchase intent and available time, guide customers to complete test drive appointments',
-                'From customer identification, consultation answers to task dispatch, achieve full-process automation of sales follow-up'
+                'Accurately identifies customer focus points and provides fast, precise answers regarding model configurations, pricing, and promotions',
+                'Automatically identify customer purchase intent and available time,  guiding them to complete test drive appointments',
+                'Automates the entire sales follow‑up process from customer identification and inquiry resolution to task assignment'
               ],
               businessValue: [
-                'Test Drive Invitation Conversion Rate Increased by 35%+',
-                'Customer Satisfaction Increased to 95%',
-                'Customer Response Time Reduced by 30%'
+                '35%',
+                'Increase in Test Drive Conversion',
+                '95%',
+                'Satisfaction Rate Achieved',
+                '30%',
+                'Faster Customer Response'
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
@@ -407,16 +410,19 @@ export const siteTranslations = {
             {
               icon: 'fas fa-headset',
               title: 'After-Sales Service & Customer Care',
-              description: 'Quickly respond to customer needs and enhance brand loyalty',
+              description: 'Rapidly respond to customer needs and enhance brand loyalty',
               features: [
-                'Provide real-time maintenance/repair progress queries without waiting for human customer service',
+                'Provide  status tracking for maintenance/repair services without waiting for human customer service',
                 'Proactively conduct maintenance reminders and recall notifications to improve customer satisfaction and loyalty',
                 'Automatically follow up and conduct satisfaction surveys after test drives/services to collect improvement feedback'
               ],
               businessValue: [
-                'After-Sales Inquiry Response Time Reduced by 50%',
-                'After-Sales Satisfaction Increased by 25%+',
-                'Customer Retention Rate Increased by 20%+'
+                '50%',
+                'Reduction in After‑Sales Inquiry Response Time',
+                '25%',
+                'Increase in After‑Sales Satisfaction Rate',
+                '20%',
+                'Improvement in Customer Retention Rate'
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
@@ -442,7 +448,7 @@ export const siteTranslations = {
               title: 'Pre-Sales Lead Generation',
               description: 'Automatically identify high-intent customers, efficiently collect key information, and improve lead conversion rates',
               features: [
-                '24/7 reception, covering nights and holidays, providing second-level response',
+                'Provide round‑the‑clock service, covering nights and holidays, with second‑level response times',
                 'Accurately judge customer intent and lead generation willingness in open conversations',
                 'Leverage rich product knowledge and strong general knowledge to provide high-quality professional answers and enhance customer trust'
               ],
@@ -458,9 +464,9 @@ export const siteTranslations = {
             {
               icon: 'fas fa-question-circle',
               title: 'Software Usage Consultation',
-              description: 'Quickly respond to user questions, efficiently guide users on software features, and help new users get started quickly',
+              description: 'Rapidly responds to user inquiries, efficiently guides users on software functionalities, and helps new users get up to speed quickly',
               features: [
-                'Accurately understand vague or incomplete user questions, quickly locate specific functions or interface operations',
+                'Accurately understand vague or incomplete user questions, quickly  pinpoint specific functions or interface operations',
                 'Provide contextually consistent and easy-to-follow guidance under different versions, permissions, or personalized configurations'
               ],
               effects: [
@@ -476,13 +482,13 @@ export const siteTranslations = {
               title: 'Technical Support',
               description: 'For customers and internal teams, automatically answer product technical questions during after-sales or product usage, provide troubleshooting guidance and ticket routing, improving service efficiency',
               features: [
-                'Accurately identify semantic expressions and contextual dependencies of complex technical issues, ensuring accurate answers that match user scenarios',
-                'Based on intelligent agent knowledge base, quickly locate problems through large model analysis and provide comprehensive solutions',
-                'Smoothly escalate to human handling when problems cannot be solved'
+                'Accurately identify semantic expressions and contextual dependencies of complex technical issues,  ensuring answers are accurate and aligned with user scenarios',
+                'Leverages the agent knowledge base and large language model analysis to quickly pinpoint issues and provide comprehensive solutions',
+                'Smoothly escalates unresolved issues to human support for further processing'
               ],
               effects: [
-                'Accuracy exceeds 85%, average response time within 3S',
-                'Independent reception rate increased from 20% to 35%'
+                'Accuracy exceeds  85%, average response time within  3S',
+                'Independent reception rate increased from  20% to  35%'
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
@@ -496,15 +502,15 @@ export const siteTranslations = {
           subtitle: '',
           items: [
             {
-              title: 'SaaS Enterprise Website Unmanned Customer Service',
+              title: 'Unmanned Customer Service for SaaS Enterprise Websites',
               challenge: [
-                'Human customer service cannot provide full-time coverage, traditional form lead generation rate is low',
-                'Human customer service training cycle is long, cannot quickly and effectively cover all product professional knowledge'
+                'Inability of human customer service to provide round-the-clock coverage; low lead capture rates from traditional forms',
+                ' Lengthy training cycles for human customer service, making it difficult to quickly and effectively master comprehensive product expertise'
               ],
-              solution: 'Deploy Zenava to work independently on the website, combining product feature introductions, industry cases, and product highlights to provide professional interpretation for customers, automatically conducting preliminary screening and information collection of leads',
+              solution: 'Deploy Zenava to operate autonomously on the official website. It delivers professional interpretation by integrating product features, industry case studies, and product highlights for customers, while automatically conducting preliminary lead qualification and information collection',
               effects: [
-                'Full-time coverage of pre-sales reception, achieving unmanned website customer service',
-                'Lead generation rate as high as 46%, exceeding human lead generation rate by 40%'
+                'Achieves round‑the‑clock pre‑sales reception, enabling unattended customer service operation on the official website',
+                'Lead capture rate reaches 46%, exceeding the human‑operated rate of 40%'
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
@@ -512,14 +518,14 @@ export const siteTranslations = {
               imageAlt: 'SaaS Enterprise Website Unmanned Customer Service'
             },
             {
-              title: 'Software Company Internal Technical Support',
+              title: 'Internal Technical Support for Software Companies',
               challenge: [
                 'Internal support processes are complex, such as system function usage and system integration requiring coordination from multiple positions'
               ],
-              solution: 'Deploy Zenava, integrating product operation documents, product descriptions, technical support FAQs, and pre-sales solution documents to build a knowledge base, providing full-time coverage for questions from sales, pre-sales, customers, and implementation engineers',
+              solution: 'Deploy Zenava to integrate product operation manuals, product documentation, technical support FAQs, and pre‑sales solution documents into a knowledge base. It provides round‑the‑clock support for inquiries from sales, pre‑sales, customers, and implementation engineers',
               effects: [
                 'Customer-facing employee efficiency increased by 15%~30%',
-                'Technical support team saves 40% of internal support time'
+                'The technical support team saves 40% of its internal support time'
               ],
               buttonText: 'Learn More',
               buttonLink: '/contact',
@@ -617,8 +623,8 @@ export const siteTranslations = {
     
     // Contact Section
     contact: {
-      title: 'Unveiling a New Chapter in Intelligent Conversations',
-      subtitle: 'See how Zenava transforms your customer dialogue operations with intelligent upgrades',
+      title: 'Ushering a New Chapter in Intelligent Conversations',
+      subtitle: 'Let Zenava AI empower your enterprise to intelligently upgrade customer conversation scenarios',
       form: {
         name: 'Full Name',
         email: 'Business Email',
@@ -1448,16 +1454,16 @@ export const siteTranslations = {
         },
         cardGrid: {
           card1: {
-            title: 'いつでもどこでも消費者とつながる',
-            description: 'ブランドウェブサイト、アプリ、ソーシャルメディアなどのデジタルチャネルを通じて、消費者と24時間365日の接続を確立',
+            title: 'いつでもどこでも顧客と繋がる',
+            description: '企業公式サイト、アプリ、SNSなどあらゆるチャンネルで、24時間365日で顧客と繋がる',
             button1Text: '詳細を見る',
             button1Link: '/contact',
             button2Text: 'デモのご予約',
             button2Link: '/contact'
           },
           card2: {
-            title: 'パーソナライズされた顧客サービス',
-            description: '消費者に正確でパーソナライズされたサービスを提供し、顧客体験を向上',
+            title: 'パーソナライズカスタマーサービス',
+            description: '顧客にプロでパーソナライズされたサービスを提供し、満足度を向上',
             button1Text: '詳細を見る',
             button1Link: '/contact',
             button2Text: 'デモのご予約',
@@ -1465,7 +1471,7 @@ export const siteTranslations = {
           },
           card3: {
             title: '大量の顧客問い合わせに対応',
-            description: '大量の顧客問い合わせを同時に処理し、販売シーズンやショッピングピークを簡単に対応',
+            description: '大量の顧客問い合わせを同時に処理可能で、セールシーズンやショッピングピークを簡単に対応',
             button1Text: '詳細を見る',
             button1Link: '/contact',
             button2Text: 'デモのご予約',
@@ -1480,7 +1486,7 @@ export const siteTranslations = {
               icon: 'fas fa-shopping-bag',
               title: 'インテリジェントショッピングガイド',
               subtitle: '',
-              description: '顧客の問い合わせ意図を正確に識別し、パーソナライズされた商品推奨とプロモーション情報を積極的に提供し、販売を促進し、購入転換率を向上',
+              description: '顧客の問い合わせ意図を正確に認識し、パーソナライズ商品推奨とプロモーション情報を提供し、販売を促進し、購入転換率を向上',
               tags: ['意図認識', 'パーソナライズ推奨', 'プロモーション情報', '転換向上'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
@@ -1491,7 +1497,7 @@ export const siteTranslations = {
               icon: 'fas fa-clipboard-list',
               title: '注文管理',
               subtitle: '',
-              description: '注文照会、返品・交換、物流追跡などの一般的な問い合わせを自動処理し、待機時間を短縮し、顧客満足度とショッピング体験を向上',
+              description: '注文照会、返品・交換、物流追跡などの問い合わせを自動処理し、待機時間を短縮し、顧客満足度とショッピング体験を向上',
               tags: ['注文照会', '返品・交換処理', '物流追跡', '効率向上'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
@@ -1500,9 +1506,9 @@ export const siteTranslations = {
             },
             {
               icon: 'fas fa-tools',
-              title: 'アフターサービス故障診断',
+              title: 'アフターサービス・故障診断',
               subtitle: '',
-              description: '顧客が製品の問題に遭遇した場合、画像や動画を組み合わせた多回対話を通じて問題を正確に識別し、顧客が独立して故障診断を完了できるよう導き、問題解決効率を向上',
+              description: '会話と写真や映像を組み合わせて、お客様のトラブルを特定する。自律的に顧客の故障診断を支援し、問題解決効率を向上',
               tags: ['故障識別', '多回対話', '画像・動画サポート', '問題解決'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
@@ -1511,9 +1517,9 @@ export const siteTranslations = {
             },
             {
               icon: 'fas fa-wrench',
-              title: '設置・修理とインテリジェントフォローアップ',
+              title: '設置・修理依頼とスマートフォローアップ',
               subtitle: '',
-              description: '顧客の修理、設置などのサービスニーズを自動識別し、作業チケットを生成して関連担当者に配信；サービス完了後、自動的に満足度調査を開始し、完全な顧客サービス閉ループを形成し、顧客体験を向上',
+              description: '顧客の修理、設置などのサービスニーズを自動識別し、作業チケットを生成して関連担当者に配信；サービス完了後、自動的に満足度調査を開始し、顧客サービス閉ループを形成し、顧客体験を向上',
               tags: ['作業チケット生成', 'インテリジェント配信', '満足度調査', 'サービス閉ループ'],
               buttonText: '詳細を見る',
               buttonLink: '/contact',
@@ -1544,17 +1550,17 @@ export const siteTranslations = {
           ]
         },
         quantifiedEffects: {
-          title: '定量化された効果',
+          title: '定量化成果',
           subtitle: '',
           description: '',
           effects: [
-            '投資収益率が明確に可視化',
-            '顧客の一般的な問題を自動処理 90%',
-            'アフターサービス問題解決時間短縮 60%',
-            '顧客満足度向上 92%+',
-            '平均購入転換率向上 30–40%'
+            '投資収益率が可視化',
+            '顧客のよくある質問 90%を自動対応',
+            'アフターサービス問題解決時間を60%短縮',
+            '顧客満足度92%+向上',
+            '平均購入転換率30–40% 向上'
           ],
-          buttonText: '詳細を見る',
+          buttonText: '詳細はこちら',
           buttonLink: '/contact',
           imageAlt: '定量化された効果',
           imageSrc: '/assets/images/retail/06-jp.webp'
@@ -1574,18 +1580,21 @@ export const siteTranslations = {
             {
               icon: 'fas fa-car',
               title: '試乗招待',
-              description: '顧客の意図を正確に識別し、試乗転換を効率的に推進',
+              description: '顧客の意図を正確に識別し、試乗への転換を効率的に推進',
               features: [
-                '顧客の関心事を敏感に捉え、モデル構成、価格、プロモーションなどの質問に迅速かつ正確に回答',
-                '顧客の購入意図と利用可能な時間を自動識別し、顧客が試乗予約を完了できるよう導く',
-                '顧客識別、相談回答からタスク配信まで、セールスフォローアップの全プロセス自動化を実現'
+                '顧客の注目点を捉え、車種仕様・価格・特典などの質問に迅速かつ正確に回答',
+                '顧客の購入意図と利用可能な時間を自動識別し、顧客が試乗予約を案内する',
+                '顧客識別、相談回答からタスク割り当てまで、営業スフォローアップの全プロセス自動化を実現'
               ],
               businessValue: [
-                '試乗招待転換率が35%+向上',
-                '顧客満足度が95%に向上',
-                '顧客応答時間が30%短縮'
+                '35%',
+                '試乗招待転換率が向上',
+                '95%',
+                '顧客満足度が達成',
+                '30%',
+                '顧客応答時間が短縮'
               ],
-              buttonText: '詳細を見る',
+              buttonText: '詳細はこちら',
               buttonLink: '/contact',
               imagePath: '/assets/images/automotive/01-jp.webp',
               imageAlt: '試乗招待'
@@ -1595,16 +1604,19 @@ export const siteTranslations = {
               title: 'アフターサービスと顧客ケア',
               description: '顧客のニーズに迅速に対応し、ブランドロイヤルティを向上',
               features: [
-                '人間のカスタマーサービスを待つことなく、メンテナンス/修理の進捗をリアルタイムで照会',
-                'メンテナンスリマインダーやリコール通知を積極的に実施し、顧客満足度とロイヤルティを向上',
+                'メンテナンス・修理の進捗状況をリアルタイムで確認可能。人間カスタマーサービスを待つ必要はない',
+                'メンテナンスリマインダーやリコール通知を自主的に実施し、顧客満足度とロイヤルティを向上',
                 '試乗/サービス後に自動的にフォローアップと満足度調査を実施し、改善フィードバックを収集'
               ],
               businessValue: [
-                'アフターサービス問い合わせ応答時間が50%短縮',
-                'アフターサービス満足度が25%+向上',
-                '顧客維持率が20%+向上'
+                '50%',
+                'アフターサービス問い合わせ応答時間が短縮',
+                '25%',
+                'アフターサービス満足度が向上',
+                '20%',
+                '顧客維持率が向上'
               ],
-              buttonText: '詳細を見る',
+              buttonText: '詳細はこちら',
               buttonLink: '/contact',
               imagePath: '/assets/images/automotive/02-jp.webp',
               imageAlt: 'アフターサービスと顧客ケア'
@@ -1625,18 +1637,18 @@ export const siteTranslations = {
           items: [
             {
               icon: 'fas fa-user-check',
-              title: 'セールス前リード生成',
+              title: '販売前のリード獲得',
               description: '高意欲顧客を自動識別し、重要な情報を効率的に収集し、リード転換率を向上',
               features: [
-                '24時間対応、夜間や祝日もカバーし、秒級応答を提供',
-                'オープンな対話で顧客の意図とリード生成意欲を正確に判断',
-                '豊富な製品知識と強力な一般知識を活用し、高品質な専門的な回答を実現し、顧客の信頼を向上'
+                '24時間対応、夜間や祝日もカバーし、秒単位での応答を提供',
+                'オープンな対話で顧客の意図とリード提供意欲を正確に判断',
+                '豊富な製品知識と一般知識を活用し、専門的な回答を実現し、顧客の信頼を向上'
               ],
               effects: [
-                '10% 問い合わせからリードへの転換率が40%に向上',
-                '100 年間万人以上の人的コストを節約'
+                '問い合わせからリードへの転換率は10%から40%に向上',
+                '年間2000万円以上の人件費削減'
               ],
-              buttonText: '詳細を見る',
+              buttonText: '詳細はこちら',
               buttonLink: '/contact',
               imagePath: '/assets/images/software/01-jp.webp',
               imageAlt: 'セールス前リード生成'
@@ -1644,15 +1656,15 @@ export const siteTranslations = {
             {
               icon: 'fas fa-question-circle',
               title: 'ソフトウェア使用相談',
-              description: 'ユーザーの疑問に迅速に対応し、ソフトウェア機能の使用を効率的に指導し、新規ユーザーの迅速な習得を支援',
+              description: 'ユーザーの疑問に迅速に対応し、ソフトウェアの使い方を効率的に指導し、新規ユーザーが短期間で操作を慣れるよう支援する',
               features: [
-                'ユーザーの曖昧または不完全な質問を正確に理解し、特定の機能やインターフェース操作に迅速に位置づけ',
-                '異なるバージョン、異なる権限、または個別設定の下で、文脈的に一貫した実行しやすい指導を提供'
+                'ユーザーの曖昧または不完全な質問を正確に理解し、具体的な機能や画面操作を素早く特定する',
+                '異なるバージョン、異なる権限、または個別設定において、文脈に一貫性があり、実行しやすいガイダンスを提供'
               ],
               effects: [
                 '独立対応率が62%に達する'
               ],
-              buttonText: '詳細を見る',
+              buttonText: '詳細はこちら',
               buttonLink: '/contact',
               imagePath: '/assets/images/software/02-jp.webp',
               imageAlt: 'ソフトウェア使用相談'
@@ -1660,17 +1672,17 @@ export const siteTranslations = {
             {
               icon: 'fas fa-tools',
               title: 'テクニカルサポート',
-              description: '顧客と内部チーム向けに、アフターサービスや製品使用中に製品技術問題を自動的に回答し、トラブルシューティングガイダンスとチケットルーティングを提供し、サービス効率を向上',
+              description: '顧客と内部チーム向けに、アフターサービスや製品技術問題を自動的に回答し、トラブルシューティングガイダンスとチケットルーティングを提供し、サービス効率を向上',
               features: [
-                '複雑な技術問題の意味表現と文脈依存を正確に識別し、ユーザーシナリオに適合する正確な回答を確保',
-                'インテリジェントエージェント知識ベースに基づき、大規模モデル分析を通じて問題を迅速に位置づけ、包括的なソリューションを提供',
-                '問題が解決できない場合、人間処理にスムーズにエスカレート'
+                '複雑な技術問題の語義表現と文脈依存を正確に識別し、ユーザーシナリオに適合する正確な回答を確保',
+                'インテリジェントエージェント知識ベースに基づき、大規模モデル分析を通じて問題を迅速に発見し、ソリューションを提供する',
+                '問題が解決できない場合、人工対応にスムーズに移行'
               ],
               effects: [
                 '精度が85%を超え、平均応答時間は3S以内',
                 '独立対応率が20%から35%に向上'
               ],
-              buttonText: '詳細を見る',
+              buttonText: '詳細はこちら',
               buttonLink: '/contact',
               imagePath: '/assets/images/software/03-jp.webp',
               imageAlt: 'テクニカルサポート'
@@ -1678,21 +1690,21 @@ export const siteTranslations = {
           ]
         },
         casesList: {
-          title: '応用事例と定量化された効果',
+          title: '応用事例と定量効果',
           subtitle: '',
           items: [
             {
               title: 'SaaS企業ウェブサイト無人カスタマーサービス',
               challenge: [
-                '人間のカスタマーサービスは全時間帯をカバーできず、従来のフォームリード生成率が低い',
-                '人間のカスタマーサービスの育成サイクルが長く、全量の製品専門知識を迅速かつ効果的にカバーできない'
+                '人間のカスタマーサービスは全時間帯をカバーできず、従来のフォームリード獲得率が低い',
+                '人工カスタマーサービスの育成に時間がかかり、全製品専門知識を迅速かつ効果的にカバーできない'
               ],
-              solution: 'Zenavaを展開し、ウェブサイトで独立作業し、製品機能紹介、業界事例、製品のハイライトなどを組み合わせて顧客に専門的な解釈を提供し、リードの予備スクリーニングと情報収集を自動的に実施',
+              solution: 'Zenavaを展開し、ウェブサイトで独立作業し、製品機能紹介、業界事例、製品のハイライトなどを組み合わせて顧客に専門的な解説を提供。リードの予備スクリーニングと情報収集を自動的に実施',
               effects: [
                 'セールス前対応を全時間帯でカバーし、ウェブサイトカスタマーサービスの無人化を実現',
-                'リード生成率が46%に達し、人間のリード生成率を40%上回る'
+                'リード生成率が46%に達し、人工のリード生成率を40%上回る'
               ],
-              buttonText: '詳細を見る',
+              buttonText: '詳細はこちら',
               buttonLink: '/contact',
               imagePath: '/assets/images/software/04-jp.webp',
               imageAlt: 'SaaS企業ウェブサイト無人カスタマーサービス'
@@ -1707,7 +1719,7 @@ export const siteTranslations = {
                 '顧客側の従業員効率が15%~30%向上',
                 'テクニカルサポートチームが内部サポート時間の40%を節約'
               ],
-              buttonText: '詳細を見る',
+              buttonText: '詳細はこちら',
               buttonLink: '/contact',
               imagePath: '/assets/images/software/05-jp.webp',
               imageAlt: 'ソフトウェア会社内部テクニカルサポート'
@@ -3903,7 +3915,7 @@ export const siteTranslations = {
               icon: 'fas fa-shopping-bag',
               title: '智能导购',
               subtitle: '',
-              description: '精准识别客户咨询意图，主动提供个性化商品推荐与优惠信息，促进销售，提升购买转化率。',
+              description: '精准识别客户咨询意图，主动提供个性化商品推荐与优惠信息，促进销售，提升购买转化率。<br>了解更多',
               tags: ['意图识别', '个性化推荐', '优惠信息', '转化提升'],
               buttonText: '了解更多',
               buttonLink: '/contact',
@@ -3914,7 +3926,7 @@ export const siteTranslations = {
               icon: 'fas fa-clipboard-list',
               title: '订单管理',
               subtitle: '',
-              description: '自动处理订单查询、退换货、物流追踪等常见问题，减少等待时间，提高客户满意度和购物体验。',
+              description: '自动处理订单查询、退换货、物流追踪等常见问题，减少等待时间，提高客户满意度和购物体验。<br>了解更多',
               tags: ['订单查询', '退换货处理', '物流追踪', '效率提升'],
               buttonText: '了解更多',
               buttonLink: '/contact',
@@ -3925,7 +3937,7 @@ export const siteTranslations = {
               icon: 'fas fa-tools',
               title: '售后故障排查',
               subtitle: '',
-              description: '当客户遇到产品故障问题时，通过多轮对话结合图片或视频，精准识别故障，独立引导客户完成故障排查，提高问题解决效率',
+              description: '当客户遇到产品故障问题时，通过多轮对话结合图片或视频，精准识别故障，独立引导客户完成故障排查，提高问题解决效率<br>了解更多',
               tags: ['故障识别', '多轮对话', '图片视频支持', '问题解决'],
               buttonText: '了解更多',
               buttonLink: '/contact',
@@ -3936,7 +3948,7 @@ export const siteTranslations = {
               icon: 'fas fa-wrench',
               title: '报装报修与智能回访',
               subtitle: '',
-              description: '自动识别客户报修、安装等服务需求，生成工单并派发至对应人员；服务完成后自动发起满意度回访，形成完整客户服务闭环，提升客户体验。',
+              description: '自动识别客户报修、安装等服务需求，生成工单并派发至对应人员；服务完成后自动发起满意度回访，形成完整客户服务闭环，提升客户体验。<br>了解更多',
               tags: ['工单生成', '智能派发', '满意度回访', '服务闭环'],
               buttonText: '了解更多',
               buttonLink: '/contact',
@@ -4004,9 +4016,12 @@ export const siteTranslations = {
                 '从客户识别、咨询解答到任务派发，实现销售跟单全流程自动化'
               ],
               businessValue: [
-                '试驾邀约转化率提升 35%+',
-                '客户满意度提升至95%',
-                '客户响应时长缩短 30%'
+                '35%',
+                '试驾邀约转化率提升',
+                '95%',
+                '客户满意度提升至',
+                '30%',
+                '客户响应时长缩短'
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',
@@ -4023,9 +4038,12 @@ export const siteTranslations = {
                 '试驾/服务后自动回访与满意度调查，收集改进意见'
               ],
               businessValue: [
-                '售后咨询响应时间缩短 50%',
-                '售后满意度提升 25%+',
-                '客户留存率提升 20%+'
+                '50%',
+                '售后咨询响应时间缩短',
+                '25%',
+                '售后满意度提升',
+                '20%',
+                '客户留存率提升'
               ],
               buttonText: '了解更多',
               buttonLink: '/contact',

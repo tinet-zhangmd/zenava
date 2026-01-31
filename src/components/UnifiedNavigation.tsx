@@ -203,7 +203,7 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
                 {trans.common.logo.src ? (
                   <>
                     <img 
-                      src={trans.common.logo.src}
+                      src='/assets/images/logo.webp'
                       alt={trans.common.logo.alt}
                       class="w-auto object-contain transition-all duration-300 hover:opacity-80"
                       style={{

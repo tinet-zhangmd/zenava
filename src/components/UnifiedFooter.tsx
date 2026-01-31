@@ -25,7 +25,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       // Column 1: Products
       products: '产品',
       aiAgents: 'AI Agents',
-      messaging: 'Live Chat',
+      messaging: 'Chat Agents',
       voice: 'Voice Agents',
       // Column 2: Industries
       industries: '行业',
@@ -53,14 +53,14 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       // Column 1: Products
       products: 'Products',
       aiAgents: 'AI Agents',
-      messaging: 'Live Chat',
+      messaging: 'Chat Agents',
       voice: 'Voice Agents',
       // Column 2: Industries
       industries: 'Industries',
       retail: 'Retail',
       automotive: 'Automotive',
       software: 'Software & Information Services',
-      hospitality: 'Hotel & Tourism',
+      hospitality: 'Hospitality & Tourism',
       // Column 3: Resources
       resources: 'Resources',
       blog: 'Blog',
@@ -81,7 +81,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       // Column 1: Products
       products: '製品',
       aiAgents: 'AIチャットカスタマーサービス',
-      messaging: 'Live Chat',
+      messaging: 'Chat Agents',
       voice: 'Voice Agents',
       // Column 2: Industries
       industries: '業界',
@@ -109,7 +109,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
       // Column 1: Products
       products: '產品',
       aiAgents: 'AI Agents',
-      messaging: 'Live Chat',
+      messaging: 'Chat Agents',
       voice: 'Voice Agents',
       // Column 2: Industries
       industries: '行業',
@@ -148,7 +148,7 @@ export const UnifiedFooter: FC<UnifiedFooterProps> = ({
               {/* Logo with link */}
               <a href={langPrefix === '' ? '/' : langPrefix} class="inline-block mb-4 cursor-pointer">
                 <img 
-                  src={trans.common.logo.src}
+                  src='/assets/images/logo.webp'
                   alt={trans.common.logo.alt}
                   class="h-10 md:h-12 w-auto object-contain hover:opacity-80 transition-opacity"
                   style="max-width: 160px; filter: brightness(0) invert(1);"

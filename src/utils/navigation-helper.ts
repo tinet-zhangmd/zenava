@@ -79,19 +79,19 @@ function getDefaultMenuItems(): NavMenuItem[] {
           label_jp: 'AIチャットカスタマーサービス',
           label_hk: 'AI Agents',
           url: '/products/ai-agents',
-          icon: '/assets/images/nav/1-01.png',
+          icon: '/assets/images/nav/1-01.webp',
           order: 1,
           visible: true
         },
         {
           id: 'messaging',
-          label: 'Live Chat',
-          label_zh: 'Live Chat',
-          label_en: 'Live Chat',
-          label_jp: 'Live Chat',
-          label_hk: 'Live Chat',
+          label: 'Chat Agents',
+          label_zh: 'Chat Agents',
+          label_en: 'Chat Agents',
+          label_jp: 'Chat Agents',
+          label_hk: 'Chat Agents',
           url: '/products/live-chat',
-          icon: '/assets/images/nav/1-02.png',
+          icon: '/assets/images/nav/1-02.webp',
           order: 2,
           visible: true
         },
@@ -103,7 +103,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
           label_jp: 'Voice Agents',
           label_hk: 'Voice Agents',
           url: '/products/voice-agents',
-          icon: '/assets/images/nav/1-03.png',
+          icon: '/assets/images/nav/1-03.webp',
           order: 3,
           visible: true
         }
