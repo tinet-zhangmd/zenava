@@ -545,7 +545,7 @@ export const siteTranslations = {
               title: 'Hotel & Ticket Booking',
               titleLink: '',
               subtitle: '',
-              description: 'Accurately understand customer intent, independently and completely execute the entire booking process from confirming room type, time, ticket information to completing the booking, improving customer satisfaction and booking conversion rates.',
+              description: 'Accurately understand customer intent, independently and completely execute the entire booking process from confirming room type, time, ticket information to completing the booking, improving customer satisfaction and booking conversion rates',
               tags: ['Intent Recognition', 'Full Process Automation', 'Booking Conversion', 'Customer Satisfaction'],
               buttonText: 'Learn More',
               buttonLink: '/contact',
@@ -1731,9 +1731,9 @@ export const siteTranslations = {
               title: 'ホテル・チケット予約',
               titleLink: '',
               subtitle: '',
-              description: '顧客の意図を正確に理解し、部屋タイプ、時間、チケット情報の確認から予約完了までの全プロセスを独立して完全に実行し、顧客満足度と予約転換率を向上',
+              description: '顧客の意図を正確に理解し、客室タイプ、宿泊日程、チケット情報の確認から予約完了までの一連のプロセスを独立実行し、顧客満足度および予約転換率の向上を実現します。',
               tags: ['意図認識', '全プロセス自動化', '予約転換', '顧客満足度'],
-              buttonText: '詳細を見る',
+              buttonText: '詳細はこちら',
               buttonLink: '/contact',
               mediaPath: '/assets/images/travel/01-jp.webp',
               mediaAlt: 'ホテル・チケット予約'
@@ -1743,9 +1743,9 @@ export const siteTranslations = {
               title: 'アカウント管理',
               titleLink: '',
               subtitle: '',
-              description: 'アカウントアクセス、ポイントプログラム、会員特典などに関する顧客の問い合わせに即座に対応し、一般的な問題をセルフサービスで処理し、平均処理時間を短縮し、会員ロイヤルティを向上',
+              description: 'アカウントアクセス、ポイントプログラム、会員特典などに関する顧客の問い合わせにリアルタイムで対応し、よくある質問をセルフサービスで処理し、平均処理時間を短縮し、会員ロイヤルティを向上',
               tags: ['即座の対応', 'セルフサービス', '会員管理', '効率向上'],
-              buttonText: '詳細を見る',
+              buttonText: '詳細はこちら',
               buttonLink: '/contact',
               mediaPath: '/assets/images/travel/02-jp.webp',
               mediaAlt: 'アカウント管理'
@@ -1755,9 +1755,9 @@ export const siteTranslations = {
               title: '旅行サポート',
               titleLink: '',
               subtitle: '',
-              description: '荷物紛失、フライト乗り遅れ、チェックイン時間などの問題に関する顧客への即座の支援を提供し、応答時間を短縮し、顧客体験を向上',
+              description: '荷物紛失、フライト乗り遅れ、チェックイン時間などの問題に即時対応し、迅速なサポートによって顧客体験を高めます。',
               tags: ['即座の支援', '問題解決', '応答速度', '顧客体験'],
-              buttonText: '詳細を見る',
+              buttonText: '詳細はこちら',
               buttonLink: '/contact',
               mediaPath: '/assets/images/travel/03-jp.webp',
               mediaAlt: '旅行サポート'
@@ -1784,16 +1784,16 @@ export const siteTranslations = {
           ]
         },
         quantifiedEffects: {
-          title: '定量化された効果',
+          title: '定量化効果',
           subtitle: '',
           description: '',
           effects: [
-            '顧客満足度向上 30%',
-            '運営コスト削減 35%',
-            '予約転換率向上 25%',
-            '応答時間短縮 70%'
+            '顧客満足度30%向上',
+            '運営コスト35%削減',
+            '予約成功率 25%向上',
+            '応答時間 70%短縮'
           ],
-          buttonText: '詳細を見る',
+          buttonText: '詳細はこちら',
           buttonLink: '/contact',
           imageAlt: '定量化された効果',
           imageSrc: '/assets/images/travel/05-jp.webp'
