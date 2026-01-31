@@ -152,6 +152,31 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
     const langKey = `label_${currentLanguage}` as keyof typeof item
     return item[langKey] || item.label || ''
   }
+
+  // 获取文档 URL（根据语言）
+  const getDocsUrl = (language: Language): string => {
+    switch (language) {
+      case 'zh': return 'https://docs.zenava.ai/zh-CN/99/838/9765'
+      case 'hk': return 'https://docs.zenava.ai/zh-TW'
+      case 'en': return 'https://docs.zenava.ai/en'
+      case 'jp': return 'https://docs.zenava.ai/ja'
+      default: return 'https://docs.zenava.ai/en'
+    }
+  }
+
+  // 获取菜单项 URL（处理外部链接和文档链接）
+  const getMenuItemUrl = (item: NavMenuItem): string => {
+    // 如果是文档菜单项，使用多语言文档 URL
+    if (item.id === 'docs') {
+      return getDocsUrl(currentLanguage)
+    }
+    // 如果是外部链接，直接返回
+    if (item.url && (item.url.startsWith('http://') || item.url.startsWith('https://'))) {
+      return item.url
+    }
+    // 否则使用本地化路径
+    return getLocalizedPath(item.url || '/', currentLanguage)
+  }
   
   const getCtaText = () => {
     const langKey = `cta_text_${currentLanguage}` as keyof NavigationConfig
@@ -293,8 +318,9 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
                   </div>
                 ) : (
                   <a 
-                    href={getLocalizedPath(item.url || '/', currentLanguage)}
+                    href={getMenuItemUrl(item)}
                     target={item.target || '_self'}
+                    rel={item.url && (item.url.startsWith('http://') || item.url.startsWith('https://')) && item.target === '_blank' ? 'noopener noreferrer' : undefined}
                     class="px-3 py-2 text-sm font-medium transition-colors hover:opacity-80"
                     style={{ color: config.nav_text_color }}
                     key={item.id}
@@ -440,8 +466,9 @@ export const UnifiedNavigation: FC<UnifiedNavigationProps> = ({
                   </div>
                 ) : (
                   <a 
-                    href={getLocalizedPath(item.url || '/', currentLanguage)}
+                    href={getMenuItemUrl(item)}
                     target={item.target || '_self'}
+                    rel={item.url && (item.url.startsWith('http://') || item.url.startsWith('https://')) && item.target === '_blank' ? 'noopener noreferrer' : undefined}
                     class="block px-4 py-3 rounded-lg hover:bg-gray-50"
                     key={item.id}
                   >

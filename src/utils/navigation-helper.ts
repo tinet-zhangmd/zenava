@@ -184,6 +184,7 @@ function getDefaultMenuItems(): NavMenuItem[] {
       order: 3,
       visible: true
     },
+
     // 右侧：关于我们
     {
       id: 'about',
@@ -196,6 +197,20 @@ function getDefaultMenuItems(): NavMenuItem[] {
       url: '/about',
       order: 4,
       visible: true
-    }
+    },
+        // 一级导航：技术文档
+        {
+          id: 'docs',
+          type: 'link',
+          label: 'Documentation',
+          label_zh: '技术文档',
+          label_en: 'Documentation',
+          label_jp: '技術文書',
+          label_hk: '技術文檔',
+          url: 'https://docs.zenava.ai',
+          order: 5,
+          visible: true,
+          target: '_blank'
+        },
   ]
 }
