@@ -26,7 +26,7 @@ export const FloatingActionButton: FC<FloatingActionButtonProps> = ({ language =
                   '頂部'
   
   // 在线客服链接
-  const chatLink = 'https://webchat-bj.clink.cn/chat.html?accessId=98cecda1-4a5a-42f0-b5aa-220039ffb435&tinetWebChatType=tinetResponsive'
+  const chatLink = 'https://webchat-bj.clink.cn/chat.html?accessId=98cecda1-4a5a-42f0-b5aa-220039ffb435'
 
   // 根据语言生成联系表单链接
   const contactLink = language === 'zh' ? '/contact' : `/${language}/contact`

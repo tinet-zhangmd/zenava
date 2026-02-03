@@ -130,13 +130,6 @@ export function AdminLayout({ children, title, currentPath, user }: AdminLayoutP
             
             <div class="flex-1 overflow-y-auto custom-scrollbar pb-8">
               <nav>
-                <div class="nav-group-title">控制中心</div>
-                <a href="/ticloudadmin" 
-                   class={`nav-link ${currentPath === '/ticloudadmin' ? 'active' : ''}`}>
-                  <i class="fas fa-chart-pie"></i>
-                  <span>仪表盘</span>
-                </a>
-                
                 <div class="nav-group-title">内容引擎</div>
                 <div class="space-y-0.5">
                   <a href="/ticloudadmin/resource-categories"

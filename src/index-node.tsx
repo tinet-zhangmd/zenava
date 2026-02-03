@@ -31,12 +31,11 @@ import { ResourceListPage } from './pages/ResourceList.js'
 import { ResourceDetailPage } from './pages/ResourceDetail.js'
 import { ResourceDownloadDetailPage } from './pages/ResourceDownloadDetail.js'
 import { VideoPodcastDetailPage } from './pages/VideoPodcastDetail.js'
-import { detectLanguageFromPath, detectLanguageFromIP, Language } from './utils/i18n.js'
+import { detectLanguageFromPath, detectLanguageFromIP, detectLanguageSmart, Language } from './utils/i18n.js'
 
 // 导入 Admin Pages
 import { AdminLayout } from './pages/admin/AdminLayout.js'
 import { AdminLogin } from './pages/admin/AdminLogin.js'
-import { Dashboard } from './pages/admin/Dashboard.js'
 import { ContentEditor } from './pages/admin/ContentEditor.js'
 import { MediaLibrary } from './pages/admin/MediaLibrary.js'
 import { Settings } from './pages/admin/Settings.js'
@@ -192,15 +191,76 @@ app.use('/assets/*', serveStatic({
 // 为了简化，我先创建主要路由，其他路由可以逐步添加
 
 // Homepage routes
-// 默认语言为 zh，首页路由 / 直接显示中文内容
+// 自动检测用户地区并重定向到对应语言路径
 app.get('/', async (c) => {
-  // 默认使用简体中文
+  // 智能检测语言（优先级：IP > Browser > Default）
+  // 注意：访问根路径时忽略 Cookie，允许重新检测（支持 VPN 用户）
+  const cookieLanguage = getCookie(c, 'user_language')
+  const acceptLanguage = c.req.header('Accept-Language') || null
+  
+  // Debug: Log detection info
+  const allHeaders: Record<string, string> = {}
+  if (c.req.raw && c.req.raw.headers) {
+    for (const [key, value] of Object.entries(c.req.raw.headers)) {
+      allHeaders[key] = Array.isArray(value) ? value.join(', ') : String(value)
+    }
+  }
+  
+  console.log('🔍 Language Detection Debug:', {
+    pathname: '/',
+    cookie: cookieLanguage,
+    acceptLanguage: acceptLanguage,
+    cfCountry: c.req.header('CF-IPCountry'),
+    clientIP: c.req.header('CF-Connecting-IP') || c.req.header('x-forwarded-for') || c.req.header('x-real-ip'),
+    socketIP: c.req.raw?.socket?.remoteAddress,
+    allHeaders
+  })
+  
+  // Pass the Hono context request object which has proper header access
+  // Extract IP directly from Hono request (more reliable)
+  const clientIPFromRoute = c.req.header('CF-Connecting-IP') || 
+                            c.req.header('x-forwarded-for')?.split(',')[0]?.trim() ||
+                            c.req.header('x-real-ip') ||
+                            c.req.raw?.socket?.remoteAddress ||
+                            null
+  
+  // Pass IP as additional context to help detection
+  const requestWithIP = {
+    ...c.req,
+    _clientIP: clientIPFromRoute  // Add IP as custom property
+  }
+  
+  const detectedLanguage = await detectLanguageSmart(
+    '/',
+    null,  // 根路径访问时忽略 Cookie，强制重新检测
+    acceptLanguage,
+    requestWithIP
+  )
+  
+  console.log('✅ Detected language:', detectedLanguage)
+  
+  // 保存检测到的语言到 Cookie（30天有效期）
+  // 注意：只在自动检测时保存，用户手动切换不保存（根据需求3.B）
+  setCookie(c, 'user_language', detectedLanguage, {
+    maxAge: 30 * 24 * 60 * 60,  // 30天
+    path: '/',
+    httpOnly: false,  // 允许前端读取
+    sameSite: 'Lax'
+  })
+  
+  // 自动重定向到检测到的语言路径
+  if (detectedLanguage !== 'zh') {
+    // 非中文语言，重定向到对应语言路径
+    return c.redirect(`/${detectedLanguage}`)
+  }
+  
+  // 简体中文作为默认语言，保持在根路径
   const language: Language = 'zh'
   const currentPath = '/'
   
   const { config: navConfig, menuItems } = getNavigationData(language);
   const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
-  
+
   // 获取推荐文章（已发布且推荐的内容，按浏览次数和发布时间排序，取前4条）
   let featuredContents = []
   try {
@@ -2160,66 +2220,9 @@ app.get('/ticloudadmin/logout', (c) => {
   return c.redirect('/ticloudadmin/login')
 })
 
-// Admin Dashboard - 仪表盘首页
+// Admin Dashboard - 重定向到内容管理页面
 app.get('/ticloudadmin', requireAuth(), async (c) => {
-  try {
-    // 获取统计数据
-    const [contentsCount] = await mysqlQuery<any[]>('SELECT COUNT(*) as count FROM resource_contents')
-    const [categoriesCount] = await mysqlQuery<any[]>('SELECT COUNT(*) as count FROM resource_categories')
-    const [mediaCount] = await mysqlQuery<any[]>('SELECT COUNT(*) as count FROM media_files')
-    const [viewsSum] = await mysqlQuery<any[]>('SELECT SUM(views) as total FROM resource_contents')
-    
-    // 获取最近的审计日志（最多10条）
-    const logs = await mysqlQuery<any[]>(
-      `SELECT 
-        user_name,
-        action,
-        target_type,
-        target_name,
-        description,
-        created_at
-      FROM admin_logs
-      ORDER BY created_at DESC
-      LIMIT 10`
-    )
-    
-    // 获取当前用户信息
-    const userId = getCookie(c, 'admin_user_id')
-    let currentUser: any = null
-    if (userId) {
-      const users = await mysqlQuery<any[]>(
-        'SELECT username, email, last_login_at FROM admin_users WHERE id = ?',
-        [parseInt(userId)]
-      )
-      if (users && users.length > 0) {
-        currentUser = users[0]
-      }
-    }
-    
-    const stats = {
-      totalContents: contentsCount?.count || 0,
-      totalCategories: categoriesCount?.count || 0,
-      totalMedia: mediaCount?.count || 0,
-      totalViews: viewsSum?.total || 0
-    }
-    
-    return c.html(
-      <AdminLayout 
-        title="仪表盘" 
-        currentPath="/ticloudadmin"
-        user={currentUser ? { name: currentUser.username, email: currentUser.email, lastLogin: currentUser.last_login_at } : undefined}
-      >
-        <Dashboard stats={stats} logs={logs} />
-      </AdminLayout>
-    )
-  } catch (error) {
-    console.error('加载仪表盘数据失败:', error)
-    return c.html(
-      <AdminLayout title="仪表盘" currentPath="/ticloudadmin">
-        <Dashboard />
-      </AdminLayout>
-    )
-  }
+  return c.redirect('/ticloudadmin/resource-contents')
 })
 
 

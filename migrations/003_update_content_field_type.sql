@@ -2,8 +2,6 @@
 -- 日期: 2024-12-05
 -- 说明: TEXT 类型最大 65,535 字节，对于富文本内容可能不够，改为 LONGTEXT（最大 4GB）
 
-USE ZENAVA_LOCAL;
-
 -- 1. 更新 content 字段类型
 ALTER TABLE resource_contents 
 MODIFY COLUMN content LONGTEXT NULL COMMENT '内容（富文本）';
@@ -23,7 +21,7 @@ SELECT
   COLUMN_TYPE,
   COLUMN_COMMENT
 FROM INFORMATION_SCHEMA.COLUMNS 
-WHERE TABLE_SCHEMA = 'ZENAVA_LOCAL' 
+WHERE TABLE_SCHEMA = DATABASE() 
   AND TABLE_NAME = 'resource_contents' 
   AND COLUMN_NAME IN ('content', 'meta_description');
 
