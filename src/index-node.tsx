@@ -198,6 +198,9 @@ app.get('/', async (c) => {
   const cookieLanguage = getCookie(c, 'user_language')
   const acceptLanguage = c.req.header('Accept-Language') || null
   
+  // Allow manual IP override via query parameter for testing (e.g., ?test_ip=101.141.168.95)
+  const testIP = c.req.query('test_ip')
+  
   // Debug: Log detection info
   const allHeaders: Record<string, string> = {}
   if (c.req.raw && c.req.raw.headers) {
@@ -206,28 +209,80 @@ app.get('/', async (c) => {
     }
   }
   
+  // Extract IP first for better logging
+  const xForwardedFor = c.req.header('x-forwarded-for')
+  const clientIPForLog = c.req.header('CF-Connecting-IP') || 
+                         xForwardedFor?.split(',')[0]?.trim() ||
+                         c.req.header('x-real-ip') ||
+                         c.req.raw?.socket?.remoteAddress ||
+                         null
+  
   console.log('🔍 Language Detection Debug:', {
     pathname: '/',
     cookie: cookieLanguage,
     acceptLanguage: acceptLanguage,
     cfCountry: c.req.header('CF-IPCountry'),
-    clientIP: c.req.header('CF-Connecting-IP') || c.req.header('x-forwarded-for') || c.req.header('x-real-ip'),
+    clientIP: clientIPForLog,
+    xForwardedForFull: xForwardedFor,  // Show full header value
     socketIP: c.req.raw?.socket?.remoteAddress,
     allHeaders
   })
   
   // Pass the Hono context request object which has proper header access
   // Extract IP directly from Hono request (more reliable)
-  const clientIPFromRoute = c.req.header('CF-Connecting-IP') || 
-                            c.req.header('x-forwarded-for')?.split(',')[0]?.trim() ||
-                            c.req.header('x-real-ip') ||
-                            c.req.raw?.socket?.remoteAddress ||
-                            null
+  // Note: x-forwarded-for contains: client-ip, proxy1-ip, proxy2-ip
+  // We want the FIRST IP (original client), but if it's not available, use the LAST (most recent)
+  // xForwardedFor is already declared above, reuse it
+  let clientIPFromRoute = c.req.header('CF-Connecting-IP') || null
+  
+  if (!clientIPFromRoute && xForwardedFor) {
+    const ips = xForwardedFor.split(',').map(ip => ip.trim()).filter(ip => ip)
+    console.log('🔍 IPs:', ips);
+    if (ips.length > 0) {
+      // For x-forwarded-for: client-ip, proxy1-ip, proxy2-ip
+      // The FIRST IP is usually the original client IP
+      // But if there are multiple IPs, log all for debugging
+      clientIPFromRoute = ips[0]  // Use first IP (original client)
+      
+      if (ips.length > 1) {
+        console.log('⚠️ Multiple IPs in x-forwarded-for:', {
+          allIPs: ips,
+          usingFirst: ips[0],
+          lastIP: ips[ips.length - 1],
+          note: 'First IP is usually the original client, last IP is the most recent proxy'
+        })
+        // If user wants to test with last IP, they can use ?test_ip parameter
+      }
+    }
+  }
+  
+  if (!clientIPFromRoute) {
+    clientIPFromRoute = c.req.header('x-real-ip') ||
+                       c.req.raw?.socket?.remoteAddress ||
+                       null
+  }
+  
+  // Log all IP sources for debugging
+  console.log('🔍 IP Sources Debug:', {
+    cfConnectingIP: c.req.header('CF-Connecting-IP'),
+    xForwardedFor: xForwardedFor,
+    xForwardedForParsed: xForwardedFor?.split(',').map(ip => ip.trim()),
+    xRealIP: c.req.header('x-real-ip'),
+    socketIP: c.req.raw?.socket?.remoteAddress,
+    selectedIP: clientIPFromRoute
+  })
+  
+  // Use test IP if provided, otherwise use detected IP
+  const finalClientIP = testIP || clientIPFromRoute
+  
+  if (testIP) {
+    console.log('🧪 Using test IP from query parameter:', testIP)
+  }
   
   // Pass IP as additional context to help detection
   const requestWithIP = {
     ...c.req,
-    _clientIP: clientIPFromRoute  // Add IP as custom property
+    _clientIP: finalClientIP  // Add IP as custom property
   }
   
   const detectedLanguage = await detectLanguageSmart(
