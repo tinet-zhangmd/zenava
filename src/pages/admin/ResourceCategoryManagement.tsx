@@ -6,9 +6,6 @@ interface Category {
   name: string
   slug: string
   description?: string
-  cover_image?: string
-  cover_image_size?: number
-  cover_image_type?: string
   list_template: string
   detail_template: string
   is_visible: boolean
@@ -127,17 +124,9 @@ export const ResourceCategoryManagement: FC<ResourceCategoryManagementProps> = (
                     <td class="px-6 py-4">
                       <div class="flex items-center space-x-4">
                         <div class="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
-                          {category.cover_image ? (
-                            <img 
-                              src={category.cover_image} 
-                              alt={category.name}
-                              class="w-full h-full object-cover transition-transform group-hover:scale-110"
-                            />
-                          ) : (
-                            <div class="w-full h-full flex items-center justify-center">
-                              <i class="fas fa-image text-slate-300"></i>
-                            </div>
-                          )}
+                          <div class="w-full h-full flex items-center justify-center">
+                            <i class="fas fa-folder text-slate-300"></i>
+                          </div>
                         </div>
                         <div class="min-w-0">
                           <div class="font-bold text-slate-900 truncate">{category.name}</div>

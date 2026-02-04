@@ -9,7 +9,6 @@ import { serveStatic } from '@hono/node-server/serve-static'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import { join } from 'path'
 import crypto from 'crypto'
-import requestIP from 'request-ip'
 import { query as mysqlQuery } from './lib/mysql.js'
 import { saveUploadedImage, deleteUploadedImage } from './lib/upload.js'
 
@@ -138,6 +137,43 @@ function processContentByLanguage(content: any, language: Language): any {
     content.cover_image = content.cover_image_hk || content.cover_image_zh || content.cover_image || ''
   }
   
+  // 处理视频文件
+  if (lang === 'zh') {
+    content.video_file = content.video_file_zh || content.video_file || ''
+  } else if (lang === 'en') {
+    content.video_file = content.video_file_en || content.video_file_zh || content.video_file || ''
+  } else if (lang === 'jp') {
+    content.video_file = content.video_file_jp || content.video_file_zh || content.video_file || ''
+  } else if (lang === 'hk') {
+    content.video_file = content.video_file_hk || content.video_file_zh || content.video_file || ''
+  }
+  
+  // 处理附件文件
+  if (lang === 'zh') {
+    content.attachment_file = content.attachment_file_zh || content.attachment_file || ''
+    content.attachment_name = content.attachment_name_zh || content.attachment_name || ''
+  } else if (lang === 'en') {
+    content.attachment_file = content.attachment_file_en || content.attachment_file_zh || content.attachment_file || ''
+    content.attachment_name = content.attachment_name_en || content.attachment_name_zh || content.attachment_name || ''
+  } else if (lang === 'jp') {
+    content.attachment_file = content.attachment_file_jp || content.attachment_file_zh || content.attachment_file || ''
+    content.attachment_name = content.attachment_name_jp || content.attachment_name_zh || content.attachment_name || ''
+  } else if (lang === 'hk') {
+    content.attachment_file = content.attachment_file_hk || content.attachment_file_zh || content.attachment_file || ''
+    content.attachment_name = content.attachment_name_hk || content.attachment_name_zh || content.attachment_name || ''
+  }
+  
+  // 处理视频描述
+  if (lang === 'zh') {
+    content.video_description = content.video_description_zh || content.video_description || ''
+  } else if (lang === 'en') {
+    content.video_description = content.video_description_en || content.video_description_zh || content.video_description || ''
+  } else if (lang === 'jp') {
+    content.video_description = content.video_description_jp || content.video_description_zh || content.video_description || ''
+  } else if (lang === 'hk') {
+    content.video_description = content.video_description_hk || content.video_description_zh || content.video_description || ''
+  }
+  
   // 处理SEO字段
   if (lang === 'zh') {
     content.meta_title = content.meta_title_zh || content.meta_title || ''
@@ -234,60 +270,6 @@ app.get('/', async (c) => {
   if (testIP) {
     clientIPFromRoute = testIP
     console.log('🧪 Using test IP from query parameter:', testIP)
-  } else {
-    // Strategy 1: Try request-ip library (works best in production with proper request object)
-    let requestIPResult: string | null = null
-    try {
-      if (c.req.raw) {
-        requestIPResult = requestIP.getClientIp(c.req.raw)
-        console.log('🔍 request-ip raw result:', requestIPResult)
-        
-        if (requestIPResult && requestIPResult !== '::1' && requestIPResult !== '127.0.0.1' && 
-            !requestIPResult.startsWith('192.168.') && !requestIPResult.startsWith('10.')) {
-          clientIPFromRoute = requestIPResult
-          console.log('✅ IP extracted using request-ip library:', requestIPResult)
-        } else {
-          console.log('⚠️ request-ip returned invalid/local IP:', requestIPResult)
-        }
-      } else {
-        console.log('⚠️ c.req.raw is not available, skipping request-ip')
-      }
-    } catch (error: any) {
-      console.log('⚠️ request-ip extraction failed (non-blocking):', error.message)
-    }
-    
-    // Strategy 2: Fallback to manual header extraction
-    // This is especially important for local development where request-ip might not work
-    if (!clientIPFromRoute) {
-      console.log('🔄 Falling back to manual header extraction...')
-      console.log('   xForwardedFor value:', xForwardedFor)
-      
-      // x-forwarded-for format: "client-ip, proxy1-ip, proxy2-ip"
-      // First IP is usually the original client
-      if (xForwardedFor) {
-        const ips = xForwardedFor.split(',').map(ip => ip.trim()).filter(ip => ip)
-        console.log('   Parsed IPs from x-forwarded-for:', ips)
-        if (ips.length > 0) {
-          clientIPFromRoute = ips[0]  // Use first IP (original client)
-          console.log('✅ IP extracted from x-forwarded-for header:', clientIPFromRoute)
-        }
-      } else {
-        console.log('   xForwardedFor is empty/null')
-      }
-      
-      // Strategy 3: Try other headers as final fallback
-      if (!clientIPFromRoute) {
-        const cfIP = c.req.header('CF-Connecting-IP')
-        const realIP = c.req.header('x-real-ip')
-        console.log('   Trying other headers - CF-Connecting-IP:', cfIP, 'x-real-ip:', realIP)
-        
-        clientIPFromRoute = cfIP || realIP || null
-        
-        if (clientIPFromRoute) {
-          console.log('✅ IP extracted from other headers:', clientIPFromRoute)
-        }
-      }
-    }
   }
   
   // Log IP extraction for debugging
@@ -921,7 +903,7 @@ app.get('/resources/:slug', async (c) => {
   try {
     const nameField = getCategoryNameField(language)
     const result = await mysqlQuery<any[]>(
-      `SELECT id, ${nameField}, link as slug, description, cover_image, category_template 
+      `SELECT id, ${nameField}, link as slug, category_template 
        FROM resource_categories 
        WHERE link = ? AND is_displayed = 1 
        LIMIT 1`,
@@ -1181,7 +1163,7 @@ app.get('/:lang/resources/:slug', async (c) => {
   try {
     const nameField = getCategoryNameField(language)
     const result = await mysqlQuery<any[]>(
-      `SELECT id, ${nameField}, link as slug, description, cover_image, category_template 
+      `SELECT id, ${nameField}, link as slug, category_template 
        FROM resource_categories 
        WHERE link = ? AND is_displayed = 1 
        LIMIT 1`,
@@ -1362,7 +1344,7 @@ app.get('/resources/:slug/:id', async (c) => {
     // 获取栏目信息
     const nameField = getCategoryNameField(language)
     const categoryResult = await mysqlQuery<any[]>(
-      `SELECT id, ${nameField}, link as slug, description, category_template 
+      `SELECT id, ${nameField}, link as slug, category_template 
        FROM resource_categories 
        WHERE link = ? AND is_displayed = 1 
        LIMIT 1`,
@@ -1569,7 +1551,7 @@ app.get('/:lang/resources/:slug/:id', async (c) => {
     // 获取栏目信息
     const nameField = getCategoryNameField(language)
     const categoryResult = await mysqlQuery<any[]>(
-      `SELECT id, ${nameField}, link as slug, description, category_template 
+      `SELECT id, ${nameField}, link as slug, category_template 
        FROM resource_categories 
        WHERE link = ? AND is_displayed = 1 
        LIMIT 1`,
@@ -2418,7 +2400,6 @@ app.get('/ticloudadmin/resource-categories', requireAuth(), async (c) => {
     // 排序：sort_order 升序（数字越小越靠前），相同时按 created_at 降序（最新的在前）
     const categories = await mysqlQuery<any[]>(
       `SELECT id, sort_order, name, link as slug, 
-              description,
               name_zh, name_en, name_jp, name_hk,
               description_zh, description_en, description_jp, description_hk,
               category_template as list_template, 
@@ -2470,7 +2451,6 @@ app.get('/ticloudadmin/resource-categories/edit/:id', requireAuth(), async (c) =
     const id = c.req.param('id')
     const [category] = await mysqlQuery<any[]>(
       `SELECT id, sort_order, name, link as slug, 
-              description,
               name_zh, name_en, name_jp, name_hk,
               description_zh, description_en, description_jp, description_hk,
               category_template as list_template, 
@@ -3094,7 +3074,6 @@ app.get('/api/admin/resource-categories', async (c) => {
     // 排序：sort_order 升序（数字越小越靠前），相同时按 created_at 降序（最新的在前）
     const categories = await mysqlQuery<any[]>(
       `SELECT id, sort_order, name, link as slug, 
-              description,
               name_zh, name_en, name_jp, name_hk,
               description_zh, description_en, description_jp, description_hk,
               category_template as list_template, 
@@ -3170,16 +3149,15 @@ app.post('/api/admin/resource-categories', async (c) => {
     
     const result: any = await mysqlQuery(
       `INSERT INTO resource_categories 
-       (sort_order, name, link, description,
+       (sort_order, name, link,
         name_zh, name_en, name_jp, name_hk,
         description_zh, description_en, description_jp, description_hk,
         category_template, page_template, is_displayed) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         sort_order || 0, 
         name || '', 
         slug, 
-        description || null,
         // 多语言字段
         name_zh || null, name_en || null, name_jp || null, name_hk || null,
         description_zh || null, description_en || null, description_jp || null, description_hk || null,
@@ -3198,7 +3176,6 @@ app.post('/api/admin/resource-categories', async (c) => {
         sort_order,
         name,
         slug,
-        description,
         list_template,
         detail_template,
         is_visible
@@ -3219,7 +3196,6 @@ app.get('/api/admin/resource-categories/:id', async (c) => {
     const id = c.req.param('id')
     const [category] = await mysqlQuery<any[]>(
       `SELECT id, sort_order, name, link as slug, 
-              description,
               name_zh, name_en, name_jp, name_hk,
               description_zh, description_en, description_jp, description_hk,
               category_template as list_template, 
@@ -3272,7 +3248,6 @@ app.put('/api/admin/resource-categories/:id', async (c) => {
     const sort_order = body.sort_order !== undefined ? body.sort_order : currentCategory.sort_order
     const name = body.name !== undefined ? body.name : currentCategory.name
     const slug = body.slug !== undefined ? body.slug : currentCategory.link
-    const description = body.description !== undefined ? body.description : currentCategory.description
     const list_template = body.list_template !== undefined ? body.list_template : currentCategory.category_template
     const detail_template = body.detail_template !== undefined ? body.detail_template : currentCategory.page_template
     const is_visible = body.is_visible !== undefined ? body.is_visible : currentCategory.is_displayed
@@ -3319,7 +3294,7 @@ app.put('/api/admin/resource-categories/:id', async (c) => {
     // 更新栏目（包含多语言字段）
     await mysqlQuery(
       `UPDATE resource_categories 
-       SET sort_order = ?, name = ?, link = ?, description = ?,
+       SET sort_order = ?, name = ?, link = ?,
            name_zh = ?, name_en = ?, name_jp = ?, name_hk = ?,
            description_zh = ?, description_en = ?, description_jp = ?, description_hk = ?,
            category_template = ?, page_template = ?, is_displayed = ?
@@ -3328,7 +3303,6 @@ app.put('/api/admin/resource-categories/:id', async (c) => {
         sort_order, 
         name || '', 
         slug, 
-        description || null,
         // 多语言字段
         name_zh || null, name_en || null, name_jp || null, name_hk || null,
         description_zh || null, description_en || null, description_jp || null, description_hk || null,
@@ -3372,22 +3346,11 @@ app.delete('/api/admin/resource-categories/:id', async (c) => {
       }, 400)
     }
     
-    // 获取栏目信息（用于删除图片）
-    const [category] = await mysqlQuery<any[]>(
-      'SELECT cover_image FROM resource_categories WHERE id = ?',
-      [id]
-    )
-    
     // 删除栏目记录
     await mysqlQuery(
       `DELETE FROM resource_categories WHERE id = ?`,
       [id]
     )
-    
-    // 删除关联的图片
-    if (category?.cover_image) {
-      await deleteUploadedImage(category.cover_image)
-    }
     
     return c.json({ 
       success: true, 
@@ -3431,12 +3394,6 @@ app.post('/api/admin/resource-categories/batch', async (c) => {
           }, 400)
         }
         
-        // 获取所有要删除栏目的封面图片
-        const categories = await mysqlQuery<any[]>(
-          `SELECT cover_image FROM resource_categories WHERE id IN (${placeholders})`,
-          ids
-        )
-        
         // 删除栏目
         const deleteResult = await mysqlQuery(
           `DELETE FROM resource_categories WHERE id IN (${placeholders})`,
@@ -3444,13 +3401,6 @@ app.post('/api/admin/resource-categories/batch', async (c) => {
         )
         
         affectedCount = (deleteResult as any).affectedRows || 0
-        
-        // 删除关联的封面图片
-        for (const category of categories) {
-          if (category?.cover_image) {
-            await deleteUploadedImage(category.cover_image)
-          }
-        }
         
         return c.json({ 
           success: true,

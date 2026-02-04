@@ -2,7 +2,6 @@ import zhTranslations from '../i18n/zh.json'
 import enTranslations from '../i18n/en.json'
 import jpTranslations from '../i18n/jp.json'
 import hkTranslations from '../i18n/hk.json'
-import requestIP from 'request-ip'
 
 export type Language = 'zh' | 'en' | 'jp' | 'hk'
 
@@ -128,22 +127,7 @@ export async function detectLanguageFromIP(request: any): Promise<Language> {
       console.log('🧪 Using custom IP from route:', clientIP)
     }
     
-    // Then use request-ip library to extract real client IP
-    if (!clientIP) {
-      try {
-        // request-ip works with Node.js request object
-        if (request.raw) {
-          clientIP = requestIP.getClientIp(request.raw)
-        } else if (request.req) {
-          clientIP = requestIP.getClientIp(request.req)
-        } else {
-          // Fallback: try to use request object directly
-          clientIP = requestIP.getClientIp(request as any)
-        }
-      } catch (error) {
-        console.log('⚠️ request-ip extraction failed:', error)
-      }
-    }
+
     
     console.log('🔍 IP Extraction Debug:', {
       clientIP,

@@ -63,6 +63,11 @@ interface Content {
   video_description_en?: string
   video_description_jp?: string
   video_description_hk?: string
+  // 视频文件多语言字段
+  video_file_zh?: string
+  video_file_en?: string
+  video_file_jp?: string
+  video_file_hk?: string
 }
 
 interface RecommendedContent {
@@ -108,7 +113,7 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
   }
   
   // 根据语言获取内容字段（双重保险，确保使用正确的多语言数据）
-  const getContentField = (field: 'title' | 'content' | 'cover_image' | 'meta_title' | 'meta_description' | 'meta_keywords' | 'video_description') => {
+  const getContentField = (field: 'title' | 'content' | 'cover_image' | 'meta_title' | 'meta_description' | 'meta_keywords' | 'video_description' | 'video_file') => {
     if (field === 'title') {
       if (language === 'zh') return content.title_zh || content.title || ''
       if (language === 'en') return content.title_en || content.title_zh || content.title || ''
@@ -158,6 +163,13 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
       if (language === 'hk') return content.video_description_hk || content.video_description_zh || content.video_description || ''
       return content.video_description || ''
     }
+    if (field === 'video_file') {
+      if (language === 'zh') return content.video_file_zh || content.video_file || ''
+      if (language === 'en') return content.video_file_en || content.video_file_zh || content.video_file || ''
+      if (language === 'jp') return content.video_file_jp || content.video_file_zh || content.video_file || ''
+      if (language === 'hk') return content.video_file_hk || content.video_file_zh || content.video_file || ''
+      return content.video_file || ''
+    }
     return ''
   }
   
@@ -168,6 +180,7 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
   const displayMetaTitle = getContentField('meta_title')
   const displayMetaDescription = getContentField('meta_description')
   const displayVideoDescription = getContentField('video_description')
+  const displayVideoFile = getContentField('video_file')
   
   // 根据 category_template 确定内容类型
   const contentType: 'video' | 'podcast' = category.category_template === 'list_video' ? 'video' : 'podcast'
@@ -187,8 +200,8 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
     return videoExtensions.some(ext => lowerUrl.includes(ext))
   }
   
-  const mediaFileType = content.video_file 
-    ? (isAudioFile(content.video_file) ? 'audio' : isVideoFile(content.video_file) ? 'video' : 'unknown')
+  const mediaFileType = displayVideoFile 
+    ? (isAudioFile(displayVideoFile) ? 'audio' : isVideoFile(displayVideoFile) ? 'video' : 'unknown')
     : 'none'
 
   // 构建结构化数据（JSON-LD）用于 SEO
@@ -199,7 +212,7 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
     "description": displayMetaDescription || displayVideoDescription || displayContent?.replace(/<[^>]*>/g, '').substring(0, 200) || '',
     "thumbnailUrl": displayCoverImage || '',
     "uploadDate": content.published_at,
-    "contentUrl": content.video_file || '',
+    "contentUrl": displayVideoFile || '',
     "author": {
       "@type": "Person",
       "name": content.author || "ZENAVA"
@@ -346,16 +359,16 @@ export const VideoPodcastDetailPage: FC<VideoPodcastDetailPageProps> = ({
             <div class="lg:col-span-2">
               {/* Video/Podcast Player Section */}
               <div class="mb-8 md:mb-12">
-                {contentType === 'video' && content.video_file ? (
+                {contentType === 'video' && displayVideoFile ? (
                   mediaFileType === 'audio' ? (
                     <AudioPlayer 
-                      audioFile={content.video_file}
+                      audioFile={displayVideoFile}
                       coverImage={displayCoverImage}
                       language={language}
                     />
                   ) : mediaFileType === 'video' ? (
                     <VideoPlayer 
-                      videoFile={content.video_file}
+                      videoFile={displayVideoFile}
                       coverImage={displayCoverImage}
                       language={language}
                     />

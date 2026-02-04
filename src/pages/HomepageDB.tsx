@@ -585,7 +585,7 @@ export const HomepageDB: FC<HomepageProps> = ({ language = 'en', pageData, modul
                   <div class="order-1" data-animate="slide-up">
                 <div class="rounded-xl overflow-hidden relative">
                   <img 
-                        src={trans.businessValue.capabilities.item1.imagePath || '/assets/images/01.webp'} 
+                        src={trans.businessValue.capabilities.item1.imagePath} 
                         alt={trans.businessValue.capabilities.item1.imageAlt || '即时响应服务'}
                         class="w-full h-auto object-contain"
                     loading="lazy"
