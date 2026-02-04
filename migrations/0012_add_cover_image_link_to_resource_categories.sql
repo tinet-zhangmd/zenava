@@ -9,8 +9,16 @@ SET @col_exists = 0;
 SELECT COUNT(*) INTO @col_exists FROM INFORMATION_SCHEMA.COLUMNS 
 WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'resource_categories' AND COLUMN_NAME = 'cover_image_link';
 
+-- 检查 cover_image_type 列是否存在，如果存在则在其后添加，否则在 sort_order 之后添加
+SET @cover_image_type_exists = 0;
+SELECT COUNT(*) INTO @cover_image_type_exists FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'resource_categories' AND COLUMN_NAME = 'cover_image_type';
+
 SET @sql = IF(@col_exists = 0, 
-  'ALTER TABLE resource_categories ADD COLUMN cover_image_link VARCHAR(500) NULL COMMENT "栏目封面图跳转链接" AFTER cover_image_type',
+  IF(@cover_image_type_exists > 0,
+    'ALTER TABLE resource_categories ADD COLUMN cover_image_link VARCHAR(500) NULL COMMENT "栏目封面图跳转链接" AFTER cover_image_type',
+    'ALTER TABLE resource_categories ADD COLUMN cover_image_link VARCHAR(500) NULL COMMENT "栏目封面图跳转链接" AFTER sort_order'
+  ),
   'SELECT "Column cover_image_link already exists"'
 );
 PREPARE stmt FROM @sql;

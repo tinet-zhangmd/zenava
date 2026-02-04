@@ -1,82 +1,1203 @@
 {
-  "site": {
-    "title": "Zenava",
-    "description": "企業向けAI駆動顧客エンゲージメントソリューション"
+  "company": {
+    "name": "Zenava",
+    "tagline": "カスタマーサービスとマーケティングシナリオ向けのAI生産性プラットフォーム",
+    "vision": "企業の生産性および組織形態の変革を支援し、「人力主導」から「AI主導」への飛躍を実現",
+    "description": "エンタープライズグレードのAI対話ソリューションで顧客エンゲージメントを変革"
   },
   "nav": {
     "home": "ホーム",
-    "scenarios": "シナリオ",
-    "marketing": "マーケティング",
-    "sales": "営業",
-    "customer_service": "カスタマーサービス", 
-    "internal_service": "内部サービス",
-    "management": "管理最適化",
+    "scenarios": "ソリューション",
     "about": "会社概要",
-    "contact": "お問い合わせ"
+    "contact": "お問い合わせ",
+    "getStarted": "始めましょう",
+    "learnMore": "詳細を見る",
+    "bookDemo": "デモのご予約",
+    "language": "言語"
   },
   "hero": {
-    "title": "Zenava",
-    "subtitle": "企業向けAI駆動顧客エンゲージメントソリューション",
-    "description": "高度なAIエージェントが対話を「回答」から「実行」に変革し、企業のインテリジェント化を推進。",
-    "cta_primary": "始める",
-    "cta_secondary": "詳細を見る"
+    "title": "カスタマーサービスとマーケティングシナリオ向けのAI生産性プラットフォーム",
+    "subtitle": "企業の生産性および組織形態の変革を支援し、「人力主導」から「AI主導」への飛躍を実現",
+    "cta": {
+      "primary": "デモのご予約",
+      "secondary": "ソリューション一覧"
+    }
   },
-  "features": {
-    "title": "Zenavaが組織にもたらす変化",
-    "subtitle": "AI駆動のソリューションで効率向上と顧客体験の向上を実現",
-    "customers": {
-      "title": "お客様にとって",
-      "subtitle": "即座の応答、迅速な解決",
-      "description": "音声、テキスト、チケットでのマルチチャネル対応とインテリジェント応答。高度な感情AIで顧客関係を維持し、ロイヤルティを向上。"
+  "businessValue": {
+    "title": "Zenavaが企業にもたらすもの",
+    "subtitle": "企業がいつでもどこでも効率的に顧客にサービスを提供し、卓越した顧客体験を創出し、サービスコストを削減",
+    "metrics": {
+      "marketing": {
+        "title": "マーケティング成果指標",
+        "costReduction": "平均顧客獲得コスト43%削減",
+        "conversionIncrease": "リードコンバージョン疗65%向上",
+        "responseTime": "顧客応答時間",
+        "responseValue": "<30秒",
+        "channelCoverage": "スマートマーケティングチャネル",
+        "channelCount": "10+",
+        "dailyInquiries": "日次問い合わせ処理数",
+        "dailyCount": "50,000+"
+      },
+      "sales": {
+        "title": "セールス成果指標",
+        "cycleReduction": "販売サイクル短縮",
+        "winRateIncrease": "成約率向上"
+      },
+      "service": {
+        "title": "サービス成果指標",
+        "responseTime": "平均応答時間",
+        "resolutionRate": "初回解決率"
+      },
+      "internal": {
+        "title": "運用指標",
+        "efficiency": "プロセス効率向上",
+        "satisfaction": "従業員満足度"
+      },
+      "product": {
+        "title": "製品イノベーション指標",
+        "insights": "顧客インサイト生成",
+        "iterations": "製品イテレーション速度"
+      },
+      "brand": {
+        "title": "ブランド保護指標",
+        "monitoring": "リアルタイム監視",
+        "response": "危機対応時間"
+      }
     },
-    "employees": {
-      "title": "従業員にとって",
-      "subtitle": "人間の従業員がより効率的に働くことを支援",
-      "description": "スマート返信提案、自動チケット作成、対話要約、感情分析を提供するAIアシスタント。グローバルチームのためのシームレスな多言語翻訳。"
-    },
-    "enterprise": {
-      "title": "企業にとって",
-      "subtitle": "真の声でビジネス意思決定を提供",
-      "description": "クロスチャネル分析によるサービス、プロセス、製品の最適化のための実行可能なインサイトを生成。パフォーマンス分析による継続的改善。"
+    "capabilities": {
+      "item1": {
+        "title": "即時応答、迅速な問題解決",
+        "list": [
+          "企業に7×24時間の即時応答サービスを提供",
+          "ウェブサイト、アプリ、WHATSAPP、LINE、FacebookなどのSNSで、音声やテキストメッセージでやり取り、迅速に顧客に対応し、問題を解決する。",
+          "待機時間の短縮、人件費の削減、顧客満足度の向上"
+        ],
+        "button": "詳細はこちら",
+        "imageAlt": "即時応答サービス"
+      },
+      "item2": {
+        "title": "人間らしい自然なコミュニケーション体験、より信頼できる",
+        "list": [
+          "音声、テキスト、画像、動画など多様な形式の情報を理解し、顧客の問題を正確に解決",
+          "多回対話情報収集をサポートし、複雑なニーズを分解し、問題を処理",
+          "感情認識能力を備え、根気あり、熱心で、人間らしい自然なコミュニケーション体験て、顧客ロイヤルティを向上"
+        ],
+        "button": "詳細はこちら",
+        "imageAlt": "自然なコミュニケーション体験"
+      },
+      "item3": {
+        "title": "顧客サービス自動化、エンドツーエンド閉ループを実現",
+        "list": [
+          "反復的、高頻度、プロセスが明確な顧客連絡タスクの80%を独立処理可能",
+          "意図認識 → タスク実行 → 結果フィードバックのエンドツーエンド自動化閉ループを実現し、特定のタスクでは完全に無人化可能"
+        ],
+        "button": "詳細はこちら",
+        "imageAlt": "顧客サービス自動化"
+      },
+      "item4": {
+        "title": "インテリジェントなリード獲得、顧客転換率の向上",
+        "list": [
+          "顧客の意図を正確に識別し、顧客のニーズを深く掘り下げ、専門的な対応を提供し、取引を促進",
+          "自主的に質問し、重要な情報を明確化し、顧客に情報を残すよう案内する、リードを自動収集し、顧客転換率を向上"
+        ],
+        "button": "詳細はこちら",
+        "imageAlt": "インテリジェントなリード獲得"
+      },
+      "item5": {
+        "title": "効果を定量化、AIの価値を可視化",
+        "list": [
+          "企業のコスト構造を再構築し、サービスコストを約20%削減",
+          "企業のコスト削減と効率向上の最適な選択"
+        ],
+        "button": "詳細はこちら",
+        "imageAlt": "効果を定量化"
+      }
     }
   },
   "scenarios": {
     "marketing": {
-      "title": "マーケティング向けZenava",
-      "subtitle": "AIによる潜在顧客の獲得およびコンバージョン最適化。",
-      "challenges": {
-        "title": "現在のマーケティング課題",
-        "conversion": "不適切なリードガイダンスと一貫性のないメッセージングによる低コンバージョン率",
-        "assignment": "手動リード配布による営業リソースの無駄",
-        "reactivation": "再活性化なしで未開拓のまま放置されるサイレントリード",
-        "data": "不明確な最適化パスによるデータブラインドマーケティング"
+      "title": "マーケティング自動化",
+      "subtitle": "コンバージョン向上、顧客獲得コスト削減",
+      "description": "顧客の意図をリアルタイムで把握し、潜在リードを効率的に分配。会話分析でマーケティング戦略を最適化",
+      "features": [
+        "意図認識",
+        "スマートリード獲得",
+        "マルチチャネル統合",
+        "予測分析"
+      ],
+      "section3": {
+        "mainTitle": "AI駆動のマーケティングオートメーション",
+        "subtitle": "スマートリード獲得、正確なコンバージョン",
+        "description": "AIによるスマートな顧客獲得と認識",
+        "tag1": "スマート認識",
+        "tag2": "リアルタイム最適化",
+        "buttonText": "マーケティングオートメーションの詳細",
+        "imageAlt": "実体画像"
       }
     },
     "sales": {
-      "title": "営業向けZenava",
-      "subtitle": "AIによる営業ガイダンスと推奨。"
+      "title": "セールス支援プロセス",
+      "subtitle": "成約周期短縮、成約率アップ",
+      "description": "リアルタイムトークスクリプト推奨、競合情報活用、ベストプラクティス提案。AIで成約戦略を支援し、コンバージョン向上を実現",
+      "features": [
+        "トークトラック推奨",
+        "競合分析",
+        "インテリジェントクロージング支援",
+        "パフォーマンス分析"
+      ],
+      "featureShort": [
+        "トークスクリプト推奨",
+        "競合分析",
+        "スマート成約"
+      ],
+      "buttonText": "営業の詳細"
     },
-    "customer_service": {
-      "title": "カスタマーサービス向けZenava", 
-      "subtitle": "複雑な問題に対するインテリジェント人間サポート付きでサービスタスクの80%を自律処理。"
+    "customerService": {
+      "title": "カスタマーサービス",
+      "subtitle": "より速く、正確で、共感的なサポート",
+      "description": "24時間365日のインテリジェント応答、複雑な問題のルーティング、感情認識対応。ナレッジベース統合による迅速な問題解決",
+      "features": [
+        "24時間365日対応",
+        "感情認識",
+        "スマートチケッティング",
+        "ナレッジ管理"
+      ],
+      "buttonText": "カスタマーサービスの詳細"
     },
-    "internal_service": {
-      "title": "内部サービス向けZenava",
-      "subtitle": "大規模組織向けの合理化された内部サービスで、コスト削減と効率向上を実現。"
+    "internalService": {
+      "title": "社内運営",
+      "subtitle": "多層組織管理の効率化",
+      "description": "サービスの統一窓口で、設備、在庫、研修業務を処理。スマートディスパッチと進捗管理で、運営効率を最適化",
+      "features": [
+        "統一窓口",
+        "インテリジェントルーティング",
+        "データ分析",
+        "プロセス自動化"
+      ],
+      "buttonText": "社内サービスの詳細",
+      "videoError": "お使いのブラウザは動画再生に対応していません"
     },
     "management": {
-      "title": "管理最適化向けZenava",
-      "subtitle": "競争優位性のための実行可能な最適化を推進する顧客インサイト。"
+      "title": "経営最適化",
+      "subtitle": "顧客の声が製品イノベーションを推進",
+      "description": "会話から製品に関するインサイトを抽出し、フィードバックの傾向を定量化。顧客の声を製品アップデートに活かすサイクルを構築",
+      "features": [
+        "インサイトマイニング",
+        "ニーズ抽出",
+        "イテレーションループ",
+        "トレンド分析"
+      ],
+      "brandFeatures": [
+        "リスクアラート",
+        "感情分析",
+        "品質管理"
+      ],
+      "buttonText": "管理の詳細"
     }
   },
-  "about": {
-    "title": "TI Cloudについて",
-    "subtitle": "テクノロジーで力を与え、顧客を成功に導く",
-    "description": "AI駆動顧客エンゲージメントソリューションの業界リーダー企業"
+  "industries": {
+    "retail": {
+      "pageTitle": "AI Agents for Retail",
+      "banner": {
+        "src": "/assets/images/retail/banner-jp.webp",
+        "mobileSrc": "/assets/images/retail/banner-mobile-jp.webp",
+        "alt": "小売業向けAIエージェント",
+        "link": "/contact"
+      },
+      "cardGrid": {
+        "card1": {
+          "title": "いつでもどこでも顧客と繋がる",
+          "description": "企業公式サイト、アプリ、SNSなどあらゆるチャンネルで、24時間365日で顧客と繋がる",
+          "button1Text": "詳細を見る",
+          "button1Link": "/contact",
+          "button2Text": "デモのご予約",
+          "button2Link": "/contact"
+        },
+        "card2": {
+          "title": "パーソナライズカスタマーサービス",
+          "description": "顧客にプロでパーソナライズされたサービスを提供し、満足度を向上",
+          "button1Text": "詳細を見る",
+          "button1Link": "/contact",
+          "button2Text": "デモのご予約",
+          "button2Link": "/contact"
+        },
+        "card3": {
+          "title": "大量の顧客問い合わせに対応",
+          "description": "大量の顧客問い合わせを同時に処理可能で、セールシーズンやショッピングピークを簡単に対応",
+          "button1Text": "詳細を見る",
+          "button1Link": "/contact",
+          "button2Text": "デモのご予約",
+          "button2Link": "/contact"
+        }
+      },
+      "alternatingTags": {
+        "title": "コア業務シナリオ",
+        "subtitle": "消費者にライフサイクル全体のサービスを提供",
+        "items": [
+          {
+            "icon": "fas fa-shopping-bag",
+            "title": "インテリジェントショッピングガイド",
+            "subtitle": "",
+            "description": "顧客の問い合わせ意図を正確に認識し、パーソナライズ商品推奨とプロモーション情報を提供し、販売を促進し、購入転換率を向上",
+            "tags": [
+              "意図認識",
+              "パーソナライズ推奨",
+              "プロモーション情報",
+              "転換向上"
+            ],
+            "buttonText": "詳細を見る",
+            "buttonLink": "/contact",
+            "mediaPath": "/assets/images/retail/01-jp.webp",
+            "mediaAlt": "インテリジェントショッピングガイド"
+          },
+          {
+            "icon": "fas fa-clipboard-list",
+            "title": "注文管理",
+            "subtitle": "",
+            "description": "注文照会、返品・交換、物流追跡などの問い合わせを自動処理し、待機時間を短縮し、顧客満足度とショッピング体験を向上",
+            "tags": [
+              "注文照会",
+              "返品・交換処理",
+              "物流追跡",
+              "効率向上"
+            ],
+            "buttonText": "詳細を見る",
+            "buttonLink": "/contact",
+            "mediaPath": "/assets/images/retail/02-jp.webp",
+            "mediaAlt": "注文管理"
+          },
+          {
+            "icon": "fas fa-tools",
+            "title": "アフターサービス・故障診断",
+            "subtitle": "",
+            "description": "会話と写真や映像を組み合わせて、お客様のトラブルを特定する。自律的に顧客の故障診断を支援し、問題解決効率を向上",
+            "tags": [
+              "故障識別",
+              "多回対話",
+              "画像・動画サポート",
+              "問題解決"
+            ],
+            "buttonText": "詳細を見る",
+            "buttonLink": "/contact",
+            "mediaPath": "/assets/images/retail/03-jp.webp",
+            "mediaAlt": "アフターサービス故障診断"
+          },
+          {
+            "icon": "fas fa-wrench",
+            "title": "設置・修理依頼とスマートフォローアップ",
+            "subtitle": "",
+            "description": "顧客の修理、設置などのサービスニーズを自動識別し、作業チケットを生成して関連担当者に配信；サービス完了後、自動的に満足度調査を開始し、顧客サービス閉ループを形成し、顧客体験を向上",
+            "tags": [
+              "作業チケット生成",
+              "インテリジェント配信",
+              "満足度調査",
+              "サービス閉ループ"
+            ],
+            "buttonText": "詳細を見る",
+            "buttonLink": "/contact",
+            "mediaPath": "/assets/images/retail/04-jp.webp",
+            "mediaAlt": "設置・修理とインテリジェントフォローアップ"
+          }
+        ]
+      },
+      "alternatingList": {
+        "title": "",
+        "subtitle": "",
+        "items": [
+          {
+            "title": "定量化された効果",
+            "subtitle": "Every Investment is Quantifiable",
+            "features": [
+              "投資対効果が明確",
+              "一般的な顧客問題の90%を自動処理",
+              "アフターサービス問題解決時間を60%短縮",
+              "顧客満足度が92%+に向上",
+              "平均購入転換率が30–40%向上"
+            ],
+            "buttonText": "詳細を見る",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/retail/05-jp.webp",
+            "imageAlt": "定量化された効果"
+          }
+        ]
+      },
+      "quantifiedEffects": {
+        "title": "定量化成果",
+        "subtitle": "",
+        "description": "",
+        "effects": [
+          "投資収益率が可視化",
+          "顧客のよくある質問 90%を自動対応",
+          "アフターサービス問題解決時間を60%短縮",
+          "顧客満足度92%+向上",
+          "平均購入転換率30–40% 向上"
+        ],
+        "buttonText": "詳細はこちら",
+        "buttonLink": "/contact",
+        "imageAlt": "定量化された効果",
+        "imageSrc": "/assets/images/retail/06-jp.webp"
+      }
+    },
+    "automotive": {
+      "banner": {
+        "src": "/assets/images/automotive/banner-jp.webp",
+        "mobileSrc": "/assets/images/automotive/banner-mobile-jp.webp",
+        "alt": "自動車製品バナー",
+        "link": "/contact"
+      },
+      "alternatingList": {
+        "title": "コア業務シナリオ",
+        "subtitle": "",
+        "items": [
+          {
+            "icon": "fas fa-car",
+            "title": "試乗招待",
+            "description": "顧客の意図を正確に識別し、試乗への転換を効率的に推進",
+            "features": [
+              "顧客の注目点を捉え、車種仕様・価格・特典などの質問に迅速かつ正確に回答",
+              "顧客の購入意図と利用可能な時間を自動識別し、顧客が試乗予約を案内する",
+              "顧客識別、相談回答からタスク割り当てまで、営業スフォローアップの全プロセス自動化を実現"
+            ],
+            "businessValue": [
+              "試乗招待転換率が向上 35%",
+              "顧客満足度が達成 95%",
+              "顧客応答時間が短縮 30%"
+            ],
+            "buttonText": "詳細はこちら",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/automotive/01-jp.webp",
+            "imageAlt": "試乗招待"
+          },
+          {
+            "icon": "fas fa-headset",
+            "title": "アフターサービスと顧客ケア",
+            "description": "顧客のニーズに迅速に対応し、ブランドロイヤルティを向上",
+            "features": [
+              "メンテナンス・修理の進捗状況をリアルタイムで確認可能。人間カスタマーサービスを待つ必要はない",
+              "メンテナンスリマインダーやリコール通知を自主的に実施し、顧客満足度とロイヤルティを向上",
+              "試乗/サービス後に自動的にフォローアップと満足度調査を実施し、改善フィードバックを収集"
+            ],
+            "businessValue": [
+              "アフターサービス問い合わせ応答時間が短縮 50%",
+              "アフターサービス満足度が向上 25%",
+              "顧客維持率が向上 20%"
+            ],
+            "buttonText": "詳細はこちら",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/automotive/02-jp.webp",
+            "imageAlt": "アフターサービスと顧客ケア"
+          }
+        ]
+      }
+    },
+    "software": {
+      "banner": {
+        "src": "/assets/images/software/banner-jp.webp",
+        "mobileSrc": "/assets/images/software/banner-mobile-jp.webp",
+        "alt": "ソフトウェア製品バナー",
+        "link": "/contact"
+      },
+      "scenariosList": {
+        "title": "コア業務シナリオ",
+        "subtitle": "",
+        "items": [
+          {
+            "icon": "fas fa-user-check",
+            "title": "販売前のリード獲得",
+            "description": "高意欲顧客を自動識別し、重要な情報を効率的に収集し、リード転換率を向上",
+            "features": [
+              "24時間対応、夜間や祝日もカバーし、秒単位での応答を提供",
+              "オープンな対話で顧客の意図とリード提供意欲を正確に判断",
+              "豊富な製品知識と一般知識を活用し、専門的な回答を実現し、顧客の信頼を向上"
+            ],
+            "effects": [
+              "問い合わせからリードへの転換率は10%から40%に向上",
+              "年間2000万円以上の人件費削減"
+            ],
+            "buttonText": "詳細はこちら",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/software/01-jp.webp",
+            "imageAlt": "セールス前リード生成"
+          },
+          {
+            "icon": "fas fa-question-circle",
+            "title": "ソフトウェア使用相談",
+            "description": "ユーザーの疑問に迅速に対応し、ソフトウェアの使い方を効率的に指導し、新規ユーザーが短期間で操作を慣れるよう支援する",
+            "features": [
+              "ユーザーの曖昧または不完全な質問を正確に理解し、具体的な機能や画面操作を素早く特定する",
+              "異なるバージョン、異なる権限、または個別設定において、文脈に一貫性があり、実行しやすいガイダンスを提供"
+            ],
+            "effects": [
+              "独立対応率が62%に達する"
+            ],
+            "buttonText": "詳細はこちら",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/software/02-jp.webp",
+            "imageAlt": "ソフトウェア使用相談"
+          },
+          {
+            "icon": "fas fa-tools",
+            "title": "テクニカルサポート",
+            "description": "顧客と内部チーム向けに、アフターサービスや製品技術問題を自動的に回答し、トラブルシューティングガイダンスとチケットルーティングを提供し、サービス効率を向上",
+            "features": [
+              "複雑な技術問題の語義表現と文脈依存を正確に識別し、ユーザーシナリオに適合する正確な回答を確保",
+              "インテリジェントエージェント知識ベースに基づき、大規模モデル分析を通じて問題を迅速に発見し、ソリューションを提供する",
+              "問題が解決できない場合、人工対応にスムーズに移行"
+            ],
+            "effects": [
+              "精度が85%を超え、平均応答時間は3S以内",
+              "独立対応率が20%から35%に向上"
+            ],
+            "buttonText": "詳細はこちら",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/software/03-jp.webp",
+            "imageAlt": "テクニカルサポート"
+          }
+        ]
+      },
+      "casesList": {
+        "title": "応用事例と定量効果",
+        "subtitle": "",
+        "items": [
+          {
+            "title": "SaaS企業ウェブサイト無人カスタマーサービス",
+            "challenge": [
+              "人間のカスタマーサービスは全時間帯をカバーできず、従来のフォームリード獲得率が低い",
+              "人工カスタマーサービスの育成に時間がかかり、全製品専門知識を迅速かつ効果的にカバーできない"
+            ],
+            "solution": "Zenavaを展開し、ウェブサイトで独立作業し、製品機能紹介、業界事例、製品のハイライトなどを組み合わせて顧客に専門的な解説を提供。リードの予備スクリーニングと情報収集を自動的に実施",
+            "effects": [
+              "セールス前対応を全時間帯でカバーし、ウェブサイトカスタマーサービスの無人化を実現",
+              "リード生成率が46%に達し、人工のリード生成率を40%上回る"
+            ],
+            "buttonText": "詳細はこちら",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/software/04-jp.webp",
+            "imageAlt": "SaaS企業ウェブサイト無人カスタマーサービス"
+          },
+          {
+            "title": "ソフトウェア会社内部テクニカルサポート",
+            "challenge": [
+              "内部サポートプロセスが複雑で、システム機能の使用やシステム統合など、複数の部署の協調サポートが必要"
+            ],
+            "solution": "Zenavaを展開し、製品操作ドキュメント、製品説明、テクニカルサポートFAQ、セールス前ソリューション文書を統合して知識ベースを構築し、営業、プリセールス、顧客、実装エンジニアからの質問に全時間帯で対応",
+            "effects": [
+              "顧客対応の従業員効率が15%~30%向上",
+              "テクニカルサポートチームが内部サポート時間の40%を節約"
+            ],
+            "buttonText": "詳細はこちら",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/software/05-jp.webp",
+            "imageAlt": "ソフトウェア会社内部テクニカルサポート"
+          }
+        ]
+      }
+    },
+    "travel": {
+      "banner": {
+        "src": "/assets/images/travel/banner-jp.webp",
+        "mobileSrc": "/assets/images/travel/banner-mobile-jp.webp",
+        "alt": "旅行・ホテル製品バナー",
+        "link": "/contact"
+      },
+      "alternatingTags": {
+        "title": "コア業務シナリオ",
+        "subtitle": "",
+        "items": [
+          {
+            "icon": "fas fa-hotel",
+            "title": "ホテル・チケット予約",
+            "titleLink": "",
+            "subtitle": "",
+            "description": "顧客の意図を正確に理解し、客室タイプ、宿泊日程、チケット情報の確認から予約完了までの一連のプロセスを独立実行し、顧客満足度および予約転換率の向上を実現します。",
+            "tags": [
+              "意図認識",
+              "全プロセス自動化",
+              "予約転換",
+              "顧客満足度"
+            ],
+            "buttonText": "詳細はこちら",
+            "buttonLink": "/contact",
+            "mediaPath": "/assets/images/travel/01-jp.webp",
+            "mediaAlt": "ホテル・チケット予約"
+          },
+          {
+            "icon": "fas fa-user-circle",
+            "title": "アカウント管理",
+            "titleLink": "",
+            "subtitle": "",
+            "description": "アカウントアクセス、ポイントプログラム、会員特典などに関する顧客の問い合わせにリアルタイムで対応し、よくある質問をセルフサービスで処理し、平均処理時間を短縮し、会員ロイヤルティを向上",
+            "tags": [
+              "即座の対応",
+              "セルフサービス",
+              "会員管理",
+              "効率向上"
+            ],
+            "buttonText": "詳細はこちら",
+            "buttonLink": "/contact",
+            "mediaPath": "/assets/images/travel/02-jp.webp",
+            "mediaAlt": "アカウント管理"
+          },
+          {
+            "icon": "fas fa-life-ring",
+            "title": "旅行サポート",
+            "titleLink": "",
+            "subtitle": "",
+            "description": "荷物紛失、フライト乗り遅れ、チェックイン時間などの問題に即時対応し、迅速なサポートによって顧客体験を高めます。",
+            "tags": [
+              "即座の支援",
+              "問題解決",
+              "応答速度",
+              "顧客体験"
+            ],
+            "buttonText": "詳細はこちら",
+            "buttonLink": "/contact",
+            "mediaPath": "/assets/images/travel/03-jp.webp",
+            "mediaAlt": "旅行サポート"
+          }
+        ]
+      },
+      "alternatingList": {
+        "title": "定量化された効果",
+        "subtitle": "",
+        "items": [
+          {
+            "title": "定量化された効果",
+            "features": [
+              "顧客満足度が30%向上",
+              "運営コストが35%削減",
+              "予約転換率が25%向上",
+              "応答時間が70%短縮"
+            ],
+            "buttonText": "詳細を見る",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/travel/04-jp.webp",
+            "imageAlt": "定量化された効果"
+          }
+        ]
+      },
+      "quantifiedEffects": {
+        "title": "定量化効果",
+        "subtitle": "",
+        "description": "",
+        "effects": [
+          "顧客満足度30%向上",
+          "運営コスト35%削減",
+          "予約成功率 25%向上",
+          "応答時間 70%短縮"
+        ],
+        "buttonText": "詳細はこちら",
+        "buttonLink": "/contact",
+        "imageAlt": "定量化された効果",
+        "imageSrc": "/assets/images/travel/05-jp.webp"
+      }
+    }
+  },
+  "contact": {
+    "title": "AI変革の旅を始めましょう",
+    "subtitle": "Zenavaがお客様の対話オペレーションをどのように変革できるかご覧ください",
+    "form": {
+      "name": "お名前",
+      "email": "ビジネスメール",
+      "company": "会社名",
+      "message": "お問い合わせ内容",
+      "submit": "送信"
+    },
+    "cta": {
+      "demo": "デモのご予約",
+      "download": "パンフレットダウンロード"
+    }
   },
   "footer": {
-    "copyright": "© 2024 TI Cloud. All rights reserved.",
-    "privacy": "プライバシーポリシー",
-    "terms": "利用規約"
+    "sections": {
+      "solutions": "ソリューション",
+      "company": "会社情報",
+      "legal": "法的情報",
+      "resources": "リソース"
+    },
+    "links": {
+      "about": "会社概要",
+      "contact": "お問い合わせ",
+      "privacy": "プライバシーポリシー",
+      "terms": "利用規約",
+      "cookies": "Cookieの設定"
+    },
+    "copyright": "© 2024 Zenava. All rights reserved.",
+    "followUs": "フォローする"
+  },
+  "contactForm": {
+    "title": "お問い合わせ",
+    "subtitle": "カスタムソリューションを取得",
+    "description": "私たちの専門コンサルタントがまもなくご連絡いたします。",
+    "firstName": "名",
+    "firstNamePlaceholder": "名を入力してください",
+    "lastName": "姓",
+    "lastNamePlaceholder": "姓を入力してください",
+    "jobTitle": "役職",
+    "jobTitlePlaceholder": "役職を入力してください",
+    "companyEmail": "会社メール",
+    "companyEmailPlaceholder": "example@company.com",
+    "companyName": "会社名",
+    "companyNamePlaceholder": "会社名を入力してください",
+    "industry": "業界",
+    "selectIndustry": "選択してください",
+    "industryTech": "テクノロジー",
+    "industryFinance": "金融",
+    "industryHealthcare": "ヘルスケア",
+    "industryRetail": "小売",
+    "industryManufacturing": "製造業",
+    "industryEducation": "教育",
+    "industryOther": "その他",
+    "privacyAgree": "プライバシーポリシーに同意します",
+    "submit": "送信",
+    "submitting": "送信中...",
+    "privacyNotice": "送信をクリックすることで、お客様のデータが当社の",
+    "privacyLink": "プライバシーポリシー",
+    "successMessage": "ご提出ありがとうございます。アドバイザーがすぐにご連絡いたします。",
+    "errorMessage": "送信に失敗しました。もう一度お試しください。",
+    "downloadReady": "ダウンロードの準備ができました",
+    "download": "ダウンロード"
+  },
+  "resourcesCenter": {
+    "hero": {
+      "slides": [
+        {
+          "image": "/assets/images/resources/hero-1.jpg",
+          "imageAlt": "リソースセンターヒーロー画像",
+          "date": "2023年9月6日",
+          "title": "エージェントがあり、Sierraで実行されます",
+          "description": "本日、Greenoaksが主導する追加資本3億5000万ドルを100億ドルの評価で調達したことを発表します。GreenoaksはSierraへの投資を倍増しています。",
+          "buttonText": "詳細を見る",
+          "link": "/contact"
+        },
+        {
+          "image": "/assets/images/resources/hero-2.jpg",
+          "imageAlt": "リソースセンターヒーロー画像2",
+          "date": "2023年9月5日",
+          "title": "AI駆動のカスタマーサービス革命",
+          "description": "Zenava AIがインテリジェントエージェントでカスタマーサービスをどのように変革しているかを発見。リアルタイムで理解、学習、適応します。",
+          "buttonText": "詳細を見る",
+          "link": "/contact"
+        },
+        {
+          "image": "/assets/images/resources/hero-3.jpg",
+          "imageAlt": "リソースセンターヒーロー画像3",
+          "date": "2023年9月4日",
+          "title": "現代企業向けエンタープライズAIソリューション",
+          "description": "エンタープライズ規模向けに設計された包括的なAIプラットフォームを探索し、企業のデジタル変革を支援します。",
+          "buttonText": "詳細を見る",
+          "link": "/contact"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "learnMore": "詳しく見る",
+    "getStarted": "始める",
+    "contactUs": "お問い合わせ",
+    "bookDemo": "デモを予約",
+    "download": "ダウンロード",
+    "viewAll": "すべて表示"
+  },
+  "stats": {
+    "title": "プラットフォームパフォーマンス",
+    "conversations": "処理済み会話数",
+    "uptime": "稼働率SLA",
+    "enterprises": "企業クライアント",
+    "satisfaction": "顧客満足度",
+    "uptimeValue": "99.9%",
+    "enterprisesValue": "5000+",
+    "satisfactionValue": "4.9/5"
+  },
+  "otherResources": {
+    "title": "リソースセンター",
+    "cards": {
+      "voiceConnectivity": {
+        "title": "音声エージェント",
+        "learnMore": "詳細はこちら",
+        "bookDemo": "デモを予約"
+      },
+      "liveChat": {
+        "title": "チャットエージェント",
+        "learnMore": "詳細はこちら",
+        "bookDemo": "デモを予約"
+      }
+    }
+  },
+  "productFeedbackPanel": {
+    "title": "顧客フィードバック分析パネル",
+    "painPoints": "製品の問題点",
+    "painPointCount": "1,842",
+    "featureAdoption": "機能採用率",
+    "adoptionRate": "78%",
+    "fixCycle": "問題修正サイクル",
+    "fixTime": "3.2日",
+    "monthlyIterations": "月次アップデート",
+    "iterationCount": "12バージョン",
+    "satisfactionIncrease": "満足度向上",
+    "satisfactionGrowth": "+18%"
+  },
+  "products": {
+    "aiAgents": {
+      "banner": {
+        "src": "/assets/images/ai-agents/banner-jp.webp",
+        "mobileSrc": "/assets/images/ai-agents/banner-mobile-jp.webp",
+        "alt": "AI Agents Banner"
+      },
+      "hero": {
+        "title": "ZENAVAは、反復的で高頻度、プロセスが明確な顧客対応タスクの80%を独立して処理します",
+        "subtitle": "従来のカスタマーサービスにおける人的規模への依存を大幅に削減し、顧客体験の飛躍的な向上を実現します",
+        "button": "相談を予約"
+      },
+      "advantages": {
+        "title": "ZENAVAの強み",
+        "card1": {
+          "title": "対話力",
+          "subtitle": "人間のように会話できる",
+          "desc": "マルチモーダル理解、感情認識、高度な擬人化インタラクション能力を備え、人間を超えるコミュニケーション体験を提供します"
+        },
+        "card2": {
+          "title": "実行力",
+          "subtitle": "業務全プロセスを独立して完結",
+          "desc": "ビジネスプロセスを直接駆動し、SMS送信、チケット作成、顧客情報の照会、アポイント通知などのタスクを完了します"
+        },
+        "card3": {
+          "title": "即戦力",
+          "subtitle": "使うほどに賢く",
+          "desc": "すぐに使用可能、迅速にデプロイして「稼働」開始、内蔵のトレーニングプロセスにより問題に遭遇した際にエラーを自己修正し、使用するほどに賢くなります"
+        },
+        "card4": {
+          "title": "定量化可能な価値",
+          "subtitle": "AIへの投資のすべてを明確に可視化",
+          "desc": "価値は定量化可能で、純粋で破壊的なコスト構造の再構築を実現し、単位サービスコスト（CPC）を約20%削減します"
+        }
+      },
+      "features": {
+        "title": "コア機能",
+        "subtitle": "",
+        "voice": {
+          "label": "Voice Agents",
+          "title": "人間を超える音声対話体験",
+          "subtitle": "",
+          "list": [
+            "人間のような音色：感情と表現力に富んだ声で、人間を超えるコミュニケーション体験を提供",
+            "低遅延インタラクション：迅速な応答、リアルタイム対話でラグなし",
+            "精密なインテリジェント会話割り込み：いつでも会話割り込みや発言が可能で、人間との対面会話のように自然",
+            "完全な業務プロセスループ、サービス効率と顧客体験を大幅に向上"
+          ],
+          "button": "音声エージェント機能の詳細はこちら",
+          "image": {
+            "src": "/assets/images/ai-agents/voice-jp.webp",
+            "alt": "Voice機能デモ - 人間を超える音声対話体験"
+          }
+        },
+        "messaging": {
+          "label": "Chat agents",
+          "title": "究極のカスタマーサービス体験を創出",
+          "subtitle": "",
+          "list": [
+            "7x24時間オムニチャネルオンライン、お客様とのすべてのコミュニケーションを見逃さない",
+            "テキスト、画像、動画などのリッチメディアコミュニケーションをサポートし、お客様の意図を正確に識別",
+            "お客様の感情を表現から察知し、友好的かつ敬意を持って応答する",
+            "柔軟にお客様のニーズに対応、究極のカスタマーサービス体験を創出。",
+            "共感力と判断力を備え、完全な業務プロセスループを推進"
+          ],
+          "button": "チャットエージェント機能の詳細はこちら",
+          "image": {
+            "src": "/assets/images/ai-agents/person-jp.webp",
+            "alt": "インスタントメッセージ機能デモ - 究極のカスタマーサービス体験を創出"
+          }
+        }
+      },
+      "resources": {
+        "title": "リソースセンター",
+        "card1": {
+          "tag": "製品",
+          "title": "進化し続けるAI生産性の構築"
+        },
+        "card2": {
+          "tag": "業界レポート",
+          "title": "進化し続けるAI生産性の構築"
+        },
+        "card3": {
+          "tag": "教育",
+          "title": "進化し続けるAI生産性の構築"
+        },
+        "card4": {
+          "tag": "記事",
+          "title": "進化し続けるAI生産性の構築"
+        }
+      },
+      "cta": {
+        "title": "インテリジェント対話の新たな章を開く",
+        "subtitle": "Zenava AIが企業の顧客対話シナリオのインテリジェントなアップグレードを支援します",
+        "button": "お問い合わせ"
+      }
+    },
+    "voiceAgents": {
+      "banner": {
+        "src": "/assets/images/voice-agents/banner-jp.webp",
+        "mobileSrc": "/assets/images/voice-agents/banner-mobile-jp.webp",
+        "imageAlt": "VoiceAgents製品バナー - 人間を超える音声対話体験"
+      },
+      "coreFeatures": {
+        "title": "コア能力",
+        "subtitle": "",
+        "feature1": {
+          "title": "人間らしい音色",
+          "subtitle": "本物の人間のようなコミュニケーション",
+          "description": "音声インタラクションは自然で感情豊か、多様な音色とイントネーションスタイルを備え、カスタマイズできる。各種シーンに応じて思いやりと専門性を表現でき、人間を超えるコミュニケーション体験を提供",
+          "tags": [
+            "自然な流れ",
+            "豊かな感情",
+            "複数の音色",
+            "パーソナライズ"
+          ],
+          "button": "詳細を見る",
+          "mediaAlt": "人間らしい音色機能デモ",
+          "mediaPath": "/assets/images/voice-agents/humanized-voice-jp.webp"
+        },
+        "feature2": {
+          "title": "低遅延インタラクション",
+          "subtitle": "リアルタイム応答、待ち時間なし",
+          "description": "ミリ秒単位での応答速度、リアルタイム対話でラグなし、より自然なインタラクションを実現。顧客からの問い合わせ、業務処理、クレーム処理など、Zenavaは迅速に応答します",
+          "tags": [
+            "ミリ秒応答",
+            "リアルタイム対話",
+            "シームレス移行",
+            "効率的な流れ"
+          ],
+          "button": "詳細を見る",
+          "mediaAlt": "低遅延インタラクション機能デモ",
+          "mediaPath": "/assets/images/voice-agents/low-latency-jp.webp"
+        },
+        "feature3": {
+          "title": "精密なインテリジェント会話割り込み",
+          "subtitle": "ユーザーの真の意図を理解",
+          "description": "ユーザーがいつでも割り込みや発言ができ、中断なくリアルタイムで応答し、対面会話のように自然です",
+          "tags": [
+            "スマート割り込み",
+            "意図認識",
+            "自然な対話",
+            "リアルタイム応答"
+          ],
+          "button": "詳細を見る",
+          "mediaAlt": "精密なインテリジェント割り込み機能デモ",
+          "mediaPath": "/assets/images/voice-agents/intelligent-interruption-jp.webp"
+        },
+        "feature4": {
+          "title": "完全な業務閉ループ",
+          "subtitle": "エンドツーエンドのビジネス自動化",
+          "description": "Zenavaはチケット作成、通知送信、情報照会などのタスクを直接実行でき、会話を実行可能な業務アクションに変換します",
+          "tags": [
+            "タスク実行",
+            "ビジネス自動化",
+            "チケット作成",
+            "情報照会"
+          ],
+          "button": "詳細を見る",
+          "mediaAlt": "完全なビジネスループ機能デモ",
+          "mediaPath": "/assets/images/voice-agents/business-loop-jp.webp"
+        }
+      },
+      "customerCases": {
+        "title": "応用と定量化効果",
+        "subtitle": "",
+        "case1": {
+          "tag": "厨房電気業界",
+          "title": "厨房電気企業が大規模カスタマーサービス自動化を実現、年間総コスト１億５００万円削減",
+          "subtitle": "年間総コスト１億５００万円削減",
+          "description": "Zenavaは製品問い合わせ、修理依頼、注文照会などの大量の反復的な問い合わせを独立して処理し、35人のコールセンターオペレーターの業務量に相当します",
+          "features": [
+            "年間コスト約１億５００万円削減",
+            "プロジェクトROIは425%に達する"
+          ],
+          "button": "詳細を見る",
+          "imageAlt": "厨房電気顧客サービス自動化ケース",
+          "imageSrc": "/assets/images/voice-agents/case-kitchen-appliances-jp.webp"
+        },
+        "case2": {
+          "tag": "自動車業界",
+          "title": "自動車企業がZenavaで試乗招待を管理、コンバージョン率85%に向上",
+          "subtitle": "コンバージョン率85%",
+          "description": "Zenavaは顧客リードを自動的に選別し、音声インタラクションを通じて顧客をタイムリーにスクリーニングし、高意向顧客を試乗に招待",
+          "features": [
+            "潜在顧客のフォローアップ効率を向上させ、リードコンバージョン率を高め、売上成長を促進",
+            "招待コンバージョン率85%に向上"
+          ],
+          "button": "詳細を見る",
+          "imageAlt": "自動車顧客試乗招待ケース",
+          "imageSrc": "/assets/images/voice-agents/case-automotive-jp.webp"
+        },
+        "case3": {
+          "tag": "ホテル業界",
+          "title": "ホテルグループが予約プロセスを無人化、予約コンバージョン率を大幅向上",
+          "subtitle": "予約コンバージョン率15%-25%向上",
+          "description": "Zenavaは予約ニーズの理解、時間と部屋タイプの確認から予約完了までの全プロセスを自主対応可能",
+          "features": [
+            "多言語コミュニケーションをサポートし、グローバル顧客を対応可能",
+            "予約コンバージョン率15%-25%向上"
+          ],
+          "button": "詳細を見る",
+          "imageAlt": "ホテルグループ予約自動化ケース",
+          "imageSrc": "/assets/images/voice-agents/case-hotel-jp.webp"
+        }
+      }
+    },
+    "liveChat": {
+      "banner": {
+        "src": "/assets/images/livechat/banner-jp.webp",
+        "mobileSrc": "/assets/images/livechat/banner-mobile-jp.webp",
+        "alt": "LiveChat Banner"
+      },
+      "advantages": {
+        "title": "LiveChatの強み",
+        "card1": {
+          "title": "リアルタイム応答",
+          "subtitle": "秒単位で顧客に返信",
+          "desc": "7x24時間オンライン、インテリジェントなルーティング割り当てにより、顧客の問題が迅速に応答され処理されます"
+        },
+        "card2": {
+          "title": "マルチチャネルサポート",
+          "subtitle": "すべてのチャネルを統一管理",
+          "desc": "ウェブサイト、モバイル、ソーシャルメディアなど複数のチャネルをサポートし、顧客対話を統一管理し、サービス効率を向上させます"
+        },
+        "card3": {
+          "title": "インテリジェント分析",
+          "subtitle": "データ駆動型最適化",
+          "desc": "顧客対話データをリアルタイムで分析し、一般的な問題を特定し、サービスプロセスを最適化し、顧客満足度を向上させます"
+        }
+      },
+      "features": {},
+      "caseStudies": {
+        "title": "応用と定量化効果",
+        "subtitle": "",
+        "case1": {
+          "mainTitle": "B2B企業公式サイト無人カスタマーサービス、リード獲得率46%に達する",
+          "highlight": "リード獲得率46%に達する",
+          "description": "Zenavaは公式サイトで顧客を独立して受け入れ、リードの予備スクリーニングと情報収集を自動的に実行します",
+          "points": [
+            "全時間帯で販売前受付をカバーし、公式サイトのカスタマーサービスを無人化します",
+            "リード獲得率は46%と高く、手動リード獲得率40%を上回ります",
+            "製品ビジネス知識を分単位で更新し、サービスの正確性と専門性を確保します"
+          ],
+          "metric": "46%",
+          "metricLabel": "リード獲得率",
+          "imageSrc": "/assets/images/livechat/case1-b2b-jp.webp",
+          "imageAlt": "B2B企業公式サイト無人カスタマーサービス",
+          "button": "詳細を見る",
+          "buttonLink": "/products/chat-agents"
+        },
+        "case2": {
+          "mainTitle": "スマートロック顧客のエンドツーエンドアフターサービス自動化、年間総コスト１億２千万円削減",
+          "highlight": "年間総コスト１億２千万円削減",
+          "description": "Zenavaはマルチターン対話と画像を組み合わせて正確に識別し、スマートロックのトラブルシューティングを独立して完了します",
+          "points": [
+            "独立受付率は83%に達します",
+            "年間総コスト１億２千万円削減"
+          ],
+          "metric": "１億２千万",
+          "metricLabel": "年間コスト削減",
+          "metric2": "83%",
+          "metric2Label": "独立受付率",
+          "imageSrc": "/assets/images/livechat/case2-smartlock-jp.webp",
+          "imageAlt": "スマートロック顧客のエンドツーエンドアフターサービス自動化",
+          "button": "詳細を見る",
+          "buttonLink": "/products/chat-agents"
+        }
+      },
+      "section3": {
+        "title": "AI Agents for Chat",
+        "subtitle": "",
+        "item1": {
+          "mainTitle": "7×24時間オムニチャネルオンライン",
+          "subtitle": "お客様とのあらゆるコミュニケーションを見逃さない",
+          "description": "Zenavaは、公式サイト、アプリ、ソーシャルメディア、SNSなど、お客様が選択したチャネルで24時間365日リアルタイムにコミュニケーションが可能です。お客様の待ち時間が長すぎることや商機を逃す心配がなく、顧客満足度と継続率を大幅に向上。",
+          "buttonText": "詳細はこちら",
+          "imageAlt": "7×24時間オムニチャネルオンライン",
+          "imageSrc": "/assets/images/livechat/omnichannel-jp.webp"
+        },
+        "item2": {
+          "mainTitle": "テキスト、画像、動画などのリッチメディアコミュニケーションをサポート",
+          "subtitle": "顧客の意図を正確に識別",
+          "description": "Zenavaはテキストだけでなく、画像、動画など多様な形式の情報を理解でき、豊かな対話体験を提供し、複雑なマルチターン対話情報収集を実現し、顧客の意図を正確に識別し、顧客の問題を効率的に処理します",
+          "buttonText": "詳細はこちら",
+          "imageAlt": "リッチメディアコミュニケーション",
+          "imageSrc": "/assets/images/livechat/rich-media-jp.webp"
+        },
+        "item3": {
+          "mainTitle": "お客様の感情を表現から察知",
+          "subtitle": "友好的で尊重ある方法で応答",
+          "description": "友好的かつ敬意を持って応答する<br>Zenavaは性格モデリングにより言語理解と感情認識能力を備え、表現から感情を識別し、友好的で敬意を持って応答することで、顧客に心遣いとプロフェッショナルなサービス体験を提供します。",
+          "buttonText": "詳細はこちら",
+          "imageAlt": "感情感知",
+          "imageSrc": "/assets/images/livechat/emotion-jp.webp"
+        },
+        "item4": {
+          "mainTitle": "究極のカスタマーサービス体験を創出",
+          "subtitle": "顧客のニーズに柔軟に対応",
+          "description": "企業の業務方針とブランド規範を遵守する前提で、Zenavaは顧客の個別ニーズに柔軟に対応でき、企業は安全性とコンプライアンスを確保しながら顧客体験を向上させることができます",
+          "buttonText": "詳細はこちら",
+          "imageAlt": "ビジネスと体験の両立",
+          "imageSrc": "/assets/images/livechat/balance-jp.webp"
+        },
+        "item5": {
+          "mainTitle": "共感力と判断力を備える",
+          "subtitle": "業務プロセスループを推進",
+          "description": "Zenavaは共感力と判断力を備えており、実際のビジネスシナリオでは、人間の従業員のようにツールを使用して、SMS送信、チケット作成、顧客データの照会、招待通知などのタスクを完了し、業務の閉ループを実現します",
+          "buttonText": "詳細はこちら",
+          "imageAlt": "共感力と判断力",
+          "imageSrc": "/assets/images/livechat/empathy-jp.webp"
+        }
+      }
+    }
+  },
+  "sentimentPanel": {
+    "title": "リアルタイム感情モニタリング",
+    "negativeAlert": "ネガティブ感情アラート",
+    "alertCount": "3件",
+    "sensitiveWords": "センシティブワード検出",
+    "detectionRate": "99.8%",
+    "brandSentiment": "ブランド好感度",
+    "sentimentGrowth": "+12%",
+    "responseTime": "応答時間",
+    "responseSpeed": "<5分",
+    "crisisSuccess": "危機対応成功率",
+    "successRate": "98%"
+  },
+  "aiSimulation": {
+    "aiAssistant": "Zenava AI",
+    "status": "オンライン",
+    "live": "ライブ",
+    "customerQuery": "こんにちは、注文番号 #A12345 の配送状況を確認したいです",
+    "aiProcessing": "問題を識別中...",
+    "aiLocating": "ご注文情報を確認中...",
+    "aiResponse": "ご注文を確認しました。商品は発送済みで、24時間以内にお届け予定です。追跡リンクをお送りしますか？",
+    "customerReply": "はい、追跡リンクをお願いします 👍",
+    "inputPlaceholder": "メッセージを入力...",
+    "responseTime": "レスポンス",
+    "responseValue": "< 1.8s",
+    "satisfaction": "満足度",
+    "satisfactionValue": "98.7%"
+  },
+  "salesProcess": {
+    "title": "セールス支援プロセス",
+    "step1": {
+      "title": "セールス支援プロセス",
+      "description": "リアルタイムトークスクリプト推奨",
+      "value": "リアルタイム"
+    },
+    "step2": {
+      "title": "ナレッジベース活用",
+      "description": "製品、競合、事例の即時アクセス",
+      "value": "即時"
+    },
+    "step3": {
+      "title": "インテリジェント成約支援",
+      "description": "成約率45%向上",
+      "value": "+45%"
+    }
+  },
+  "platformPerformance": {
+    "title": "プラットフォームパフォーマンス",
+    "subtitle": "世界中の5000社の企業様から、ミッションクリティカルな顧客対応で信頼されています",
+    "uptime": "稼働率SLA",
+    "enterprisesServed": "企業顧客",
+    "satisfaction": "顧客満足度"
+  },
+  "ticketProcess": {
+    "title": "スマートチケット処理プロセス",
+    "step1": {
+      "title": "AI問題検出",
+      "description": "問題の種類と緊急度をスマートに分析"
+    },
+    "step2": {
+      "title": "ナレッジベース活用",
+      "description": "過去の解決策とベストプラクティス"
+    },
+    "step3": {
+      "title": "インテリジェントルーティング",
+      "description": "適切なエージェントへ自動割り当て"
+    },
+    "step4": {
+      "title": "解決状況追跡",
+      "description": "リアルタイムステータスと満足度追跡"
+    }
+  },
+  "operationsMetrics": {
+    "title": "運用効率向上",
+    "storeAccess": "店舗接続",
+    "storeCount": "500+",
+    "dailyProcessing": "日次処理",
+    "dailyVolume": "10K+",
+    "avgResponse": "平均応答",
+    "responseTime": "2時間",
+    "dispatchEfficiency": "ディスパッチ効率",
+    "efficiencyRate": "85%"
+  },
+  "banners": {
+    "slide1": {
+      "siteName": "ZENAVA",
+      "mainTitle": "企業向けAI会話ソリューション",
+      "description": "インテリジェントなAIアシスタントでカスタマーサービスを変革し、顧客体験を向上させ、運用コストを削減",
+      "buttonText": "相談を予約",
+      "imageAlt": "バナー画像1",
+      "src": "/assets/images/banners/slide1-jp.webp",
+      "mobileSrc": "/assets/images/banners/slide1-mobile-jp.webp"
+    },
+    "slide2": {
+      "siteName": "ZENAVA Sales",
+      "mainTitle": "インテリジェント営業支援システム",
+      "description": "AI駆動のインテリジェント営業プラットフォーム、正確な顧客プロファイル分析、インテリジェントな営業戦略の推奨、成約率を向上させ、営業サイクルを短縮",
+      "buttonText": "営業ソリューションの詳細",
+      "imageAlt": "インテリジェント営業システムインターフェース",
+      "src": "/assets/images/banners/slide2-jp.webp",
+      "mobileSrc": "/assets/images/banners/slide2-mobile-jp.webp"
+    },
+    "slide3": {
+      "siteName": "インテリジェントAIプラットフォーム",
+      "mainTitle": "4345323",
+      "description": "43244444444",
+      "buttonText": "相談を予約",
+      "imageAlt": "インテリジェントAIプラットフォームディスプレイ",
+      "src": "/assets/images/banners/slide3-jp.webp",
+      "mobileSrc": "/assets/images/banners/slide3-mobile-jp.webp"
+    },
+    "slide4": {
+      "siteName": "ZENAVA",
+      "mainTitle": "7x24スマートカスタマーサービス",
+      "description": "AIスマートカスタマーサービスシステムは24時間365日のサービスを実現し、よくある質問を自動処理し、感情認識で体験を向上",
+      "buttonText": "詳細を見る",
+      "imageAlt": "スマートカスタマーサービス",
+      "src": "/assets/images/banners/slide4-jp.webp",
+      "mobileSrc": "/assets/images/banners/slide4-mobile-jp.webp"
+    },
+    "slide5": {
+      "siteName": "",
+      "mainTitle": "",
+      "description": "",
+      "buttonText": "",
+      "imageAlt": "マーケティングキャンペーンバナー",
+      "src": "/assets/images/banners/slide5-jp.webp",
+      "mobileSrc": "/assets/images/banners/slide5-mobile-jp.webp"
+    },
+    "slide6": {
+      "siteName": "",
+      "mainTitle": "",
+      "description": "",
+      "buttonText": "",
+      "imageAlt": "マーケティングキャンペーンバナー",
+      "src": "/assets/images/banner-full-marketing-jp.webp",
+      "mobileSrc": "/assets/images/banner-full-marketing-mobile-jp.webp"
+    }
+  },
+  "common": {
+    "logo": {
+      "src": "/assets/images/common/logo-jp.webp",
+      "alt": "Zenava Logo"
+    },
+    "noImage": "画像なし",
+    "jobImage": "/assets/images/job-jp.webp",
+    "jobImageAlt": "採用情報"
   }
 }

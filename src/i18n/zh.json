@@ -1,103 +1,1265 @@
 {
-  "site": {
-    "title": "Zenava",
-    "description": "面向企业客户对话场景的AI智能体"
+  "company": {
+    "name": "Zenava",
+    "tagline": "面向客服和营销场景的AI生产力平台",
+    "vision": "助力企业完成生产力与组织形态变革，实现从\"人力驱动\"到\"AI驱动\"的跨越",
+    "description": "企业级AI对话解决方案，革新客户互动体验"
   },
   "nav": {
     "home": "首页",
     "scenarios": "解决方案",
-    "marketing": "营销",
-    "sales": "销售",
-    "customer_service": "客户服务",
-    "internal_service": "内部服务",
-    "management": "管理优化",
     "about": "关于我们",
-    "contact": "联系我们"
+    "contact": "联系我们",
+    "getStarted": "立即开始",
+    "learnMore": "了解更多",
+    "bookDemo": "预约演示",
+    "language": "语言"
   },
   "hero": {
-    "title": "Zenava",
-    "subtitle": "面向企业客户对话场景的AI智能体",
-    "description": "先进的AI智能体，将客户对话从解答转变为行动，驱动企业智能化升级。",
-    "cta_primary": "立即开始",
-    "cta_secondary": "了解更多"
+    "title": "面向客服和营销场景的AI生产力平台",
+    "subtitle": "助力企业完成生产力与组织形态变革，实现从\"人力驱动\"到\"AI驱动\"的跨越",
+    "cta": {
+      "primary": "预约演示",
+      "secondary": "查看方案"
+    }
   },
-  "features": {
+  "businessValue": {
     "title": "Zenava能为企业带来什么",
-    "subtitle": "AI驱动的解决方案，提升效率并优化客户体验",
-    "customers": {
-      "title": "为您的客户",
-      "subtitle": "即时响应，快速解决",
-      "description": "通过语音、文本和工单提供多渠道支持，智能响应。高级情感AI维护客户关系并提升忠诚度。"
+    "subtitle": "让企业随时随地高效服务客户，打造卓越客户体验，降低服务成本",
+    "metrics": {
+      "marketing": {
+        "title": "营销成效指标",
+        "costReduction": "平均获客成本降低",
+        "conversionIncrease": "线索转化率提升",
+        "responseTime": "客户响应时间",
+        "responseValue": "<30秒",
+        "channelCoverage": "智能营销覆盖渠道",
+        "channelCount": "10+",
+        "dailyInquiries": "日均处理咨询量",
+        "dailyCount": "50,000+"
+      },
+      "sales": {
+        "title": "销售成效指标",
+        "cycleReduction": "销售周期缩短",
+        "winRateIncrease": "成交率提升",
+        "step1Title": "实时话术推荐",
+        "step1Desc": "根据客户关注点推荐最佳话术",
+        "step1Value": "实时",
+        "step2Title": "知识库调用",
+        "step2Desc": "产品、竞品、案例即时调取",
+        "step2Value": "秒级",
+        "step3Title": "智能成交辅助",
+        "step3Desc": "成交率提升45%",
+        "step3Value": "+45%"
+      },
+      "service": {
+        "title": "服务成效指标",
+        "responseTime": "平均响应时间",
+        "resolutionRate": "首次解决率",
+        "step1Title": "AI定位问题",
+        "step1Desc": "智能分析客户问题类型和紧急程度",
+        "step2Title": "知识库调用",
+        "step2Desc": "历史解决方案和最佳实践",
+        "step3Title": "智能路由",
+        "step3Desc": "根据技能和负载自动分配",
+        "step4Title": "跟踪解决",
+        "step4Desc": "实时状态更新和质量保证"
+      },
+      "internal": {
+        "title": "运营效率提升",
+        "efficiency": "流程效率提升",
+        "satisfaction": "员工满意度",
+        "storeConnections": "门店接入",
+        "storeCount": "500+",
+        "dailyProcessing": "日均处理",
+        "dailyCount": "10K+",
+        "avgResponse": "平均响应",
+        "avgTime": "2小时",
+        "assignmentEfficiency": "派单效率",
+        "efficiencyRate": "85%"
+      },
+      "product": {
+        "title": "客户反馈仪表盘",
+        "insights": "客户洞察生成",
+        "iterations": "产品迭代速度",
+        "painPoints": "产品痛点收集",
+        "painPointCount": "1,842",
+        "featureAdoption": "功能采用率",
+        "adoptionRate": "78%",
+        "resolutionCycle": "问题解决周期",
+        "cycleTime": "3.2天",
+        "monthlyIterations": "月度产品迭代",
+        "iterationCount": "12个版本",
+        "satisfactionIncrease": "满意度提升",
+        "increaseRate": "+18%"
+      },
+      "brand": {
+        "title": "实时舆情监控",
+        "monitoring": "实时监控",
+        "response": "危机响应时间",
+        "negativeAlerts": "负面情绪预警",
+        "alertCount": "3",
+        "sensitiveWords": "敏感词检测",
+        "detectionRate": "99.8%",
+        "brandFavorability": "品牌好感度",
+        "favorabilityRate": "+12%",
+        "responseTime": "舆情响应时间",
+        "responseValue": "<5分钟",
+        "crisisSuccess": "危机处理成功率",
+        "successRate": "98%"
+      }
     },
-    "employees": {
-      "title": "为您的员工",
-      "subtitle": "帮助人工员工更高效地工作",
-      "description": "AI助手提供智能回复建议、自动工单处理、对话摘要和情绪分析。为全球团队提供无缝多语言翻译。"
-    },
-    "enterprise": {
-      "title": "为您的企业",
-      "subtitle": "用真实声音提供商业决策",
-      "description": "跨渠道分析生成可操作的洞察，优化服务、流程和产品。通过性能分析持续改进。"
+    "capabilities": {
+      "item1": {
+        "title": "即时响应，快速解决客户问题",
+        "list": [
+          "为企业提供 7×24 小时即时响应服务",
+          "支持在网站、APP、WHATSAPP、LINE、Facebook等数字渠道与客户以语音、文本消息的方式互动，快速响应客户，解决客户问题",
+          "降低等待时间、减少人工成本，提升客户满意度"
+        ],
+        "button": "了解更多",
+        "imageAlt": "即时响应服务"
+      },
+      "item2": {
+        "title": "媲美真人的自然沟通体验，更值得信赖",
+        "list": [
+          "能听懂语音，理解文字、图片、视频等多种形态信息，精准解决客户问题",
+          "支持复杂多轮对话信息收集，能拆解复杂需求，处理复杂问题",
+          "具备情绪感知能力，耐心、有温度，通过媲美真人的自然沟通体验，提升客户忠诚度"
+        ],
+        "button": "了解更多",
+        "imageAlt": "自然沟通体验"
+      },
+      "item3": {
+        "title": "客户服务自动化，实现真正的端到端闭环",
+        "list": [
+          "能够独立处理80%重复性、高频次、流程清晰的客户联络任务",
+          "实现从意图识别 → 任务执行 → 反馈结果的端到端自动化闭环，在特定任务中可完全取代人力"
+        ],
+        "button": "了解更多",
+        "imageAlt": "客户服务自动化"
+      },
+      "item4": {
+        "title": "智能引导访客留资，提升客户转化率",
+        "list": [
+          "精准识别客户意图，深入挖掘客户需求，提供专业回应，促进成交",
+          "主动追问、澄清关键信息，引导客户留资，自动化收集线索，提升客户转化率"
+        ],
+        "button": "了解更多",
+        "imageAlt": "智能引导访客留资"
+      },
+      "item5": {
+        "title": "效果可量化，让AI价值看得见",
+        "list": [
+          "重构企业成本结构，服务成本降低约20%",
+          "企业降本增效的首选"
+        ],
+        "button": "了解更多",
+        "imageAlt": "效果可量化"
+      }
     }
   },
   "scenarios": {
     "marketing": {
-      "title": "Zenava 营销场景",
-      "subtitle": "AI驱动的线索生成、资格认证和转化优化。",
-      "challenges": {
-        "title": "当前营销挑战",
-        "conversion": "线索引导不足和消息不一致导致转化率低",
-        "assignment": "手动线索分配浪费销售资源",
-        "reactivation": "沉默线索未被重新激活",
-        "data": "数据盲区导致营销优化路径不清晰"
-      },
-      "solutions": {
-        "title": "Zenava 营销解决方案",
-        "subtitle": "提升转化率，降低获客成本",
-        "lead_guidance": "智能线索引导",
-        "scoring": "线索评分与智能分配",
-        "reactivation": "重新激活流失线索",
-        "analysis": "对话分析驱动优化"
+      "title": "市场营销自动化",
+      "subtitle": "提升转化率，降低获客成本",
+      "description": "实时识别客户意图，统一话术留资，智能分配高潜线索。基于会话分析反哺营销策略优化",
+      "features": [
+        "意图识别",
+        "智能留资",
+        "多渠道整合",
+        "预测分析"
+      ],
+      "section3": {
+        "mainTitle": "AI驱动的营销自动化",
+        "subtitle": "智能获客，精准转化",
+        "description": "通过AI智能获客识别",
+        "tag1": "智能识别",
+        "tag2": "实时优化",
+        "buttonText": "了解更多营销自动化",
+        "imageAlt": "实体图片"
       }
     },
     "sales": {
-      "title": "Zenava 销售场景",
-      "subtitle": "AI赋能的销售指导、个性化推荐和转化优化。",
-      "challenges": {
-        "title": "当前销售挑战",
-        "guidance": "基于经验的流程导致消息不一致",
-        "response": "响应延迟损害客户信任",
-        "optimization": "无法复制成功的销售实践",
-        "conversion": "跟进时机不当打破转化链条"
-      }
+      "title": "销售赋能",
+      "subtitle": "缩短成交周期，提升成交率",
+      "description": "实时话术推荐，竞品知识调用，最佳实践建议。AI辅助成交策略，验证转化提升",
+      "features": [
+        "话术推荐",
+        "竞品分析",
+        "智能成交辅助",
+        "业绩分析"
+      ],
+      "featureShort": [
+        "话术推荐",
+        "竞品分析",
+        "智能成交"
+      ],
+      "buttonText": "了解更多智能销售"
     },
-    "customer_service": {
-      "title": "Zenava 客户服务",
-      "subtitle": "自主处理80%的服务任务，为复杂问题提供智能人工协助。"
+    "customerService": {
+      "title": "客户服务",
+      "subtitle": "更快、更准、更有温度",
+      "description": "全天候智能响应，复杂问题智能分流，情绪感知互动。知识库联动快速解决问题",
+      "features": [
+        "24/7响应",
+        "情绪识别",
+        "智能工单",
+        "知识管理"
+      ],
+      "featureShort": [
+        "24/7响应",
+        "情绪识别",
+        "智能工单处理流程"
+      ],
+      "buttonText": "了解更多客户服务"
     },
-    "internal_service": {
-      "title": "Zenava 内部服务",
-      "subtitle": "为大型组织简化内部服务，降低成本并提升效率。"
+    "internalService": {
+      "title": "内部运营",
+      "subtitle": "多层级组织高效管理",
+      "description": "统一服务入口处理设备、库存、培训事务。智能派单与进度追踪，优化运营效率",
+      "features": [
+        "统一入口",
+        "智能派单",
+        "数据分析",
+        "流程自动化"
+      ],
+      "featureShort": [
+        "统一入口",
+        "智能派单",
+        "数据分析"
+      ],
+      "buttonText": "了解更多内部服务",
+      "videoError": "您的浏览器不支持视频播放"
     },
     "management": {
-      "title": "Zenava 管理优化",
-      "subtitle": "客户洞察驱动可操作的优化，获得竞争优势。"
+      "title": "管理优化",
+      "subtitle": "客户声音驱动产品创新",
+      "description": "从对话中提取产品洞察，量化反馈趋势，建立客户声音到产品迭代闭环",
+      "features": [
+        "洞察挖掘",
+        "需求提取",
+        "迭代闭环",
+        "趋势分析"
+      ],
+      "featureShort": [
+        "洞察挖掘",
+        "需求提取",
+        "迭代闭环"
+      ],
+      "brandFeatures": [
+        "风险预警",
+        "情绪分析",
+        "品质控制"
+      ],
+      "buttonText": "了解更多管理优化"
     }
   },
-  "about": {
-    "title": "关于天润云",
-    "subtitle": "科技赋能，成就客户",
-    "description": "AI驱动的客户互动解决方案领域领先企业",
-    "values": {
-      "experience": "跨行业经验丰富",
-      "enterprise": "受财富500强公司信赖",
-      "models": "先进的多AI模型架构",
-      "integration": "即插即用的企业集成"
+  "industries": {
+    "retail": {
+      "pageTitle": "AI Agents for Retail",
+      "banner": {
+        "src": "/assets/images/retail/banner.webp",
+        "mobileSrc": "/assets/images/retail/banner-mobile.webp",
+        "alt": "零售行业Banner图",
+        "link": "/contact"
+      },
+      "cardGrid": {
+        "card1": {
+          "title": "随时随地连接消费者",
+          "description": "在品牌网站、APP、社交媒体等数字渠道与消费者建立全天候联系",
+          "button1Text": "了解更多",
+          "button1Link": "/contact",
+          "button2Text": "预约演示",
+          "button2Link": "/contact"
+        },
+        "card2": {
+          "title": "个性化客户服务",
+          "description": "为消费者提供精准、个性化服务，提升客户体验",
+          "button1Text": "了解更多",
+          "button1Link": "/contact",
+          "button2Text": "预约演示",
+          "button2Link": "/contact"
+        },
+        "card3": {
+          "title": "承接海量客户咨询",
+          "description": "可同时处理大量客户咨询，轻松应对销售旺季和购物高峰",
+          "button1Text": "了解更多",
+          "button1Link": "/contact",
+          "button2Text": "预约演示",
+          "button2Link": "/contact"
+        }
+      },
+      "alternatingTags": {
+        "title": "核心业务场景",
+        "subtitle": "为消费者提供全生命周期服务",
+        "items": [
+          {
+            "icon": "fas fa-shopping-bag",
+            "title": "智能导购",
+            "subtitle": "",
+            "description": "精准识别客户咨询意图，主动提供个性化商品推荐与优惠信息，促进销售，提升购买转化率。",
+            "tags": [
+              "意图识别",
+              "个性化推荐",
+              "优惠信息",
+              "转化提升"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "mediaPath": "/assets/images/retail/01.webp",
+            "mediaAlt": "智能导购"
+          },
+          {
+            "icon": "fas fa-clipboard-list",
+            "title": "订单管理",
+            "subtitle": "",
+            "description": "自动处理订单查询、退换货、物流追踪等常见问题，减少等待时间，提高客户满意度和购物体验。",
+            "tags": [
+              "订单查询",
+              "退换货处理",
+              "物流追踪",
+              "效率提升"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "mediaPath": "/assets/images/retail/02.webp",
+            "mediaAlt": "订单管理"
+          },
+          {
+            "icon": "fas fa-tools",
+            "title": "售后故障排查",
+            "subtitle": "",
+            "description": "当客户遇到产品故障问题时，通过多轮对话结合图片或视频，精准识别故障，独立引导客户完成故障排查，提高问题解决效率",
+            "tags": [
+              "故障识别",
+              "多轮对话",
+              "图片视频支持",
+              "问题解决"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "mediaPath": "/assets/images/retail/03.webp",
+            "mediaAlt": "售后故障排查"
+          },
+          {
+            "icon": "fas fa-wrench",
+            "title": "报装报修与智能回访",
+            "subtitle": "",
+            "description": "自动识别客户报修、安装等服务需求，生成工单并派发至对应人员；服务完成后自动发起满意度回访，形成完整客户服务闭环，提升客户体验。",
+            "tags": [
+              "工单生成",
+              "智能派发",
+              "满意度回访",
+              "服务闭环"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "mediaPath": "/assets/images/retail/04.webp",
+            "mediaAlt": "报装报修与智能回访"
+          }
+        ]
+      },
+      "alternatingList": {
+        "title": "",
+        "subtitle": "",
+        "items": [
+          {
+            "title": "量化效果",
+            "subtitle": "Every Investment is Quantifiable",
+            "features": [
+              "投资回报清晰可见",
+              "自动处理90%客户常见问题",
+              "售后问题解决时长缩短 60%",
+              "客户满意度提升至 92%+",
+              "平均购买转化率提升 30–40%"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/retail/05.webp",
+            "imageAlt": "量化效果"
+          }
+        ]
+      },
+      "quantifiedEffects": {
+        "title": "量化效果",
+        "subtitle": "",
+        "description": "",
+        "effects": [
+          "投资回报清晰可见",
+          "自动处理 90% 客户常见问题",
+          "售后问题解决时长缩短 60%",
+          "客户满意度提升至 92%+",
+          "平均购买转化率提升 30–40%"
+        ],
+        "buttonText": "了解更多",
+        "buttonLink": "/contact",
+        "imageAlt": "量化效果",
+        "imageSrc": "/assets/images/retail/06.webp"
+      }
+    },
+    "automotive": {
+      "banner": {
+        "src": "/assets/images/automotive/banner.webp",
+        "mobileSrc": "/assets/images/automotive/banner-mobile.webp",
+        "alt": "Automotive产品Banner图",
+        "link": "/contact"
+      },
+      "alternatingList": {
+        "title": "核心业务场景",
+        "subtitle": "",
+        "items": [
+          {
+            "icon": "fas fa-car",
+            "title": "试驾邀约",
+            "description": "精准识别客户意向，高效推动试驾转化",
+            "features": [
+              "敏锐捕捉客户关注点，快速精准解答车型配置、价格、优惠等问题",
+              "自动识别客户购车意向与可用时间，引导客户完成试驾预约",
+              "从客户识别、咨询解答到任务派发，实现销售跟单全流程自动化"
+            ],
+            "businessValue": [
+              "试驾邀约转化率提升35%",
+              "客户满意度提升至95%",
+              "客户响应时长缩短30%"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/automotive/01.webp",
+            "imageAlt": "试驾邀约"
+          },
+          {
+            "icon": "fas fa-headset",
+            "title": "售后服务与客户关怀",
+            "description": "快速响应客户需求，提升品牌忠诚度",
+            "features": [
+              "提供维保/维修进度实时查询，无需等待人工客服",
+              "主动进行保养提醒与召回通知等，提升客户满意度与忠诚度",
+              "试驾/服务后自动回访与满意度调查，收集改进意见"
+            ],
+            "businessValue": [
+              "售后咨询响应时间缩短50%",
+              "售后满意度提升25%",
+              "客户留存率提升20%"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/automotive/02.webp",
+            "imageAlt": "售后服务与客户关怀"
+          }
+        ]
+      }
+    },
+    "software": {
+      "banner": {
+        "src": "/assets/images/software/banner.webp",
+        "mobileSrc": "/assets/images/software/banner-mobile.webp",
+        "alt": "Software产品Banner图",
+        "link": "/contact"
+      },
+      "scenariosList": {
+        "title": "核心业务场景",
+        "subtitle": "",
+        "items": [
+          {
+            "icon": "fas fa-user-check",
+            "title": "售前留资",
+            "description": "自动识别高意向客户，高效收集关键信息，提升线索转化率",
+            "features": [
+              "24小时接待，覆盖夜间及节假日，提供秒级响应",
+              "在开放式对话中精准判断客户意向与留资意愿",
+              "利用丰富产品知识与强大通识能力，实现高质量专业解答，提升客户信任度"
+            ],
+            "effects": [
+              "咨询到线索的转化率从10%提升至 40%",
+              "每年节省超100万人力成本"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/software/01.webp",
+            "imageAlt": "售前留资"
+          },
+          {
+            "icon": "fas fa-question-circle",
+            "title": "软件使用咨询",
+            "description": "快速响应用户疑问，高效指导用户使用软件功能，帮助新用户快速上手",
+            "features": [
+              "精准理解用户模糊或不完整提问，快速定位到具体功能或界面操作",
+              "在不同版本、不同权限或个性化配置下，提供上下文一致、易于执行的指导"
+            ],
+            "effects": [
+              "独立接待率达到62%"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/software/02.webp",
+            "imageAlt": "软件使用咨询"
+          },
+          {
+            "icon": "fas fa-tools",
+            "title": "技术支持",
+            "description": "面向客户与内部团队，在售后或产品使用过程中，自动化解答产品技术问题，提供排障指导和工单分流，提升服务效率",
+            "features": [
+              "准确识别复杂技术问题的语义表达与上下文依赖，确保答案精准且符合用户场景",
+              "基于智能体知识库，通过大模型分析快速定位问题，提供综合性解决方案",
+              "无法解决问题时，平滑升级至人工处理"
+            ],
+            "effects": [
+              "准确率超85%，平均响应时间3S内",
+              "独立接待率从20%提升至35%"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/software/03.webp",
+            "imageAlt": "技术支持"
+          }
+        ]
+      },
+      "casesList": {
+        "title": "应用案例与量化效果",
+        "subtitle": "",
+        "items": [
+          {
+            "title": "SaaS企业官网客服无人化接待",
+            "challenge": [
+              "人工客服接待无法全时段覆盖，传统表单留资率低",
+              "人工客服培养周期长，无法快速有效覆盖全量的产品专业知识"
+            ],
+            "solution": "部署Zenava，在官网独立作业，结合产品功能介绍、行业案例、产品亮点等为客户提供专业解读，自动进行线索的初步筛选和信息收集",
+            "effects": [
+              "全时段覆盖售前接待，实现官网客服无人化值守",
+              "留资率高达46%，超过人工留资率40%"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/software/04.webp",
+            "imageAlt": "SaaS企业官网客服无人化接待"
+          },
+          {
+            "title": "软件公司内部技术支持",
+            "challenge": [
+              "内部支持流程复杂，如系统功能使用、系统对接等需要多个岗位协同支持"
+            ],
+            "solution": "部署 Zenava，融合产品操作文档、产品说明、技术支持常见问题、售前解决方案文档构建知识库，全时段覆盖销售、售前、客户、实施工程师的问题咨询",
+            "effects": [
+              "对客侧员工效率提升15%~30%",
+              "技术支持团队节省40%的内部支撑时间"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/software/05.webp",
+            "imageAlt": "软件公司内部技术支持"
+          }
+        ]
+      }
+    },
+    "travel": {
+      "banner": {
+        "src": "/assets/images/travel/banner.webp",
+        "mobileSrc": "/assets/images/travel/banner-mobile.webp",
+        "alt": "Travel产品Banner图",
+        "link": "/contact"
+      },
+      "alternatingTags": {
+        "title": "核心业务场景",
+        "subtitle": "",
+        "items": [
+          {
+            "icon": "fas fa-hotel",
+            "title": "酒店与票务预订",
+            "titleLink": "",
+            "subtitle": "",
+            "description": "准确理解客户意图，独立完整执行从确认房型、时间、票务信息等到完成预订全流程，提升客户满意度与预订转化率。",
+            "tags": [
+              "意图识别",
+              "全流程自动化",
+              "预订转化",
+              "客户满意度"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "mediaPath": "/assets/images/travel/01.webp",
+            "mediaAlt": "酒店与票务预订"
+          },
+          {
+            "icon": "fas fa-user-circle",
+            "title": "账户管理",
+            "titleLink": "",
+            "subtitle": "",
+            "description": "即时响应客户关于账户访问、积分计划、会员权益等的咨询，自助处理常见问题，缩短平均处理时长，提高会员忠诚度。",
+            "tags": [
+              "即时响应",
+              "自助服务",
+              "会员管理",
+              "效率提升"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "mediaPath": "/assets/images/travel/02.webp",
+            "mediaAlt": "账户管理"
+          },
+          {
+            "icon": "fas fa-life-ring",
+            "title": "旅行支持",
+            "titleLink": "",
+            "subtitle": "",
+            "description": "为客户提供关于行李丢失、错过航班或入住时间等问题的即时帮助，缩短响应时间，提升客户体验。",
+            "tags": [
+              "即时帮助",
+              "问题解决",
+              "响应速度",
+              "客户体验"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "mediaPath": "/assets/images/travel/03.webp",
+            "mediaAlt": "旅行支持"
+          }
+        ]
+      },
+      "alternatingList": {
+        "title": "量化效果",
+        "subtitle": "",
+        "items": [
+          {
+            "title": "量化效果",
+            "features": [
+              "客户满意度提升 30%",
+              "运营成本降低 35%",
+              "预订转化率提升 25%",
+              "响应时间缩短 70%"
+            ],
+            "buttonText": "了解更多",
+            "buttonLink": "/contact",
+            "imagePath": "/assets/images/travel/04.webp",
+            "imageAlt": "量化效果"
+          }
+        ]
+      },
+      "quantifiedEffects": {
+        "title": "量化效果",
+        "subtitle": "",
+        "description": "",
+        "effects": [
+          "客户满意度提升 30%",
+          "运营成本降低 35%",
+          "预订转化率提升 25%",
+          "响应时间缩短 70%"
+        ],
+        "buttonText": "了解更多",
+        "buttonLink": "/contact",
+        "imageAlt": "量化效果",
+        "imageSrc": "/assets/images/travel/05.webp"
+      }
+    }
+  },
+  "contact": {
+    "title": "开启智能对话新篇章",
+    "subtitle": "让Zenava AI助力您的企业实现客户对话场景的智能化升级",
+    "form": {
+      "name": "姓名",
+      "email": "商务邮箱",
+      "company": "公司名称",
+      "message": "咨询内容",
+      "submit": "发送消息"
+    },
+    "cta": {
+      "demo": "预约演示",
+      "download": "下载产品手册"
     }
   },
   "footer": {
-    "copyright": "© 2024 天润云. 版权所有。",
-    "privacy": "隐私政策",
-    "terms": "服务条款"
+    "sections": {
+      "solutions": "解决方案",
+      "company": "公司",
+      "legal": "法律条款",
+      "resources": "资源"
+    },
+    "links": {
+      "about": "关于我们",
+      "contact": "联系我们",
+      "privacy": "隐私政策",
+      "terms": "服务条款",
+      "cookies": "Cookie偏好设置"
+    },
+    "copyright": "© 2024 Zenava. 版权所有。",
+    "followUs": "关注我们"
+  },
+  "contactForm": {
+    "title": "联系我们",
+    "subtitle": "获取专属解决方案",
+    "description": "我们的专业顾问将尽快与您联系",
+    "firstName": "名",
+    "firstNamePlaceholder": "请输入您的名",
+    "lastName": "姓",
+    "lastNamePlaceholder": "请输入您的姓",
+    "jobTitle": "职位",
+    "jobTitlePlaceholder": "请输入您的职位",
+    "companyEmail": "企业邮箱",
+    "companyEmailPlaceholder": "example@company.com",
+    "companyName": "公司名称",
+    "companyNamePlaceholder": "请输入公司名称",
+    "industry": "行业",
+    "selectIndustry": "请选择行业",
+    "industryTech": "科技",
+    "industryFinance": "金融",
+    "industryHealthcare": "医疗",
+    "industryRetail": "零售",
+    "industryManufacturing": "制造业",
+    "industryEducation": "教育",
+    "industryOther": "其他",
+    "privacyAgree": "我同意隐私政策",
+    "submit": "提交",
+    "submitting": "提交中...",
+    "privacyNotice": "点击提交即表示您同意我们按照",
+    "privacyLink": "隐私政策",
+    "successMessage": "感谢您的提交，我们的顾问将尽快与您联系。",
+    "errorMessage": "提交失败，请重试。",
+    "downloadReady": "您的下载已准备就绪",
+    "download": "下载"
+  },
+  "resourcesCenter": {
+    "hero": {
+      "slides": [
+        {
+          "image": "/assets/images/resources/hero-1.jpg",
+          "imageAlt": "资源中心Hero图片",
+          "date": "September 6, 2023",
+          "title": "There's an agent for that, and it runs on Sierra",
+          "description": "Today, we're announcing that we've raised $350M additional capital at a valuation of $10B, led by Greenoaks, which is doubling down on Sierra.",
+          "buttonText": "了解更多",
+          "link": "/contact"
+        },
+        {
+          "image": "/assets/images/resources/hero-2.jpg",
+          "imageAlt": "资源中心Hero图片2",
+          "date": "September 5, 2023",
+          "title": "AI驱动的客户服务革命",
+          "description": "发现Zenava AI如何通过能够实时理解、学习和适应的智能代理来转变客户服务。",
+          "buttonText": "了解更多",
+          "link": "/contact"
+        },
+        {
+          "image": "/assets/images/resources/hero-3.jpg",
+          "imageAlt": "资源中心Hero图片3",
+          "date": "September 4, 2023",
+          "title": "面向现代企业的企业AI解决方案",
+          "description": "探索我们专为企业规模设计的综合AI平台，帮助企业实现数字化转型。",
+          "buttonText": "了解更多",
+          "link": "/contact"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "learnMore": "了解更多",
+    "getStarted": "立即开始",
+    "contactUs": "联系我们",
+    "bookDemo": "预约演示",
+    "download": "下载",
+    "viewAll": "查看全部"
+  },
+  "stats": {
+    "title": "平台性能",
+    "conversations": "处理对话数",
+    "uptime": "运行时间SLA",
+    "enterprises": "企业客户",
+    "satisfaction": "客户满意度",
+    "uptimeValue": "99.9%",
+    "enterprisesValue": "5000+",
+    "satisfactionValue": "4.9/5"
+  },
+  "otherResources": {
+    "title": "资源中心",
+    "cards": {
+      "voiceConnectivity": {
+        "title": "Voice agents",
+        "learnMore": "了解更多",
+        "bookDemo": "预约演示"
+      },
+      "liveChat": {
+        "title": "Chat agents",
+        "learnMore": "了解更多",
+        "bookDemo": "预约演示"
+      }
+    }
+  },
+  "productFeedbackPanel": {
+    "title": "客户反馈分析面板",
+    "painPoints": "产品痛点",
+    "painPointCount": "1,842",
+    "featureAdoption": "功能采用率",
+    "adoptionRate": "78%",
+    "fixCycle": "问题修复周期",
+    "fixTime": "3.2天",
+    "monthlyIterations": "月度迭代",
+    "iterationCount": "12个版本",
+    "satisfactionIncrease": "满意度提升",
+    "satisfactionGrowth": "+18%"
+  },
+  "products": {
+    "aiAgents": {
+      "banner": {
+        "src": "/assets/images/ai-agents/banner.webp",
+        "mobileSrc": "/assets/images/ai-agents/banner-mobile.webp",
+        "alt": "AI Agents Banner"
+      },
+      "hero": {
+        "title": "ZENAVA能够独立承担 80%的重复性、高频次、流程清晰的客户联络任务",
+        "subtitle": "显著降低了传统客服对人力规模的依赖，实现了客户体验的跨越式升级",
+        "button": "预约咨询"
+      },
+      "advantages": {
+        "title": "ZENAVA的优势",
+        "card1": {
+          "title": "能沟通",
+          "subtitle": "像真人一样交流",
+          "desc": "具备多模态理解、情绪感知与高拟人化交互能力，带来超越真人的沟通体验"
+        },
+        "card2": {
+          "title": "能执行",
+          "subtitle": "独立完成业务闭环",
+          "desc": "直接驱动业务流程，完成如发送短信、创建工单、查询客户资料以及邀约通知等任务"
+        },
+        "card3": {
+          "title": "快速上岗",
+          "subtitle": "越用越聪明",
+          "desc": "开箱即用，快速部署\"上岗\"，内置带教流程，遇到问题时自我修正错误，越用越聪明"
+        },
+        "card4": {
+          "title": "可量化价值",
+          "subtitle": "让每一分AI投入都清晰可见",
+          "desc": "价值可量化，实现纯粹、颠覆性的成本结构重构，单位服务成本(CPC)降低约20%"
+        }
+      },
+      "features": {
+        "title": "核心功能",
+        "subtitle": "",
+        "voice": {
+          "label": "Voice Agents",
+          "title": "超越真人的语音对话体验",
+          "subtitle": "",
+          "list": [
+            "拟人化音色：声音富有情绪与表达力，沟通体验超越真人",
+            "低延迟交互：快速响应，实时对话无卡顿",
+            "精准智能打断：可随时打断和插话，像真人面对面聊天那样自然",
+            "完整业务闭环，大幅提升服务效率与客户体验"
+          ],
+          "button": "了解更多Voice Agents功能",
+          "image": {
+            "src": "/assets/images/ai-agents/voice.webp",
+            "alt": "Voice功能演示图 - 超越真人的语音对话体验"
+          }
+        },
+        "messaging": {
+          "label": "Chat agents",
+          "title": "打造极致客户服务体验",
+          "subtitle": "",
+          "list": [
+            "7x24小时全渠道在线，不错失与客户的每一次沟通",
+            "支持文字、图片、视频等富媒体沟通，精准识别客户意图",
+            "能够从表述中感知客户情绪，以友好、尊重的方式回应",
+            "打造极致客户服务体验，灵活满足客户诉求",
+            "具备同理心与判断力，驱动业务全流程闭环"
+          ],
+          "button": "了解更多Chat Agents功能",
+          "image": {
+            "src": "/assets/images/ai-agents/person.webp",
+            "alt": "即时对话功能演示图 - 打造极致客户服务体验"
+          }
+        }
+      },
+      "resources": {
+        "title": "资源中心",
+        "card1": {
+          "tag": "产品",
+          "title": "构建持续进化的AI生产力"
+        },
+        "card2": {
+          "tag": "行业报告",
+          "title": "构建持续进化的AI生产力"
+        },
+        "card3": {
+          "tag": "教育",
+          "title": "构建持续进化的AI生产力"
+        },
+        "card4": {
+          "tag": "文章",
+          "title": "构建持续进化的AI生产力"
+        }
+      },
+      "cta": {
+        "title": "开启智能对话新篇章",
+        "subtitle": "让Zenava AI助力您的企业实现客户对话场景的智能化升级",
+        "button": "联系我们"
+      }
+    },
+    "voiceAgents": {
+      "banner": {
+        "src": "/assets/images/voice-agents/banner.webp",
+        "mobileSrc": "/assets/images/voice-agents/banner-mobile.webp",
+        "imageAlt": "VoiceAgents产品Banner图 - 超越真人的语音对话体验"
+      },
+      "coreFeatures": {
+        "title": "核心能力",
+        "subtitle": "",
+        "feature1": {
+          "title": "拟人化音色",
+          "subtitle": "像真人一样交流",
+          "description": "语音交互自然流畅、情感丰富，具备多种音色与语气风格，满足用户个性化偏好。能够根据场景表达关怀、理解与专业感，让沟通体验超越真人",
+          "tags": [
+            "自然流畅",
+            "情感丰富",
+            "多种音色",
+            "个性化"
+          ],
+          "button": "了解更多",
+          "mediaAlt": "拟人化音色功能演示",
+          "mediaPath": "/assets/images/voice-agents/humanized-voice.webp"
+        },
+        "feature2": {
+          "title": "低延迟交互",
+          "subtitle": "实时响应，无需等待",
+          "description": "毫秒级响应速度，实时对话无卡顿，让交互更自然。无论是客户咨询、业务办理还是投诉处理，Zenava都能快速响应",
+          "tags": [
+            "毫秒级响应",
+            "实时对话",
+            "无缝跳转",
+            "高效流畅"
+          ],
+          "button": "了解更多",
+          "mediaAlt": "低延迟交互功能演示",
+          "mediaPath": "/assets/images/voice-agents/low-latency.webp"
+        },
+        "feature3": {
+          "title": "精准智能打断",
+          "subtitle": "理解用户真实意图",
+          "description": "支持用户随时打断和插话，实时响应不中断，像真人面对面聊天那样自然灵活",
+          "tags": [
+            "智能打断",
+            "意图识别",
+            "自然对话",
+            "实时响应"
+          ],
+          "button": "了解更多",
+          "mediaAlt": "精准智能打断功能演示",
+          "mediaPath": "/assets/images/voice-agents/intelligent-interruption.webp"
+        },
+        "feature4": {
+          "title": "完整业务闭环",
+          "subtitle": "端到端业务自动化",
+          "description": "Zenava能直接执行任务，如创建工单、发送通知、查询信息等，让对话真正转化为可落地的业务动作",
+          "tags": [
+            "任务执行",
+            "业务自动化",
+            "工单创建",
+            "信息查询"
+          ],
+          "button": "了解更多",
+          "mediaAlt": "完整业务闭环功能演示",
+          "mediaPath": "/assets/images/voice-agents/business-loop.webp"
+        }
+      },
+      "customerCases": {
+        "title": "应用与量化效果",
+        "subtitle": "",
+        "case1": {
+          "tag": "厨电行业",
+          "title": "厨电客户实现大规模客户服务自动化，年节省总成本525万",
+          "subtitle": "年节省成本525万",
+          "description": "Zenava独立处理产品咨询、报修、订单查询等大量重复性咨询，替代35个呼叫中心座席的工作量",
+          "features": [
+            "年度节省成本约525万元",
+            "项目ROI高达425%"
+          ],
+          "button": "了解更多",
+          "imageAlt": "厨电客户服务自动化案例",
+          "imageSrc": "/assets/images/voice-agents/case-kitchen-appliances.webp"
+        },
+        "case2": {
+          "tag": "汽车行业",
+          "title": "汽车客户使用Zenava接管试驾邀约，转化率提升至85%",
+          "subtitle": "转化率提升至85%",
+          "description": "Zenava能够自动清洗客户线索，通过语音交互及时筛选有效客户，邀约高意向客户到店试驾",
+          "features": [
+            "提高潜在客户的跟进效率，提升线索转化率，带动销量增长",
+            "邀约转化率提升至85%"
+          ],
+          "button": "了解更多",
+          "imageAlt": "汽车客户试驾邀约案例",
+          "imageSrc": "/assets/images/voice-agents/case-automotive.webp"
+        },
+        "case3": {
+          "tag": "酒店行业",
+          "title": "酒店集团预订全流程无人化，大幅提升预订转化率",
+          "subtitle": "预订转化率提升15%-25%",
+          "description": "Zenava独立完整执行从理解预订需求、确认时间与房型到完成预订的全流程",
+          "features": [
+            "支持多语言沟通，覆盖全球客户",
+            "预订转化率提升15%-25%"
+          ],
+          "button": "了解更多",
+          "imageAlt": "酒店集团预订自动化案例",
+          "imageSrc": "/assets/images/voice-agents/case-hotel.webp"
+        }
+      }
+    },
+    "liveChat": {
+      "banner": {
+        "src": "/assets/images/livechat/banner.webp",
+        "mobileSrc": "/assets/images/livechat/banner-mobile.webp",
+        "alt": "LiveChat Banner"
+      },
+      "advantages": {
+        "title": "LiveChat的优势",
+        "card1": {
+          "title": "实时响应",
+          "subtitle": "秒级回复客户",
+          "desc": "7x24小时在线，智能路由分配，确保客户问题得到及时响应和处理"
+        },
+        "card2": {
+          "title": "多渠道支持",
+          "subtitle": "统一管理所有渠道",
+          "desc": "支持网站、移动端、社交媒体等多种渠道，统一管理客户对话，提升服务效率"
+        },
+        "card3": {
+          "title": "智能分析",
+          "subtitle": "数据驱动优化",
+          "desc": "实时分析客户对话数据，识别常见问题，优化服务流程，提升客户满意度"
+        }
+      },
+      "features": {},
+      "caseStudies": {
+        "title": "应用与量化效果",
+        "subtitle": "",
+        "case1": {
+          "mainTitle": "B2B企业官网客服无人化接待，留资率高达46%",
+          "highlight": "留资率高达46%",
+          "description": "Zenava在官网独立接待客户，自动进行线索的初步筛选和信息收集",
+          "points": [
+            "全时段覆盖售前接待，实现官网客服无人化值守",
+            "留资率高达46%，超过人工留资率40%",
+            "产品业务知识分钟级更新，保障服务准确性和专业度"
+          ],
+          "metric": "46%",
+          "metricLabel": "留资率",
+          "imageSrc": "/assets/images/livechat/case1-b2b.webp",
+          "imageAlt": "B2B企业官网客服无人化接待",
+          "button": "了解更多",
+          "buttonLink": "/products/chat-agents"
+        },
+        "case2": {
+          "mainTitle": "智能锁客户实现端到端售后服务自动化，年节省总成本 621 万",
+          "highlight": "年节省总成本 621万",
+          "description": "Zenava通过多轮对话结合图片精准识别，独立完成智能锁故障排查",
+          "points": [
+            "独立接待率达到83%",
+            "年节省总成本 621万"
+          ],
+          "metric": "621万",
+          "metricLabel": "年节省成本",
+          "metric2": "83%",
+          "metric2Label": "独立接待率",
+          "imageSrc": "/assets/images/livechat/case2-smartlock.webp",
+          "imageAlt": "智能锁客户实现端到端售后服务自动化",
+          "button": "了解更多",
+          "buttonLink": "/products/chat-agents"
+        }
+      },
+      "section3": {
+        "title": "AI Agents for Chat",
+        "subtitle": "",
+        "item1": {
+          "mainTitle": "7×24小时全渠道在线",
+          "subtitle": "不错失与客户的每一次沟通",
+          "description": "Zenava可以7×24小时在客户选择的渠道上与他们实时沟通，无论是网页、App、社交媒体还是消息应用，企业无需担心客户等待或错失商机，显著提升客户满意度与留存率",
+          "tag1": "支持文字、图片、视频等富媒体沟通",
+          "buttonText": "了解更多",
+          "imageAlt": "7×24小时全渠道在线",
+          "imageSrc": "/assets/images/livechat/omnichannel.webp"
+        },
+        "item2": {
+          "mainTitle": "支持文字、图片、视频等富媒体沟通",
+          "subtitle": "精准识别客户意图",
+          "description": "Zenava不仅能理解文字，还能理解图片、视频等多种形态的信息，提供丰富的对话体验，实现复杂多轮对话信息收集，精准识别客户意图，高效处理客户问题",
+          "tag1": "能够从表述中感知客户情绪",
+          "buttonText": "了解更多",
+          "imageAlt": "富媒体沟通",
+          "imageSrc": "/assets/images/livechat/rich-media.webp"
+        },
+        "item3": {
+          "mainTitle": "能够从表述中感知客户情绪",
+          "subtitle": "以友好、尊重的方式回应",
+          "description": "Zenava通过性格建模具备语言理解与情绪感知能力，能够从表述中识别情绪，并以友好、尊重的方式回应，让客户感受到贴心和专业的服务体验",
+          "buttonText": "了解更多",
+          "imageAlt": "情绪感知",
+          "imageSrc": "/assets/images/livechat/emotion.webp"
+        },
+        "item4": {
+          "mainTitle": "打造极致客户服务体验",
+          "subtitle": "灵活满足客户诉求",
+          "description": "在遵守企业业务底线和品牌规范的前提下，Zenava能够灵活满足客户个性化需求，使企业在保证安全与合规的同时提升客户体验",
+          "buttonText": "了解更多",
+          "imageAlt": "兼顾业务和体验",
+          "imageSrc": "/assets/images/livechat/balance.webp"
+        },
+        "item5": {
+          "mainTitle": "具备同理心与判断力",
+          "subtitle": "驱动业务全流程闭环",
+          "description": "Zenava具有同理心与判断力，在实际业务场景中，能够像人类员工一样调用工具，完成如发送短信、创建工单、查询客户资料以及邀约通知等任务，实现业务闭环",
+          "buttonText": "了解更多",
+          "imageAlt": "同理心与判断力",
+          "imageSrc": "/assets/images/livechat/empathy-jp.webp"
+        }
+      }
+    }
+  },
+  "sentimentPanel": {
+    "title": "实时舆情监控",
+    "negativeAlert": "负面情绪预警",
+    "alertCount": "3项",
+    "sensitiveWords": "敏感词检测",
+    "detectionRate": "99.8%",
+    "brandSentiment": "品牌好感度",
+    "sentimentGrowth": "+12%",
+    "responseTime": "响应时间",
+    "responseSpeed": "<5分钟",
+    "crisisSuccess": "危机处理成功率",
+    "successRate": "98%"
+  },
+  "aiSimulation": {
+    "aiAssistant": "Zenava AI",
+    "status": "在线",
+    "live": "实时",
+    "customerQuery": "你好，我的订单 #A12345 想查询一下物流",
+    "aiProcessing": "正在识别问题...",
+    "aiLocating": "为您定位订单信息中...",
+    "aiResponse": "已找到订单，包裹已出库，预计 24 小时内送达。需要我发送追踪链接吗？",
+    "customerReply": "好的，谢谢！请发我追踪链接 👍",
+    "inputPlaceholder": "输入您的消息...",
+    "responseTime": "响应时间",
+    "responseValue": "< 1.8s",
+    "satisfaction": "满意度",
+    "satisfactionValue": "98.7%"
+  },
+  "salesProcess": {
+    "title": "销售赋能流程",
+    "step1": {
+      "title": "实时话术推荐",
+      "description": "根据客户关注点推荐最佳话术",
+      "value": "实时"
+    },
+    "step2": {
+      "title": "知识库调用",
+      "description": "产品、竞品、案例即时调取",
+      "value": "秒级"
+    },
+    "step3": {
+      "title": "智能成交辅助",
+      "description": "成交率提升45%",
+      "value": "+45%"
+    }
+  },
+  "platformPerformance": {
+    "title": "平台性能",
+    "subtitle": "获得全球5000家企业的信赖，为关键客户互动提供可靠服务",
+    "uptime": "运行时间SLA",
+    "enterprisesServed": "企业客户",
+    "satisfaction": "客户满意度"
+  },
+  "ticketProcess": {
+    "title": "智能工单处理流程",
+    "step1": {
+      "title": "AI定位问题",
+      "description": "智能分析客户问题类型和紧急程度"
+    },
+    "step2": {
+      "title": "知识库调用",
+      "description": "历史解决方案和最佳实践"
+    },
+    "step3": {
+      "title": "智能路由",
+      "description": "自动分配给合适的服务人员"
+    },
+    "step4": {
+      "title": "跟踪解决",
+      "description": "实时状态更新和满意度追踪"
+    }
+  },
+  "operationsMetrics": {
+    "title": "运营效率提升",
+    "storeAccess": "门店接入",
+    "storeCount": "500+",
+    "dailyProcessing": "日均处理",
+    "dailyVolume": "10K+",
+    "avgResponse": "平均响应",
+    "responseTime": "2小时",
+    "dispatchEfficiency": "派单效率",
+    "efficiencyRate": "85%"
+  },
+  "banners": {
+    "slide1": {
+      "siteName": "ZENAVA",
+      "mainTitle": "企业级AI对话解决方案",
+      "description": "通过智能AI助手转变您的客户服务，提升客户体验，降低运营成本",
+      "buttonText": "预约咨询",
+      "imageAlt": "横幅图片1",
+      "src": "/assets/images/banners/slide1.webp",
+      "mobileSrc": "/assets/images/banners/slide1-mobile.webp"
+    },
+    "slide2": {
+      "siteName": "ZENAVA Sales",
+      "mainTitle": "智能销售赋能系统",
+      "description": "AI驱动的销售智能化平台，精准客户画像分析，智能推荐销售策略，提升成单率缩短销售周期",
+      "buttonText": "了解销售方案",
+      "imageAlt": "智能销售系统界面",
+      "src": "/assets/images/banners/slide2.webp",
+      "mobileSrc": "/assets/images/banners/slide2-mobile.webp"
+    },
+    "slide3": {
+      "siteName": "智能AI平台",
+      "mainTitle": "4345323",
+      "description": "43244444444",
+      "buttonText": "预约咨询",
+      "imageAlt": "智能AI平台展示",
+      "src": "/assets/images/banners/slide3.webp",
+      "mobileSrc": "/assets/images/banners/slide3-mobile.webp"
+    },
+    "slide4": {
+      "siteName": "ZENAVA",
+      "mainTitle": "7x24智能客服",
+      "description": "AI智能客服系统实现全天候服务，自动处理常见问题，情感识别提升体验",
+      "buttonText": "查看详情",
+      "imageAlt": "智能客服",
+      "src": "/assets/images/banners/slide4.webp",
+      "mobileSrc": "/assets/images/banners/slide4-mobile.webp"
+    },
+    "slide5": {
+      "siteName": "",
+      "mainTitle": "",
+      "description": "",
+      "buttonText": "",
+      "imageAlt": "营销活动Banner图",
+      "src": "/assets/images/banners/slide5.webp",
+      "mobileSrc": "/assets/images/banners/slide5-mobile.webp"
+    },
+    "slide6": {
+      "siteName": "",
+      "mainTitle": "",
+      "description": "",
+      "buttonText": "",
+      "imageAlt": "营销活动Banner图",
+      "src": "/assets/images/banner-full-marketing.webp",
+      "mobileSrc": "/assets/images/banner-full-marketing-mobile.webp"
+    }
+  },
+  "common": {
+    "logo": {
+      "src": "/assets/images/common/logo.webp",
+      "alt": "Zenava Logo"
+    },
+    "noImage": "暂无图片",
+    "jobImage": "/assets/images/job.webp",
+    "jobImageAlt": "招聘信息"
   }
 }

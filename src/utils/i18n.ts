@@ -133,55 +133,38 @@ export async function detectLanguageFromIP(request: any): Promise<Language> {
       try {
         // request-ip works with Node.js request object
         if (request.raw) {
-          const extracted = requestIP.getClientIp(request.raw)
-          if (extracted && extracted !== '::1' && extracted !== '127.0.0.1') {
-            clientIP = extracted
-          }
+          clientIP = requestIP.getClientIp(request.raw)
         } else if (request.req) {
-          const extracted = requestIP.getClientIp(request.req)
-          if (extracted && extracted !== '::1' && extracted !== '127.0.0.1') {
-            clientIP = extracted
-          }
+          clientIP = requestIP.getClientIp(request.req)
         } else {
           // Fallback: try to use request object directly
-          const extracted = requestIP.getClientIp(request as any)
-          if (extracted && extracted !== '::1' && extracted !== '127.0.0.1') {
-            clientIP = extracted
-          }
+          clientIP = requestIP.getClientIp(request as any)
         }
       } catch (error) {
         console.log('⚠️ request-ip extraction failed:', error)
       }
     }
     
-    // Final fallback: try to get IP from headers manually (important for local dev)
-    if (!clientIP) {
-      // Try to get from _clientIP property (passed from route with fallback logic)
-      if ((request as any)._clientIP) {
-        clientIP = (request as any)._clientIP
-      }
-    }
-    
-    console.log('🔍 IP Extraction Debug (i18n):', {
+    console.log('🔍 IP Extraction Debug:', {
       clientIP,
-      hasCustomIP: !!(request as any)._clientIP,
       usingRequestIP: !!clientIP && !(request as any)._clientIP,
       socketIP: request.raw?.socket?.remoteAddress,
-      note: clientIP ? 'IP extracted successfully' : '⚠️ No IP found, will use browser language'
+      note: 'Using request-ip library for reliable IP extraction'
     })
     
     // If we have an IP, try to detect country (but don't block if it fails)
     if (clientIP && clientIP !== '::1' && clientIP !== '127.0.0.1' && !clientIP.startsWith('192.168.') && !clientIP.startsWith('10.')) {
       try {
-        console.log('🌐 Calling IP API for:', clientIP)
-        // Use a free IP geolocation API (ipapi.co)
-        // Add timeout to prevent hanging
+        console.log('🌐 Calling IP API (ipapi.co) for:', clientIP)
+        // 使用 ipapi.co 免费版 API（日限量 1000 次请求）
+        // Free tier: 1000 requests/day
+        // API endpoint: https://ipapi.co/{ip}/country_code/
         const controller = new AbortController()
-        const timeoutId = setTimeout(() => controller.abort(), 2000) // 2 second timeout
+        const timeoutId = setTimeout(() => controller.abort(), 2000) // 2秒超时，避免阻塞
         
         const response = await fetch(`https://ipapi.co/${clientIP}/country_code/`, {
           headers: {
-            'User-Agent': 'Zenava-Language-Detector'
+            'User-Agent': 'Zenava-Language-Detector/1.0'
           },
           signal: controller.signal
         })
@@ -189,21 +172,30 @@ export async function detectLanguageFromIP(request: any): Promise<Language> {
         clearTimeout(timeoutId)
         
         if (response.ok) {
-          const countryCode = (await response.text()).trim()
+          const countryCode = (await response.text()).trim().toUpperCase()
           console.log('📡 IP API Response:', countryCode)
-          if (countryCode && countryCode.length === 2 && countryCode !== 'XX') {
+          
+          // 验证返回的国家代码格式（2位大写字母，且不是 'XX'）
+          if (countryCode && countryCode.length === 2 && countryCode !== 'XX' && /^[A-Z]{2}$/.test(countryCode)) {
             country = countryCode
             console.log('✅ Detected country from IP API:', country)
           } else {
             console.log('⚠️ Invalid country code from API:', countryCode)
           }
         } else {
-          console.log('⚠️ IP API returned error:', response.status, response.statusText)
+          // 处理 API 错误（如超出限额、服务器错误等）
+          const errorText = await response.text().catch(() => '')
+          console.log(`⚠️ IP API returned error ${response.status}:`, response.statusText, errorText)
+          
+          // 如果是 429 (Too Many Requests)，说明可能超出日限额
+          if (response.status === 429) {
+            console.log('⚠️ IP API rate limit reached (1000/day), falling back to default language')
+          }
         }
       } catch (error: any) {
-        // Log error but don't block the request
+        // 错误处理：不阻塞请求，静默失败
         if (error.name === 'AbortError') {
-          console.log('⏱️ IP API timeout (non-blocking)')
+          console.log('⏱️ IP API timeout (2s), falling back to default language')
         } else {
           console.log('⚠️ IP API detection failed (non-blocking):', error.message)
         }
@@ -240,7 +232,6 @@ export async function detectLanguageFromIP(request: any): Promise<Language> {
     return 'zh'  // Default -> Simplified Chinese
   }
 }
-
 // Helper function to detect language from browser Accept-Language header
 export function detectLanguageFromBrowser(acceptLanguage: string | null): Language {
   if (!acceptLanguage) {

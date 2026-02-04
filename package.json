@@ -30,8 +30,10 @@
   "devDependencies": {
     "@types/request-ip": "^0.0.41",
     "@types/uuid": "^10.0.0",
+    "@typescript-eslint/parser": "^8.54.0",
     "glob": "^11.0.3",
     "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
     "vite": "^6.3.5"
   }
 }

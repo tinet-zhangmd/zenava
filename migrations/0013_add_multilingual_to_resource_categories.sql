@@ -54,12 +54,20 @@ EXECUTE stmt;
 DEALLOCATE PREPARE stmt;
 
 -- 2. 添加多语言字段：栏目描述
+-- 首先检查 description 列是否存在
+SET @description_exists = 0;
+SELECT COUNT(*) INTO @description_exists FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'resource_categories' AND COLUMN_NAME = 'description';
+
 SET @col_exists = 0;
 SELECT COUNT(*) INTO @col_exists FROM INFORMATION_SCHEMA.COLUMNS 
 WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'resource_categories' AND COLUMN_NAME = 'description_zh';
 
 SET @sql = IF(@col_exists = 0, 
-  'ALTER TABLE resource_categories ADD COLUMN description_zh TEXT NULL COMMENT "栏目描述-简体中文" AFTER description',
+  IF(@description_exists > 0,
+    'ALTER TABLE resource_categories ADD COLUMN description_zh TEXT NULL COMMENT "栏目描述-简体中文" AFTER description',
+    'ALTER TABLE resource_categories ADD COLUMN description_zh TEXT NULL COMMENT "栏目描述-简体中文" AFTER name_hk'
+  ),
   'SELECT "Column description_zh already exists"'
 );
 PREPARE stmt FROM @sql;
@@ -102,12 +110,21 @@ PREPARE stmt FROM @sql;
 EXECUTE stmt;
 DEALLOCATE PREPARE stmt;
 
--- 3. 迁移现有数据：将 name 和 description 复制到 name_zh 和 description_zh
+-- 3. 迁移现有数据：将 name 复制到 name_zh
 UPDATE resource_categories 
 SET name_zh = name 
 WHERE name_zh IS NULL AND name IS NOT NULL;
 
-UPDATE resource_categories 
-SET description_zh = description 
-WHERE description_zh IS NULL AND description IS NOT NULL;
+-- 如果 description 列存在，则迁移数据到 description_zh
+SET @description_exists = 0;
+SELECT COUNT(*) INTO @description_exists FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'resource_categories' AND COLUMN_NAME = 'description';
+
+SET @sql = IF(@description_exists > 0,
+  'UPDATE resource_categories SET description_zh = description WHERE description_zh IS NULL AND description IS NOT NULL',
+  'SELECT "Description column does not exist, skipping data migration"'
+);
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 

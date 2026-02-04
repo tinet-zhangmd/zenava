@@ -20,11 +20,24 @@ CREATE TABLE IF NOT EXISTS admin_logs (
   FOREIGN KEY (user_id) REFERENCES admin_users(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='管理员操作审计日志表';
 
--- 插入一些示例数据
-INSERT INTO admin_logs (user_id, user_name, action, target_type, target_id, target_name, description, created_at) VALUES
-(1, 'Admin', 'login', NULL, NULL, NULL, '管理员登录系统', DATE_SUB(NOW(), INTERVAL 10 MINUTE)),
-(1, 'Admin', 'create', 'content', 1, '《AI 驱动的客户服务》', '发布了新内容', DATE_SUB(NOW(), INTERVAL 10 MINUTE)),
-(1, 'Admin', 'update', 'category', 2, '行业报告', '修改了栏目', DATE_SUB(NOW(), INTERVAL 2 HOUR)),
-(1, 'Admin', 'upload', 'media', NULL, 'hero-banner-v2.jpg', '上传了媒体文件', DATE_SUB(NOW(), INTERVAL 1 DAY)),
-(NULL, 'System', 'backup', 'database', NULL, 'ZENAVA_DB_PROD', '执行了自动备份', DATE_SUB(NOW(), INTERVAL 1 DAY) + INTERVAL 2 HOUR);
+-- 插入一些示例数据（仅在 admin_users 表中有数据时插入）
+-- 检查是否存在 admin_users 表中的用户，并获取用户名
+SET @user_exists = 0;
+SET @user_name = NULL;
+SELECT COUNT(*), COALESCE(MAX(username), '') INTO @user_exists, @user_name 
+FROM admin_users WHERE id = 1;
+
+-- 如果用户存在，插入示例数据
+SET @sql = IF(@user_exists > 0,
+  CONCAT('INSERT INTO admin_logs (user_id, user_name, action, target_type, target_id, target_name, description, created_at) VALUES
+  (1, ''', @user_name, ''', ''login'', NULL, NULL, NULL, ''管理员登录系统'', DATE_SUB(NOW(), INTERVAL 10 MINUTE)),
+  (1, ''', @user_name, ''', ''create'', ''content'', 1, ''《AI 驱动的客户服务》'', ''发布了新内容'', DATE_SUB(NOW(), INTERVAL 10 MINUTE)),
+  (1, ''', @user_name, ''', ''update'', ''category'', 2, ''行业报告'', ''修改了栏目'', DATE_SUB(NOW(), INTERVAL 2 HOUR)),
+  (1, ''', @user_name, ''', ''upload'', ''media'', NULL, ''hero-banner-v2.jpg'', ''上传了媒体文件'', DATE_SUB(NOW(), INTERVAL 1 DAY)),
+  (NULL, ''System'', ''backup'', ''database'', NULL, ''ZENAVA_DB_PROD'', ''执行了自动备份'', DATE_SUB(NOW(), INTERVAL 1 DAY) + INTERVAL 2 HOUR)'),
+  'SELECT "No admin user found, skipping sample data insertion"'
+);
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 
