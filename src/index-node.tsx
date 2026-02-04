@@ -9,6 +9,7 @@ import { serveStatic } from '@hono/node-server/serve-static'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import { join } from 'path'
 import crypto from 'crypto'
+import requestIP from 'request-ip'
 import { query as mysqlQuery } from './lib/mysql.js'
 import { saveUploadedImage, deleteUploadedImage } from './lib/upload.js'
 
@@ -228,52 +229,82 @@ app.get('/', async (c) => {
     allHeaders
   })
   
-  // Pass the Hono context request object which has proper header access
-  // Extract IP directly from Hono request (more reliable)
-  // Note: x-forwarded-for contains: client-ip, proxy1-ip, proxy2-ip
-  // We want the FIRST IP (original client), but if it's not available, use the LAST (most recent)
-  // xForwardedFor is already declared above, reuse it
-  let clientIPFromRoute = c.req.header('CF-Connecting-IP') || null
+  // Extract IP using request-ip library (handles all proxy/CDN cases automatically)
+  // Fallback to manual header extraction for local development compatibility
+  let clientIPFromRoute: string | null = null
   
-  if (!clientIPFromRoute && xForwardedFor) {
-    const ips = xForwardedFor.split(',').map(ip => ip.trim()).filter(ip => ip)
-    console.log('🔍 IPs:', ips);
-    if (ips.length > 0) {
-      // For x-forwarded-for: client-ip, proxy1-ip, proxy2-ip
-      // The FIRST IP is usually the original client IP
-      // But if there are multiple IPs, log all for debugging
-      clientIPFromRoute = ips[0]  // Use first IP (original client)
+  // Allow manual override via query parameter for testing
+  if (testIP) {
+    clientIPFromRoute = testIP
+    console.log('🧪 Using test IP from query parameter:', testIP)
+  } else {
+    // Strategy 1: Try request-ip library (works best in production with proper request object)
+    let requestIPResult: string | null = null
+    try {
+      if (c.req.raw) {
+        requestIPResult = requestIP.getClientIp(c.req.raw)
+        console.log('🔍 request-ip raw result:', requestIPResult)
+        
+        if (requestIPResult && requestIPResult !== '::1' && requestIPResult !== '127.0.0.1' && 
+            !requestIPResult.startsWith('192.168.') && !requestIPResult.startsWith('10.')) {
+          clientIPFromRoute = requestIPResult
+          console.log('✅ IP extracted using request-ip library:', requestIPResult)
+        } else {
+          console.log('⚠️ request-ip returned invalid/local IP:', requestIPResult)
+        }
+      } else {
+        console.log('⚠️ c.req.raw is not available, skipping request-ip')
+      }
+    } catch (error: any) {
+      console.log('⚠️ request-ip extraction failed (non-blocking):', error.message)
+    }
+    
+    // Strategy 2: Fallback to manual header extraction
+    // This is especially important for local development where request-ip might not work
+    if (!clientIPFromRoute) {
+      console.log('🔄 Falling back to manual header extraction...')
+      console.log('   xForwardedFor value:', xForwardedFor)
       
-      if (ips.length > 1) {
-        console.log('⚠️ Multiple IPs in x-forwarded-for:', {
-          allIPs: ips,
-          usingFirst: ips[0],
-          lastIP: ips[ips.length - 1],
-          note: 'First IP is usually the original client, last IP is the most recent proxy'
-        })
-        // If user wants to test with last IP, they can use ?test_ip parameter
+      // x-forwarded-for format: "client-ip, proxy1-ip, proxy2-ip"
+      // First IP is usually the original client
+      if (xForwardedFor) {
+        const ips = xForwardedFor.split(',').map(ip => ip.trim()).filter(ip => ip)
+        console.log('   Parsed IPs from x-forwarded-for:', ips)
+        if (ips.length > 0) {
+          clientIPFromRoute = ips[0]  // Use first IP (original client)
+          console.log('✅ IP extracted from x-forwarded-for header:', clientIPFromRoute)
+        }
+      } else {
+        console.log('   xForwardedFor is empty/null')
+      }
+      
+      // Strategy 3: Try other headers as final fallback
+      if (!clientIPFromRoute) {
+        const cfIP = c.req.header('CF-Connecting-IP')
+        const realIP = c.req.header('x-real-ip')
+        console.log('   Trying other headers - CF-Connecting-IP:', cfIP, 'x-real-ip:', realIP)
+        
+        clientIPFromRoute = cfIP || realIP || null
+        
+        if (clientIPFromRoute) {
+          console.log('✅ IP extracted from other headers:', clientIPFromRoute)
+        }
       }
     }
   }
   
-  if (!clientIPFromRoute) {
-    clientIPFromRoute = c.req.header('x-real-ip') ||
-                       c.req.raw?.socket?.remoteAddress ||
-                       null
-  }
-  
-  // Log all IP sources for debugging
-  console.log('🔍 IP Sources Debug:', {
-    cfConnectingIP: c.req.header('CF-Connecting-IP'),
-    xForwardedFor: xForwardedFor,
-    xForwardedForParsed: xForwardedFor?.split(',').map(ip => ip.trim()),
-    xRealIP: c.req.header('x-real-ip'),
+  // Log IP extraction for debugging
+  console.log('🔍 IP Extraction Debug:', {
+    extractedIP: clientIPFromRoute,
+    testIP: testIP || null,
     socketIP: c.req.raw?.socket?.remoteAddress,
-    selectedIP: clientIPFromRoute
+    xForwardedFor: xForwardedFor,
+    method: testIP ? 'manual_test' : (clientIPFromRoute ? 'request-ip_with_fallback' : 'fallback_manual'),
+    note: clientIPFromRoute ? 'IP extracted successfully' : '⚠️ No IP extracted, will use browser language detection'
   })
   
-  // Use test IP if provided, otherwise use detected IP
-  const finalClientIP = testIP || clientIPFromRoute
+  // Use extracted IP (or null if extraction failed)
+  const finalClientIP = clientIPFromRoute
   
   if (testIP) {
     console.log('🧪 Using test IP from query parameter:', testIP)

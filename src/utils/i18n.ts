@@ -2,6 +2,7 @@ import zhTranslations from '../i18n/zh.json'
 import enTranslations from '../i18n/en.json'
 import jpTranslations from '../i18n/jp.json'
 import hkTranslations from '../i18n/hk.json'
+import requestIP from 'request-ip'
 
 export type Language = 'zh' | 'en' | 'jp' | 'hk'
 
@@ -118,41 +119,55 @@ export async function detectLanguageFromIP(request: any): Promise<Language> {
   
   // 3. If still no country, try to get IP and use third-party API
   if (!country) {
-    // Get client IP address from various sources
+    // Get client IP address using request-ip library (handles all proxy/CDN cases)
     let clientIP: string | null = null
     
-    // First, try custom _clientIP property (passed from route)
+    // First, try custom _clientIP property (passed from route, e.g., test_ip parameter)
     if ((request as any)._clientIP) {
       clientIP = (request as any)._clientIP
+      console.log('🧪 Using custom IP from route:', clientIP)
     }
     
-    // Then try various IP headers (in order of priority)
+    // Then use request-ip library to extract real client IP
     if (!clientIP) {
-      clientIP = getHeader('CF-Connecting-IP') ||  // Cloudflare
-                 getHeader('x-forwarded-for')?.split(',')[0]?.trim() ||
-                 getHeader('x-real-ip') ||
-                 getHeader('x-client-ip') ||
-                 null
-    }
-    
-    // Also try to get IP from request.raw.socket (Node.js)
-    if (!clientIP && request.raw && request.raw.socket) {
-      const socket = request.raw.socket
-      clientIP = socket.remoteAddress || null
-      // Handle IPv6-mapped IPv4 addresses
-      if (clientIP && clientIP.startsWith('::ffff:')) {
-        clientIP = clientIP.substring(7)
+      try {
+        // request-ip works with Node.js request object
+        if (request.raw) {
+          const extracted = requestIP.getClientIp(request.raw)
+          if (extracted && extracted !== '::1' && extracted !== '127.0.0.1') {
+            clientIP = extracted
+          }
+        } else if (request.req) {
+          const extracted = requestIP.getClientIp(request.req)
+          if (extracted && extracted !== '::1' && extracted !== '127.0.0.1') {
+            clientIP = extracted
+          }
+        } else {
+          // Fallback: try to use request object directly
+          const extracted = requestIP.getClientIp(request as any)
+          if (extracted && extracted !== '::1' && extracted !== '127.0.0.1') {
+            clientIP = extracted
+          }
+        }
+      } catch (error) {
+        console.log('⚠️ request-ip extraction failed:', error)
       }
     }
     
-    console.log('🔍 IP Extraction Debug:', {
+    // Final fallback: try to get IP from headers manually (important for local dev)
+    if (!clientIP) {
+      // Try to get from _clientIP property (passed from route with fallback logic)
+      if ((request as any)._clientIP) {
+        clientIP = (request as any)._clientIP
+      }
+    }
+    
+    console.log('🔍 IP Extraction Debug (i18n):', {
       clientIP,
-      cfConnectingIP: getHeader('CF-Connecting-IP'),
-      xForwardedFor: getHeader('x-forwarded-for'),
-      xRealIP: getHeader('x-real-ip'),
+      hasCustomIP: !!(request as any)._clientIP,
+      usingRequestIP: !!clientIP && !(request as any)._clientIP,
       socketIP: request.raw?.socket?.remoteAddress,
-      hasRawHeaders: !!request.raw?.headers,
-      rawHeadersKeys: request.raw?.headers ? Object.keys(request.raw.headers) : []
+      note: clientIP ? 'IP extracted successfully' : '⚠️ No IP found, will use browser language'
     })
     
     // If we have an IP, try to detect country (but don't block if it fails)
