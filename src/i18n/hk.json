@@ -73,7 +73,8 @@
           "降低等待時間、減少人工成本，提升客戶滿意度"
         ],
         "button": "了解更多",
-        "imageAlt": "即時響應服務"
+        "imageAlt": "即時響應服務",
+        "imagePath": "/assets/images/01-hk.webp"
       },
       "item2": {
         "title": "媲美真人的自然溝通體驗，更值得信賴",
@@ -83,7 +84,8 @@
           "具備情緒感知能力，耐心、有溫度，通過媲美真人的自然溝通體驗，提升客戶忠誠度"
         ],
         "button": "了解更多",
-        "imageAlt": "自然溝通體驗"
+        "imageAlt": "自然溝通體驗",
+        "imagePath": "/assets/images/02-hk.webp"
       },
       "item3": {
         "title": "客戶服務自動化，實現真正的端到端閉環",
@@ -92,7 +94,8 @@
           "實現從意圖識別 → 任務執行 → 反饋結果的端到端自動化閉環，在特定任務中可完全取代人力"
         ],
         "button": "了解更多",
-        "imageAlt": "客戶服務自動化"
+        "imageAlt": "客戶服務自動化",
+        "imagePath": "/assets/images/03-hk.webp"
       },
       "item4": {
         "title": "智能引導訪客留資，提升客戶轉化率",
@@ -101,7 +104,8 @@
           "主動追問、澄清關鍵信息，引導客戶留資，自動化收集線索，提升客戶轉化率"
         ],
         "button": "了解更多",
-        "imageAlt": "智能引導訪客留資"
+        "imageAlt": "智能引導訪客留資",
+        "imagePath": "/assets/images/04-hk.webp"
       },
       "item5": {
         "title": "效果可量化，讓AI價值看得見",
@@ -110,7 +114,8 @@
           "企業降本增效的首選"
         ],
         "button": "了解更多",
-        "imageAlt": "效果可量化"
+        "imageAlt": "效果可量化",
+        "imagePath": "/assets/images/05-hk.webp"
       }
     }
   },

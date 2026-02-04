@@ -118,7 +118,8 @@
           "Reduce waiting time, lower labor costs, and improve customer satisfaction"
         ],
         "button": "Learn More",
-        "imageAlt": "Instant Response Service"
+        "imageAlt": "Instant Response Service",
+        "imagePath": "/assets/images/01-en.webp"
       },
       "item2": {
         "title": "A Natural Communication Experience Comparable to Real Humans, Even More Trustworthy",
@@ -128,7 +129,8 @@
           "Equipped with emotional awareness, delivering patient and empathetic interactions that enhance customer loyalty through human-like communication."
         ],
         "button": "Learn More",
-        "imageAlt": "Natural Communication Experience"
+        "imageAlt": "Natural Communication Experience",
+        "imagePath": "/assets/images/02-en.webp"
       },
       "item3": {
         "title": "Customer Service Automation for a True End-to-End Closed Loop",
@@ -137,7 +139,8 @@
           "Enable a fully automated closed loop from intent recognition to task execution and result feedback, fully replacing human effort in specific scenarios"
         ],
         "button": "Learn More",
-        "imageAlt": "Customer Service Automation"
+        "imageAlt": "Customer Service Automation",
+        "imagePath": "/assets/images/03-en.webp"
       },
       "item4": {
         "title": "Intelligently guide visitors through lead capture, boosting customer conversion rates",
@@ -146,7 +149,8 @@
           "Proactively ask follow-up questions, clarify key information, guide customers to submit their details, and automatically collect leads to improve conversion rates"
         ],
         "button": "Learn More",
-        "imageAlt": "Intelligent Lead Generation"
+        "imageAlt": "Intelligent Lead Generation",
+        "imagePath": "/assets/images/04-en.webp"
       },
       "item5": {
         "title": "Quantifiable Effects That Make the Value of AI Visible",
@@ -155,7 +159,8 @@
           "The preferred solution for enterprises seeking cost reduction and efficiency gains"
         ],
         "button": "Learn More",
-        "imageAlt": "Quantifiable Results"
+        "imageAlt": "Quantifiable Results",
+        "imagePath": "/assets/images/05-en.webp"
       }
     }
   },

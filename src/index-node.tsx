@@ -194,8 +194,8 @@ app.use('/assets/*', serveStatic({
 // Homepage routes
 // 自动检测用户地区并重定向到对应语言路径
 app.get('/', async (c) => {
-  // 智能检测语言（优先级：IP > Browser > Default）
-  // 注意：访问根路径时忽略 Cookie，允许重新检测（支持 VPN 用户）
+  // 智能检测语言（优先级：URL Path > Accept-Language > Cookie > IP > Default）
+  // 注意：访问根路径时忽略 Cookie，优先使用 Accept-Language 头检测
   const cookieLanguage = getCookie(c, 'user_language')
   const acceptLanguage = c.req.header('Accept-Language') || null
   
@@ -220,13 +220,10 @@ app.get('/', async (c) => {
   
   console.log('🔍 Language Detection Debug:', {
     pathname: '/',
-    cookie: cookieLanguage,
-    acceptLanguage: acceptLanguage,
-    cfCountry: c.req.header('CF-IPCountry'),
-    clientIP: clientIPForLog,
-    xForwardedForFull: xForwardedFor,  // Show full header value
-    socketIP: c.req.raw?.socket?.remoteAddress,
-    allHeaders
+    acceptLanguage: acceptLanguage || '(未提供)',
+    cookie: cookieLanguage || '(无)',
+    cfCountry: c.req.header('CF-IPCountry') || '(无)',
+    clientIP: clientIPForLog || '(无法获取)',
   })
   
   // Extract IP using request-ip library (handles all proxy/CDN cases automatically)
@@ -318,12 +315,15 @@ app.get('/', async (c) => {
   
   const detectedLanguage = await detectLanguageSmart(
     '/',
-    null,  // 根路径访问时忽略 Cookie，强制重新检测
+    null,  // 根路径访问时忽略 Cookie，优先使用 Accept-Language
     acceptLanguage,
     requestWithIP
   )
   
-  console.log('✅ Detected language:', detectedLanguage)
+  console.log('✅ 最终检测到的语言:', detectedLanguage, {
+    method: acceptLanguage ? 'Accept-Language 头' : '其他方法（IP/Cookie/Default)',
+    acceptLanguageHeader: acceptLanguage || '(未提供)'
+  })
   
   // 保存检测到的语言到 Cookie（30天有效期）
   // 注意：只在自动检测时保存，用户手动切换不保存（根据需求3.B）

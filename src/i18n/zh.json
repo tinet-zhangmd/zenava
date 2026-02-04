@@ -118,7 +118,8 @@
           "降低等待时间、减少人工成本，提升客户满意度"
         ],
         "button": "了解更多",
-        "imageAlt": "即时响应服务"
+        "imageAlt": "即时响应服务",
+        "imagePath": "/assets/images/01.webp"
       },
       "item2": {
         "title": "媲美真人的自然沟通体验，更值得信赖",
@@ -128,7 +129,8 @@
           "具备情绪感知能力，耐心、有温度，通过媲美真人的自然沟通体验，提升客户忠诚度"
         ],
         "button": "了解更多",
-        "imageAlt": "自然沟通体验"
+        "imageAlt": "自然沟通体验",
+        "imagePath": "/assets/images/02.webp"
       },
       "item3": {
         "title": "客户服务自动化，实现真正的端到端闭环",
@@ -137,7 +139,8 @@
           "实现从意图识别 → 任务执行 → 反馈结果的端到端自动化闭环，在特定任务中可完全取代人力"
         ],
         "button": "了解更多",
-        "imageAlt": "客户服务自动化"
+        "imageAlt": "客户服务自动化",
+        "imagePath": "/assets/images/03.webp"
       },
       "item4": {
         "title": "智能引导访客留资，提升客户转化率",
@@ -146,7 +149,8 @@
           "主动追问、澄清关键信息，引导客户留资，自动化收集线索，提升客户转化率"
         ],
         "button": "了解更多",
-        "imageAlt": "智能引导访客留资"
+        "imageAlt": "智能引导访客留资",
+        "imagePath": "/assets/images/04.webp"
       },
       "item5": {
         "title": "效果可量化，让AI价值看得见",
@@ -155,7 +159,8 @@
           "企业降本增效的首选"
         ],
         "button": "了解更多",
-        "imageAlt": "效果可量化"
+        "imageAlt": "效果可量化",
+        "imagePath": "/assets/images/05.webp"
       }
     }
   },

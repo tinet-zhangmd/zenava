@@ -273,8 +273,7 @@ export function detectLanguageFromBrowser(acceptLanguage: string | null): Langua
 }
 
 // Smart language detection with priority order
-// Priority: 1. URL Path, 2. Cookie, 3. IP Geolocation, 4. Browser Language, 5. Default
-// Note: Changed priority - IP before Browser to respect VPN users
+// Priority: 1. URL Path, 2. Accept-Language Header, 3. Cookie, 4. IP Geolocation, 5. Default
 export async function detectLanguageSmart(
   pathname: string,
   cookie: string | null,
@@ -291,9 +290,22 @@ export async function detectLanguageSmart(
     return 'zh'  // Explicit zh path
   }
   
-  // Priority 2: Cookie (user's previous choice, 30 days)
+  // Priority 2: Accept-Language Header (浏览器语言偏好)
+  // 优先使用浏览器发送的 Accept-Language 头来检测语言
+  if (acceptLanguage) {
+    const browserLanguage = detectLanguageFromBrowser(acceptLanguage)
+    if (browserLanguage !== 'zh') {
+      // Debug log
+      if (typeof console !== 'undefined') {
+        console.log('🌐 Detected language from Accept-Language header:', browserLanguage, `(header: ${acceptLanguage})`)
+      }
+      return browserLanguage
+    }
+    // 如果检测到中文，继续检查其他优先级
+  }
+  
+  // Priority 3: Cookie (user's previous choice, 30 days)
   // BUT: If user is accessing root path, ignore cookie to allow re-detection
-  // This allows VPN users to get re-detected when accessing root
   if (cookie && pathname !== '/') {
     const cookieLanguage = cookie.trim().toLowerCase()
     if (cookieLanguage === 'zh' || cookieLanguage === 'en' || 
@@ -302,7 +314,7 @@ export async function detectLanguageSmart(
     }
   }
   
-  // Priority 3: IP Geolocation (moved before browser language for VPN users)
+  // Priority 4: IP Geolocation (fallback for cases where Accept-Language is not available)
   const ipLanguage = await detectLanguageFromIP(request)
   if (ipLanguage !== 'zh') {
     // Debug log
@@ -310,12 +322,6 @@ export async function detectLanguageSmart(
       console.log('🌍 Detected language from IP:', ipLanguage)
     }
     return ipLanguage
-  }
-  
-  // Priority 4: Browser Language
-  const browserLanguage = detectLanguageFromBrowser(acceptLanguage)
-  if (browserLanguage !== 'zh') {
-    return browserLanguage
   }
   
   // Priority 5: Default
