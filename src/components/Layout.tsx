@@ -147,6 +147,11 @@ export function Layout({ children, language, currentPath, title, description, se
                   </button>
                   <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                     <div class="py-2">
+                      <a href={getLocalizedPath(currentPath, 'zh')} 
+                         class="px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 inline-flex items-center align-middle space-x-2">
+                        <span class="inline-flex items-center" style="font-size: 1rem; line-height: 1;">🇨🇳</span>
+                        <span class="inline-flex items-center" style="line-height: 1;">简体中文</span>
+                      </a>
                       <a href={getLocalizedPath(currentPath, 'en')} 
                          class="px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 inline-flex items-center align-middle space-x-2">
                         <span class="inline-flex items-center" style="font-size: 1rem; line-height: 1;">🇺🇸</span>

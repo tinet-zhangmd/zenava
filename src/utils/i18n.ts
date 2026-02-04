@@ -47,12 +47,7 @@ export function getLocalizedPath(path: string, language: Language): string {
     cleanPath = cleanPath.slice(0, -1)
   }
   
-  if (language === 'zh') {
-    // 简体中文作为默认语言，不需要前缀
-    return cleanPath === '/' ? '/' : cleanPath
-  }
-  
-  // For other languages, add prefix but avoid double slash
+  // For all languages including zh, add prefix but avoid double slash
   if (cleanPath === '/') {
     return `/${language}`
   }

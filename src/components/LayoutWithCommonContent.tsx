@@ -192,7 +192,7 @@ export function LayoutWithCommonContent({
                   </button>
                   <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                     <div class="p-2">
-                      {(['en', 'jp', 'hk'] as Language[]).map((lang) => (
+                      {(['zh', 'en', 'jp', 'hk'] as Language[]).map((lang) => (
                         <a 
                           href={getLocalizedPath(currentPath, lang)}
                           class={`inline-flex items-center align-middle space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors ${lang === language ? 'bg-gray-50' : ''}`}

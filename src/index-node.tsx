@@ -316,15 +316,8 @@ app.get('/', async (c) => {
     sameSite: 'Lax'
   })
   
-  // 自动重定向到检测到的语言路径
-  if (detectedLanguage !== 'zh') {
-    // 非中文语言，重定向到对应语言路径
-    return c.redirect(`/${detectedLanguage}`)
-  }
-  
-  // 简体中文作为默认语言，保持在根路径
-  const language: Language = 'zh'
-  const currentPath = '/'
+  // 自动重定向到检测到的语言路径（包括简体中文）
+  return c.redirect(`/${detectedLanguage}`)
   
   const { config: navConfig, menuItems } = getNavigationData(language);
   const { config: footerConfig, sections: footerSections, privacyLinks } = getFooterConfig(language);
