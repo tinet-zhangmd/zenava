@@ -42,11 +42,7 @@ echo ""
 
 # 3. 安装依赖
 echo -e "${YELLOW}[3/10] 安装依赖...${NC}"
-if [ -f "package-lock.json" ]; then
-  npm ci --production=false
-else
-  npm install
-fi
+npm install
 echo -e "${GREEN}✓ 依赖安装完成${NC}"
 echo ""
 
