@@ -58,7 +58,20 @@ if [ ! -d "dist-node" ]; then
   echo -e "${RED}✗ 构建失败：dist-node 目录不存在${NC}"
   exit 1
 fi
+
+# 验证构建文件是否存在（支持带 hash 的文件名）
+BUILD_FILE=$(find dist-node -name "index-node.*.js" -type f | head -1)
+if [ -z "$BUILD_FILE" ]; then
+  # 向后兼容：检查固定文件名
+  if [ ! -f "dist-node/index-node.js" ]; then
+    echo -e "${RED}✗ 构建失败：找不到构建文件 index-node.*.js${NC}"
+    exit 1
+  else
+    BUILD_FILE="dist-node/index-node.js"
+  fi
+fi
 echo -e "${GREEN}✓ 构建完成${NC}"
+echo -e "${GREEN}  构建文件: ${BUILD_FILE}${NC}"
 echo ""
 
 # 6. 创建部署目录

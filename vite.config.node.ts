@@ -12,7 +12,11 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index-node.tsx'),
       formats: ['es'],
-      fileName: 'index-node'
+      fileName: (format) => {
+        // 使用 hash 生成文件名，避免缓存问题
+        // format 参数在这里是 'es'，但我们不使用它
+        return 'index-node.[hash]'
+      }
     },
     rollupOptions: {
       external: (id) => {
@@ -32,7 +36,9 @@ export default defineConfig({
         return false
       },
       output: {
-        format: 'es'
+        format: 'es',
+        // 启用文件名的 hash，避免缓存问题
+        entryFileNames: 'index-node.[hash].js'
       }
     }
   },

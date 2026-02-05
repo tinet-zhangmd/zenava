@@ -23,25 +23,77 @@ try {
 
 // 导入应用（Node.js 适配版本）
 // 在生产环境中使用构建后的文件，开发环境使用源文件
-import { existsSync } from 'fs'
+import { existsSync, readdirSync, readFileSync } from 'fs'
+import { join as pathJoin } from 'path'
 
-const distPath = join(__dirname, 'dist-node', 'index-node.js')
+// 查找构建后的文件（支持 hash 文件名）
+function findDistFile() {
+  const distDir = join(__dirname, 'dist-node')
+  
+  // 首先尝试查找 manifest.json（Vite 生成的文件清单）
+  const manifestPath = join(distDir, 'manifest.json')
+  if (existsSync(manifestPath)) {
+    try {
+      const manifest = JSON.parse(readFileSync(manifestPath, 'utf-8'))
+      // manifest 格式: { "src/index-node.tsx": { "file": "index-node.[hash].js" } }
+      const entryKey = Object.keys(manifest).find(key => key.includes('index-node'))
+      if (entryKey && manifest[entryKey]?.file) {
+        const fileName = manifest[entryKey].file
+        const filePath = join(distDir, fileName)
+        if (existsSync(filePath)) {
+          return filePath
+        }
+      }
+    } catch (error) {
+      console.warn('⚠️  无法读取 manifest.json:', error.message)
+    }
+  }
+  
+  // 如果没有 manifest，尝试查找 index-node.*.js 文件（带 hash）
+  if (existsSync(distDir)) {
+    try {
+      const files = readdirSync(distDir)
+      const hashFile = files.find(file => 
+        file.startsWith('index-node.') && file.endsWith('.js')
+      )
+      if (hashFile) {
+        return join(distDir, hashFile)
+      }
+    } catch (error) {
+      console.warn('⚠️  无法读取 dist-node 目录:', error.message)
+    }
+  }
+  
+  // 最后尝试固定文件名（向后兼容）
+  const fixedPath = join(distDir, 'index-node.js')
+  if (existsSync(fixedPath)) {
+    return fixedPath
+  }
+  
+  return null
+}
+
+const distPath = findDistFile()
 const srcPath = join(__dirname, 'src', 'index-node.tsx')
 
 // 使用动态导入，根据文件存在性选择
-const appModule = existsSync(distPath)
-  ? await import('./dist-node/index-node.js')
-  : existsSync(srcPath)
-  ? await import('./src/index-node.tsx')
-  : (() => {
-      console.error('❌ 无法找到应用文件')
-      console.error(`   尝试了: ${distPath}`)
-      console.error(`   尝试了: ${srcPath}`)
-      process.exit(1)
-    })()
+let appModule
+if (distPath) {
+  // 将绝对路径转换为相对路径（从项目根目录）
+  const relativePath = distPath.replace(process.cwd() + '/', './')
+  appModule = await import(relativePath)
+} else if (existsSync(srcPath)) {
+  appModule = await import('./src/index-node.tsx')
+} else {
+  console.error('❌ 无法找到应用文件')
+  console.error(`   尝试了: dist-node/index-node.*.js`)
+  console.error(`   尝试了: ${srcPath}`)
+  process.exit(1)
+}
 
-if (existsSync(distPath)) {
-  console.log('📦 使用构建后的文件: dist-node/index-node.js')
+if (distPath) {
+  const fileName = distPath.split('/').pop()
+  console.log(`📦 使用构建后的文件: dist-node/${fileName}`)
 } else {
   console.log('🔧 使用源文件: src/index-node.tsx')
 }
