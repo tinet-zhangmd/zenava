@@ -726,33 +726,6 @@
   "resourcesCenter": {
     "hero": {
       "slides": [
-        {
-          "image": "/assets/images/resources/hero-1.jpg",
-          "imageAlt": "Resource Center Hero Image",
-          "date": "September 6, 2023",
-          "title": "There's an agent for that, and it runs on Sierra",
-          "description": "Today, we're announcing that we've raised $350M additional capital at a valuation of $10B, led by Greenoaks, which is doubling down on Sierra.",
-          "buttonText": "Learn More",
-          "link": "/contact"
-        },
-        {
-          "image": "/assets/images/resources/hero-2.jpg",
-          "imageAlt": "Resource Center Hero Image 2",
-          "date": "September 5, 2023",
-          "title": "AI-Powered Customer Service Revolution",
-          "description": "Discover how Zenava AI is transforming customer service with intelligent agents that understand, learn, and adapt in real-time.",
-          "buttonText": "Learn More",
-          "link": "/contact"
-        },
-        {
-          "image": "/assets/images/resources/hero-3.jpg",
-          "imageAlt": "Resource Center Hero Image 3",
-          "date": "September 4, 2023",
-          "title": "Enterprise AI Solutions for Modern Businesses",
-          "description": "Explore our comprehensive AI platform designed for enterprise scale, helping businesses achieve digital transformation.",
-          "buttonText": "Learn More",
-          "link": "/contact"
-        }
       ]
     }
   },

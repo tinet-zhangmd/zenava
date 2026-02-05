@@ -726,33 +726,6 @@
   "resourcesCenter": {
     "hero": {
       "slides": [
-        {
-          "image": "/assets/images/resources/hero-1.jpg",
-          "imageAlt": "资源中心Hero图片",
-          "date": "September 6, 2023",
-          "title": "There's an agent for that, and it runs on Sierra",
-          "description": "Today, we're announcing that we've raised $350M additional capital at a valuation of $10B, led by Greenoaks, which is doubling down on Sierra.",
-          "buttonText": "了解更多",
-          "link": "/contact"
-        },
-        {
-          "image": "/assets/images/resources/hero-2.jpg",
-          "imageAlt": "资源中心Hero图片2",
-          "date": "September 5, 2023",
-          "title": "AI驱动的客户服务革命",
-          "description": "发现Zenava AI如何通过能够实时理解、学习和适应的智能代理来转变客户服务。",
-          "buttonText": "了解更多",
-          "link": "/contact"
-        },
-        {
-          "image": "/assets/images/resources/hero-3.jpg",
-          "imageAlt": "资源中心Hero图片3",
-          "date": "September 4, 2023",
-          "title": "面向现代企业的企业AI解决方案",
-          "description": "探索我们专为企业规模设计的综合AI平台，帮助企业实现数字化转型。",
-          "buttonText": "了解更多",
-          "link": "/contact"
-        }
       ]
     }
   },

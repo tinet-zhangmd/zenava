@@ -279,10 +279,10 @@ export const ResourcesPage: FC<ResourcesPageProps> = ({
     })
   }
 
-  // 使用数据库banner数据，如果没有则使用翻译文件数据
+  // 使用数据库banner数据，如果没有则不显示banner
   const heroSlides = banners.length > 0 
     ? convertBannersToSlides(banners) 
-    : (t.hero?.slides || [])
+    : []
   
   // 调试信息（开发环境）
   if (typeof window === 'undefined') {

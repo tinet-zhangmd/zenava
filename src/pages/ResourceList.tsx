@@ -169,7 +169,7 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
   const trans = getTranslations(language)
   const t = trans.resourcesCenter || {}
   
-  // 如果有 category，使用栏目数据；否则使用默认配置
+  // 如果有 category，使用栏目数据；否则不设置配置
   const resourceTypeConfig = category 
     ? {
         heroTitle: category.name,
@@ -178,7 +178,7 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
         heroImageAlt: category.name,
         heroLink: '#'
       }
-    : getResourceTypeConfig(resourceType, language)
+    : undefined
   
   // 使用实际的内容数据
   const itemsPerPage = 9
@@ -346,12 +346,12 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
         <div class="site-container px-4 sm:px-6 lg:px-8">
           {/* 第一行：栏目标题 */}
           <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4">
-            {category?.name || resourceTypeConfig.heroTitle}
+            {category?.name || resourceTypeConfig?.heroTitle}
           </h1>
           
           {/* 第二行：栏目描述 */}
           <p class="text-xs md:text-sm text-gray-600 leading-relaxed mb-8 md:mb-12">
-            {category?.description || resourceTypeConfig.heroDescription}
+            {category?.description || resourceTypeConfig?.heroDescription}
           </p>
           
           {/* Category Banner Carousel - 栏目Banner轮播（原来的Banner位置） */}
@@ -368,7 +368,7 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
       <section class="py-12 md:py-16 lg:py-20 bg-white">
         <div class="site-container px-4 sm:px-6 lg:px-8">
           <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-8 md:mb-12">
-            {resourceTypeConfig.listTitle || (language === 'zh' ? '所有信息展示' : language === 'en' ? 'All Resources' : language === 'jp' ? 'すべての情報' : '所有資訊展示')}
+            {resourceTypeConfig?.listTitle || (language === 'zh' ? '所有信息展示' : language === 'en' ? 'All Resources' : language === 'jp' ? 'すべての情報' : '所有資訊展示')}
           </h2>
           
           {/* Resource Cards Grid */}
@@ -757,279 +757,6 @@ export const ResourceListPage: FC<ResourceListPageProps> = ({
   )
 }
 
-// Helper function to get resource type configuration
-function getResourceTypeConfig(resourceType: string, language: Language) {
-  const configs: Record<string, Record<Language, any>> = {
-    all: {
-      zh: {
-        title: '所有资源',
-        heroTitle: '所有资源',
-        heroDescription: '探索 Zenava 的所有资源，包括白皮书、视频、行业报告、产品演示、博客和播客。',
-        heroImage: '/assets/images/resources/hero-all.jpg',
-        heroImageAlt: '所有资源',
-        heroLink: '/contact',
-        listTitle: '所有信息展示'
-      },
-      en: {
-        title: 'All Resources',
-        heroTitle: 'All Resources',
-        heroDescription: 'Explore all Zenava resources including whitepapers, videos, industry reports, product demos, blog posts, and podcasts.',
-        heroImage: '/assets/images/resources/hero-all.jpg',
-        heroImageAlt: 'All Resources',
-        heroLink: '/contact',
-        listTitle: 'All Resources'
-      },
-      jp: {
-        title: 'すべてのリソース',
-        heroTitle: 'すべてのリソース',
-        heroDescription: 'ホワイトペーパー、ビデオ、業界レポート、製品デモ、ブログ投稿、ポッドキャストを含むZenavaのすべてのリソースを探索してください。',
-        heroImage: '/assets/images/resources/hero-all.jpg',
-        heroImageAlt: 'すべてのリソース',
-        heroLink: '/contact',
-        listTitle: 'すべての情報'
-      },
-      hk: {
-        title: '所有資源',
-        heroTitle: '所有資源',
-        heroDescription: '探索 Zenava 的所有資源，包括白皮書、視頻、行業報告、產品演示、博客和播客。',
-        heroImage: '/assets/images/resources/hero-all.jpg',
-        heroImageAlt: '所有資源',
-        heroLink: '/contact',
-        listTitle: '所有資訊展示'
-      }
-    },
-    whitepapers: {
-      zh: {
-        title: '白皮书',
-        heroTitle: '白皮书',
-        heroDescription: '深入了解行业趋势、最佳实践和技术洞察，通过我们的白皮书获取专业知识和实用指南。',
-        heroImage: '/assets/images/resources/hero-whitepapers.jpg',
-        heroImageAlt: '白皮书',
-        heroLink: '/contact',
-        listTitle: '白皮书'
-      },
-      en: {
-        title: 'Whitepapers',
-        heroTitle: 'Whitepapers',
-        heroDescription: 'Dive deep into industry trends, best practices, and technical insights with our comprehensive whitepapers.',
-        heroImage: '/assets/images/resources/hero-whitepapers.jpg',
-        heroImageAlt: 'Whitepapers',
-        heroLink: '/contact',
-        listTitle: 'Whitepapers'
-      },
-      jp: {
-        title: 'ホワイトペーパー',
-        heroTitle: 'ホワイトペーパー',
-        heroDescription: '業界のトレンド、ベストプラクティス、技術的洞察を深く掘り下げる包括的なホワイトペーパーをご覧ください。',
-        heroImage: '/assets/images/resources/hero-whitepapers.jpg',
-        heroImageAlt: 'ホワイトペーパー',
-        heroLink: '/contact',
-        listTitle: 'ホワイトペーパー'
-      },
-      hk: {
-        title: '白皮書',
-        heroTitle: '白皮書',
-        heroDescription: '深入了解行業趨勢、最佳實踐和技術洞察，通過我們的白皮書獲取專業知識和實用指南。',
-        heroImage: '/assets/images/resources/hero-whitepapers.jpg',
-        heroImageAlt: '白皮書',
-        heroLink: '/contact',
-        listTitle: '白皮書'
-      }
-    },
-    video: {
-      zh: {
-        title: '视频',
-        heroTitle: '视频资源',
-        heroDescription: '观看产品演示、客户案例和教程视频，直观了解 Zenava AI 如何帮助您的业务。',
-        heroImage: '/assets/images/resources/hero-videos.jpg',
-        heroImageAlt: '视频',
-        heroLink: '/contact',
-        listTitle: '视频'
-      },
-      en: {
-        title: 'Videos',
-        heroTitle: 'Video Resources',
-        heroDescription: 'Watch product demos, customer stories, and tutorial videos to see how Zenava AI can help your business.',
-        heroImage: '/assets/images/resources/hero-videos.jpg',
-        heroImageAlt: 'Videos',
-        heroLink: '/contact',
-        listTitle: 'Videos'
-      },
-      jp: {
-        title: 'ビデオ',
-        heroTitle: 'ビデオリソース',
-        heroDescription: '製品デモ、顧客ストーリー、チュートリアルビデオを視聴して、Zenava AIがビジネスをどのように支援できるかを確認してください。',
-        heroImage: '/assets/images/resources/hero-videos.jpg',
-        heroImageAlt: 'ビデオ',
-        heroLink: '/contact',
-        listTitle: 'ビデオ'
-      },
-      hk: {
-        title: '視頻',
-        heroTitle: '視頻資源',
-        heroDescription: '觀看產品演示、客戶案例和教程視頻，直觀了解 Zenava AI 如何幫助您的業務。',
-        heroImage: '/assets/images/resources/hero-videos.jpg',
-        heroImageAlt: '視頻',
-        heroLink: '/contact',
-        listTitle: '視頻'
-      }
-    },
-    reports: {
-      zh: {
-        title: '行业报告',
-        heroTitle: '行业报告',
-        heroDescription: '获取最新的行业分析报告和市场洞察，了解 AI 技术在各行业中的应用趋势。',
-        heroImage: '/assets/images/resources/hero-reports.jpg',
-        heroImageAlt: '行业报告',
-        heroLink: '/contact',
-        listTitle: '行业报告'
-      },
-      en: {
-        title: 'Industry Reports',
-        heroTitle: 'Industry Reports',
-        heroDescription: 'Get the latest industry analysis reports and market insights on AI technology trends across industries.',
-        heroImage: '/assets/images/resources/hero-reports.jpg',
-        heroImageAlt: 'Industry Reports',
-        heroLink: '/contact',
-        listTitle: 'Industry Reports'
-      },
-      jp: {
-        title: '業界レポート',
-        heroTitle: '業界レポート',
-        heroDescription: '最新の業界分析レポートと市場洞察を取得し、AI技術の各業界での応用トレンドを理解してください。',
-        heroImage: '/assets/images/resources/hero-reports.jpg',
-        heroImageAlt: '業界レポート',
-        heroLink: '/contact',
-        listTitle: '業界レポート'
-      },
-      hk: {
-        title: '行業報告',
-        heroTitle: '行業報告',
-        heroDescription: '獲取最新的行業分析報告和市場洞察，了解 AI 技術在各行業中的應用趨勢。',
-        heroImage: '/assets/images/resources/hero-reports.jpg',
-        heroImageAlt: '行業報告',
-        heroLink: '/contact',
-        listTitle: '行業報告'
-      }
-    },
-    demos: {
-      zh: {
-        title: '产品演示',
-        heroTitle: '产品演示',
-        heroDescription: '通过交互式产品演示，亲身体验 Zenava AI 的强大功能和易用性。',
-        heroImage: '/assets/images/resources/hero-demos.jpg',
-        heroImageAlt: '产品演示',
-        heroLink: '/contact',
-        listTitle: '产品演示'
-      },
-      en: {
-        title: 'Product Demos',
-        heroTitle: 'Product Demos',
-        heroDescription: 'Experience the power and ease of use of Zenava AI through interactive product demonstrations.',
-        heroImage: '/assets/images/resources/hero-demos.jpg',
-        heroImageAlt: 'Product Demos',
-        heroLink: '/contact',
-        listTitle: 'Product Demos'
-      },
-      jp: {
-        title: '製品デモ',
-        heroTitle: '製品デモ',
-        heroDescription: 'インタラクティブな製品デモを通じて、Zenava AIの強力な機能と使いやすさを体験してください。',
-        heroImage: '/assets/images/resources/hero-demos.jpg',
-        heroImageAlt: '製品デモ',
-        heroLink: '/contact',
-        listTitle: '製品デモ'
-      },
-      hk: {
-        title: '產品演示',
-        heroTitle: '產品演示',
-        heroDescription: '通過交互式產品演示，親身體驗 Zenava AI 的強大功能和易用性。',
-        heroImage: '/assets/images/resources/hero-demos.jpg',
-        heroImageAlt: '產品演示',
-        heroLink: '/contact',
-        listTitle: '產品演示'
-      }
-    },
-    blog: {
-      zh: {
-        title: '博客',
-        heroTitle: '博客',
-        heroDescription: '阅读最新的技术文章、行业见解和客户成功故事，了解 AI 技术的最新动态。',
-        heroImage: '/assets/images/resources/hero-blog.jpg',
-        heroImageAlt: '博客',
-        heroLink: '/contact',
-        listTitle: '博客'
-      },
-      en: {
-        title: 'Blog',
-        heroTitle: 'Blog',
-        heroDescription: 'Read the latest technical articles, industry insights, and customer success stories about AI technology.',
-        heroImage: '/assets/images/resources/hero-blog.jpg',
-        heroImageAlt: 'Blog',
-        heroLink: '/contact',
-        listTitle: 'Blog'
-      },
-      jp: {
-        title: 'ブログ',
-        heroTitle: 'ブログ',
-        heroDescription: 'AI技術に関する最新の技術記事、業界の洞察、顧客の成功事例をお読みください。',
-        heroImage: '/assets/images/resources/hero-blog.jpg',
-        heroImageAlt: 'ブログ',
-        heroLink: '/contact',
-        listTitle: 'ブログ'
-      },
-      hk: {
-        title: '博客',
-        heroTitle: '博客',
-        heroDescription: '閱讀最新的技術文章、行業見解和客戶成功故事，了解 AI 技術的最新動態。',
-        heroImage: '/assets/images/resources/hero-blog.jpg',
-        heroImageAlt: '博客',
-        heroLink: '/contact',
-        listTitle: '博客'
-      }
-    },
-    podcast: {
-      zh: {
-        title: '播客',
-        heroTitle: '播客',
-        heroDescription: '收听行业专家访谈、技术讨论和案例分享，深入了解 AI 技术的实际应用。',
-        heroImage: '/assets/images/resources/hero-podcast.jpg',
-        heroImageAlt: '播客',
-        heroLink: '/contact',
-        listTitle: '播客'
-      },
-      en: {
-        title: 'Podcast',
-        heroTitle: 'Podcast',
-        heroDescription: 'Listen to industry expert interviews, technical discussions, and case studies on AI technology applications.',
-        heroImage: '/assets/images/resources/hero-podcast.jpg',
-        heroImageAlt: 'Podcast',
-        heroLink: '/contact',
-        listTitle: 'Podcast'
-      },
-      jp: {
-        title: 'ポッドキャスト',
-        heroTitle: 'ポッドキャスト',
-        heroDescription: '業界の専門家へのインタビュー、技術的な議論、AI技術の応用に関するケーススタディをお聞きください。',
-        heroImage: '/assets/images/resources/hero-podcast.jpg',
-        heroImageAlt: 'ポッドキャスト',
-        heroLink: '/contact',
-        listTitle: 'ポッドキャスト'
-      },
-      hk: {
-        title: '播客',
-        heroTitle: '播客',
-        heroDescription: '收聽行業專家訪談、技術討論和案例分享，深入了解 AI 技術的實際應用。',
-        heroImage: '/assets/images/resources/hero-podcast.jpg',
-        heroImageAlt: '播客',
-        heroLink: '/contact',
-        listTitle: '播客'
-      }
-    }
-  }
-
-  return configs[resourceType]?.[language] || configs.all[language]
-}
 
 // Helper function to get resource navigation items
 function getResourceNavItems(language: Language) {

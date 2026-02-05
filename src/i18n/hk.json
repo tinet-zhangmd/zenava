@@ -666,33 +666,6 @@
   "resourcesCenter": {
     "hero": {
       "slides": [
-        {
-          "image": "/assets/images/resources/hero-1.jpg",
-          "imageAlt": "資源中心Hero圖片",
-          "date": "2023年9月6日",
-          "title": "有一個代理，它在Sierra上運行",
-          "description": "今天，我們宣布在Greenoaks的領導下，我們以100億美元的估值籌集了3.5億美元的額外資本，Greenoaks正在加倍投資Sierra。",
-          "buttonText": "了解更多",
-          "link": "/contact"
-        },
-        {
-          "image": "/assets/images/resources/hero-2.jpg",
-          "imageAlt": "資源中心Hero圖片2",
-          "date": "2023年9月5日",
-          "title": "AI驅動的客戶服務革命",
-          "description": "發現Zenava AI如何通過能夠實時理解、學習和適應的智能代理來轉變客戶服務。",
-          "buttonText": "了解更多",
-          "link": "/contact"
-        },
-        {
-          "image": "/assets/images/resources/hero-3.jpg",
-          "imageAlt": "資源中心Hero圖片3",
-          "date": "2023年9月4日",
-          "title": "面向現代企業的企業AI解決方案",
-          "description": "探索我們專為企業規模設計的綜合AI平台，幫助企業實現數字化轉型。",
-          "buttonText": "了解更多",
-          "link": "/contact"
-        }
       ]
     }
   },

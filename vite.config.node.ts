@@ -53,7 +53,10 @@ export default defineConfig({
       output: {
         format: 'es',
         // 启用文件名的 hash，避免缓存问题
-        entryFileNames: 'index-node.[hash].js'
+        entryFileNames: 'index-node.[hash].js',
+        // 确保所有代码都在一个文件中，不使用代码分割
+        inlineDynamicImports: true,
+        manualChunks: undefined
       }
     }
   },

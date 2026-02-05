@@ -666,35 +666,7 @@
   "resourcesCenter": {
     "hero": {
       "slides": [
-        {
-          "image": "/assets/images/resources/hero-1.jpg",
-          "imageAlt": "リソースセンターヒーロー画像",
-          "date": "2023年9月6日",
-          "title": "エージェントがあり、Sierraで実行されます",
-          "description": "本日、Greenoaksが主導する追加資本3億5000万ドルを100億ドルの評価で調達したことを発表します。GreenoaksはSierraへの投資を倍増しています。",
-          "buttonText": "詳細を見る",
-          "link": "/contact"
-        },
-        {
-          "image": "/assets/images/resources/hero-2.jpg",
-          "imageAlt": "リソースセンターヒーロー画像2",
-          "date": "2023年9月5日",
-          "title": "AI駆動のカスタマーサービス革命",
-          "description": "Zenava AIがインテリジェントエージェントでカスタマーサービスをどのように変革しているかを発見。リアルタイムで理解、学習、適応します。",
-          "buttonText": "詳細を見る",
-          "link": "/contact"
-        },
-        {
-          "image": "/assets/images/resources/hero-3.jpg",
-          "imageAlt": "リソースセンターヒーロー画像3",
-          "date": "2023年9月4日",
-          "title": "現代企業向けエンタープライズAIソリューション",
-          "description": "エンタープライズ規模向けに設計された包括的なAIプラットフォームを探索し、企業のデジタル変革を支援します。",
-          "buttonText": "詳細を見る",
-          "link": "/contact"
-        }
-      ]
-    }
+      ]    }
   },
   "actions": {
     "learnMore": "詳しく見る",

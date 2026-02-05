@@ -3325,34 +3325,40 @@ app.put('/api/admin/resource-categories/:id', async (c) => {
 app.delete('/api/admin/resource-categories/:id', async (c) => {
   try {
     const id = c.req.param('id')
+    console.log(`🗑️ [DELETE /api/admin/resource-categories/${id}] 开始删除栏目`)
     
     // 检查是否有关联内容
-    const [contents] = await mysqlQuery<any[]>(
+    const contents = await mysqlQuery<any[]>(
       `SELECT COUNT(*) as count FROM resource_contents WHERE category_id = ?`,
       [id]
     )
     
-    if (contents && contents.count > 0) {
+    console.log('📊 关联内容检查结果:', contents)
+    
+    if (contents && contents.length > 0 && contents[0].count > 0) {
       return c.json({ 
         success: false, 
-        error: `该栏目下还有 ${contents.count} 个内容，无法删除` 
+        error: `该栏目下还有 ${contents[0].count} 个内容，无法删除` 
       }, 400)
     }
     
     // 删除栏目记录
-    await mysqlQuery(
+    const result = await mysqlQuery(
       `DELETE FROM resource_categories WHERE id = ?`,
       [id]
     )
+    
+    console.log('✅ 删除结果:', result)
     
     return c.json({ 
       success: true, 
       message: '栏目删除成功' 
     })
   } catch (error: any) {
+    console.error('❌ 删除栏目失败:', error)
     return c.json({ 
       success: false, 
-      error: error.message 
+      error: error.message || '删除失败'
     }, 500)
   }
 })
@@ -3361,6 +3367,7 @@ app.delete('/api/admin/resource-categories/:id', async (c) => {
 app.post('/api/admin/resource-categories/batch', async (c) => {
   try {
     const { action, ids } = await c.req.json()
+    console.log(`📦 [POST /api/admin/resource-categories/batch] 批量操作:`, { action, ids })
     
     if (!action || !ids || !Array.isArray(ids) || ids.length === 0) {
       return c.json({ 
@@ -3375,15 +3382,17 @@ app.post('/api/admin/resource-categories/batch', async (c) => {
     switch (action) {
       case 'delete':
         // 检查每个栏目是否有关联内容
-        const [contentCountResult] = await mysqlQuery<any[]>(
+        const contentCountResult = await mysqlQuery<any[]>(
           `SELECT COUNT(*) as count FROM resource_contents WHERE category_id IN (${placeholders})`,
           ids
         )
         
-        if (contentCountResult && contentCountResult.count > 0) {
+        console.log('📊 批量删除关联内容检查:', contentCountResult)
+        
+        if (contentCountResult && contentCountResult.length > 0 && contentCountResult[0].count > 0) {
           return c.json({ 
             success: false, 
-            error: `选中的栏目中有 ${contentCountResult.count} 个关联内容，请先删除这些内容后再删除栏目` 
+            error: `选中的栏目中有 ${contentCountResult[0].count} 个关联内容，请先删除这些内容后再删除栏目` 
           }, 400)
         }
         
@@ -3394,6 +3403,7 @@ app.post('/api/admin/resource-categories/batch', async (c) => {
         )
         
         affectedCount = (deleteResult as any).affectedRows || 0
+        console.log('✅ 批量删除成功:', affectedCount)
         
         return c.json({ 
           success: true,
@@ -3406,6 +3416,7 @@ app.post('/api/admin/resource-categories/batch', async (c) => {
           ids
         )
         affectedCount = (showResult as any).affectedRows || 0
+        console.log('✅ 批量显示成功:', affectedCount)
         
         return c.json({ 
           success: true,
@@ -3418,6 +3429,7 @@ app.post('/api/admin/resource-categories/batch', async (c) => {
           ids
         )
         affectedCount = (hideResult as any).affectedRows || 0
+        console.log('✅ 批量隐藏成功:', affectedCount)
         
         return c.json({ 
           success: true,
@@ -3431,7 +3443,7 @@ app.post('/api/admin/resource-categories/batch', async (c) => {
         }, 400)
     }
   } catch (error: any) {
-    console.error('批量操作失败:', error)
+    console.error('❌ 批量操作失败:', error)
     return c.json({ 
       success: false, 
       error: error.message || '批量操作失败'
